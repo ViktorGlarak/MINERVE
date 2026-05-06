@@ -1,0 +1,67 @@
+# ROUTAGE — Arbre de décision Mercure
+
+Utilisé par Claude (NOYAU) pour choisir quel agent appeler.
+
+---
+
+## Arbre de décision
+
+```
+La demande concerne...
+│
+├── du CODE ou de la TECHNIQUE ?
+│   ├── Écriture, debug, refactoring, architecture → ARCHITECTE (qwen2.5-coder:14b)
+│   └── Erreur incompréhensible, logique de programme → PENSEUR puis ARCHITECTE
+│
+├── un RAISONNEMENT ou une PLANIFICATION ?
+│   ├── Problème complexe, stratégie, arbitrage → PENSEUR (deepseek-r1:14b)
+│   └── Plan d'action avec du code → PENSEUR (plan) + ARCHITECTE (exécution)
+│
+├── de la RÉDACTION en français ?
+│   ├── Mail, synthèse, rapport, correction → SECRÉTAIRE (mistral-nemo)
+│   └── Documentation technique → ARCHITECTE (contenu) + SECRÉTAIRE (mise en forme)
+│
+├── une TÂCHE SIMPLE et RAPIDE ?
+│   ├── Formatage JSON/CSV, extraction, tri → ÉCLAIREUR (llama3.1:8b)
+│   └── Traduction courte, question factuelle → ÉCLAIREUR (llama3.1:8b)
+│
+├── une question sur le SYSTÈME MERCURE lui-même ?
+│   └── Claude répond directement (NOYAU)
+│
+├── un PROMPT pour générer une IMAGE ?
+│   └── IMAGIER (llama3.1:8b) → prompt Gemini ou Flow
+│
+├── un PROMPT pour générer une VIDÉO ?
+│   └── CINÉASTE (llama3.1:8b) → prompt + paramètres LTX 2.3 / ComfyUI
+│
+├── du CONTENU DE SCÉNARIO (personnage, article, post, inject, tract) ?
+│   └── SCÉNARISTE (mistral-nemo)
+│
+└── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
+    └── VOIX (mistral-nemo)
+```
+
+---
+
+## Commandes API Ollama
+
+```powershell
+# Template d'appel générique
+$body = @{
+    model  = "NOM_DU_MODELE"
+    prompt = "VOTRE_PROMPT"
+    stream = $false
+} | ConvertTo-Json
+
+$r = Invoke-RestMethod -Uri "http://localhost:11434/api/generate" `
+     -Method Post -Body $body -ContentType "application/json" -TimeoutSec 120
+
+$r.response
+```
+
+| Agent | Modèle | Temps de chargement estimé |
+|---|---|---|
+| ARCHITECTE | qwen2.5-coder:14b | ~15-30s (1ère fois) |
+| PENSEUR | deepseek-r1:14b | ~15-30s (1ère fois) |
+| SECRÉTAIRE | mistral-nemo:latest | ~10s |
+| ÉCLAIREUR | llama3.1:8b | ~5s |

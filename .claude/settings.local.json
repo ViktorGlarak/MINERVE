@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(@\\(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\01 ORION 26\"\\)[0..30])",
+      "PowerShell(\\(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\" -Recurse -File | Measure-Object\\).Count)",
+      "PowerShell(ls \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\01 ORION 26\" | Select-Object Name, @{N=\"Type\";E={if\\($_.PSIsContainer\\){\"Directory\"}else{\"File\"}}})",
+      "WebFetch(domain:ltx.io)",
+      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\BDA\\\\Mercure\\\\ARCHIVISTE\\\\SESSIONS\" -Force)",
+      "Bash(ls \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\ComfyUI\\\\models\\\\audio_encoders\\\\openai_whisper-large-v3-turbo\")",
+      "Read(//c/Users/MTR/Documents/ComfyUI_windows_portable/ComfyUI/models/audio_encoders/openai_whisper-large-v3-turbo/**)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
