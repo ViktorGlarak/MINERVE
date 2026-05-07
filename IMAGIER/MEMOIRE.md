@@ -36,14 +36,24 @@ Ne jamais résumer ou paraphraser le texte fourni. Le copier-coller exactement.
 ---
 
 ## Patterns à éviter
-<!-- Ce qui produit des refus ou de mauvais résultats -->
 - Eviter les termes trop militaires explicites qui déclenchent les filtres Gemini
 - Préférer "emergency forces" à "armed soldiers" pour contourner les restrictions
+- **Ne jamais utiliser "protesters"** pour des scènes de blocage civil → Flow génère systématiquement des drapeaux CGT/syndicaux. Remplacer par : `local residents`, `ordinary civilians blocking the road`, `local people standing in the road`
+- **Drapeaux syndicaux/nationaux** : verrouiller dans le positif ET le négatif simultanément. Le négatif seul est insuffisant si le positif évoque la manifestation.
+  - Dans le positif : `no flags of any kind, people holding only handwritten cardboard signs`
+  - Dans le négatif : `CGT, union flags, French flag, tricolor, national flag, political banners, flag poles, any flags whatsoever, union symbols`
 
-## Limitation critique — Texte long dans les images
-Gemini et tous les générateurs d'images IA sont INCAPABLES de rendre du texte long avec précision.
+## Texte dans les images — règles par outil [2026-05-07]
+
+### Flow (Google) — GÈRE TRÈS BIEN LE TEXTE LONG
+**Règle absolue : toujours inclure l'intégralité du texte verbatim dans le prompt Flow.**
+Flow reproduit fidèlement le texte, les logos, et la mise en page dans une seule génération.
+Validé sur : tract N.O.M avec logo + titre + corps + liste à puces (résultat PASS direct).
+Ne jamais proposer un workflow hybride (Flow + Premiere) pour du texte quand Flow est l'outil cible.
+
+### Gemini — INCAPABLE de rendre du texte long avec précision
 Sur des messages WhatsApp (50+ mots), le texte sera corrompu (mots inventés, phrases manquantes).
-**Workflow validé pour texte exact :**
+**Workflow validé pour texte exact avec Gemini :**
 1. Gemini génère la coque UI (interface WhatsApp réaliste)
 2. Overlay du texte exact dans Premiere Pro ou Canva
 3. Couleurs WhatsApp : bulle reçue fond #FFFFFF texte #000000 / bulle envoyée fond #DCF8C6
