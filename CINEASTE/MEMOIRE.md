@@ -72,6 +72,43 @@ Inclure : paysage français en dessous, diffusion lumière overcast, tilt progre
 Commence par : "A dashcam records from inside a vehicle traveling along..."
 Inclure : route française précise, élément de scène qui grossit progressivement, ralentissement du véhicule, sons moteur.
 
+## Interface ia2v validée — Workflow LTX 2.3 Image+Audio [2026-05-07]
+
+Quand l'utilisateur utilise le modèle **"LTX-2.3 : Image et audio en vidéo"**, l'interface ComfyUI comporte :
+- Nœud **Charger Image** → entrée `first_frame`
+- Nœud **ChargerAudio** → entrée `audio` (fichier MP3/WAV généré par OmniVoice)
+- Nœud **Video Generation (LTX-2.3)** avec paramètre `duration` (en secondes, ex: 13.0)
+- Résolution courante : 1280×720, fps : 24
+- Modèles : `ltx-2.3-22b-dev-fp8.safetensors` + distilled lora + gemma text encoder + upscaler spatial
+
+**Règle absolue ia2v :** inclure TOUJOURS la synchro labiale dans le prompt quand le workflow utilise une piste audio.
+Formulation à inclure systématiquement : *"lips moving with natural fluid articulation fully synchronized to speech, jaw opening and closing realistically with each syllable"*
+
+**Structure du workflow interne (2 passes) :**
+- Generate Low Resolution → Latent Upscale → Generate High Resolution → VAE Decode Tiled → Créer une vidéo
+- LoRA distilled strength = 0.50 (valeur de base)
+- LTXVImgToVideoInplace force = 0.7 (valeur de base)
+- SolidMask valeur = 0.00 (plan fixe)
+- longer_edge = 1536, compression = 16
+- Sigmas Low Res : 1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0
+- Sigmas High Res : 0.85, 0.7250, 0.4219, 0.0
+
+**Ajustements selon le cas :**
+- Talking head / lip sync : force = 0.60–0.65 si déformation visage, LoRA = 0.60 si mouvement labial insuffisant
+- Scène avec mouvement : force = 0.75–0.80
+
+**Format de réponse obligatoire (deux prompts séparés) :**
+- PROMPT POSITIF → nœud vert (CLIP Text Encode haut)
+- PROMPT NÉGATIF → nœud violet (CLIP Text Encode bas)
+
+**Deux cas d'usage :**
+1. **Image seule (i2v)** → pas de synchro labiale requise, prompt de mouvement classique
+2. **Image + audio (ia2v)** → synchro labiale OBLIGATOIRE dans le prompt, même si l'utilisateur ne le mentionne pas
+
+La durée du clip doit correspondre à la durée de l'audio (paramètre `duration` = durée audio en secondes).
+
+---
+
 ## Résultats validés par exercice
 
 ### AURIGE 2BB — 07.08.01 Sujet JT tags N.O.M HNancy [2026-05-06]
