@@ -1,0 +1,72 @@
+# MÉMOIRE — ANALYSTE (Expert République de Mercure)
+
+## Rôle
+Expert en analyse géopolitique, militaire, politique et économique de la **République de Mercure** (pays fictif, univers Skolkan). Utilisé pour les exercices ORION 26 et tout scénario impliquant MER.
+
+## Source principale
+`PAYS_MERCURE.md` — Countrybook officiel **ingestion complète le 2026-05-18**
+Sections couvertes : Général, Géographie, Politique, Organisations, Histoire, Forces de l'ordre, Entités politiques, Relations étrangères, Militaire complet (Terrestres/MAF/Marine/MIC), Économie, Social, Informations, Infrastructure + Annexes (sociétés, personnalités, célébrités)
+
+## Points d'attention pour les scénarios d'exercice
+
+### Tensions actives
+- Mercure vs OTAN/Arnland : Olamao perçoit la présence OTAN comme menace existentielle
+- Enclave HAquitaine : point stratégique sur côte atlantique, bases navales, tension latente
+- HBordeaux : statut ambigu, terrain de friction potentielle
+- Diaspora mercurienne en France (Alsace, Auvergne, Val-de-Loire) : vecteur d'influence
+
+### Personnages clés à utiliser dans les scénarios
+- **Franz Olamao** — Président, autocrate depuis 2001, ligne dure anti-OTAN
+- **Donald Pohl** — Deema (chef du Commissariat), élu juin 2024
+- **Jonas Junker** — Ministre de la Défense
+- **Dominic Stoph** — Ministre des Affaires étrangères
+- **Ursula Druey** — Ministre de la Sécurité d'État
+- **Peter Tapeur** — Gouverneur de HAquitaine (né à H.Westaphalie)
+- **Fred NUMELIN** — Chef d'état-major des Forces armées, auteur de la doctrine guerre hybride
+- **Mikhaïl Rossi** — Chef MFP (opposition tolérée)
+- **Iouri Sokolova** — Chef UPS (nationaliste pro-régime, ancien colonel sécurité)
+- **Irina Orlov** — Chef JS (populisme social, ancienne journaliste)
+- **Roman Kuznetsov / Sergei Vasiliev** — Généraux retraités, Confrérie des anciens combattants
+
+### Points de friction stratégiques pour les scénarios
+- **TANTALE** : milice paramilitaire dans HAquitaine — outil de déstabilisation locale non officiel
+- **Bail Den Helder (Botnie) : expire 2027** — point de pression géopolitique
+- **Double nationalité** : levier d'ingérence en Arnland
+- **CWC non ratifiée** : suspicion d'armes chimiques
+- **OSCE obstruée** : 2 postes sur de nombreux PC frontaliers seulement
+- **Gibraltar** : accès vital pour la Marine mercurienne via ports Bilbao + La Corogna
+
+### Narrative officielle de Mercure (pour contenus de propagande fictifs)
+- Nostalgie de l'Empire Skolkan
+- "Sécurité, ordre, discipline"
+- Anti-impérialisme capitaliste occidental
+- Autodétermination des peuples (détourné à des fins politiques)
+
+### Personnalités supplémentaires (Annexe II)
+- **Viktoria Müller** — Deema (cheffe Commissariat, ≠ Donald Pohl qui est Deema élu juin 2024 — vérifier cohérence)
+- **Rok Rozman** — Chef Commandement des Opérations (sous NUMELIN)
+- **Rafal Grabowski** — Chef EM MAF
+- **Miha Majcen** — Chef Forces Stratégiques
+- **Nik Oblak** — Chef SOF
+- **Igor Soloviev** — Chef MSS (sécurité intérieure)
+- **Leonid Gusev** — Chef FIS (renseignement extérieur)
+- **Ilya Denisov** — Chef MIA (renseignement militaire)
+- **Elias Werner** — Chef TANTALE (porte-parole : Moritz Vinogradov)
+- **Alla Mancini** (Bavemberg), **Artem Ebner** (Doluskie), **Georg Auer** (Lombmont) — présidents régionaux
+
+### Points infrastructure à exploiter pour scénarios
+- **Nord Fluss / Sud Fluss** : gazoducs stratégiques — cibles de sabotage ou de pression
+- **Tunnel Saint-Gothard (57 km)** et **Tunnel Ceneri** : liaisons critiques Nord-Sud
+- **Den Helder** : unique accès mer du Nord + Atlantique Nord — expiration bail 2027
+- **Gênes (terminal GNL)** : export méditerranéen + Dushman
+- **Gdansk (Doluskie)** : export pétrole nord
+- Réseau surveillance HMunik (reconnaissance faciale, tech Dushman) — expansion prévue
+
+### Données économiques clés
+- PIB ~550 Mds USD (2024), contraction depuis 2013
+- Défense : 8-10 % PIB (depuis 2003)
+- Gaz : 90× conso annuelle en réserves ; pétrole : 40× conso
+- Gini : 0,24 (en hausse depuis 0,14 en 2008)
+
+## Apprentissages par exercice
+<!-- À compléter au fil des sessions -->

@@ -37,8 +37,11 @@ La demande concerne...
 ├── du CONTENU DE SCÉNARIO (personnage, article, post, inject, tract) ?
 │   └── SCÉNARISTE (mistral-nemo)
 │
-└── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
-    └── VOIX (mistral-nemo)
+├── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
+│   └── VOIX (mistral-nemo)
+│
+└── une question sur la RÉPUBLIQUE DE MERCURE (politique, militaire, géo, personnages, scénarios) ?
+    └── ANALYSTE (deepseek-r1:14b) → Countrybook MER
 ```
 
 ---
