@@ -132,7 +132,7 @@ Tout asset réutilisable (image, audio, vidéo) doit être archivé ici avec fic
 ---
 
 ## 7. SYSTÈME MERCURE
-Chemin : `D:\CECPC\PRODUCTION\BDA\Mercure`
+Chemin : `D:\CECPC\PRODUCTION\IA\Mercure`
 Interface principale : **Claude Code** (VSCode)
 Interface agents locaux : **Continue** (VSCode, config `C:\Users\MTR\.continue\config.yaml`)
 

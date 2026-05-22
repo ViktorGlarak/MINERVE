@@ -45,6 +45,8 @@ Choix validé : Claude appelle les modèles Ollama via API PowerShell (localhost
 Continue (VSCode) reste disponible pour accès direct aux agents individuels.
 Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 
-### [2026-05-06] 7 agents au total
+### [2026-05-22] 11 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
-3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE)
+3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
+3 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE) +
+NOYAU (Claude — orchestrateur)

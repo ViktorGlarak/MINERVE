@@ -17,10 +17,11 @@
 | IMAGIER | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
 | CINÉASTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
 | SCÉNARISTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SECRÉTAIRE) |
+| VOIX | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE) |
+| ARCHIVISTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
+| ANALYSTE | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR) |
 | Embedding | nomic-embed-text | 274 MB | Installé |
 | Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
-
-| VOIX | mistral-nemo:latest | — | Installé (partage avec SCÉNARISTE) |
 
 ## Outils de génération image/vidéo
 | Outil | Type | Accès | Priorité |
@@ -35,7 +36,7 @@
 Image (Firefly/Flow/Gemini) → Animation LTX i2v → Overlays Premiere Pro → Export
 
 ## Répertoire Mercure
-`D:\CECPC\PRODUCTION\BDA\Mercure`
+`D:\CECPC\PRODUCTION\IA\Mercure`
 
 ## Prochaines étapes prévues
 - [ ] Niveau 2 : Script Python orchestrateur autonome (sans Claude)
