@@ -14,12 +14,13 @@ Répertoire de travail principal : `D:\CECPC\PRODUCTION\`
 
 ## 2. EXERCICES EN COURS
 
-### AURIGE 2BB
+### AURIGE 2BB — Scénario : GUILLAUME
 - **Nature :** Exercice de production média IA
 - **Zone géographique :** Lorraine (Sarrebourg, Héming, Nancy)
 - **Scénarios actifs :** 07.05 → 07.08
 - **Dossier :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB`
 - **Contexte scénario :** Présence de convois OTAN en Lorraine, accusations de pillages par des soldats, blocages routiers spontanés par des habitants, activité du groupe fictif N.O.M
+- **Approche personnages :** Chaque personnage a un package complet — portrait (IMAGIER), voix (VOIX/OmniVoice), discours écrit selon sa personnalité (SCÉNARISTE)
 
 ### ORION 26 (O41)
 - **Nature :** Grand exercice militaire multi-cellules
