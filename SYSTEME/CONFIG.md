@@ -20,6 +20,8 @@
 | VOIX | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE) |
 | ARCHIVISTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
 | ANALYSTE | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR) |
+| ANALYSTE_ARN | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + PENSEUR) |
+| MASTODONTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE + SECRÉTAIRE) |
 | Embedding | nomic-embed-text | 274 MB | Installé |
 | Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
 

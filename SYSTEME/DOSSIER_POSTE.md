@@ -84,6 +84,10 @@ Chemin : `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI\models\audio_e
 | CINÉASTE | llama3.1:8b | Prompts vidéo LTX |
 | SCÉNARISTE | mistral-nemo:latest | Contenu scénario |
 | VOIX | mistral-nemo:latest | Paramètres OmniVoice |
+| ARCHIVISTE | llama3.1:8b | Gestion BDA |
+| ANALYSTE | deepseek-r1:14b | Expert République de Mercure |
+| ANALYSTE_ARN | deepseek-r1:14b | Expert Arnland / Dacie Romanie |
+| MASTODONTE | mistral-nemo:latest | Expert Mastodon / réseaux sociaux fictifs |
 
 ---
 

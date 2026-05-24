@@ -33,6 +33,8 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | VOIX | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE | Paramètres OmniVoice |
 | ARCHIVISTE | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE | Gestion BDA |
 | ANALYSTE | deepseek-r1:14b | PENSEUR | Expert République de Mercure |
+| ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE | Expert Arnland / Dacie Romanie |
+| MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE | Expert Mastodon / réseaux sociaux fictifs |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 - `SYSTEME\CONFIG.md` — tableau "Modèles installés"
@@ -75,6 +77,26 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 - [ ] `SYSTEME\DOSSIER_POSTE.md`
 - [ ] `.claude\settings.local.json`
 - [ ] Vérifier toutes les permissions avec `Grep("D:\\CECPC")`
+
+### Règle de mise à jour automatique — OBLIGATOIRE
+
+> **Après chaque avancée du projet, mettre à jour les fichiers concernés sans attendre que l'utilisateur le demande.**
+> C'est un réflexe non négociable : chaque production validée, chaque décision prise, chaque contenu créé doit laisser une trace immédiate.
+
+**Ce qui déclenche une mise à jour :**
+- Un discours rédigé ou validé → `SCENARISTE\MEMOIRE.md`
+- Un personnage créé ou complété → mémoire auto (`aurige_guillaume.md`) + `SCENARISTE\MEMOIRE.md`
+- Un asset produit (portrait, voix, vidéo) → mémoire auto (tableau état de production)
+- Une règle de production apprise → `SYSTEME\DOSSIER_POSTE.md`
+- Un nouveau pattern de routage → `NOYAU\MEMOIRE.md`
+- Un agent ajouté ou modifié → **tous les fichiers du registre** (voir checklist ci-dessus)
+- Le chemin racine change → **tous les fichiers de chemin** (voir checklist ci-dessus)
+
+**Fichiers de mémoire à maintenir en priorité :**
+- `SCENARISTE\MEMOIRE.md` — narrative, discours, règles par exercice
+- `NOYAU\MEMOIRE.md` — patterns de routage, préférences utilisateur
+- `SYSTEME\DOSSIER_POSTE.md` — règles de production validées
+- Mémoire auto Claude (`memory\aurige_guillaume.md`) — état de production personnages
 
 ### Après chaque session productive
 - [ ] Mettre à jour `AGENT\MEMOIRE.md` des agents sollicités

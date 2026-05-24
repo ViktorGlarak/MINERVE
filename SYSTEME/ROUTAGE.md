@@ -4,6 +4,15 @@ Utilisé par Claude (NOYAU) pour choisir quel agent appeler.
 
 ---
 
+## Principe de compétence — règle absolue
+
+> **NOYAU (Claude) est toujours la dernière main.**
+> Chaque output d'agent Ollama est relu et raffiné par NOYAU avant livraison.
+> L'agent fournit la base (countrybook, narrative, structure) — NOYAU élève la qualité finale.
+> L'utilisateur ne reçoit jamais un draft brut d'agent local.
+
+---
+
 ## Arbre de décision
 
 ```
@@ -34,14 +43,29 @@ La demande concerne...
 ├── un PROMPT pour générer une VIDÉO ?
 │   └── CINÉASTE (llama3.1:8b) → prompt + paramètres LTX 2.3 / ComfyUI
 │
-├── du CONTENU DE SCÉNARIO (personnage, article, post, inject, tract) ?
+├── du CONTENU DE SCÉNARIO (article, post, inject, tract, document fictif) ?
 │   └── SCÉNARISTE (mistral-nemo)
+│
+├── un DISCOURS DE PERSONNAGE POLITIQUE ?
+│   ├── Personnage mercurien (Olamao, Junker, Stoph, Ribiki, ...) → ANALYSTE (deepseek-r1:14b)
+│   ├── Personnage DR / Arnland (Président, ministres, ...) → ANALYSTE_ARN (deepseek-r1:14b)
+│   ├── Personnage OTAN ou figure internationale fictive → SCÉNARISTE (mistral-nemo)
+│   └── Figure réelle (Rutte, Loukachenko, ...) → NOYAU (Claude) directement
+│       Raison : les figures réelles nécessitent un contrôle éthique et de cohérence que Claude assure lui-même
 │
 ├── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
 │   └── VOIX (mistral-nemo)
 │
-└── une question sur la RÉPUBLIQUE DE MERCURE (politique, militaire, géo, personnages, scénarios) ?
-    └── ANALYSTE (deepseek-r1:14b) → Countrybook MER
+├── une question sur la RÉPUBLIQUE DE MERCURE (politique, militaire, géo, personnages, scénarios) ?
+│   └── ANALYSTE (deepseek-r1:14b) → Countrybook MER
+│
+├── une question sur ARNLAND / DACIE ROMANIE (politique, militaire, géo, personnages, scénarios) ?
+│   └── ANALYSTE_ARN (deepseek-r1:14b) → Countrybook ARN
+│       Note : "Arnland" dans ORION 26 = "Dacie Romanie (DR)" dans AURIGE 2BB
+│
+└── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon, Mastorion) ?
+    └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
+        Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
 ```
 
 ---
