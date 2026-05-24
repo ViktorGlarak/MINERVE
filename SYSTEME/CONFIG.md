@@ -22,6 +22,7 @@
 | ANALYSTE | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR) |
 | ANALYSTE_ARN | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + PENSEUR) |
 | MASTODONTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE + SECRÉTAIRE) |
+| MASTAURIGE | mistral-nemo:latest | 7.1 GB | Installé (partage avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE) |
 | Embedding | nomic-embed-text | 274 MB | Installé |
 | Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
 

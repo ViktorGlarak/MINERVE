@@ -63,9 +63,15 @@ La demande concerne...
 │   └── ANALYSTE_ARN (deepseek-r1:14b) → Countrybook ARN
 │       Note : "Arnland" dans ORION 26 = "Dacie Romanie (DR)" dans AURIGE 2BB
 │
+├── du CONTENU RS FICTIF pour un exercice AURIGE (entraînement PC niveau brigade) ?
+│   └── MASTAURIGE (mistral-nemo:latest) → avatars CASW, tweet cards HTML offline
+│       Cas : onglet RS de l'agrégateur WEB, posts fictifs scénario AURIGE 2BB et exercices brigade
+│       Note : MASTAURIGE est INDÉPENDANT de Mastorion — pas de lien avec la plateforme sociale fictive
+│
 └── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon, Mastorion) ?
     └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
         Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
+        Note : Mastorion = plateforme distincte avec IA dédiée (développement futur — hors système Mercure actuel)
 ```
 
 ---

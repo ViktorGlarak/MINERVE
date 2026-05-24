@@ -35,6 +35,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | ANALYSTE | deepseek-r1:14b | PENSEUR | Expert République de Mercure |
 | ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE | Expert Arnland / Dacie Romanie |
 | MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE | Expert Mastodon / réseaux sociaux fictifs |
+| MASTAURIGE | mistral-nemo:latest | MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 - `SYSTEME\CONFIG.md` — tableau "Modèles installés"

@@ -88,6 +88,7 @@ Chemin : `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI\models\audio_e
 | ANALYSTE | deepseek-r1:14b | Expert République de Mercure |
 | ANALYSTE_ARN | deepseek-r1:14b | Expert Arnland / Dacie Romanie |
 | MASTODONTE | mistral-nemo:latest | Expert Mastodon / réseaux sociaux fictifs |
+| MASTAURIGE | mistral-nemo:latest | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade |
 
 ---
 
