@@ -15,7 +15,7 @@ GUILLAUME est l'agent expert de l'exercice **AURIGE 2BB — Scénario GUILLAUME*
 | GUILLAUME | Chef d'orchestre éditorial — calendrier, cohérence narrative, programmation publications |
 | SCÉNARISTE | Rédige le contenu des articles, documents fictifs |
 | MASTAURIGE | Génère les tweets/posts RS pour l'exercice AURIGE |
-| ANALYSTE_ARN | Expert lore Dacia Romania (géopolitique, discours, personnages) |
+| ANALYSTE_ARN | Expert lore Dacia Romania / Arnland (géopolitique, discours, personnages) — dossier : `ANALYSTE\ARNLAND\` |
 | ANALYSTE | Expert lore République de Mercure |
 
 ## Périmètre

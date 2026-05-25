@@ -68,3 +68,14 @@ NOYAU (Claude — orchestrateur)
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).
 GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). deepseek-r1:14b partagé avec PENSEUR + ANALYSTE + ANALYSTE_ARN.
+
+### [2026-05-25] Dossier ANALYSTE — structure par pays + Countrybook Mercure ingéré
+Dossier `ANALYSTE\` créé à la racine Mercure, centralise tous les analystes par pays :
+- `ANALYSTE\MERCURE\` — Expert Mercure (Countrybook complet) + Doctrine OI Storm-1516 (rapport VIGINUM TLP:CLEAR)
+- `ANALYSTE\ARNLAND\` — Expert Arnland / Dacie Romanie (migré depuis `ANALYSTE_ARN\`, nom du pays variable selon exercice)
+- `ANALYSTE_ARN\` — supprimé le 2026-05-25
+
+**ANALYSTE MERCURE maîtrise désormais :**
+1. Countrybook Mercure (943 paragraphes, CB MERCURE FR.docx) — géographie, politique, militaire (607K, triade nuc), économie (PIB 550 Mds$), société (3 ethnies Inen), info (172/180 RSF), infrastructure, tous les personnages
+2. Storm-1516 (VIGINUM, 77 opérations) — 16 TTP, 4 phases de diffusion, acteurs (DOUGAN, KOROVINE, KHOROCHENKY)
+Prompt système mis à jour : `SYSTEME\PROMPTS\analyste.md`.
