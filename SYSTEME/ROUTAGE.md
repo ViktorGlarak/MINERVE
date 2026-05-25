@@ -50,7 +50,7 @@ La demande concerne...
 │   ├── Personnage mercurien (Olamao, Junker, Stoph, Ribiki, ...) → ANALYSTE (deepseek-r1:14b)
 │   ├── Personnage DR / Arnland (Président, ministres, ...) → ANALYSTE_ARN (deepseek-r1:14b)
 │   ├── Personnage OTAN ou figure internationale fictive → SCÉNARISTE (mistral-nemo)
-│   └── Figure réelle (Rutte, Loukachenko, ...) → NOYAU (Claude) directement
+│   └── Figure réelle (Rutte, Youkachenko, ...) → NOYAU (Claude) directement
 │       Raison : les figures réelles nécessitent un contrôle éthique et de cohérence que Claude assure lui-même
 │
 ├── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
@@ -62,6 +62,11 @@ La demande concerne...
 ├── une question sur ARNLAND / DACIE ROMANIE (politique, militaire, géo, personnages, scénarios) ?
 │   └── ANALYSTE_ARN (deepseek-r1:14b) → Countrybook ARN
 │       Note : "Arnland" dans ORION 26 = "Dacie Romanie (DR)" dans AURIGE 2BB
+│
+├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 2BB ?
+│   └── GUILLAUME (deepseek-r1:14b) → chef d'orchestre éditorial
+│       Cas : "qu'est-ce qu'on publie aujourd'hui ?", "est-ce cohérent avec ce qui est sorti ?", "quelle est la prochaine étape narrative ?"
+│       Sait : tous les acteurs, camps, médias fictifs, statut de chaque publication (publié / à produire / date à définir)
 │
 ├── du CONTENU RS FICTIF pour un exercice AURIGE (entraînement PC niveau brigade) ?
 │   └── MASTAURIGE (mistral-nemo:latest) → avatars CASW, tweet cards HTML offline

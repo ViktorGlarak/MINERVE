@@ -46,7 +46,7 @@ SCÉNARISTE seul est insuffisant — il écrit bien mais sans ancrage géopoliti
 Règle validée :
 - Personnage mercurien → ANALYSTE rédige le discours
 - Personnage DR / Arnland → ANALYSTE_ARN rédige le discours
-- Figure réelle (Rutte, Loukachenko) → NOYAU (Claude) directement
+- Figure réelle (Rutte, Youkachenko) → NOYAU (Claude) directement
 - Figure OTAN fictive → SCÉNARISTE
 NOYAU assure le contrôle qualité final dans tous les cas.
 
@@ -59,11 +59,12 @@ Choix validé : Claude appelle les modèles Ollama via API PowerShell (localhost
 Continue (VSCode) reste disponible pour accès direct aux agents individuels.
 Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 
-### [2026-05-24] 14 agents au total
+### [2026-05-25] 15 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-6 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, MASTODONTE, MASTAURIGE) +
+7 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, MASTODONTE, MASTAURIGE, GUILLAUME) +
 NOYAU (Claude — orchestrateur)
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).
+GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). deepseek-r1:14b partagé avec PENSEUR + ANALYSTE + ANALYSTE_ARN.

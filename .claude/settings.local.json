@@ -8,7 +8,8 @@
       "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ARCHIVISTE\\\\SESSIONS\" -Force)",
       "Bash(ls \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\ComfyUI\\\\models\\\\audio_encoders\\\\openai_whisper-large-v3-turbo\")",
       "Read(//c/Users/MTR/Documents/ComfyUI_windows_portable/ComfyUI/models/audio_encoders/openai_whisper-large-v3-turbo/**)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "PowerShell(Rename-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\GUILLAUME\\\\WEB\\\\images\\\\loukachenko.jpg\" -NewName \"youkachenko.jpg\")"
     ]
   }
 }

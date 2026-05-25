@@ -43,6 +43,17 @@ Agent créé le **2026-05-24** pour la génération de contenus RS fictifs dans 
 
 ## Règles apprises
 
+### [2026-05-25] Neutralité visuelle des tweets — AURIGE 2BB
+Les tweets produits pour AURIGE 2BB ne doivent comporter **aucun indicateur visuel de camp** :
+- Pas de bordure colorée (rouge/bleu) sur les cartes tweet
+- Pas de badge "PRO-MERCURE" / "PRO-OTAN"
+- Pas de couleur de camp sur les avatars — tous gris neutres (#80868b)
+- Tous les tweets doivent être visuellement identiques
+
+**Raison :** la cellule stagiaire doit classifier elle-même les comptes selon son analyse. L'IA ne doit pas orienter cette classification par des codes visuels.
+
+**Conséquence pour la production :** ne jamais ajouter de classe `camp-rouge`, `camp-bleu`, `tweet-camp` ou `tweet-avatar.rouge/bleu` dans les nouvelles cartes tweet.
+
 ### [2026-05-24] Distribution AURIGE 2BB
 Les tweets AURIGE ne passent pas par MASSTALK V3 — ils sont intégrés directement en HTML dans `WEB/index.html` (section `data-category="social"`). Le système NEW badge + localStorage track les tweets lus via leur @handle.
 
