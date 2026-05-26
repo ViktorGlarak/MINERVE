@@ -80,9 +80,152 @@ Agent créé à la demande de l'utilisateur pour répondre au besoin d'un expert
 
 ---
 
+## Manœuvre Globale FORAD-ILI — Référence canonique transversale
+
+### [2026-05-26] Document maître : GLM26 Matrice ILI-FORAD
+
+**Fichier :** `D:\CECPC\DOC REF\CECPC\20260421_GLM26_Matrice ILI-FORAD.pptx`
+Daté 21 avril 2026 — 2 slides FR + EN. **Ce document s'applique à TOUS les exercices Mercure.**
+
+#### EFR et objectif stratégique
+- **EFR POLITIQUE :** ARN neutralisée sous influence, souveraineté limitée acceptée par gouvernement arnlandais + Communauté Internationale
+- **OBJECTIF MILITAIRE :** Forces OTAN + ARN incapables de rétablir souveraineté ARN dans le GET
+
+#### 3 axes transversaux (permanents, sur tout le temps de la manœuvre)
+1. **10 PRINCIPES ÉLÉMENTAIRES DE PROPAGANDE DE GUERRE**
+2. **L2i — LUTTE INFORMATIQUE D'INFLUENCE** (Réf : Mémento PC division MER p.13, CRT juin 22)
+3. **LAWFARE** — LE DROIT COMME ARME DE GUERRE (Réf : Actualisation stratégique 2021 p.19)
+
+#### 5 Lignes Opératoires (LO)
+
+| LO | Titre | Perception visée | Axe MER | Axe adversaire |
+|---|---|---|---|---|
+| **LO 1** | APPUI HYBRIDE À LA MANŒUVRE | Effort permanent — toute la manœuvre | FICTIONNALISATION DU RÉEL · DÉCEPTION · CIBLAGE CHEFS BLEUS | — |
+| **LO 2** | VOLONTÉ DE COMBATTRE | MER = le plus **déterminé** | DÉTERMINATION MER (narratif + démonstration de puissance) | FRAGILITÉ OTAN (morales + volontés « éprouvées ») |
+| **LO 3** | GUERRE DES PERTES | MER = le plus **résilient** | PROFONDEUR STRATÉGIQUE MER (masse humaine + propagande) | INSOUTENABILITÉ (coût humain : risques force + mission) |
+| **LO 4** | VENT DE LIBÉRATION | MER = le plus **légitime** | MER ATTENDU ET LÉGITIME (aspiration GET + validation CI) | ARN DISCRÉDITÉ (État failli, corrompu, ciblant minorités MER) |
+| **LO 5** | RUPTURE DES ALLIANCES | MER + nouveaux partenaires / alliance fracturée | — | AU SEIN COALITION (intérêts divergents + opinions ciblées) · ENTRE COALITION ET ARN (agendas instrumentalisés) |
+
+#### Processus de désoccidentalisation (toile de fond LO 1)
+- L'Occident est confronté au processus de contestation et de redéfinition du monde
+- La France est contrainte dans son action par l'instrumentalisation de son héritage historique
+
+#### Règle d'usage EXPERT_INFLUENCE
+> **Tout inject ILI proposé ou validé par EXPERT_INFLUENCE doit référencer sa LO principale.** Format : `[LO X — TITRE]`. La LO est le fil rouge stratégique — un inject sans LO est un inject sans finalité.
+
+#### ⚠ RÈGLE TECHNIQUE OBLIGATOIRE — Entrée `LO_BY_KEY` systématique
+
+> **Quand EXPERT_INFLUENCE contribue à la création d'un inject, il doit indiquer explicitement la LO principale (et secondaire si pertinent) pour que l'équipe technique l'inscrive dans la table `LO_BY_KEY` de `index_master.html`.**
+
+Cette table est le mécanisme technique qui affiche les badges LO dans le modal ℹ animateur. Sans entrée dans `LO_BY_KEY`, la LO n'apparaît pas dans l'interface.
+
+**Format à fournir à chaque proposition d'inject :**
+```
+Clé ANIM_DATA : "nom_de_la_clé"
+LO : ["X"]  ← une seule si un axe domine
+LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques distincts
+```
+
+**Critère pour LO secondaire :** l'inject doit activer simultanément deux perceptions stratégiques distinctes (ex : blanchiment LO 1 + fracture coalition LO 5). Ne pas en mettre par défaut — une LO bien choisie suffit dans la majorité des cas.
+
+---
+
 ## Décisions doctrinales
 
-*(À alimenter au fil des sessions)*
+### [2026-05-26] Timing inject D+31 — Tractage MAF + amplification civile
+
+**Contexte :** Premier jour exercice AURIGE 2BB — D+31 (26 mai 2026)
+
+**Chaîne de diffusion validée — D+31 (26 mai) :**
+- `14h00` — TRACT MAF "Ne faites pas de Dacia Romania votre tombeau" (07.02.05i) — canal officiel Forces Armées de Mercure
+- `15h00` — Photo du tract collé sur mur, NEUFCHATEAU (07.02.06i) — @TemoignageDAC (compte civil camouflé) — **camp ROUGE**
+- `18h00` — SMS bombing : capture d'écran SMS psyops MAF partagée par @MarionKessler57 (07.02.05i_bis) — **camp BLEU** — civile Moselle alarmée, amplification organique non-MER ✅
+
+**Décalage VORIN :** le tweet héros sniper @HmunikVoice (07.01.02i) initialement prévu à 16h00 D+31 a été déplacé à **07h00 D+32 (27 mai)** — inject matinal pour ouvrir la journée des stagiaires.
+
+**Logique doctrinale :** Enchaînement 14h→15h→18h = escalade sur 4h. L'entraîné voit d'abord la photo civile (15h, source orange ROUGE camouflée), puis une civile bleue non-suspecte qui partage le SMS reçu (18h). Deux canaux distincts amplifient le même contenu psyops — Storm-1516 TTP-03 (redondance inter-canaux) + TTP-01 (compte crédible avec historique). **L'inject bleu @MarionKessler57 est le plus piégeux pour les stagiaires** : source "friendly" qui diffuse involontairement du contenu MER.
+
+**Règle éditoriale issue de cette décision :**
+> Sur tout inject TRACT ou PSYOPS, prévoir systématiquement au moins un inject d'amplification civile : un camp ROUGE (source camouflée, 1h après) ET si possible un camp BLEU (civile non-suspecte, 2-3h après). L'intervalle 1h est réaliste (découverte + photo) ; 3h est réaliste (SMS reçu, réaction, publication).
+
+---
+
+---
+
+## Figures politiques AURIGE 2BB — Perspective doctrinale ILI
+
+> Mis à jour le 26 mai 2026.
+
+### Chefs d'État — Exploitation ILI par camp
+
+**🔴 Alexandre Youkachenko — Président Bella Russia**
+- Apparaît dans : BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec
+- **LO 5 principale** — son implication valide la narrative "nouveaux partenaires MER" et fragilise l'idée d'un isolement de Mercure
+- Doctrine : Youkachenko doit apparaître comme décideur souverain (non-inféodé à MER) pour que l'escalade BR soit crédible. Un Youkachenko trop aligné sonne comme un satellite — utiliser des formulations qui montrent un agenda BR propre convergent avec MER
+
+**🔵 Sture Pallesson — Président Dacie Romanie (CIVIL)**
+- Apparaît dans : TV4_Article_Pallesson ×4
+- **LO 4 secondaire** — cible de discrédit politique (pas militaire)
+- Doctrine : les injects MER l'attaquent sur sa légitimité démocratique (corruption, soumission aux intérêts OTAN, abandon de la population). Ne jamais l'attaquer sur des décisions militaires qu'il ne prend pas — perte de crédibilité de l'inject
+
+### Médias — Positionnement doctrinal
+
+| Média | Camp | Usage ILI principal | LO |
+|---|---|---|---|
+| Today Mercure (TM) | 🔴 Rouge | Primo-diffusion officielle MER | LO 2, LO 4 |
+| BC1 (Bella Russia Channel 1) | 🔴 Rouge | Blanchiment via allié BR, escalade | LO 5, LO 1 |
+| HEXAGONE | 🔵 Bleu | Presse française fictive — cible narrative ou relais contremesures | LO 1 (retournement), LO 2 |
+| TV4 International | 🔵 Bleu | Média occidental — amplification camp bleu, interviews Pallesson | LO 2 (camp adverse) |
+| EastWatch | 🟡 Pseudo-neutre | Blanchiment MER — crédibilité analytique | LO 1, LO 5 |
+
+**Règle doctrinale HEXAGONE :** Média français = audience française = sensibilité particulière aux narratifs LO 3 (pertes humaines, insoutenabilité) et LO 4 (légitimité/droit international). Tout inject HEX doit tenir compte de la culture médiatique française pour être pédagogiquement réaliste.
+
+---
+
+## Commandants FORAD AURIGE 2BB — Perspective doctrinale ILI
+
+> **Source :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\MERCURE\G26_PROFIL 41 et 43 MER FORCES.pptx` — ingéré le 26 mai 2026
+> **Pour les profils complets :** interroger ANALYSTE MERCURE (section 1.5.bis de sa MEMOIRE)
+> **Référentiel HVI complet GLM26 :** `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — ouvrir manuellement
+
+### MG PRUNIERE (CO 41e DIV CHARS) — Exploitation ILI
+
+**Vecteur principal : LO 1 + LO 2**
+
+PRUNIERE commande depuis l'avant — son exposition terrain en fait une cible de "ciblage CHEFS BLEUS" (axe LO 1 permanent). La doctrine ILI recommande deux leviers :
+
+1. **Valorisation martyr (LO 2)** : si PRUNIERE est blessé/neutralisé, amplifier narratif héroïque — "le général mène ses chars depuis la première ligne" — renforce la DÉTERMINATION MER perçue.
+2. **Exploit jalousie inter-unités (LO 1)** : les tensions entre PRUNIERE et le Cdr 42e DIV MECH peuvent être exploitées via inject de fuite interne ou désaccord stratégique — crée doute sur cohésion commandement MER (retournement pour camp bleu possible, à déconseiller sauf si exercice le prévoit).
+3. **Héros de la Nation 2019 (noyau de vérité)** : sa distinction officielle est une ancre narrative crédible pour les injects de valorisation. Mentionner "le Héros PRUNIERE" dans un tweet suffit — l'entraîné peut vérifier.
+
+**Règle doctrinale :** Tout inject nommant PRUNIERE doit être cohérent avec son profil "leader impulsif qui dirige depuis l'avant" — éviter tout inject qui le dépeindrait comme prudent ou retraitiste.
+
+---
+
+### MG ZHUKOV (CO 43e DIV ABN) — Exploitation ILI
+
+**Vecteur principal : LO 4 + LO 2**
+
+ZHUKOV porte une vulnérabilité personnelle exploitable : l'affaire d'évasion fiscale classée sans suite. Cette affaire est un **noyau de vérité** parfait pour un inject de discrédit (LO 4 — ARN/DAC DISCRÉDITÉ, retournable aussi contre le commandement si exercice le prévoit).
+
+1. **Discrédit via casseroles (LO 4)** : un tweet ou article de blanchiment évoquant "les révélations sur les avoirs cachés du général ZHUKOV" est crédible, ancré réel, et discréditant pour le camp opposé sans preuve à fournir.
+2. **Exploitation moral conscrits (LO 3)** : la 43e DIV comprend 30% non-professionnels (conscrits + réservistes). Un inject ciblant "les familles de réservistes envoyés mourir pour un général qui planque son argent" active simultanément LO 3 (coût insoutenable) et LO 4 (discrédit chef).
+3. **Faiblesse politique (LO 5)** : si ZHUKOV est isolé politiquement, son nom peut figurer dans des injects de "dissension interne MER" pour créer l'apparence d'une coalition fracturée — attention à ne pas affaiblir MER si l'exercice est en phase de consolidation.
+
+**Règle doctrinale :** L'affaire fiscale ne doit être utilisée qu'une fois et avec un niveau de détail suffisant pour être crédible. Un inject vague sera contre-productif.
+
+---
+
+### Règle transversale — Ciblage HVI dans les injects
+
+> **Avant tout inject nommant un HVI MER (PRUNIERE, ZHUKOV, ou tout commandant du PDF GLM26), consulter ANALYSTE MERCURE pour vérifier la cohérence profil/narrative.**
+> Un inject qui contredit le profil psychologique d'un personnage dégrade la crédibilité de l'ensemble de la série.
+
+**Qui détient quoi :**
+- **ANALYSTE MERCURE** : profils complets PRUNIERE + ZHUKOV + référence PDF tous HVI MER
+- **GUILLAUME** : planning d'utilisation des HVI dans les injects par date
+- **EXPERT_INFLUENCE** : doctrine d'exploitation ILI (ci-dessus)
+- **MASTAURIGE** : si un HVI est mentionné dans un tweet, vérifier cohérence handle/profil
 
 ---
 

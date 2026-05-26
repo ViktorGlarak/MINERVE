@@ -5,14 +5,44 @@ Source de référence : `20260107_NP_CECPC_BEXE-GUILLAUME26-SYNCRHOMATRICE V4.xl
 
 ---
 
+## 0. ARCHITECTURE DOSSIERS — AURIGE 2BB
+
+> Chemin racine : `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\` — Mis à jour le 26 mai 2026.
+
+| Dossier | Contenu |
+|---|---|
+| `00_Boites à outils\` | Ressources génériques |
+| `01_Montage exercice\` | Documents de montage |
+| `02_Ordres\` | Ordres d'opérations |
+| `03_Productions\` | Productions classées par série et par jour |
+| `03_Productions\07.05\` | Série Bella Russia — projets Premiere Pro vidéo |
+| `03_Productions\07.07-07.10\` | Productions vidéo (07.08, 07.09 ont du contenu Premiere Pro) |
+| `03_Productions\D+XX_DATE\` | Productions MASTAURIGE par jour — sous-dossier `MASTAURIGE_D+XX\WEB\` |
+| `04_FORAD\` | Documents FORAD |
+| `05_MTR\` | Dossier personnel MTR |
+| `00_Boites à outils\MASTAURIGE\WEB\` | **FICHIER MAÎTRE** — `index_master.html` + tous les sites fictifs |
+| `MERCURE\` | Documents FORAD (profils, PPTX) |
+| `Discours\` | Discours par camp (Olamao, OTAN, DR, BR) |
+
+**Séries 07.05 à 07.10 :** Déplacées le 26/05/2026 vers `03_Productions\`. Contiennent des projets Premiere Pro — non utilisées par les agents IA.
+
+⚠ **Doublon à nettoyer :** `03_Productions\D+31_26_MAI` et `03_Productions\D+31_26-MAI` (underscore vs tiret).
+
+---
+
 ## 1. CONTEXTE GLOBAL DE L'EXERCICE
 
 **Exercice :** AURIGE 2BB — Entraînement PC niveau brigade (2ème Brigade Blindée)
 **Organisateur :** CECPC
 **Cadre tactique :** PC NG ANTARES — 13e RG
 
-### Codage géographique (H-préfixe = ville fictive transposée)
-| Code exercice | Ville réelle de référence |
+### Codage géographique — Convention H-préfixe
+
+**Règle générale :** Toute ville française réelle = **H + nom** dans le contexte de l'exercice.
+Le préfixe H signale l'environnement fictif. S'applique à tout le territoire DAC/ARN (= France fictive).
+
+**Villes AURIGE 2BB — zone Lorraine (théâtre principal) :**
+| Code exercice | Ville réelle |
 |---|---|
 | HNANCY | Nancy |
 | HLUNEVILLE | Lunéville |
@@ -23,6 +53,15 @@ Source de référence : `20260107_NP_CECPC_BEXE-GUILLAUME26-SYNCRHOMATRICE V4.xl
 | HPHALSBOURG | Phalsbourg |
 | HMEURTHE | Meurthe (fleuve) |
 | HMOSELLE | Moselle (fleuve) |
+
+**Autres villes DAC valides (hors théâtre Lorraine) :**
+| Code exercice | Ville réelle |
+|---|---|
+| HPARIS | Paris (capitale DAC) |
+| HLYON | Lyon |
+| HMARSEILLE | Marseille |
+| HSTRASBOURG | Strasbourg |
+| *(toute ville FR)* | H + nom |
 
 ---
 
@@ -219,7 +258,7 @@ Les injects ILI sont les vecteurs d'entraînement pour ce TO.
 |---|---|---|---|
 | Franz Olamao | Président de Mercure | Today Mercure | À créer |
 | CEMA MER | Chef des armées Mercure | Today Mercure | À créer (inject 07.02.02i) |
-| Youkachenko | Président Bella Russia | BC1 | BCI_Article_Youkachenko.html |
+| **Alexandre Youkachenko** | Président Bella Russia | BC1 | BCI_Article_Youkachenko.html |
 | Wilma Smasten | Porte-parole N.O.M | — | — |
 | Pavlus Gautoreif | Propagandiste radio MER | @HmunikVoice | — |
 | N.O.M | Groupe militant fictif | — | @NOVUSORDOMUNDI |
@@ -253,7 +292,8 @@ Les injects ILI sont les vecteurs d'entraînement pour ce TO.
 | Date | Camp | Inject | Acteur | Sujet | Type de contenu | Statut |
 |---|---|---|---|---|---|---|
 | 26/05 | ROUGE | 07.02.01i | Olamao | Déclaration de justification de l'intervention MER | Article Today Mercure | ⏳ |
-| 27/05 | ROUGE | 07.01.02i | MER / @HmunikVoice | Héros MER — sniper / fait d'armes | Tweet + image | ⏳ |
+| **26/05** | **BLEU** | **07.02.05i_bis** | **@MarionKessler57** | **SMS bombing — civile Moselle partage SMS psyops MAF reçu anonymement** | **Tweet + image SMS** | **✅ — 18h00** |
+| 27/05 | ROUGE | 07.01.02i | MER / @HmunikVoice | Héros MER — sniper / fait d'armes (décalé de D+31 16h → D+32 07h) | Tweet + image | ✅ — 07h00 |
 | 27/05 | ROUGE | 07.01.03i | @HmunikVoice | Les bleus sont des couards | Tweet | ⏳ |
 | 27/05 | ROUGE | 07.01.04i | @HmunikVoice | La vie d'un soldat FR n'a aucune valeur | Tweet + témoignage | ⏳ |
 | 27/05 | ROUGE | 07.02.02i | CEMA MER | Déclaration CEMA — "vrai chef de guerre" | Article / Vidéo | ⏳ |
@@ -330,6 +370,27 @@ Tous les discours se terminent par "Dacia Romania Endures." — clôture obligat
 
 ### Règle Bella Russia
 Ne jamais écrire "Belarus" / "Biélorussie". Toujours "Bella Russia" / "Bella Russian".
+
+### Règle numéros de téléphone fictifs
+Ne jamais écrire `XX XX XX XX`. Utiliser les plages fictives au format valide :
+
+| Zone | Format | Exemple |
+|---|---|---|
+| 01 — Île-de-France | `01 99 00 XX XX` | 01 99 00 47 23 |
+| 02 — Nord-Ouest | `02 61 91 XX XX` | 02 61 91 08 54 |
+| **03 — Nord-Est / Lorraine** | **`03 72 67 XX XX`** | **03 72 67 14 89** |
+| 04 — Sud-Est | `04 51 08 XX XX` | 04 51 08 37 62 |
+| 05 — Sud-Ouest | `05 36 49 XX XX` | 05 36 49 91 05 |
+
+**AURIGE 2BB → préfixe `03 72 67` systématique** (théâtre Lorraine).
+
+### Numéros canoniques — attributions permanentes (tous exercices)
+
+| Institution | Numéro fixe |
+|---|---|
+| **Palais présidentiel DAC / HPARIS** | **01 99 00 01 00** |
+
+Fixe et permanent — utiliser `01 99 00 01 00` dans tous les documents officiels de la présidence, tous exercices confondus.
 
 ---
 

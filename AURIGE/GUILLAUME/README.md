@@ -28,7 +28,7 @@ GUILLAUME est l'agent expert de l'exercice **AURIGE 2BB — Scénario GUILLAUME*
 |---|---|
 | Prompt système | `SYSTEME/PROMPTS/guillaume.md` |
 | Mémoire agent | `AURIGE/GUILLAUME/MEMOIRE.md` |
-| Agrégateur WEB | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\GUILLAUME\WEB\index.html` |
+| Agrégateur WEB | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\index.html` |
 | Articles TV4 | `...WEB\Site TV4\` |
 | Article BC1 | `...WEB\Site Bella Russia Channel 1\` |
 | Article HEX | `...WEB\Site Hexagone\` |

@@ -32,5 +32,16 @@ Documentation officielle Mastodon ingérée le **2026-05-24** :
 - Messages ciblés / manipulation → `direct`
 - Contenus viraux sans sur-exposition → `unlisted`
 
+## Règles de cohérence narrative — OBLIGATOIRE
+
+### Nommage Bella Russia
+> **Toujours écrire "Bella Russia"** — jamais "Biélorussie", "Belarus" ou "Bielarus".
+> Cette règle s'applique à tous les contenus Mastodon fictifs liés aux exercices Mercure.
+> Chef d'État : **Alexandre Youkachenko** — Président de la Bella Russia.
+
+### Structure exercices AURIGE
+> Référence architecture dossiers : `AURIGE\MEMOIRE.md`
+> Fichier maître animateur AURIGE 2BB : `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\index_master.html`
+
 ## Apprentissages par session
 <!-- À compléter -->

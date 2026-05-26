@@ -43,7 +43,8 @@ Sections couvertes : Général, Géographie, Politique, Organisations, Histoire,
 - Autodétermination des peuples (détourné à des fins politiques)
 
 ### Personnalités supplémentaires (Annexe II)
-- **Viktoria Müller** — Deema (cheffe Commissariat, ≠ Donald Pohl qui est Deema élu juin 2024 — vérifier cohérence)
+- **Donald Pohl** — Deema (chef du Commissariat, élu juin 2024) ← référence actuelle validée
+- **Viktoria Müller** — ⚠ ancienne Deema (cheffe Commissariat avant juin 2024) — rôle probablement remplacé par Donald Pohl. À ne pas confondre dans les scénarios post-2024.
 - **Rok Rozman** — Chef Commandement des Opérations (sous NUMELIN)
 - **Rafal Grabowski** — Chef EM MAF
 - **Miha Majcen** — Chef Forces Stratégiques

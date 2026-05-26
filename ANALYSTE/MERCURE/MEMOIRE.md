@@ -117,6 +117,106 @@ Sources primaires :
 
 ---
 
+### 1.5.bis Commandants AURIGE 2BB — Profils HVI détaillés
+
+> **Source :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\MERCURE\G26_PROFIL 41 et 43 MER FORCES.pptx` — ingéré le 26 mai 2026
+> **Référence complète tous HVI MER GLM26 :** `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — produit par CNE Delaitre — extraction texte impossible sans outils dédiés, ouvrir manuellement pour consulter les autres commandants
+
+Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils constituent le matériau de ciblage ILI de premier ordre.
+
+---
+
+#### MG Thierry PRUNIERE — Commandant 41e Division de Chars
+
+**Données biographiques :**
+- Né en 1970 — Marié, 2 enfants
+- En poste : CO 41e DIV CHARS depuis 2022
+
+**Carrière :**
+1. Académie des armes combinées
+2. 4112e Bataillon — chef de section → commandant de compagnie
+3. Institut Novosibirskoi (formation supérieure)
+4. Adjoint/CO 4112e Bataillon
+5. Chef d'état-major de brigade
+6. École supérieure de commandement militaire de Brahea
+7. COS Division
+8. Adjoint Cdr région Nord
+9. COS région Centre
+10. Général de division : **2015**
+11. Adjoint Cdr région Sud → CO 41e DIV CHARS (2022)
+
+**Distinctions :** Héros de la Nation MER (2019)
+
+**Profil psychologique :**
+- Ambitieux, caractère impulsif (hot-tempered)
+- Fortes ambitions politiques — cherche la visibilité
+- Leader directif — dirige depuis l'avant (leads from the front)
+- Craint mais respecté par ses subordonnés
+
+**Forces :**
+- Décisions rapides sous pression
+- Expertise technique blindée reconnue
+- Loyal au régime Olamao
+- Réseau politique solide
+
+**Vulnérabilités exploitables :**
+- **Exposition terrain** : conduit depuis l'avant — cible HVI cinétique + cible ILI (disparition/neutralisation plausible)
+- **Jalousie inter-unités** : tensions documentées avec le Cdr de la 42e DIV MECH — fissure exploitable narrativement
+- **Ambition politique** : si le front se dégrade, sa crédibilité personnelle est liée à la victoire — pression ILI possible
+- **Lien familial** : son frère commande le **415e BRIGADE ARTILLERIE** — lien familial = levier narrative
+
+**Priorité cible :** ⚠ HAUTE — Niveau **3I**
+> La neutralisation de PRUNIERE paralyserait la 41e DIV pendant la phase de réorganisation (D+34–D+35). Cible idéale pour narratif de "décapitation" (LO 2 — DÉTERMINATION MER renforcée si présenté comme martyr, ou LO 3 si présenté comme perte insoutenable).
+
+**LO associées :** LO 2 (héros / martyr potentiel), LO 1 (cible ciblage CHEFS BLEUS), LO 3 (coût humain)
+
+---
+
+#### MG Mikhail Andres ZHUKOV — Commandant 43e Division Aéroportée
+
+**Données biographiques :**
+- Né en 1972 — Marié, 1 enfant
+- En poste : CO 43e DIV ABN depuis 2022
+
+**Carrière :**
+1. Académie des armes combinées
+2. 4311e Régiment ABN — chef de section → commandant de compagnie
+3. Institut Novosibirskoi (formation supérieure)
+4. CO 4311e Régiment ABN
+5. COS Division Aéroportée
+6. Adjoint Cdr région Sud
+7. Adjoint Cdr 43e DIV ABN
+8. Général de division : **2021** → CO 43e DIV ABN (2022)
+
+**Profil psychologique :**
+- Hautement apprécié par ses parachutistes — forte cohésion d'unité
+- Haute résilience personnelle et de commandement
+- Doctrine aéroportée flexible — capacité d'adaptation
+
+**Forces :**
+- Expérience opérationnelle reconnue
+- Combativité et résilience élevées
+- Esprit de corps parachutiste fort
+
+**Vulnérabilités exploitables :**
+- **Casier fiscal** : accusé d'évasion fiscale — affaire classée sans suite (released) — vulnérabilité crédible pour inject de discrédit (LO 4)
+- **Faible popularité politique** : peu de soutien au sein de l'appareil Olamao — isolé politiquement
+- **Composition hétérogène de l'unité** : 70% PROFESSIONNELS, 20% CONSCRITS, 10% RÉSERVISTES — les 30% non-professionnels sont vulnérables aux injects anti-mobilisation (LO 2 / LO 3)
+- **Faible soutien institutionnel** : si ZHUKOV est mis en difficulté, peu de relais pour le défendre dans la hiérarchie
+
+**LO associées :** LO 4 (discrédit via casseroles fiscales), LO 2 (dénigrement commandement), LO 3 (exploitation moral conscrits)
+
+---
+
+#### Tableau récapitulatif HVI AURIGE 2BB
+
+| Commandant | Unité | Grade | Priorité cible | Vulnérabilités ILI clés | LO primaires |
+|---|---|---|---|---|---|
+| **PRUNIERE** | 41e DIV CHARS | MG | 3I — HAUTE | Exposition terrain, jalousie 42e DIV, ambition politique | LO 1, LO 2, LO 3 |
+| **ZHUKOV** | 43e DIV ABN | MG | MOYENNE | Affaire fiscale, faible soutien politique, 30% non-PRO | LO 2, LO 3, LO 4 |
+
+---
+
 ### 1.6 Personnages clés — Renseignement et justice
 
 | Personnage | Poste |
@@ -476,9 +576,141 @@ Ces principes sont issus de Storm-1516 et s'appliquent indépendamment de l'exer
 
 ---
 
+## 3.bis MANŒUVRE GLOBALE FORAD-ILI — LIGNES OPÉRATOIRES
+
+> **Source :** `D:\CECPC\DOC REF\CECPC\20260421_GLM26_Matrice ILI-FORAD.pptx` — 21 avril 2026
+
+Ce document constitue le cadre stratégique informationnel de Mercure pour tous les exercices Guillaume. ANALYSTE MERCURE doit l'intégrer comme référence supérieure aux TTP Storm-1516 : les TTP expliquent le **comment**, les LO expliquent le **pourquoi stratégique**.
+
+### Correspondance doctrine Mercure ↔ LO GLM26
+
+| Doctrine Mercure (countrybook) | LO GLM26 | Lien |
+|---|---|---|
+| Contrôle narratif (CPD/SIO) | LO 1 — APPUI HYBRIDE | FICTIONNALISATION DU RÉEL permanente |
+| Citation Olamao "We are protecting" | LO 4 — VENT DE LIBÉRATION | MER ATTENDU ET LÉGITIME |
+| Narrative anti-OTAN (MUP) | LO 2 + LO 4 | FRAGILITÉ OTAN + ARN DISCRÉDITÉ |
+| TANTALE / diaspora Punainen ARN | LO 5 — RUPTURE ALLIANCES | Instrument fracture COALITION ET ARN |
+| Levier gazier Arnland (63% dépendance) | LO 5 | Pression économique = rupture politique |
+| Rapport Storm-1516 TTP (4 phases) | LO 1 | Blanchiment + amplification = DÉCEPTION |
+| Profondeur humaine (~607 000 FAM) | LO 3 — GUERRE DES PERTES | PROFONDEUR STRATÉGIQUE MER |
+
+### EFR Politique et lien Mercure
+- ARN (Arnland) = nation hôte de la coalition. La diaspora Punainen (~3,4M en ARN) + TANTALE = vecteur LO 5 (rupture COALITION ↔ ARN)
+- GET = Geographic Employment Theater = le terrain de l'exercice. Correspond à la Lorraine fictive dans AURIGE 2BB.
+
+### Règle analytique
+> **Quand ANALYSTE MERCURE est sollicité sur un inject ou une situation, la réponse doit indiquer quelle LO est activée** par le comportement MER analysé. Cela renforce la cohérence entre doctrine pays et manœuvre exercice.
+
+### ⚠ RÈGLE OBLIGATOIRE — Attribution LO pour tout nouvel inject
+
+> **Lorsqu'ANALYSTE MERCURE est consulté sur la création ou la validation d'un inject, il doit systématiquement conclure par une attribution LO explicite**, afin que cette entrée soit ajoutée à la table `LO_BY_KEY` dans `index_master.html`.
+
+**Format de sortie attendu :**
+```
+Attribution LO : ["X"]   ← LO principale
+ou
+Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés simultanément
+```
+
+**Critère d'attribution basé sur le contenu :**
+- Analyse Storm-1516 TTP → **LO 1** (déception, blanchiment, fictionnalisation)
+- Valorisation force MER / dénigrement OTAN → **LO 2** (volonté de combattre)
+- Coût humain insoutenable / profondeur MER → **LO 3** (guerre des pertes)
+- Légitimité MER / discrédit DAC-ARN → **LO 4** (vent de libération)
+- Implication BR / fracture coalition → **LO 5** (rupture alliances)
+
+**Règle de précision :** une LO bien choisie vaut mieux que deux approximatives. La LO secondaire n'est justifiée que si l'inject produit deux effets cognitifs stratégiquement distincts et mesurables.
+
+---
+
+## 4. MODIFICATIONS INJECTS — SUIVI ANALYTIQUE
+
+### [2026-05-26] Retiming D+31 — Tractage MAF + amplification @TemoignageDAC
+
+**Changements :** 07.02.05i TRACT STEP 1 : 18h00 → **14h00**. 07.02.06i @TemoignageDAC photo tract : 20h30 → **15h00**.
+
+**Analyse TTP :** L'intervalle de 1h entre le tract MAF (14h00) et la photo civile (15h00) est conforme à la **TTP-03** (redondance inter-canaux) et à la logique Storm-1516 phase 2 (blanchiment rapide). La primo-diffusion civile précède la prise de conscience de la source officielle par l'entraîné — efficacité maximale du déni plausible (LO 1).
+
+---
+
+## 5. CARTE DES CONNAISSANCES INTER-AGENTS — Qui détient quoi
+
+> Quand un agent a besoin d'une information, il doit interroger l'agent qui en est propriétaire plutôt que de la reconstituer.
+
+| Information | Agent propriétaire | Localisation |
+|---|---|---|
+| Profils HVI PRUNIERE + ZHUKOV (complets) | **ANALYSTE MERCURE** | Section 1.5.bis de cette MEMOIRE |
+| Référentiel HVI complet GLM26 (tous commandants MER) | **ANALYSTE MERCURE** | PDF `20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — ouvrir manuellement |
+| TTP Storm-1516 (77 opérations, 16 TTP) | **ANALYSTE MERCURE** | Section 2 de cette MEMOIRE |
+| Countrybook Mercure complet (géopolitique, économie, société) | **ANALYSTE MERCURE** | Sections 1.1 à 1.11 de cette MEMOIRE |
+| **Figure politique BR — Youkachenko** | **ANALYSTE MERCURE** | Section 6 de cette MEMOIRE |
+| Figures politiques DAC/ARN — Pallesson, Karrlson, etc. | **ANALYSTE ARNLAND** | ANALYSTE\ARNLAND\MEMOIRE.md — section "Données politiques" |
+| Doctrine d'exploitation ILI des vulnérabilités HVI | **EXPERT_INFLUENCE** | Section "Commandants FORAD" de sa MEMOIRE |
+| Planning d'utilisation HVI + figures politiques dans injects | **GUILLAUME** | GUILLAUME\MEMOIRE.md |
+| Calendrier éditorial injects AURIGE 2BB (synchromatrice) | **GUILLAUME** | GUILLAUME\MEMOIRE.md |
+| Avatars RS fictifs (handles, profils) | **MASTAURIGE** | MASTAURIGE\MEMOIRE.md + CASW/avatars_casw_aurige2bb.md |
+| LO_BY_KEY (attribution LO par inject) | **Fichier maître** | `index_master.html` — table `var LO_BY_KEY` |
+| Doctrine L2i / IMS / MOI / GLM26 | **EXPERT_INFLUENCE** | EXPERT_INFLUENCE\MEMOIRE.md |
+
+**Règle de consultation :** Avant de produire un inject impliquant une figure nommée (HVI, ministre, commandant, chef d'État), interroger l'agent propriétaire de ce pays. Pour toute figure DAC/ARN → ANALYSTE ARNLAND. Pour toute figure MER ou BR → ANALYSTE MERCURE.
+
+---
+
+## 6. FIGURES POLITIQUES ET MÉDIAS — AURIGE 2BB (référence inter-camps)
+
+> Mis à jour le 26 mai 2026. Source : confirmations utilisateur CECPC.
+
+### 🔴 MERCURE — Figures politiques (rappel, voir section 1.4 pour détail)
+
+| Personnage | Poste | Rôle dans injects |
+|---|---|---|
+| Franz Olamao | Président | TM_Article_Olamao_01, citations canoniques |
+| Jonas Junker | Ministre Défense | Crédits MAF, tracts officiels |
+| Dominic Stoph | Ministre Aff. étrangères | Série 07.04 délégitimation ONU |
+| Voichek Ribiki | Ministre Intérieur | Référence sécurité intérieure |
+
+### 🔴 BELLA RUSSIA — Figure politique clé AURIGE 2BB
+
+| Personnage | Poste | Apparaît dans |
+|---|---|---|
+| **Alexandre Youkachenko** | Président de la Bella Russia | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
+
+**Profil pour injects :** Chef d'État allié de Mercure — rôle LO 5 (rupture alliances, escalade BR). Son apparition dans des articles BC1 crédibilise l'implication politique de Minsk dans le conflit. Toute citation ou communiqué de Youkachenko dans un inject doit refléter un discours de soutien MER + posture souveraniste anti-OTAN.
+
+### 🔵 DACIE ROMANIE (DAC) / ARNLAND — Figures clés AURIGE 2BB
+
+> Source complète : ANALYSTE ARNLAND — section "Données politiques" de sa MEMOIRE
+
+| Personnage | Poste | Apparaît dans |
+|---|---|---|
+| **Sture Pallesson** | **Président de la Dacie Romanie** (APP, centre-droit, pro-OTAN) | TV4_Article_Pallesson ×4, @BelovDimitri_r1_pallesson |
+| Vincent Karrlson | Premier Ministre | Secondaire |
+| Mira Janković | Ministre Aff. étrangères | Série 07.04 |
+| Andrei Belov | Ministre Défense | Référence militaire DR |
+
+⚠ **Correction importante :** Pallesson est **président civil** (non militaire). Ses apparitions dans TV4 sont des articles politiques (discours, prises de position pro-OTAN). Ne pas le confondre avec les commandants militaires VONG ou HUS.
+
+### Médias AURIGE 2BB — Tableau de référence complet
+
+| Média | Code | Camp | Rôle | Exemple d'inject |
+|---|---|---|---|---|
+| Today Mercure | TM | 🔴 Rouge | Média d'État MER — propagande officielle | TM_Article_* (10+ injects) |
+| Bella Russia Channel 1 | BC1 / BCI | 🔴 Rouge | Média d'État BR — relais allié | BCI_Article_* (12+ injects) |
+| Forces Armées Mercure | MAF | 🔴 Rouge | Communication militaire officielle MER | Tracts, communiqués |
+| EastWatch International | EW | 🟡 Pseudo-neutre | Blanchiment progressif MER | @EastWatch_Intl injects |
+| Correspondant Est | CE | 🟡 Pseudo-neutre | Correspondant terrain, piège rétroactif | @CorrespondantEst injects |
+| TV4 International | TV4 | 🔵 Bleu | Média occidental / DR — camp coalition | TV4_Article_Pallesson ×4, Panique_01 |
+| **HEXAGONE** | HEX | 🔵 Bleu | **Média officiel français** pour l'exercice | HEX_Article_Rutte (LO 2) |
+
+**Note HEXAGONE :** Représente la presse française fictive dans l'exercice. Son article sur Rutte (LO 2 — fragilité OTAN / dénigrement leadership) est le seul inject référencé à ce stade. Canal à utiliser pour tout inject de presse française officielle dans AURIGE 2BB.
+
+---
+
 ## 4. SESSIONS DE MAÎTRISE
 
 | Date | Document ingéré | Domaine | Couverture |
 |---|---|---|---|
 | 2026-05-25 | Storm-1516 (VIGINUM/SGDSN, 41 pages, 77 opérations) | Doctrine OI — TTP MOI russe | ✅ Complet |
 | 2026-05-25 | Countrybook Mercure (CB MERCURE FR.docx, 943 paragraphes) | Géopolitique, militaire, économie, société, info, infrastructure, personnages | ✅ Complet |
+| 2026-05-26 | G26_PROFIL 41 et 43 MER FORCES.pptx (AURIGE 2BB) | Profils commandants PRUNIERE + ZHUKOV | ✅ Complet — section 1.5.bis |
+| 2026-05-26 | 20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf | Référentiel HVI complet GLM26 | ⚠ Non extractible — ouvrir manuellement |

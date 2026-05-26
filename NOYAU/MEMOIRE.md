@@ -83,7 +83,7 @@ Dossier `GUILLAUME\` créé à la racine Mercure (manquait). Contient :
 - AUTH ARN exactions IRREG confirmées — à nier en architecture 3 couches (P-05)
 
 **15 propositions ILI (P-01 à P-15) soumises à validation :**
-`EXER\AURIGE 2BB\GUILLAUME\PROPOSITIONS_ILI_DOCTRINERUSSE.md`
+`EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\PROPOSITIONS_ILI_DOCTRINERUSSE.md`
 Couvrent 8 axes manquants (déni plausible, blanchiment, noyau vérité, industrialisation, localisation, opportunisme, saturation, appropriation)
 
 ---

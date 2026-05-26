@@ -5,6 +5,27 @@ Source principale : `PAYS_ARNLAND.md` — Countrybook officiel ingéré le 2026-
 
 ---
 
+## Convention géographique — Préfixe H
+
+**Règle :** Toute ville française réelle prend le préfixe **"H"** dans les exercices Mercure.
+Le H marque le caractère fictif de l'environnement d'exercice.
+
+| Ville réelle | Code exercice |
+|---|---|
+| Paris | HPARIS |
+| Nancy | HNANCY |
+| Lunéville | HLUNEVILLE |
+| Sarrebourg | HSARREBOURG |
+| Lyon | HLYON |
+| Marseille | HMARSEILLE |
+| Strasbourg | HSTRASBOURG |
+| *(toute autre ville française)* | H + nom |
+
+**Portée :** intégralité du territoire Dacie Romanie / Arnland = France fictive.
+**Application :** injects, articles, discours, tweets, ordres, documents — sans exception.
+
+---
+
 ## Nom du pays selon l'exercice
 
 | Exercice | Nom du pays | Notes |
@@ -81,6 +102,37 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 - Corruption : 119/180 (TI) — 50% recettes fiscales non perçues
 - Agriculture : 1er producteur Skolkan (blé, orge, maïs)
 - Énergie nucléaire : 71,7% de l'électricité (CNI)
+
+---
+
+## Figures et médias AURIGE 2BB — Rôle dans les injects
+
+> Mis à jour le 26 mai 2026.
+
+### Sture Pallesson — Utilisation dans AURIGE 2BB
+
+**Rôle :** Président de la Dacie Romanie (DAC) — figure politique pro-OTAN centrale dans l'exercice.
+**Apparaît dans :** TV4_Article_Pallesson ×4 (LO 2 — discours politique, leadership coalition)
+
+⚠ Pallesson est un **chef d'État civil**, non militaire. Ne pas le confondre avec le CHOD VONG ou le CGS HUS. Ses déclarations dans les injects portent sur la légitimité de l'intervention OTAN et la souveraineté DAC — cible de dénigrement MER (LO 4).
+
+**Règle éditoriale :** Tout inject MER ciblant Pallesson l'attaque sur sa crédibilité politique ou sa légitimité démocratique — jamais sur des aspects militaires (il n'est pas chef des armées en première ligne).
+
+### Alexandre Youkachenko — Chef d'État adversaire/allié MER
+
+**Rôle :** Président de la Bella Russia — allié stratégique de Mercure dans AURIGE 2BB.
+**Apparaît dans :** BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec
+**Camp :** 🔴 Rouge — allié MER (LO 5 — escalade BR, nouveaux partenaires MER)
+**Agent référent pour profil complet :** ANALYSTE MERCURE (section 6 de sa MEMOIRE)
+
+### Médias AURIGE 2BB — camp bleu
+
+| Média | Code | Rôle |
+|---|---|---|
+| TV4 International | TV4 | Média occidental — source principale pour injects pro-DAC/OTAN |
+| **HEXAGONE** | HEX | **Média officiel français** — presse FR fictive dans l'exercice — HEX_Article_Rutte |
+
+**Note HEXAGONE :** Représente la presse française dans le scénario AURIGE 2BB. Positionné côté coalition/DR. À utiliser pour tout inject de presse française officielle.
 
 ---
 

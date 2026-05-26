@@ -39,4 +39,4 @@ Toujours fournir à MASTAURIGE au moment de l'appel :
 | Base avatars CASW | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\avatars_casw_orion26.md` |
 | Règles AGENTS | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\agents_rules_orion26.md` |
 | Process tweets | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\PROCESS_TWEETS_AURIGE.md` |
-| Index WEB AURIGE | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\GUILLAUME\WEB\index.html` |
+| Index WEB AURIGE | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\index.html` |
