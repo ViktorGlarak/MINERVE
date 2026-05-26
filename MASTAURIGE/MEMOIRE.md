@@ -271,3 +271,15 @@ Fixe et permanent — ne jamais changer ce numéro entre les exercices.
 | Heure | Inject | Avatar / Canal | Référence |
 |---|---|---|---|
 | 07h00 | Héros sniper VORIN — tweet décalé de D+31 au matin D+32 | @HmunikVoice | 07.01.02i |
+
+### Injects EN ATTENTE (bouton dédié dans index_master.html)
+
+Trois courriers 08.01 retirés du 27 mai et placés dans le filtre **EN ATTENTE** (bouton orange) — disponibles quand l'animateur décide de les activer :
+
+| Inject | Sujet | Référence |
+|---|---|---|
+| 08.01.01i | Corridors humanitaires — collectif des maires | `courrier_maires_corridors.html` |
+| 08.01.05i | Musées — Convention de La Haye 1954 | `courrier_prefet_musees.html` |
+| 08.01.06i | Lieux de culte — art. 53 Protocole additionnel I | `courrier_prefet_cultes.html` |
+
+**Actifs le 27 mai :** uniquement 08.01.03i (écoles) + 08.01.04i (hôpitaux/EHPAD).

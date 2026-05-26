@@ -132,6 +132,32 @@ LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques d
 
 ## Décisions doctrinales
 
+### [2026-05-27] Architecture narrative D+27 — Programme arrêté
+
+**Décision du 27/05/2026** — programme FORAD confirmé par la direction d'exercice.
+
+#### Structure LO de la journée D+27
+
+| Horaire | Inject | LO | Effet doctrinal |
+|---|---|---|---|
+| 07h00 | VORIN sniper tweet | LO 2 | Choc d'ouverture — supériorité tactique MER |
+| Journée | Courriers écoles + hôpitaux | LO 3 | Pression civile continue — PC traite humanitaire en parallèle des ops |
+| Journée | TM ONU jouet | LO 4 | Délégitimation du cadre juridique OTAN |
+| Journée | BC1 Youkachenko Appel à la paix | LO 5 | Façade diplomatique BR |
+| Journée | BC1 Évacuation ressortissants BR | LO 5 | Préparation entrée guerre BR sous couvert humanitaire |
+| ~18h00 | Tract Step 2 morale | LO 2+3 | Clôture choc — attaque directe volonté de combattre |
+
+**Arc LO 2 structuré :** VORIN 07h → Step 2 18h = deux bookends. Saturation LO 2 évitée (tweet "couards" mis EN ATTENTE).
+
+**Double signal LO 5 BR :** paix + évacuation le même jour = contradiction volontaire, modèle Storm-1516 phases 1+2 simultanées — accélération du calendrier BR (07.05.02i avancé de D+28 à D+27).
+
+**Camp bleu actif D+27 :** TV4 Article Panique (LO 3 adverse) + TV4 Article Pallesson_2 (LO 2 adverse) + @GromovaYelena + @IndependentArnish + production live des entraînés. Journée MER-dominante mais pas bleu-silencieuse.
+
+#### Règle doctrinale issue de D+27
+> **Sur une journée LO 2 forte (sniper + morale), éviter la saturation en supprimant les injects LO 2 intermédiaires.** Un seul message fort le matin + un seul en soirée est plus efficace que trois injects diluées sur la journée (Storm-1516 TTP-14 : récit à rebondissements, pas répétition).
+
+---
+
 ### [2026-05-26] Timing inject D+31 — Tractage MAF + amplification civile
 
 **Contexte :** Premier jour exercice AURIGE 2BB — D+31 (26 mai 2026)
