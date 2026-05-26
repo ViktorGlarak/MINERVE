@@ -20,6 +20,7 @@ Aucun nouvel agent créé. MASTAURIGE est l'agent Mercure dédié à l'animation
 |---|---|
 | `agents_rules_orion26.md` | Règles d'utilisation avatars + format tableau MASSTALK V3 + hashtags |
 | `avatars_casw_orion26.md` | Base 222 avatars ORION 26 (identité, Mastodon, style d'écriture) |
+| `avatars_casw_aurige2bb.md` | Avatars spécifiques AURIGE 2BB (4 comptes Storm-1516, IDs 4001-4004) |
 | `PROCESS_TWEETS_AURIGE.md` | Ce fichier — procédure complète |
 
 Ces fichiers sont des **copies** de la base ORION 26. Les originaux restent dans :
@@ -118,7 +119,20 @@ Le champ **Label/Faction** dans la fiche avatar définit le camp :
 
 ## 7. Avatars recommandés — AURIGE 2BB (Lorraine)
 
-**Camp Rouge :**
+### ⚠ RÈGLE OBLIGATOIRE — Consultation MASTAURIGE avant toute création d'avatar
+
+> **Avant de créer un nouvel avatar pour un exercice Mercure, MASTAURIGE DOIT être consulté.**
+> Processus : (1) vérifier `avatars_casw_orion26.md` → (2) vérifier `avatars_casw_aurige2bb.md` → (3) si inexistant, créer la fiche ici ET déclarer dans `MASTAURIGE/MEMOIRE.md`.
+> S'applique à TOUS les agents : NOYAU, GUILLAUME, EXPERT_INFLUENCE, ANALYSTE, SCÉNARISTE, et tout futur agent.
+> Créer sans consulter = doublon possible, contradiction de profil, perte de traçabilité.
+
+---
+
+### Avatars issus d'ORION 26 — réutilisables AURIGE 2BB
+
+Fiches complètes dans `avatars_casw_orion26.md`.
+
+**Camp Rouge (ORION 26) :**
 | Handle | Personnage | Ton | Contexte AURIGE |
 |---|---|---|---|
 | @HmunikVoice | Pavlus Juri Gautoreif | Virulent, éloquent, familier | Propagande radio anti-OTAN Lorraine |
@@ -126,7 +140,7 @@ Le champ **Label/Faction** dans la fiche avatar définit le camp :
 | @ArnlandLovePeace | Clémence Gavaloff | Agressif, littéraire | Étudiante passionnaria pro-Mercure |
 | @MaiaKovalenko | Maïa Sokhaguvka | Courant, malicieux | Journaliste collecte de renseignements |
 
-**Camp Bleu :**
+**Camp Bleu (ORION 26) :**
 | Handle | Personnage | Ton | Contexte AURIGE |
 |---|---|---|---|
 | @IndependentArnish | Arnish Independent | Neutre professionnel | Presse quotidienne |
@@ -134,12 +148,30 @@ Le champ **Label/Faction** dans la fiche avatar définit le camp :
 | @BelovDimitri | Dimitri Belov | Visuel, narratif | Correspondant international |
 | @IvanovSerguei | Sergueï Ivanov | Précis, judiciaire | Justice et faits de société |
 
-**Camp Gris :**
+**Camp Gris (ORION 26) :**
 | Handle | Personnage | Usage |
 |---|---|---|
 | @IAEA_AIEA_off | AIEA | Déclarations officielles internationales |
 | @Amnesty_International | Amnesty | Droits humains, alertes |
 | @UNHCR_off | UNHCR | Flux de réfugiés, protection civile |
+
+---
+
+### Avatars spécifiques AURIGE 2BB — Storm-1516
+
+Fiches complètes dans `avatars_casw_aurige2bb.md`. Créés le 2026-05-26 pour les mécanismes narratifs Storm-1516.
+
+**Pseudo-neutres (camouflage — blanchiment MER) :**
+| Handle | Nom | ID | Rôle | Injects |
+|---|---|---|---|---|
+| @EastWatch_Intl | EastWatch International | 4001 | Blanchiment progressif narratif MER sur 10 jours | P-03, P-04, P-08, P-09, P-12, P-20 |
+| @CorrespondantEst | Correspondant Est | 4002 | Couche 2 piège rétroactif — "questions" calculées | P-14, P-16 |
+
+**Rouge camouflé civil (voix "citoyennes" pro-MER) :**
+| Handle | Nom | ID | Rôle | Injects |
+|---|---|---|---|---|
+| @TemoignageDAC | Témoignage DAC | 4003 | Couche 1 architecture déni — témoignages civils flous | P-05a |
+| @VoixDACia | Voix DACia | 4004 | Anti-mobilisation DAC — discours pacifiste de façade | P-06 |
 
 ---
 

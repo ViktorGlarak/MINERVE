@@ -73,10 +73,15 @@ La demande concerne...
 │       Cas : onglet RS de l'agrégateur WEB, posts fictifs scénario AURIGE 2BB et exercices brigade
 │       Note : MASTAURIGE est INDÉPENDANT de Mastorion — pas de lien avec la plateforme sociale fictive
 │
-└── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon, Mastorion) ?
-    └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
-        Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
-        Note : Mastorion = plateforme distincte avec IA dédiée (développement futur — hors système Mercure actuel)
+├── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon, Mastorion) ?
+│   └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
+│       Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
+│       Note : Mastorion = plateforme distincte avec IA dédiée (développement futur — hors système Mercure actuel)
+│
+└── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
+    └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
+        Cas : "comment structurer une synchromatrice ?", "quel effet ILI pour cet inject ?", "la séquence est-elle cohérente ?", "calibrage réalisme opération d'influence"
+        Note : transversal tous exercices — travaille en dialogue avec GUILLAUME (calendrier) et ANALYSTE (contenu pays)
 ```
 
 ---

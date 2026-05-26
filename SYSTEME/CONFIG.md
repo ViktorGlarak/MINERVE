@@ -23,7 +23,8 @@
 | ANALYSTE_ARN | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + PENSEUR) |
 | MASTODONTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE + SECRÉTAIRE) |
 | MASTAURIGE | mistral-nemo:latest | 7.1 GB | Installé (partage avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE) |
-| GUILLAUME | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR + ANALYSTE + ANALYSTE_ARN) |
+| GUILLAUME | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
 | Embedding | nomic-embed-text | 274 MB | Installé |
 | Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
 

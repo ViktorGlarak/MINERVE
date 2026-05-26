@@ -59,7 +59,7 @@ Choix validé : Claude appelle les modèles Ollama via API PowerShell (localhost
 Continue (VSCode) reste disponible pour accès direct aux agents individuels.
 Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 
-### [2026-05-25] 15 agents au total
+### [2026-05-25 — mis à jour 2026-05-25] 16 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
 7 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, MASTODONTE, MASTAURIGE, GUILLAUME) +
@@ -67,7 +67,26 @@ NOYAU (Claude — orchestrateur)
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).
-GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). deepseek-r1:14b partagé avec PENSEUR + ANALYSTE + ANALYSTE_ARN.
+GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). **Migration 2026-05-25 : deepseek-r1:14b → claude-opus-4-7 (cloud)** — même modèle qu'EXPERT_INFLUENCE, pour garantir la qualité doctrinale et narrative. Partage avec EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN.
+EXPERT_INFLUENCE ajouté le 2026-05-25 — expert doctrine ILI et conception de synchromatrice. Transversal tous exercices. Claude Opus 4.7 (cloud) — modèle susceptible d'évoluer sur décision de l'utilisateur. Partage avec GUILLAUME, ANALYSTE, ANALYSTE_ARN, PENSEUR.
+
+### [2026-05-25] Dossier GUILLAUME — créé + GAME PLAN AURIGE 2BB ingéré
+Dossier `GUILLAUME\` créé à la racine Mercure (manquait). Contient :
+- `GUILLAUME\README.md` — rôle, modèle, fichiers de référence
+- `GUILLAUME\MEMOIRE.md` — GAME PLAN AURIGE 2BB ingéré (données MAINBODY réelles) + 8 axes lacunaires + 15 propositions ILI doctrine russe
+
+**Données MAINBODY désormais connues de GUILLAUME :**
+- D+35 (30 mai) = CLIMAX — RUPTURE LDP, SAISIE HSARREBOURG — GAP CRITIQUE (aucun inject de victoire MER)
+- D+32–34 : DPs fuyant HLUNEVILLE N4 → ancrage humanitaire (08.01.02i TV4 Panique)
+- D+37 : Arrivée 13e RG DAC — opportunité narrative "OTAN envoie des renforts car elle perd"
+- D+37–38 : Population hostile HLUNEVILLE / D+39+ : population hostile HSARREBOURG
+- AUTH ARN exactions IRREG confirmées — à nier en architecture 3 couches (P-05)
+
+**15 propositions ILI (P-01 à P-15) soumises à validation :**
+`EXER\AURIGE 2BB\GUILLAUME\PROPOSITIONS_ILI_DOCTRINERUSSE.md`
+Couvrent 8 axes manquants (déni plausible, blanchiment, noyau vérité, industrialisation, localisation, opportunisme, saturation, appropriation)
+
+---
 
 ### [2026-05-25] Dossier ANALYSTE — structure par pays + Countrybook Mercure ingéré
 Dossier `ANALYSTE\` créé à la racine Mercure, centralise tous les analystes par pays :

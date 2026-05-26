@@ -36,7 +36,8 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE | Expert Arnland / Dacie Romanie |
 | MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE | Expert Mastodon / réseaux sociaux fictifs |
 | MASTAURIGE | mistral-nemo:latest | MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
-| GUILLAUME | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
+| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, ANALYSTE, ANALYSTE_ARN, PENSEUR | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 - `SYSTEME\CONFIG.md` — tableau "Modèles installés"

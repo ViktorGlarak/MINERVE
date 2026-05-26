@@ -10,7 +10,8 @@
       "Read(//c/Users/MTR/Documents/ComfyUI_windows_portable/ComfyUI/models/audio_encoders/openai_whisper-large-v3-turbo/**)",
       "WebFetch(domain:github.com)",
       "PowerShell(Rename-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\GUILLAUME\\\\WEB\\\\images\\\\loukachenko.jpg\" -NewName \"youkachenko.jpg\")",
-      "PowerShell(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\GUILLAUME\\\\WEB\" -Recurse | Where-Object { $_.Extension -eq \".html\" } | ForEach-Object { $_.FullName })"
+      "PowerShell(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\GUILLAUME\\\\WEB\" -Recurse | Where-Object { $_.Extension -eq \".html\" } | ForEach-Object { $_.FullName })",
+      "Bash(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\\" -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize)"
     ]
   }
 }
