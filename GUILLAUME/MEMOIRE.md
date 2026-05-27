@@ -46,7 +46,7 @@
 |---|---|---|---|---|
 | TRACT STEP 1 — "Ne faites pas de DAC votre tombeau" | 07.02.05i | **14h00 MSK** | Média (MAF) | 1er psyops MAF D+31 — déployé en début d'après-midi |
 | Photo tract NEUFCHATEAU | 07.02.06i | **15h00** | Tweet @TemoignageDAC | Amplification civile 1h après tractage — Storm-1516 phase 2 |
-| Héros MER sniper VORIN | 07.01.02i | 16h00 | Tweet @HmunikVoice | Valorisation combattant MER — LO 2 |
+| Héros MER sniper VORIN | 07.01.02i | 16h00 | Tweet @HmunikVoice | Valorisation combattant MER — LO 2. Portrait : `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png` |
 
 **Règle de timing D+31** : Le tractage (14h00) précède l'amplification civile (15h00) d'une heure — enchaînement volontaire pour créer une micro-chaîne de diffusion dès le premier jour de l'exercice. Les entraînés verront la photo du tract avant d'en comprendre l'origine officielle MAF.
 
@@ -140,6 +140,27 @@ Ces propositions couvrent 8 axes doctrinaux identifiés comme absents de l'exerc
 
 ---
 
+## CONVENTION GÉOGRAPHIQUE — GET (Grand East Territory)
+
+**GET = Grand East Territory** — entité géopolitique fictive de l'univers Skolkan qui regroupe les pays de l'Est fictif.
+
+**Membres du GET dans les exercices actuels :**
+- République de Mercure
+- Arnland / Dacie Romanie
+- Bella Russia
+
+**Distinction essentielle :**
+- **"Europe"** reste valide pour désigner les vrais pays européens (OTAN réelle, France réelle, institutions européennes réelles)
+- **"GET"** s'emploie quand on parle de la zone géopolitique des **pays fictifs** — pas un remplacement automatique d'"Europe"
+
+**Exemples de formulations correctes :**
+- ❌ "on a scale that Europe has not seen in decades" ← si "Europe" désigne ici la zone des pays fictifs
+- ✅ "on a scale that the Grand East Territory has not seen in decades" ← correct dans ce contexte
+- ✅ "European allies" ← correct si on parle des vrais alliés OTAN européens
+- ✅ "the GET is destabilised by Mercure's offensive" ← correct pour la zone fictive
+
+---
+
 ## CONVENTION GÉOGRAPHIQUE — PRÉFIXE H
 
 **Règle :** Toute ville française réelle = **H + nom** dans les exercices Mercure (Dacie Romanie / Arnland = France fictive).
@@ -210,6 +231,8 @@ AURIGE 2BB\
 |---|---|---|---|---|
 | **Franz Olamao** | Mercure | 🔴 Rouge | Président | TM_Article_Olamao_01 |
 | **Alexandre Youkachenko** | Bella Russia | 🔴 Rouge | Président BR | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
+| **Svetlana Tikhanov** | Bella Russia | 🔵 Bleu (opposition BR) | Opposante principale — pro-démocratie, anti-guerre | TV4 / EastWatch / arcs P.03 |
+| **Andrei Saniki** | Bella Russia | 🔵 Bleu (opposition BR) | Opposant modéré — "neutralité BR, ce n'est pas notre guerre" | EastWatch / arc P.03 bascule |
 | **Sture Pallesson** | Dacie Romanie | 🔵 Bleu | **Président DAC** (civil, pro-OTAN) | TV4_Article_Pallesson ×4 |
 | Jonas Junker | Mercure | 🔴 Rouge | Ministre Défense | Crédits MAF, tracts |
 | Dominic Stoph | Mercure | 🔴 Rouge | Ministre Aff. étrangères | Série 07.04 |
@@ -217,6 +240,18 @@ AURIGE 2BB\
 ⚠ **Pallesson = président CIVIL** — ses apparitions dans TV4 sont des déclarations politiques, pas militaires. Ne pas rédiger d'inject qui lui attribue un rôle de commandement opérationnel.
 
 ⚠ **Youkachenko = allié MER** — ses apparitions dans BC1 crédibilisent l'implication BR dans le conflit (LO 5). Discours de soutien MER + posture anti-OTAN systématique.
+
+⚠ **Tikhanov + Saniki = opposition BR — profils nuancés** — source officielle : `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\POLITIQUE\Opposition BellaRussia.docx`
+
+| Personnage | Parti | Positionnement réel | Usage éditorial |
+|---|---|---|---|
+| **Tikhanov** | Nouvelle Pahonie | Anti-Youkachenko ET anti-OTAN — "We are strangled by NATO but also by Youkachenko" | EastWatch / nuance camp bleu — NE PAS présenter comme pro-OTAN |
+| **Saniki** | Bison Libre | Bi-national (père MER) — **soutient l'action militaire MER** en DR | ⚠ Exploitable camp rouge — "même l'opposition BR approuve" — LO 5 |
+
+**Règle éditoriale opposition BR :**
+- **Tikhanov** : voix d'indépendance BR — utile pour montrer une fracture intérieure BR sans être pro-OTAN. Canal : EastWatch, TV4 avec précaution.
+- **Saniki** : pro-MER sur le fond — sa bi-nationalité (père mercurien) et son soutien à l'action MER en font un levier LO 5 camp rouge, pas un levier camp bleu.
+- Ni l'un ni l'autre ne passe par BC1. Agent référent : **ANALYSTE_BR**.
 
 ### Tableau médias AURIGE 2BB — référence GUILLAUME
 
@@ -282,6 +317,48 @@ AURIGE 2BB\
 > **Avant tout inject nommant PRUNIERE ou ZHUKOV, vérifier cohérence avec ANALYSTE MERCURE.**
 > Pour tout autre HVI MER (autres commandants GLM26), consulter le PDF via ANALYSTE MERCURE.
 > EXPERT_INFLUENCE détient la doctrine d'exploitation ILI des vulnérabilités — le consulter pour les injects de discrédit ou de ciblage.
+
+---
+
+## INJECTS D+27 — DÉCLARATION GUTERRES (27 mai 2026)
+
+> Produits le 27 mai 2026 — LO 4 (légitimation internationale coalition)
+
+| Référence | Canal | Titre | Statut |
+|---|---|---|---|
+| **P-25** | HEX (Hexagone) | L'ONU condamne l'offensive mercurienne et exige le retrait immédiat | ✅ Produit — `WEB\Site Hexagone\HEX_Article_Guterres_Statement.html` |
+| **P-26** | TV4 International | UN SG Condemns Mercurian Offensive, Appeals to Olamao | ✅ Produit — `WEB\Site TV4\TV4_Article_Guterres_Statement.html` |
+
+**Source :** Déclaration Guterres adaptée depuis le modèle Ukraine → DR (`C:\Users\MTR\Desktop\Statement_SG_DaciaRomania_27May2026.docx`)
+
+**Règle éditoriale Guterres :** Le texte cité de la déclaration est intangible — ne jamais modifier les guillemets directs. Seul le cadrage journalistique peut évoluer.
+
+### Résolutions CSNU — Référence exercice AURIGE 2BB
+
+| Résolution | Objet | Usage éditorial |
+|---|---|---|
+| **CSNU 3500** | Condamnation de l'offensive militaire mercurienne sur le territoire de Dacie Romanie — exige cessez-le-feu immédiat et retrait des forces | À citer dans tout article camp bleu évoquant la légitimité internationale de la coalition |
+| **CSNU 3510** | Autorisation d'une mission de surveillance internationale + cadre juridique de la réponse humanitaire (CERF 20 M$) | À citer en lien avec l'allocation humanitaire et le dispositif de monitoring |
+
+**Règle :** Ces résolutions apparaissent dans le cadrage journalistique uniquement (camp bleu : TV4, HEX, EastWatch). Jamais dans les discours officiels MER ou BC1.
+
+---
+
+## OUTIL ANIMATEUR — Comportements index_master.html
+
+> Mis à jour le 27 mai 2026.
+
+### Persistance de l'état de navigation — sessionStorage
+`index_master.html` sauvegarde automatiquement avant chaque ouverture d'article :
+- Onglet actif (média / RS), jour sélectionné, mode cumul/exact, texte de recherche, position de défilement, état classification camps.
+- Au retour (bouton précédent), tout est restauré instantanément — l'animateur retrouve exactement l'état de travail précédent.
+- **Aucune configuration requise.** Fonctionne via `sessionStorage` (session navigateur, pas persistent entre ouvertures du fichier).
+
+### Horaires — cohérence narrative D+27
+- **BCI_Article_Youkachenko** (appel à la paix) : **18h00 MSK**
+- **@S_Tikhanov** (Tikhanov — réaction) : **18h45**
+- **@A_Saniki** (Saniki — réaction) : **18h30**
+- Ordre dans la synchromatrice : Youkachenko 18h00 → Saniki 18h30 → Tikhanov 18h45
 
 ---
 

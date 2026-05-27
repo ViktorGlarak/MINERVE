@@ -59,16 +59,26 @@ Choix validé : Claude appelle les modèles Ollama via API PowerShell (localhost
 Continue (VSCode) reste disponible pour accès direct aux agents individuels.
 Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 
-### [2026-05-25 — mis à jour 2026-05-25] 16 agents au total
+### [2026-05-27] Règle vocabulaire — GET (Grand East Territory)
+**GET** = entité géopolitique fictive de l'univers Skolkan = regroupement des pays fictifs de l'Est (Mercure, Arnland/Dacie Romanie, Bella Russia).
+
+⚠ **Nuance critique :**
+- "Europe" (vraie) coexiste avec le GET — ce sont deux entités distinctes
+- "Europe" reste valide pour les vrais pays européens, l'OTAN réelle, les institutions réelles
+- "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
+- Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
+
+### [2026-05-25 — mis à jour 2026-05-27] 17 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-7 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, MASTODONTE, MASTAURIGE, GUILLAUME) +
+8 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, MASTODONTE, MASTAURIGE, GUILLAUME) +
 NOYAU (Claude — orchestrateur)
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).
 GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). **Migration 2026-05-25 : deepseek-r1:14b → claude-opus-4-7 (cloud)** — même modèle qu'EXPERT_INFLUENCE, pour garantir la qualité doctrinale et narrative. Partage avec EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN.
 EXPERT_INFLUENCE ajouté le 2026-05-25 — expert doctrine ILI et conception de synchromatrice. Transversal tous exercices. Claude Opus 4.7 (cloud) — modèle susceptible d'évoluer sur décision de l'utilisateur. Partage avec GUILLAUME, ANALYSTE, ANALYSTE_ARN, PENSEUR.
+ANALYSTE_BR ajouté le 2026-05-27 — expert Bella Russia (Biélorussie fictive). Couvre le régime Youkachenko, l'opposition démocratique (Tikhanov, Saniki), les médias BR (BC1), la chronologie des injects BR (série 07.05, arc P.03). Transversal tous exercices impliquant BR. deepseek-r1:14b partagé avec ANALYSTE + ANALYSTE_ARN + PENSEUR. Dossier : `ANALYSTE\BELLA_RUSSIA\`.
 
 ### [2026-05-25] Dossier GUILLAUME — créé + GAME PLAN AURIGE 2BB ingéré
 Dossier `GUILLAUME\` créé à la racine Mercure (manquait). Contient :

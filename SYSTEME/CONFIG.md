@@ -21,6 +21,7 @@
 | ARCHIVISTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
 | ANALYSTE | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR) |
 | ANALYSTE_ARN | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + PENSEUR) |
+| ANALYSTE_BR | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + ANALYSTE_ARN + PENSEUR) |
 | MASTODONTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE + SECRÉTAIRE) |
 | MASTAURIGE | mistral-nemo:latest | 7.1 GB | Installé (partage avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE) |
 | GUILLAUME | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |

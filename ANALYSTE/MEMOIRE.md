@@ -15,6 +15,14 @@ Sections couvertes : Général, Géographie, Politique, Organisations, Histoire,
 - HBordeaux : statut ambigu, terrain de friction potentielle
 - Diaspora mercurienne en France (Alsace, Auvergne, Val-de-Loire) : vecteur d'influence
 
+### Personnages de terrain — Combattants MER (injects AURIGE 2BB)
+
+| Personnage | Grade | Âge | Rôle narratif | Portrait | Inject |
+|---|---|---|---|---|---|
+| **Aleksander VORIN** | Sergent | 27 ans | Sniper MER — 11 cibles dont 1 CDU bleu, forêt domaniale de Saint-Amond — héroïsation LO 2 | ✅ `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png` | 07.01.02i — @HmunikVoice — D+27 07h00 |
+
+---
+
 ### Personnages clés à utiliser dans les scénarios
 - **Franz Olamao** — Président, autocrate depuis 2001, ligne dure anti-OTAN
 - **Donald Pohl** — Deema (chef du Commissariat), élu juin 2024
@@ -35,6 +43,14 @@ Sections couvertes : Général, Géographie, Politique, Organisations, Histoire,
 - **CWC non ratifiée** : suspicion d'armes chimiques
 - **OSCE obstruée** : 2 postes sur de nombreux PC frontaliers seulement
 - **Gibraltar** : accès vital pour la Marine mercurienne via ports Bilbao + La Corogna
+
+### Règle vocabulaire géographique — GET (Grand East Territory)
+
+**GET** = entité géopolitique fictive regroupant les pays fictifs de l'Est : **Mercure, Arnland/Dacie Romanie, Bella Russia**.
+
+> ⚠ **Nuance essentielle :** "Europe" n'est PAS interdit — il désigne la vraie Europe (pays réels, OTAN, institutions).
+> "GET" s'emploie uniquement quand le contexte concerne la zone géopolitique des **pays fictifs** de l'Est.
+> Ce sont deux entités distinctes qui coexistent dans l'univers de l'exercice.
 
 ### Narrative officielle de Mercure (pour contenus de propagande fictifs)
 - Nostalgie de l'Empire Skolkan
@@ -68,6 +84,19 @@ Sections couvertes : Général, Géographie, Politique, Organisations, Histoire,
 - Défense : 8-10 % PIB (depuis 2003)
 - Gaz : 90× conso annuelle en réserves ; pétrole : 40× conso
 - Gini : 0,24 (en hausse depuis 0,14 en 2008)
+
+## Note transversale — Bella Russia
+
+> L'expert dédié à la Bella Russia est **ANALYSTE_BR** (créé le 2026-05-27) — dossier : `ANALYSTE\BELLA_RUSSIA\`.
+> Pour tout contenu BR, interroger ANALYSTE_BR en priorité.
+> ANALYSTE MERCURE connaît la relation MER↔BR (alliance stratégique LO 5) mais ne détient pas le détail politique intérieur BR.
+
+Personnages BR connus dans le scénario AURIGE 2BB :
+- **Alexandre Youkachenko** — Président BR, allié MER — BC1 — LO 5
+- **Svetlana Tikhanov** — Opposante principale BR, pro-démocratie — camp bleu — P.03
+- **Andrei Saniki** — Opposant modéré BR, "neutralité" — camp bleu / EastWatch — P.03
+
+---
 
 ## Apprentissages par exercice
 <!-- À compléter au fil des sessions -->

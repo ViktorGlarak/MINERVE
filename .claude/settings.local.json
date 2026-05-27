@@ -13,7 +13,14 @@
       "PowerShell(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\GUILLAUME\\\\WEB\" -Recurse | Where-Object { $_.Extension -eq \".html\" } | ForEach-Object { $_.FullName })",
       "Bash(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\\" -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize)",
       "PowerShell(Get-ExecutionPolicy -List)",
-      "PowerShell(Get-ExecutionPolicy)"
+      "PowerShell(Get-ExecutionPolicy)",
+      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\MEMOIRE.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
+      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
+      "Bash(Remove-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\" -Recurse -Force)",
+      "Bash(Write-Host \"Done\")",
+      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\" -Force)",
+      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\MEMOIRE.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
+      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)"
     ]
   }
 }

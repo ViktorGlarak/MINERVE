@@ -36,8 +36,9 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE | Expert Arnland / Dacie Romanie *(dossier : `ANALYSTE\ARNLAND\` — migré 2026-05-25)* |
 | MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE | Expert Mastodon / réseaux sociaux fictifs |
 | MASTAURIGE | mistral-nemo:latest | MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
-| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
-| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, ANALYSTE, ANALYSTE_ARN, PENSEUR | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
+| ANALYSTE_BR | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR | Expert Bella Russia — régime Youkachenko, opposition (Tikhanov/Saniki), médias BR, arcs narratifs BR *(dossier : `ANALYSTE\BELLA_RUSSIA\`)* |
+| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, PENSEUR | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 - `SYSTEME\CONFIG.md` — tableau "Modèles installés"
@@ -60,6 +61,31 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | ComfyUI | `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI` |
 | Whisper | `..\models\audio_encoders\openai_whisper-large-v3-turbo` |
 | Continue config | `C:\Users\MTR\.continue\config.yaml` |
+| Portraits Mercure | `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\` |
+| Portraits Bella Russia | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` |
+| Politique BR — bios opposition | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\POLITIQUE\Opposition BellaRussia.docx` |
+| Avatars tweet AURIGE 2BB | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\images\avatars tweet` |
+
+---
+
+## Vocabulaire géographique — GET (Grand East Territory)
+
+**GET = Grand East Territory** — entité géopolitique fictive propre à l'univers Skolkan.
+
+> **Définition :** Le GET est le regroupement régional fictif des pays de l'Est de l'univers Skolkan :
+> **Mercure, Arnland / Dacie Romanie, Bella Russia** (et tout futur pays fictif de la zone).
+> Ce n'est PAS un remplacement systématique d'"Europe" — c'est une entité distincte.
+
+**Règle d'utilisation :**
+- **"Europe"** reste valide quand on parle des pays réels européens (France réelle, Allemagne, OTAN, ONU…)
+- **"GET"** s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est (Mercure, Arnland, DR, BR)
+- Exemple : *"a scale the Grand East Territory has not seen in decades"* = les pays fictifs de l'Est, pas toute l'Europe réelle
+
+**Fichiers à mettre à jour si le GET évolue (membres, frontières, dénomination) :**
+- Ce fichier — section GET
+- `GUILLAUME\MEMOIRE.md` — convention géographique
+- `ANALYSTE\MEMOIRE.md` + `ANALYSTE_ARN\MEMOIRE.md` + `ANALYSTE\BELLA_RUSSIA\MEMOIRE.md`
+- `NOYAU\MEMOIRE.md`
 
 ---
 

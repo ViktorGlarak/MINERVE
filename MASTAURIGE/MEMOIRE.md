@@ -75,6 +75,16 @@ Agent créé le **2026-05-24** pour la génération de contenus RS fictifs dans 
 | @TemoignageDAC | Témoignage DAC | TD | 🔴 Rouge (camouflé civil) | Couche 1 flou architecture déni Storm-1516 | P-05a |
 | @VoixDACia | Voix DACia | VD | 🔴 Rouge (camouflé civil) | Voix anti-guerre / anti-mobilisation DAC | P-06 |
 
+### Avatars avec photo portrait réelle — spécifiques AURIGE 2BB
+Créés le 27 mai 2026 à partir de portraits Firefly générés.
+
+| Handle | Nom affiché | Camp | Photo portrait | Rôle | Injects |
+|---|---|---|---|---|---|
+| @S_Tikhanov | Svetlana Tikhanov | 🔵 Bleu (opposition BR nuancée) | `avatars tweet/Svetlana Tikhanov - Nouvelle pahonie - photo avatar.png` | Réaction discours Youkachenko — fracture interne BR | P-27 |
+| @A_Saniki | Andrei Saniki | 🔴 Rouge (pro-MER, bi-national) | `avatars tweet/Andrei Saniki_bison_libre - photo avatar.png` | Soutien MER en DR — levier LO 5 | P-28 |
+
+> **Dossier avatars photo :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\images\avatars tweet\`
+
 ---
 
 ## Hashtags actifs — AURIGE 2BB
@@ -216,6 +226,25 @@ Les tweets produits pour AURIGE 2BB ne doivent comporter **aucun indicateur visu
 
 **Conséquence pour la production :** ne jamais ajouter de classe `camp-rouge`, `camp-bleu`, `tweet-camp` ou `tweet-avatar.rouge/bleu` dans les nouvelles cartes tweet.
 
+### [2026-05-27] Avatar avec photo portrait — format CSS background-image
+Quand un personnage dispose d'une photo réelle (portrait Firefly ou autre), utiliser le style CSS sur le `div.tweet-avatar` plutôt que des initiales :
+```html
+<div class="tweet-avatar" style="background: url('./images/avatars%20tweet/NOM_FICHIER.png') center/cover; color: transparent;"></div>
+```
+Les espaces dans le nom de fichier doivent être encodés en `%20` dans l'URL CSS.
+Les initiales texte (ex : `EW`, `PG`) restent la norme pour les avatars sans photo.
+
+### [2026-05-27] Persistance état animateur — sessionStorage
+`index_master.html` mémorise automatiquement dans `sessionStorage` l'état des filtres avant chaque navigation vers un article :
+- Onglet actif (média / RS)
+- Jour sélectionné (TOUT / 27 mai / etc.)
+- Mode cumul / exact
+- Texte de recherche
+- Position de défilement (scrollY)
+- État classification camps
+
+Au retour (bouton précédent), tout est restauré instantanément. **Aucune action de MASTAURIGE nécessaire** — c'est géré automatiquement par le JS de `index_master.html`.
+
 ### [2026-05-24] Distribution AURIGE 2BB
 Les tweets AURIGE ne passent pas par MASSTALK V3 — ils sont intégrés directement en HTML dans `WEB/index.html` (section `data-category="social"`). Le système NEW badge + localStorage track les tweets lus via leur @handle.
 
@@ -230,6 +259,7 @@ Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG)
 |---|---|---|---|---|
 | 2026-05-24 | AURIGE 2BB | Convois OTAN Lorraine + N.O.M | 4 avatars | 4 cards HTML |
 | 2026-05-26 | AURIGE 2BB | Tractage D+31 + amplification civile NEUFCHATEAU | @TemoignageDAC | 1 tweet avec image |
+| 2026-05-27 | AURIGE 2BB | Opposition BR réaction Youkachenko — P-27/P-28 | @S_Tikhanov (photo), @A_Saniki (photo) | 2 tweets avec avatar photo portrait |
 
 ## Numéros de téléphone fictifs — Règle de réalisme
 
