@@ -541,6 +541,25 @@ Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG)
 | 2026-05-28 | AURIGE 2BB | Témoin civil D+33 — blocage N4 Void-Vacon | @clambroise55 (initiales CA) | 1 tweet civil NEUTRE — LO 3 |
 | 2026-05-28 | AURIGE 2BB | Article Today Mercure — MG PRUNIERE CO 41e DIV CHARS (07.02.02i) | Today Mercure (TM) | TM_Article_CEMA_01.html réécrit — profil Héros de la Nation, 3 citations, front Moselle — LO 2 |
 
+## ⚠ RÈGLE ÉDITORIALE — Liens croisés entre articles (ajout 2026-05-29)
+
+> **Un article ne doit JAMAIS contenir un lien ("Related articles", "À lire aussi") vers un article publié à une date ULTÉRIEURE.**
+
+### Règle de production
+Lors de la création ou de la mise à jour d'un article HTML (TM, BC1, TV4, HEX...) :
+1. Identifier la date de l'article en cours
+2. Pour chaque entrée de la section "Related articles" : **vérifier que la date de l'article lié ≤ date de l'article en cours**
+3. Liens vers des articles du même jour : acceptables
+4. **Liens vers des articles futurs : interdits** — ils spoilent les événements et brisent la cohérence de simulation pour les stagiaires
+
+### Pourquoi c'est critique
+Les articles sont consultés par les stagiaires dans le cadre de la simulation en temps réel. Si un article du 30 Mai contient un lien vers un article du 4 Juin, les stagiaires découvrent un événement futur avant qu'il soit "joué" par l'animateur, brisant l'immersion et l'effet pédagogique de l'exercice.
+
+### Correction effectuée le 2026-05-29
+8 liens chronologiquement incohérents supprimés de 8 articles. Voir GUILLAUME\MEMOIRE.md section "Règle éditoriale — Liens croisés" pour la liste complète et la chronologie de référence des articles.
+
+---
+
 ## Numéros de téléphone fictifs — Règle de réalisme
 
 **⚠ RÈGLE OBLIGATOIRE** : Ne jamais écrire `XX XX XX XX`. Utiliser les plages fictives ci-dessous.

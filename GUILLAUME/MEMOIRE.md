@@ -575,6 +575,66 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 
 ---
 
+## ⚠ RÈGLE ÉDITORIALE — Liens croisés entre articles (ajout 2026-05-29)
+
+> **Un article ne doit JAMAIS contenir de lien ("Related articles", "À lire aussi", etc.) vers un article publié à une date ULTÉRIEURE.**
+
+### Problème identifié
+Lors de la session du 29 mai 2026, audit complet de tous les liens croisés entre articles HTML de l'exercice. 8 liens chronologiquement incohérents ont été supprimés — des articles du 27 ou 30 mai pointaient vers des articles du 28 mai ou du 4 juin, spoilant des événements futurs pour les stagiaires.
+
+### Cas corrigés (2026-05-29)
+| Article source (date) | Lien supprimé | Article cible (date) |
+|---|---|---|
+| TM_Article_Narrative_01 (27 Mai) | Lien "General Numelin: Mission On Schedule" | TM_Article_CEMA_01 (28 Mai) |
+| TM_Article_ONU_OTAN_01 (27 Mai) | Lien "General Numelin: Mission On Schedule" | TM_Article_CEMA_01 (28 Mai) |
+| BCI_Article_TemoignagesDAC (29 Mai) | Lien "Frontier Situation: Movements..." | BCI_Article_Frontiere (30 Mai) |
+| BCI_Article_Frontiere (30 Mai) | Lien "General Mobilisation Ordered" | BCI_Article_MobilisationGenerale (04 Jun) |
+| BCI_Article_Rencontre (31 Mai) | Lien "General Mobilisation Ordered" | BCI_Article_MobilisationGenerale (04 Jun) |
+| BCI_Article_CemaBR (01 Jun) | Lien "General Mobilisation Ordered" | BCI_Article_MobilisationGenerale (04 Jun) |
+| BCI_Article_Victimes (02 Jun) | Lien "General Mobilisation Ordered" | BCI_Article_MobilisationGenerale (04 Jun) |
+| BCI_Article_Youkachenko_ConsSec (03 Jun) | Lien "General Mobilisation Ordered — Presidential Decree" | BCI_Article_MobilisationGenerale (04 Jun) |
+
+### Règle à appliquer systématiquement
+**Lors de la création de tout nouvel article HTML :**
+1. Vérifier la date de l'article en cours de création
+2. Pour chaque lien de la section "Related articles" / "À lire aussi" : **la date de l'article lié doit être ≤ date de l'article en cours**
+3. Les liens vers des articles de même date (même jour) sont acceptables
+4. **Interdiction absolue** de lier vers un article futur, même pour "contextualiser" ou "compléter" — cela spoile l'exercice
+
+### Chronologie de référence — dates des articles existants
+| Fichier | Site | Date |
+|---|---|---|
+| TM_Article_Olamao_01 | Today Mercure | 26 Mai |
+| TV4_Article_Pallesson | TV4 | 26 Mai |
+| HEX_Article_Rutte | Hexagone | 26 Mai |
+| BCI_Article_Youkachenko | BC1 | 27 Mai |
+| BCI_Article_Evacuation | BC1 | 27 Mai |
+| TM_Article_ONU_OTAN_01 | Today Mercure | 27 Mai |
+| TM_Article_Narrative_01 | Today Mercure | 27 Mai |
+| TV4_Article_Panique_01 | TV4 | 27 Mai |
+| TV4_Article_Pallesson_2 | TV4 | 27 Mai |
+| BCI_Article_Manifestations | BC1 | 28 Mai |
+| TM_Article_CEMA_01 | Today Mercure | 28 Mai |
+| TV4_Article_Pallesson_3 | TV4 | 28 Mai |
+| TM_Article_Narrative_02 | Today Mercure | 29 Mai |
+| TV4_Article_SF_HCHATEAU_01 | TV4 | 29 Mai |
+| TV4_Article_Pallesson_4 | TV4 | 29 Mai |
+| BCI_Article_TemoignagesDAC | BC1 | 29 Mai |
+| BCI_Article_BlanchimentNarrative | BC1 | 30 Mai |
+| BCI_Article_Frontiere | BC1 | 30 Mai |
+| TM_Article_ZURB_HLuneville | Today Mercure | 30 Mai |
+| TM_Article_ONU_OTAN_02 | Today Mercure | 30 Mai |
+| BCI_Article_Rencontre | BC1 | 31 Mai |
+| TM_Article_Repositionnement | Today Mercure | 01 Jun |
+| BCI_Article_CemaBR | BC1 | 01 Jun |
+| TM_Article_ContraOffensive | Today Mercure | 02 Jun |
+| BCI_Article_Victimes | BC1 | 02 Jun |
+| BCI_Article_Youkachenko_ConsSec | BC1 | 03 Jun |
+| BCI_Article_MinskConseildUrgence | BC1 | 03 Jun |
+| BCI_Article_MobilisationGenerale | BC1 | 04 Jun |
+
+---
+
 ## NAVIGATION ÉDITORIALE — Flux MELMIL ↔ MASTAURIGE (2026-05-28)
 
 > Décrit le workflow de navigation inter-outils pour la session animateur.
