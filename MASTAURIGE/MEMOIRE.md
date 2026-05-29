@@ -352,9 +352,55 @@ Quand MASTAURIGE produit un inject qui enrichit narrativement un inject MELMIL s
 | `CIVIL-xx` | Témoin civil neutre (ni rouge ni bleu) | LO 3 | CIVIL-01 = @clambroise55 |
 | `TV4-xx` | Succès tactique camp bleu (point de repère neutre) | LO 2/3 | TV4-01 = capture 104 MER DJOBOVIC |
 
-**Règle de vérité des dates MELMIL :** Les dates dans MELMIL.xls peuvent être modifiées manuellement et être inexactes. **index_master.html = vérité animateur sur les dates.** En cas de divergence, ne pas corriger index_master sans demander confirmation à l'utilisateur.
+**Règle de vérité des dates MELMIL :** Les dates dans MELMIL.xls peuvent être modifiées manuellement et être inexactes.
+
+#### ⚠ Statut de migration P-xx / R-x → format XX.YY.ZZAi.Rx (2026-05-29)
+
+Les codes P-xx et R-x (dans ANIM_DATA `num` de index_master.html) doivent être migrés vers le format `XX.YY.ZZAi.Rx`. Cette migration nécessite le mapping explicite "quel inject parent" pour chaque code. Statut actuel :
+
+| Série | Codes existants | LO | Série MELMIL cible | Statut migration |
+|---|---|---|---|---|
+| P.01 | P-03,04,06,08,09,19,20,25,26 | LO 1 | À définir (ex: `07.07`) | ⏳ En attente mapping |
+| P.02 | P-01,02,10,11,14,15,16,17,18 | LO 1+2 | À définir (ex: `07.08`) | ⏳ En attente mapping |
+| P.03 | P-12,13,21,22,23,27,28 | LO 5 | À définir (ex: `07.09`) | ⏳ En attente mapping |
+| R1-x | R1-1 à R1-5 | LO 5 | Relance injects 07.0x | ⏳ En attente mapping parent |
+| R3-x | R3-1, R3-2 | LO 3 | Relance 08.01.xxAi | ⏳ En attente mapping parent |
+| R4 | R4 | LO 1 | Relance P.01 | ⏳ En attente mapping parent |
+| R5-x | R5-1, R5-2 | LO 3/5 | Relance alerte D+39 | ⏳ En attente mapping parent |
+| R6-x | R6-1, R6-2 | LO 2 | Relance 07.01 post-HSARREBOURG | ⏳ En attente mapping parent |
+
+**Action requise :** Pour chaque P-xx et R-x, l'utilisateur doit préciser à quel inject parent (XX.YY.ZZAi) il se rattache, pour pouvoir les renommer `XX.YY.ZZAi.Rx` dans melmil_inject_index.js et index_master.html ANIM_DATA. **index_master.html = vérité animateur sur les dates.** En cas de divergence, ne pas corriger index_master sans demander confirmation à l'utilisateur.
 
 **Règle injects multi-canaux :** Un même code MELMIL peut apparaître sur deux cartes différentes (article BC1 + tweet EastWatch) — c'est intentionnel. Le `num` est identique, la **clé ANIM_DATA** porte le suffixe canal.
+
+---
+
+### [2026-05-29] Convention injects de relance — format `XX.YY.ZZAi.Rx`
+
+Un inject de relance est joué si les entraînés ne réagissent pas à l'inject parent dans un délai donné.
+
+**Format :** `XX.YY.ZZAi.Rx` — ex : `07.05.02Ai.R1`
+
+| Élément | Rôle |
+|---|---|
+| `07.05.02Ai` | Inject parent auquel la relance se raccroche |
+| `.R1` | Relance numéro 1 (`.R2` si une 2e est nécessaire) |
+
+**Workflow de création d'une relance :**
+1. Créer la card dans `index_master.html` (tweet / article) avec clé unique dans `markTweet` ou `openCard`
+2. Ajouter dans `ANIM_DATA` : `num:"07.05.02Ai.R1"` 
+3. Ajouter dans `LO_BY_KEY` : même LO que l'inject parent
+4. Ajouter dans `melmil_inject_index.js` : `"07.05.02Ai.R1": [{key:"...", type:"...", label:"[RELANCE R1] — condition d'activation — contenu"}]`
+5. **Pas de ligne XLS** — la relance s'insère automatiquement dans la card MELMIL de l'incident parent `07.05.02i`
+
+**Ce qui est automatique (melmil.js modifié le 2026-05-29) :**
+- `getParentInjectCode("07.05.02Ai.R1")` → retourne `"07.05.02i"` → s'insère dans la card MELMIL de l'incident
+- Drag indépendant : la relance peut être glissée vers un autre jour sans déplacer les autres sous-injects
+- Sync date : le déplacement MELMIL met à jour `card-day-KEY` en localStorage → `index_master.html` repositionne la card
+
+**Visuel MELMIL :** bord gauche orange `#F57C00` + badge **"R1"** en orange.
+
+**Label convention :** `"[RELANCE R1] — <condition d'activation> — <contenu résumé (date heure)>"`
 
 ---
 
@@ -523,11 +569,69 @@ Au retour (par lien retour ou bouton précédent), tout est restauré instantan�
 
 **Ne PAS utiliser `openCard()` pour MELMIL** : cette fonction ajoute `?from=master` dans l'URL et appelle `markViewed()`, ce qui est inutile pour MELMIL (pas un article à marquer comme lu).
 
+### [2026-05-29] ⚠ Template HTML obligatoire — Sites fictifs TV4, BC1, TM
+
+> **Tout nouvel article HTML pour un site fictif AURIGE 2BB doit utiliser le template complet de référence — jamais un template simplifié ad hoc.**
+
+**Référence par site :**
+
+| Site | Article de référence | Chemin |
+|---|---|---|
+| TV4 International | TV4_Article_Panique_01.html | `WEB/Site TV4/TV4_Article_Panique_01.html` |
+| Bella Russia Channel 1 | BCI_Article_Rencontre.html | `WEB/Site Bella Russia Channel 1/BCI_Article_Rencontre.html` |
+| Today Mercure | TM_Article_CEMA_01.html | `WEB/Site Today Mercure/TM_Article_CEMA_01.html` |
+
+**Blocs obligatoires TV4 (dans l'ordre) :**
+1. `.top-bar` — barre noire avec recherche + nav + X/f/YT/TG + sélecteur langue
+2. `.logo-band` — logo TV4 bicolore avec classe `tv4-logo-wrap`
+3. `.ticker-bar` — bande orange défilante
+4. `.page-wrap` — grid `210px 1fr`
+5. `.left-nav` — nav gauche + live dot + bloc on-air
+6. `.breadcrumb` — fil d'Ariane
+7. `.article-card` — hero + article-head + article-body + article-tags
+8. `.more-section` — "More on This Story" 3 cartes (liens ≤ même date)
+9. `.site-footer` — footer complet avec logo, tagline, social, liens
+10. `<script src="../shared/back-btn.js"></script>` — OBLIGATOIRE, dernière ligne avant `</body>`
+
+**Interdictions :**
+- PAS de `#backBtn{display:none;}` dans le CSS
+- PAS de template simplifié sans nav gauche
+- PAS de footer réduit à une ligne
+- PAS de lien "More on This Story" vers un article futur
+
+**Contexte de la règle :** TV4_Article_SF_HCHATEAU_01.html avait été créé avec un template incomplet (sans nav gauche, sans breadcrumb, sans More section, sans footer complet, sans back-btn). Corrigé le 2026-05-29.
+
+---
+
 ### [2026-05-24] Distribution AURIGE 2BB
 Les tweets AURIGE ne passent pas par MASSTALK V3 — ils sont intégrés directement en HTML dans `WEB/index.html` (section `data-category="social"`). Le système NEW badge + localStorage track les tweets lus via leur @handle.
 
 ### [2026-05-24] Avatars ORION 26 réutilisables pour AURIGE 2BB
 Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG) et fonctionnent pour AURIGE 2BB. Adapter le contenu des posts au contexte Lorraine sans modifier les profils.
+
+---
+
+## Série 04.01 — NRBC / Site Seveso HToul
+
+> Ajoutée le 2026-05-29 — D+34
+
+### Nouvelle série dans MELMIL
+- `ROW_MAP['04.01'] = 'r1'` — ligne ILI EHO MER (r1, avec 07.01 et 07.02)
+- `CLASS_MAP['04.01'] = 'c41'` — couleur CSS `.c41 { background: #BF360C }` (orange brûlé hazmat)
+
+### Avatars utilisés pour cette série
+| Handle | Nom | Initiales | Camp | Injects |
+|---|---|---|---|---|
+| @HmunikVoice | Pavlus Juri Gautoreif | **PG** | 🔴 Rouge | 04.01.01Ci — SEVESO OTAN accusation |
+| @clambroise55 | Claire Ambroise | **CA** | ⚪ Neutre civil LO3 | 04.01.01Di — panique civile HToul masques gaz |
+
+### Production 2026-05-29 — Série 04.01
+| Inject | Clé | Canal | Contenu résumé |
+|---|---|---|---|
+| 04.01.01Ai | `TV4_Article_Seveso_HToul_01` | TV4 article | Pompiers DAC héroïques — incendie chimique BRENNTAG HToul — 08h30 CET — **"dans la banlieue de HToul"**, horaire vague "Thursday morning" |
+| 04.01.01Bi | `TM_Article_Seveso_OTAN_01` | TM article | OTAN accusé tir SEVESO, nuage toxique, 12 000 civils — 11h00 MSK |
+| 04.01.01Ci | `@HmunikVoice_Seveso_NRBC` | Tweet rouge | OTAN incompétent, site décadent, nuage toxique — 09h00 |
+| 04.01.01Di | `@clambroise55_HToul_masques` | Tweet neutre | Panique civile, fumée noire, besoin masques à gaz — 09h15 |
 
 ---
 

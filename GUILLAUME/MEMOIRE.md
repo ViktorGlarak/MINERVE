@@ -267,6 +267,33 @@ AURIGE 2BB\
 | TV4 International | TV4 | 🔵 Bleu | Articles pro-coalition/DAC — TV4_Article_* |
 | **HEXAGONE** | HEX | 🔵 Bleu | **Presse française officielle** — HEX_Article_Rutte |
 
+### ⚠ RÈGLE TEMPLATE TV4 — Structure HTML obligatoire (ajout 2026-05-29)
+
+> **Tout nouvel article TV4 doit utiliser le template complet défini par TV4_Article_Panique_01.html.**
+> Référence canonique : `WEB/Site TV4/TV4_Article_Panique_01.html`
+
+**Blocs obligatoires à inclure dans cet ordre :**
+
+| Bloc | Classe / Élément | Description |
+|---|---|---|
+| 1 | `.top-bar` | Barre noire haut — avec recherche + nav + icônes sociaux (X/f/YT/TG) + sélecteur langue (EN/FR/DR) |
+| 2 | `.logo-band` | Logo TV4 bicolore (orange+bleu) + nom + date avec classe `tv4-logo-wrap` |
+| 3 | `.ticker-bar` | Bande orange défilante avec point clignotant |
+| 4 | `.page-wrap` | Grid `210px 1fr` — nav gauche + zone article |
+| 5 | `.left-nav` | Navigation gauche avec liens (Home/War/Politics/Defence/…) + live dot + bloc on-air |
+| 6 | `.breadcrumb` | Fil d'Ariane : Home › Dacia Romania Crisis › Rubrique › Titre article |
+| 7 | `.article-card` | Hero (300px bg) + hero-caption + article-head + article-body + article-tags |
+| 8 | `.more-section` | "More on This Story" — 3 `.more-card` (liens vers articles ≤ même date uniquement) |
+| 9 | `.site-footer` | Footer complet : logo TV4 + tagline + social (X/f/YT/TG) + liens (About/Contact/Privacy/Editorial Policy) |
+| 10 | `<script>` | `<script src="../shared/back-btn.js"></script>` — OBLIGATOIRE, dernière ligne avant `</body>` |
+
+**Règles supplémentaires :**
+- **PAS de** `#backBtn{display:none;}` dans le CSS — le back-btn est géré par le script partagé
+- Le back-btn.js crée automatiquement le bouton fixe bas-gauche "← MASTAURIGE"
+- Le lien back utilise `?from=master` pour retourner vers index_master.html si ouvert depuis celui-ci
+- La `.left-nav` doit avoir la classe `active` sur la rubrique correspondant au contenu de l'article
+- La section "More on This Story" ne doit JAMAIS contenir de lien vers un article futur (règle cross-links)
+
 **Règle éditoriale HEXAGONE :** Tout inject de presse française officielle dans AURIGE 2BB utilise le canal HEX. Positionné coalition. Ne pas confondre avec TV4 (média occidental générique).
 
 ---
@@ -435,6 +462,24 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 - `r5` — 08.02 (HOST NATION : prisonniers / redditions)
 - `r6` — 08.03 (HOST NATION : OTAN / ONU)
 
+### ⚠ LIGNE r7 — Ghost/Orphelins sans incident XLS (ajout 2026-05-29)
+
+MELMIL_ILI_GUILLAUME.html contient maintenant une **7e ligne (r7)** dédiée aux injects dont le parent n'est pas encore dans MELMIL.xls.
+
+**Comportement automatique (melmil.js CAS 1.5) :**
+- Si `melmil_inject_index.js` contient `"04.01.01Ai"` ET que `04.01.01i` n'est PAS dans MELMIL.xls → carte virtuelle créée en r7, sous-injects Ai/Bi/Ci/Di groupés dedans
+- Quand `04.01.01i` est ajouté dans MELMIL.xls + .bat relancé → CAS 1 prend la relève → r7 disparaît, sous-injects migrent dans leur ligne normale
+
+**Incidents actuellement en r7 (à ajouter dans MELMIL.xls) :**
+
+| Incident | Sous-injects | Ligne cible quand dans XLS |
+|---|---|---|
+| `04.01.01i` | Ai/Bi/Ci/Di — NRBC Seveso HToul | r1 (ROW_MAP '04.01'='r1') |
+| `07.06.01i` | Ai/Bi/Ci — Tweets infiltration OTAN | r1 (ROW_MAP '07.06'='r1') |
+| `07.06.02i` | Ai(TV4)/Bi(TM Ribiki) — Articles infiltration | r1 (ROW_MAP '07.06'='r1') |
+
+**Workflow pour promouvoir un incident hors r7 :** ajouter dans MELMIL.xls feuille Injections → relancer Actualiser_MELMIL.bat → rafraîchir navigateur.
+
 ### Architecture incident / injects — RÈGLE CANONIQUE (2026-05-28)
 
 | Niveau | Code | Exemple | Rendu MELMIL |
@@ -511,6 +556,90 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 
 ---
 
+## INJECTS D+34 — 04.01.01i — Site Seveso HToul NRBC (29 mai 2026)
+
+> Produit session 29 mai 2026. Série 04.01 (nouvelle — NRBC/incidents civils instrumentalisés).
+> Incident : tir d'artillerie MER → site SEVESO BRENNTAG (HToul) → incendie chimique → nuage toxique → instrumentalisé par MER pour discréditer OTAN.
+
+### Cohérence tactique D+34 (29 Mai)
+- **HToul** = Toul avec préfixe H — sur la Moselle, ~20 km au sud-ouest de HNANCY
+- D+34 = combat retardateur fin, artillerie MER active sur l'axe Moselle — un tir sur HToul est **tactiquement cohérent**
+- **Nom du site : BRENNTAG** (nom réel utilisé, SEVESO II — solvants industriels) — inscrit sur le registre national depuis 22 ans
+- **Localisation** : "dans la banlieue de HToul" — PAS de directionnelle (pas "à l'ouest", pas "western outskirts") — formulation validée le 2026-05-29
+- **Horaire de l'explosion** : pas d'heure précise — "Thursday morning" / "dans la matinée du jeudi" suffit — règle validée le 2026-05-29
+- Cause officielle : "impact d'artillerie non confirmé" dans l'article TV4 (angle neutre) / "tir OTAN" dans l'article TM (angle rouge propagandiste)
+- La réalité de l'exercice : **c'est un tir MER**, instrumentalisé par Today Mercure pour accuser l'OTAN
+
+### Produits créés — codes et horaires
+
+| Code | Clé | Canal | Heure | Camp | LO |
+|---|---|---|---|---|---|
+| **04.01.01Ai** | `TV4_Article_Seveso_HToul_01` | TV4 article | 08h30 CET | 🔵 Bleu | LO 3 |
+| **04.01.01Bi** | `TM_Article_Seveso_OTAN_01` | TM article | 11h00 MSK (09h00 CET) | 🔴 Rouge | LO 2 + LO 3 |
+| **04.01.01Ci** | `@HmunikVoice_Seveso_NRBC` | Tweet @HmunikVoice | 09h00 CET | 🔴 Rouge | LO 2 + LO 3 |
+| **04.01.01Di** | `@clambroise55_HToul_masques` | Tweet @clambroise55 | 09h15 CET | ⚪ Neutre | LO 3 |
+
+### Série 04.01 — Données MELMIL
+- **ROW_MAP** : `'04.01': 'r1'` (ILI EHO MER, instrumentalisation d'incident civil)
+- **CLASS_MAP** : `'04.01': 'c41'` — couleur CSS `#BF360C` (orange brûlé, hazmat)
+- **Incident XLS** : `04.01.01i` à créer dans MELMIL.xls avant de relancer Actualiser_MELMIL.bat
+
+### Correspondance LO
+- LO 2 : incompétence/recklessness OTAN (tir sur SEVESO sans distinguer cible civile/militaire)
+- LO 3 : insoutenabilité humanitaire — 12 000 civils confinés, enfants toussent, nuage toxique
+
+---
+
+## INJECTS D+34 — 07.06.01i / 07.06.02i (29 mai 2026) — HORAIRES VALIDÉS
+
+> Produits lors de la session du 29 mai 2026.
+
+### 07.06.01i — Tweets camp rouge : accusation infiltration SF OTAN (3 comptes)
+
+| Code | Clé MASTAURIGE | Canal | Compte | Heure | LO |
+|---|---|---|---|---|---|
+| **07.06.01Ai** | `@GavrilovBorislav_infiltration` | Tweet | @GavrilovBorislav | **07h00** | LO 2 + LO 4 |
+| **07.06.01Bi** | `@KolesnikovAndrei_infiltration` | Tweet | @KolesnikovAndrei | **07h00** | LO 2 + LO 4 |
+| **07.06.01Ci** | `@MakarovSid_infiltration` | Tweet | @MakarovSid | **07h00** | LO 2 |
+
+**Horaire validé : 07h00** — tous les tweets de la série 07.06.01 sont programmés à 07h00 le 29 Mai 2026.
+
+### 07.06.02i — Article TV4 International (angle neutre-factuel)
+
+| Code | Clé MASTAURIGE | Canal | Titre | Heure | LO |
+|---|---|---|---|---|---|
+| **07.06.02Ai** | `TV4_Article_SF_HCHATEAU_01` | Article TV4 | "Three Coalition Personnel Captured After Vehicle Hits Mine West of HCHATEAU-SALINS" | **13h47 CET** | LO 2 + LO 4 |
+
+**Image intégrée :** `images/07.06.02_ACCUSATION_OTAN.jpg` — fourgonnette blanche civile détruite, armes éparpillées sur la chaussée (fusil d'assaut, lance-roquettes, drone). Attribuée au communiqué MAF. Caption neutre TV4.
+
+**Chronologie narrative D+34 (29 Mai) :**
+1. Mercredi 28 Mai soir — explosion du VHL banalisé, capture des 3 personnels coalition
+2. Jeudi 29 Mai **07h00** — tweets camp rouge @GavrilovBorislav, @KolesnikovAndrei, @MakarovSid (accusation infiltration)
+3. Jeudi 29 Mai **08h00** — communiqué MAF (avec photo VHL + matériel récupéré)
+4. Jeudi 29 Mai **08h30** — article TV4 (angle neutre, attribue les allégations MER, cite Kristina Zoric)
+5. Jeudi 29 Mai **13h00 MSK (11h00 CET)** — déclaration exclusive Ministre Ribiki (Today Mercure) — accusation perfidie OTAN, Art. 37 AP I, dépôt CIJ
+
+### 07.06.02Bi — Article Today Mercure — Déclaration Ministre Ribiki (29 Mai 13h00 MSK)
+
+| Code | Clé MASTAURIGE | Canal | Sujet | Heure | Camp | LO |
+|---|---|---|---|---|---|---|
+| **07.06.02Bi** | `TM_Article_Ribiki_DICA_01` | Article Today Mercure | Voichek Ribiki — Perfidie OTAN, Art. 37 AP I, crime de guerre | **13h00 MSK** | 🔴 Rouge | LO 2 + LO 4 |
+
+**Profil Voichek Ribiki (Ministre de l'Intérieur de Mercure) :**
+- Portrait disponible : `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\Ministres\MER - Ministre de l'interieur - Voichek Ribiki.jpg`
+- Copie WEB : `images/MER_Ribiki_Voichek_MinInt.jpg`
+- Ton éditorial : autoritaire, légaliste, accusateur — spécialiste droit interne + sécurité nationale
+- Angle : non-respect DICA, perfidie (AP I Art. 37), dépôt CIJ, notification CICR
+
+**Références légales clés utilisées dans l'article :**
+- Art. 37 AP I — Prohibition de la perfidie (feindre d'être civil pour conduire une opération militaire)
+- Art. 44 AP I — Perte du statut de combattant si non distinguable
+- Art. 51 AP I — Protection des civils (exploitation du statut civil)
+
+**Image intégrée :** Portrait de Ribiki en Base64 dans le HTML (standalone offline).
+
+---
+
 ## INJECTS D+33 CRÉÉS — 07.05.03 (réactions aux manifestations BR, 28 mai 2026)
 
 > Produits le 28 mai 2026.
@@ -563,6 +692,54 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 **Image :** `../images/MER_PRUNIERE_Thierry_41DIV.jpg` (portrait officiel JPG, également intégré dans `index_master.html` card-thumb et `Trombinoscope/ACTEURS_A3_AURIGE2BB.html`)
 
 **Règle de cohérence :** Tout inject futur nommant PRUNIERE doit rester cohérent avec le profil "chef qui mène depuis l'avant" — vérifier avec ANALYSTE MERCURE avant de créer un inject de discrédit ou d'atteinte à la réputation.
+
+---
+
+## CONVENTION — Injects de relance (ajout 2026-05-29)
+
+### Format canonique : `XX.YY.ZZAi.Rx`
+
+Un **inject de relance** est un contenu (tweet, article, tract…) prévu pour être joué **si les entraînés ne réagissent pas** à un inject parent dans un délai donné. Il porte le code de l'inject parent suivi du suffixe `.Rx`.
+
+| Composant | Signification | Exemple |
+|---|---|---|
+| `XX.YY.ZZAi` | Code de l'inject parent auquel la relance est liée | `07.05.02Ai` |
+| `.R` | Marqueur "Relance" | `.R` |
+| `x` | Numéro de relance (1, 2, 3…) | `1` |
+| **Résultat** | Code complet de la relance | **`07.05.02Ai.R1`** |
+
+**Chaîne exemple :**
+```
+07.05.02i          ← Incident MELMIL (dans le XLS)
+  └── 07.05.02Ai  ← Sous-inject primary (tweet / article)
+      ├── 07.05.02Ai.R1  ← Relance 1 : activée si non réponse J
+      └── 07.05.02Ai.R2  ← Relance 2 : activée si non réponse J+1
+```
+
+### Règles de production d'une relance
+
+1. **Code** : `ParentAi.Rx` — x commence à 1, incrémenter si plusieurs relances du même parent
+2. **Entrée dans `melmil_inject_index.js`** : `"07.05.02Ai.R1": [{key:"...", type:"...", label:"..."}]`
+3. **Entrée dans `index_master.html` ANIM_DATA** : `num:"07.05.02Ai.R1"` (pas de "num" spécial — le code EST le num)
+4. **Pas besoin de ligne dans MELMIL.xls** — les relances s'affichent automatiquement comme sous-items de l'incident parent `07.05.02i` déjà dans le XLS
+5. **Drag MELMIL** : draggable indépendamment des autres sous-injects (SPLIT possible si l'incident est dans une autre cellule)
+6. **Sync date** : quand l'animateur déplace le sous-inject `.R1` vers un autre jour dans MELMIL, le `data-dayorder` de la card dans `index_master.html` se met à jour automatiquement
+
+### Visuel MELMIL des relances
+- Bord orange gauche `#F57C00` sur la ligne
+- Badge orange **"R1"** avant le code
+- Dot avec halo orange
+
+### Convention de labelling
+Le `label` dans `melmil_inject_index.js` doit indiquer : **"[RELANCE R1] — "** + description de la condition d'activation + contenu.
+Exemple : `"[RELANCE R1] — si pas de réaction à 07.05.02Ai — @HmunikVoice relance amplification (29 Mai 16h30)"`
+
+### Anciens codes P-xx et R-x
+Les injects créés antérieurement avec des codes `P-xx` (bascule BR, Storm-1516) ou `R-x` (contremesures bleu) n'utilisent pas encore ce format. Pour les intégrer au système `.Rx`, il faut :
+1. Identifier à quel inject parent chaque P/R se rattache
+2. Renommer la clé dans `melmil_inject_index.js` au format `XX.YY.ZZAi.Rx`
+3. Mettre à jour le `num` dans ANIM_DATA de `index_master.html`
+4. L'incident parent doit exister dans MELMIL.xls pour l'affichage automatique
 
 ---
 
