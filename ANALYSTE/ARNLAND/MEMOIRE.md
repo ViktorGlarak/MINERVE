@@ -92,6 +92,20 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 | **ARNE** | BMF |
 | **Général Aleksandr Stanev** | Chef ASPS |
 
+### Unités engagées — AURIGE 2BB (Lorraine)
+
+| Unité | Commandant | Type | Rôle dans l'exercice |
+|---|---|---|---|
+| **8e DAC** (8ème Division Armoured Corps) | **Général DJOBOVIC** | Blindée / méca DAC | Unité principale DAC en Lorraine — combat retardateur puis contre-pression sur MER |
+
+**Général DJOBOVIC — CO 8e DAC :**
+- Commandant de la 8ème Division Armoured Corps, forces de Dacie Romanie
+- Responsable de l'encerclement et de la capture de 104 soldats MER à HNANCY dans la nuit du 27 au 28 mai 2026 (D+32→D+33)
+- Opération : manœuvre en tenaille nocturne (armour + méca) — zéro perte DAC
+- Citation publiée TV4 : *"One hundred and four prisoners. No casualties on our side. This is what Dacia Romania's army delivers."*
+- **À utiliser dans les injects bleus** : figure de la compétence tactique DAC, contrepoids aux narratives MER de supériorité
+- **Exploitable par MER (ILI)** : si Mercure produit un inject de déni ou de retournement sur la capture des 104 hommes, DJOBOVIC est la cible nominative à discréditer
+
 ---
 
 ## Données économiques

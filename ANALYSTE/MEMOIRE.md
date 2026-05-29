@@ -19,7 +19,24 @@ Sections couvertes : Général, Géographie, Politique, Organisations, Histoire,
 
 | Personnage | Grade | Âge | Rôle narratif | Portrait | Inject |
 |---|---|---|---|---|---|
-| **Aleksander VORIN** | Sergent | 27 ans | Sniper MER — 11 cibles dont 1 CDU bleu, forêt domaniale de Saint-Amond — héroïsation LO 2 | ✅ `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png` | 07.01.02i — @HmunikVoice — D+27 07h00 |
+| **Aleksander VORIN** | Sergent | 27 ans | Sniper MER — 11 cibles dont 1 CDU bleu, forêt domaniale de Saint-Amond — héroïsation LO 2 | ✅ `CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png` + `WEB\images\MER_Aleksander VORIN_sniper_tueur_de_CDU.jpg` | 07.01.02i — @HmunikVoice — D+27 07h00 |
+
+### Portraits disponibles — Tous personnages MER (état 2026-05-28)
+
+| Personnage | Fichier | Emplacement | Usage trombinoscope |
+|---|---|---|---|
+| **Franz Olamao** | `FRanck Olamao conf.jpg` (+ 10 autres variantes) | `CREATION\02 - MERCURE\Portraits\Franz Olamao\` + `WEB\images\` | ✅ `../images/FRanck%20Olamao%20conf.jpg` |
+| **Jonas Junker** | `MER-ministre de la defense-Jonas Junker.jpeg` | `CREATION\02 - MERCURE\Portraits\Ministres\` | ✅ chemin CREATION 6 niveaux |
+| **Dominic Stoph** | `MER - Ministre des affaires étrangères Dominic STOPH2.png` | `CREATION\02 - MERCURE\Portraits\Ministres\` | ✅ chemin CREATION 6 niveaux |
+| **Voichek Ribiki** | `MER - Ministre de l'interieur - Voichek Ribiki.jpg` | `CREATION\02 - MERCURE\Portraits\Ministres\` | ✅ chemin CREATION 6 niveaux |
+| **MG PRUNIERE** | `MER_PRUNIERE_Thierry_41DIV.jpg` | `CREATION\02 - MERCURE\Portraits\` + `WEB\images\` | ✅ `../images/MER_PRUNIERE_Thierry_41DIV.jpg` |
+| **MG ZHUKOV** | `MER_ZHUKOV_Mikhail_43DIV.png` | `CREATION\02 - MERCURE\Portraits\` + `WEB\images\` | ✅ `../images/MER_ZHUKOV_Mikhail_43DIV.png` |
+| **Sgt VORIN** | `MER_Aleksander VORIN_sniper_tueur_de_CDU.png` (CREATION) / `.jpg` (WEB) | Voir ci-dessus | ✅ `../images/MER_Aleksander%20VORIN_sniper_tueur_de_CDU.jpg` |
+| **Fred NUMELIN** | — | Pas de portrait disponible | ❌ initiales FN dans trombinoscope |
+| **Autres commandants** | — | PDF GLM26 HVI — `20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` | ❌ extraction manuelle nécessaire |
+
+> **Chemin racine CREATION Mercure :** `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\`
+> **Note trombinoscope :** depuis `WEB\Trombinoscope\`, les chemins CREATION nécessitent 6 niveaux de `../` (`../../../../../../CREATION/...`). Les images dans `WEB\images\` utilisent `../images/`.
 
 ---
 
@@ -97,6 +114,32 @@ Personnages BR connus dans le scénario AURIGE 2BB :
 - **Andrei Saniki** — Opposant modéré BR, "neutralité" — camp bleu / EastWatch — P.03
 
 ---
+
+## Règle géographique — Cohérence tactique des injects (2026-05-28)
+
+> **Règle obligatoire :** Avant de citer une localité dans un inject, vérifier que cette localité est cohérente avec la phase tactique du jour de guerre (D+).
+
+### Table D+ → Jour de guerre → Zone tactique (AURIGE 2BB)
+
+| Date | D+ | Jour guerre | Phase | Zone |
+|---|---|---|---|---|
+| 26 Mai | D+31 | J1 | Déclenchement | Frontière MER/Lorraine |
+| 27 Mai | D+32 | J2 | Pénétration | Axe Moselle nord |
+| **28 Mai** | **D+33** | **J3** | **Avancée** | **Bords de la Moselle** |
+| 29 Mai | D+34 | J4 | Consolidation | Moselle centrale |
+| 30 Mai | D+35 | J5 | Expansion | Moselle / Nancy nord |
+| 31 Mai | D+36 | J6 | Pression | Approches Nancy |
+| 01 Juin | D+37 | J7 | Encerclement | Nord-Ouest Nancy |
+| 02 Juin | D+38 | J8 | Siège | Nancy périphérie |
+| 03 Juin | D+39 | J9 | Rupture | Nancy |
+| 04 Juin | D+40 | J10 | Exploitation | Au-delà Nancy |
+
+### Règle de conduite
+
+- **Ne jamais citer une ville trop éloignée du front pour le jour J** — exemple d'erreur : citer HLUNEVILLE à J3 (la ville est trop loin du front initial).
+- **Si incertain sur la localisation :** utiliser une référence vague et réaliste (`"sur les bords de la Moselle"`, `"dans le secteur nord"`, `"à quelques kilomètres de la frontière"`).
+- **Si la localisation précise est requise :** demander confirmation à l'utilisateur avant de publier.
+- **Erreur corrigée (2026-05-28) :** inject 07.01.02i-B (@HmunikVoice sniper VORIN, D+33/J3) — "secteur de HLUNEVILLE" remplacé par "sur les bords de la Moselle".
 
 ## Apprentissages par exercice
 <!-- À compléter au fil des sessions -->

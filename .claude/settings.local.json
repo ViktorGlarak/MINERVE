@@ -20,7 +20,14 @@
       "Bash(Write-Host \"Done\")",
       "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\" -Force)",
       "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\MEMOIRE.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
-      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)"
+      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
+      "Bash(start \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\MELMIL_ILI_GUILLAUME.html\")",
+      "Bash(start \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MELMIL\\\\MELMIL_ILI_GUILLAUME.html\")",
+      "PowerShell(Get-ChildItem \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\" | Where-Object { $_.Extension -match '\\\\.\\(jpg|jpeg|png|webp|gif\\)' } | Select-Object Name | Format-Table -AutoSize | Out-String -Width 200)",
+      "PowerShell(Get-ChildItem \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\" -Name | Where-Object { $_ -match '\\\\.\\(jpg|png|jpeg|webp\\)$' } | Sort-Object)",
+      "Bash(node -e ' *)",
+      "Bash(ls -la \"D:\\\\\\\\CECPC\\\\\\\\PRODUCTION\\\\\\\\EXER\\\\\\\\\")",
+      "PowerShell(\\(Get-Item 'D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\avatars tweet\\\\'\\).GetFiles\\(\\).Count)"
     ]
   }
 }

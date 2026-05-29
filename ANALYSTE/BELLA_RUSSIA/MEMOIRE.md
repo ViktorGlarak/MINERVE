@@ -126,12 +126,13 @@ Ses déclarations sont ambiguës — elle n'est PAS pro-OTAN. TV4 peut la citer 
 
 | Personnage | Fichier | Dossier | Statut |
 |---|---|---|---|
-| Svetlana Tikhanov | À nommer | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` | ✅ Créé via Firefly (2026-05-27) |
-| Andrei Saniki | À nommer | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` | ✅ Créé via Firefly (2026-05-27) |
-| Alexandre Youkachenko | — | — | ❌ À créer |
+| Svetlana Tikhanov | `Svetlana Tikhanov - Nouvelle pahonie.png` | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` | ✅ Firefly (2026-05-27) — intégré trombinoscope + avatar tweet |
+| Andrei Saniki | `Andrei Saniki - Bison Libre.png` | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` | ✅ Firefly (2026-05-27) — intégré trombinoscope + avatar tweet |
+| Alexandre Youkachenko | `youkachenko.jpg` | `WEB\images\` uniquement — pas de portrait CREATION | ⚠ Disponible pour WEB, pas de portrait CREATION officiel |
 
 > Dossier portraits BR : `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits`
 > Même logique que les portraits Mercure (`D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\`).
+> Youkachenko : portrait de travail dans `WEB\images\youkachenko.jpg` — créer un portrait officiel Firefly si besoin d'un rendu haute qualité.
 
 ---
 

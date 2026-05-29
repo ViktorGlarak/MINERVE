@@ -207,10 +207,13 @@ AURIGE 2BB\
 ├── 00_Boites à outils\MASTAURIGE\WEB\   ← FICHIER MAÎTRE — index_master.html
 │   ├── images\
 │   ├── TRACTS\
+│   ├── MELMIL\                         ← MODULE MELMIL ILI (déplacé ici le 2026-05-27)
 │   ├── Site Bella Russia Channel 1\
 │   ├── Site Hexagone\
 │   ├── Site Today Mercure\
-│   └── Site TV4\
+│   ├── Site TV4\
+│   ├── MELMIL\                         ← Tableau de bord injects ILI (⚡ MELMIL ILI)
+│   └── ACTEURS_A3_AURIGE2BB.html       ← Trombinoscope 3 pays A3 (🗂 ACTEURS A3)
 ├── MERCURE\                    ← Documents FORAD (PPTX profils, etc.)
 └── Discours\                   ← Discours par camp (Olamao, OTAN, DR, BR)
 ```
@@ -312,6 +315,17 @@ AURIGE 2BB\
 
 ---
 
+### Portraits extraits — disponibles pour production
+
+Portraits de PRUNIERE et ZHUKOV extraits du PPTX `G26_PROFIL 41 et 43 MER FORCES.pptx` le 2026-05-28 :
+
+| Commandant | Fichier portrait | Disponible dans |
+|---|---|---|
+| MG PRUNIERE | `MER_PRUNIERE_Thierry_41DIV.jpg` | `CREATION\02 - MERCURE\Portraits\` + `WEB\images\` |
+| MG ZHUKOV | `MER_ZHUKOV_Mikhail_43DIV.png` | `CREATION\02 - MERCURE\Portraits\` + `WEB\images\` |
+
+Ces portraits sont intégrés dans le trombinoscope `ACTEURS_A3_AURIGE2BB.html` (avec bordure gold HVI). Disponibles pour tout autre usage production (articles, tweets avec photo, fiches PDF).
+
 ### Règle GUILLAUME — Cross-agent HVI
 
 > **Avant tout inject nommant PRUNIERE ou ZHUKOV, vérifier cohérence avec ANALYSTE MERCURE.**
@@ -348,11 +362,43 @@ AURIGE 2BB\
 
 > Mis à jour le 27 mai 2026.
 
+### Outils animateur accessibles depuis index_master.html
+
+| Bouton | Couleur | Accès | Retour |
+|---|---|---|---|
+| ⚡ MELMIL ILI | Gold | Tableau 45 injects sur axe D+31→D+40 | ← MASTAURIGE (état restauré) |
+| 🗂 ACTEURS A3 | Navy | Trombinoscope 3 pays A3 — tous acteurs AURIGE 2BB avec photos | ← MASTAURIGE (état restauré) |
+
+**ACTEURS_A3_AURIGE2BB.html** : 3 pages A3 paysage — Mercure (p.1), Dacie Romanie (p.2), Bella Russia (p.3). Tous les acteurs politiques, militaires, para-étatiques et médias. Portraits disponibles intégrés (Olamao, Pallesson, ministres MER, PRUNIERE, ZHUKOV, Tikhanov, Saniki, Youkachenko, Rutte, Guterres). Chemin : `WEB\Trombinoscope\ACTEURS_A3_AURIGE2BB.html` *(déplacé le 2026-05-28 — bouton renommé "TROMBINOSCOPE").*
+
+### Dots indicateurs MASTAURIGE dans MELMIL (ajout 2026-05-28)
+
+Les cards MELMIL affichent maintenant une rangée de points colorés en bas indiquant les cards MASTAURIGE liées à chaque inject. En un coup d'œil, l'animateur voit combien de productions sont planifiées et de quel type (tweet bleu, article violet, tract orange, courrier vert). Un inject sans point = aucune card MASTAURIGE créée = point d'attention éditorial. Tooltip au survol = libellé exact de la card.
+
 ### Persistance de l'état de navigation — sessionStorage
 `index_master.html` sauvegarde automatiquement avant chaque ouverture d'article :
 - Onglet actif (média / RS), jour sélectionné, mode cumul/exact, texte de recherche, position de défilement, état classification camps.
 - Au retour (bouton précédent), tout est restauré instantanément — l'animateur retrouve exactement l'état de travail précédent.
 - **Aucune configuration requise.** Fonctionne via `sessionStorage` (session navigateur, pas persistent entre ouvertures du fichier).
+
+### Widget éditeur date/heure + statut — par card (ajout 2026-05-27)
+
+Chaque card (article et tweet) dispose d'un **panneau flottant droit** (`.card-right-panel`) regroupant deux widgets animateur :
+
+**1. Sélecteur de statut (`.card-status-wrap`) :**
+- ⬜ En cours de création (défaut)
+- 🟠 Finalisé — non envoyé
+- ✅ Envoyé
+- Sauvegardé en `localStorage` par card — persiste entre sessions navigateur
+
+**2. Éditeur date/heure (`.card-datetime-wrap`) :**
+- **Jour** : sélecteur déroulant (26 Mai → 04 Jun + **"En attente"**) — repositionne la card dans le DOM en temps réel (ordre chronologique décroissant)
+- **Heure** : champ time — met à jour le texte affiché dans la card
+- **Option "En attente"** : envoie la card dans le filtre orange "En attente" de la barre de jours — pour les injects non encore planifiés ou à décision différée. Persistance localStorage.
+
+**Utilité éditorial GUILLAUME :** permet d'ajuster les horaires et jours des injects en cours d'exercice sans modifier le HTML. Les injects trop tôt ou en attente de décision peuvent être mis en "En attente" et activés à la volée.
+
+Les deux widgets sont invisibles dans les exports stagiaires (nettoyés automatiquement par les fonctions generate).
 
 ### Horaires — cohérence narrative D+27
 - **BCI_Article_Youkachenko** (appel à la paix) : **18h00 MSK**
@@ -362,9 +408,304 @@ AURIGE 2BB\
 
 ---
 
+## OUTIL MELMIL ILI — Tableau de bord des injects
+
+> Ajouté le 2026-05-27 — intégré dans l'arborescence MASTAURIGE.
+
+**Fichier :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\MELMIL\MELMIL_ILI_GUILLAUME.html`
+
+**Accès rapide :** bouton **⚡ MELMIL ILI** (fond gold) dans la barre de navigation de `index_master.html` — ouvre dans un nouvel onglet.
+
+### Ce que fait cet outil
+
+Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB sur un axe temporel D+31→D+40 (10 jours), calquée sur le document de référence MELMIL EXCO-WG3.
+
+| Colonne | Jours | Phase tactique |
+|---|---|---|
+| D+31–D+34 | 26–29 Mai | Combat retardateur |
+| D+35 | 30 Mai ★ | CLIMAX — Rupture LDP HSARREBOURG |
+| D+36–D+37 | 31 Mai–01 Jun | Défense du glacis |
+| D+38–D+40 | 02–04 Jun | Contre-offensive MER |
+
+**6 lignes acteurs :**
+- `r1` — 07.01 / 07.02 (ILI EHO MER : dénigrement, comm off)
+- `r2` — 07.03 / 07.04 (ILI EHO MER : légitimité, délégitimation)
+- `r3` — 07.05 (ILI EHO BR : Bella Russia)
+- `r4` — 08.01 (HOST NATION : humanitaire)
+- `r5` — 08.02 (HOST NATION : prisonniers / redditions)
+- `r6` — 08.03 (HOST NATION : OTAN / ONU)
+
+### Architecture incident / injects — RÈGLE CANONIQUE (2026-05-28)
+
+| Niveau | Code | Exemple | Rendu MELMIL |
+|---|---|---|---|
+| **Incident** | `XX.YY.ZZi` | `07.05.03i` | Card principale (dans le XLS) |
+| **Inject A** | `XX.YY.ZZAi` | `07.05.03Ai` | Ligne cliquable à l'intérieur de la card `07.05.03i` |
+| **Inject B** | `XX.YY.ZZBi` | `07.05.03Bi` | Idem |
+
+**Règle de lettre :** Vérifier dans `melmil_data.js` que la lettre est libre pour cet incident avant de l'assigner.
+
+**Format d'affichage :** Toutes les cards MASTAURIGE (incidents + injects) s'affichent de façon unifiée dans la card MELMIL — [dot coloré] + [identifiant card] + [début du titre], séparés par un trait sous le titre de l'incident.
+
+### Workflow de mise à jour
+
+1. Mettre à jour `MELMIL.xls` (feuille Injections — colonnes code, sujet, desc, date, etat, dest)
+2. Double-cliquer sur `Actualiser_MELMIL.bat` → régénère `melmil_data.js`
+3. Rafraîchir le navigateur sur `MELMIL_ILI_GUILLAUME.html`
+4. Les injects sans date apparaissent dans la colonne **"À PLACER"** — les glisser vers le bon jour
+5. Positions personnalisées sauvegardées automatiquement (localStorage)
+
+**Note :** Si la date est renseignée dans le XLS (format date Excel), l'inject se place automatiquement dans la bonne colonne dès le chargement.
+
+---
+
+## RÈGLE GÉOGRAPHIQUE — Localisation des injects (ajout 2026-05-28)
+
+> **Règle obligatoire validée après incident D+33 : "HLUNEVILLE" utilisée à tort dans un inject sniper.**
+
+### Calendrier tactique D+ → Jour de guerre
+
+| Date | D+ | Jour guerre | Phase | Zone principale |
+|---|---|---|---|---|
+| 26 Mai | D+31 | J1 | Combat retardateur début | Axe HNANCY → HCHATEAU-SALINS |
+| 27 Mai | D+32 | J2 | Combat retardateur | HCHATEAU-SALINS sous pression |
+| 28 Mai | D+33 | J3 | Combat retardateur | Bords de la Moselle / axe HNANCY |
+| 29 Mai | D+34 | J4 | Combat retardateur fin | Vers HSARREBOURG |
+| 30 Mai | D+35 | J5 | **CLIMAX** | Saisie HSARREBOURG |
+| 31 Mai | D+36 | J6 | Défense glacis | HSARREBOURG tenu |
+| 01 Jun | D+37 | J7 | Défense glacis | HSARREBOURG → HPHALSBOURG |
+| 02 Jun | D+38 | J8 | Contre-offensive | Axe HSARREGUEMINES |
+| 03 Jun | D+39 | J9 | Contre-offensive | HSARREGUEMINES |
+| 04 Jun | D+40 | J10 | Contre-offensive | HSARREGUEMINES |
+
+### Règle de localisation des injects
+
+> **AVANT de citer une ville ou un secteur géographique dans un inject, GUILLAUME doit vérifier la cohérence avec la phase tactique du jour.**
+
+**Règle :**
+- Si la localisation est certaine et cohérente avec la phase → citer la ville avec préfixe H
+- Si doute sur la localisation → utiliser une formulation vague : **"sur les bords de la Moselle"**, "dans le secteur nord", "à proximité de la ligne de contact", etc.
+- **Ne jamais citer une ville trop éloignée du front du jour sans validation.**
+
+**Exemple d'erreur corrigée (2026-05-28) :** inject D+33 (J3) citant "secteur de HLUNEVILLE" — HLUNEVILLE est derrière les lignes à J3, la zone de contact est la Moselle. Corrigé en "sur les bords de la Moselle".
+
+**Règle de conduite :** En cas de doute sur une localisation dans un inject, GUILLAUME demande confirmation avant de produire.
+
+---
+
+## COMMANDANTS DAC — Figures bleu à connaître pour la cohérence narrative
+
+> Complément aux profils FORAD MER (PRUNIERE / ZHUKOV). Ces figures côté bleu génèrent des injects et des contre-narratives.
+
+| Personnage | Unité | Rôle dans AURIGE 2BB | Leviers ILI |
+|---|---|---|---|
+| **Général DJOBOVIC** | **8e DAC (Dacia Romania)** | CO de la division blindée principale DAC en Lorraine — responsable de l'encerclement des 104 MER à HNANCY (nuit 27–28 mai, D+32→D+33) | **Cible de déni MER** : tout inject qui nie ou blanchit la capture des 104 hommes doit répondre à la communication de DJOBOVIC · **Levier discrédit (si disponible)** : chercher une vulnérabilité profil via ANALYSTE ARNLAND |
+
+**Citation officielle publiée (TV4, 28 mai 06h00 CET) :**
+> *"The 8th DAC executed this operation with precision. We identified the opportunity, moved at night, and closed the encirclement before the enemy could react. One hundred and four prisoners. No casualties on our side."*
+
+**Règle éditoriale GUILLAUME :**
+- La capture des 104 hommes MER à HNANCY est un **noyau de vérité bleu** — MER ne peut pas ignorer cet événement sans accuser une rupture narrative visible.
+- Tout inject MER sur la période D+33+ qui prétend à une progression ou une "tenue des lignes" doit contourner ou blanchir cet événement.
+- DJOBOVIC est le visage de ce succès DAC — le nommer dans les injects de réponse MER ou dans les injects de blanchiment EastWatch le rend plus crédible.
+
+---
+
+## INJECTS D+33 CRÉÉS — 07.05.03 (réactions aux manifestations BR, 28 mai 2026)
+
+> Produits le 28 mai 2026.
+
+| Référence | Code | Canal | Compte | Heure | Camp | LO | Contenu |
+|---|---|---|---|---|---|---|---|
+| **07.05.03Ai** | `@S_Tikhanov_newpahonia` | Tweet | @S_Tikhanov (Svetlana Tikhanov — Nouvelle Pahonie) | 28 Mai 20h20 | 🔵 Bleu | LO 5 | Youkachenko accusé de lâcheté face aux manifestations — appel à la jeunesse Pahonia : "Get ready for the fight!" — fracture interne BR |
+| **07.05.03Bi** | `@A_Saniki_freebison` | Tweet | @A_Saniki (Andrei Saniki — Bison Libre) | 28 Mai 20h45 | 🔴 Rouge | LO 5 | Appel à la mobilisation nationaliste BR — défense des compatriots en DR soutenue par la Nouvelle Pahonie — le Bison rejoint la lutte |
+
+**Contexte :** Ces tweets sont des réactions immédiates à l'article BC1 (07.05.03i — Manifestations dans 4 villes BR, 19h00 MSK). Ils sont des sub-injects de l'incident 07.05.03 — codes `07.05.03Ai` et `07.05.03Bi` (lettres A et B libres dans MELMIL.xls, vérifiées). **Ghost cards MELMIL** jusqu'à leur ajout dans MELMIL.xls.
+
+⚠ **Sous-injects MELMIL :** Ces deux codes (`07.05.03Ai` et `07.05.03Bi`) s'affichent à l'intérieur de la card incident `07.05.03i` dans MELMIL, sous forme de lignes compactes cliquables. Ils ne sont pas dans MELMIL.xls (pas de ligne indépendante). Pour les promouvoir en injects XLS officiels : ajouter les deux lignes dans MELMIL.xls, relancer le .bat.
+
+**Hashtags créés :** `#NewPahonia`, `#YoukachenGO`, `#FreeBison`, `#Struggle`
+
+**Avatars :** Portraits Firefly existants — même fichiers que P-27/P-28.
+
+### BC1 social — Posts D+33 (28 mai 2026, ext. Ci + Di de 07.05.03i)
+
+> Produits le 28 mai 2026. Premier usage du compte social @BC1_News. Codes éditoriaux — uniquement dans index_master.html (marqués `editorial:true` dans melmil_inject_index.js).
+
+| Référence | Code | Compte | Heure | LO | Contenu |
+|---|---|---|---|---|---|
+| **07.05.03i (ext. Ci)** | `@BC1_manifestations_dispatch` | @BC1_News (BC1 Bella Russia) | 28 Mai 11h00 | LO 5 | Dépêche : nationalistes Pahonie dans les rues de Minsk — discours Youkachenko perçu comme capitulation — pression publique sur le gouvernement BR |
+| **07.05.03i (ext. Di)** | `@BC1_manifestations_temoignage` | @BC1_News | 28 Mai 11h30 | LO 5 | Témoignage manifestant : "Passivity is no longer an option" — première manifestation pour beaucoup — éveil de l'opinion publique BR |
+
+**Articulation narrative 07.05.03 (ordre chronologique) :**
+1. 11h00 — BC1 dispatch (dépêche initiale)
+2. 11h30 — BC1 témoin (amplification avec témoignage direct)
+3. 19h00 — BC1 article complet (BCI_Article_Manifestations — synthèse éditoriale)
+4. 20h20 — @S_Tikhanov (réaction politique, Nouvelle Pahonie)
+5. 20h45 — @A_Saniki (mobilisation nationaliste, Bison Libre)
+
+**Effet LO 5 :** La séquence montre une pression populaire BR montante sur Youkachenko — de la rue (BC1 matin) jusqu'aux figures politiques (soirée). Le gouvernement BR est encadré entre une pression publique croissante et des voix politiques de plus en plus radicales.
+
+---
+
+## INJECTS D+33 CRÉÉS — 07.02.02i (article Today Mercure PRUNIERE, 28 mai 2026)
+
+> Produit le 28 mai 2026. Réécriture complète de TM_Article_CEMA_01.html (ancienne version : briefing CEMA Numelin — remplacée).
+
+| Référence | Code clé | Canal | Sujet | Heure | Camp | LO | Contenu |
+|---|---|---|---|---|---|---|---|
+| **07.02.02i** | `TM_Article_CEMA_01` | Article Today Mercure | MG PRUNIERE — CO 41e DIV CHARS | 28 Mai 16h00 | 🔴 Rouge | LO 2 | "Je n'enverrai pas mes hommes là où je ne vais pas" — Pruniere parle depuis le front Moselle — 3 citations, box ops, biographie |
+
+**Contexte narratif :** MG Thierry PRUNIERE (Héros de la Nation 2019) représente la composante personnification de la valorisation MER — commandement avancé, leadership terrain, figure militaire crédible. Marqueur Storm-1516 n°3 (personnification).
+
+**Fichier :** `Site Today Mercure/TM_Article_CEMA_01.html`
+
+**Image :** `../images/MER_PRUNIERE_Thierry_41DIV.jpg` (portrait officiel JPG, également intégré dans `index_master.html` card-thumb et `Trombinoscope/ACTEURS_A3_AURIGE2BB.html`)
+
+**Règle de cohérence :** Tout inject futur nommant PRUNIERE doit rester cohérent avec le profil "chef qui mène depuis l'avant" — vérifier avec ANALYSTE MERCURE avant de créer un inject de discrédit ou d'atteinte à la réputation.
+
+---
+
 ## PATTERNS APPRIS
 
 - **Règle du CLIMAX** : le moment tactique le plus important doit TOUJOURS être doublé d'un pic informationnel MER. Si la synchromatrice est vide autour d'un événement MAINBODY majeur, c'est une erreur éditoriale à corriger.
 - **Règle du noyau de vérité** : les injects les plus efficaces s'ancrent sur des événements déjà visibles dans l'espace informationnel de l'exercice (injects existants) — pas sur des inventions. La fiction s'ajoute à 20% sur un fond de 80% vrai.
 - **Règle de la population** : les dynamiques de population (fuite, hostilité) sont du matériau ILI de premier ordre — elles sont visibles, documentées, et fournissent un ancrage narratif humanitaire exploitable par les deux camps.
 - **Règle des LO** : tout inject sans LO est orphelin stratégiquement. La LO est le lien entre la production ILI et la manœuvre FORAD globale.
+
+---
+
+## NAVIGATION ÉDITORIALE — Flux MELMIL ↔ MASTAURIGE (2026-05-28)
+
+> Décrit le workflow de navigation inter-outils pour la session animateur.
+
+### Workflow complet
+
+```
+[MELMIL_ILI_GUILLAUME.html]
+        ↓ clic sur un inject card
+    [Popup MELMIL] — liste des cards MASTAURIGE liées (type-colorées)
+        ↓ clic sur un bouton card
+[index_master.html?card=KEY]
+        ↓ highlightCardFromUrl() s'exécute
+    - Bascule onglet correct
+    - Réinitialise filtres (TOUT / cumulatif)
+    - Flash or 3× sur la card
+    - Icône ▶ animée en marge gauche (10s ou jusqu'au clic)
+    - Centrage vertical dans la fenêtre visible
+```
+
+### Rôle éditorial de cette navigation
+
+Ce flux permet à l'animateur de :
+1. **Vérifier en un clic** la cohérence entre un inject MELMIL et ses cards MASTAURIGE correspondantes
+2. **Naviguer rapidement** vers n'importe quelle card depuis la vue calendaire sans avoir à chercher dans index_master
+3. **Identifier visuellement** la card ciblée même dans une vue dense (animations flash + icône)
+
+### Règle de maintenance
+
+Quand une **nouvelle card** est ajoutée dans `index_master.html`, sa clé ANIM_DATA doit être ajoutée à `melmil_inject_index.js` (si elle correspond à un inject MELMIL). Sans cela, le popup MELMIL affiche "Aucune card MASTAURIGE créée pour cet inject" alors que la card existe.
+
+**Chemin :** `MELMIL/melmil_inject_index.js` — ajouter une entrée `"XX.XX.XXi": [{key, type, label}]`.
+
+---
+
+## RÈGLE — Intégration d'images (article + card-thumb)
+
+> Ajoutée suite à l'intégration de l'image 07.05.03 (manifestations pro-MER à Minsk), 2026-05-28.
+
+Quand une image est disponible pour un inject médiatique (article BC1, TM ou TV4), elle doit être intégrée dans **deux endroits** :
+
+| Endroit | Chemin | Balise |
+|---|---|---|
+| `index_master.html` card-thumb | `./images/FICHIER.jpg` | `<div class="card-thumb"><img src="..." alt="..."></div>` |
+| Article HTML hero section | `../images/FICHIER.jpg` (chemin relatif depuis `Site Médias/`) | `<img src="..." style="width:100%; height:auto; display:block;">` |
+
+**Double intégration obligatoire** — la card sans image dans index_master donne un affichage appauvri par rapport aux autres cards avec image.
+
+---
+
+## RÈGLE — Vérification des descriptions visuelles avant publication
+
+> Ajoutée suite à une erreur de description d'image dans BCI_Article_Manifestations.html, 2026-05-28.
+
+**Règle :** Toute description textuelle d'une image dans un article (caption, deck, corps) doit être vérifiée contre l'image réelle avant publication. Ne jamais rédiger la description de mémoire ou par déduction.
+
+**Processus :**
+1. Ouvrir l'image et l'examiner avant de rédiger
+2. Chercher TOUTES les occurrences de la description dans l'article (au moins 3 endroits typiques : caption, deck, 1er ou 2e paragraphe)
+3. Pour les symboles identitaires (drapeaux, insignes, uniformes) : préférer une formulation générique ("symboles nationalistes") si doute sur l'identité exacte
+
+**Exemple d'erreur corrigée :** image montrant le drapeau Pahonia biélorusse (blanc-rouge-blanc, symbole opposition BR) décrite comme "drapeaux de Bella Russia et de la République de Mercure" → corrigé en "symboles nationalistes".
+
+---
+
+## RÉSOLUTION COHÉRENCE MELMIL vs INDEX_MASTER (2026-05-28)
+
+> Analyse conjointe NOYAU × GUILLAUME — résolution canonique validée.
+
+### Règle de vérité des dates
+
+> **Les dates dans MELMIL.xls peuvent être fausses si elles ont été modifiées manuellement.**
+> **La date affichée dans index_master.html = vérité animateur = source de foi.**
+> Le XLS est la vérité des **codes** et des **sujet/contenus**, pas toujours des dates.
+
+**Cas documenté :** 07.02.06i (STEP 2) — MELMIL.xls indique 28/05, index_master affiche 27 Mai. La date XLS a été modifiée manuellement et est incorrecte. La cadence psyops Step1 (26) → Step2 (27) → Step3 (29) est la vérité exercice. Ne pas corriger index_master sur la foi du XLS seul.
+
+**Règle de conduite :** en cas de divergence date XLS / index_master, **demander confirmation à l'utilisateur** avant toute correction. L'utilisateur valide quelle source est correcte.
+
+### Règle injects multi-canaux
+
+> Un inject MELMIL unique peut se décliner sur N canaux (BC1 article + tweet EastWatch par exemple).
+> **`num` identique dans les deux ANIM_DATA** — c'est normal et intentionnel.
+> La clé ANIM_DATA porte le suffixe canal pour les distinguer.
+> MELMIL compte **1 inject** ; index_master affiche **N cartes**.
+
+**Exemple validé :** 07.05.07i (Marchuk Level Alpha) → `BCI_Article_CemaBR` + `@EastWatch_marchuk_alpha` — même `num:"07.05.07"`, deux cartes.
+
+### Convention de codage des extensions éditoriales
+
+Les injects produits au-delà des 45 MELMIL (enrichissement narratif) suivent la convention :
+
+| Suffixe | Signification | Exemple |
+|---|---|---|
+| `.00` | Tweet d'amorce pré-série (antérieur aux injects numérotés) | `07.02.00` = 1er tweet HmunikVoice |
+| `Ai` | Extension amplification type A (civile organique) | `07.02.05Ai` = @TemoignageDAC photo tract |
+| `Bi` | Extension amplification type B (SMS bombing) | `07.02.05Bi` = @MarionKessler57 SMS |
+| `P-xx` | Architecture Storm-1516 / bascule politique | P-01 à P-28 |
+| `R-x` | Contremesure camp bleu (réactive) | R1-1 à R6-2 |
+| `CIVIL-xx` | Témoin civil neutre | CIVIL-01 = @clambroise55 |
+| `TV4-xx` | Succès tactique bleu point de repère | TV4-01 = capture 104 MER |
+
+**Règle :** Ne jamais entrer ces extensions comme lignes EXCO-WG3 dans MELMIL.xls — elles vivent uniquement dans index_master.html. Elles héritent de la LO de l'inject racine.
+
+### Corrections appliquées le 2026-05-28
+
+| Élément | Avant | Après | Motif |
+|---|---|---|---|
+| `@HmunikVoice` 1er tweet (27 Mai) | `num:"07.02.03"` | `num:"07.02.00"` | Collision avec 07.02.03i (forces faibles, 29 Mai) |
+| `@TemoignageDAC_tract_neufchateau` (26 Mai) | `num:"07.02.06"` | `num:"07.02.05Ai"` | Collision avec tract_step2 (07.02.06i canonique) |
+| `@MarionKessler57_sms` (26 Mai) | `num:"07.02.05"` | `num:"07.02.05Bi"` | Collision avec tract_step1 (07.02.05i canonique) |
+| Commentaire HTML Youkachenko | `07.02.01i` | `07.05.01i` | Erreur relique d'ancienne version |
+| Commentaire HTML @TemoignageDAC | `07.02.06i` | `07.02.05Ai` | Aligné sur la correction ANIM_DATA |
+
+### Trou narratif identifié — Série 08.02 (D+35 CLIMAX)
+
+Les 4 injects de redditions/captures MER sont absents d'index_master. Priorité de création :
+
+| Inject | Date | Sujet | Priorité |
+|---|---|---|---|
+| **08.02.03i** | 31 Mai | Reddition troupes niveau HSARREBOURG | **HAUTE** — inject pivot du CLIMAX D+35 |
+| **08.02.02i** | 28 Mai | Capture soldats MER (= 104 hommes DJOBOVIC/HNANCY) | **HAUTE** |
+| 08.02.01i | 31 Mai | Reddition soldats MER (général) | Importante |
+| 08.02.04i | 31 Mai | Capture troupes HSarre-union | Moyenne |
+
+> ⚠ Le CLIMAX D+35 (saisie HSARREBOURG) n'a aucune traduction côté HN/camp bleu dans index_master. La série 08.02 doit être créée pour que l'exercice soit narrativement complet.
+
+### Mapping 08.03 → éléments existants
+
+| Inject MELMIL | Déjà couvert par |
+|---|---|
+| 08.03.01i (Discours SG OTAN) | `HEX_Article_Rutte` (num 07.02.08) |
+| 08.03.02i (Discours SG ONU) | `HEX_Article_Guterres_Statement` (P-25) + `TV4_Article_Guterres_Statement` (P-26) |
+| 08.03.03i + 08.03.04i | Draft MELMIL — créer uniquement à la demande |
