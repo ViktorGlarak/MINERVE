@@ -151,7 +151,7 @@ Chaque tweet card produit par MASTAURIGE doit pouvoir être rattaché à une LO.
 | **LO 2** | MER fort et déterminé · OTAN fragile et hésitant | @HmunikVoice (valorisation MER), @GromovaYelena (fragilité OTAN) |
 | **LO 3** | MER résilient · coût humain insupportable pour OTAN | @HmunikVoice (tracts + bilan pertes), @IndependentArnish (insoutenabilité) |
 | **LO 4** | MER légitime et accueilli · DAC/ARN État failli | @HmunikVoice (libération), @CorrespondantEst (population hostile DAC) |
-| **LO 5** | Alliance fracturée · BR nouveau partenaire MER | @EastWatch_Intl (doute OTAN), @BelovDimitri (R1 contremesures), signaux BR |
+| **LO 5** | Alliance fracturée · BR nouveau partenaire MER | @EastWatch_Intl (doute OTAN), @BelovDimitri (08.03.03 contremesures OTAN), signaux BR |
 
 ### Règle de marquage tweet
 > Quand MASTAURIGE produit un nouveau tweet card, indiquer dans la description (commentaire ou champ `desc` ANIM_DATA) : `LO X — [titre]`. Si tweet réactif (condition), indiquer aussi `Réactif : [condition]`.
@@ -347,29 +347,35 @@ Quand MASTAURIGE produit un inject qui enrichit narrativement un inject MELMIL s
 | `Ai` | Amplification civile organique (couche blanchiment) | LO 1 + LO parent | `07.02.05Ai` = @TemoignageDAC photo tract NEUFCHATEAU |
 | `Bi` | Amplification SMS/numérique | LO 1 + LO parent | `07.02.05Bi` = @MarionKessler57 SMS psyops |
 | `Ci`, `Di`… | Extensions supplémentaires si nécessaire | LO 1 + LO parent | — |
-| `P-xx` | Architecture Storm-1516 / bascule politique BR | LO 1, 4 ou 5 | P-01 à P-28 |
-| `R-x` | Contremesure camp bleu (réactive, conditionnelle) | LO 5 | R1-1 à R6-2 |
+| ~~`P-xx`~~ | Absorbé dans 07.07, 07.08, 07.05 *(migration terminée 2026-05-29)* | — | — |
+| ~~`R-x`~~ | Absorbé dans 08.03, 07.01, 07.05, 08.01.xxAi.Rx *(migration terminée 2026-05-29)* | — | — |
 | `CIVIL-xx` | Témoin civil neutre (ni rouge ni bleu) | LO 3 | CIVIL-01 = @clambroise55 |
 | `TV4-xx` | Succès tactique camp bleu (point de repère neutre) | LO 2/3 | TV4-01 = capture 104 MER DJOBOVIC |
 
 **Règle de vérité des dates MELMIL :** Les dates dans MELMIL.xls peuvent être modifiées manuellement et être inexactes.
 
-#### ⚠ Statut de migration P-xx / R-x → format XX.YY.ZZAi.Rx (2026-05-29)
+#### ✅ Migration P-xx / R-x terminée (2026-05-29)
 
-Les codes P-xx et R-x (dans ANIM_DATA `num` de index_master.html) doivent être migrés vers le format `XX.YY.ZZAi.Rx`. Cette migration nécessite le mapping explicite "quel inject parent" pour chaque code. Statut actuel :
+Tous les codes P-xx et R-x ont été migrés vers le format canonique `XX.YY.ZZAi` ou `XX.YY.ZZAi.Rx`. Résumé :
 
-| Série | Codes existants | LO | Série MELMIL cible | Statut migration |
-|---|---|---|---|---|
-| P.01 | P-03,04,06,08,09,19,20,25,26 | LO 1 | À définir (ex: `07.07`) | ⏳ En attente mapping |
-| P.02 | P-01,02,10,11,14,15,16,17,18 | LO 1+2 | À définir (ex: `07.08`) | ⏳ En attente mapping |
-| P.03 | P-12,13,21,22,23,27,28 | LO 5 | À définir (ex: `07.09`) | ⏳ En attente mapping |
-| R1-x | R1-1 à R1-5 | LO 5 | Relance injects 07.0x | ⏳ En attente mapping parent |
-| R3-x | R3-1, R3-2 | LO 3 | Relance 08.01.xxAi | ⏳ En attente mapping parent |
-| R4 | R4 | LO 1 | Relance P.01 | ⏳ En attente mapping parent |
-| R5-x | R5-1, R5-2 | LO 3/5 | Relance alerte D+39 | ⏳ En attente mapping parent |
-| R6-x | R6-1, R6-2 | LO 2 | Relance 07.01 post-HSARREBOURG | ⏳ En attente mapping parent |
+| Ancienne série | Nouveaux codes | Nouvelle série |
+|---|---|---|
+| P.01 (Architecture déni Storm-1516) | 07.07.01Ai/Bi/Ci · 07.07.02Ai · 07.07.03Ai→Ei · 07.07.04Ai | **07.07** |
+| P.02 (Piège narratif rétroactif) | 07.08.01Ai→Ei · 07.08.02Ai · 07.08.03Ai→Di | **07.08** |
+| P.03 (Bascule politique BR) | 07.05.01Ci/Di · 07.05.05Bi · 07.05.09Bi · 07.05.10Bi→Gi | **07.05** (absorbé) |
+| R1 (Contremesures OTAN) | 08.03.03Ai→Ei | **08.03** |
+| R3 (Relances courriers) | 08.01.01Ai.R1 + 08.01.01Ai.R2 | **08.01** (format .Rx) |
+| R4 (BC1 blanchiment) | 07.05.05Bi | **07.05** |
+| R5 (Signaux D+39 nuit) | 07.05.10Fi + 07.05.10Gi | **07.05** |
+| R6 (Renforcements 07.01) | 07.01.05Ai + 07.01.06Ai | **07.01** |
+| P-25/P-26 (Guterres) | 08.03.02Ai + 08.03.02Bi | **08.03** |
 
-**Action requise :** Pour chaque P-xx et R-x, l'utilisateur doit préciser à quel inject parent (XX.YY.ZZAi) il se rattache, pour pouvoir les renommer `XX.YY.ZZAi.Rx` dans melmil_inject_index.js et index_master.html ANIM_DATA. **index_master.html = vérité animateur sur les dates.** En cas de divergence, ne pas corriger index_master sans demander confirmation à l'utilisateur.
+**Fichiers mis à jour :** `index_master.html` (ANIM_DATA `num` + `series` + LO_BY_KEY) + `melmil_inject_index.js` (nouvelles entrées).
+
+**⚠ RÈGLE CRITIQUE — Virgule finale dans `melmil_inject_index.js` (bug détecté 2026-05-29) :**
+> Lors de l'ajout de nouvelles sections dans `MASTAURIGE_INDEX`, la **dernière entrée de chaque bloc précédent** doit se terminer par une virgule `,` avant le commentaire de la nouvelle section.
+> Sans cette virgule, JavaScript lève une SyntaxError silencieuse et `MASTAURIGE_INDEX` devient `undefined` — tous les injects disparaissent de MELMIL et les popups ne fonctionnent plus.
+> **Toujours vérifier** que la structure se lit : `],` (virgule) + saut de ligne + `// commentaire` + nouvelle entrée.
 
 **Règle injects multi-canaux :** Un même code MELMIL peut apparaître sur deux cartes différentes (article BC1 + tweet EastWatch) — c'est intentionnel. Le `num` est identique, la **clé ANIM_DATA** porte le suffixe canal.
 
@@ -569,6 +575,270 @@ Au retour (par lien retour ou bouton précédent), tout est restauré instantan�
 
 **Ne PAS utiliser `openCard()` pour MELMIL** : cette fonction ajoute `?from=master` dans l'URL et appelle `markViewed()`, ce qui est inutile pour MELMIL (pas un article à marquer comme lu).
 
+### [2026-05-29] RÈGLE CANONIQUE — Langues des médias fictifs AURIGE 2BB
+
+> **Today Mercure publie EXCLUSIVEMENT en anglais.**
+> **Bella Russia Channel 1 publie en anglais** (audience internationale fictive).
+> **TV4 International publie en anglais.**
+> Aucun de ces trois médias ne produit d'articles en français — la langue française n'apparaît que dans les tweets de civils francophones (@clambroise55, @MarionKessler57, @clambroise55…) et dans les tracts/courriers institutionnels MAF/maires.
+
+**Règle complémentaire — Vorin, tireur d'élite MER :**
+> Aleksander Vorin est un **tueur de commandants de compagnie (capitaines)**. Il ne cible PAS les colonels ou lieutenants-colonels. Sa réputation est bâtie sur la décapitation des cadres de contact (capitaines, chefs de section), pas des états-majors. Toute production future sur Vorin doit respecter ce profil.
+> Portrait disponible : `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png`
+
+---
+
+---
+
+---
+
+## ⚠ RÈGLE AUTOMATIQUE — Mise à jour trombinoscope à chaque nouvel avatar (2026-05-29)
+
+> **À chaque création d'un nouvel avatar RS fictif pour AURIGE 2BB, MASTAURIGE met automatiquement à jour la section "Avatars RS" correspondante dans le trombinoscope.**
+> Fichier : `WEB\Trombinoscope\ACTEURS_A3_AURIGE2BB.html`
+
+### Quelle section mettre à jour selon le camp de l'avatar
+
+| Camp de l'avatar | Page trombinoscope | Section |
+|---|---|---|
+| 🔴 Rouge (pro-MER) | Page 1 — Mercure | `Avatars RS FORAD — AURIGE 2BB` |
+| 🔴 Rouge camouflé civil / pseudo-neutre | Page 1 — Mercure | `Avatars RS FORAD — AURIGE 2BB` |
+| 🔵 Bleu (OTAN/DAC) | Page 2 — Dacie Romanie | `Avatars RS — Camp Bleu + Civils ZO` |
+| ⚪ Civil neutre (Lorraine) | Page 2 — Dacie Romanie | `Avatars RS — Camp Bleu + Civils ZO` |
+| 🟡 BR (Bella Russia) | Page 3 — Bella Russia | `Avatars RS — Bella Russia` |
+
+### Format d'entrée à ajouter
+
+```html
+<div class="avatar-rs-item" style="border-left-color:#C41E3A;">
+  <div class="avatar-rs-handle">@NouvelAvatar</div>
+  <div class="avatar-rs-name">Prénom Nom — Rôle/Description courte</div>
+  <div class="avatar-rs-footer">
+    <span class="avatar-rs-lo">LO X</span>
+    <span class="avatar-rs-camp rouge">ROUGE</span>
+  </div>
+</div>
+```
+
+Couleurs border-left et camp badge :
+- Rouge : `#C41E3A` / classe `rouge`
+- Bleu : `#2B5BA0` / classe `bleu`
+- Neutre/pseudo : `#888` / classe `neutre`
+- En attente : `#aaa` / classe `attente` + `opacity:0.65`
+
+### Déclencheur : checklist création avatar complète
+
+Quand MASTAURIGE crée un nouvel avatar :
+1. ✅ Card HTML tweet dans `index_master.html`
+2. ✅ Entrée `ANIM_DATA` + `LO_BY_KEY`
+3. ✅ Entrée `melmil_inject_index.js`
+4. ✅ Fiche dans `MASTAURIGE/MEMOIRE.md` (registre avatars)
+5. **✅ Nouveau : entrée dans la section RS du trombinoscope** (`Trombinoscope\ACTEURS_A3_AURIGE2BB.html`)
+
+---
+
+## ⚠ RÈGLE ABSOLUE — MASTAURIGE est consulté sur TOUTE modification de ces fichiers (2026-05-29)
+
+> **MASTAURIGE est l'agent expert de l'outil MASTAURIGE.**
+> Toute modification de `index_master.html` ou de `MELMIL_ILI_GUILLAUME.html` requiert la consultation de MASTAURIGE, sans exception et quel que soit le type de modification.
+
+**Périmètre de responsabilité MASTAURIGE = tout fichier sous :**
+```
+D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\
+```
+
+Sans restriction de type — HTML, JS, CSS, PS1, BAT, XLS, images, scripts partagés.
+**Cela s'applique à toute modification, quel qu'en soit le type.**
+
+**Ce que MASTAURIGE vérifie systématiquement :**
+1. Cohérence du code inject (format `XX.YY.ZZAi`, lettre libre, MELMIL_EDITORIAL_DAYS si nécessaire)
+2. Présence des 4 éléments obligatoires pour tout nouvel inject : HTML card + ANIM_DATA + LO_BY_KEY + melmil_inject_index
+3. MELMIL_SUBINJECT_DAYS si date sous-inject ≠ date parent XLS
+4. Virgule finale dans melmil_inject_index.js (bug critique documenté)
+5. Template HTML correct par site (BC1/TM/TV4/HEX ont chacun leur template obligatoire)
+6. back-btn.js présent en dernière ligne des articles HTML
+
+---
+
+## ⚠ DOCTRINE CALIBRATION BRIGADE — Guide de production MASTAURIGE (2026-05-29)
+
+> **Référence complète :** `AURIGE/MEMOIRE.md` + auto-mémoire `aurige_brigade_calibration.md`
+> D+31→D+34 trop stratégique. À partir de D+35 et pour tout exercice AURIGE futur, **calibrer pour le PC brigade**.
+
+### Formats prioritaires pour le niveau brigade
+
+| Format | Contenu | Clé de réalisme |
+|---|---|---|
+| **Tweet civil local** (@clambroise55 type) | Tag vu, tract reçu, présence suspecte dans une ville ZO | Ville précise H-préfixe, numéro 03 72 67 XX XX |
+| **Courrier HTML** | Plainte du maire au commandant brigade | Charte mairie fictive locale |
+| **Article journal local** | L'Est Républicain fictif hostile à la brigade | Ton local, pas national |
+| **Transcript radio** | Ce qui se dit sur Radio Moselle fictive | Court, neutre, rapporte |
+| **RS humiliant** | Mème, montage, tweet moqueur sur la brigade | Impact émotionnel, minimaliste |
+| **Photo tweet** | Vandalisme, drapeau, graffiti, tract collé | Image + légende civile |
+
+### Villes ZO brigade AURIGE 2BB (cibles injects locaux)
+- **Priorité haute :** HCHATEAU-SALINS · HLUNEVILLE · HSARREBOURG · HToul · HHéming
+- **Éviter comme cible principale :** HNANCY (niveau division) 
+
+### Roadmap formats à créer
+- [ ] Pages LinkedIn HTML (criblage OSINT)
+- [ ] Pages Wikipedia HTML (crédibilisation personnages)
+- [ ] Journal local HTML (L'Est Républicain fictif)
+- [ ] Radio locale (retranscription / clip audio)
+
+### Chaîne Storm-1516 adaptée brigade
+Phase 1 tweet civil → Phase 2 journal local → Phase 3 RS humiliants → Phase 4 courrier maire
+
+---
+
+## ⚠ RÈGLE CANONIQUE — Placement MELMIL des sous-injects multi-jours (2026-05-29)
+
+> **Les codes d'injects ne changent JAMAIS pour des raisons de placement MELMIL.**
+> Si un sous-inject est joué un jour différent de son incident parent XLS, on utilise `MELMIL_SUBINJECT_DAYS` — pas un nouveau code.
+
+### Principe fondamental — split automatique
+
+Un incident MELMIL peut s'étendre sur plusieurs jours. Dans ce cas :
+- La card principale reste à la date du parent dans le XLS (ex : `07.01.02i` à D+32)
+- Les sous-injects joués à une date différente créent automatiquement une **card split** à leur date de jeu
+- Le split est identique au glisser-déposer manuel : la card parent est clonée, le sous-inject seul s'y trouve
+
+### Architecture complète de synchronisation MELMIL ↔ index_master
+
+```
+index_master change date
+        │ écrit card-day-KEY (localStorage)
+        ▼
+MELMIL reload → syncDayOverrides() Sync 2
+        │ lit card-day-KEY → trouve le sous-inject XLS
+        │ applySubInjectPosition() — SPLIT sans persistence
+        │ (SUBINJ_KEY non modifié)
+        ▼
+buildSubInjectDefaultSplits()
+        │ skip si SUBINJ_KEY set (drag MELMIL)
+        │ skip si card-day-KEY set (index_master)
+        │ sinon → applySubInjectPosition() depuis MELMIL_SUBINJECT_DAYS
+        ▼
+MELMIL drag sous-inject
+        │ handleSubInjectDrop() → saveSubInjectPositions()
+        │ écrit SUBINJ_KEY + card-day-KEY
+        ▼
+index_master reload → initDateTimeEditors()
+        lit card-day-KEY → repositionne la card
+```
+
+**Règle clé :** `SUBINJ_KEY` (melmil-subinj) est écrit UNIQUEMENT par les drags manuels de l'animateur dans MELMIL. Les positions automatiques (Sync 2 + defaults) n'y touchent pas → priorité claire.
+
+### Priorité des positions (du plus fort au plus faible)
+
+| Priorité | Source | Clé localStorage | Écrit par |
+|---|---|---|---|
+| 1 | Drag MELMIL sous-inject | `melmil-subinj` | `saveSubInjectPositions()` |
+| 2 | Date selector index_master | `card-day-KEY` | `initDateTimeEditors()` dans index_master |
+| 3 | Default `MELMIL_SUBINJECT_DAYS` | *(aucune — visuel seul)* | `applySubInjectPosition()` |
+
+### `MELMIL_SUBINJECT_DAYS` (melmil_inject_index.js)
+
+```javascript
+var MELMIL_SUBINJECT_DAYS = {
+    "07.01.02Ci": 29,   // TM Vorin — D+34 — parent 07.01.02i est à D+32
+    "07.05.03Fi": 29,   // BC1 Manifestations J4 — D+34 — parent 07.05.03i est à D+33
+};
+```
+
+### Règle de production — quand utiliser MELMIL_SUBINJECT_DAYS
+
+| Situation | Action |
+|---|---|
+| Sous-inject joué le **même jour** que le parent XLS | Coder `XX.YY.ZZAi` normalement — apparaît dans la card du parent ✅ |
+| Sous-inject joué un **autre jour** que le parent XLS | Garder le code + `MELMIL_SUBINJECT_DAYS[code] = dayorder` |
+| Incident thématiquement nouveau, pas de parent existant | Code libre `XX.YY.VVi` + `MELMIL_EDITORIAL_DAYS[XX.YY.VVi] = dayorder` |
+
+### ⚠ NE JAMAIS changer un code d'inject pour résoudre un problème de placement
+
+> Les codes (`07.01.02Ci`, `07.05.03Fi`…) sont des identifiants narratifs permanents présents dans index_master.html, ANIM_DATA, LO_BY_KEY, melmil_inject_index.js, GUILLAUME/MEMOIRE.md et les rapports exercice. Les renommer crée des incohérences en cascade.
+
+### Cas de référence (2026-05-29)
+
+| Inject | Code (conservé) | Parent XLS | Date parent | Date jeu | Solution |
+|---|---|---|---|---|---|
+| TM Portrait Vorin | `07.01.02Ci` | `07.01.02i` | D+32 | D+34 | `MELMIL_SUBINJECT_DAYS["07.01.02Ci"] = 29` |
+| BC1 Manifestations J4 | `07.05.03Fi` | `07.05.03i` | D+33 | D+34 | `MELMIL_SUBINJECT_DAYS["07.05.03Fi"] = 29` |
+
+### Responsabilité inter-agents
+
+| Agent | Rôle |
+|---|---|
+| **GUILLAUME** | Fournit la date de jeu + contexte scénario |
+| **NOYAU** | Valide la cohérence avec la synchromatrice |
+| **MASTAURIGE** | Code l'inject, vérifie `melmil_data.js`, ajoute dans `MELMIL_SUBINJECT_DAYS` si nécessaire |
+
+---
+
+### [2026-05-30] Comportement "En attente" — Corrections synchronisation (2026-05-30)
+
+**Problème identifié :** Quand une card est basculée "En attente" dans index_master.html :
+1. Sa date HTML restait affichée (ex: "03 Juin 08h00") au lieu de montrer un statut "En attente"
+2. MELMIL ne déplaçait pas le sous-inject vers la colonne "À placer" — il restait à sa date d'origine
+
+**Corrections apportées :**
+
+| Fichier | Correction |
+|---|---|
+| `index_master.html` | `applyChange()` : quand "attente" sélectionné → affiche `⏳ En attente` dans l'élément date de la card |
+| `index_master.html` | `initDateTimeEditors()` au chargement : si `card-attente-KEY = "1"` → affiche immédiatement `⏳ En attente` |
+| `melmil.js` | `syncDayOverrides()` Sync 2 : lit `card-attente-KEY`, déplace le sous-inject vers `cell-RX-overflow` (= "À placer") |
+| `melmil.js` | `buildSubInjectDefaultSplits()` : skip si `card-attente-KEY = "1"` pour ne pas appliquer le default et écraser le statut attente |
+| `melmil.js` | `saveSubInjectPositions()` : drag vers jour → efface `card-attente-KEY` + écrit `card-day-KEY` ; drag vers overflow → écrit `card-attente-KEY` + efface `card-day-KEY` |
+| `melmil.js` | `savePositions()` (drag incident entier) : même logique bidirectionnelle via `propagateToCard()` |
+| `melmil.js` | Drop ghost r7 : même logique bidirectionnelle jour ↔ overflow |
+
+**Priorité de positionnement MELMIL (mise à jour) :**
+1. Drag manuel MELMIL (`SUBINJ_KEY`) — priorité absolue
+2. **"En attente" index_master** (`card-attente-KEY = "1"`) → overflow "À placer"
+3. Date modifiée index_master (`card-day-KEY`) → colonne de la date
+4. Default `MELMIL_SUBINJECT_DAYS` → colonne par défaut si rien d'autre
+
+---
+
+### [2026-05-30] ⚠ RÈGLE CRITIQUE — Attributs obligatoires sur toute article-card (audit 2026-05-30)
+
+**Problème découvert :** 37 cards dans index_master.html manquaient l'attribut `data-camp`, créées avant que la règle devienne obligatoire (cards P-xx, cards anciennes).
+
+**Impact :** Classification visuelle absente (pas de border-color rouge/bleu). La card `BCI_Article_MinskConseildUrgence` (07.05.10Bi) semblait invisible car son `data-camp` manquant empêchait l'affichage correct dans certains contextes. → Corrigé le 2026-05-30 par correction en masse.
+
+**Règle canonique — 5 attributs obligatoires sur toute nouvelle article-card :**
+
+```html
+<div class="article-card"
+     data-source="[bc1|tm|tv4|hex|inst]"
+     data-category="[media|social]"
+     data-camp="[rouge|bleu|neutre|gris]"
+     data-dayorder="[26-35|attente]"
+     onclick="openCard(this, '...')  ou  markTweet(this, 'KEY')">
+```
+
+| `data-source` | `data-camp` attendu |
+|---|---|
+| `bc1`, `tm` | `rouge` |
+| `tv4`, `hex` | `bleu` |
+| `inst` (courriers maires/préfet DAC) | `bleu` |
+| tweet `data-camp` déjà présent | selon camp avatar |
+| `neutre` (civils locaux) | `neutre` |
+
+**Correction highlightCardFromUrl() (2026-05-30) :** La fonction basculait toujours sur filtre TOUT, rendant les cards "En attente" invisibles même via navigation MELMIL. Désormais, si la card cible est en `data-dayorder="attente"`, le filtre bascule automatiquement sur "En attente" avant de scroller.
+
+**Checklist création nouvelle card (mise à jour) :**
+1. HTML card dans index_master.html avec les 5 attributs ci-dessus
+2. Entrée ANIM_DATA
+3. Entrée LO_BY_KEY
+4. Entrée melmil_inject_index.js
+5. MELMIL_SUBINJECT_DAYS si date ≠ parent XLS
+6. Trombinoscope RS si nouvel avatar
+**+ Vérifier que `data-camp` est bien présent**
+
+---
+
 ### [2026-05-29] ⚠ Template HTML obligatoire — Sites fictifs TV4, BC1, TM
 
 > **Tout nouvel article HTML pour un site fictif AURIGE 2BB doit utiliser le template complet de référence — jamais un template simplifié ad hoc.**
@@ -632,6 +902,26 @@ Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG)
 | 04.01.01Bi | `TM_Article_Seveso_OTAN_01` | TM article | OTAN accusé tir SEVESO, nuage toxique, 12 000 civils — 11h00 MSK |
 | 04.01.01Ci | `@HmunikVoice_Seveso_NRBC` | Tweet rouge | OTAN incompétent, site décadent, nuage toxique — 09h00 |
 | 04.01.01Di | `@clambroise55_HToul_masques` | Tweet neutre | Panique civile, fumée noire, besoin masques à gaz — 09h15 |
+| **04.01.01Ei** | `@clambroise55_commercy_fumees` | Tweet neutre | Nuage dérive vers HCommercy — odeur âcre signalée — silence préfectoral — 14h00 — LO 3 |
+
+### Avatars série 04.01 (ajout 04.01.01Ei)
+@clambroise55 réutilisée pour 04.01.01Ei — même civile, deuxième tweet dans la journée — cohérence éditoriale.
+
+---
+
+## Mapping 08.02 → éléments index_master (mis à jour 2026-05-29)
+
+| Inject MELMIL | Code MASTAURIGE | Fichier | Date | Statut |
+|---|---|---|---|---|
+| **08.02.02i** | **08.02.02Ai** | `TV4_Article_8DAC_HNANCY_01.html` | 28 Mai D+33 | ✅ Intégré |
+| **08.02.02i** | **08.02.02Bi** | tweet `@KolesnikovAndrei_POW_maltraitance` | 29 Mai D+34 | ✅ Intégré |
+| 08.02.01i | — | — | 31 Mai D+36 | ❌ Non créé |
+| 08.02.03i | — | — | 31 Mai D+36 | ❌ Non créé |
+| 08.02.04i | — | — | 31 Mai D+36 | ❌ Non créé |
+
+**08.02.02Ai :** TV4 — 104 soldats MER capturés à HNANCY par la 8e DAC, commandant DJOBOVIC (28 Mai 06h45). Rupture narrative MER : "repli calculé" ← contredit par la capture de 104 hommes. Force un inject de blanchiment MER côté 07.08. LO 2 + LO 3.
+
+**08.02.02Bi :** @KolesnikovAndrei — 29 Mai 16h00 — Rumeurs maltraitance POW MER en garde 8e DAC. Appel CICR pour accès immédiat. Discrédit DAC vs troupes FR (même coalition, pas mêmes standards). Avatar @KolesnikovAndrei choisi pour profil IHL/DICA déjà établi (07.06). `MELMIL_SUBINJECT_DAYS["08.02.02Bi"] = 29`. LO 2 + LO 3.
 
 ---
 
@@ -644,6 +934,8 @@ Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG)
 | 2026-05-27 | AURIGE 2BB | Opposition BR réaction Youkachenko — P-27/P-28 | @S_Tikhanov (photo), @A_Saniki (photo) | 2 tweets avec avatar photo portrait |
 | 2026-05-28 | AURIGE 2BB | Témoin civil D+33 — blocage N4 Void-Vacon | @clambroise55 (initiales CA) | 1 tweet civil NEUTRE — LO 3 |
 | 2026-05-28 | AURIGE 2BB | Article Today Mercure — MG PRUNIERE CO 41e DIV CHARS (07.02.02i) | Today Mercure (TM) | TM_Article_CEMA_01.html réécrit — profil Héros de la Nation, 3 citations, front Moselle — LO 2 |
+| 2026-05-29 | AURIGE 2BB | 6 nouveaux injects D+34 (29 Mai) — 07.01/07.02/07.05/07.06/04.01 | @clambroise55 (2e tweet), @KolesnikovAndrei, @GavrilovBorislav, BC1, TM×2 | 3 articles HTML créés + 3 tweets + ANIM_DATA + LO_BY_KEY + melmil_inject_index mis à jour |
+| 2026-05-29 | AURIGE 2BB | Intégration image base64 dans BCI_Article_Manifestations_NP_BL.html | BC1 | Photo `manifestation BelleRussia 29 mai.jpg` encodée en base64 (172 Ko) — hero section remplace le placeholder texte "DAY 4" par l'image réelle — fichier HTML : 193 Ko |
 
 ## ⚠ RÈGLE ÉDITORIALE — Liens croisés entre articles (ajout 2026-05-29)
 

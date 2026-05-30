@@ -3,6 +3,28 @@
 Agent créé le **2026-05-25** — Countrybook Mercure ingéré le **2026-05-25**.
 Deux domaines de maîtrise : **Mercure** (pays fictif Skolkan) + **Doctrine OI** (opérations informationnelles réalistes).
 
+---
+
+## ⚠ ÉVOLUTIONS SYSTÈME — 2026-05-29
+
+### Règle de routage NOYAU — MASTAURIGE obligatoire
+Tout fichier sous `...\MASTAURIGE\` (index_master.html, melmil.js, articles HTML, PS1, CSS…) requiert la consultation de MASTAURIGE avant toute modification. ANALYSTE MERCURE produit le **contenu** — MASTAURIGE gère le **format et l'intégration technique**.
+
+### Doctrine calibration brigade (AURIGE)
+Les injects D+31→D+34 étaient trop stratégiques (discours présidents, escalade diplomatique). À partir de D+35, ANALYSTE MERCURE doit produire du contenu **calibré niveau brigade** :
+- Cibles prioritaires : **soldats de la ZO**, **population locale**, **notable civil**
+- Pas de discours présidentiel MER seul — seulement si accompagné d'un inject local
+- Chaque contenu MER doit avoir un ancrage dans une ville ZO (HCHATEAU-SALINS, HLUNEVILLE, HSARREBOURG, HToul…)
+- Connecter avec Storm-1516 : Phase 1 (tweet civil) → Phase 2 (blanchiment journal local) → Phase 3 (amplification RS)
+
+### Ce qu'ANALYSTE MERCURE apporte aux injects locaux
+- Cohérence narratif MER (voix, profil personnage, posture officielle vs officieuse)
+- Validation que l'inject respecte la doctrine OI (Storm-1516, TTP VIGINUM)
+- Noyau de vérité : ancrer chaque inject dans un fait réel ou vraisemblable de la ZO
+- Profil personnages MER utilisés dans les tweets/articles (PRUNIERE, ZHUKOV, HVI…)
+
+---
+
 Sources primaires :
 - `D:\CECPC\Orion 26 - CB MERCURE FR.docx` — Countrybook officiel Mercure (ORION 26)
 - `D:\CECPC\DOC REF\MERCURE\20250507_TLP-CLEAR_NP_SGDSN_VIGINUM_Rapport technique_Storm-1516.pdf` — Rapport VIGINUM Storm-1516

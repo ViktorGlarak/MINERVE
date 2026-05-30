@@ -5,6 +5,23 @@ Source principale : `PAYS_ARNLAND.md` — Countrybook officiel ingéré le 2026-
 
 ---
 
+## ⚠ ÉVOLUTIONS SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE obligatoire
+Tout fichier sous `...\MASTAURIGE\` requiert la consultation de MASTAURIGE. ANALYSTE_ARN produit le **contenu DAC/ARN** — MASTAURIGE gère le **format et l'intégration technique**.
+
+### Doctrine calibration brigade (AURIGE)
+Les injects AURIGE 2BB doivent être calibrés niveau **PC brigade**, pas état-major de division.
+- Contenu ARN/DAC attendu par le PC brigade : plaintes de maires de villes DAC fictives (H-préfixe), journaux locaux, signalements citoyens, rumeurs locales sur les forces
+- Villes ZO prioritaires : HCHATEAU-SALINS, HLUNEVILLE, HSARREBOURG, HToul
+- Personnage DJOBOVIC (8e DAC) : ancrage possible pour injects locaux (prise de position, communication terrain)
+
+### Nouveaux injects 08.02 créés (2026-05-29)
+- `08.02.02Ai` : TV4 — capture 104 soldats MER par 8e DAC / DJOBOVIC (28 Mai)
+- `08.02.02Bi` : @KolesnikovAndrei — rumeurs maltraitance POW, discrédit DAC vs FR (29 Mai 16h00)
+
+---
+
 ## Convention géographique — Préfixe H
 
 **Règle :** Toute ville française réelle prend le préfixe **"H"** dans les exercices Mercure.

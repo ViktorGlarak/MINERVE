@@ -257,4 +257,49 @@ ZHUKOV porte une vulnérabilité personnelle exploitable : l'affaire d'évasion 
 
 ## Patterns appris
 
-*(À alimenter au fil des sessions)*
+### [2026-05-29] Calibration niveau brigade — Doctrine ILI adaptée
+
+**Contexte :** AURIGE entraîne un PC de brigade. Les injects D+31→D+34 ont été trop haut niveau (stratégique/opératif). Cette analyse doctrinal rectifie l'approche pour tous les exercices AURIGE futurs.
+
+#### Mapping LO → injects brigade
+
+Un PC brigade n'a pas de prise sur les LO stratégiques (escalade BR, décisions des chefs d'État). Ses injects doivent activer les LO au niveau tactique/local :
+
+| LO | Effet doctrinal brigade | Injects locaux correspondants |
+|---|---|---|
+| **LO 1 — Appui hybride** | Saturation cognitive du G2 brigade avec signaux bas bruit | Signalements suspects, présence pro-MER, photos équivoques |
+| **LO 2 — Volonté de combattre** | Fragiliser le moral des soldats et la confiance dans la mission | RS humiliants, tags "2BB go home", vandalisme, sermon hostile |
+| **LO 3 — Guerre des pertes** | Montrer que la population locale rejette la force | Plainte maire, affluence record à la messe, journal local hostile |
+| **LO 4 — Vent de libération** | MER = légitime dans la ZO, brigade = occupant | Drapeau MER sur mairie, tract pro-MER, discours notable local |
+| **LO 5 — Rupture alliances** | Fragmenter la relation brigade/population/alliés locaux | Rumeurs entre soldats FR et DAC, RS discréditant l'alliance |
+
+#### Doctrine de saturation locale (Storm-1516 adapté brigade)
+
+Principes Storm-1516 applicables au niveau brigade :
+
+| Principe VIGINUM | Application brigade | Exemple |
+|---|---|---|
+| **Localisation** | Injects ancrés géographiquement dans les villes ZO, pas globaux | "HLUNEVILLE, rue de la Paix : tag MER sur mur de l'école" |
+| **Noyau de vérité** | S'appuyer sur des tensions réelles (dégâts de combat, circulation coupée) pour ancrer la fiction | Article journal : "les chars ont abîmé la route D955 de HCHATEAU-SALINS" |
+| **Déni plausible en couches** | Civile neutre poste → journal reprend → notable cite | @clambroise55 → journal local → maire → radio |
+| **Industrialisation** | Monter en volume à partir de D+35 (minimum 3 injects locaux/jour) | Séquence quotidienne : tweet civil → photo → journal |
+| **Opportunisme** | Exploiter les événements tactiques du D+ pour injects locaux | Saisie HSARREBOURG D+35 → drapeau MER sur mairie le même jour |
+
+#### Calibrage d'une journée-type D+35 (modèle recommandé)
+
+```
+08h00 — Inject LOCAL BRIGADE : Tweet civil dans la ZO (image tag/graffiti) — LO 2
+10h30 — Inject OPÉRATIF (1 seul) : Article médias sur situation générale — contexte
+13h00 — Inject LOCAL BRIGADE : Courrier du maire (plainte) — LO 3
+16h00 — Inject LOCAL BRIGADE : RS humiliants (montage moqueur) — LO 2
+19h00 — Inject LOCAL BRIGADE : Radio locale hostile — LO 3
+```
+Ratio cible : 4 injects locaux brigade / 1 inject opératif ou stratégique par journée de D+35 à D+40.
+
+#### Futurs développements à planifier (ILI avancée)
+
+- **Pages LinkedIn fictives** — exercer le criblage RH/OSINT du G2 brigade (identifier un "civil" comme agent)
+- **Pages Wikipedia fictives** — crédibiliser des personnages pour le criblage des stagiaires
+- **Ciblage précis par ville** — chaque ville de la ZO a un "arc narratif" propre : HCHATEAU-SALINS = combat → hostilité population ; HLUNEVILLE = fuite → retour ambivalent ; HSARREBOURG = saisie → drapeau → résistance passive
+
+**Référence complète :** auto-mémoire `aurige_brigade_calibration.md` + `AURIGE/MEMOIRE.md`

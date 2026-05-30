@@ -9,6 +9,24 @@
 **Leçon :** ce qu'il faut retenir
 ```
 
+## ⚠ RÈGLE SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE obligatoire
+Si une image produite par IMAGIER est destinée à l'écosystème MASTAURIGE (`...\MASTAURIGE\WEB\images\`), MASTAURIGE est consulté pour le nommage du fichier et l'intégration dans index_master ou les articles HTML.
+
+### Convention nommage images AURIGE 2BB
+- Portraits MER : `MER_NOM_PRENOM_fonction.jpg` — ex : `MER_VORIN_sniper.jpg`
+- Images injects : `XX.YY.ZZ_description_courte.jpg` — ex : `07.05.03_Manifestation_opposition_Pro_MER_BR_BC1.jpg`
+- Avatars tweet : dossier `images/avatars tweet/` — format `CAMP_HandleSansAt.png`
+
+### Doctrine calibration brigade (AURIGE) — images
+À partir de D+35, les images prioritaires à créer pour AURIGE 2BB sont des visuels **locaux brigade** :
+- Tags/graffitis sur murs de villes ZO
+- Manifestations locales (foule, pancartes)
+- Drapeau MER sur bâtiment public
+- Vandalisme sur matériel militaire
+- Photos civils dans rue avec tracts
+
 ---
 
 ## Contexte des exercices (à injecter dans les prompts)

@@ -27,7 +27,8 @@
       "PowerShell(Get-ChildItem \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\" -Name | Where-Object { $_ -match '\\\\.\\(jpg|png|jpeg|webp\\)$' } | Sort-Object)",
       "Bash(node -e ' *)",
       "Bash(ls -la \"D:\\\\\\\\CECPC\\\\\\\\PRODUCTION\\\\\\\\EXER\\\\\\\\\")",
-      "PowerShell(\\(Get-Item 'D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\avatars tweet\\\\'\\).GetFiles\\(\\).Count)"
+      "PowerShell(\\(Get-Item 'D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\avatars tweet\\\\'\\).GetFiles\\(\\).Count)",
+      "PowerShell(certutil -encode \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\manifestation BelleRussia 29 mai.jpg\" \"$env:TEMP\\\\img_b64.txt\")"
     ]
   }
 }

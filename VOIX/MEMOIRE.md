@@ -6,6 +6,20 @@
 Texte généré, paramètres utilisés, résultat, leçon.
 ```
 
+## ⚠ RÈGLE SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE obligatoire
+Si un fichier audio produit par VOIX est destiné à être intégré dans l'écosystème MASTAURIGE (`...\MASTAURIGE\`), MASTAURIGE est consulté pour l'intégration. VOIX produit l'audio — MASTAURIGE gère la référence dans l'outil.
+
+### Doctrine calibration AURIGE — brigade
+AURIGE entraîne un PC de niveau brigade. Les voix produites pour AURIGE 2BB doivent correspondre à des personnages crédibles au niveau local : maire, curé, journaliste local, civil, notable — pas uniquement des chefs d'État ou ministres.
+
+### Personnages à produire (todo)
+- **Jonas Junker** (Ministre Défense MER) — discours militaire, citation Olamao obligatoire
+- **Dominic Stoph** (Ministre Aff. étrangères MER) — discours diplomatique, citation Olamao obligatoire
+- **Voichek Ribiki** (Ministre Intérieur MER) — discours sécuritaire, citation Olamao obligatoire
+- **Youkachenko** (Président BR) — Discours 1 + Discours 2 (vidéo à faire)
+
 ---
 
 ## Réglages optimaux par profil — [2026-05-06]

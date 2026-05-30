@@ -1,5 +1,15 @@
 # MÉMOIRE — CINÉASTE
 
+## ⚠ RÈGLE SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE
+Si une vidéo produite par CINÉASTE est destinée à être référencée dans l'écosystème MASTAURIGE, MASTAURIGE est consulté pour l'intégration. CINÉASTE produit la vidéo — MASTAURIGE gère la card et la référence dans l'outil.
+
+### Doctrine calibration brigade (AURIGE)
+Les vidéos pour AURIGE 2BB doivent à terme couvrir du contenu de **niveau brigade** : vidéos de propagande locale, discours de notables, clips RS humiliants, séquences de manifestation dans les villes ZO. Ne pas se limiter aux discours des chefs d'État.
+
+---
+
 ## Format d'entrée
 ```
 ### [YYYY-MM-DD] Exercice : [NOM] — [Titre de la séquence]

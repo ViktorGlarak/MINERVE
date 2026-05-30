@@ -4,6 +4,23 @@ Agent créé le **2026-05-27** — Spécialiste transversal tous exercices impli
 
 ---
 
+## ⚠ ÉVOLUTIONS SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE obligatoire
+Tout fichier sous `...\MASTAURIGE\` requiert la consultation de MASTAURIGE. ANALYSTE_BR produit le **contenu BR** — MASTAURIGE gère le **format et l'intégration technique**.
+
+### Doctrine calibration brigade (AURIGE)
+Injects BR AURIGE doivent être calibrés niveau brigade. Les articles BC1 globaux (Youkachenko discours national) restent du cadre. Ce qui intéresse le PC brigade : signaux BR dans la ZO, présence de ressortissants BR, tweets de figures BR sur des événements locaux de la ZO.
+
+### Injects BR récents D+34 (29 Mai 2026)
+- `07.05.03Fi` / `BCI_Article_Manifestations_NP_BL` : Manifestations J+4 dans 4 villes BR — NP + Bison Libre + nationalistes (+15-20% vs D+33)
+- `08.02.02Bi` : @KolesnikovAndrei (pro-MER) — rumeurs maltraitance POW MER par 8e DAC HNANCY — appel CICR + discrédit DAC vs FR (LO 2+3)
+
+### Synchronisation MELMIL ↔ index_master
+Quand la date d'un inject BR change dans index_master (sélecteur de jour), MELMIL se met à jour au rechargement via `syncDayOverrides()`. Dans l'autre sens, un drag dans MELMIL met à jour index_master via `card-day-*` localStorage.
+
+---
+
 ## Correspondance géographique réelle
 
 **Bella Russia = Biélorussie (Belarus)** dans tous les exercices Mercure.

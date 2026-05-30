@@ -1,8 +1,21 @@
 # MÉMOIRE — ARCHIVISTE
 
 ## Règle fondamentale
-Toujours consulter D:\CECPC\PRODUCTION\BDA\_CATALOGUE.md avant de suggérer la création d'un nouvel asset.
+Toujours consulter D:\CECPC\PRODUCTION\BDA\_CATALOGUE.md avant de suggérir la création d'un nouvel asset.
 Si un asset similaire existe, le proposer à l'utilisateur ou l'adapter plutôt que recréer.
+
+## ⚠ RÈGLE SYSTÈME — 2026-05-29
+
+### Règle MASTAURIGE — images dans l'écosystème
+Les images utilisées dans l'écosystème MASTAURIGE (`...\MASTAURIGE\WEB\images\`) sont sous la responsabilité de MASTAURIGE. ARCHIVISTE référence ces assets dans la BDA — mais pour leur intégration dans les fichiers MASTAURIGE, MASTAURIGE est consulté.
+
+### Chemin dossier images MASTAURIGE AURIGE 2BB
+`D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\images\`
+
+Sous-dossier avatars tweet : `images\avatars tweet\`
+
+### Doctrine calibration brigade
+À partir de D+35 AURIGE 2BB, les assets image à créer en priorité sont des visuels locaux brigade (tags, manifestations, vandalisme, tracts sur murs) — voir `AURIGE/MEMOIRE.md` section "Catalogue injects brigade".
 
 ---
 

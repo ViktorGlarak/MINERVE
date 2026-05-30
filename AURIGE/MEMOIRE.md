@@ -6,6 +6,37 @@
 
 ---
 
+## Convention — Un dossier par exercice (règle automatique)
+
+> **À chaque nouvel exercice AURIGE, l'agent AURIGE crée automatiquement un sous-dossier `AURIGE\[NOM_EXERCICE]\` contenant un `MEMOIRE.md` spécifique à cet exercice.**
+
+```
+AURIGE\
+├── MEMOIRE.md          ← Ce fichier — cadre général tous exercices
+├── AURIGE_2BB\         ← Exercice 2e Brigade Blindée (en cours 2026)
+│   └── MEMOIRE.md      ← État, bilan, leçons, décisions propres à 2BB
+├── AURIGE_3BB\         ← À créer quand l'exercice 3BB démarre
+│   └── MEMOIRE.md
+└── AURIGE_[UNITE]\     ← Convention : préfixe AURIGE_ + code unité entraînée
+    └── MEMOIRE.md
+```
+
+**Ce que chaque `AURIGE\[NOM_EXERCICE]\MEMOIRE.md` contient :**
+- Identité de l'exercice (unité, niveau, période, chemins)
+- État de production (jours produits, jours restants, gaps)
+- Bilan pédagogique (leçons apprises propres à cet exercice)
+- Décisions d'architecture prises pour cet exercice
+- Leçons à réinjecter dans les exercices futurs
+
+**Ce qu'il ne contient PAS** (géré par les agents spécialisés) :
+- Détail éditorial des injects → `GUILLAUME\MEMOIRE.md`
+- Règles techniques MASTAURIGE → `MASTAURIGE\MEMOIRE.md`
+- Doctrine ILI → `EXPERT_INFLUENCE\MEMOIRE.md`
+
+**Utilité à long terme :** quand on attaque AURIGE 3BB, AURIGE consulte `AURIGE_2BB\MEMOIRE.md` pour capitaliser sur les leçons de 2BB et ne pas répéter les mêmes erreurs.
+
+---
+
 ## Contexte — Qu'est-ce qu'un exercice AURIGE ?
 
 Les exercices AURIGE sont des **entraînements PC (Poste de Commandement) niveau brigade** produits par le CECPC. Ils simulent un environnement informationnel adversarial dans un théâtre fictif, avec :
@@ -195,6 +226,94 @@ Strasbourg → HSTRASBOURG
 | `03_Productions\` | **MASTAURIGE** (WEB jour), **IMAGIER**, **CINÉASTE** | Archivage productions |
 | `04_FORAD\` | **ANALYSTE MERCURE**, **EXPERT_INFLUENCE** | Profils HVI, doctrine |
 | `05_MTR\` | Aucun agent | Personnel MTR uniquement |
+
+### Relation AURIGE ↔ GUILLAUME — Hiérarchie logique
+
+> **GUILLAUME est l'orchestrateur éditorial de AURIGE 2BB** — il opère dans le cadre défini par AURIGE mais est structuré comme un agent racine pour des raisons opérationnelles (toutes les références inter-agents pointent vers `GUILLAUME\MEMOIRE.md`).
+
+**Hiérarchie conceptuelle (pas structurelle) :**
+```
+AURIGE  (cadre de référence — architecture, règles, conventions)
+  └── GUILLAUME  (orchestrateur éditorial — calendrier, LO, cohérence narrative)
+        └── MASTAURIGE  (production technique — injects, HTML, MELMIL)
+```
+
+Pour un futur exercice AURIGE, un nouvel orchestrateur éditorial serait créé au même niveau racine (ex : `GUILLAUME_AURIGE3BB\`) plutôt que comme sous-dossier d'AURIGE — cela préserve la cohérence des références inter-agents.
+
+---
+
+---
+
+## ⚠ DOCTRINE CALIBRATION — Niveau brigade (ajout 2026-05-29)
+
+> **AURIGE entraîne un PC de niveau BRIGADE — pas une division, pas un état-major.**
+> Tous les injects doivent être calibrés pour que le PC brigade puisse les traiter à son niveau.
+
+### Bilan D+31→D+34 AURIGE 2BB : niveau trop élevé
+
+La première semaine a produit des injects utiles pour poser un cadre, mais inadaptés au niveau brigade :
+- Discours présidents (Olamao, Pallesson, Youkachenko, Rutte) → **niveau stratégique — hors périmètre brigade**
+- Articles médias nationaux/internationaux → **niveau opératif/stratégique**
+- Escalade diplomatique BR → **trop loin du terrain de la brigade**
+
+### Règle canonique — équilibre brigade
+
+> **Le PC brigade reçoit quelques injects politiques/stratégiques pour CONTEXTE SEULEMENT (1-2/semaine max). Tous les autres injects doivent toucher DIRECTEMENT sa Zone d'Opérations, ses soldats, sa relation avec la population locale.**
+
+### Catalogue des injects de niveau brigade
+
+**Terrain / visuel :**
+- Manifestation locale dans une ville de la ZO (photo + tweet civil)
+- Drapeau ennemi sur l'hôtel de ville
+- Tags/graffitis anti-brigade ("2BB go home", "MER libérateurs")
+- Vandalisme contre la brigade (véhicules, portails, matériel)
+- Présence de personnel pro-MER de plus en plus visible dans la ZO
+
+**Parole / discours local :**
+- Sermon véhément d'un curé/imam contre la force
+- Plainte directe du maire au commandant de brigade (courrier HTML)
+- Déclaration hostile d'un notable local (médecin, conseiller municipal)
+- Affluence record à la messe (signal de rejet collectif)
+
+**Médias locaux / intercommunaux :**
+- Article journal local hostile (L'Est Républicain fictif, Le Républicain Lorrain fictif)
+- Retranscription radio locale (Radio Moselle fictive, France Bleu Lorraine Nord fictif)
+- Produits RS humiliants (mèmes, montages, vidéos courtes ridiculisant la brigade)
+- Tract pro-MER distribué dans les rues de la ZO
+
+**Criblage / personnels :**
+- Pages LinkedIn fictives d'agents MER présents dans la ZO (à créer)
+- Pages Wikipedia fictives pour personnages de l'exercice (à créer)
+- Signalement citoyen de personnels suspects
+
+### Villes ZO AURIGE 2BB — priorité injects locaux
+
+| Ville fictive | Usage | Priorité inject local |
+|---|---|---|
+| **HCHATEAU-SALINS** | Combat retardateur D+31-34 | **HAUTE** |
+| **HLUNEVILLE** | Population D+32-34 | **HAUTE** |
+| **HSARREBOURG** | Climax D+35 | **HAUTE** |
+| **HToul / HCommercy** | NRBC D+34 | **HAUTE** |
+| HNANCY | Logistique | Modérée (trop grande = division) |
+| HPHALSBOURG | D+37+ | Modérée |
+
+### Futurs développements (roadmap)
+- [ ] Pages LinkedIn fictives — criblage OSINT pour stagiaires
+- [ ] Pages Wikipedia fictives — crédibilisation personnalités
+- [ ] Journal local HTML fictif (L'Est Républicain fictif)
+- [ ] Radio locale fictive (retranscriptions)
+- [ ] Grille cartographique pression civile par ville et D+XX
+
+### Structure thématique pour le PC brigade
+
+| Thème | Injects | Phase |
+|---|---|---|
+| Relations population | Plainte maire, sermon, RS humiliants, journal local | D+31→D+35 |
+| Sécurité des arrières | Vandalisme, présence pro-MER, tags, tracts | D+31→D+40 |
+| Renseignement HOS | LinkedIn fictif, signalement suspect | D+33→D+40 |
+| Veille médiatique | Radio, journal, RS — surveillance locale | Permanent |
+| Pression morale | RS humiliants, tracts démoralisants | D+33→D+40 |
+| Ordre public | Manifestation, drapeau, graffitis | D+35→D+38 |
 
 ---
 

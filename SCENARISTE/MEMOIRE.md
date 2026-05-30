@@ -55,6 +55,48 @@ LO : ["X","Y"]  ← si deux axes stratégiques distincts activés simultanément
 - **Plateforme réseaux sociaux fictive :** Mastorion (Mastodon-like)
 - **Cellules :** Z (renseignement), O (opérations), M (manœuvre), B (NRBC), InfoG
 
+### ⚠ DOCTRINE CALIBRATION BRIGADE — Perspective SCÉNARISTE (2026-05-29)
+
+> Les injects D+31→D+34 étaient trop stratégiques. À partir de D+35, les contenus créés pour AURIGE doivent ancrer les personnages et les événements dans la **zone d'opération de la brigade**.
+
+#### Personnages locaux à développer (ZO Lorraine)
+
+Ces profils sont **génériques et réutilisables** d'un exercice à l'autre avec adaptation géographique :
+
+| Personnage type | Rôle ILI | Camp | Canal |
+|---|---|---|---|
+| **Maire de ville de ZO** | Plainte directe au commandant brigade, demande de retrait, pression humanitaire | Neutre → hostile | Courrier HTML officiel |
+| **Curé / imam local** | Sermon véhément contre la force, appel à la résistance passive | Neutre → hostile | Retranscription + tweet paroissien |
+| **Journaliste journal local** | Articles hostiles ("la brigade détruit le tissu local") | Neutre → hostile | Article journal local HTML |
+| **Civile locale** (@clambroise55 type) | Témoin de terrain, observation directe (tag, tract, présence suspecte) | Neutre civil | Tweet photo |
+| **Notable hostile** | Conseiller municipal, directeur école, médecin chef | Neutre → hostile | Déclaration + tweet |
+| **Jeune activiste pro-MER** | Distribution tracts, tags, mèmes humiliants | Pro-MER actif | Tweet + photo |
+
+#### Règles narratives pour les injects locaux
+
+1. **Géographie précise** — toujours citer une ville avec H-préfixe et un lieu identifiable (rue de la mairie, place du marché, entrée de la caserne)
+2. **Progression narrative** — un personnage ne bascule pas instantanément ; la pression monte sur 3-5 jours (neutre → ambigu → hostile)
+3. **Voix distinctes** — le maire parle en termes administratifs/juridiques ; le curé en termes moraux ; la civile en termes émotionnels/quotidiens
+4. **Crédibilité des détails** — numéro de téléphone 03 72 67 XX XX, références au tissu local réel (Moselle, Meurthe-et-Moselle)
+5. **Jamais en bloc** — l'escalade doit paraître spontanée, pas coordonnée (même si elle l'est narrativement)
+
+#### Nouvelles productions à anticiper
+
+- **Courrier du maire de HCHATEAU-SALINS** — plainte directe adressée au commandant 2BB suite aux dégâts des combats urbains
+- **Article Le Républicain Lorrain fictif** — "Les soldats de la 2BB font fuir notre commerce"
+- **Tweet @clambroise55** — tag pro-MER vu sur le mur de la mairie de HLUNEVILLE
+- **Pages LinkedIn fictives** — profil agent MER dans la ZO (à développer D+37+)
+- **Pages Wikipedia fictives** — articles personnages pour criblage OSINT
+
+#### Connexion Storm-1516 (narratif local)
+Les injects locaux suivent le même pattern que les operations russes documentées par VIGINUM :
+- Phase 1 : civile poste une photo (bas bruit, source crédible)
+- Phase 2 : journal local "rapporte" (blanchiment source secondaire)
+- Phase 3 : RS humiliants s'amplifient (multiplication canaux)
+- Phase 4 : mayor ou notable reprend ("validation" institutionnelle locale)
+
+---
+
 ### AURIGE 2BB — Scénario GUILLAUME (en cours)
 - **Région :** Lorraine (Sarrebourg, Héming, Nancy)
 - **Style :** Production média (reportages, voix off, discours officiels, vidéos personnages)
