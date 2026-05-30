@@ -62,9 +62,10 @@ Agent créé le **2026-05-24** pour la génération de contenus RS fictifs dans 
 | @NOVUSORDOMUNDI | NOVUS ORDO MUNDI | 3691 | 🔴 Rouge | 07.02 |
 | @ArnlandLovePeace | Clémence Gavaloff | 1392 | 🔴 Rouge | 07.05 |
 | @MaiaKovalenko | Maïa Sokhaguvka | 3726 | 🔴 Rouge | 07.04 |
-| @BelovDimitri | Dimitri Belov | 1851 | 🔵 Bleu | 07.05 |
+| @BelovDimitri | Dimitri Belov | 1851 | 🔵 Bleu | 07.05, **07.05.04Di** |
 | @GromovaYelena | Yelena Gromova | 1845 | 🔵 Bleu | 07.01 |
 | @IndependentArnish | Arnish Independent | 3510 | 🔵 Bleu | 07.02 |
+| @BelikovaMarina | Marina Belikova | 1825 | 🔵 Bleu | **07.05.04Ei** — 1ère apparition AURIGE 2BB (2026-05-30) — pigiste DAC 24 ans, réaction civile au sommet Olamao-Youkachenko |
 
 ### Avatars nouveaux — spécifiques AURIGE 2BB
 → Fiches complètes dans `CASW/avatars_casw_aurige2bb.md`
@@ -936,6 +937,8 @@ Les avatars de la base ORION 26 sont génériques (journalistes, militants, ONG)
 | 2026-05-28 | AURIGE 2BB | Article Today Mercure — MG PRUNIERE CO 41e DIV CHARS (07.02.02i) | Today Mercure (TM) | TM_Article_CEMA_01.html réécrit — profil Héros de la Nation, 3 citations, front Moselle — LO 2 |
 | 2026-05-29 | AURIGE 2BB | 6 nouveaux injects D+34 (29 Mai) — 07.01/07.02/07.05/07.06/04.01 | @clambroise55 (2e tweet), @KolesnikovAndrei, @GavrilovBorislav, BC1, TM×2 | 3 articles HTML créés + 3 tweets + ANIM_DATA + LO_BY_KEY + melmil_inject_index mis à jour |
 | 2026-05-29 | AURIGE 2BB | Intégration image base64 dans BCI_Article_Manifestations_NP_BL.html | BC1 | Photo `manifestation BelleRussia 29 mai.jpg` encodée en base64 (172 Ko) — hero section remplace le placeholder texte "DAY 4" par l'image réelle — fichier HTML : 193 Ko |
+| 2026-05-30 | AURIGE 2BB | 07.05.05 — Fermeture frontière BR (D+35, 30 Mai) : correction BCI_Article_Frontiere + création TV4_Article_Frontiere_BR_01 | BC1 + TV4 | BC1 corrigé : source → Min. Int. Ivan Lubrakov (au lieu de Marchuk), horaires vagues ; TV4 créé (07.05.05Ci) : perspective externe, logistique OTAN, 09h15 CET — melmil_inject_index + ANIM_DATA + LO_BY_KEY mis à jour |
+| 2026-05-30 | AURIGE 2BB | 07.05.04 — Révision tweets sommet secret Olamao-Youkachenko (D+34, 29 Mai) | @EastWatch_Intl (clé renommée), @A_Saniki, @S_Tikhanov, @BelovDimitri, @BelikovaMarina (1ère app.) | 1 tweet corrigé (clé → @EastWatch_olamao_summit) + 4 nouveaux tweets Bi/Ci/Di/Ei — @BelikovaMarina intégrée dans trombinoscope |
 
 ## ⚠ RÈGLE ÉDITORIALE — Liens croisés entre articles (ajout 2026-05-29)
 

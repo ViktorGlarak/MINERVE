@@ -183,6 +183,42 @@ Cela inclut notamment :
 
 ---
 
+### ⚠ RÈGLE OBLIGATOIRE — Enregistrement chez l'Analyste pays à chaque création de personnage ou avatar (ajout 2026-05-30)
+
+> **Toute création ou modification d'un personnage, d'une figure politique, d'un avatar RS ou d'un acteur fictif lié à un pays du GET doit être enregistrée IMMÉDIATEMENT dans la mémoire de l'Analyste du pays concerné.**
+> Cette règle s'applique sans exception et sans attendre que l'utilisateur le demande.
+
+#### Correspondance pays → Analyste à mettre à jour
+
+| Pays concerné | Fichier à mettre à jour | Ce qui déclenche la mise à jour |
+|---|---|---|
+| **Mercure** | `ANALYSTE/MEMOIRE.md` | Tout nouveau personnage MER (politique, militaire, para-étatique, avatar RS) |
+| **Arnland / Dacie Romanie** | `ANALYSTE/ARNLAND/MEMOIRE.md` | Tout nouveau personnage ARN/DR (politique, militaire, civil ZO, avatar RS) |
+| **Bella Russia** | `ANALYSTE/BELLA_RUSSIA/MEMOIRE.md` | Tout nouveau personnage BR (gouvernement Youkachenko, opposition, militaire, avatar RS) |
+
+#### Ce qui déclenche cette obligation
+
+- Création d'un personnage nommé dans un article HTML (ministre, général, chef d'État, porte-parole…)
+- Création d'un avatar RS fictif (nouveau compte Twitter, BC1, TM, EastWatch…)
+- Attribution d'un poste ou d'un rôle à un personnage existant mais non encore documenté
+- Correction d'une erreur d'attribution (ex : mauvais porte-parole cité dans un article)
+
+#### Ce qu'il faut enregistrer chez l'Analyste
+
+1. Nom complet du personnage
+2. Poste / rôle officiel
+3. Camp (rouge / bleu / neutre)
+4. Règle éditoriale : qui parle de quoi (éviter les confusions futures)
+5. Articles ou injects où il apparaît (référence par clé MASTAURIGE ou nom de fichier HTML)
+
+#### Rappel — Erreur corrigée le 2026-05-30
+
+Ivan Lubrakov (Ministre de l'Intérieur BR, créé pour l'inject 07.05.05i) avait été enregistré dans GUILLAUME et MASTAURIGE mais **pas dans ANALYSTE_BR**. Cette règle est instaurée pour éviter ce type d'oubli.
+
+---
+
+---
+
 ## Patterns de routage appris
 
 ### [2026-05-06] Mockups UI (WhatsApp, interfaces mobiles)

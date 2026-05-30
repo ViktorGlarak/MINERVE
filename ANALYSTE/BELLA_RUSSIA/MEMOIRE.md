@@ -48,6 +48,24 @@ Quand la date d'un inject BR change dans index_master (sélecteur de jour), MELM
 
 ---
 
+## Gouvernement BR — Figures clés (régime Youkachenko)
+
+> Mis à jour au fil des sessions de production. Référence canonique pour tout inject ou article BC1 impliquant un membre du gouvernement BR.
+
+| Personnage | Poste | Camp | Rôle éditorial | Apparaît dans |
+|---|---|---|---|---|
+| **Alexandre Youkachenko** | Président de la République de Bella Russia | 🔴 Rouge | Signataire des décrets, discours officiels, allié MER — voix souveraniste anti-OTAN | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec · tous articles BC1 |
+| **Ivan Lubrakov** | Ministre de l'Intérieur (Ministry of Internal Affairs) | 🔴 Rouge | Porte-parole officiel pour : fermeture des frontières, gardes-frontières, sécurité intérieure, ordre public | BCI_Article_Frontiere (30 Mai) · TV4_Article_Frontiere_BR_01 (30 Mai) — inject 07.05.05 |
+| **Général Aleksei Marchuk** | CEMA — Chef des Forces Armées de Bella Russia | 🔴 Rouge | Déclarations militaires — posture défensive, mobilisation — NE PAS le citer pour des sujets civils ou frontaliers | BCI_Article_CemaBR (01 Jun) |
+
+### Règle de attribution éditoriale BR
+
+> **Lubrakov parle pour tout ce qui est frontières, police, sécurité intérieure.**
+> **Marchuk parle uniquement pour les sujets militaires (armée, mobilisation, opérations).**
+> Ne pas confondre les deux — erreur corrigée le 2026-05-30 dans BCI_Article_Frontiere où Marchuk était cité à tort pour l'annonce de fermeture des frontières.
+
+---
+
 ## Opposition politique
 
 > Créés le 2026-05-27 — personnages actifs dans AURIGE 2BB à partir de D+27.

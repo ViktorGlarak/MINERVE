@@ -69,9 +69,27 @@
 
 ---
 
+---
+
+## TIMING VALIDÉ — Injects D+34 (29 Mai 2026) — 07.05.04 Sommet secret Olamao-Youkachenko
+
+> Session 2026-05-30
+
+| Inject | Référence | Heure | Canal | LO | Note |
+|---|---|---|---|---|---|
+| @EastWatch_Intl — Rencontre secrète Olamao-Youkachenko | **07.05.04Ai** | 10h00 MSK | Tweet EastWatch | LO 5 | Clé renommée `@EastWatch_olamao_summit` — tweet existant corrigé |
+| @A_Saniki — Exultation Bison Libre : "le GET ne se décidera pas à Bruxelles" | **07.05.04Bi** | 11h20 | Tweet rouge | LO 5 | Pro-MER — voit le sommet comme victoire du GET sur Brussels |
+| @S_Tikhanov — Double jeu Youkachenko exposé | **07.05.04Ci** | 12h00 | Tweet bleu (opposition BR) | LO 5 | "Ce n'était pas une paix — c'était une coordination." — Fracture BR |
+| @BelovDimitri (TV4) — Questionnement journalistique | **07.05.04Di** | 12h30 | Tweet bleu | LO 5 | "À quoi servait le discours du 27 mai ?" — contradiction perçue par DAC |
+| @BelikovaMarina — Réaction civile DAC | **07.05.04Ei** | 13h15 | Tweet bleu | LO 5 | 1ère apparition AURIGE 2BB — pigiste 24 ans — discours → réunion secrète : déception |
+
+**Cohérence narrative :** La séquence répond à l'article 07.05.01Ai (BCI_Article_Youkachenko, appel à la paix du 27 mai 18h00). Le sommet secret du 29 mai révèle que l'appel à la paix était une opération de couverture diplomatique. Enchaînement : EastWatch (info neutre) → Saniki (camp rouge, exulte) → Tikhanov (opposition, dénonce) → Belov (journaliste, questionne) → Belikova (civil, confus). LO 5 — fracture perçue de la cohérence BR.
+
+---
+
 ## ÉTAT DE PRODUCTION — Synchromatrice V4
 
-> Dernière mise à jour : 2026-05-29
+> Dernière mise à jour : 2026-05-30
 
 - **43 injects produits** sur 6 séries (04.01, 07.01 à 08.01) — +6 session 2026-05-29
 - Toutes les dates de la synchromatrice couvertes (D+31 à D+41)
@@ -252,6 +270,7 @@ AURIGE 2BB\
 | **Sture Pallesson** | Dacie Romanie | 🔵 Bleu | **Président DAC** (civil, pro-OTAN) | TV4_Article_Pallesson ×4 |
 | Jonas Junker | Mercure | 🔴 Rouge | Ministre Défense | Crédits MAF, tracts |
 | Dominic Stoph | Mercure | 🔴 Rouge | Ministre Aff. étrangères | Série 07.04 |
+| **Ivan Lubrakov** | Bella Russia | 🔴 Rouge | **Ministre de l'Intérieur BR** — responsable des gardes-frontières et de l'annonce officielle de la fermeture des frontières | BCI_Article_Frontiere · TV4_Article_Frontiere_BR_01 (07.05.05 — 30 Mai) |
 
 ⚠ **Pallesson = président CIVIL** — ses apparitions dans TV4 sont des déclarations politiques, pas militaires. Ne pas rédiger d'inject qui lui attribue un rôle de commandement opérationnel.
 
