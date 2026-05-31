@@ -198,7 +198,7 @@ Exemple : `D+31_26_MAI`, `D+35_30_MAI`.
 | **EXPERT_INFLUENCE** | Calibrage effets ILI, cohérence synchromatrice, structure opérations influence |
 | **ANALYSTE MERCURE** | Cohérence personnages MER, doctrine TTP Storm-1516, réalisme injects |
 | **ANALYSTE_ARN** | Cohérence personnages DAC / Arnland |
-| **ANALYSTE_RB** | Cohérence personnages Ruthnia Bella, Youkachenko, opposition RB |
+| **ANALYSTE_BOT** | Cohérence personnages Ruthnia Bella, Youkachenko, opposition RB |
 | **MASTAURIGE** | AVANT toute production RS ou HTML — format cards, templates articles, MELMIL |
 | **SCÉNARISTE** | Voix des personnages locaux, rédaction tracts, courriers, narrative locale |
 | **IMAGIER** | Prompt image portrait ou illustration |

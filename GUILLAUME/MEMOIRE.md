@@ -286,7 +286,7 @@ AURIGE 2BB\
 **Règle éditoriale opposition RB :**
 - **Tikhanov** : voix d'indépendance RB — utile pour montrer une fracture intérieure RB sans être pro-OTAN. Canal : EastWatch, TV4 avec précaution.
 - **Saniki** : pro-MER sur le fond — sa bi-nationalité (père mercurien) et son soutien à l'action MER en font un levier LO 5 camp rouge, pas un levier camp bleu.
-- Ni l'un ni l'autre ne passe par BC1. Agent référent : **ANALYSTE_RB**.
+- Ni l'un ni l'autre ne passe par BC1. Agent référent : **ANALYSTE_BOT**.
 
 ### Tableau médias AURIGE 2BB — référence GUILLAUME
 

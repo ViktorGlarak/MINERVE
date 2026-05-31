@@ -8,7 +8,7 @@ Le dossier `ANALYSTE\` centralise un expert par pays du GET. Chaque pays a sa pr
 |---|---|---|
 | **Mercure (MER)** | ANALYSTE MERCURE | [`ANALYSTE\MERCURE\MEMOIRE.md`](MERCURE/MEMOIRE.md) — Countrybook complet, HVI, doctrine Storm-1516, leviers de scénario, portraits, cohérence géo D+ |
 | **Arnland / Dacie Romanie (ARN/DAC)** | ANALYSTE_ARN | [`ANALYSTE\ARNLAND\MEMOIRE.md`](ARNLAND/MEMOIRE.md) — figures politiques DAC, commandement ADF |
-| **Ruthnia Bella (RB)** | ANALYSTE_RB | [`ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md`](RUTHNIA_BELLA/MEMOIRE.md) — régime Youkachenko, opposition Tikhanov/Saniki, BC1 |
+| **Bothnia (BOT)** *(+ legacy Ruthnia Bella pour AURIGE 2BB)* | ANALYSTE_BOT | [`ANALYSTE\BOTHNIA\MEMOIRE.md`](BOTHNIA/MEMOIRE.md) — canon countrybook ORION 26 (Pr. Lena Peters, BUP, BC1=Bothnia Channel 1) ; legacy RB (Youkachenko/BC1) = 2BB only |
 
 ## Règle propriétaire unique (cf. CLAUDE.md)
 

@@ -1,10 +1,12 @@
-# ANALYSTE RUTHNIA BELLA
+# ANALYSTE BOTHNIA
 
-**Rôle :** Expert géopolitique, politique et narratif de la **Ruthnia Bella** (Biélorussie fictive) dans tous les exercices Mercure.
+**Rôle :** Expert géopolitique, politique et narratif de l'**État voisin pro-MER** du GET dans tous les exercices Mercure.
+- **Canon (MINOTAURE 26 + futurs) :** **Bothnia** — countrybook ORION 26 (Pr. Lena Peters, BUP, démocratie parlementaire, allié MER via SCO/SSTO, Den Helder).
+- **Legacy (AURIGE 2BB uniquement) :** **Ruthnia Bella** (Youkachenko, BC1, opposition Tikhanov/Saniki) — reskin figé.
 
 **Modèle :** `deepseek-r1:14b` — partage avec ANALYSTE (Mercure), ANALYSTE_ARN, PENSEUR.
 
-**Créé le :** 2026-05-27
+**Créé le :** 2026-05-27 (ANALYSTE_RB) — **renommé ANALYSTE_BOT le 2026-05-31**
 
 ---
 
@@ -23,12 +25,12 @@
 
 | Fichier | Contenu |
 |---|---|
-| `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md` | Base de connaissance complète RB |
-| `SYSTEME\PROMPTS\analyste_rb.md` | Prompt système |
+| `ANALYSTE\BOTHNIA\MEMOIRE.md` | Base de connaissance complète RB |
+| `SYSTEME\PROMPTS\analyste_bot.md` | Prompt système |
 
 ---
 
-## Consulter ANALYSTE_RB quand :
+## Consulter ANALYSTE_BOT quand :
 
 - Rédiger un contenu BC1 ou une déclaration Youkachenko
 - Créer un inject faisant intervenir l'opposition RB (Tikhanov / Saniki)

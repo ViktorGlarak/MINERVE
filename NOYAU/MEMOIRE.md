@@ -65,7 +65,7 @@ Page à mettre à jour selon le camp :
 |---|---|---|
 | Personnage Mercure | **MASTAURIGE** | **ANALYSTE MERCURE** (profil, biographie, cohérence Countrybook) |
 | Personnage DAC / Arnland | **MASTAURIGE** | **ANALYSTE_ARN** |
-| Personnage Ruthnia Bella | **MASTAURIGE** | **ANALYSTE_RB** |
+| Personnage Ruthnia Bella | **MASTAURIGE** | **ANALYSTE_BOT** |
 | Ajout portrait manquant | **MASTAURIGE** (intégration) | **IMAGIER** (création portrait) |
 | Mise en page / CSS / structure A3 | **MASTAURIGE** + NOYAU | — |
 
@@ -77,7 +77,7 @@ Page à mettre à jour selon le camp :
 
 | Demande | Agents primaires | Agents contextuels | Notes |
 |---|---|---|---|
-| **Tweet exercice AURIGE** | MASTAURIGE (format, avatar, MELMIL) + GUILLAUME (date, LO, cohérence) | ANALYSTE MERCURE si tweet pro-MER · ANALYSTE_RB si tweet RB · SCÉNARISTE si narratif local | Toujours vérifier MELMIL_SUBINJECT_DAYS si date ≠ parent XLS |
+| **Tweet exercice AURIGE** | MASTAURIGE (format, avatar, MELMIL) + GUILLAUME (date, LO, cohérence) | ANALYSTE MERCURE si tweet pro-MER · ANALYSTE_BOT si tweet RB · SCÉNARISTE si narratif local | Toujours vérifier MELMIL_SUBINJECT_DAYS si date ≠ parent XLS |
 | **Article média fictif** (BC1, TM, TV4, HEX) | MASTAURIGE (template HTML, format) + GUILLAUME (date, LO, cohérence) | SCÉNARISTE (narrative) · ANALYSTE pertinent (cohérence pays) | Template obligatoire par site (voir MASTAURIGE/MEMOIRE.md) |
 | **Courrier fictif** (maire, préfet, institution) | MASTAURIGE (format HTML) + GUILLAUME (date, LO) | SCÉNARISTE (voix du personnage) | Charte locale + numéro 03 72 67 XX XX |
 | **Tract PSYOPS** | MASTAURIGE (format) + GUILLAUME (LO, phase psyops) | ANALYSTE MERCURE (contenu MAF/MER) | Référence 07.02.XXi dans synchromatrice |
@@ -89,7 +89,7 @@ Page à mettre à jour selon le camp :
 |---|---|---|
 | Olamao / ministre MER / HVI MER | **ANALYSTE MERCURE** | SCÉNARISTE (mise en forme) |
 | Pallesson / ministre DAC / figure ARN | **ANALYSTE_ARN** | SCÉNARISTE |
-| Youkachenko / figure RB | **ANALYSTE_RB** | SCÉNARISTE |
+| Youkachenko / figure RB | **ANALYSTE_BOT** | SCÉNARISTE |
 | Rutte (SG OTAN) / figure réelle OTAN | **NOYAU** directement | — |
 | Figure OTAN fictive | **SCÉNARISTE** | NOYAU (QC) |
 | Journaliste / notable / civil local | **SCÉNARISTE** | MASTAURIGE si tweet |
@@ -170,7 +170,7 @@ Cela inclut notamment :
 |---|---|
 | Mercure (politique, militaire, histoire, personnages) | **ANALYSTE MERCURE** |
 | Dacie Romanie / Arnland | **ANALYSTE_ARN** |
-| Ruthnia Bella (Youkachenko, opposition, médias RB) | **ANALYSTE_RB** |
+| Ruthnia Bella (Youkachenko, opposition, médias RB) | **ANALYSTE_BOT** |
 | Question transversale plusieurs pays | **PENSEUR** → consultation ANALYSTES |
 
 ---
@@ -196,7 +196,7 @@ Cela inclut notamment :
 |---|---|---|
 | **Mercure** | `ANALYSTE/MERCURE/MEMOIRE.md` (canonique) | Tout nouveau personnage MER (politique, militaire, para-étatique, avatar RS) |
 | **Arnland / Dacie Romanie** | `ANALYSTE/ARNLAND/MEMOIRE.md` | Tout nouveau personnage ARN/DR (politique, militaire, civil ZO, avatar RS) |
-| **Ruthnia Bella** | `ANALYSTE/RUTHNIA_BELLA/MEMOIRE.md` | Tout nouveau personnage RB (gouvernement Youkachenko, opposition, militaire, avatar RS) |
+| **Ruthnia Bella** | `ANALYSTE/BOTHNIA/MEMOIRE.md` | Tout nouveau personnage RB (gouvernement Youkachenko, opposition, militaire, avatar RS) |
 
 #### Ce qui déclenche cette obligation
 
@@ -215,7 +215,7 @@ Cela inclut notamment :
 
 #### Rappel — Erreur corrigée le 2026-05-30
 
-Ivan Lubrakov (Ministre de l'Intérieur RB, créé pour l'inject 07.05.05i) avait été enregistré dans GUILLAUME et MASTAURIGE mais **pas dans ANALYSTE_RB**. Cette règle est instaurée pour éviter ce type d'oubli.
+Ivan Lubrakov (Ministre de l'Intérieur RB, créé pour l'inject 07.05.05i) avait été enregistré dans GUILLAUME et MASTAURIGE mais **pas dans ANALYSTE_BOT**. Cette règle est instaurée pour éviter ce type d'oubli.
 
 ---
 
@@ -232,7 +232,7 @@ SCÉNARISTE seul est insuffisant — il écrit bien mais sans ancrage géopoliti
 Règle validée :
 - Personnage mercurien → ANALYSTE rédige le discours
 - Personnage DR / Arnland → ANALYSTE_ARN rédige le discours
-- Personnage Ruthnia Bella (Youkachenko, opposition) → ANALYSTE_RB rédige le discours
+- Personnage Ruthnia Bella (Youkachenko, opposition) → ANALYSTE_BOT rédige le discours
 - Figure RÉELLE (Rutte SG OTAN, Guterres ONU) → NOYAU (Claude) directement — ⚠ Youkachenko est FICTIF, pas une figure réelle
 - Figure OTAN fictive → SCÉNARISTE
 NOYAU assure le contrôle qualité final dans tous les cas.
@@ -318,18 +318,18 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 ### [2026-05-25 — mis à jour 2026-05-30] 18 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-10 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE) +
+10 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE) +
 NOYAU (Claude — orchestrateur)
 = 4 + 3 + 10 + 1 = **18 agents** (vérifié contre le registre CLAUDE.md le 2026-05-31)
 
 > MINAUTORE ajouté le 2026-05-30 — chef d'orchestre éditorial AURIGE 7BB, claude-opus-4-7 (même modèle que GUILLAUME). Dossier exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\`. Synchromatrice à ingérer.
-> ANALYSTE_RB ajouté le 2026-05-27 — comptage corrigé de 17 à 18 le 2026-05-29, puis 19 le 2026-05-30.
+> ANALYSTE_BOT ajouté le 2026-05-27 — comptage corrigé de 17 à 18 le 2026-05-29, puis 19 le 2026-05-30.
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).
 GUILLAUME ajouté le 2026-05-25 — chef d'orchestre éditorial AURIGE 2BB. Connaît tous les acteurs, camps, médias fictifs et gère le calendrier de publication (statut publié/à produire/date à définir). **Migration 2026-05-25 : deepseek-r1:14b → claude-opus-4-7 (cloud)** — même modèle qu'EXPERT_INFLUENCE, pour garantir la qualité doctrinale et narrative. Partage avec EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN.
 EXPERT_INFLUENCE ajouté le 2026-05-25 — expert doctrine ILI et conception de synchromatrice. Transversal tous exercices. Claude Opus 4.7 (cloud) — modèle susceptible d'évoluer sur décision de l'utilisateur. Partage avec GUILLAUME, ANALYSTE, ANALYSTE_ARN, PENSEUR.
-ANALYSTE_RB ajouté le 2026-05-27 — expert Ruthnia Bella (Biélorussie fictive). Couvre le régime Youkachenko, l'opposition démocratique (Tikhanov, Saniki), les médias RB (BC1), la chronologie des injects RB (série 07.05, arc P.03). Transversal tous exercices impliquant RB. deepseek-r1:14b partagé avec ANALYSTE + ANALYSTE_ARN + PENSEUR. Dossier : `ANALYSTE\RUTHNIA_BELLA\`.
+ANALYSTE_BOT (ex-ANALYSTE_RB, **renommé le 2026-05-31**) — expert de l'État voisin pro-MER. **Canon = Bothnia** (countrybook ORION 26 : Pr. Lena Peters/BUP, démocratie parlementaire, allié MER via SCO/SSTO, Den Helder) pour MINOTAURE 26 + exercices futurs. **Legacy = Ruthnia Bella** (Youkachenko, BC1, opposition Tikhanov/Saniki, série 07.05) pour **AURIGE 2BB uniquement**. deepseek-r1:14b partagé avec ANALYSTE + ANALYSTE_ARN + PENSEUR. Dossier : `ANALYSTE\BOTHNIA\` (ex-`RUTHNIA_BELLA`). ⚠ Renommage, pas un ajout — compteur d'agents inchangé (18).
 
 ### [2026-05-25] Dossier GUILLAUME — créé + GAME PLAN AURIGE 2BB ingéré
 Dossier `GUILLAUME\` créé à la racine Mercure (manquait). Contient :

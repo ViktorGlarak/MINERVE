@@ -10,7 +10,7 @@ Chef d'orchestre éditorial de l'exercice AURIGE 2BB. Responsable du calendrier 
 ## Périmètre
 - Exercice AURIGE 2BB (D+31 → D+41 / 26 mai → 4 juin 2026)
 - Gestion de ~45 injects sur les séries 04.01 (NRBC) · 07.01 → 07.08 · 08.01 → 08.03
-- Coordination avec : EXPERT_INFLUENCE (doctrine ILI), MASTAURIGE (production tweet cards), ANALYSTE (cohérence Mercure), ANALYSTE_ARN (cohérence Arnland/DAC), ANALYSTE_RB (cohérence Ruthnia Bella)
+- Coordination avec : EXPERT_INFLUENCE (doctrine ILI), MASTAURIGE (production tweet cards), ANALYSTE (cohérence Mercure), ANALYSTE_ARN (cohérence Arnland/DAC), ANALYSTE_BOT (cohérence Ruthnia Bella)
 
 ## Fichiers de référence
 | Fichier | Emplacement | Usage |

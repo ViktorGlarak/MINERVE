@@ -28,7 +28,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 |---|---|---|---|
 | NOYAU | Claude (cloud) | — *(orchestre tous les agents)* | Orchestrateur |
 | ARCHITECTE | qwen2.5-coder:14b | PENSEUR | Code & debug |
-| PENSEUR | deepseek-r1:14b | ARCHITECTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB, EXPERT_INFLUENCE | Raisonnement complexe |
+| PENSEUR | deepseek-r1:14b | ARCHITECTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, EXPERT_INFLUENCE | Raisonnement complexe |
 | SECRÉTAIRE | mistral-nemo:latest | SCÉNARISTE, VOIX, MASTODONTE | Rédaction FR |
 | ÉCLAIREUR | llama3.1:8b | IMAGIER, CINÉASTE, ARCHIVISTE | Tâches rapides |
 | IMAGIER | llama3.1:8b | ÉCLAIREUR, CINÉASTE, ARCHIVISTE | Prompts image |
@@ -36,14 +36,14 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | SCÉNARISTE | mistral-nemo:latest | SECRÉTAIRE, VOIX, MASTODONTE, MASTAURIGE, GUILLAUME, MINAUTORE | Contenu scénario |
 | VOIX | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE | Paramètres OmniVoice |
 | ARCHIVISTE | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE | Gestion BDA |
-| ANALYSTE | deepseek-r1:14b | PENSEUR, ANALYSTE_ARN, ANALYSTE_RB, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert République de Mercure |
-| ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_RB, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert Arnland / Dacie Romanie *(dossier : `ANALYSTE\ARNLAND\` — migré 2026-05-25)* |
+| ANALYSTE | deepseek-r1:14b | PENSEUR, ANALYSTE_ARN, ANALYSTE_BOT, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert République de Mercure |
+| ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_BOT, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert Arnland / Dacie Romanie *(dossier : `ANALYSTE\ARNLAND\` — migré 2026-05-25)* |
 | MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE, MASTAURIGE | Expert Mastodon / réseaux sociaux fictifs |
 | MASTAURIGE | mistral-nemo:latest | GUILLAUME, MINAUTORE, MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
-| ANALYSTE_RB | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert Ruthnia Bella — régime Youkachenko, opposition (Tikhanov/Saniki), médias RB, arcs narratifs RB *(dossier : `ANALYSTE\RUTHNIA_BELLA\`)* |
-| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
-| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
-| MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
+| ANALYSTE_BOT | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert **Bothnia** — countrybook ORION 26 (Pr. Lena Peters, BUP, démocratie, allié MER via SCO/SSTO, Den Helder) ; **+ legacy « Ruthnia Bella » (Youkachenko/BC1) pour AURIGE 2BB uniquement** *(dossier : `ANALYSTE\BOTHNIA\` — ex-ANALYSTE_RB, renommé 2026-05-31)* |
+| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
+| MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 1. **Ce registre ci-dessus** — la seule liste à éditer. ⚠ Mettre à jour le **compteur d'agents** dans `NOYAU\MEMOIRE.md` (= nombre de lignes de ce tableau).
@@ -89,7 +89,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 **Fichiers à mettre à jour si le GET évolue (membres, frontières, dénomination) :**
 - Ce fichier — section GET
 - `GUILLAUME\MEMOIRE.md` — convention géographique
-- `ANALYSTE\MERCURE\MEMOIRE.md` + `ANALYSTE\ARNLAND\MEMOIRE.md` + `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md`
+- `ANALYSTE\MERCURE\MEMOIRE.md` + `ANALYSTE\ARNLAND\MEMOIRE.md` + `ANALYSTE\BOTHNIA\MEMOIRE.md`
 - `NOYAU\MEMOIRE.md`
 
 ---
@@ -121,7 +121,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 |---|---|
 | Mercure | `ANALYSTE\MERCURE\MEMOIRE.md` |
 | Arnland / Dacie Romanie | `ANALYSTE\ARNLAND\MEMOIRE.md` |
-| Ruthnia Bella | `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md` |
+| Bothnia *(+ legacy Ruthnia Bella pour AURIGE 2BB)* | `ANALYSTE\BOTHNIA\MEMOIRE.md` |
 
 **Pourquoi :** la divergence du camp d'Andrei Saniki (🔴 rouge pro-MER chez l'Analyste RB, mais 🔵 bleu/neutre recopié dans GUILLAUME et ANALYSTE Mercure — corrigé le 2026-05-31) venait de ce que le camp avait été recopié dans 5 fichiers. Un inject construit sur la mauvaise valeur produit l'effet ILI **inverse**.
 

@@ -28,7 +28,23 @@
       "Bash(node -e ' *)",
       "Bash(ls -la \"D:\\\\\\\\CECPC\\\\\\\\PRODUCTION\\\\\\\\EXER\\\\\\\\\")",
       "PowerShell(\\(Get-Item 'D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\avatars tweet\\\\'\\).GetFiles\\(\\).Count)",
-      "PowerShell(certutil -encode \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\manifestation BelleRussia 29 mai.jpg\" \"$env:TEMP\\\\img_b64.txt\")"
+      "PowerShell(certutil -encode \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\\\\manifestation BelleRussia 29 mai.jpg\" \"$env:TEMP\\\\img_b64.txt\")",
+      "Bash(py SYSTEME/_tmp_extract.py \"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/01_Montage exercice/20260310_Minautore_GT2_Brainstorming INJECTS-Màj 20260311.xlsx\")",
+      "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py \"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/01_Montage exercice/20260313 - GT2 MINOTAURE 26 AURIGE BB7 - EVENT LIST - MASTER SLIDES VF.pptx\")",
+      "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py '__TRACKED_VAR__/00-20260216_NU_MNC-W_MINOTAURE 26_OPORD_MAIN BODY PH3b.docx')",
+      "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py '__TRACKED_VAR__/01-20260216_NU_MNC-W_MINOTAURE 26_OPORD_PH3b_Annex_A_App1_SOM.docx')",
+      "Bash(cd \"C:/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-Mercure/memory\" && ls *.md | grep -iE \"casw|avatar|mastaurige|scenar\" 2>/dev/null; echo \"--- handles rouges connus dans la mémoire repo ---\"; cd \"d:/CECPC/PRODUCTION/IA/Mercure\" && grep -rhoE \"@[A-Za-z0-9_]+_r1_[A-Za-z0-9_]+|@Hmunik[A-Za-z]*|@[A-Za-z]*Voice\" MASTAURIGE/ 2>/dev/null | sort -u | head -40)",
+      "Read(//c/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-Mercure/memory/**)",
+      "Bash(pdftotext -layout 'D:/CECPC/PRODUCTION/CREATION/02 - MERCURE/Portraits/20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf' -)",
+      "Bash(grep -avE \"^$\")",
+      "Read(//d/CECPC/**)",
+      "Read(//d/CECPC/DOC REF/**)",
+      "Read(//tmp/**)",
+      "Bash(grep -avE \"^Figure |^Table |^[0-9]{3,}|Broadcasting Fixed links\")",
+      "Bash(grep -ivE \"^VSHORAD$|^ACV/AFV$|^COUNTER AIR$|^AIR MOBILITY$|^TRAINING$\")",
+      "Bash(grep -avE \"^Figure|^Table [0-9]|^[0-9]+$\")",
+      "Bash(grep -avE \"^Figure|^Table [0-9]|^[0-9]+$|^Annexe\")",
+      "Bash(awk '{print $5\"\\\\t\"$9}')"
     ]
   }
 }

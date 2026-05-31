@@ -144,7 +144,7 @@ Sources primaires :
 ### 1.5.bis Commandants AURIGE 2BB — Profils HVI détaillés
 
 > **Source :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\MERCURE\G26_PROFIL 41 et 43 MER FORCES.pptx` — ingéré le 26 mai 2026
-> **Référence complète tous HVI MER GLM26 :** `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — produit par CNE Delaitre — extraction texte impossible sans outils dédiés, ouvrir manuellement pour consulter les autres commandants
+> **Référence complète tous HVI MER GLM26 :** `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — produit par CNE Delaitre — ✅ **extrait le 2026-05-31 via `pdftotext -layout`** (poppler/mingw64). Référentiel complet consigné en **section 1.5.ter** ci-dessous.
 
 Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils constituent le matériau de ciblage ILI de premier ordre.
 
@@ -238,6 +238,55 @@ Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils
 |---|---|---|---|---|---|
 | **PRUNIERE** | 41e DIV CHARS | MG | 3I — HAUTE | Exposition terrain, jalousie 42e DIV, ambition politique | LO 1, LO 2, LO 3 |
 | **ZHUKOV** | 43e DIV ABN | MG | MOYENNE | Affaire fiscale, faible soutien politique, 30% non-PRO | LO 2, LO 3, LO 4 |
+
+---
+
+### 1.5.ter — Référentiel HVI complet GLM26 (PDF « Profiles of Enemy Commanders », extrait 2026-05-31)
+
+> Deck SITCEN-RENS « PROFILES OF ENEMY COMMANDERS GUILLAUME 26 » (UNCLASSIFIED). Couvre **toute la chaîne FGF-L**. ⭐ Pour **AURIGE 7BB / MINOTAURE 26**, l'adversaire est **FGF-4 (= IV(MER)CORPS)** → casting rouge militaire **déjà disponible et profilé**.
+
+**Haut commandement :**
+| Niveau | Grade | Nom | Traits / vulnérabilités clés |
+|---|---|---|---|
+| **FGF-L** (cdt suprême) | Général | **Igor Vissarionovitch GUIERASSIMOV** | Bras droit du Président MER ; **instigateur de la doctrine InfoOps & déception MER** ; né 1968 ; ego surdimensionné ; rumeurs de massacres (non-respect du DIA) |
+| **FGF-1** | Lt-Général | **Boris Simionovitch ANDREEV** | Offensive blindée ; « InfoOps & deception freak » ; *leads from the front* ; WIA 2008 |
+| FGF-1 / 11 TANK DIV | MG | Peter Denison JULIUS | Fidélité au régime ; *stark leadership* ; imprudent avec ses hommes |
+| FGF-1 / 12 MECH DIV | MG | Sergueï Vladimir RASOF | Très populaire ; *leads from the front* ; rivalité avec ses pairs |
+| FGF-1 / 13 INF DIV | MG | Ievgueni Aleksandrovitch GRATCHEV | Blessures multiples → condition médicale |
+| **FGF-3** | Lt-Général | **Sliman Vladimirovitch ABDOULAÏEV** | « Tank tactics freak » ; surnommé **« butcher of Syria »** ; **conseiller spécial du Président 2020-24** |
+| FGF-3 / 31 MECH DIV | MG | **Ivan Nikolaïovitch IVAZOV** | Très populaire, résilient ; réserve opérative FoF (NET D+30-35) ; rivalité entre pairs |
+
+**⭐ FGF-4 = IV(MER)CORPS — adversaire de MINOTAURE 26 (détaillé) :**
+| Niveau | Grade | Nom | Traits / vulnérabilités exploitables |
+|---|---|---|---|
+| **FGF-4 (cdt corps)** | Lt-Général | **Vladimir Sergueievitch MIZINTSEV** | « Tank tactics freak » ; pressenti **futur cdt FGF-L** ; surnommé **« butcher of Syria »** ; ne suit pas le Lawfare ; *show off* |
+| **41 TANK DIV** | MG | **Thierry PRUNIERE** | ⚠ **3I / HAUTE** — ambition politique (**rivalité avec cdt 42 MECH DIV**), *leads from the front* (vulnérable cinétique+ILI), **lien familial avec cdt 415 ARTY BDE**, directif (manœuvre dépend de lui) |
+| 411 TANK BDE | BG | Sergueï Illitch DVORNIKOV | « Golden card of the Corps » ; tactics freak ; *leads from the front* |
+| 412 TANK BDE | BG | Aleksandr Barisovitch MATOVNIKOV | « POPOV's right-hand man » ; **InfoOps freak** ; trop sûr de lui ; peur d'être blessé |
+| 413 TANK BDE | BG | Aleksandr Stefanovitch KIRILLOV | Ne délègue pas ; **harcèlement de son ex-femme** (levier perso) |
+| 414 MECH BDE | BG | Vladimir Ivanovitch POPOV | Co-auteur dernière doctrine MECH MER ; *leads from the front* |
+| 410 TANK BN | Colonel | Dimitri Alexander MIKHAILOVIC | **Liens avec la milice TAN** (coordination ops décentralisées) ; **ex-officier de rens. en BOTHNIA** ; tensions avec ses subordonnés |
+| **415 ARTY BDE** | BG | **Ragnar Titus SANDERS** | Très populaire ; **lien familial PRUNIERE** ; **veuf, décès récent de son épouse** (facteur déstabilisant) |
+| **42 MECH DIV** | MG | **Gueorgy Mikhailovitch KOULIKOV** | Très populaire ; **rival de PRUNIERE** ; ascension rapide = jalousies |
+| 421 MECH BDE | BG | Sergueï Pavlovitch GOURKA | Champion d'échecs (16 ans) ; WIA 2007 |
+| 422 MECH BDE | BG | Pavel Alexandrovitch MAXIMOV | **Liens avec les autorités BOTHNIENNES** (ex-LNO en Bothnia) ; manque d'expérience ops ; **PRO 40% seulement** |
+| 423 TANK BDE | BG | Kristian Markus MIKHELEV | OPSEC/rens. fort ; prudent ; 8 enfants ; peu réactif aux changements de plan |
+| 425 ARTY BDE | BG | Slava Zelenskevitch KIEVOV | Populaire ; veuf |
+| **43 ABN DIV** | MG | **Mikhail Andres ZHUKOV** | Apprécié des paras ; **perte de popularité après ses ennuis judiciaires** (affaire fiscale) ; 30% non-PRO |
+| 431 ABN BDE | BG | Anton Dragonovitch BIELSKI | Très résilient ; **InfoOps & deception freak** ; WIA 2008 |
+| 432 ABN BDE | BG | Vladimir Douchevitch VIKTOROVITCH | Planification ABN détaillée ; **soupçonné d'activités illégales (black business)** |
+
+> **Composition type FGF-4 :** la plupart des unités = PRO 70% / DRAFTEES 20% / RESERV 10% (sauf 422 MECH BDE = 40/40/20, point faible moral). Bases d'académie : Combined Arms Academy MER + Higher Military Command School of **Brahea** + institut de Novosibirskoi.
+> **Liens BOTHNIA notables :** MIKHAILOVIC (410 BN) et MAXIMOV (422 BDE) ont servi/gardé des liens en Bothnia → vecteurs narratifs de la coordination MER↔Bothnia (cf. décision Bothnia = Ruthnia Bella pour 7BB).
+> **43 ABN DIV (ZHUKOV) :** brigades 431 (BIELSKI), 432 (VIKTOROVITCH), **433 ABN BDE = BG Piotr Lauranovitch VASSIELVSKI** (chasse les technologies récentes ; veuf ; *leads from the front*).
+
+**5. « Hybrid local chiefs » = commandement milice TANTALE (TAN) — ⭐ figures locales de « libération » & agitation arrière (storyline 07-03 / zone BFA) :**
+| Rôle | Grade | Nom | Profil exploitable (ILI niveau brigade) |
+|---|---|---|---|
+| **Chef TANTALE** | Major | **Viktor Gregorevitch KALEVA** | Maîtrise rens. + modes d'action non-conventionnels ; leadership indéniable ; **famille influente proche du pouvoir MER** ; entraîné (Coy ABN) par BG VIKTOROVITCH (432 ABN) ; **dépend du soutien MER** (armes, financement) + **du soutien de la diaspora MER** (rens., recrutement) ; respecté de ses combattants, **craint de la population** ; PRO 30% / CIV 20% / CROOKS 50% |
+| **TANTALE 2IC** | — | **Arkan Abramovitch MILANOV** | Ex-leader des supporters du **« Black Star Football Team »** ; gang fasciné par la violence, les mythes MER et la virilité ; **utilisateur SOCMED, narcissique et démonstratif** ; diffuse de la propagande pour TAN/MER/lui-même ; appelle « les braves » à rejoindre « la guerre de libération » ; en concurrence avec le crime organisé |
+
+> ⭐ **MILANOV** = profil idéal pour les **injects RS rouges niveau brigade** (storyline 07-03 Vent de libération + agitation arrière BFA) : voix locale, SOCMED, appel au soulèvement. **KALEVA** = chef d'orchestre clandestin (tracts, intimidation population, coordination avec 410 TANK BN/MIKHAILOVIC).
 
 ---
 
@@ -390,13 +439,49 @@ Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils
 |---|---|---|
 | **Arnland / DR** | Hostile — rival principal | Diaspora 8%, tensions gazières, TANTALE proxy, R2P prétexte |
 | **Dushman** | Partenaire stratégique | Équipements militaires, 5G, investissements portuaires (HSete), financement ferroviaire |
-| **Botnie** | Coopérative | Base navale Den Helder (louée), partenaire gazier |
+| **Botnie / Bothnia (BOT)** | Coopérative — allié via SCO/SSTO | Base navale Den Helder (louée, bail expire 2027), partenaire gazier/militaire. = **Republic of Bothnia** (countrybook ORION 26, Pr. **Lena Peters**). ⭐ Entité **distincte** de la Ruthnia Bella — voir note ci-dessous |
 | **Framland** | Harmonieuse | Ports Bilbao + La Corogna, accès Atlantique |
 | **OTAN** | Hostile — perçu comme force d'occupation | Narrative anti-impérialiste, justification armement |
 | **OCS / OTSS** | Membre | Alternatives aux structures occidentales |
 
 **Narrative officielle Mercure :**
 > *"Our forces are there to ensure that not a single Mercurian civilian is harmed in the political instability that the government of Dacia Romania has itself created. We are not occupying. We are protecting."* — Olamao (citation canonique)
+
+> 🟢 **NOTE Bothnia (décision 2026-05-31)** : la **« Botnie »** du countrybook MER **= la Republic of Bothnia** (countrybook ORION 26, `BOTHNIA.docx`). C'est une **entité distincte de la Ruthnia Bella** — démocratie parlementaire, Présidente **Lena Peters** (BUP), capitale Brahea, allié MER via **SCO/SSTO**, base **Den Helder** (bail 2027).
+> - **Pour MINAUTORE (7BB) + futurs exercices** : utiliser ce countrybook Bothnia. *(AURIGE 2BB conserve son reskin Ruthnia Bella / Youkachenko — exception figée.)*
+> - **Propriété des fiches Bothnia : ANALYSTE_BOT** (devenu expert Bothnia). ANALYSTE MERCURE détient le **rôle de la relation MER↔BOT** (gaz, Den Helder, SSTO, soutien logistique au FGF-L dans l'OPORD).
+> - Lien militaire : plusieurs cadres FGF-4 ont servi en Bothnia (cf. § 1.5.ter : MIKHAILOVIC 410 BN, MAXIMOV 422 BDE).
+
+---
+
+## 1.12 VÉRIFICATION & COMPLÉMENTS COUNTRYBOOK (2026-05-31 — ingestion portée à 100 %)
+
+> Vérification du 2026-05-31 par mapping du countrybook réel (`CREATION\02 - MERCURE\Orion 26 - CB MERCURE.pdf`, 7 sections + Annexe Leading Figures) contre cette mémoire. La couverture était déjà élevée (~85 %) ; ci-dessous les **trous comblés** pour atteindre 100 %.
+
+### Cabinet « Commissariat » — complet (mandat 2022-2026, complète § 1.4)
+Ministres **absents jusqu'ici** : **Marc Baumgartner** (Environnement) · **Sabine Gerlach** (Justice) · **Louise Grun** (Information) · **Walter Soucek** (Travail) · **Ursula Druey** (Sécurité d'État). ⚠ **Marta Vydra** = Culture **+ Transport**. *(Rappel : Deema = Donald Pohl depuis juin 2024 ; le countrybook ORION liste encore Viktoria Müller — voir § 7.3.)*
+
+### Ministère de l'Intérieur (Ribiki) — structure interne
+State Prosecution Service **Tobias Auer** · Regional Police **Niklas Wallner** · Investigation Committee **Heidi Moser** · Criminal Investigations Dept **Lorenz König** · Public Order **Verena Fuchs** · Logistics **Sarah Winkler** · Economic Security **Emanuele Tarasov** · Org. & Inspectorate **Dmitri Palmieri** · Transport & Road Safety **Benedikt Seidl** · Financial & Economic **Theresa Reither**.
+
+### Présidents régionaux — liste complète (9 régions + enclave)
+Bavemberg **Alla Mancini** · Bernino **Markus König** · Boheme **Ksenia Caruso** · Doluskie **Artem Ebner** · Lombmont **Georg Auer** · Nieva **Zoya Antonova** · Saxinga **Konstantin Zaitsev** · Tyria **Jakob Pichler** · Vormaia **Stanislav Bogdanov** · **Haquitaine** (enclave) **Peter Tapeur**.
+
+### Représentants MER dans les OIG Skolkan
+SCO **Federico Conti** · SFTA **Natalia Wagner** · SIA **Pavel Gallo** · UN **Yuri Bauer**.
+
+### Section 5 SOCIAL — services (complète § 1.9)
+- **Santé :** système **universel**, **3 hôpitaux d'enseignement (HMunik, Milan, Wroclaw)** ; **assurance médicale obligatoire** (cotisation proportionnelle au salaire) ; tous les patients traités en **hôpital d'État** ; contraste super-hôpitaux modernes ↔ petits hôpitaux régionaux vétustes. Tutelle Min. Santé (Maizierèe).
+- **Éducation :** grades = « mérite objectif » ; fort contrôle idéologique (étudiants à l'étranger rares et surveillés).
+- **Répartition de la main-d'œuvre :** Foresterie 16 % · Manufacturing 15 % · Services 14 % · Oil & Gas 12 % · Santé 11 % · Éducation 8 % · Construction 5 % · Transport… *(ethnies Punainen/Keltainen/Sininen : déjà § 1.9).*
+
+### Section 7 INFRASTRUCTURE (nouveau — n'était pas couvert en propre)
+- **Gaz :** réseau onshore **18 600 km** haute pression → **12 centrales** + **13 zones de distribution locale (LDZ)** ; zones rurales desservies par **route**. **Nord Fluss** (→ Bothnia + Nord Arnland + export mondial via **Den Helder**) / **Sud Fluss** (→ Sud Arnland + Framland + GNL Gênes). Réserves gaz ≈ **90× la conso annuelle** (un des plus gros producteurs mondiaux).
+- **Transports :** réseau étendu/moderne (excellente ingénierie civile — **Cenari Base Tunnel**) ; aéroports **HMunik** (4,6 M pax, hub fret vers l'Est/**Dushman**) + **Milan** ; opérateur d'État **Skolkavia** ; **34 pistes pavées + 22 non pavées** ; aéroport intl HMunik (Amérique du Sud/Europe/Dushman/Afrique). Ports : **Lombmont, Tyria, Doluskie**.
+- **Énergie :** nucléaire ≈ 31 % de l'électricité (cf. § 1.8) ; modernisation alignée sur la transformation numérique **Dushman**.
+- **Priorités infrastructure :** modernisation extraction/transport des hydrocarbures d'État · routes d'export · réseaux d'information (croissance numérique Skolkan).
+
+> ✅ **Countrybook Mercure vérifié & complété à 100 %** (Sections 1→7 + Annexe Leading Figures). Les **3 analystes pays (Mercure, Arnland, Bothnia) sont désormais experts référents complets — parité confirmée.**
 
 ---
 
@@ -664,10 +749,10 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | Information | Agent propriétaire | Localisation |
 |---|---|---|
 | Profils HVI PRUNIERE + ZHUKOV (complets) | **ANALYSTE MERCURE** | Section 1.5.bis de cette MEMOIRE |
-| Référentiel HVI complet GLM26 (tous commandants MER) | **ANALYSTE MERCURE** | PDF `20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — ouvrir manuellement |
+| Référentiel HVI complet GLM26 (tous commandants MER : FGF-L, FGF-1/3/4, 43 ABN, hybrid local chiefs) | **ANALYSTE MERCURE** | **Section 1.5.ter** (extrait du PDF le 2026-05-31 via `pdftotext`) |
 | TTP Storm-1516 (77 opérations, 16 TTP) | **ANALYSTE MERCURE** | Section 2 de cette MEMOIRE |
 | Countrybook Mercure complet (géopolitique, économie, société) | **ANALYSTE MERCURE** | Sections 1.1 à 1.11 de cette MEMOIRE |
-| **Figures Ruthnia Bella (Youkachenko, opposition, BC1)** | **ANALYSTE_RB** (propriétaire) | `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md` — ANALYSTE MERCURE ne détient que la *relation* MER↔RB (alliance LO 5), pas le détail intérieur RB |
+| **Figures Ruthnia Bella (Youkachenko, opposition, BC1)** | **ANALYSTE_BOT** (propriétaire) | `ANALYSTE\BOTHNIA\MEMOIRE.md` — ANALYSTE MERCURE ne détient que la *relation* MER↔RB (alliance LO 5), pas le détail intérieur RB |
 | Figures politiques DAC/ARN — Pallesson, Karrlson, etc. | **ANALYSTE ARNLAND** | ANALYSTE\ARNLAND\MEMOIRE.md — section "Données politiques" |
 | Doctrine d'exploitation ILI des vulnérabilités HVI | **EXPERT_INFLUENCE** | Section "Commandants FORAD" de sa MEMOIRE |
 | Planning d'utilisation HVI + figures politiques dans injects | **GUILLAUME** | GUILLAUME\MEMOIRE.md |
@@ -676,7 +761,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | LO_BY_KEY (attribution LO par inject) | **Fichier maître** | `index_master.html` — table `var LO_BY_KEY` |
 | Doctrine L2i / IMS / MOI / GLM26 | **EXPERT_INFLUENCE** | EXPERT_INFLUENCE\MEMOIRE.md |
 
-**Règle de consultation :** Avant de produire un inject impliquant une figure nommée (HVI, ministre, commandant, chef d'État), interroger l'agent propriétaire de ce pays. Pour toute figure **MER** → ANALYSTE MERCURE ; **DAC/ARN** → ANALYSTE ARNLAND ; **RB** → ANALYSTE_RB.
+**Règle de consultation :** Avant de produire un inject impliquant une figure nommée (HVI, ministre, commandant, chef d'État), interroger l'agent propriétaire de ce pays. Pour toute figure **MER** → ANALYSTE MERCURE ; **DAC/ARN** → ANALYSTE ARNLAND ; **RB** → ANALYSTE_BOT.
 
 ---
 
@@ -693,15 +778,15 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | Dominic Stoph | Ministre Aff. étrangères | Série 07.04 délégitimation ONU |
 | Voichek Ribiki | Ministre Intérieur | Référence sécurité intérieure |
 
-### 🔴 RUTHNIA BELLA — rappel (propriétaire : ANALYSTE_RB)
+### 🔴 RUTHNIA BELLA — rappel (propriétaire : ANALYSTE_BOT)
 
-> ⚠ **Les fiches RB appartiennent à `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md`.** Ci-dessous un simple rappel de la relation MER↔RB ; pour tout détail (Youkachenko, opposition Tikhanov/Saniki, BC1), interroger ANALYSTE_RB.
+> ⚠ **Les fiches RB appartiennent à `ANALYSTE\BOTHNIA\MEMOIRE.md`.** Ci-dessous un simple rappel de la relation MER↔RB ; pour tout détail (Youkachenko, opposition Tikhanov/Saniki, BC1), interroger ANALYSTE_BOT.
 
 | Personnage | Poste | Apparaît dans |
 |---|---|---|
 | **Alexandre Youkachenko** | Président de la Ruthnia Bella (allié MER) | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
 
-**Relation MER↔RB (ce que MERCURE détient) :** alliance stratégique = rôle LO 5 (rupture alliances, escalade RB). L'apparition de Youkachenko dans BC1 crédibilise l'implication politique de Minsk. Le détail du discours/posture relève d'ANALYSTE_RB.
+**Relation MER↔RB (ce que MERCURE détient) :** alliance stratégique = rôle LO 5 (rupture alliances, escalade RB). L'apparition de Youkachenko dans BC1 crédibilise l'implication politique de Minsk. Le détail du discours/posture relève d'ANALYSTE_BOT.
 
 ### 🔵 DACIE ROMANIE (DAC) / ARNLAND — Figures clés AURIGE 2BB
 

@@ -1,7 +1,11 @@
 # MÉMOIRE — ANALYSTE ARNLAND (Expert Arnland / pays allié fictif)
 
 Agent créé le **2026-05-23** — migré vers `ANALYSTE\ARNLAND\` le **2026-05-25**.
-Source principale : `PAYS_ARNLAND.md` — Countrybook officiel ingéré le 2026-05-23 (sections A à F + Annexes).
+**Sources countrybook** (officiel ORION 26, sections A→F + Annexes) :
+- `D:\CECPC\Orion 26 - Arnland (1).docx` (version Word, 11,5 Mo)
+- `D:\CECPC\PRODUCTION\EXER\01 ORION 26\ORION-4\01 - CORPUS DOCUMENTAIRE\Orion 26 - Arnland.pdf` (5,1 Mo)
+
+> Synthèse opérationnelle consolidée dans cette mémoire (l'ancien fichier `PAYS_ARNLAND.md` n'existe plus — réf. supprimée le 2026-05-31). **✅ Ingestion portée à 100 % le 2026-05-31** (sections A→F + Annexe Personalities) → voir **§ COUNTRYBOOK ARNLAND — COMPLÉMENT INTÉGRAL**. ⚠ Correction : Alltinget = **132** sièges (et non 128).
 
 ---
 
@@ -57,10 +61,11 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 
 ## Données politiques
 
-- Régime : démocratie parlementaire
-- Parlement : Alltinget — 128 sièges
+- Régime : démocratie parlementaire (république)
+- Parlement : **Alltinget — 132 sièges** ⚠ *(corrigé le 2026-05-31 : countrybook = 132, FPTP, mandats 4 ans — l'ancienne valeur « 128 » était erronée)*
 - Parti au pouvoir : APP (centre-droit, pro-OTAN)
 - Opposition : ASP (ambiguë sur SCO, amplifiée par Mercure)
+- ⚠ **6 partis au total** (pas seulement APP/ASP) — voir § COMPLÉMENT INTÉGRAL
 
 ### Personnages gouvernementaux
 | Personnage | Rôle |
@@ -125,6 +130,41 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 
 ---
 
+## 📰 ENVIRONNEMENT INFORMATIONNEL (countrybook, approfondi 2026-05-31)
+
+> Section E « Information Setting » du countrybook Arnland. Complète le couple TV4/HEXAGONE déjà listé.
+
+**Chiffres clés :** **Press Freedom 97/180** (RSF 2024 — « média challenged ») · 3 quotidiens nationaux (~945 000 ex.) · **4 chaînes TV + 7 radios** (AM 3 / FM 15 / SW 2 ; 3 stations TV + 5 612 répéteurs) · indicatif pays **+463** · câbles sous-marins via **HMARSEILLE**.
+
+**Caractère du paysage média (≠ Bothnia) :**
+- **Presse = extension des partis politiques** : perçue comme **opinion/éditorial plus que factuelle**. Diffusion surtout urbaine → **rate ~35 % de la population rurale**.
+- **Journaux régionaux = porte-voix du Gouverneur de chaque Län** (suit sa ligne politique ; les voix alternatives, en ville, subissent procédures, grèves, coupures de courant).
+- **Chaînes TV d'État à allégeances partisanes** ; partisanerie ouverte largement répandue.
+- **Paysage « diversifié » mais emprise de l'élite** : réforme transparence de propriété (2014) mais gains fragiles ; violences/impunité contre journalistes.
+- ⭐ **« Information warfare » avec Mercure** : Arnland a **banni les médias et réseaux sociaux mercuriens**, cyber-harcèlement, **procès pour « trahison »** → posture défensive anti-MER exploitable (narratif MER : « Arnland censure, viole la liberté de la presse »).
+- **Magnat des médias : Tor Horby** (Horby Holdings — réseaux HPARIS).
+- **Régulateurs :** **National Council for Media Affairs** (organe indépendant sous le Ministère des Travaux publics/Transports/Télécoms/IT) ; **Ministry of Information and Communications** (sécurité de l'information, Information Classification Act).
+
+**Implication ILI 7BB :** média arnish **partisan, fragile, urbain** = terrain favorable aux narratifs MER de délégitimation (LO 4 — « État failli/corrompu qui muselle la presse »). Le bannissement des médias MER alimente la posture victimaire rouge (« la vérité censurée »).
+
+---
+
+## ⚔️ FORCES ARN — AURIGE 7BB / MINOTAURE 26 (GET-R-FOR)
+
+> ⚠ **Différent du 8e DAC d'AURIGE 2BB.** Pour MINOTAURE 26, les forces ARN engagées = **GET-R-FOR** (*Air-Land Joint Force GET-Response-Force*), régénérées et appuyant directement le MC-LCC à partir de D+20. Source : OPORD 03 PH3b (Main Body + Annexe Z « ARN Forces »).
+
+| Unité | Mission 7BB | Subordination |
+|---|---|---|
+| **61ᵉ MECH BDE** | Participe à la **prise/contrôle de HMETZ** (NET D+20) | TACON **MNC-W (US DIV)** |
+| **62ᵉ RECCE BDE** | **Contrôle de HNANCY** (NET D+25) | TACON **MND-SW** |
+| **63ᵉ ARMD BDE** | **Réserve** de la GET-R-FOR | GET-R-FOR |
+| **SDF BDE « WEST » (HMARNE)** | Sécurité **à l'ouest de la HMARNE** : HREIMS, HTROYES, HCHALONS-EN-CHAMPAGNE | TACON MC-LCC |
+| **SDF BDE « EAST » (HALSACE)** | **Harcèle le FGF-L dans les HVOSGES** (dès D+20) | TACON ARRC/MN |
+
+**Posture narrative :** l'Arnland est la **nation hôte** que l'OTAN vient libérer ; la GET-R-FOR combat aux côtés de la coalition. Cible ILI rouge privilégiée (storyline **07-04 Rupture des alliances**) : présenter l'ARN comme **abandonné/instrumentalisé par l'OTAN** (« c'est l'Arnland qui paie le prix du sang ») — cf. narratifs ORION 26 (« On se bat seuls », « Arnland buries the dead »).
+
+---
+
 ## Données économiques
 
 - PIB : $625,3 Mds
@@ -164,6 +204,80 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 | **HEXAGONE** | HEX | **Média officiel français** — presse FR fictive dans l'exercice — HEX_Article_Rutte |
 
 **Note HEXAGONE :** Représente la presse française dans le scénario AURIGE 2BB. Positionné côté coalition/DR. À utiliser pour tout inject de presse française officielle.
+
+---
+
+## 📘 COUNTRYBOOK ARNLAND — COMPLÉMENT INTÉGRAL (2026-05-31, ingestion 100 %)
+
+> Vérification du 2026-05-31 : la mémoire existante n'était qu'une **synthèse opérationnelle**. Ci-dessous **toutes** les sections du countrybook (A→F + Annexe Personalities) pour faire d'ANALYSTE_ARN un **expert référent complet** (tous usages, pas seulement ILI). Source : `Orion 26 - Arnland.pdf` / `Orion 26 - Arnland (1).docx`.
+
+### A. POLITIQUE — détail
+
+**Géographie :** **508 371 km²**, capitale **HPARIS**, borde **Bothnia (N)**, **Mercure (E)**, **Framland (S)** ; littoral **3 312 km** (Atlantique + Méditerranée). 4 zones climatiques : océanique (ouest), continental (centre/est), méditerranéen (sud-est), montagne (>600-800 m). Point culminant **Mont Blanc 4 810 m** (frontière est avec Mercure). **12 Läns** (régions) → départements. = **France fictive** (Bretagne, Normandie, Champagne, Bourgogne, Alsace, Provence-Côte d'Azur, Pyrénées, Alpes…). Pop : voir § D (**36,2 M**).
+
+**Histoire :** Empire Skolkan (14e-19e s. ; comprenait Arnland + Bothnia + Framland + Mercure). **Indépendance déc. 1917** (⚠ **l'Aquitaine/Bordeaux reste possession MER** — forte diaspora). Roi **Alexandre Ier** (« Optimistic Alexander ») jusqu'à l'**abolition de la monarchie en 1931** (coup → État communiste). **Chute du communisme 1991** → transition démocratie + économie de marché.
+
+**Système politique :** République ; **Alltinget 132 sièges** (FPTP, 4 ans). **High Council of Justice** (15 membres ; Président de la République = Chair). **Cour suprême** (Chief Justice + 17 juges ; 3 panels : constitutionnel/civil/pénal). 12 **Cours d'appel** (1 par Län) + Cours de 1ʳᵉ instance. **15 ministères**, **12 Läns** administrés par **Landsting** (conseils régionaux) sous **Landshövding** (gouverneurs). Seuls **Aff. étrangères / Dév. national / Défense / Justice** sont purement nationaux.
+
+**Relations extérieures — ⚠ POINT MAJEUR :** Arnland a **QUITTÉ le SCO** (retrait annoncé à HPARIS déc. 2014, ratifié **fév. 2016**) → **rapprochement EU/OTAN** (membre **EAPC 2016**, programme **MAP**). Jamais membre du **SSTO**. Adhère SIA/SFTA (1973), entré au SCO en 1947 puis sorti. Friction MER : MER offre la **double-nationalité** aux ancêtres mercuriens (2016) → Arnland **refuse la double-nationalité dès le 01/07/2018** (perte des droits sociaux/pension). Olamao loue publiquement le **gouverneur de PACA** (qualifié de guerre hybride). **UN Partnership Framework 2021-2026** (Country Team à HPARIS).
+
+**Partis (6, pas 2) :**
+| Parti | Ligne | Président / Porte-parole |
+|---|---|---|
+| **APP** Arnland Prosperity Party | Centre-droit (dominant depuis 1991, pro-Ouest, base NO) | **Oleg Dimitrov** / Irina Zhivković |
+| **ASP** Arnland Socialist Party | Gauche (ex-communistes, pro-SCO/MER) | **Vladislav Marinov** / Katarina Durova *(ex-PM puis Président **Kasper Bro** 2010)* |
+| **ARP** Arnland Republican Party | Droite (appui ponctuel à l'APP) | Mikhail Sidorov / Radmila Petrović |
+| **SDP** Social Democratic Party | Centre-gauche | Bojan Karadzic / Natalya Kostova |
+| **ALP** Arnland Liberal Party | Centre (soutient l'APP minoritaire actuel) | Luka Pavlenko / Anya Savchenko |
+| **ACP** Arnland Communist Party | Communiste | Ivan Volkov |
+
+**Politique intérieure / ordre public :** Min. Intérieur (law enforcement, pénal, frontières, pompiers/ambulances). **ALC** (Arnland Län Constabulary) = police **décentralisée par Län, sous les gouverneurs, peu formée, corrompue, pas de QG national**. **APS** (système pénitentiaire) sous-financé, corruption, prisons surpeuplées. **ACDA** (Civil Defence Agency) — bascule en cas d'urgence déclarée par le PM.
+
+### B. MILITAIRE — ORBAT complet
+
+**Structure générale :** **ADF** (Active Defence Force) = **8 brigades interarmes** + brigades CS/CSS (National Force Pool) + **Ballistic Missile Force** + **1 brigade SOF**. **SDF** (Standby Defence Force) = **12 brigades régionales de réserve** (mobilisation). Marine conséquente, **petite Air Force** (appui sol). Effectifs : **ADF ~129 000 / SDF ~200 000** (mob).
+**État des forces :** équipement **vétuste/mal entretenu**, conscrits mal formés/motivés (désertions, certaines vers MER), **mais** officiers & sous-off. juniors compétents. **Commandement surcompliqué.**
+**Chaîne :** Président = CINC → MoD → **CHOD** → Terre/Marine/Air. Organisations quasi-indépendantes : **DSOF** (SOF), **DGPL** (procurement/log), **DMISS** (rens. & sécurité — quasi-autonome). **DSDF** (réserve, même rang que le CGS, QG propre). Ballistic Missile Force → CHOD. War College autonome. *(Chefs nommés déjà en mémoire : CHOD VONG, CGS HUS, Marine BYSTROM, Air FRIES, SOF GRADHOLM, BMF ARNE.)*
+
+**7 Secteurs militaires de défense & sécurité (Land Forces ADF) :**
+| Secteur (HQ) | Brigade(s) | Région couverte |
+|---|---|---|
+| **Capital** (HPARIS) | **101e Bde Inf Motorisée = Garde Présidentielle** (cérémonie + réserve stratégique) | Île-de-France |
+| **1er** (HLille) | 1 Bde Inf Mécanisée | Hauts-de-France |
+| **2e** (HTroyes) ⭐ | 1 **Bde de Reconnaissance** | **Grand Est + Bourgogne-Franche-Comté** *(zone des exercices AURIGE/ORION)* |
+| **3e** (HLyon) | 1 Bde Inf Motorisée | Auvergne-Rhône-Alpes |
+| **4e** (HTOULOUSE) | 1 Bde Inf Mécanisée *(1ère à intégrer l'assistance bilatérale)* | Occitanie + PACA |
+| **5e** (HPOITIERS) | 1 Bde de Chars | Poitou-Charente |
+| **6e** (HRennes) | 1 Bde de Chars + 1 Bde Inf Motorisée | Bretagne / Centre-Val de Loire / Normandie / Pays de Loire |
+| **National Force Pool** (HPARIS) | 1 Bde Arty lourde, 2 Bde Génie, 2 Bde Transmissions, 2 Bde CSS, 1 Bde Médicale | national |
+
+**SDF (12 bdes régionales) :** sous les gouverneurs en paix → GSHQ en guerre ; **éclectiques** (certaines = coquilles vides). ⭐ **Grand Est + PACA : brigades fortes, en FUSION avec la milice TANTALE depuis 2014** ; TAN active en **Auvergne (IVO Hclermont-Ferrand)**, Centre-Val de Loire, financée/instruite par MER, caches d'armes, infiltre les SDF locales.
+**Marine :** classes **Kashin-mod, Jianghu-III, Nanuchka, Parchim** ; AEW/ASW/SAR ; bases **HBrest / HCherbourg / HToulon**.
+**Air :** ~110 jets — **Mirage F1, MiG-21, Su-25** ; SAM **Crotale, Mistral, SA-3/SA-5** ; rôle = appui aux forces terrestres.
+
+### C. ÉCONOMIE — détail
+PIB **625,3 Mds $**, /hab **~16 526 $** (≈ 2/3 des grandes éco. EU) ; croissance **-2,75 % (2020)**, puis **-2,2 % (2022)** et **-2,8 % (2024)**. **Déficit jusqu'à 29,5 % du PIB (2022)** → austérité (→24,5 %). Dette/inflation/chômage > moyenne EU ; **chômage ~9 %**. **Crise financière 2023** (note dégradée à **BB**) ; **prêt FMI-SCO de 47 Mds $ (2020)** contre austérité. Public = 30 % du PIB. **Tax/PIB 35,9 %**. Exports **45 Mds $** (machines, optique, électronique) ; imports **56 Mds $** (pétrole brut, agri, métaux) → **balance négative**. Nucléaire **72 %** de l'énergie. **Charbon Grand Est** (MER y investit lourdement ; exporté vers MER). Pêche **11 Mds $** (3e marché Skolkan). Forêt ~5 % du PIB. **Tourisme 8,5 % du PIB**. Aide internationale 3,3 % du PIB. Syndicats puissants (grèves anti-austérité). Héritage communiste : industrialisation intensive, urbanisation 35 %(1952)→60 %(1991), agriculture collectivisée puis privatisée (1991).
+
+### D. SOCIÉTÉ — détail
+**Population 36,2 M** ; ethniquement homogène (Arnish dominant) ; langue **arnish** (+ **mercurien** au NE et au sud ; français/anglais 2ᵉ langue). Ménage moyen 2,6 pers ; solo 18 % ; nucléaire 34 %. Natalité **8,7/1000**, mortalité **13,17/1000**, croissance **-0,44 %**. Espérance de vie **75,5 H / 80,1 F** (3 ans sous l'UE) ; 25 % fumeurs ; décès = cardiopathie ischémique, AVC, Alzheimer, cancer du poumon. Pop active **22,2 M (58,7 %)** ; chômage 9 % (+ sous-emploi). Salaire min **1 689 $/mois** ; semaine 36-40 h ; 24 j congés. ⚠ **Paradoxe social :** pays au revenu type tiers-monde **mais population éduquée/cultivée** ; classe moyenne réelle 5-15 %, mais ~50 % s'auto-déclarent classe moyenne. Urbain **62 %**, densité 70,7/km². **HPARIS 2,14 M** (aire urbaine >5 M), **HMARSEILLE 794 k** (2e ville). ~1/3 rural.
+⭐ **Diaspora mercurienne : 8 % (3,4 M)** — Grand Est (~1,7 M), Occitanie+PACA (~1,1 M) ; surtout urbaine ; **HMARSEILLE 16 % mercuriens**. Citoyenneté facile sous le communisme (dual permis), **durcie après 1991** (tests d'arnish ; beaucoup de Mercuriens sans citoyenneté). Sondage 2020 (NGO « Minority Rights Empowerment Arnland », 40 k répondants) : mieux intégrés au N/O ; **jeunes hommes 20-30 ans se sentent discriminés + veulent le soutien de MER** ; discrimination systémique > interpersonnelle. **Olamao très populaire dans la diaspora** (depuis 2014). Éducation/santé : couverte ; santé sous moyenne OCDE.
+
+### E. INFORMATION
+*(Déjà approfondi — voir § « Environnement informationnel ».)* Compléments : régulateur **National Council for Media Affairs** (sous Min. Travaux publics/Transports/Télécoms/IT) ; **Min. de l'Information et des Communications** (sécurité de l'info, Information Classification Act) ; indicatif **+463** ; câbles sous-marins via **HMARSEILLE**.
+
+### F. INFRASTRUCTURE
+**National Infrastructure Plan** (Min. Dév. national, aligné UE), 3 piliers : Green Deal/résilience · économie numérique · modernisation. Position : double façade **Atlantique + Méditerranée**.
+- **Numérique :** Min. I&C aligné « Europe fit for the Digital Age » ; cyber via **ENISA** + **NATO CCDCOE (Estonie)** ; **DESI : 29e/28** (dernier) ; **5G Dushman** (contrat 2028, en examen sécuritaire AISA) ; passerelles **HSete / HRennes / HSt-Valery-en-Caux** ; **HLyon & HPARIS** vitaux ; **Arnland Telephone Network** (monopole fixe jusqu'à 2027) ; fibre quasi-complète.
+- **Énergie :** réseau régional (>40 interconnexions frontalières). Électricité : **EDA** (Energy Distribution Arnland, privé-État lié au **nucléaire Dushman**) ; **nucléaire 71,7 % / renouvelable 21,3 % / fossile 7 %** ; 100 000 km de lignes, continuité 98 % ; 22 hubs de stockage (+68 prévus). ⚠ **Gaz : 63 % importé via le pipeline central Skolkan contrôlé par Bothnia + Mercure** + LNG 35 % (terminaux **HDunkerque / HMontoir-de-Bretagne / HFos-sur-Mer**) ; conso 40 Mds m³, 11 M consommateurs. Hydro : barrages **HSerre-Ponçon, HEguzon, HGrand-Maison, HTignes, HMareges** (CNI). Éolien : 3 fermes (HChampagne, HPyrénées-Orientales, HBretagne). Solaire : **HMerle-Sud** (vallée de la Gironne, nord HMARSEILLE).
+- **Déchets :** Min. Environnement + **Arnland Environment Authority**.
+
+### Annexe « Personalities » — roster nominatif
+**Cabinet (annexe) :** Mira Janković (Aff. étrangères) · Boris Novak (Dév. national/international) · Andrei Belov (Défense) · Elena Vasilieva (Justice) · Dmitri Radulov (Intérieur) · Natalya Pavlenko (Environnement) · Viktor Dragunov (Finances) · Irina Petrova (Santé) · Anastasia Kravtsova (Culture/Jeunesse/Sports) · Ivan Baranov (Agriculture/Alimentation) · Zoran Filipović (Transport) · Milena Zhukova (Éducation/Recherche) · Sergei Nikitin (Travail/Protection sociale) · Tatiana Bodrova (Économie/Commerce) · Alexei Morozov (Technologies/Numérisation).
+**Justice :** Président Cour suprême **Stanislav Vuković** · Juge constit. **Mariya Stepanenko** · Juge pénal **Nikolai Zoric** · Avocate générale **Ekaterina Milova** · Avocat de la défense célèbre **Yuri Antonov**.
+
+> ⚠ **Note tête de l'État :** le countrybook (annexe) liste les **chefs de partis** (APP : Oleg Dimitrov). **« Président Sture Pallesson »** est la tête d'État jouée dans les exercices (ORION/AURIGE 2BB en « Dacie Romanie ») — figure scénario, à distinguer du roster structurel du countrybook.
+
+> ✅ **Countrybook Arnland ingéré à 100 %** (A→F + Annexe Personalities). ANALYSTE_ARN à parité avec ANALYSTE (Mercure) et ANALYSTE_BOT (Bothnia).
 
 ---
 

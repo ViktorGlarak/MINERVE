@@ -49,11 +49,11 @@ La demande concerne...
 ├── un DISCOURS DE PERSONNAGE POLITIQUE ?
 │   ├── Personnage mercurien (Olamao, Junker, Stoph, Ribiki, ...) → ANALYSTE (deepseek-r1:14b)
 │   ├── Personnage DR / Arnland (Président, ministres, ...) → ANALYSTE_ARN (deepseek-r1:14b)
-│   ├── Personnage Ruthnia Bella (Youkachenko, opposition Tikhanov/Saniki, gouvernement RB) → ANALYSTE_RB (deepseek-r1:14b)
+│   ├── Personnage Ruthnia Bella (Youkachenko, opposition Tikhanov/Saniki, gouvernement RB) → ANALYSTE_BOT (deepseek-r1:14b)
 │   ├── Personnage OTAN ou figure internationale fictive → SCÉNARISTE (mistral-nemo)
 │   └── Figure RÉELLE (Rutte SG OTAN, Guterres ONU, ...) → NOYAU (Claude) directement
 │       Raison : les figures réelles nécessitent un contrôle éthique et de cohérence que Claude assure lui-même
-│       ⚠ Youkachenko n'est PAS une figure réelle — c'est le président FICTIF de Ruthnia Bella (calqué sur Loukachenko) → ANALYSTE_RB
+│       ⚠ Youkachenko n'est PAS une figure réelle — c'est le président FICTIF de Ruthnia Bella (calqué sur Loukachenko) → ANALYSTE_BOT
 │
 ├── une VOIX à générer (paramètres OmniVoice, texte TTS, profil voix) ?
 │   └── VOIX (mistral-nemo)
@@ -66,7 +66,7 @@ La demande concerne...
 │       Note : "Arnland" dans ORION 26 = "Dacie Romanie (DR)" dans AURIGE 2BB
 │
 ├── une question sur la RUTHNIA BELLA (régime Youkachenko, opposition Tikhanov/Saniki, médias RB/BC1, arcs narratifs RB) ?
-│   └── ANALYSTE_RB (deepseek-r1:14b) → dossier `ANALYSTE\RUTHNIA_BELLA\`
+│   └── ANALYSTE_BOT (deepseek-r1:14b) → dossier `ANALYSTE\BOTHNIA\`
 │       Note : Ruthnia Bella = Biélorussie fictive. Youkachenko, opposition et BC1 sont des entités FICTIVES → ne jamais router vers NOYAU comme "figure réelle"
 │       Rappel camps : Youkachenko + BC1 = 🔴 rouge · Tikhanov = 🔵 bleu nuancé · Saniki = 🔴 rouge pro-MER
 │
@@ -119,7 +119,7 @@ $r.response
 | Modèle | Exemples d'agents | Temps de chargement estimé |
 |---|---|---|
 | qwen2.5-coder:14b | ARCHITECTE | ~15-30s (1ère fois) |
-| deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | ~15-30s (1ère fois) |
+| deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | ~15-30s (1ère fois) |
 | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE, VOIX, MASTODONTE, MASTAURIGE | ~10s |
 | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE, ARCHIVISTE | ~5s |
 | Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE | immédiat (API) |

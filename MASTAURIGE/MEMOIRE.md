@@ -381,7 +381,7 @@ Tous les codes P-xx et R-x ont été migrés vers le format canonique `XX.YY.ZZA
 
 **Fichiers mis à jour :** `index_master.html` (ANIM_DATA `num` + `series` + LO_BY_KEY) + `melmil_inject_index.js` (nouvelles entrées).
 
-> ⚠ **Périmètre exact de la migration (clarifié 2026-05-31) :** la migration ne couvre que les **fichiers de production** (`index_master.html`, `melmil_inject_index.js`). Des **labels P-xx historiques subsistent volontairement dans les mémoires** (chronologies et registres d'avatars de `MASTAURIGE/MEMOIRE.md`, `GUILLAUME/MEMOIRE.md`, `ANALYSTE/RUTHNIA_BELLA/MEMOIRE.md`) comme repères d'**arcs narratifs**, pas comme codes d'injects.
+> ⚠ **Périmètre exact de la migration (clarifié 2026-05-31) :** la migration ne couvre que les **fichiers de production** (`index_master.html`, `melmil_inject_index.js`). Des **labels P-xx historiques subsistent volontairement dans les mémoires** (chronologies et registres d'avatars de `MASTAURIGE/MEMOIRE.md`, `GUILLAUME/MEMOIRE.md`, `ANALYSTE/BOTHNIA/MEMOIRE.md`) comme repères d'**arcs narratifs**, pas comme codes d'injects.
 > - Les **arcs** (P.01, P.02, P.03, P-25/26) se résolvent via le tableau de mapping ci-dessus.
 > - Les **P-xx individuels** des registres d'avatars (P-02, P-04…P-20) n'ont **pas** de table de correspondance 1:1 complète → ne **pas** les renommer à l'aveugle. Avant tout renommage de registre, demander à GUILLAUME la correspondance P-xx → code canonique, ou laisser le label d'arc.
 

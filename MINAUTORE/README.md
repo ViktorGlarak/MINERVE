@@ -7,8 +7,8 @@
 | **Nom** | MINAUTORE |
 | **Modèle** | Claude (cloud) — claude-opus-4-7 |
 | **Rôle** | Chef d'orchestre éditorial — exercice AURIGE 7BB |
-| **Créé le** | 2026-05-30 |
-| **Exercice** | AURIGE 7BB — à définir |
+| **Créé le** | 2026-05-30 — dossier ingéré le 2026-05-31 |
+| **Exercice** | **MINOTAURE 26** / AURIGE 7BB — GT2, Mailly 9–13 mars 2026 (D+33→D+41) |
 | **Dossier exercice** | `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\` |
 
 ## Rôle
@@ -26,7 +26,7 @@ MINAUTORE est le chef d'orchestre éditorial de l'exercice AURIGE 7BB. Il pilote
 | **EXPERT_INFLUENCE** | Doctrine ILI, synchromatrice, planification effets |
 | **ANALYSTE** | Cohérence Mercure, profils personnages MER |
 | **ANALYSTE_ARN** | Cohérence Dacie Romanie / Arnland |
-| **ANALYSTE_RB** | Cohérence Ruthnia Bella |
+| **ANALYSTE_BOT** | Cohérence Bothnia (countrybook ORION 26) |
 | **MASTAURIGE** | Production tweet cards, articles HTML, MELMIL |
 | **SCÉNARISTE** | Narrative locale, voix des personnages |
 
@@ -40,5 +40,6 @@ MINAUTORE est le chef d'orchestre éditorial de l'exercice AURIGE 7BB. Il pilote
 
 ## Statut
 
-> ⚠️ **Agent initialisé — En attente de la synchromatrice AURIGE 7BB**
-> Le Game Plan tactique, les acteurs et le catalogue d'injects sont à ingérer depuis le dossier exercice.
+> ✅ **Agent opérationnel — dossier de montage GT2 ingéré (2026-05-31).**
+> Identité, manœuvre (corps MNC-W + zoom brigade), géo H-préfixe, forces, 4 storylines + 6 opportunités → renseignés dans `MEMOIRE.md`.
+> Reste à faire : **construire le calendrier éditorial** (storylines × fenêtres D+33-36 / CAX1 / CAX2) et lancer la production (0 inject à ce jour).

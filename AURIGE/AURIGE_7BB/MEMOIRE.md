@@ -42,7 +42,7 @@
 | **MASTAURIGE** | Tweets RS, HTML cards, MELMIL | Disponible |
 | **ANALYSTE MERCURE** | Cohérence personnages MER | Disponible |
 | **ANALYSTE_ARN** | Cohérence personnages DAC/ARN | Disponible |
-| **ANALYSTE_RB** | Cohérence personnages RB | Disponible |
+| **ANALYSTE_BOT** | Cohérence personnages RB | Disponible |
 
 ---
 
