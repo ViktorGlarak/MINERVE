@@ -39,6 +39,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | ANALYSTE_BR | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR | Expert Bella Russia — régime Youkachenko, opposition (Tikhanov/Saniki), médias BR, arcs narratifs BR *(dossier : `ANALYSTE\BELLA_RUSSIA\`)* |
 | GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
 | EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, PENSEUR | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
+| MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 - `SYSTEME\CONFIG.md` — tableau "Modèles installés"

@@ -1,8 +1,47 @@
 # MÉMOIRE — AURIGE (Référentiel architecture exercices AURIGE)
 
-> Créé le 26 mai 2026.
+> Créé le 26 mai 2026. Mis à jour 2026-05-31 — rôle d'initialisateur formalisé.
 > Ce fichier est la **référence canonique** pour l'organisation de tout exercice de la série AURIGE.
 > Il s'applique à AURIGE 2BB et à tous les exercices futurs de type AURIGE.
+
+---
+
+## Rôle AURIGE — Base d'initialisation des agents exercice
+
+> **AURIGE est la source de vérité de la doctrine d'exercice CECPC.**
+> Tout nouvel agent éditorial d'exercice (GUILLAUME pour 2BB, MINAUTORE pour 7BB, futurs) est **initialisé à partir du template AURIGE**.
+> Template complet : `SYSTEME\PROMPTS\aurige.md`
+
+### Éléments universels conservés dans AURIGE (transférables à tout exercice)
+
+| Élément | Contenu |
+|---|---|
+| Univers Skolkan | Acteurs permanents GET, citations canoniques Olamao/Pallesson, règle "Bella Russia" |
+| Camps narratifs | BLEU / ROUGE / GRIS + médias fictifs associés |
+| 5 LO GLM26 | LO 1→5 — référence stratégique universelle |
+| Règles cohérence narrative | CLIMAX, noyau de vérité, équilibre camps, neutralité visuelle, règle LO |
+| Steps PSYOPS | Step 1→2→3, escalade obligatoirement progressive |
+| Catalogue séries ILI | 07.01→08.03, logique thématique constante |
+| Règle H-préfixe | Codage géographique universel (ville réelle → H+nom) |
+| Doctrine calibration brigade | Max 1-2 stratégiques/semaine, catalogue 15 types injects locaux |
+| Architecture dossier exercice | 6 dossiers numérotés 00→05, nommage D+XX_JJ_MOIS |
+| Framework agents | Qui appeler pour quoi — universel tous exercices |
+
+### Éléments spécifiques à chaque exercice (non transférables, à compléter)
+
+- Zone géographique et H-codes de la ZO (HNANCY, HCHATEAU-SALINS, etc.)
+- Brigade ou unité entraînée (2BB, 7BB, etc.)
+- Game Plan / synchromatrice (D+XX réels, dates calendaires)
+- Injects produits et leur statut de production
+- Acteurs locaux fictifs (commandants, maires, notables, médias locaux)
+
+### Procédure d'initialisation d'un nouvel agent exercice
+
+1. Copier `SYSTEME\PROMPTS\aurige.md` → créer `SYSTEME\PROMPTS\[nom_agent].md`
+2. Compléter les sections ⚠️ avec les données de l'exercice (zone, brigade, dates)
+3. Créer `[NOM_AGENT]\README.md` et `[NOM_AGENT]\MEMOIRE.md`
+4. Remplir MEMOIRE.md avec les 5 LO, les règles narrative, le catalogue brigade (hérités d'AURIGE)
+5. Enregistrer dans CLAUDE.md, CONFIG.md, ROUTAGE.md, NOYAU\MEMOIRE.md
 
 ---
 
@@ -46,10 +85,11 @@ Les exercices AURIGE sont des **entraînements PC (Poste de Commandement) niveau
 - Des **stagiaires** (PC brigade) qui doivent détecter, analyser et contrer les manipulations informationnelles adverses
 
 **Exercices de la série :**
-| Exercice | Brigade | Statut |
-|---|---|---|
-| AURIGE 2BB | 2e Brigade Blindée | En production (D+31→D+41, mai–juin 2026) |
-| Futurs AURIGE | À définir | Architecture identique — réutiliser cette structure |
+| Exercice | Brigade | Statut | Agent éditorial | Dossier |
+|---|---|---|---|---|
+| AURIGE 2BB | 2e Brigade Blindée | En production (D+31→D+41, mai–juin 2026) | GUILLAUME | `AURIGE\AURIGE_2BB\` |
+| AURIGE 7BB | 7e Brigade Blindée | En préparation — synchromatrice à ingérer (initialisé 2026-05-30) | MINAUTORE | `AURIGE\AURIGE_7BB\` |
+| Futurs AURIGE | À définir | Architecture identique — réutiliser cette structure | À créer depuis template AURIGE | `AURIGE\AURIGE_[UNITE]\` |
 
 ---
 

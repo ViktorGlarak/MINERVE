@@ -265,6 +265,35 @@ Avant de démarrer AURIGE_3BB, NOYAU consulte automatiquement `AURIGE\AURIGE_2BB
 - Repartir avec le bon ratio dès le montage (4 injects locaux / 1 stratégique)
 - Réutiliser les conventions techniques validées (MELMIL_SUBINJECT_DAYS, sync bidirectionnelle, etc.)
 
+### [2026-05-31] AURIGE = Base d'initialisation des agents exercice
+
+> **AURIGE est la source de vérité de la doctrine d'exercice CECPC. Lors de la création de tout nouvel agent éditorial d'exercice, NOYAU part de `SYSTEME\PROMPTS\aurige.md` comme template de base.**
+
+**Ce que AURIGE transmet automatiquement à chaque nouvel agent exercice :**
+- Univers Skolkan (acteurs permanents GET, citations canoniques, règle Bella Russia, règle GET)
+- Camps narratifs BLEU/ROUGE/GRIS + médias fictifs associés
+- 5 LO GLM26 (référence stratégique universelle)
+- Règles cohérence narrative (CLIMAX, noyau de vérité, équilibre camps, neutralité visuelle, règle LO)
+- Steps PSYOPS (Step 1→2→3, escalade progressive obligatoire)
+- Catalogue séries ILI (07.01→08.03, logique thématique)
+- Règle H-préfixe (codage géographique)
+- Doctrine calibration brigade (ratio 1-2 stratégiques/semaine, catalogue 15 types injects locaux)
+- Architecture dossier exercice (6 dossiers numérotés, nommage D+XX_JJ_MOIS)
+- Framework agents (qui appeler pour quoi)
+
+**Ce que l'agent exercice complète lui-même (non transférable) :**
+- Zone géographique et H-codes de la ZO
+- Brigade / unité entraînée
+- Game Plan / synchromatrice (dates réelles)
+- Acteurs locaux fictifs
+- Injects produits et leur statut
+
+**Procédure automatique de création d'un agent exercice :**
+1. Copier `SYSTEME\PROMPTS\aurige.md` → créer `SYSTEME\PROMPTS\[agent].md`
+2. Compléter les sections ⚠️ avec les données de l'exercice
+3. Créer `[AGENT]\README.md` et `[AGENT]\MEMOIRE.md` avec doctrine AURIGE héritée
+4. Enregistrer dans CLAUDE.md, CONFIG.md, ROUTAGE.md, NOYAU\MEMOIRE.md
+
 ---
 
 ## Décisions d'architecture
@@ -283,13 +312,14 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-05-29] 18 agents au total
+### [2026-05-25 — mis à jour 2026-05-30] 19 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-9 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE) +
+10 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE) +
 NOYAU (Claude — orchestrateur)
 
-> ANALYSTE_BR ajouté le 2026-05-27 — comptage corrigé de 17 à 18 le 2026-05-29.
+> MINAUTORE ajouté le 2026-05-30 — chef d'orchestre éditorial AURIGE 7BB, claude-opus-4-7 (même modèle que GUILLAUME). Dossier exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\`. Synchromatrice à ingérer.
+> ANALYSTE_BR ajouté le 2026-05-27 — comptage corrigé de 17 à 18 le 2026-05-29, puis 19 le 2026-05-30.
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.
 MASTAURIGE ajouté le 2026-05-24 — contenus RS fictifs pour exercices AURIGE (entraînement PC niveau brigade), avatars CASW, tweet cards HTML offline. mistral-nemo:latest partagé avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE + VOIX. Indépendant de Mastorion (plateforme distincte, IA dédiée future).

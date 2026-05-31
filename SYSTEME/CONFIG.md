@@ -26,6 +26,7 @@
 | MASTAURIGE | mistral-nemo:latest | 7.1 GB | Installé (partage avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE) |
 | GUILLAUME | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
 | EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
+| MINAUTORE | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) — AURIGE 7BB |
 | Embedding | nomic-embed-text | 274 MB | Installé |
 | Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
 

@@ -64,9 +64,14 @@ La demande concerne...
 │       Note : "Arnland" dans ORION 26 = "Dacie Romanie (DR)" dans AURIGE 2BB
 │
 ├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 2BB ?
-│   └── GUILLAUME (deepseek-r1:14b) → chef d'orchestre éditorial
+│   └── GUILLAUME (claude-opus-4-7) → chef d'orchestre éditorial AURIGE 2BB
 │       Cas : "qu'est-ce qu'on publie aujourd'hui ?", "est-ce cohérent avec ce qui est sorti ?", "quelle est la prochaine étape narrative ?"
 │       Sait : tous les acteurs, camps, médias fictifs, statut de chaque publication (publié / à produire / date à définir)
+│
+├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 7BB ?
+│   └── MINAUTORE (claude-opus-4-7) → chef d'orchestre éditorial AURIGE 7BB
+│       Cas : mêmes que GUILLAUME mais pour l'exercice AURIGE 7BB
+│       Note : synchromatrice AURIGE 7BB à ingérer — agent initialisé le 2026-05-30
 │
 ├── du CONTENU RS FICTIF pour un exercice AURIGE (entraînement PC niveau brigade) ?
 │   └── MASTAURIGE (mistral-nemo:latest) → avatars CASW, tweet cards HTML offline
