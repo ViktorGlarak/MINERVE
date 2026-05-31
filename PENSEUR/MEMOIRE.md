@@ -24,7 +24,7 @@ Problème posé, raisonnement suivi, conclusion.
 
 **Raisonnement :**
 
-Un PC brigade n'a ni la veille, ni les ressources, ni le mandat pour traiter les déclarations des chefs d'État, les articles de Today Mercure sur la situation générale, ou les enjeux de la mobilisation de Bella Russia. Ces flux lui parviennent **en information contexte** via sa chaîne de commandement, mais ne constituent pas les menaces qu'il doit détecter et neutraliser.
+Un PC brigade n'a ni la veille, ni les ressources, ni le mandat pour traiter les déclarations des chefs d'État, les articles de Today Mercure sur la situation générale, ou les enjeux de la mobilisation de Ruthnia Bella. Ces flux lui parviennent **en information contexte** via sa chaîne de commandement, mais ne constituent pas les menaces qu'il doit détecter et neutraliser.
 
 Ce que le PC brigade traite **directement** :
 1. **La population de sa zone d'opérations** — hostilité, fuite, coopération, neutralité

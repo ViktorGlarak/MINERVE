@@ -20,34 +20,38 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 
 ## Registre des agents (source de vérité)
 
-| Agent | Modèle Ollama | Partage avec | Rôle |
+> **Ce tableau est l'UNIQUE source de vérité du registre des agents.** Les autres fichiers (CONFIG, ROUTAGE, DOSSIER_POSTE, NOYAU/MEMOIRE) **ne dupliquent pas** cette liste : ils y renvoient.
+> - Colonne **« Collabore avec »** = partenaires de travail **thématiques** (qui travaille avec qui sur le contenu) — ce n'est PAS le partage de VRAM.
+> - **Co-résidence VRAM** = déductible de la colonne **Modèle** : deux agents avec le même modèle Ollama sont co-résidents en mémoire (pas besoin de la lister).
+
+| Agent | Modèle Ollama | Collabore avec (thématique) | Rôle |
 |---|---|---|---|
-| NOYAU | Claude (cloud) | — | Orchestrateur |
-| ARCHITECTE | qwen2.5-coder:14b | — | Code & debug |
-| PENSEUR | deepseek-r1:14b | ANALYSTE | Raisonnement complexe |
-| SECRÉTAIRE | mistral-nemo:latest | SCÉNARISTE, VOIX | Rédaction FR |
+| NOYAU | Claude (cloud) | — *(orchestre tous les agents)* | Orchestrateur |
+| ARCHITECTE | qwen2.5-coder:14b | PENSEUR | Code & debug |
+| PENSEUR | deepseek-r1:14b | ARCHITECTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB, EXPERT_INFLUENCE | Raisonnement complexe |
+| SECRÉTAIRE | mistral-nemo:latest | SCÉNARISTE, VOIX, MASTODONTE | Rédaction FR |
 | ÉCLAIREUR | llama3.1:8b | IMAGIER, CINÉASTE, ARCHIVISTE | Tâches rapides |
 | IMAGIER | llama3.1:8b | ÉCLAIREUR, CINÉASTE, ARCHIVISTE | Prompts image |
 | CINÉASTE | llama3.1:8b | ÉCLAIREUR, IMAGIER, ARCHIVISTE | Prompts vidéo LTX |
-| SCÉNARISTE | mistral-nemo:latest | SECRÉTAIRE, VOIX | Contenu scénario |
+| SCÉNARISTE | mistral-nemo:latest | SECRÉTAIRE, VOIX, MASTODONTE, MASTAURIGE, GUILLAUME, MINAUTORE | Contenu scénario |
 | VOIX | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE | Paramètres OmniVoice |
 | ARCHIVISTE | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE | Gestion BDA |
-| ANALYSTE | deepseek-r1:14b | PENSEUR | Expert République de Mercure |
-| ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE | Expert Arnland / Dacie Romanie *(dossier : `ANALYSTE\ARNLAND\` — migré 2026-05-25)* |
-| MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE | Expert Mastodon / réseaux sociaux fictifs |
-| MASTAURIGE | mistral-nemo:latest | MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
-| ANALYSTE_BR | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR | Expert Bella Russia — régime Youkachenko, opposition (Tikhanov/Saniki), médias BR, arcs narratifs BR *(dossier : `ANALYSTE\BELLA_RUSSIA\`)* |
-| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
-| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR, PENSEUR | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
-| MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BR | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
+| ANALYSTE | deepseek-r1:14b | PENSEUR, ANALYSTE_ARN, ANALYSTE_RB, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert République de Mercure |
+| ANALYSTE_ARN | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_RB, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert Arnland / Dacie Romanie *(dossier : `ANALYSTE\ARNLAND\` — migré 2026-05-25)* |
+| MASTODONTE | mistral-nemo:latest | SCÉNARISTE, SECRÉTAIRE, MASTAURIGE | Expert Mastodon / réseaux sociaux fictifs |
+| MASTAURIGE | mistral-nemo:latest | GUILLAUME, MINAUTORE, MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
+| ANALYSTE_RB | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert Ruthnia Bella — régime Youkachenko, opposition (Tikhanov/Saniki), médias RB, arcs narratifs RB *(dossier : `ANALYSTE\RUTHNIA_BELLA\`)* |
+| GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
+| MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_RB | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
-- `SYSTEME\CONFIG.md` — tableau "Modèles installés"
-- `SYSTEME\ROUTAGE.md` — arbre de décision
-- `NOYAU\MEMOIRE.md` — entrée "agents au total"
-- `SYSTEME\DOSSIER_POSTE.md` — tableau "Modèles IA locaux (Ollama)"
-- `SYSTEME\PROMPTS\` — créer ou supprimer le prompt système de l'agent
-- Créer le dossier `NOM_AGENT\` avec `README.md` et `MEMOIRE.md`
+1. **Ce registre ci-dessus** — la seule liste à éditer. ⚠ Mettre à jour le **compteur d'agents** dans `NOYAU\MEMOIRE.md` (= nombre de lignes de ce tableau).
+2. `SYSTEME\ROUTAGE.md` — arbre de décision (logique de routage, pas une copie du registre).
+3. `SYSTEME\PROMPTS\nom_agent.md` — créer / supprimer le prompt système.
+4. Créer le dossier `NOM_AGENT\` avec `README.md` et `MEMOIRE.md`.
+
+> `SYSTEME\CONFIG.md` et `SYSTEME\DOSSIER_POSTE.md` **ne contiennent plus de copie du registre** — ils renvoient ici. Rien à y modifier pour un simple ajout d'agent (sauf info infra spécifique : taille modèle dans CONFIG si nouveau modèle Ollama).
 
 ---
 
@@ -63,8 +67,8 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | Whisper | `..\models\audio_encoders\openai_whisper-large-v3-turbo` |
 | Continue config | `C:\Users\MTR\.continue\config.yaml` |
 | Portraits Mercure | `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\` |
-| Portraits Bella Russia | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\Portraits` |
-| Politique BR — bios opposition | `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\POLITIQUE\Opposition BellaRussia.docx` |
+| Portraits Ruthnia Bella | `D:\CECPC\PRODUCTION\CREATION\07 - RUTHNIA BELLA\Portraits` |
+| Politique RB — bios opposition | `D:\CECPC\PRODUCTION\CREATION\07 - RUTHNIA BELLA\POLITIQUE\Opposition BellaRussia.docx` |
 | Avatars tweet AURIGE 2BB | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\images\avatars tweet` |
 
 ---
@@ -74,18 +78,18 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 **GET = Grand East Territory** — entité géopolitique fictive propre à l'univers Skolkan.
 
 > **Définition :** Le GET est le regroupement régional fictif des pays de l'Est de l'univers Skolkan :
-> **Mercure, Arnland / Dacie Romanie, Bella Russia** (et tout futur pays fictif de la zone).
+> **Mercure, Arnland / Dacie Romanie, Ruthnia Bella** (et tout futur pays fictif de la zone).
 > Ce n'est PAS un remplacement systématique d'"Europe" — c'est une entité distincte.
 
 **Règle d'utilisation :**
 - **"Europe"** reste valide quand on parle des pays réels européens (France réelle, Allemagne, OTAN, ONU…)
-- **"GET"** s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est (Mercure, Arnland, DR, BR)
+- **"GET"** s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est (Mercure, Arnland, DR, RB)
 - Exemple : *"a scale the Grand East Territory has not seen in decades"* = les pays fictifs de l'Est, pas toute l'Europe réelle
 
 **Fichiers à mettre à jour si le GET évolue (membres, frontières, dénomination) :**
 - Ce fichier — section GET
 - `GUILLAUME\MEMOIRE.md` — convention géographique
-- `ANALYSTE\MEMOIRE.md` + `ANALYSTE_ARN\MEMOIRE.md` + `ANALYSTE\BELLA_RUSSIA\MEMOIRE.md`
+- `ANALYSTE\MERCURE\MEMOIRE.md` + `ANALYSTE\ARNLAND\MEMOIRE.md` + `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md`
 - `NOYAU\MEMOIRE.md`
 
 ---
@@ -93,13 +97,13 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 ## Règles de cohérence — checklist à appliquer
 
 ### Quand un agent est ajouté
-- [ ] Ajouter au registre ci-dessus
-- [ ] `SYSTEME\CONFIG.md` — tableau modèles
-- [ ] `SYSTEME\ROUTAGE.md` — arbre de décision
-- [ ] `SYSTEME\DOSSIER_POSTE.md` — tableau modèles
-- [ ] `NOYAU\MEMOIRE.md` — mettre à jour le compteur d'agents
+- [ ] **Ajouter au registre ci-dessus** (seule liste à éditer)
+- [ ] `NOYAU\MEMOIRE.md` — mettre à jour le compteur d'agents (= nb de lignes du registre)
+- [ ] `SYSTEME\ROUTAGE.md` — ajouter la branche de routage de l'agent
 - [ ] `SYSTEME\PROMPTS\nom_agent.md` — créer le prompt système
 - [ ] `NOM_AGENT\README.md` et `NOM_AGENT\MEMOIRE.md` — créer les fichiers
+- [ ] `SYSTEME\CONFIG.md` — **seulement si nouveau modèle Ollama** (ajouter sa taille) ; sinon rien (renvoie au registre)
+- [ ] `SYSTEME\DOSSIER_POSTE.md` — rien (renvoie au registre)
 
 ### Quand le chemin racine change
 - [ ] Mettre à jour ce fichier en premier
@@ -107,6 +111,25 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 - [ ] `SYSTEME\DOSSIER_POSTE.md`
 - [ ] `.claude\settings.local.json`
 - [ ] Vérifier toutes les permissions avec `Grep("D:\\CECPC")`
+
+### Propriétaire unique d'une fiche personnage — règle anti-divergence
+
+> **Un personnage fictif (camp, rôle, positionnement, parti) a UN seul propriétaire : l'Analyste de son pays.** Les autres agents (GUILLAUME, MASTAURIGE, EXPERT_INFLUENCE, autres Analystes…) **citent** la fiche, ils ne la **redéfinissent jamais**.
+
+**Source de vérité par pays :**
+| Pays | Propriétaire de la fiche personnage |
+|---|---|
+| Mercure | `ANALYSTE\MERCURE\MEMOIRE.md` |
+| Arnland / Dacie Romanie | `ANALYSTE\ARNLAND\MEMOIRE.md` |
+| Ruthnia Bella | `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md` |
+
+**Pourquoi :** la divergence du camp d'Andrei Saniki (🔴 rouge pro-MER chez l'Analyste RB, mais 🔵 bleu/neutre recopié dans GUILLAUME et ANALYSTE Mercure — corrigé le 2026-05-31) venait de ce que le camp avait été recopié dans 5 fichiers. Un inject construit sur la mauvaise valeur produit l'effet ILI **inverse**.
+
+**Comment appliquer :**
+- Avant d'attribuer un camp/rôle à un personnage dans un inject, un trombinoscope ou une mémoire : **lire d'abord la fiche chez l'Analyste pays**.
+- Si un autre fichier doit mentionner le camp, écrire un **renvoi** (« camp : voir ANALYSTE\<PAYS> ») plutôt qu'une valeur figée — ou, à défaut, recopier **et** annoter « source : ANALYSTE\<PAYS> ».
+- En cas de contradiction entre deux fichiers, **l'Analyste pays tranche**, les autres s'alignent.
+- Réflexe en cas de doute : `Grep` le nom du personnage sur tout le repo pour détecter les valeurs divergentes avant d'en ajouter une nouvelle.
 
 ### Règle de mise à jour automatique — OBLIGATOIRE
 

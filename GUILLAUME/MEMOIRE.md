@@ -15,7 +15,7 @@
 | Transition / No man's land | D+34–D+35 (29–30 mai) | Réorganisation — ligne de défense principale tenue | Injects de distraction : saturation sur narrative humanitaire pour masquer la réorganisation |
 | **CLIMAX D+35 (30 mai)** | **RUPTURE DE LA LIGNE DE DEFENSE PRINCIPALE** | **ENI (MER) saisit HSARREBOURG** | **Moment clé : offensive info maximale — l'info doit précéder ou accompagner la saisie** |
 | Défense du glacis | D+35–D+38 (30 mai–2 juin) | MER consolide HSARREBOURG, tient le glacis | Injects de consolidation : narrative "libération", protection population, légitimation |
-| Contre-offensive | D+38–D+41 (2–4 juin) | MER contre-attaque sur axe HSARREGUEMINES | Injects d'escalade : BR mobilise, attentats 2BB, accusations OTAN |
+| Contre-offensive | D+38–D+41 (2–4 juin) | MER contre-attaque sur axe HSARREGUEMINES | Injects d'escalade : RB mobilise, attentats 2BB, accusations OTAN |
 
 ### Dynamiques population (données MAINBODY)
 
@@ -79,11 +79,11 @@
 |---|---|---|---|---|---|
 | @EastWatch_Intl — Rencontre secrète Olamao-Youkachenko | **07.05.04Ai** | 10h00 MSK | Tweet EastWatch | LO 5 | Clé renommée `@EastWatch_olamao_summit` — tweet existant corrigé |
 | @A_Saniki — Exultation Bison Libre : "le GET ne se décidera pas à Bruxelles" | **07.05.04Bi** | 11h20 | Tweet rouge | LO 5 | Pro-MER — voit le sommet comme victoire du GET sur Brussels |
-| @S_Tikhanov — Double jeu Youkachenko exposé | **07.05.04Ci** | 12h00 | Tweet bleu (opposition BR) | LO 5 | "Ce n'était pas une paix — c'était une coordination." — Fracture BR |
+| @S_Tikhanov — Double jeu Youkachenko exposé | **07.05.04Ci** | 12h00 | Tweet bleu (opposition RB) | LO 5 | "Ce n'était pas une paix — c'était une coordination." — Fracture RB |
 | @BelovDimitri (TV4) — Questionnement journalistique | **07.05.04Di** | 12h30 | Tweet bleu | LO 5 | "À quoi servait le discours du 27 mai ?" — contradiction perçue par DAC |
 | @BelikovaMarina — Réaction civile DAC | **07.05.04Ei** | 13h15 | Tweet bleu | LO 5 | 1ère apparition AURIGE 2BB — pigiste 24 ans — discours → réunion secrète : déception |
 
-**Cohérence narrative :** La séquence répond à l'article 07.05.01Ai (BCI_Article_Youkachenko, appel à la paix du 27 mai 18h00). Le sommet secret du 29 mai révèle que l'appel à la paix était une opération de couverture diplomatique. Enchaînement : EastWatch (info neutre) → Saniki (camp rouge, exulte) → Tikhanov (opposition, dénonce) → Belov (journaliste, questionne) → Belikova (civil, confus). LO 5 — fracture perçue de la cohérence BR.
+**Cohérence narrative :** La séquence répond à l'article 07.05.01Ai (BCI_Article_Youkachenko, appel à la paix du 27 mai 18h00). Le sommet secret du 29 mai révèle que l'appel à la paix était une opération de couverture diplomatique. Enchaînement : EastWatch (info neutre) → Saniki (camp rouge, exulte) → Tikhanov (opposition, dénonce) → Belov (journaliste, questionne) → Belikova (civil, confus). LO 5 — fracture perçue de la cohérence RB.
 
 ---
 
@@ -143,7 +143,7 @@ Ces propositions couvrent 8 axes doctrinaux identifiés comme absents de l'exerc
 | 07.02 — Communication offensive MER | **LO 2** (DÉTERMINATION MER) | LO 3 |
 | 07.03 — MER libérateur / DAC tyran | **LO 4** (MER LÉGITIME + ARN DISCRÉDITÉ) | LO 2 |
 | 07.04 — Délégitimation ONU / OTAN | **LO 4** (ARN DISCRÉDITÉ) | LO 5 |
-| 07.05 — Escalade Bella Russia | **LO 5** (nouveaux partenaires BR) | LO 4 |
+| 07.05 — Escalade Ruthnia Bella | **LO 5** (nouveaux partenaires RB) | LO 4 |
 | 07.07 — Architecture déni Storm-1516 *(ex-P.01)* | **LO 1** (FICTIONNALISATION + DÉCEPTION) | LO 4 |
 | 07.08 — Piège narratif rétroactif *(ex-P.02)* | **LO 1** (DÉCEPTION) | LO 2 |
 | 08.01 — Volet humanitaire civil | **LO 3** (INSOUTENABILITÉ) | LO 4 |
@@ -178,7 +178,7 @@ Ces propositions couvrent 8 axes doctrinaux identifiés comme absents de l'exerc
 **Membres du GET dans les exercices actuels :**
 - République de Mercure
 - Arnland / Dacie Romanie
-- Bella Russia
+- Ruthnia Bella
 
 **Distinction essentielle :**
 - **"Europe"** reste valide pour désigner les vrais pays européens (OTAN réelle, France réelle, institutions européennes réelles)
@@ -218,7 +218,7 @@ AURIGE 2BB\
 ├── 01_Montage exercice\
 ├── 02_Ordres\
 ├── 03_Productions\              ← Productions classées
-│   ├── 07.05\                  ← Série Bella Russia (Premiere Pro — vidéos)
+│   ├── 07.05\                  ← Série Ruthnia Bella (Premiere Pro — vidéos)
 │   ├── 07.07\                  ← Vide
 │   ├── 07.08\                  ← Production vidéo (Créa + Premiere Pro)
 │   ├── 07.09\                  ← Production vidéo (Créa + Premiere Pro)
@@ -239,17 +239,17 @@ AURIGE 2BB\
 │   ├── images\
 │   ├── TRACTS\
 │   ├── MELMIL\                         ← MODULE MELMIL ILI (déplacé ici le 2026-05-27)
-│   ├── Site Bella Russia Channel 1\
+│   ├── Site Bella Channel 1\
 │   ├── Site Hexagone\
 │   ├── Site Today Mercure\
 │   ├── Site TV4\
 │   ├── MELMIL\                         ← Tableau de bord injects ILI (⚡ MELMIL ILI)
 │   └── ACTEURS_A3_AURIGE2BB.html       ← Trombinoscope 3 pays A3 (🗂 ACTEURS A3)
 ├── MERCURE\                    ← Documents FORAD (PPTX profils, etc.)
-└── Discours\                   ← Discours par camp (Olamao, OTAN, DR, BR)
+└── Discours\                   ← Discours par camp (Olamao, OTAN, DR, RB)
 ```
 
-**Séries 07.05 à 07.10 :** Déplacées en `03_Productions\` le 26 mai 2026. Ces dossiers contiennent des productions vidéo Premiere Pro (séries Bella Russia escalade). **Normalement non utilisées par les agents IA** — référence uniquement.
+**Séries 07.05 à 07.10 :** Déplacées en `03_Productions\` le 26 mai 2026. Ces dossiers contiennent des productions vidéo Premiere Pro (séries Ruthnia Bella escalade). **Normalement non utilisées par les agents IA** — référence uniquement.
 
 ⚠ **Point ouvert :** doublon constaté D+31 — `D+31_26_MAI` (underscore) ET `D+31_26-MAI` (tiret) coexistent dans `03_Productions\`. À vérifier/nettoyer manuellement.
 
@@ -264,36 +264,36 @@ AURIGE 2BB\
 | Personnage | Pays | Camp | Poste | Apparaît dans |
 |---|---|---|---|---|
 | **Franz Olamao** | Mercure | 🔴 Rouge | Président | TM_Article_Olamao_01 |
-| **Alexandre Youkachenko** | Bella Russia | 🔴 Rouge | Président BR | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
-| **Svetlana Tikhanov** | Bella Russia | 🔵 Bleu (opposition BR) | Opposante principale — pro-démocratie, anti-guerre | TV4 / EastWatch / arcs P.03 |
-| **Andrei Saniki** | Bella Russia | 🔵 Bleu (opposition BR) | Opposant modéré — "neutralité BR, ce n'est pas notre guerre" | EastWatch / arc P.03 bascule |
+| **Alexandre Youkachenko** | Ruthnia Bella | 🔴 Rouge | Président RB | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
+| **Svetlana Tikhanov** | Ruthnia Bella | 🔵 Bleu (opposition RB) | Opposante principale — pro-démocratie, anti-guerre | TV4 / EastWatch / arcs P.03 |
+| **Andrei Saniki** | Ruthnia Bella | 🔴 Rouge (opposition pro-MER) | Opposant institutionnel **bi-national (père MER)** — soutient l'action militaire MER en DR — levier LO 5, PAS un levier camp bleu | EastWatch / arc P.03 bascule |
 | **Sture Pallesson** | Dacie Romanie | 🔵 Bleu | **Président DAC** (civil, pro-OTAN) | TV4_Article_Pallesson ×4 |
 | Jonas Junker | Mercure | 🔴 Rouge | Ministre Défense | Crédits MAF, tracts |
 | Dominic Stoph | Mercure | 🔴 Rouge | Ministre Aff. étrangères | Série 07.04 |
-| **Ivan Lubrakov** | Bella Russia | 🔴 Rouge | **Ministre de l'Intérieur BR** — responsable des gardes-frontières et de l'annonce officielle de la fermeture des frontières | BCI_Article_Frontiere · TV4_Article_Frontiere_BR_01 (07.05.05 — 30 Mai) |
+| **Ivan Lubrakov** | Ruthnia Bella | 🔴 Rouge | **Ministre de l'Intérieur RB** — responsable des gardes-frontières et de l'annonce officielle de la fermeture des frontières | BCI_Article_Frontiere · TV4_Article_Frontiere_BR_01 (07.05.05 — 30 Mai) |
 
 ⚠ **Pallesson = président CIVIL** — ses apparitions dans TV4 sont des déclarations politiques, pas militaires. Ne pas rédiger d'inject qui lui attribue un rôle de commandement opérationnel.
 
-⚠ **Youkachenko = allié MER** — ses apparitions dans BC1 crédibilisent l'implication BR dans le conflit (LO 5). Discours de soutien MER + posture anti-OTAN systématique.
+⚠ **Youkachenko = allié MER** — ses apparitions dans BC1 crédibilisent l'implication RB dans le conflit (LO 5). Discours de soutien MER + posture anti-OTAN systématique.
 
-⚠ **Tikhanov + Saniki = opposition BR — profils nuancés** — source officielle : `D:\CECPC\PRODUCTION\CREATION\07 - BELLA RUSSIA\POLITIQUE\Opposition BellaRussia.docx`
+⚠ **Tikhanov + Saniki = opposition RB — profils nuancés** — source officielle : `D:\CECPC\PRODUCTION\CREATION\07 - RUTHNIA BELLA\POLITIQUE\Opposition BellaRussia.docx`
 
 | Personnage | Parti | Positionnement réel | Usage éditorial |
 |---|---|---|---|
 | **Tikhanov** | Nouvelle Pahonie | Anti-Youkachenko ET anti-OTAN — "We are strangled by NATO but also by Youkachenko" | EastWatch / nuance camp bleu — NE PAS présenter comme pro-OTAN |
-| **Saniki** | Bison Libre | Bi-national (père MER) — **soutient l'action militaire MER** en DR | ⚠ Exploitable camp rouge — "même l'opposition BR approuve" — LO 5 |
+| **Saniki** | Bison Libre | Bi-national (père MER) — **soutient l'action militaire MER** en DR | ⚠ Exploitable camp rouge — "même l'opposition RB approuve" — LO 5 |
 
-**Règle éditoriale opposition BR :**
-- **Tikhanov** : voix d'indépendance BR — utile pour montrer une fracture intérieure BR sans être pro-OTAN. Canal : EastWatch, TV4 avec précaution.
+**Règle éditoriale opposition RB :**
+- **Tikhanov** : voix d'indépendance RB — utile pour montrer une fracture intérieure RB sans être pro-OTAN. Canal : EastWatch, TV4 avec précaution.
 - **Saniki** : pro-MER sur le fond — sa bi-nationalité (père mercurien) et son soutien à l'action MER en font un levier LO 5 camp rouge, pas un levier camp bleu.
-- Ni l'un ni l'autre ne passe par BC1. Agent référent : **ANALYSTE_BR**.
+- Ni l'un ni l'autre ne passe par BC1. Agent référent : **ANALYSTE_RB**.
 
 ### Tableau médias AURIGE 2BB — référence GUILLAUME
 
 | Média | Code | Camp | Usage éditorial |
 |---|---|---|---|
 | Today Mercure | TM | 🔴 Rouge | Articles propagande MER officiels — TM_Article_* |
-| Bella Russia Channel 1 | BC1 / BCI | 🔴 Rouge | Articles BR / Youkachenko — BCI_Article_* |
+| Bella Channel 1 | BC1 / BCI | 🔴 Rouge | Articles RB / Youkachenko — BCI_Article_* |
 | Forces Armées Mercure | MAF | 🔴 Rouge | Tracts, communiqués officiels MER |
 | EastWatch International | EW | 🟡 Pseudo-neutre | Blanchiment — @EastWatch_Intl |
 | TV4 International | TV4 | 🔵 Bleu | Articles pro-coalition/DAC — TV4_Article_* |
@@ -428,7 +428,7 @@ Ces portraits sont intégrés dans le trombinoscope `ACTEURS_A3_AURIGE2BB.html` 
 | ⚡ MELMIL ILI | Gold | Tableau 45 injects sur axe D+31→D+40 | ← MASTAURIGE (état restauré) |
 | 🗂 ACTEURS A3 | Navy | Trombinoscope 3 pays A3 — tous acteurs AURIGE 2BB avec photos | ← MASTAURIGE (état restauré) |
 
-**ACTEURS_A3_AURIGE2BB.html** : 3 pages A3 paysage — Mercure (p.1), Dacie Romanie (p.2), Bella Russia (p.3). Tous les acteurs politiques, militaires, para-étatiques et médias. Portraits disponibles intégrés (Olamao, Pallesson, ministres MER, PRUNIERE, ZHUKOV, Tikhanov, Saniki, Youkachenko, Rutte, Guterres). Chemin : `WEB\Trombinoscope\ACTEURS_A3_AURIGE2BB.html` *(déplacé le 2026-05-28 — bouton renommé "TROMBINOSCOPE").*
+**ACTEURS_A3_AURIGE2BB.html** : 3 pages A3 paysage — Mercure (p.1), Dacie Romanie (p.2), Ruthnia Bella (p.3). Tous les acteurs politiques, militaires, para-étatiques et médias. Portraits disponibles intégrés (Olamao, Pallesson, ministres MER, PRUNIERE, ZHUKOV, Tikhanov, Saniki, Youkachenko, Rutte, Guterres). Chemin : `WEB\Trombinoscope\ACTEURS_A3_AURIGE2BB.html` *(déplacé le 2026-05-28 — bouton renommé "TROMBINOSCOPE").*
 
 ### Dots indicateurs MASTAURIGE dans MELMIL (ajout 2026-05-28)
 
@@ -489,7 +489,7 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 **6 lignes acteurs :**
 - `r1` — 07.01 / 07.02 (ILI EHO MER : dénigrement, comm off)
 - `r2` — 07.03 / 07.04 (ILI EHO MER : légitimité, délégitimation)
-- `r3` — 07.05 (ILI EHO BR : Bella Russia)
+- `r3` — 07.05 (ILI EHO RB : Ruthnia Bella)
 - `r4` — 08.01 (HOST NATION : humanitaire)
 - `r5` — 08.02 (HOST NATION : prisonniers / redditions)
 - `r6` — 08.03 (HOST NATION : OTAN / ONU)
@@ -542,7 +542,7 @@ MELMIL_ILI_GUILLAUME.html contient maintenant une **7e ligne (r7)** dédiée aux
 
 ### Bilan critique D+31→D+34
 
-La première semaine a fourni un cadre narratif solide mais les injects étaient trop hauts : discours présidents, médias nationaux, escalade BR → **niveau stratégique ou division, pas brigade**.
+La première semaine a fourni un cadre narratif solide mais les injects étaient trop hauts : discours présidents, médias nationaux, escalade RB → **niveau stratégique ou division, pas brigade**.
 
 **Ce qui a fonctionné :** @clambroise55 (civil local), courriers des maires, tracts MAF sur zone. Ces formats touchent directement le PC brigade.
 
@@ -747,16 +747,16 @@ Un sous-inject joué à une date différente de son parent XLS **conserve son co
 
 ---
 
-## INJECTS D+33 CRÉÉS — 07.05.03 (réactions aux manifestations BR, 28 mai 2026)
+## INJECTS D+33 CRÉÉS — 07.05.03 (réactions aux manifestations RB, 28 mai 2026)
 
 > Produits le 28 mai 2026.
 
 | Référence | Code | Canal | Compte | Heure | Camp | LO | Contenu |
 |---|---|---|---|---|---|---|---|
-| **07.05.03Ai** | `@S_Tikhanov_newpahonia` | Tweet | @S_Tikhanov (Svetlana Tikhanov — Nouvelle Pahonie) | 28 Mai 20h20 | 🔵 Bleu | LO 5 | Youkachenko accusé de lâcheté face aux manifestations — appel à la jeunesse Pahonia : "Get ready for the fight!" — fracture interne BR |
-| **07.05.03Bi** | `@A_Saniki_freebison` | Tweet | @A_Saniki (Andrei Saniki — Bison Libre) | 28 Mai 20h45 | 🔴 Rouge | LO 5 | Appel à la mobilisation nationaliste BR — défense des compatriots en DR soutenue par la Nouvelle Pahonie — le Bison rejoint la lutte |
+| **07.05.03Ai** | `@S_Tikhanov_newpahonia` | Tweet | @S_Tikhanov (Svetlana Tikhanov — Nouvelle Pahonie) | 28 Mai 20h20 | 🔵 Bleu | LO 5 | Youkachenko accusé de lâcheté face aux manifestations — appel à la jeunesse Pahonia : "Get ready for the fight!" — fracture interne RB |
+| **07.05.03Bi** | `@A_Saniki_freebison` | Tweet | @A_Saniki (Andrei Saniki — Bison Libre) | 28 Mai 20h45 | 🔴 Rouge | LO 5 | Appel à la mobilisation nationaliste RB — défense des compatriots en DR soutenue par la Nouvelle Pahonie — le Bison rejoint la lutte |
 
-**Contexte :** Ces tweets sont des réactions immédiates à l'article BC1 (07.05.03i — Manifestations dans 4 villes BR, 19h00 MSK). Ils sont des sub-injects de l'incident 07.05.03 — codes `07.05.03Ai` et `07.05.03Bi` (lettres A et B libres dans MELMIL.xls, vérifiées). **Ghost cards MELMIL** jusqu'à leur ajout dans MELMIL.xls.
+**Contexte :** Ces tweets sont des réactions immédiates à l'article BC1 (07.05.03i — Manifestations dans 4 villes RB, 19h00 MSK). Ils sont des sub-injects de l'incident 07.05.03 — codes `07.05.03Ai` et `07.05.03Bi` (lettres A et B libres dans MELMIL.xls, vérifiées). **Ghost cards MELMIL** jusqu'à leur ajout dans MELMIL.xls.
 
 ⚠ **Sous-injects MELMIL :** Ces deux codes (`07.05.03Ai` et `07.05.03Bi`) s'affichent à l'intérieur de la card incident `07.05.03i` dans MELMIL, sous forme de lignes compactes cliquables. Ils ne sont pas dans MELMIL.xls (pas de ligne indépendante). Pour les promouvoir en injects XLS officiels : ajouter les deux lignes dans MELMIL.xls, relancer le .bat.
 
@@ -770,8 +770,8 @@ Un sous-inject joué à une date différente de son parent XLS **conserve son co
 
 | Référence | Code | Compte | Heure | LO | Contenu |
 |---|---|---|---|---|---|
-| **07.05.03i (ext. Ci)** | `@BC1_manifestations_dispatch` | @BC1_News (BC1 Bella Russia) | 28 Mai 11h00 | LO 5 | Dépêche : nationalistes Pahonie dans les rues de Minsk — discours Youkachenko perçu comme capitulation — pression publique sur le gouvernement BR |
-| **07.05.03i (ext. Di)** | `@BC1_manifestations_temoignage` | @BC1_News | 28 Mai 11h30 | LO 5 | Témoignage manifestant : "Passivity is no longer an option" — première manifestation pour beaucoup — éveil de l'opinion publique BR |
+| **07.05.03i (ext. Ci)** | `@BC1_manifestations_dispatch` | @BC1_News (BC1 Ruthnia Bella) | 28 Mai 11h00 | LO 5 | Dépêche : nationalistes Pahonie dans les rues de Minsk — discours Youkachenko perçu comme capitulation — pression publique sur le gouvernement RB |
+| **07.05.03i (ext. Di)** | `@BC1_manifestations_temoignage` | @BC1_News | 28 Mai 11h30 | LO 5 | Témoignage manifestant : "Passivity is no longer an option" — première manifestation pour beaucoup — éveil de l'opinion publique RB |
 
 **Articulation narrative 07.05.03 (ordre chronologique) :**
 1. 11h00 — BC1 dispatch (dépêche initiale)
@@ -780,7 +780,7 @@ Un sous-inject joué à une date différente de son parent XLS **conserve son co
 4. 20h20 — @S_Tikhanov (réaction politique, Nouvelle Pahonie)
 5. 20h45 — @A_Saniki (mobilisation nationaliste, Bison Libre)
 
-**Effet LO 5 :** La séquence montre une pression populaire BR montante sur Youkachenko — de la rue (BC1 matin) jusqu'aux figures politiques (soirée). Le gouvernement BR est encadré entre une pression publique croissante et des voix politiques de plus en plus radicales.
+**Effet LO 5 :** La séquence montre une pression populaire RB montante sur Youkachenko — de la rue (BC1 matin) jusqu'aux figures politiques (soirée). Le gouvernement RB est encadré entre une pression publique croissante et des voix politiques de plus en plus radicales.
 
 ---
 
@@ -849,7 +849,7 @@ Tous les anciens codes `P-xx` et `R-x` ont été migrés vers le format canoniqu
 |---|---|---|
 | P.01 (Architecture déni Storm-1516) | **07.07** (07.07.01i→04i) | ✅ Migré |
 | P.02 (Piège narratif rétroactif) | **07.08** (07.08.01i→03i) | ✅ Migré |
-| P.03 (Bascule politique BR) | Absorbé dans **07.05** (.01Ci, .01Di, .05Bi, .09Bi, .10Bi→10Gi) | ✅ Migré |
+| P.03 (Bascule politique RB) | Absorbé dans **07.05** (.01Ci, .01Di, .05Bi, .09Bi, .10Bi→10Gi) | ✅ Migré |
 | R1 (Contremesures camp bleu) | **08.03.03Ai→03Ei** | ✅ Migré |
 | R3 (Relances courriers 08.01) | **08.01.01Ai.R1** + **08.01.01Ai.R2** | ✅ Migré |
 | R4 (BC1 blanchiment) | **07.05.05Bi** | ✅ Migré |
@@ -866,7 +866,7 @@ Tous les anciens codes `P-xx` et `R-x` ont été migrés vers le format canoniqu
 
 **Langues des médias fictifs :**
 - **Today Mercure** → **anglais exclusivement** (média international fictif de Mercure)
-- **Bella Russia Channel 1 (BC1)** → **anglais** (audience internationale fictive)
+- **Bella Channel 1 (BC1)** → **anglais** (audience internationale fictive)
 - **TV4 International** → **anglais**
 - Français uniquement dans : tweets civils francophones, tracts MAF, courriers institutionnels
 
@@ -1013,7 +1013,7 @@ Quand une image est disponible pour un inject médiatique (article BC1, TM ou TV
 2. Chercher TOUTES les occurrences de la description dans l'article (au moins 3 endroits typiques : caption, deck, 1er ou 2e paragraphe)
 3. Pour les symboles identitaires (drapeaux, insignes, uniformes) : préférer une formulation générique ("symboles nationalistes") si doute sur l'identité exacte
 
-**Exemple d'erreur corrigée :** image montrant le drapeau Pahonia biélorusse (blanc-rouge-blanc, symbole opposition BR) décrite comme "drapeaux de Bella Russia et de la République de Mercure" → corrigé en "symboles nationalistes".
+**Exemple d'erreur corrigée :** image montrant le drapeau Pahonia biélorusse (blanc-rouge-blanc, symbole opposition RB) décrite comme "drapeaux de Ruthnia Bella et de la République de Mercure" → corrigé en "symboles nationalistes".
 
 ---
 

@@ -52,7 +52,7 @@ Mémoire complète : `MINAUTORE\MEMOIRE.md`
 |---|---|---|---|
 | **Mercure (MER)** | 🔴 Rouge | Franz Olamao (Président) | Today Mercure |
 | **Dacia Romania (DAC/ARN)** | 🔵 Bleu | Sture Pallesson (Président) | TV4 International, HEXAGONE |
-| **Bella Russia (BR)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Russia Channel 1) |
+| **Ruthnia Bella (RB)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Channel 1) |
 
 ### Règles de citation permanentes
 
@@ -62,7 +62,7 @@ Mémoire complète : `MINAUTORE\MEMOIRE.md`
 **Pallesson** — tous ses discours se terminent par :
 > *"Dacia Romania Endures."*
 
-**Bella Russia** — jamais "Belarus" / "Biélorussie" — toujours **"Bella Russia"** / **"Bella Russian"**.
+**Ruthnia Bella** — jamais "Belarus" / "Biélorussie" — toujours **"Ruthnia Bella"** / **"Ruthnia Bellan"**.
 
 ---
 
@@ -81,7 +81,7 @@ Mémoire complète : `MINAUTORE\MEMOIRE.md`
 | Acteur | Rôle | Média |
 |---|---|---|
 | Franz Olamao | Président Mercure | Today Mercure |
-| Alexandre Youkachenko | Président Bella Russia | BC1 |
+| Alexandre Youkachenko | Président Ruthnia Bella | BC1 |
 | *(à compléter)* | *(à compléter)* | *(à compléter)* |
 
 ---
@@ -98,7 +98,7 @@ Mémoire complète : `MINAUTORE\MEMOIRE.md`
 | 07.02 | Communication offensive MER | Valoriser MER, intimider, psychologie de masse |
 | 07.03 | Narrative MER vs DAC | Légitimer MER, délégitimer DAC |
 | 07.04 | Délégitimation ONU / OTAN | Saper l'autorité des institutions internationales |
-| 07.05 | Escalade Bella Russia | Montée en pression BR vers belligérance |
+| 07.05 | Escalade Ruthnia Bella | Montée en pression RB vers belligérance |
 | 08.01 | Volet humanitaire civil | Instrumentaliser la souffrance civile |
 | 08.02 | Captures / redditions | Exploiter les événements terrain défavorables à MER |
 | 08.03 | Host Nation / OTAN-ONU | Contremesures camp bleu |

@@ -18,7 +18,7 @@ AURIGE entraîne un PC de niveau brigade. Les voix produites pour AURIGE 2BB doi
 - **Jonas Junker** (Ministre Défense MER) — discours militaire, citation Olamao obligatoire
 - **Dominic Stoph** (Ministre Aff. étrangères MER) — discours diplomatique, citation Olamao obligatoire
 - **Voichek Ribiki** (Ministre Intérieur MER) — discours sécuritaire, citation Olamao obligatoire
-- **Youkachenko** (Président BR) — Discours 1 + Discours 2 (vidéo à faire)
+- **Youkachenko** (Président RB) — Discours 1 + Discours 2 (vidéo à faire)
 
 ---
 

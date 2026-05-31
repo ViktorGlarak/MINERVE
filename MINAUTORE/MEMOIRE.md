@@ -63,10 +63,10 @@
 |---|---|---|---|
 | **Mercure (MER)** | 🔴 Rouge | Franz Olamao (Président) | Today Mercure |
 | **Dacia Romania (DAC / ARN)** | 🔵 Bleu | Sture Pallesson (Président) | TV4 International, HEXAGONE |
-| **Bella Russia (BR)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Russia Channel 1) |
+| **Ruthnia Bella (RB)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Channel 1) |
 
 **Règle GET :** ne jamais écrire "Europe" pour la zone fictive — toujours "GET" ou "Grand East Territory".
-**Règle Bella Russia :** jamais "Belarus" ni "Biélorussie".
+**Règle Ruthnia Bella :** jamais "Belarus" ni "Biélorussie".
 
 **Citations canoniques :**
 - Olamao : *"Our forces are there to ensure that not a single Mercurian civilian is harmed..."*

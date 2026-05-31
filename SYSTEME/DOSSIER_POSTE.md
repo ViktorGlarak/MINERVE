@@ -1,5 +1,5 @@
 # DOSSIER DE POSTE — Production Médias Exercices de Crise
-*Maintenu automatiquement par Claude (NOYAU) — dernière mise à jour : 2026-05-07*
+*Maintenu par Claude (NOYAU) après chaque session productive — dernière mise à jour : 2026-05-31*
 
 ---
 
@@ -15,12 +15,19 @@ Répertoire de travail principal : `D:\CECPC\PRODUCTION\`
 ## 2. EXERCICES EN COURS
 
 ### AURIGE 2BB — Scénario : GUILLAUME
-- **Nature :** Exercice de production média IA
-- **Zone géographique :** Lorraine (Sarrebourg, Héming, Nancy)
-- **Scénarios actifs :** 07.05 → 07.08
+- **Nature :** Exercice de production média IA — entraînement PC niveau **brigade** (2e Brigade Blindée)
+- **Zone géographique :** Lorraine (HChâteau-Salins, HLunéville, HSarrebourg, HToul, HNancy)
+- **Période scénario :** D+31 → D+41 (26 mai → 4 juin 2026)
+- **Séries d'injects actives :** 04.01 (NRBC) · 07.01 → 07.08 · 08.01 → 08.03 (~45 injects)
 - **Dossier :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB`
 - **Contexte scénario :** Présence de convois OTAN en Lorraine, accusations de pillages par des soldats, blocages routiers spontanés par des habitants, activité du groupe fictif N.O.M
 - **Approche personnages :** Chaque personnage a un package complet — portrait (IMAGIER), voix (VOIX/OmniVoice), discours écrit selon sa personnalité (SCÉNARISTE)
+- **Agents dédiés :** GUILLAUME (éditorial) · MASTAURIGE (tweets/RS) · EXPERT_INFLUENCE (doctrine ILI)
+
+### AURIGE 7BB — Scénario : MINAUTORE
+- **Nature :** Exercice de production média IA — entraînement PC niveau **brigade** (7e Brigade Blindée)
+- **Statut :** En préparation — synchromatrice à ingérer (agent MINAUTORE initialisé le 2026-05-30)
+- **Dossier :** `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB`
 
 ### ORION 26 (O41)
 - **Nature :** Grand exercice militaire multi-cellules
@@ -73,23 +80,11 @@ Répertoire de travail principal : `D:\CECPC\PRODUCTION\`
 **Modèle Whisper installé :** `openai/whisper-large-v3-turbo`
 Chemin : `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI\models\audio_encoders\openai_whisper-large-v3-turbo`
 
-### Modèles IA locaux (Ollama)
-| Agent | Modèle | Rôle |
-|---|---|---|
-| ARCHITECTE | qwen2.5-coder:14b | Code, debug |
-| PENSEUR | deepseek-r1:14b | Raisonnement complexe |
-| SECRÉTAIRE | mistral-nemo:latest | Rédaction FR |
-| ÉCLAIREUR | llama3.1:8b | Tâches rapides |
-| IMAGIER | llama3.1:8b | Prompts image |
-| CINÉASTE | llama3.1:8b | Prompts vidéo LTX |
-| SCÉNARISTE | mistral-nemo:latest | Contenu scénario |
-| VOIX | mistral-nemo:latest | Paramètres OmniVoice |
-| ARCHIVISTE | llama3.1:8b | Gestion BDA |
-| ANALYSTE | deepseek-r1:14b | Expert République de Mercure |
-| ANALYSTE_ARN | deepseek-r1:14b | Expert Arnland / Dacie Romanie (nom variable selon exercice) — dossier : `ANALYSTE\ARNLAND\` |
-| MASTODONTE | mistral-nemo:latest | Expert Mastodon / réseaux sociaux fictifs |
-| MASTAURIGE | mistral-nemo:latest | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade |
-| GUILLAUME | Claude (cloud) — claude-opus-4-7 | Chef d'orchestre éditorial AURIGE 2BB — calendrier, cohérence narrative, programmation injects |
+### Modèles IA locaux (Ollama) et agents
+
+> **Registre complet des agents (modèle, collaborations, rôle) → `IA\Mercure\CLAUDE.md`, section « Registre des agents ».** Source unique, à jour. Ne pas recopier la liste ici.
+>
+> Arbre de décision « quel agent pour quelle tâche » → `IA\Mercure\SYSTEME\ROUTAGE.md`.
 
 ---
 

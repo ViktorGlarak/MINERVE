@@ -52,10 +52,10 @@ Contenus RS brigade prioritaires : tweets de civils lorrains, mèmes humiliants 
 
 ## Règles de cohérence narrative — OBLIGATOIRE
 
-### Nommage Bella Russia
-> **Toujours écrire "Bella Russia"** — jamais "Biélorussie", "Belarus" ou "Bielarus".
+### Nommage Ruthnia Bella
+> **Toujours écrire "Ruthnia Bella"** — jamais "Biélorussie", "Belarus" ou "Bielarus".
 > Cette règle s'applique à tous les contenus Mastodon fictifs liés aux exercices Mercure.
-> Chef d'État : **Alexandre Youkachenko** — Président de la Bella Russia.
+> Chef d'État : **Alexandre Youkachenko** — Président de la Ruthnia Bella.
 
 ### Structure exercices AURIGE
 > Référence architecture dossiers : `AURIGE\MEMOIRE.md`

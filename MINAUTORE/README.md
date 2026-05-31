@@ -26,7 +26,7 @@ MINAUTORE est le chef d'orchestre éditorial de l'exercice AURIGE 7BB. Il pilote
 | **EXPERT_INFLUENCE** | Doctrine ILI, synchromatrice, planification effets |
 | **ANALYSTE** | Cohérence Mercure, profils personnages MER |
 | **ANALYSTE_ARN** | Cohérence Dacie Romanie / Arnland |
-| **ANALYSTE_BR** | Cohérence Bella Russia |
+| **ANALYSTE_RB** | Cohérence Ruthnia Bella |
 | **MASTAURIGE** | Production tweet cards, articles HTML, MELMIL |
 | **SCÉNARISTE** | Narrative locale, voix des personnages |
 

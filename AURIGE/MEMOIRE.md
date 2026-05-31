@@ -16,7 +16,7 @@
 
 | Élément | Contenu |
 |---|---|
-| Univers Skolkan | Acteurs permanents GET, citations canoniques Olamao/Pallesson, règle "Bella Russia" |
+| Univers Skolkan | Acteurs permanents GET, citations canoniques Olamao/Pallesson, règle "Ruthnia Bella" |
 | Camps narratifs | BLEU / ROUGE / GRIS + médias fictifs associés |
 | 5 LO GLM26 | LO 1→5 — référence stratégique universelle |
 | Règles cohérence narrative | CLIMAX, noyau de vérité, équilibre camps, neutralité visuelle, règle LO |
@@ -294,7 +294,7 @@ Pour un futur exercice AURIGE, un nouvel orchestrateur éditorial serait créé 
 La première semaine a produit des injects utiles pour poser un cadre, mais inadaptés au niveau brigade :
 - Discours présidents (Olamao, Pallesson, Youkachenko, Rutte) → **niveau stratégique — hors périmètre brigade**
 - Articles médias nationaux/internationaux → **niveau opératif/stratégique**
-- Escalade diplomatique BR → **trop loin du terrain de la brigade**
+- Escalade diplomatique RB → **trop loin du terrain de la brigade**
 
 ### Règle canonique — équilibre brigade
 

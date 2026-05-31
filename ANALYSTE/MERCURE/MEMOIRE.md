@@ -1,5 +1,7 @@
 # MÉMOIRE — ANALYSTE MERCURE (Expert République de Mercure + Opérations d'influence)
 
+> ✅ **Fichier CANONIQUE de l'expert Mercure.** Toute donnée détaillée Mercure (Countrybook, personnages, doctrine OI) vit ici. Le fichier parent `ANALYSTE\MEMOIRE.md` est l'ancienne version, conservée en référence rapide — en cas de divergence, **ce fichier fait foi**.
+
 Agent créé le **2026-05-25** — Countrybook Mercure ingéré le **2026-05-25**.
 Deux domaines de maîtrise : **Mercure** (pays fictif Skolkan) + **Doctrine OI** (opérations informationnelles réalistes).
 
@@ -639,7 +641,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 - Valorisation force MER / dénigrement OTAN → **LO 2** (volonté de combattre)
 - Coût humain insoutenable / profondeur MER → **LO 3** (guerre des pertes)
 - Légitimité MER / discrédit DAC-ARN → **LO 4** (vent de libération)
-- Implication BR / fracture coalition → **LO 5** (rupture alliances)
+- Implication RB / fracture coalition → **LO 5** (rupture alliances)
 
 **Règle de précision :** une LO bien choisie vaut mieux que deux approximatives. La LO secondaire n'est justifiée que si l'inject produit deux effets cognitifs stratégiquement distincts et mesurables.
 
@@ -665,7 +667,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | Référentiel HVI complet GLM26 (tous commandants MER) | **ANALYSTE MERCURE** | PDF `20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` — ouvrir manuellement |
 | TTP Storm-1516 (77 opérations, 16 TTP) | **ANALYSTE MERCURE** | Section 2 de cette MEMOIRE |
 | Countrybook Mercure complet (géopolitique, économie, société) | **ANALYSTE MERCURE** | Sections 1.1 à 1.11 de cette MEMOIRE |
-| **Figure politique BR — Youkachenko** | **ANALYSTE MERCURE** | Section 6 de cette MEMOIRE |
+| **Figures Ruthnia Bella (Youkachenko, opposition, BC1)** | **ANALYSTE_RB** (propriétaire) | `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md` — ANALYSTE MERCURE ne détient que la *relation* MER↔RB (alliance LO 5), pas le détail intérieur RB |
 | Figures politiques DAC/ARN — Pallesson, Karrlson, etc. | **ANALYSTE ARNLAND** | ANALYSTE\ARNLAND\MEMOIRE.md — section "Données politiques" |
 | Doctrine d'exploitation ILI des vulnérabilités HVI | **EXPERT_INFLUENCE** | Section "Commandants FORAD" de sa MEMOIRE |
 | Planning d'utilisation HVI + figures politiques dans injects | **GUILLAUME** | GUILLAUME\MEMOIRE.md |
@@ -674,7 +676,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | LO_BY_KEY (attribution LO par inject) | **Fichier maître** | `index_master.html` — table `var LO_BY_KEY` |
 | Doctrine L2i / IMS / MOI / GLM26 | **EXPERT_INFLUENCE** | EXPERT_INFLUENCE\MEMOIRE.md |
 
-**Règle de consultation :** Avant de produire un inject impliquant une figure nommée (HVI, ministre, commandant, chef d'État), interroger l'agent propriétaire de ce pays. Pour toute figure DAC/ARN → ANALYSTE ARNLAND. Pour toute figure MER ou BR → ANALYSTE MERCURE.
+**Règle de consultation :** Avant de produire un inject impliquant une figure nommée (HVI, ministre, commandant, chef d'État), interroger l'agent propriétaire de ce pays. Pour toute figure **MER** → ANALYSTE MERCURE ; **DAC/ARN** → ANALYSTE ARNLAND ; **RB** → ANALYSTE_RB.
 
 ---
 
@@ -691,13 +693,15 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | Dominic Stoph | Ministre Aff. étrangères | Série 07.04 délégitimation ONU |
 | Voichek Ribiki | Ministre Intérieur | Référence sécurité intérieure |
 
-### 🔴 BELLA RUSSIA — Figure politique clé AURIGE 2BB
+### 🔴 RUTHNIA BELLA — rappel (propriétaire : ANALYSTE_RB)
+
+> ⚠ **Les fiches RB appartiennent à `ANALYSTE\RUTHNIA_BELLA\MEMOIRE.md`.** Ci-dessous un simple rappel de la relation MER↔RB ; pour tout détail (Youkachenko, opposition Tikhanov/Saniki, BC1), interroger ANALYSTE_RB.
 
 | Personnage | Poste | Apparaît dans |
 |---|---|---|
-| **Alexandre Youkachenko** | Président de la Bella Russia | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
+| **Alexandre Youkachenko** | Président de la Ruthnia Bella (allié MER) | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
 
-**Profil pour injects :** Chef d'État allié de Mercure — rôle LO 5 (rupture alliances, escalade BR). Son apparition dans des articles BC1 crédibilise l'implication politique de Minsk dans le conflit. Toute citation ou communiqué de Youkachenko dans un inject doit refléter un discours de soutien MER + posture souveraniste anti-OTAN.
+**Relation MER↔RB (ce que MERCURE détient) :** alliance stratégique = rôle LO 5 (rupture alliances, escalade RB). L'apparition de Youkachenko dans BC1 crédibilise l'implication politique de Minsk. Le détail du discours/posture relève d'ANALYSTE_RB.
 
 ### 🔵 DACIE ROMANIE (DAC) / ARNLAND — Figures clés AURIGE 2BB
 
@@ -717,7 +721,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | Média | Code | Camp | Rôle | Exemple d'inject |
 |---|---|---|---|---|
 | Today Mercure | TM | 🔴 Rouge | Média d'État MER — propagande officielle | TM_Article_* (10+ injects) |
-| Bella Russia Channel 1 | BC1 / BCI | 🔴 Rouge | Média d'État BR — relais allié | BCI_Article_* (12+ injects) |
+| Bella Channel 1 | BC1 / BCI | 🔴 Rouge | Média d'État RB — relais allié | BCI_Article_* (12+ injects) |
 | Forces Armées Mercure | MAF | 🔴 Rouge | Communication militaire officielle MER | Tracts, communiqués |
 | EastWatch International | EW | 🟡 Pseudo-neutre | Blanchiment progressif MER | @EastWatch_Intl injects |
 | Correspondant Est | CE | 🟡 Pseudo-neutre | Correspondant terrain, piège rétroactif | @CorrespondantEst injects |
@@ -736,3 +740,82 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 | 2026-05-25 | Countrybook Mercure (CB MERCURE FR.docx, 943 paragraphes) | Géopolitique, militaire, économie, société, info, infrastructure, personnages | ✅ Complet |
 | 2026-05-26 | G26_PROFIL 41 et 43 MER FORCES.pptx (AURIGE 2BB) | Profils commandants PRUNIERE + ZHUKOV | ✅ Complet — section 1.5.bis |
 | 2026-05-26 | 20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf | Référentiel HVI complet GLM26 | ⚠ Non extractible — ouvrir manuellement |
+
+---
+
+## 7. RÉFÉRENCES PRODUCTION (consolidées depuis l'ancienne `ANALYSTE\MEMOIRE.md`, 2026-05-31)
+
+> Source secondaire historique : `ANALYSTE\PAYS_MERCURE.md` (countrybook ORION 26, ingéré 2026-05-18). Contenu fusionné ici lors de la résolution du double-fichier.
+
+### 7.1 Personnages de terrain — Combattants MER (injects AURIGE 2BB)
+
+| Personnage | Grade | Âge | Rôle narratif | Portrait | Inject |
+|---|---|---|---|---|---|
+| **Aleksander VORIN** | Sergent | 27 ans | Sniper MER — 11 cibles dont 1 CDU bleu, forêt domaniale de Saint-Amond — héroïsation LO 2. ⚠ **Tueur de commandants de compagnie (capitaines / chefs de section)** — ne cible PAS colonels/lt-colonels | `CREATION\02 - MERCURE\Portraits\MER_Aleksander VORIN_sniper_tueur_de_CDU.png` + `WEB\images\...jpg` | 07.01.02i — @HmunikVoice — D+27 07h00 |
+
+### 7.2 Portraits disponibles — Personnages MER (production trombinoscope)
+
+> Racine portraits MER : `D:\CECPC\PRODUCTION\CREATION\02 - MERCURE\Portraits\`
+> Depuis `WEB\Trombinoscope\`, les chemins CREATION = 6 niveaux `../` ; les images dans `WEB\images\` = `../images/`.
+
+| Personnage | Fichier | Emplacement |
+|---|---|---|
+| **Franz Olamao** | `FRanck Olamao conf.jpg` (+ variantes) | `Portraits\Franz Olamao\` + `WEB\images\` |
+| **Jonas Junker** | `MER-ministre de la defense-Jonas Junker.jpeg` | `Portraits\Ministres\` |
+| **Dominic Stoph** | `MER - Ministre des affaires étrangères Dominic STOPH2.png` | `Portraits\Ministres\` |
+| **Voichek Ribiki** | `MER - Ministre de l'interieur - Voichek Ribiki.jpg` | `Portraits\Ministres\` |
+| **MG PRUNIERE** | `MER_PRUNIERE_Thierry_41DIV.jpg` | `Portraits\` + `WEB\images\` |
+| **MG ZHUKOV** | `MER_ZHUKOV_Mikhail_43DIV.png` | `Portraits\` + `WEB\images\` |
+| **Sgt VORIN** | `MER_Aleksander VORIN_sniper_tueur_de_CDU.png` (CREATION) / `.jpg` (WEB) | voir 7.1 |
+| **Fred NUMELIN** | — pas de portrait | ❌ initiales FN dans trombinoscope |
+| Autres commandants | — | PDF GLM26 HVI (extraction manuelle) |
+
+### 7.3 Personnalités complémentaires (Annexe II countrybook — non listées en 1.4/1.5/1.6)
+
+- **Donald Pohl** — Deema (chef du Commissariat), élu juin 2024 ← référence actuelle validée
+- **Viktoria Müller** — ⚠ ancienne Deema (avant juin 2024) — remplacée par Pohl. Ne pas confondre dans les scénarios post-2024.
+- **Peter Tapeur** — Gouverneur de HAquitaine (né à H.Westaphalie)
+- Présidents régionaux : **Alla Mancini** (Bavemberg), **Artem Ebner** (Doluskie), **Georg Auer** (Lombmont)
+
+### 7.4 Leviers de scénario — Points de friction exploitables
+
+- **TANTALE** : milice paramilitaire dans HAquitaine — déstabilisation locale non officielle (chef : Elias Werner, cf. 1.3)
+- **Bail Den Helder (Botnie) : expire 2027** — point de pression géopolitique daté
+- **Double nationalité** : levier d'ingérence en Arnland (diaspora Punainen ~3,4M)
+- **CWC non ratifiée** : suspicion d'armes chimiques (CWA opérationnel, cf. 1.7)
+- **OSCE obstruée** : 2 postes seulement sur de nombreux PC frontaliers
+- **Gibraltar** : accès vital pour la Marine mercurienne via ports Bilbao + La Corogna
+- **Tunnels Saint-Gothard (57 km) + Ceneri** : liaisons critiques Nord-Sud (cibles sabotage/pression)
+
+### 7.5 Narrative officielle de Mercure (pour contenus de propagande fictifs)
+
+- Nostalgie de l'Empire Skolkan
+- "Sécurité, ordre, discipline"
+- Anti-impérialisme capitaliste occidental
+- Autodétermination des peuples (détournée à des fins politiques)
+
+### 7.6 Règle vocabulaire — GET (Grand East Territory)
+
+**GET** = entité géopolitique fictive regroupant les pays fictifs de l'Est : **Mercure, Arnland/Dacie Romanie, Ruthnia Bella**.
+
+> ⚠ **Nuance essentielle :** "Europe" n'est PAS interdit — il désigne la vraie Europe (pays réels, OTAN, institutions). "GET" s'emploie uniquement quand le contexte concerne la zone des **pays fictifs** de l'Est. Deux entités distinctes qui coexistent.
+
+### 7.7 Cohérence géographique des injects — Table D+ → zone tactique (AURIGE 2BB)
+
+> **Règle :** avant de citer une localité dans un inject, vérifier qu'elle est cohérente avec la phase tactique du jour de guerre (D+).
+
+| Date | D+ | Jour guerre | Phase | Zone |
+|---|---|---|---|---|
+| 26 Mai | D+31 | J1 | Déclenchement | Frontière MER/Lorraine |
+| 27 Mai | D+32 | J2 | Pénétration | Axe Moselle nord |
+| 28 Mai | D+33 | J3 | Avancée | Bords de la Moselle |
+| 29 Mai | D+34 | J4 | Consolidation | Moselle centrale |
+| 30 Mai | D+35 | J5 | Expansion | Moselle / Nancy nord |
+| 31 Mai | D+36 | J6 | Pression | Approches Nancy |
+| 01 Juin | D+37 | J7 | Encerclement | Nord-Ouest Nancy |
+| 02 Juin | D+38 | J8 | Siège | Nancy périphérie |
+| 03 Juin | D+39 | J9 | Rupture | Nancy |
+| 04 Juin | D+40 | J10 | Exploitation | Au-delà Nancy |
+
+**Conduite :** ne jamais citer une ville trop éloignée du front pour le jour J. Si incertain → référence vague réaliste ("sur les bords de la Moselle", "secteur nord"). Si précision requise → demander confirmation.
+*Erreur corrigée 2026-05-28 : 07.01.02i-B (sniper VORIN, D+33/J3) — "secteur de HLUNEVILLE" remplacé par "sur les bords de la Moselle".*

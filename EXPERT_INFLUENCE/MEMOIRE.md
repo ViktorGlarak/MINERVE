@@ -143,13 +143,13 @@ LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques d
 | 07h00 | VORIN sniper tweet | LO 2 | Choc d'ouverture — supériorité tactique MER |
 | Journée | Courriers écoles + hôpitaux | LO 3 | Pression civile continue — PC traite humanitaire en parallèle des ops |
 | Journée | TM ONU jouet | LO 4 | Délégitimation du cadre juridique OTAN |
-| Journée | BC1 Youkachenko Appel à la paix | LO 5 | Façade diplomatique BR |
-| Journée | BC1 Évacuation ressortissants BR | LO 5 | Préparation entrée guerre BR sous couvert humanitaire |
+| Journée | BC1 Youkachenko Appel à la paix | LO 5 | Façade diplomatique RB |
+| Journée | BC1 Évacuation ressortissants RB | LO 5 | Préparation entrée guerre RB sous couvert humanitaire |
 | ~18h00 | Tract Step 2 morale | LO 2+3 | Clôture choc — attaque directe volonté de combattre |
 
 **Arc LO 2 structuré :** VORIN 07h → Step 2 18h = deux bookends. Saturation LO 2 évitée (tweet "couards" mis EN ATTENTE).
 
-**Double signal LO 5 BR :** paix + évacuation le même jour = contradiction volontaire, modèle Storm-1516 phases 1+2 simultanées — accélération du calendrier BR (07.05.02i avancé de D+28 à D+27).
+**Double signal LO 5 RB :** paix + évacuation le même jour = contradiction volontaire, modèle Storm-1516 phases 1+2 simultanées — accélération du calendrier RB (07.05.02i avancé de D+28 à D+27).
 
 **Camp bleu actif D+27 :** TV4 Article Panique (LO 3 adverse) + TV4 Article Pallesson_2 (LO 2 adverse) + @GromovaYelena + @IndependentArnish + production live des entraînés. Journée MER-dominante mais pas bleu-silencieuse.
 
@@ -184,10 +184,10 @@ LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques d
 
 ### Chefs d'État — Exploitation ILI par camp
 
-**🔴 Alexandre Youkachenko — Président Bella Russia**
+**🔴 Alexandre Youkachenko — Président Ruthnia Bella**
 - Apparaît dans : BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec
 - **LO 5 principale** — son implication valide la narrative "nouveaux partenaires MER" et fragilise l'idée d'un isolement de Mercure
-- Doctrine : Youkachenko doit apparaître comme décideur souverain (non-inféodé à MER) pour que l'escalade BR soit crédible. Un Youkachenko trop aligné sonne comme un satellite — utiliser des formulations qui montrent un agenda BR propre convergent avec MER
+- Doctrine : Youkachenko doit apparaître comme décideur souverain (non-inféodé à MER) pour que l'escalade RB soit crédible. Un Youkachenko trop aligné sonne comme un satellite — utiliser des formulations qui montrent un agenda RB propre convergent avec MER
 
 **🔵 Sture Pallesson — Président Dacie Romanie (CIVIL)**
 - Apparaît dans : TV4_Article_Pallesson ×4
@@ -199,7 +199,7 @@ LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques d
 | Média | Camp | Usage ILI principal | LO |
 |---|---|---|---|
 | Today Mercure (TM) | 🔴 Rouge | Primo-diffusion officielle MER | LO 2, LO 4 |
-| BC1 (Bella Russia Channel 1) | 🔴 Rouge | Blanchiment via allié BR, escalade | LO 5, LO 1 |
+| BC1 (Bella Channel 1) | 🔴 Rouge | Blanchiment via allié RB, escalade | LO 5, LO 1 |
 | HEXAGONE | 🔵 Bleu | Presse française fictive — cible narrative ou relais contremesures | LO 1 (retournement), LO 2 |
 | TV4 International | 🔵 Bleu | Média occidental — amplification camp bleu, interviews Pallesson | LO 2 (camp adverse) |
 | EastWatch | 🟡 Pseudo-neutre | Blanchiment MER — crédibilité analytique | LO 1, LO 5 |
@@ -263,7 +263,7 @@ ZHUKOV porte une vulnérabilité personnelle exploitable : l'affaire d'évasion 
 
 #### Mapping LO → injects brigade
 
-Un PC brigade n'a pas de prise sur les LO stratégiques (escalade BR, décisions des chefs d'État). Ses injects doivent activer les LO au niveau tactique/local :
+Un PC brigade n'a pas de prise sur les LO stratégiques (escalade RB, décisions des chefs d'État). Ses injects doivent activer les LO au niveau tactique/local :
 
 | LO | Effet doctrinal brigade | Injects locaux correspondants |
 |---|---|---|

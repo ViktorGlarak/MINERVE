@@ -151,9 +151,9 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 
 ### Alexandre Youkachenko — Chef d'État adversaire/allié MER
 
-**Rôle :** Président de la Bella Russia — allié stratégique de Mercure dans AURIGE 2BB.
+**Rôle :** Président de la Ruthnia Bella — allié stratégique de Mercure dans AURIGE 2BB.
 **Apparaît dans :** BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec
-**Camp :** 🔴 Rouge — allié MER (LO 5 — escalade BR, nouveaux partenaires MER)
+**Camp :** 🔴 Rouge — allié MER (LO 5 — escalade RB, nouveaux partenaires MER)
 **Agent référent pour profil complet :** ANALYSTE MERCURE (section 6 de sa MEMOIRE)
 
 ### Médias AURIGE 2BB — camp bleu

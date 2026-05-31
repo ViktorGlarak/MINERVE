@@ -21,7 +21,7 @@ Mémoire complète : `AURIGE\GUILLAUME\MEMOIRE.md`
 - Des convois OTAN traversent la Lorraine française en soutien à la DR
 - Des accusations de pillages par des soldats OTAN circulent — désinformation d'origine Mercure
 - Des blocages routiers à HSARREBOURG sont organisés ou infiltrés par le groupe N.O.M
-- Bella Russia manifeste une solidarité croissante avec Mercure (escalade sur 7 jours)
+- Ruthnia Bella manifeste une solidarité croissante avec Mercure (escalade sur 7 jours)
 
 ---
 
@@ -137,7 +137,7 @@ Mémoire complète : `AURIGE\GUILLAUME\MEMOIRE.md`
 |---|---|---|---|
 | Franz Olamao | Président de Mercure | Today Mercure | À créer |
 | CEMA MER | Chef des armées Mercure | Today Mercure | À créer (inject 07.02.02i) |
-| Youkachenko | Président Bella Russia | BC1 | BCI_Article_Youkachenko.html |
+| Youkachenko | Président Ruthnia Bella | BC1 | BCI_Article_Youkachenko.html |
 | Wilma Smasten | Porte-parole N.O.M | — | — |
 | Pavlus Gautoreif | Propagandiste radio MER | @HmunikVoice | — |
 | N.O.M | Groupe militant fictif | — | @NOVUSORDOMUNDI |
@@ -198,19 +198,19 @@ Mémoire complète : `AURIGE\GUILLAUME\MEMOIRE.md`
 
 **Contenus :** articles Today Mercure, tweets propagande, fausses déclarations de témoins
 
-### SÉRIE 07.05 — Bella Russia (escalade progressive 27/05 → 02/06)
+### SÉRIE 07.05 — Ruthnia Bella (escalade progressive 27/05 → 02/06)
 | Code | Date | Sujet |
 |---|---|---|
 | 07.05.01i | 27/05 | Appel à la paix — Youkachenko regrette l'engagement militaire plutôt que le dialogue |
-| 07.05.11i | 27/05 | Mobilisation Générale Bella Russia — forces actives et réserves |
-| 07.05.02i | 28/05 | Évacuation ressortissants BR — MAE Bella Russia appelle ses ressortissants à quitter DAC |
-| 07.05.03i | 29/05 | Manifestations soutien MER dans les principales villes de Bella Russia |
-| 07.05.04i | 29/05 | Rencontre secrète MER et Bella Russia suite à échange téléphonique présidentiel |
+| 07.05.11i | 27/05 | Mobilisation Générale Ruthnia Bella — forces actives et réserves |
+| 07.05.02i | 28/05 | Évacuation ressortissants RB — MAE Ruthnia Bella appelle ses ressortissants à quitter DAC |
+| 07.05.03i | 29/05 | Manifestations soutien MER dans les principales villes de Ruthnia Bella |
+| 07.05.04i | 29/05 | Rencontre secrète MER et Ruthnia Bella suite à échange téléphonique présidentiel |
 | 07.05.05i | 29/05 | Fermeture de frontière — seul passage possible : HSARREGUEMINES |
 | 07.05.06i | 30/05 | Rencontre chaleureuse et visible entre Youkachenko et Olamao |
-| 07.05.07i | 30/05 | Armée Bella Russia posture défensive — annonce CEMA BR |
-| 07.05.08i | 31/05 | Ressortissants Bella Russia tués par la 2BB — annonce officielle |
-| 07.05.09i | 02/06 | Attentats contre 2BB par groupuscules Bella Russia en Dacia Romania |
+| 07.05.07i | 30/05 | Armée Ruthnia Bella posture défensive — annonce CEMA RB |
+| 07.05.08i | 31/05 | Ressortissants Ruthnia Bella tués par la 2BB — annonce officielle |
+| 07.05.09i | 02/06 | Attentats contre 2BB par groupuscules Ruthnia Bella en Dacia Romania |
 | 07.05.10i | 02/06 | Manifestations : FR et 2BB accusées d'être des assassins |
 
 **Logique narrative 07.05 :** médiateur (27/05) → rupture diplomatique (28/05) → bascule soutien ouvert (29/05) → ambiguïté entretenue (30/05) → victimes (31/05) → guerre proxy (02/06).
@@ -246,11 +246,11 @@ Mémoire complète : `AURIGE\GUILLAUME\MEMOIRE.md`
 |---|---|---|---|---|---|
 | 🔴 | 26/05 | 07.02.01i | ROUGE | Discours Olamao — justification intervention MER | ANALYSTE |
 | 🔴 | 27/05 | 07.05.01i | ROUGE | Article BC1 Youkachenko — corriger date au 27/05 | ✅ existe |
-| 🟡 | 27/05 | 07.05.11i | ROUGE | Mobilisation générale Bella Russia | SCÉNARISTE + BC1 |
+| 🟡 | 27/05 | 07.05.11i | ROUGE | Mobilisation générale Ruthnia Bella | SCÉNARISTE + BC1 |
 | 🟡 | 27/05 | 07.01.02i | ROUGE | Tweet héros MER (sniper) | MASTAURIGE |
 | 🟡 | 27/05 | 07.02.05-06i | ROUGE | Steps 1 et 2 — tracts intimidation soldats OTAN | SCÉNARISTE |
 | 🟢 | 27/05 | 08.01.01-06i | GRIS | Courriers maires / préfet | SCÉNARISTE |
-| 🟢 | 28/05 | 07.05.02i | ROUGE | Évacuation ressortissants BR | SCÉNARISTE + BC1 |
+| 🟢 | 28/05 | 07.05.02i | ROUGE | Évacuation ressortissants RB | SCÉNARISTE + BC1 |
 | 🟢 | 02/06 | 07.02.07i | ROUGE | Step 3 — "30 vies pour 1 mort MER" | SCÉNARISTE |
 
 ---
@@ -262,7 +262,7 @@ Mémoire complète : `AURIGE\GUILLAUME\MEMOIRE.md`
 
 **Pallesson :** tous ses discours se terminent par "Dacia Romania Endures."
 
-**Bella Russia :** jamais "Belarus" / "Biélorussie" — toujours "Bella Russia" / "Bella Russian".
+**Ruthnia Bella :** jamais "Belarus" / "Biélorussie" — toujours "Ruthnia Bella" / "Ruthnia Bellan".
 
 **Steps 07.02 :** escalade obligatoirement progressive — Step 1 → Step 2 → Step 3 sans saut.
 

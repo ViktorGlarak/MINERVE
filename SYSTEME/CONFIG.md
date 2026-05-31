@@ -7,28 +7,18 @@
 - **Interface directe agents :** Continue (VSCode)
 
 ## Modèles installés
-| Agent | Modèle | Taille | Statut |
+
+> **Le registre des agents (qui utilise quel modèle) est dans `CLAUDE.md` — source unique.** Ici, uniquement l'infra : taille des modèles et statut. Pour savoir quels agents tournent sur un modèle, voir la colonne *Modèle* du registre CLAUDE.md. Deux agents sur le même modèle sont **co-résidents en VRAM** (un seul chargement partagé).
+
+| Modèle | Taille | Statut | Usage |
 |---|---|---|---|
-| NOYAU | Claude (cloud) | — | Actif |
-| ARCHITECTE | qwen2.5-coder:14b | 9 GB | Installé |
-| PENSEUR | deepseek-r1:14b | 9 GB | Installé |
-| SECRÉTAIRE | mistral-nemo:latest | 7.1 GB | Installé |
-| ÉCLAIREUR | llama3.1:8b | 4.9 GB | Installé |
-| IMAGIER | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
-| CINÉASTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
-| SCÉNARISTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SECRÉTAIRE) |
-| VOIX | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE) |
-| ARCHIVISTE | llama3.1:8b | 4.9 GB | Installé (partage avec ÉCLAIREUR) |
-| ANALYSTE | deepseek-r1:14b | 9 GB | Installé (partage avec PENSEUR) |
-| ANALYSTE_ARN | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + PENSEUR) |
-| ANALYSTE_BR | deepseek-r1:14b | 9 GB | Installé (partage avec ANALYSTE + ANALYSTE_ARN + PENSEUR) |
-| MASTODONTE | mistral-nemo:latest | 7.1 GB | Installé (partage avec SCÉNARISTE + SECRÉTAIRE) |
-| MASTAURIGE | mistral-nemo:latest | 7.1 GB | Installé (partage avec MASTODONTE + SCÉNARISTE + SECRÉTAIRE) |
-| GUILLAUME | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
-| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) |
-| MINAUTORE | Claude (cloud) — claude-opus-4-7 | — | Actif (cloud, pas d'Ollama) — AURIGE 7BB |
-| Embedding | nomic-embed-text | 274 MB | Installé |
-| Autocomplete | qwen2.5-coder:1.5b | 986 MB | Installé |
+| qwen2.5-coder:14b | 9 GB | Installé | Agent code (cf. registre) |
+| deepseek-r1:14b | 9 GB | Installé | Raisonnement + analystes pays (cf. registre) |
+| mistral-nemo:latest | 7.1 GB | Installé | Rédaction FR + scénario + RS (cf. registre) |
+| llama3.1:8b | 4.9 GB | Installé | Tâches rapides + prompts image/vidéo + BDA (cf. registre) |
+| Claude (cloud) — claude-opus-4-7 | — | Actif (API, pas d'Ollama) | NOYAU + agents éditoriaux/doctrine (cf. registre) |
+| nomic-embed-text | 274 MB | Installé | Embedding (RAG futur — utilitaire, non-agent) |
+| qwen2.5-coder:1.5b | 986 MB | Installé | Autocomplete Continue (utilitaire, non-agent) |
 
 ## Outils de génération image/vidéo
 | Outil | Type | Accès | Priorité |

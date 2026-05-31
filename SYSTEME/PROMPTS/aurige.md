@@ -17,7 +17,7 @@
 |---|---|---|---|
 | **Mercure (MER)** | 🔴 Rouge | Franz Olamao (Président) | Today Mercure |
 | **Dacia Romania (DAC / ARN)** | 🔵 Bleu | Sture Pallesson (Président) | TV4 International, HEXAGONE |
-| **Bella Russia (BR)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Russia Channel 1) |
+| **Ruthnia Bella (RB)** | 🔴 Rouge (allié MER) | Alexandre Youkachenko | BC1 (Bella Channel 1) |
 
 ### Citations canoniques — ne jamais déroger
 
@@ -27,7 +27,7 @@
 **Pallesson** — tous ses discours se terminent obligatoirement par :
 > *"Dacia Romania Endures."*
 
-**Bella Russia** — jamais "Belarus" ni "Biélorussie" — toujours **"Bella Russia"** / **"Bella Russian"**.
+**Ruthnia Bella** — jamais "Belarus" ni "Biélorussie" — toujours **"Ruthnia Bella"** / **"Ruthnia Bellan"**.
 
 ---
 
@@ -87,7 +87,7 @@ Strasbourg  → HSTRASBOURG
 | **07.02** | Communication offensive MER | Valoriser MER, intimider, psychologie de masse |
 | **07.03** | Narrative MER vs DAC | Légitimer MER, délégitimer DAC |
 | **07.04** | Délégitimation ONU / OTAN | Saper l'autorité des institutions internationales |
-| **07.05** | Escalade Bella Russia | Montée en pression BR vers belligérance |
+| **07.05** | Escalade Ruthnia Bella | Montée en pression RB vers belligérance |
 | **08.01** | Volet humanitaire civil | Instrumentaliser la souffrance civile |
 | **08.02** | Captures / redditions | Exploiter les événements terrain défavorables à MER |
 | **08.03** | Host Nation / OTAN-ONU | Contremesures camp bleu |
@@ -198,7 +198,7 @@ Exemple : `D+31_26_MAI`, `D+35_30_MAI`.
 | **EXPERT_INFLUENCE** | Calibrage effets ILI, cohérence synchromatrice, structure opérations influence |
 | **ANALYSTE MERCURE** | Cohérence personnages MER, doctrine TTP Storm-1516, réalisme injects |
 | **ANALYSTE_ARN** | Cohérence personnages DAC / Arnland |
-| **ANALYSTE_BR** | Cohérence personnages Bella Russia, Youkachenko, opposition BR |
+| **ANALYSTE_RB** | Cohérence personnages Ruthnia Bella, Youkachenko, opposition RB |
 | **MASTAURIGE** | AVANT toute production RS ou HTML — format cards, templates articles, MELMIL |
 | **SCÉNARISTE** | Voix des personnages locaux, rédaction tracts, courriers, narrative locale |
 | **IMAGIER** | Prompt image portrait ou illustration |
