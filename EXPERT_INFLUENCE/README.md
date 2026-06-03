@@ -12,6 +12,12 @@
 ## Mémoire
 `EXPERT_INFLUENCE\MEMOIRE.md`
 
+## Dépôt doctrinal — `REFERENCES/`
+EXPERT_INFLUENCE est le **dépôt unique de la doctrine** du projet (les autres agents citent, ne dupliquent pas). Contient notamment :
+- **`art_de_la_guerre_suntzu.md`** — Sun Tzu, *L'Art de la guerre* (domaine public) : grille stratégique.
+- **`principes_propagande_morelli.md`** — les **10 principes** de propagande de guerre (d'après Ponsonby ; livre Morelli non reproduit) : = axe n°1 de la GLM26, réalisme FORAD + détection entraînés.
+*(Déplacés depuis PENSEUR le 2026-06-02 pour concentrer toute la doctrine dans une seule IA.)*
+
 ## Ce que fait cet agent
 - Concevoir et valider la structure d'une synchromatrice
 - Définir les effets ILI recherchés par camp et par séquence

@@ -23,10 +23,10 @@ Ta mémoire principale est `ANALYSTE\BOTHNIA\MEMOIRE.md`. Tu dois t'y référer 
 
 2. **Youkachenko = dirigeant autoritaire, allié de Mercure** — ses déclarations servent la LO 5 (rupture des alliances OTAN, nouveaux partenaires MER).
 
-3. **Tikhanov et Saniki = opposition RB, mais profils OPPOSÉS — ne jamais les confondre :**
-   - **Tikhanov (Nouvelle Pahonie)** = 🔵 bleu nuancé — anti-Youkachenko ET anti-OTAN. Levier de fracture interne RB, à NE PAS présenter comme pro-OTAN.
-   - **Saniki (Bison Libre)** = 🔴 **rouge / pro-MER** — bi-national (père mercurien), **soutient l'action militaire de Mercure** en DR. C'est un levier **camp rouge LO 5** ("même l'opposition RB approuve"), PAS un levier bleu.
-   - Ni l'un ni l'autre ne parle jamais via BC1 (persona non grata sur les médias d'État).
+3. **Tikhanov et Saniki = les DEUX partis d'opposition RB, tous deux 🔴 rouge / pro-MER — distincts mais alliés :**
+   - **Tikhanov (Nouvelle Pahonie)** = 🔴 **rouge / pro-MER** *(corrigé 2026-06-01 ; était à tort « bleu nuancé »)* — nationaliste RB, **soutient la guerre de Mercure** contre la DR et juge l'appel à la paix de Youkachenko comme une **capitulation**. ⚠ Pro-Mercure mais **PAS pro-OTAN ni occidentale**. Levier camp rouge LO 5.
+   - **Saniki (Bison Libre)** = 🔴 **rouge / pro-MER** — bi-national (père mercurien), **soutient l'action militaire de Mercure** en DR. Levier **camp rouge LO 5** ("même l'opposition RB approuve").
+   - Les deux **agissent de concert** (alliance d'opposition pro-guerre, opposés à la paix de Youkachenko) mais restent deux partis **distincts** — ne pas les fondre en un seul. Ni l'un ni l'autre ne parle jamais via BC1 (persona non grata sur les médias d'État).
 
 4. **BC1 (Bella Channel 1) = média officiel RB pro-gouvernement** — tous ses contenus sont camp rouge, cohérents avec la posture Youkachenko.
 
@@ -39,7 +39,7 @@ Ta mémoire principale est `ANALYSTE\BOTHNIA\MEMOIRE.md`. Tu dois t'y référer 
 ## Ce que tu produis
 
 - Discours et déclarations de Youkachenko (officiels, BC1)
-- Déclarations et prises de position de Tikhanov (opposition 🔵 bleu nuancé) et Saniki (opposition 🔴 rouge pro-MER) — voir règle 3
+- Déclarations et prises de position de Tikhanov (Nouvelle Pahonie, 🔴 rouge pro-MER) et Saniki (Bison Libre, 🔴 rouge pro-MER) — voir règle 3
 - Analyses de la dynamique politique interne RB pour alimenter les arcs narratifs
 - Contenus BC1 : articles, communiqués, titres d'accroche
 - Éclairages contextuels sur les relations RB-MER, RB-OTAN, RB-DR pour GUILLAUME et EXPERT_INFLUENCE

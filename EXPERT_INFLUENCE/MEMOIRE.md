@@ -1,5 +1,24 @@
 # MÉMOIRE — EXPERT_INFLUENCE (Doctrine ILI & Synchromatrice)
 
+> **2026-06-02 — Dépôt doctrinal unique.** Ajout de `REFERENCES/` : **Sun Tzu — *L'Art de la guerre*** + **Morelli — 10 principes de propagande** (déplacés depuis PENSEUR pour concentrer toute la doctrine dans une seule IA). EXPERT_INFLUENCE est désormais LE dépôt doctrinal ; PENSEUR (repassé en local deepseek-r1:14b) **cite** ces fiches au lieu de les détenir. Chaîne d'analyse : *effet (Sun Tzu) → principe(s) (Morelli) → LO (GLM26)*.
+
+## ⚡ Réflexe « mentalité russe » — checklist sur CHAQUE inject rouge
+
+> Référence complète : `REFERENCES/mentalite_russe_ILI.md` (créée 2026-06-02). Complète Morelli (*quoi* dire) par le *comment* russe (rythme, déni, contradiction).
+
+1. Quelle **vraie fracture** j'amplifie ? (noyau de vérité)
+2. Quelle **réaction bleue** je force — et en quoi elle l'**auto-délégitime** ? (contrôle réflexif)
+3. **≥ 3 voix** (officiel + civil organique + tiers « neutre ») en < 2 h ? (firehose + blanchiment)
+4. **Version contradictoire** prête sur un autre compte ? (4D — incohérence assumée)
+5. **Déni + contre-accusation** ? (dismiss / distort)
+6. Touche de **menace** ? (dismay)
+7. **Inversion victimaire** (agresseur = protecteur) ?
+8. **Palier d'escalade** relié à une LO (GLM26) + phase Storm-1516 ?
+
+⚠ **Audit corpus 02/06 — à corriger en priorité :** trop **mono-narratif** (manque de récits contradictoires — surtout 07.05.12 guerre sale, 04.01.02 eau) ; **volume/vitesse** insuffisants (1 article + 2 tweets ≠ firehose) ; **dismay** sous-exploité ; pas assez de **faux experts / OSINT / docs « fuités »** (étendre 07.08). Détail : `REFERENCES/mentalite_russe_ILI.md` §3.
+
+---
+
 ## Format d'entrée
 ```
 ### [YYYY-MM-DD] Catégorie : Titre
@@ -127,6 +146,26 @@ LO : ["X","Y"]  ← deux si l'inject active clairement deux axes stratégiques d
 ```
 
 **Critère pour LO secondaire :** l'inject doit activer simultanément deux perceptions stratégiques distinctes (ex : blanchiment LO 1 + fracture coalition LO 5). Ne pas en mettre par défaut — une LO bien choisie suffit dans la majorité des cas.
+
+#### Lecture de la synchromatrice par LO + règle ROUGE / BLEU (MELMIL v0.2 — 2026-06-03)
+
+> **La synchromatrice (MELMIL) se lit désormais par LO** : une ligne = une LO (LO1→LO5), les 5 étant **permanentes et parallèles** (la ligne dit « quel axe », pas « quand »). Le placement d'un inject se fait par sa LO ; le jour par sa date.
+
+**Les LO décrivent le procédé ROUGE (MER/RB).** D'où la **règle de classement transversale (tous agents)** :
+- Un **avatar rouge qui simule du contenu bleu** (sock-puppet, faux « neutre » type @EastWatch, fausse ONG/expert) reste une **manœuvre rouge → card ROUGE, rangée dans sa LO**, jamais ailleurs.
+- Le **contenu BLEU authentique** (ONU, OTAN/Rutte, gouvernements occidentaux réels du scénario) se distingue par une **card de couleur BLEUE** (stimulus/contexte, pas une manœuvre rouge). Toutes les cards vivent dans les lignes LO — **2 couleurs seulement** (rouge/bleu), pas de ligne séparée (r6/r7 abandonnées).
+- Discriminant pratique = la **série** : 08.03 (officiel bleu) → card bleue ; 07.xx → cards rouges. Le **camp** d'un persona reste défini une seule fois (registre MASTAURIGE + `avatars.js`).
+
+Détails outil (routage `ROW_MAP` série→LO, couleur `sphereClass`/`SPHERE_BLUE`, const `PAYS_DELEGITIME`) : `GUILLAUME/MEMOIRE.md` § MELMIL + mémoire auto `melmil-structure-lo`. Voir aussi [[glm26_matrice_ili]].
+
+#### ⚖ Maîtrise — Jus ad bellum & Jus in bello (le droit de la guerre comme arme ILI)
+
+> EXPERT_INFLUENCE maîtrise la distinction **jus ad bellum** (droit de **recourir** à la force — légitimité de la guerre) / **jus in bello** (DIH — **conduite** dans la guerre) et leur **instrumentalisation** (lawfare, l'un des champs de lutte). Référence complète : `EXPERT_INFLUENCE/REFERENCES/jus_ad_bellum_jus_in_bello.md`.
+
+- **Jus ad bellum → LO 4** : fabrique du casus belli, R2P / « protéger nos ressortissants », légitime défense, ONU instrumentalisée ou disqualifiée → légitimer SA guerre.
+- **Jus in bello → LO 3 / LO 4** : accusations de crimes de guerre (armes chimiques, civils, POW/**Genève III**, **perfidie**), **légalisme d'enlisement** (CICR/CPI/Genève), inversion victimaire.
+- **Principe cardinal** : les deux corps sont **indépendants** (le DIH s'applique à tous, quelle que soit la cause). Le **sophisme** rouge = les **confondre** (« crimes de guerre ⇒ cause illégitime ») → à faire **repérer** aux entraînés.
+- Checklist « réflexe lawfare » en 7 points dans la référence. Corpus : 07.03 / 07.05 (ad bellum) · 07.06 / 07.05.12 / 04.01 / 08.01 / 08.02 (in bello).
 
 ---
 

@@ -315,14 +315,16 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-05-30] 18 agents au total
+### [2026-05-25 — mis à jour 2026-06-02] 19 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-10 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE) +
+11 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 10 + 1 = **18 agents** (vérifié contre le registre CLAUDE.md le 2026-05-31)
+= 4 + 3 + 11 + 1 = **19 agents** (vérifié contre le registre CLAUDE.md le 2026-06-02)
 
 > MINAUTORE ajouté le 2026-05-30 — chef d'orchestre éditorial AURIGE 7BB, claude-opus-4-7 (même modèle que GUILLAUME). Dossier exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\`. Synchromatrice à ingérer.
+> **PENSEUR — état final 2026-06-02 :** **reste local `deepseek-r1:14b`** (bref passage Opus 4.8 le même jour, annulé). Les doctrines **Sun Tzu + Morelli** ont été **regroupées chez EXPERT_INFLUENCE** (`EXPERT_INFLUENCE\REFERENCES\`) = dépôt doctrinal unique ; PENSEUR **cite** EXPERT_INFLUENCE. Aucun agent n'utilise claude-opus-4-8 (EXPERT_INFLUENCE reste 4-7).
+> **BROUILLON créé le 2026-06-02** — incubateur d'idées non abouties, IA **locale** (`deepseek-r1:14b`) pour économiser les tokens. Bac à sable personnel de l'utilisateur, hors chaîne de production. Dossier : `BROUILLON\`.
 > ANALYSTE_BOT ajouté le 2026-05-27 — comptage corrigé de 17 à 18 le 2026-05-29, puis 19 le 2026-05-30.
 
 ANALYSTE_ARN ajouté le 2026-05-23 — expert Arnland/Dacie Romanie, deepseek-r1:14b partagé avec ANALYSTE + PENSEUR.

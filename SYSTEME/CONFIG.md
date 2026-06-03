@@ -13,7 +13,7 @@
 | Modèle | Taille | Statut | Usage |
 |---|---|---|---|
 | qwen2.5-coder:14b | 9 GB | Installé | Agent code (cf. registre) |
-| deepseek-r1:14b | 9 GB | Installé | Raisonnement + analystes pays (cf. registre) |
+| deepseek-r1:14b | 9 GB | Installé | Raisonnement (PENSEUR) + analystes pays + **BROUILLON** (cf. registre) |
 | mistral-nemo:latest | 7.1 GB | Installé | Rédaction FR + scénario + RS (cf. registre) |
 | llama3.1:8b | 4.9 GB | Installé | Tâches rapides + prompts image/vidéo + BDA (cf. registre) |
 | Claude (cloud) — claude-opus-4-7 | — | Actif (API, pas d'Ollama) | NOYAU + agents éditoriaux/doctrine (cf. registre) |

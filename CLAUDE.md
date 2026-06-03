@@ -28,7 +28,7 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 |---|---|---|---|
 | NOYAU | Claude (cloud) | — *(orchestre tous les agents)* | Orchestrateur |
 | ARCHITECTE | qwen2.5-coder:14b | PENSEUR | Code & debug |
-| PENSEUR | deepseek-r1:14b | ARCHITECTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, EXPERT_INFLUENCE | Raisonnement complexe |
+| PENSEUR | deepseek-r1:14b | ARCHITECTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Raisonnement & stratégie — optimise les productions au profit des entraînés ; **cite** la doctrine d'EXPERT_INFLUENCE (Sun Tzu, Morelli, LO), ne la détient pas *(local ; bref passage Opus 4.8 le 2026-06-02 annulé le même jour — doctrine regroupée chez EXPERT_INFLUENCE)* |
 | SECRÉTAIRE | mistral-nemo:latest | SCÉNARISTE, VOIX, MASTODONTE | Rédaction FR |
 | ÉCLAIREUR | llama3.1:8b | IMAGIER, CINÉASTE, ARCHIVISTE | Tâches rapides |
 | IMAGIER | llama3.1:8b | ÉCLAIREUR, CINÉASTE, ARCHIVISTE | Prompts image |
@@ -42,8 +42,9 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 | MASTAURIGE | mistral-nemo:latest | GUILLAUME, MINAUTORE, MASTODONTE, SCÉNARISTE | Contenus RS fictifs exercices AURIGE — entraînement PC niveau brigade (avatars CASW, tweet cards HTML) |
 | ANALYSTE_BOT | deepseek-r1:14b | ANALYSTE, ANALYSTE_ARN, PENSEUR, EXPERT_INFLUENCE, GUILLAUME, MINAUTORE | Expert **Bothnia** — countrybook ORION 26 (Pr. Lena Peters, BUP, démocratie, allié MER via SCO/SSTO, Den Helder) ; **+ legacy « Ruthnia Bella » (Youkachenko/BC1) pour AURIGE 2BB uniquement** *(dossier : `ANALYSTE\BOTHNIA\` — ex-ANALYSTE_RB, renommé 2026-05-31)* |
 | GUILLAUME | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 2BB — calendrier publications, cohérence narrative, programmation des injects |
-| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert doctrine ILI & synchromatrice — planification effets informationnels, cohérence inter-camps, transversal tous exercices |
+| EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert doctrine ILI & synchromatrice — **dépôt doctrinal unique** (VIGINUM, Storm-1516, L2I, GLM26/LO + **Sun Tzu** & **Morelli 10 principes** dans `EXPERT_INFLUENCE\REFERENCES\`, ajoutés 2026-06-02) ; planification effets informationnels, cohérence inter-camps, transversal tous exercices |
 | MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30)* |
+| BROUILLON | deepseek-r1:14b | — *(bac à sable personnel utilisateur)* | Incubateur d'idées non abouties — IA **locale** pour **économiser les tokens** ; stockage d'idées brutes à travailler dans le temps *(dossier : `BROUILLON\` — créé 2026-06-02)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
 1. **Ce registre ci-dessus** — la seule liste à éditer. ⚠ Mettre à jour le **compteur d'agents** dans `NOYAU\MEMOIRE.md` (= nombre de lignes de ce tableau).
@@ -114,21 +115,27 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 
 ### Propriétaire unique d'une fiche personnage — règle anti-divergence
 
-> **Un personnage fictif (camp, rôle, positionnement, parti) a UN seul propriétaire : l'Analyste de son pays.** Les autres agents (GUILLAUME, MASTAURIGE, EXPERT_INFLUENCE, autres Analystes…) **citent** la fiche, ils ne la **redéfinissent jamais**.
+> **Deux propriétaires complémentaires, jamais de copie ailleurs :**
+> - **IDENTITÉ d'un persona/avatar** (handle, nom affiché, image/initiales, **CAMP** 🔴/🔵/⚪, parti) → **UNIQUEMENT le registre MASTAURIGE** : `MASTAURIGE\MEMOIRE.md` § « Avatars utilisés » (+ miroir machine `MASTAURIGE\WEB\avatars.js`).
+> - **DOCTRINE narrative d'un personnage pays** (rôle, LO, positionnement, éléments de langage, emploi ILI) → **l'Analyste du pays**, qui **cite** le registre pour le camp (ne le redéfinit jamais).
+>
+> L'Analyste pays reste l'**autorité de décision** du camp (expertise politique) — mais le camp n'est **stocké qu'une fois**, dans le registre MASTAURIGE. Tous les autres agents (GUILLAUME, MINAUTORE, EXPERT_INFLUENCE, médias…) **citent**, ne recopient pas.
 
-**Source de vérité par pays :**
-| Pays | Propriétaire de la fiche personnage |
+**Source de vérité par type :**
+| Donnée | Propriétaire unique |
 |---|---|
-| Mercure | `ANALYSTE\MERCURE\MEMOIRE.md` |
-| Arnland / Dacie Romanie | `ANALYSTE\ARNLAND\MEMOIRE.md` |
-| Bothnia *(+ legacy Ruthnia Bella pour AURIGE 2BB)* | `ANALYSTE\BOTHNIA\MEMOIRE.md` |
+| Identité + **camp** d'un persona/avatar | `MASTAURIGE\MEMOIRE.md` (+ `avatars.js`) |
+| Doctrine narrative — personnage **Mercure** | `ANALYSTE\MERCURE\MEMOIRE.md` *(cite le registre pour le camp)* |
+| Doctrine narrative — **Arnland / Dacie Romanie** | `ANALYSTE\ARNLAND\MEMOIRE.md` *(idem)* |
+| Doctrine narrative — **Bothnia** *(+ legacy RB AURIGE 2BB)* | `ANALYSTE\BOTHNIA\MEMOIRE.md` *(idem)* |
 
-**Pourquoi :** la divergence du camp d'Andrei Saniki (🔴 rouge pro-MER chez l'Analyste RB, mais 🔵 bleu/neutre recopié dans GUILLAUME et ANALYSTE Mercure — corrigé le 2026-05-31) venait de ce que le camp avait été recopié dans 5 fichiers. Un inject construit sur la mauvaise valeur produit l'effet ILI **inverse**.
+**Pourquoi :** divergences répétées du camp par recopie — Andrei Saniki (corrigé 2026-05-31) puis Svetlana Tikhanov (camp « bleu » recopié dans **7 fichiers**, faux : elle est 🔴 rouge pro-MER — corrigé 2026-06-01). Un inject construit sur la mauvaise valeur produit l'effet ILI **inverse**. D'où : **un seul endroit fait foi pour le camp**.
 
 **Comment appliquer :**
-- Avant d'attribuer un camp/rôle à un personnage dans un inject, un trombinoscope ou une mémoire : **lire d'abord la fiche chez l'Analyste pays**.
-- Si un autre fichier doit mentionner le camp, écrire un **renvoi** (« camp : voir ANALYSTE\<PAYS> ») plutôt qu'une valeur figée — ou, à défaut, recopier **et** annoter « source : ANALYSTE\<PAYS> ».
-- En cas de contradiction entre deux fichiers, **l'Analyste pays tranche**, les autres s'alignent.
+- Avant d'attribuer un camp à un persona (inject, trombinoscope, mémoire) : **lire d'abord le registre MASTAURIGE** (+ `avatars.js`).
+- Tout autre fichier qui mentionne le camp écrit un **renvoi** (« camp : voir registre MASTAURIGE ») — jamais une valeur figée non annotée.
+- Décision/changement de camp d'un personnage pays : l'Analyste tranche, puis **met à jour le registre MASTAURIGE + avatars.js** (les deux), et les autres s'alignent.
+- **Garde-fou automatique** : `MASTAURIGE\WEB\OUTILS\verifier_mastaurige.py` (CONTROLE G) signale tout tweet dont le camp **contredit durement** (rouge↔bleu) son avatar. Un avatar ⚪ neutre qui penche (façade de blanchiment, ex. @EastWatch_Intl) n'est PAS une divergence.
 - Réflexe en cas de doute : `Grep` le nom du personnage sur tout le repo pour détecter les valeurs divergentes avant d'en ajouter une nouvelle.
 
 ### Règle de mise à jour automatique — OBLIGATOIRE

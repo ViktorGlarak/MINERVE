@@ -232,7 +232,7 @@ MELMIL (côté EXCON, cellule CO SITCEN / ANIMATION) pilote par domaine : **RENS
 | **LO 4** | VENT DE LIBÉRATION | MER le plus légitime · ARN discrédité | **07-03** |
 | **LO 5** | RUPTURE DES ALLIANCES | MER + partenaires · Alliance fracturée | **07-04** |
 
-Tout inject doit avoir une LO principale. Si incertain → **EXPERT_INFLUENCE**.
+Tout inject doit avoir une LO principale. Si incertain → **EXPERT_INFLUENCE**. La synchromatrice (MELMIL) se lit par **LO** (= procédé rouge), avec une **couleur de card distincte (🔵 bleu)** pour le contenu bleu authentique (ONU/OTAN), le reste en 🔴 rouge ; un avatar rouge qui simule du bleu = **card rouge dans sa LO**. Doctrine : **EXPERT_INFLUENCE** § « Lecture de la synchromatrice par LO + règle ROUGE/BLEU » (transférable 7BB malgré l'inversion des camps).
 
 ---
 

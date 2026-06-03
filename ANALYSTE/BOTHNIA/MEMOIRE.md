@@ -234,18 +234,19 @@ Quand la date d'un inject RB change dans index_master (sélecteur de jour), MELM
 | Donnée | Valeur |
 |---|---|
 | **Parti** | **Nouvelle Pahonie** — mouvement jeune, nationaliste, actif dans les diasporas RB à l'étranger |
-| **Rôle** | Dirigeante de Nouvelle Pahonie — figure d'une opposition nationaliste et indépendantiste |
-| **Positionnement** | Double opposition : anti-Youkachenko ET anti-OTAN — "We are strangled both by NATO but also by Youkachenko" |
-| **Discours** | Appel à l'action autonome du peuple RB — refuse la passivité face aux deux blocs |
+| **Rôle** | Dirigeante de Nouvelle Pahonie — opposition nationaliste RB, **pro-guerre / pro-Mercure** |
+| **Camp** | 🔴 **ROUGE — pro-MER** *(corrigé 2026-06-01 ; était à tort « bleu nuancé »)*. ⚠ Pro-Mercure mais **PAS pro-OTAN, PAS occidentale** — nationaliste RB. |
+| **Positionnement** | **Soutient Mercure et sa guerre contre la Dacia Romania.** Opposée à l'appel à la paix / négociation lancé par Youkachenko (qu'elle perçoit comme une **capitulation**). Veut que la RB s'engage **ouvertement** aux côtés de Mercure. |
+| **Alliance** | Agit de concert avec **Andrei Saniki (Bison Libre)** — les deux partis d'opposition, tous deux **pro-MER** et opposés à la paix de Youkachenko |
+| **Discours** | Dénonce le « double jeu » de Youkachenko (paix publique / coordination secrète avec MER) ; reproche sa **timidité** et appelle au soutien **ouvert** à Mercure. *"Time for dialogue is exceeded."* |
 | **Formation** | Diplômée en communication de **HParis** — a fondé un blog sur la défense des frontières nationales |
 | **Rayonnement** | Fort à l'international via les diasporas — parti sans élu mais influence croissante |
-| **Tweet référence** | *"WE the 'ordinary people' should take this matter in our own hands rather than suffering the said consequences passively. Time for dialogue is exceeded."* — #NouvellePahonie |
-| **LO** | Exploitable camp bleu pour montrer fracture intérieure RB (P.03) — mais ambiguïté anti-OTAN à manier avec précaution |
-| **Relation Youkachenko** | Opposition frontale — mais refuse aussi l'alignement occidental |
-| **Calqué sur** | Sviatlana Tsikhanouskaya + nationalistes biélorusses |
+| **LO** | **LO 5** (rupture des alliances / bascule RB) — voix pro-MER de l'opposition RB, amplifie la pression pour un engagement RB aux côtés de MER |
+| **Relation Youkachenko** | Opposition frontale — lui reproche sa retenue (paix/négociation), PAS son alignement ; exige un soutien actif à Mercure |
+| **Calqué sur** | Sviatlana Tsikhanouskaya (forme) — mais positionnement **inversé : pro-guerre / pro-MER**, PAS pro-occidentale |
 
 **Utilisation éditoriale :**
-Ses déclarations sont ambiguës — elle n'est PAS pro-OTAN. TV4 peut la citer prudemment comme voix de dissidence RB. EastWatch est le canal adapté pour la nuance. Ne pas la présenter comme "pro-dialogue avec l'OTAN" — c'est inexact. Son positionnement est : indépendance RB face aux deux blocs.
+Voix **pro-MER (camp ROUGE)** de l'opposition RB — à NE PAS confondre avec une dissidence pro-occidentale. Elle attaque Youkachenko sur sa **retenue** (appel à la paix vu comme capitulation), jamais sur un « alignement OTAN ». Canal adapté : EastWatch / RS nationalistes RB. **⚠ Ne JAMAIS la présenter comme bleue, pro-OTAN ou pro-dialogue avec l'Ouest.** Alliée de **Saniki (Bison Libre)**.
 
 ---
 

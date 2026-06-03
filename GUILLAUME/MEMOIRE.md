@@ -15,7 +15,17 @@
 | Transition / No man's land | D+34–D+35 (29–30 mai) | Réorganisation — ligne de défense principale tenue | Injects de distraction : saturation sur narrative humanitaire pour masquer la réorganisation |
 | **CLIMAX D+35 (30 mai)** | **RUPTURE DE LA LIGNE DE DEFENSE PRINCIPALE** | **ENI (MER) saisit HSARREBOURG** | **Moment clé : offensive info maximale — l'info doit précéder ou accompagner la saisie** |
 | Défense du glacis | D+35–D+38 (30 mai–2 juin) | MER consolide HSARREBOURG, tient le glacis | Injects de consolidation : narrative "libération", protection population, légitimation |
-| Contre-offensive | D+38–D+41 (2–4 juin) | MER contre-attaque sur axe HSARREGUEMINES | Injects d'escalade : RB mobilise, attentats 2BB, accusations OTAN |
+| Contre-attaque **BLEUE** (3DIV) | D+36–D+40 (31 mai–4 juin) | **Manœuvre réelle = ATTAQUE des entraînés (3DIV) pour reprendre le terrain** — MER **défend**. (REORG D+36 · DÉCEPTION D+37 · BREACH/EXPLOIT D+38-39 · CTRL D+39-40 — cf. SYNCHROMATRICE V4 ci-dessous) | Narratif ILI rouge « contre-offensive MER » + escalade RB / attentats 2BB / accusations OTAN — **spin du repli (piège 07.08)** ; ⚠ ne PAS confondre le narratif rouge avec la manœuvre réelle bleue |
+
+> **SYNCHROMATRICE V4 — manœuvre BLEUE (3DIV), D+36→D+40** *(source : `01_Montage exercice\…SYNCRHOMATRICE V4 AURIGE.xlsx`, ingérée 2026-05-31)*
+> Réalité tactique de fin d'exercice = **contre-attaque des entraînés** (OPORD 3DIV-02 / Step 3), en 4 étapes FRAGO :
+> - **Step 0 — REORG & PREPARE** : D+36 00h01 → D+37 05h59
+> - **Step 1 — DECEIVE & ADV TO CTC** : D+37 06h00 → D+38 05h59 *(déception : fuseau Nord en reconnaissance offensive NET D+37 12h00 — « on les laisse nous berner »)*
+> - **Step 2 — ATTACK / BREACH & EXPLOIT** : D+38 06h00 → D+39 17h59 *(percée vers O24, conquête des crêtes des Vosges)*
+> - **Step 3 — CTRL & PROVIDE LoD** : D+39 18h00 → D+40 23h59
+> Forces bleues (sous 3DIV) : **2BB** (entraînés), 6BLB, 11BP, 8DAC, 3RH, 1RHC, 1RCP, BZARR. Fuseaux N/C/S · objectifs O14/O24 · lignes PL1–PL4 · axe SARREBOURG (= HSARREBOURG) / ALBESCHAUX / DIANE CAPELLE / crêtes Vosges (MONT ST MICHEL, col du VALSBERG, WIMENAU) · réserves IVO TOUL / DIEUZE / FENETRANGE / CHAMPENOUX · MSR EAGLE.
+> **EXCON (feuille « Chrono Mercredi 3 juin ») :** nuit D+38→D+39 — Calage LOCON · Début SIMU · WG CAPOPS · **ROC DRILL 14h30L** · Recalage LOCON · Arrêt SIMU.
+> ⚠ **Cadrage ILI :** synchroniser l'escalade rouge sur ces étapes — amorces avant la **déception D+37**, pic informationnel au **BREACH D+38-39**. « Contre-offensive MER » reste un **narratif** rouge, pas la réalité tactique.
 
 ### Dynamiques population (données MAINBODY)
 
@@ -79,11 +89,44 @@
 |---|---|---|---|---|---|
 | @EastWatch_Intl — Rencontre secrète Olamao-Youkachenko | **07.05.04Ai** | 10h00 MSK | Tweet EastWatch | LO 5 | Clé renommée `@EastWatch_olamao_summit` — tweet existant corrigé |
 | @A_Saniki — Exultation Bison Libre : "le GET ne se décidera pas à Bruxelles" | **07.05.04Bi** | 11h20 | Tweet rouge | LO 5 | Pro-MER — voit le sommet comme victoire du GET sur Brussels |
-| @S_Tikhanov — Double jeu Youkachenko exposé | **07.05.04Ci** | 12h00 | Tweet bleu (opposition RB) | LO 5 | "Ce n'était pas une paix — c'était une coordination." — Fracture RB |
+| @S_Tikhanov — Double jeu Youkachenko exposé | **07.05.04Ci** | 12h00 | Tweet 🔴 rouge (opposition RB pro-MER) | LO 5 | Expose le double jeu de Youkachenko (paix publique / coordination secrète MER) et exige un soutien OUVERT à Mercure — opposition pro-guerre |
 | @BelovDimitri (TV4) — Questionnement journalistique | **07.05.04Di** | 12h30 | Tweet bleu | LO 5 | "À quoi servait le discours du 27 mai ?" — contradiction perçue par DAC |
 | @BelikovaMarina — Réaction civile DAC | **07.05.04Ei** | 13h15 | Tweet bleu | LO 5 | 1ère apparition AURIGE 2BB — pigiste 24 ans — discours → réunion secrète : déception |
 
 **Cohérence narrative :** La séquence répond à l'article 07.05.01Ai (BCI_Article_Youkachenko, appel à la paix du 27 mai 18h00). Le sommet secret du 29 mai révèle que l'appel à la paix était une opération de couverture diplomatique. Enchaînement : EastWatch (info neutre) → Saniki (camp rouge, exulte) → Tikhanov (opposition, dénonce) → Belov (journaliste, questionne) → Belikova (civil, confus). LO 5 — fracture perçue de la cohérence RB.
+
+---
+
+## TIMING VALIDÉ — Injects D+38 (02 Juin 2026)
+
+> Session 2026-06-02 — 9 articles + 4 tweets produits + intégrés (index_master + tweets_data.js). Calibrage : journée volontairement « cadrage stratégique/national » sur demande utilisateur (≠ doctrine brigade, signalé).
+
+| Inject | Canal | Heure | LO | Note |
+|---|---|---|---|---|
+| 07.05.06Ai | BC1 article | 09h00 MSK | LO2(+5) | Officialisation rencontre **RB-MER** — Youkachenko officialise le partenariat + **endosse la cause MER** (exactions diaspora MER en DAC). `BCI_Article_Officialisation_Rencontre.html` |
+| 07.05.06Bi | Tweet @S_Tikhanov | 09h30 | LO2+5 | Convergence partis Ruthnia — salue la déclaration (rouge pro-MER) |
+| 07.05.06Ci | Tweet @A_Saniki | 09h45 | LO2+5 | Convergence — Bison Libre s'aligne |
+| 07.04.06Ai | TV4 article (**FR**) | 09h30 CET | LO5 | RETEX blocages HCHATEAU-SALINS/HDIEUZE/HMORHANGE — fatigue de l'arrière, anti-OTAN SANS pro-MER, unité indivisible DAC. `TV4_Article_Manifestations_DAC_01.html` |
+| 08.02.04Ai | TM article | 10h00 MSK | LO4 | POW MER capturés par 2BB à HMORHANGE — inquiétude traitement, CICR. `TM_Article_POW_Morhange_01.html` |
+| 08.02.04Bi | HEX article (FR) | 09h45 CET | LO4 | CICR/DIH IIIe Convention — contre-narratif bleu. `HEX_Article_CICR_POW_01.html` |
+| 01.01.119Ai | TM article | 10h30 MSK | LO2 | CR exercice conjoint **MER-RB** — valorise partenaire RB. `TM_Article_Exercice_MERRB_01.html` |
+| 01.01.119Bi | BC1 article | 10h45 MSK | LO2+5 | Soldats RB enthousiastes, camaraderie MER. `BCI_Article_Exercice_MERRB_01.html` |
+| 01.01.119Ci | HEX article (FR) | 12h00 CET | LO2 | Bleu inquiet : crainte renfort MER par RB. `HEX_Article_Exercice_MERRB_01.html` |
+| 07.01.02Di | Tweet @HmunikVoice (EN) | 10h00 | LO3(+2) | BDA quotidien Sniper VORIN — capitaine tué dans le fuseau 2BB, « welcome to the 2BB » |
+| 07.04.07Di | BC1 article (EN) | 11h30 MSK | LO5 | Amplification corruption Djobović/officier PL. `BCI_Article_Corruption_8DAC_01.html` |
+| 07.04.07Ei | TV4 article (EN) | 11h00 CET | LO5 | Fact check : rejette corruption = « opération d'info MER ». `TV4_Article_Corruption_Rebuttal_01.html` |
+| 07.04.07Ci | Tweet @J_Vasseur | 11h45 | LO5 | **Nouvel avatar** vétéran DAC amputé — « de nouvelles jambes vs voitures et montres » |
+| 07.05.08Ai | BC1 article (existant) | 10h00 MSK | LO4 | Ressortissants RB tués — **déjà créé/positionné au 2 juin** (`BCI_Article_Victimes`), aucune action |
+
+### ⚠ Clarifications de cohérence (session 02/06)
+- **07.05.06 & 01.01.119 : « DR » de l'intitulé = « RB » (Ruthnia Bella)** — l'allié de MER (Youkachenko). Lapsus récurrent dans les briefs : le contenu (déclaration Youkachenko, convergence *Ruthnia*, soldats partenaires « camarades MER », crainte de renfort MER) ne laisse aucun doute. Camp 🔴. *Validé par l'utilisateur le 02/06.*
+- **TV4 publie en FRANÇAIS — règle canonique** *(tranchée 2026-06-02)* : TV4 est un média basé en Dacie Romanie (francophone). L'ancienne règle « TV4 en anglais » est **abrogée** ; template TV4 francisé (chrome compris). Articles TV4 antérieurs (dont ceux en anglais, ex. `TV4_Article_Corruption_Rebuttal_01`) **conservés tels quels — ne pas retraduire** *(décision utilisateur 2026-06-02)* ; seuls les **nouveaux** TV4 sont en français. Voir registre MASTAURIGE § Langues.
+- **01.01.119 art.2 sur BC1 (pas TV4)** : l'article « soldats enthousiastes / camarades MER » a été placé sur **BC1** (RB, rouge) et non TV4 (bleu) — un tel ton sur un média bleu serait incohérent (garde-fou camp). *Validé par l'utilisateur.*
+
+### Reste à faire (hors périmètre IA / suivi)
+- **Images** : tous les heroes sont en placeholder `[ PHOTO À PRODUIRE — … ]` avec brief détaillé → voir `images_a_creer_aurige2bb.md`.
+- **MELMIL** : ajouter les incidents `08.02.04i`, `07.05.06i`, `01.01.119i` (+ vérifier `07.04.06i`, `07.04.07i`) dans `MELMIL.xls` puis relancer `Actualiser_MELMIL.bat`. Les sous-injets Ai/Bi… se grouperont automatiquement. (01.01 = série nouvelle, absente de ROW_MAP → apparaîtra en r7 tant que non mappée.)
+- **À publier plus tard (déjà existants)** : 07.04.04 (tirs fratricides, @HmunikVoice_fratricide, 02 Juin 16h00) ; 08.02.04 suite (convoi POW intercepté, après-midi) à créer.
 
 ---
 
@@ -265,7 +308,7 @@ AURIGE 2BB\
 |---|---|---|---|---|
 | **Franz Olamao** | Mercure | 🔴 Rouge | Président | TM_Article_Olamao_01 |
 | **Alexandre Youkachenko** | Ruthnia Bella | 🔴 Rouge | Président RB | BCI_Article_Youkachenko · BCI_Article_Youkachenko_ConsSec |
-| **Svetlana Tikhanov** | Ruthnia Bella | 🔵 Bleu (opposition RB) | Opposante principale — pro-démocratie, anti-guerre | TV4 / EastWatch / arcs P.03 |
+| **Svetlana Tikhanov** | Ruthnia Bella | 🔴 Rouge — pro-MER *(corrigé 2026-06-01, était à tort bleu)* | Dirigeante Nouvelle Pahonie — opposition RB **pro-guerre/pro-Mercure**, alliée de Saniki ; appel à la paix de Youkachenko = capitulation. PAS bleue/pro-OTAN. Camp : voir `ANALYSTE\BOTHNIA` | EastWatch / RS nationalistes RB |
 | **Andrei Saniki** | Ruthnia Bella | 🔴 Rouge (opposition pro-MER) | Opposant institutionnel **bi-national (père MER)** — soutient l'action militaire MER en DR — levier LO 5, PAS un levier camp bleu | EastWatch / arc P.03 bascule |
 | **Sture Pallesson** | Dacie Romanie | 🔵 Bleu | **Président DAC** (civil, pro-OTAN) | TV4_Article_Pallesson ×4 |
 | Jonas Junker | Mercure | 🔴 Rouge | Ministre Défense | Crédits MAF, tracts |
@@ -280,7 +323,7 @@ AURIGE 2BB\
 
 | Personnage | Parti | Positionnement réel | Usage éditorial |
 |---|---|---|---|
-| **Tikhanov** | Nouvelle Pahonie | Anti-Youkachenko ET anti-OTAN — "We are strangled by NATO but also by Youkachenko" | EastWatch / nuance camp bleu — NE PAS présenter comme pro-OTAN |
+| **Tikhanov** | Nouvelle Pahonie | 🔴 Rouge pro-MER — soutient la guerre de Mercure, opposée à la paix de Youkachenko (= capitulation), alliée de Saniki. Anti-OTAN mais PAS bleue | EastWatch / RS nationalistes RB — NE JAMAIS présenter comme bleue ni pro-OTAN. Camp : voir `ANALYSTE\BOTHNIA` |
 | **Saniki** | Bison Libre | Bi-national (père MER) — **soutient l'action militaire MER** en DR | ⚠ Exploitable camp rouge — "même l'opposition RB approuve" — LO 5 |
 
 **Règle éditoriale opposition RB :**
@@ -483,20 +526,20 @@ Représentation graphique complète des 45 injects ILI de l'exercice AURIGE 2BB 
 |---|---|---|
 | D+31–D+34 | 26–29 Mai | Combat retardateur |
 | D+35 | 30 Mai ★ | CLIMAX — Rupture LDP HSARREBOURG |
-| D+36–D+37 | 31 Mai–01 Jun | Défense du glacis |
-| D+38–D+40 | 02–04 Jun | Contre-offensive MER |
+| D+36–D+37 | 31 Mai–01 Jun | Attaque bleue — prépa (REORG / DÉCEPTION) · MER défend le glacis |
+| D+38–D+40 | 02–04 Jun | Attaque bleue 3DIV — percée (BREACH/EXPLOIT/CTRL) · narratif ILI rouge « contre-offensive MER » |
 
-**6 lignes acteurs :**
-- `r1` — 07.01 / 07.02 (ILI EHO MER : dénigrement, comm off)
-- `r2` — 07.03 / 07.04 (ILI EHO MER : légitimité, délégitimation)
-- `r3` — 07.05 (ILI EHO RB : Ruthnia Bella)
-- `r4` — 08.01 (HOST NATION : humanitaire)
-- `r5` — 08.02 (HOST NATION : prisonniers / redditions)
-- `r6` — 08.03 (HOST NATION : OTAN / ONU)
+**⚡ MELMIL v0.2 (2026-06-03) — 5 lignes = LIGNES OPÉRATOIRES (plus de séries/r6/r7) :**
+- `r1` **LO1** Appui hybride · `r2` **LO2** Volonté de combattre · `r3` **LO3** Guerre des pertes · `r4` **LO4** Vent de libération · `r5` **LO5** Rupture des alliances
+- **Couleur de card = sphère info : 🔴 rouge (MER/RB) / 🔵 bleu (OTAN/ONU/Occident authentique)** — 2 couleurs seulement. Le bleu réel se repère à sa card bleue dans la ligne LO.
 
-### ⚠ LIGNE r7 — Ghost/Orphelins sans incident XLS (ajout 2026-05-29)
+> **Doctrine** (LO = procédé rouge ; card bleue = bleu authentique ; avatar rouge simulant du bleu = card rouge dans sa LO) : **propriété EXPERT_INFLUENCE** — voir `EXPERT_INFLUENCE/MEMOIRE.md` § « Lecture de la synchromatrice par LO + règle ROUGE/BLEU ». **Mécanique :** `ROW_MAP[série]` (ligne) + `sphereClass`/`SPHERE_BLUE` (couleur) ; `var PAYS_DELEGITIME='DAC'` pilote les libellés LO4/LO5 (`'ARN'` pour Arnland). **Carte série→LO (défauts à valider) :** 07.07/07.08→LO1 · 07.01/07.06/04.01→LO2 · 07.02/08.01/08.02→LO3 · 07.03/07.04→LO4 · 07.05/01.01/08.03→LO5 (08.03 = card bleue).
 
-MELMIL_ILI_GUILLAUME.html contient maintenant une **7e ligne (r7)** dédiée aux injects dont le parent n'est pas encore dans MELMIL.xls.
+### ⚠ LIGNE r7 — Ghost/Orphelins (SUPPRIMÉE en v0.2, 2026-06-03)
+
+> **OBSOLÈTE depuis MELMIL v0.2 :** la ligne GHOST r7 n'existe plus. Un inject orphelin (parent pas encore dans MELMIL.xls) est désormais placé **dans la ligne LO de sa série** (style ghost dashed conservé), via `ROW_MAP[série]` + `ensureDynRow` en secours. Le texte ci-dessous décrit l'ancien comportement (conservé pour historique).
+
+MELMIL_ILI_GUILLAUME.html contenait une 7e ligne (r7) dédiée aux injects dont le parent n'est pas encore dans MELMIL.xls.
 
 **Comportement automatique (melmil.js CAS 1.5) :**
 - Si `melmil_inject_index.js` contient `"04.01.01Ai"` ET que `04.01.01i` n'est PAS dans MELMIL.xls → carte virtuelle créée en r7, sous-injects Ai/Bi/Ci/Di groupés dedans
@@ -624,11 +667,11 @@ Un sous-inject joué à une date différente de son parent XLS **conserve son co
 | 28 Mai | D+33 | J3 | Combat retardateur | Bords de la Moselle / axe HNANCY |
 | 29 Mai | D+34 | J4 | Combat retardateur fin | Vers HSARREBOURG |
 | 30 Mai | D+35 | J5 | **CLIMAX** | Saisie HSARREBOURG |
-| 31 Mai | D+36 | J6 | Défense glacis | HSARREBOURG tenu |
-| 01 Jun | D+37 | J7 | Défense glacis | HSARREBOURG → HPHALSBOURG |
-| 02 Jun | D+38 | J8 | Contre-offensive | Axe HSARREGUEMINES |
-| 03 Jun | D+39 | J9 | Contre-offensive | HSARREGUEMINES |
-| 04 Jun | D+40 | J10 | Contre-offensive | HSARREGUEMINES |
+| 31 Mai | D+36 | J6 | Attaque bleue — REORG · MER défend | HSARREBOURG tenu (glacis) |
+| 01 Jun | D+37 | J7 | Attaque bleue — DÉCEPTION & avance au contact | Fuseau Nord (leurre) · HSARREBOURG → HPHALSBOURG |
+| 02 Jun | D+38 | J8 | Attaque bleue — BREACH & EXPLOIT | Percée crêtes Vosges / O24 · *(ILI rouge : « contre-offensive MER » axe HSARREGUEMINES)* |
+| 03 Jun | D+39 | J9 | Attaque bleue — EXPLOIT → CTRL | Vosges / O24 · ROC DRILL 14h30L |
+| 04 Jun | D+40 | J10 | Attaque bleue — CTRL & LoD | Consolidation bleue |
 
 ### Règle de localisation des injects
 
@@ -753,7 +796,7 @@ Un sous-inject joué à une date différente de son parent XLS **conserve son co
 
 | Référence | Code | Canal | Compte | Heure | Camp | LO | Contenu |
 |---|---|---|---|---|---|---|---|
-| **07.05.03Ai** | `@S_Tikhanov_newpahonia` | Tweet | @S_Tikhanov (Svetlana Tikhanov — Nouvelle Pahonie) | 28 Mai 20h20 | 🔵 Bleu | LO 5 | Youkachenko accusé de lâcheté face aux manifestations — appel à la jeunesse Pahonia : "Get ready for the fight!" — fracture interne RB |
+| **07.05.03Ai** | `@S_Tikhanov_newpahonia` | Tweet | @S_Tikhanov (Svetlana Tikhanov — Nouvelle Pahonie) | 28 Mai 20h20 | 🔴 Rouge pro-MER | LO 5 | Youkachenko accusé de lâcheté face aux manifestations — appel à la jeunesse Pahonia : "Get ready for the fight!" — opposition pro-guerre/pro-Mercure |
 | **07.05.03Bi** | `@A_Saniki_freebison` | Tweet | @A_Saniki (Andrei Saniki — Bison Libre) | 28 Mai 20h45 | 🔴 Rouge | LO 5 | Appel à la mobilisation nationaliste RB — défense des compatriots en DR soutenue par la Nouvelle Pahonie — le Bison rejoint la lutte |
 
 **Contexte :** Ces tweets sont des réactions immédiates à l'article BC1 (07.05.03i — Manifestations dans 4 villes RB, 19h00 MSK). Ils sont des sub-injects de l'incident 07.05.03 — codes `07.05.03Ai` et `07.05.03Bi` (lettres A et B libres dans MELMIL.xls, vérifiées). **Ghost cards MELMIL** jusqu'à leur ajout dans MELMIL.xls.

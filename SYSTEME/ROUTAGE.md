@@ -23,8 +23,13 @@ La demande concerne...
 │   └── Erreur incompréhensible, logique de programme → PENSEUR puis ARCHITECTE
 │
 ├── un RAISONNEMENT ou une PLANIFICATION ?
-│   ├── Problème complexe, stratégie, arbitrage → PENSEUR (deepseek-r1:14b)
+│   ├── Problème complexe, stratégie, arbitrage → PENSEUR (deepseek-r1:14b, local)
+│   ├── Évaluation DOCTRINALE d'une production ILI (Sun Tzu / Morelli 10 principes → LO) → EXPERT_INFLUENCE
+│   │       (dépôt doctrinal unique : EXPERT_INFLUENCE\REFERENCES\ ; PENSEUR raisonne en citant cette doctrine)
 │   └── Plan d'action avec du code → PENSEUR (plan) + ARCHITECTE (exécution)
+│
+├── une IDÉE NON ABOUTIE à stocker / faire mûrir (sans produire) ?
+│   └── → BROUILLON (deepseek-r1:14b, LOCAL — économise les tokens) ; promu ensuite vers l'agent compétent
 │
 ├── de la RÉDACTION en français ?
 │   ├── Mail, synthèse, rapport, correction → SECRÉTAIRE (mistral-nemo)
@@ -68,7 +73,7 @@ La demande concerne...
 ├── une question sur la RUTHNIA BELLA (régime Youkachenko, opposition Tikhanov/Saniki, médias RB/BC1, arcs narratifs RB) ?
 │   └── ANALYSTE_BOT (deepseek-r1:14b) → dossier `ANALYSTE\BOTHNIA\`
 │       Note : Ruthnia Bella = Biélorussie fictive. Youkachenko, opposition et BC1 sont des entités FICTIVES → ne jamais router vers NOYAU comme "figure réelle"
-│       Rappel camps : Youkachenko + BC1 = 🔴 rouge · Tikhanov = 🔵 bleu nuancé · Saniki = 🔴 rouge pro-MER
+│       Rappel camps : Youkachenko + BC1 = 🔴 rouge · Tikhanov (Nouvelle Pahonie) = 🔴 rouge pro-MER · Saniki (Bison Libre) = 🔴 rouge pro-MER
 │
 ├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 2BB ?
 │   └── GUILLAUME (claude-opus-4-7) → chef d'orchestre éditorial AURIGE 2BB
@@ -119,7 +124,7 @@ $r.response
 | Modèle | Exemples d'agents | Temps de chargement estimé |
 |---|---|---|
 | qwen2.5-coder:14b | ARCHITECTE | ~15-30s (1ère fois) |
-| deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | ~15-30s (1ère fois) |
+| deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, **BROUILLON** | ~15-30s (1ère fois) |
 | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE, VOIX, MASTODONTE, MASTAURIGE | ~10s |
 | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE, ARCHIVISTE | ~5s |
 | Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE | immédiat (API) |

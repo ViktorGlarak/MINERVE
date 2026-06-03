@@ -1,4 +1,6 @@
-# MÉMOIRE — PENSEUR (DeepSeek-R1 14B)
+# MÉMOIRE — PENSEUR (DeepSeek-R1 14B, local)
+
+> **2026-06-02 — Modèle + doctrine (état final).** PENSEUR est brièvement passé à `claude-opus-4-8`, puis **remis en local `deepseek-r1:14b`** le même jour. La doctrine (Sun Tzu, Morelli) initialement ajoutée ici a été **déplacée chez EXPERT_INFLUENCE** (`EXPERT_INFLUENCE/REFERENCES/`) pour concentrer toute la doctrine dans une seule IA. PENSEUR **cite** désormais EXPERT_INFLUENCE pour ces grilles (chaîne : *effet (Sun Tzu) → principe(s) (Morelli) → LO (GLM26)*), il ne les détient plus. PENSEUR redevient un agent **local** (pas de tokens).
 
 ## Format d'entrée
 ```

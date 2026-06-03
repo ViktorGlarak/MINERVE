@@ -128,6 +128,13 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 - **À utiliser dans les injects bleus** : figure de la compétence tactique DAC, contrepoids aux narratives MER de supériorité
 - **Exploitable par MER (ILI)** : si Mercure produit un inject de déni ou de retournement sur la capture des 104 hommes, DJOBOVIC est la cible nominative à discréditer
 
+**Éléments canonisés (détails fixés le 2026-06-01 pour l'inject corruption 07.04.07i) :**
+- Prénom / grade complet : **gén. de brigade Marko DJOBOVIĆ**
+- Ville natale (adresse perso DAC) : **HCOMPIEGNE** (14, rue Saint-Georges) *(corrigé 2026-06-01 — était HMETZ)*
+- **Inject 07.04.07i — « Factures & corruption » (LO 4 + LO 5, D+37 / 01 Jun)** : ILI MER l'accuse d'avoir acquis une **Arrinera Hussarya GT** (265 680 £) via des **fonds d'aide détournés**, en lien avec des **officiers polonais**. Concession vendeuse : **Auto Premium Kowalczyk Sp. z o.o.** (Varsovie, NIP 701-024-58-63), propriété du **frère du chef du bataillon polonais déployé, ppłk Tomasz KOWALCZYK**. 3 produits : `07.04.07Ai` (article Today Mercure), `07.04.07Bi` (tweet @MaiaKovalenko), `07.04.07Ci` (facture polonaise fuitée).
+- ⚠ L'inject **insinue** sur la probité des officiers **français** voisins **sans les incriminer** (effet de doute, pas d'accusation directe).
+- Camp de DJOBOVIĆ inchangé : **🔵 BLEU (DAC)** — il est la **cible** de l'ILI MER, pas un allié de MER.
+
 ---
 
 ## 📰 ENVIRONNEMENT INFORMATIONNEL (countrybook, approfondi 2026-05-31)
