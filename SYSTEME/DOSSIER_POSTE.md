@@ -82,9 +82,9 @@ Chemin : `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI\models\audio_e
 
 ### Modèles IA locaux (Ollama) et agents
 
-> **Registre complet des agents (modèle, collaborations, rôle) → `IA\Mercure\CLAUDE.md`, section « Registre des agents ».** Source unique, à jour. Ne pas recopier la liste ici.
+> **Registre complet des agents (modèle, collaborations, rôle) → `IA\MINERVE\CLAUDE.md`, section « Registre des agents ».** Source unique, à jour. Ne pas recopier la liste ici.
 >
-> Arbre de décision « quel agent pour quelle tâche » → `IA\Mercure\SYSTEME\ROUTAGE.md`.
+> Arbre de décision « quel agent pour quelle tâche » → `IA\MINERVE\SYSTEME\ROUTAGE.md`.
 
 ---
 
@@ -133,8 +133,8 @@ Tout asset réutilisable (image, audio, vidéo) doit être archivé ici avec fic
 
 ---
 
-## 7. SYSTÈME MERCURE
-Chemin : `D:\CECPC\PRODUCTION\IA\Mercure`
+## 7. SYSTÈME MINERVE
+Chemin : `D:\CECPC\PRODUCTION\IA\MINERVE`
 Interface principale : **Claude Code** (VSCode)
 Interface agents locaux : **Continue** (VSCode, config `C:\Users\MTR\.continue\config.yaml`)
 

@@ -5,7 +5,7 @@
       "PowerShell(\\(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\" -Recurse -File | Measure-Object\\).Count)",
       "PowerShell(ls \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\01 ORION 26\" | Select-Object Name, @{N=\"Type\";E={if\\($_.PSIsContainer\\){\"Directory\"}else{\"File\"}}})",
       "WebFetch(domain:ltx.io)",
-      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ARCHIVISTE\\\\SESSIONS\" -Force)",
+      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ARCHIVISTE\\\\SESSIONS\" -Force)",
       "Bash(ls \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\ComfyUI\\\\models\\\\audio_encoders\\\\openai_whisper-large-v3-turbo\")",
       "Read(//c/Users/MTR/Documents/ComfyUI_windows_portable/ComfyUI/models/audio_encoders/openai_whisper-large-v3-turbo/**)",
       "WebFetch(domain:github.com)",
@@ -14,13 +14,13 @@
       "Bash(Get-ChildItem -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\\" -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize)",
       "PowerShell(Get-ExecutionPolicy -List)",
       "PowerShell(Get-ExecutionPolicy)",
-      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\MEMOIRE.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
-      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
-      "Bash(Remove-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\" -Recurse -Force)",
+      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE_BR\\\\MEMOIRE.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
+      "Bash(Copy-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE_BR\\\\README.md\" -Destination \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
+      "Bash(Remove-Item -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE_BR\" -Recurse -Force)",
       "Bash(Write-Host \"Done\")",
-      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\" -Force)",
-      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\MEMOIRE.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
-      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE_BR\\\\README.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\Mercure\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
+      "PowerShell(New-Item -ItemType Directory -Path \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE\\\\BELLA_RUSSIA\" -Force)",
+      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE_BR\\\\MEMOIRE.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\MEMOIRE.md\" -Force)",
+      "PowerShell(Copy-Item \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE_BR\\\\README.md\" \"D:\\\\CECPC\\\\PRODUCTION\\\\IA\\\\MINERVE\\\\ANALYSTE\\\\BELLA_RUSSIA\\\\README.md\" -Force)",
       "Bash(start \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\MELMIL_ILI_GUILLAUME.html\")",
       "Bash(start \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MELMIL\\\\MELMIL_ILI_GUILLAUME.html\")",
       "PowerShell(Get-ChildItem \"D:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 2BB\\\\00_Boites à outils\\\\MASTAURIGE\\\\WEB\\\\images\" | Where-Object { $_.Extension -match '\\\\.\\(jpg|jpeg|png|webp|gif\\)' } | Select-Object Name | Format-Table -AutoSize | Out-String -Width 200)",
@@ -33,8 +33,8 @@
       "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py \"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/01_Montage exercice/20260313 - GT2 MINOTAURE 26 AURIGE BB7 - EVENT LIST - MASTER SLIDES VF.pptx\")",
       "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py '__TRACKED_VAR__/00-20260216_NU_MNC-W_MINOTAURE 26_OPORD_MAIN BODY PH3b.docx')",
       "Bash(PYTHONIOENCODING=utf-8 PYTHONUTF8=1 py SYSTEME/_tmp_extract.py '__TRACKED_VAR__/01-20260216_NU_MNC-W_MINOTAURE 26_OPORD_PH3b_Annex_A_App1_SOM.docx')",
-      "Bash(cd \"C:/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-Mercure/memory\" && ls *.md | grep -iE \"casw|avatar|mastaurige|scenar\" 2>/dev/null; echo \"--- handles rouges connus dans la mémoire repo ---\"; cd \"d:/CECPC/PRODUCTION/IA/Mercure\" && grep -rhoE \"@[A-Za-z0-9_]+_r1_[A-Za-z0-9_]+|@Hmunik[A-Za-z]*|@[A-Za-z]*Voice\" MASTAURIGE/ 2>/dev/null | sort -u | head -40)",
-      "Read(//c/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-Mercure/memory/**)",
+      "Bash(cd \"C:/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-MINERVE/memory\" && ls *.md | grep -iE \"casw|avatar|mastaurige|scenar\" 2>/dev/null; echo \"--- handles rouges connus dans la mémoire repo ---\"; cd \"d:/CECPC/PRODUCTION/IA/MINERVE\" && grep -rhoE \"@[A-Za-z0-9_]+_r1_[A-Za-z0-9_]+|@Hmunik[A-Za-z]*|@[A-Za-z]*Voice\" MASTAURIGE/ 2>/dev/null | sort -u | head -40)",
+      "Read(//c/Users/MTR/.claude/projects/d--CECPC-PRODUCTION-IA-MINERVE/memory/**)",
       "Bash(pdftotext -layout 'D:/CECPC/PRODUCTION/CREATION/02 - MERCURE/Portraits/20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf' -)",
       "Bash(grep -avE \"^$\")",
       "Read(//d/CECPC/**)",
@@ -51,6 +51,21 @@
       "Bash(sed -i 's/?v=27/?v=28/g' index_master.html)",
       "Bash(sed -i 's/?v=20260601i/?v=20260601j/g' MELMIL/MELMIL_ILI_GUILLAUME.html)",
       "Bash(py OUTILS/verifier_mastaurige.py)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "py D:/CECPC/PRODUCTION/IA/MINERVE/.claude/hooks/mastaurige_memoire_reminder.py 2>/dev/null || true",
+            "statusMessage": "Vérification mémoire MASTAURIGE"
+          }
+        ]
+      }
     ]
   }
 }

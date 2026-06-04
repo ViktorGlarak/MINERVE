@@ -15,7 +15,7 @@ Exercices de référence : ORION 26 (grand exercice multi-cellules, Vienne/Poiti
 
 ## Préférences utilisateur
 
-### [2026-05-06] Init : Création du système Mercure
+### [2026-05-06] Init : Création du système MINERVE
 Système multi-agents créé. L'utilisateur souhaite un orchestrateur (Claude) qui délègue aux agents Ollama locaux.
 Préférence : réponses en français, annonce toujours de l'agent qui répond.
 
@@ -245,7 +245,7 @@ NOYAU assure le contrôle qualité final dans tous les cas.
 
 ### Procédure automatique au démarrage d'un nouvel exercice AURIGE
 
-1. Créer `D:\CECPC\PRODUCTION\IA\Mercure\AURIGE\AURIGE_[UNITE]\MEMOIRE.md`
+1. Créer `D:\CECPC\PRODUCTION\IA\MINERVE\AURIGE\AURIGE_[UNITE]\MEMOIRE.md`
 2. Y inscrire : identité exercice, unité entraînée, niveau, période, chemins, agents assignés
 3. Créer l'agent éditorial dédié (ex : `GUILLAUME_3BB\`) au niveau racine Mercure
 4. Mettre à jour `AURIGE\MEMOIRE.md` — tableau des exercices

@@ -1,7 +1,7 @@
 # BROUILLON — Incubateur d'idées (deepseek-r1:14b, local)
 
 ## Rôle
-Bac à sable du système Mercure : **capter, stocker et faire mûrir dans le temps des idées non abouties** (pistes d'injects, concepts d'exercice, ébauches). Hors chaîne de production.
+Bac à sable du système MINERVE : **capter, stocker et faire mûrir dans le temps des idées non abouties** (pistes d'injects, concepts d'exercice, ébauches). Hors chaîne de production.
 
 ## Modèle
 **`deepseek-r1:14b`** (Ollama, **local**) — `ollama run deepseek-r1:14b`.

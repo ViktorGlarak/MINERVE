@@ -1251,3 +1251,32 @@ Récupère **tout seul** `index_media/rzo/complet.html` depuis Téléchargements
 **Fichiers :** `MASTAURIGE_VERSION.txt` (racine de chaque instance, = source autoritaire lue par les outils) ; `CHANGELOG.md` (racine du vierge = historique maître) ; version affichée en pied de `index_master.html` + barre `MELMIL_ILI_GUILLAUME.html`.
 **Modèle :** le **vierge = référence, porte toujours le dernier numéro** ; chaque exercice est **figé** à sa version de départ. Quand la machinerie évolue → reporter dans le vierge + **bump 3 endroits** (CHANGELOG, VERSION.txt, affichage pied/barre) + ligne de version.
 **Outil `OUTILS\COMPARER.bat` (`comparer_au_gabarit.py`, lecture seule) :** compare la machinerie d'un exercice au vierge — affiche les 2 versions, liste les fichiers-moteur identiques/différents/absents (compare à l'octet les fichiers « purs » : OUTILS, PS1, generate_data, melmil.css, back-btn.js ; compare le moteur `melmil.js` en ignorant `ROW_MAP`/`CLASS_MAP`/`DAY_MAP`), et imprime le carnet → indique quoi reporter. Chemin du vierge codé en tête du script (`VIERGE = …08 - MASTAURIGE VIERGE`). Généré dans le gabarit par `creer_gabarit_vierge.py` (qui écrit aussi VERSION/CHANGELOG/LISEZ-MOI).
+
+---
+
+## ⭐ v0.2 — état & évolutions (au 2026-06-04) — FAIT FOI
+
+> Version courante = **v0.2** (`MASTAURIGE_VERSION.txt`). Cette section **fait foi** et **corrige les références périmées plus haut**.
+
+**Chemins / nommage à jour :**
+- **Vierge** = `D:\CECPC\MASTAURIGE\LOCALSTORAGE_WEB_VERSION` *(déplacée 2026-06-04 ; ex `D:\CECPC\MASTAURIGE`, ex `…\CREATION\08 - MASTAURIGE VIERGE`)*. Structure : racine `index_master.html` + `Sites/ moteur/ MELMIL/ assets/ shared/ OUTILS/ PS1/`. Cf. [[mastaurige-vierge-chemin]].
+- **Générateur** = `OUTILS\GENERER_VIERGE.py` (et **non** `creer_gabarit_vierge.py`). Reset + copie + réécriture `../../` + blanking. ⚠ `empty_obj` **corrigé 2026-06-04** (commentaire-aware) : un `//` avec apostrophe seule faisait déborder le vidage de `LO_BY_KEY` et **supprimait le bloc d'appels d'init** de la vierge (classification/statuts inactifs).
+- **MELMIL dans la vierge** = `MELMIL/melmil_ili.html` *(renommé ; reste `MELMIL_ILI_GUILLAUME.html` côté 2BB)*. Le générateur renomme + réécrit le bouton.
+- ⚠ Outils à **chemin vierge codé en dur** (ex. COMPARER) : vérifier qu'ils pointent sur le nouveau chemin avant usage.
+
+**MELMIL (melmil.js) — injects CRÉÉS (index_master → localStorage) :**
+- Placés à **LEUR propre date** ; si l'incident parent est dans le `.xls` mais à un autre jour → **card-incident créée à la date du sous-inject**.
+- **Split par camp** : 1 card par camp présent (🔴/🔵/⚪).
+- **Ghost (couleur claire) UNIQUEMENT si l'incident est absent du `.xls`** ; s'il y est → **couleur pleine + nom (sujet) repris du `.xls`**.
+- **LO déduite de la série** via `ROW_MAP` (07.05→LO1 · 07.01→LO2 · 07.02→LO3 · 07.03/07.06→LO4 · 07.04→LO5 + overrides incident). ⚠ **Miroir** dans `index_master.html` (`_LO_BY_SERIES`/`_LO_BY_INCIDENT`) — **GARDER SYNCHRONISÉ** si les séries→LO changent (MINAUTORE).
+- Bandeau classification (index_master) : le contenu créé affiche **num + LO** (repli `AW/TW.get` / `data-num` quand `ANIM_DATA` vide).
+
+**Vider MELMIL — 2 niveaux :**
+- Bouton **ANIMATEUR → « 🗑 Tout vider (session + tableau MELMIL) »** : vide le localStorage (créations/positions/statuts) **et** masque le socle (`melmil-socle-masque` = `updated` du socle ; `socleInjections()` → `[]`). **Réversible** (un nouvel import réaffiche). Navigateur seulement ; localStorage partagé sur **Edge/Chrome**, **isolé sur Firefox** → utiliser Edge/Chrome.
+- **`MELMIL/Vider_MELMIL.bat`** : **vrai reset disque** — réécrit `melmil_data.js` à vide + retire `MELMIL.xls` (+ verrou).
+
+**Trombinoscope :** photos centralisées dans **`Trombinoscope/img/`** (auto-contenu `src="img/…"`, fini les `../../../../../../CREATION/…`) — cf. [[trombino-img-convention]]. Page **Bothnia** : drapeau image (dégradé vert→rouge « penchant MER ») + **Tikhanov (Nouvelle Pahonie) / Saniki (Bison Libre)** en opposition pro-MER (camp = ce registre). Layout : région gauche 2/3 (pol+mil) + bande avatars 4 col ; anti-chevauchement (`flex:0 0 auto` + base `flex-shrink:0`).
+
+**Sites médias (templates `_TEMPLATE.html`) :** **TF1 INFO** (logo réel base64 ; hero option « vidéo » avec **bouton play FUYANT** qui revient au centre au `mouseleave`), **Omerta Média** (logo base64), **ZubrRadio.FM** (radio, transcription IA). Garde-fou commun : placeholder `.ph` masqué dès qu'une image est présente.
+
+**Pont statut ↔ ronds MELMIL :** via `card-status-<key>` (même clé index_master ↔ MELMIL). Export/Import session sur MELMIL (`exportSession`/`importSession`) embarque les `card-*` (dont statuts).

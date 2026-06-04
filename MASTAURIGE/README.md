@@ -31,12 +31,12 @@ Toujours fournir à MASTAURIGE au moment de l'appel :
 2. **Blocs HTML tweet card** : prêts à coller dans `WEB/index.html` (section `data-category="social"`)
 
 ## Chemin prompt système
-`D:\CECPC\PRODUCTION\IA\Mercure\SYSTEME\PROMPTS\mastaurige.md`
+`D:\CECPC\PRODUCTION\IA\MINERVE\SYSTEME\PROMPTS\mastaurige.md`
 
 ## Chemins ressources exercices
 | Ressource | Chemin |
 |---|---|
-| Base avatars CASW | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\avatars_casw_orion26.md` |
-| Règles AGENTS | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\agents_rules_orion26.md` |
-| Process tweets | `D:\CECPC\PRODUCTION\IA\Mercure\MASTAURIGE\CASW\PROCESS_TWEETS_AURIGE.md` |
+| Base avatars CASW | `D:\CECPC\PRODUCTION\IA\MINERVE\MASTAURIGE\CASW\avatars_casw_orion26.md` |
+| Règles AGENTS | `D:\CECPC\PRODUCTION\IA\MINERVE\MASTAURIGE\CASW\agents_rules_orion26.md` |
+| Process tweets | `D:\CECPC\PRODUCTION\IA\MINERVE\MASTAURIGE\CASW\PROCESS_TWEETS_AURIGE.md` |
 | Index WEB AURIGE | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\index.html` |

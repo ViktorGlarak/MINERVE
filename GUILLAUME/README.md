@@ -18,4 +18,4 @@ Chef d'orchestre éditorial de l'exercice AURIGE 2BB. Responsable du calendrier 
 | Synchromatrice V4 | `EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\20260107_NP_CECPC_BEXE-GUILLAUME26-SYNCRHOMATRICE V4.xlsx` | Source de vérité injects |
 | SUIVI_PRODUCTION.md | `EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\SUIVI_PRODUCTION.md` | État de production |
 | WEB/ | `EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\` | Agrégateur + sites médias fictifs |
-| MEMOIRE.md | `IA\Mercure\GUILLAUME\MEMOIRE.md` | Connaissance tactique + décisions éditoriales |
+| MEMOIRE.md | `IA\MINERVE\GUILLAUME\MEMOIRE.md` | Connaissance tactique + décisions éditoriales |

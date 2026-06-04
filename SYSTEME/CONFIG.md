@@ -1,4 +1,4 @@
-# CONFIG — Paramètres du système Mercure
+# CONFIG — Paramètres du système MINERVE
 
 ## Environnement
 - **OS :** Windows 11 Pro
@@ -32,8 +32,8 @@
 ## Workflow vidéo validé
 Image (Firefly/Flow/Gemini) → Animation LTX i2v → Overlays Premiere Pro → Export
 
-## Répertoire Mercure
-`D:\CECPC\PRODUCTION\IA\Mercure`
+## Répertoire MINERVE
+`D:\CECPC\PRODUCTION\IA\MINERVE`
 
 ## Prochaines étapes prévues
 - [ ] Niveau 2 : Script Python orchestrateur autonome (sans Claude)

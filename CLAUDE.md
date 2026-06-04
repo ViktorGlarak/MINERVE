@@ -1,19 +1,22 @@
-# CLAUDE.md — Source de vérité du système Mercure
+# CLAUDE.md — Source de vérité du système MINERVE
 
 > Ce fichier est **la référence canonique** du projet. Toute valeur définie ici prime sur les autres fichiers.
 > Quand une information change ici, mettre à jour les fichiers listés dans la section correspondante.
+
+> **MINERVE = Module Intelligent Numérique d'Effets, de Renseignement et de Veille pour l'Entraînement** *(rebranding du « système Mercure » le 2026-06-04 — clin d'œil à **Minerve**, déesse romaine de la sagesse et de la guerre stratégique : vaincre par l'intelligence).*
+> ⚠ **« MINERVE » désigne le SYSTÈME** (cet outil multi-agents et son dossier `IA\MINERVE`). Le **pays fictif « République de Mercure »** (univers Skolkan : `ANALYSTE\MERCURE`, countrybooks, injects, GET) **garde son nom « Mercure »** — ne jamais le renommer.
 
 ---
 
 ## Chemin racine du projet
 
 ```
-D:\CECPC\PRODUCTION\IA\Mercure\
+D:\CECPC\PRODUCTION\IA\MINERVE\
 ```
 
 **Fichiers à mettre à jour si ce chemin change :**
-- `SYSTEME\CONFIG.md` — section "Répertoire Mercure"
-- `SYSTEME\DOSSIER_POSTE.md` — section "7. SYSTÈME MERCURE"
+- `SYSTEME\CONFIG.md` — section "Répertoire MINERVE"
+- `SYSTEME\DOSSIER_POSTE.md` — section "7. SYSTÈME MINERVE"
 - `.claude\settings.local.json` — toute permission contenant ce chemin
 
 ---
@@ -143,6 +146,13 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 > **Après chaque avancée du projet, mettre à jour les fichiers concernés sans attendre que l'utilisateur le demande.**
 > C'est un réflexe non négociable : chaque production validée, chaque décision prise, chaque contenu créé doit laisser une trace immédiate.
 
+> **⭐ Règle générale — mémoire des agents (CONSULTER + CONSIGNER), pour TOUS les agents.**
+> Tout sujet abordé relève d'un ou plusieurs **agents** (voir le Registre des agents + colonne « Collabore avec »). Dès qu'un sujet est **évoqué ou traité** :
+> 1. **AVANT** — lire la mémoire de l'agent lié (`NOM_AGENT\MEMOIRE.md`) ; ne jamais travailler « à l'aveugle » sur son domaine.
+> 2. **APRÈS** — y consigner **immédiatement** les éléments jugés importants (décisions, contenus, règles, état), **sans attendre de rappel utilisateur**.
+>
+> Exemples : **Bothnia / Tikhanov / Saniki** → `ANALYSTE\BOTHNIA\MEMOIRE.md` · **AURIGE 7BB / MINAUTORE** → `MINAUTORE\MEMOIRE.md` · **doctrine ILI / synchromatrice** → `EXPERT_INFLUENCE\MEMOIRE.md` · **discours / narration** → `SCENARISTE\MEMOIRE.md` · **outillage web** → `MASTAURIGE\MEMOIRE.md` *(en plus, un hook me le rappelle)*. Plusieurs agents concernés → **tous** mis à jour (cf. règle « mise à jour SIMULTANÉE »).
+
 **Ce qui déclenche une mise à jour :**
 - Un discours rédigé ou validé → `SCENARISTE\MEMOIRE.md`
 - Un personnage créé ou complété → mémoire auto (`aurige_guillaume.md`) + `SCENARISTE\MEMOIRE.md`
@@ -151,12 +161,14 @@ D:\CECPC\PRODUCTION\IA\Mercure\
 - Un nouveau pattern de routage → `NOYAU\MEMOIRE.md`
 - Un agent ajouté ou modifié → **tous les fichiers du registre** (voir checklist ci-dessus)
 - Le chemin racine change → **tous les fichiers de chemin** (voir checklist ci-dessus)
+- **Toute évolution de l'OUTILLAGE MASTAURIGE** (code WEB : `melmil.js`, créateur, `index_master.html`, générateur `GENERER_VIERGE.py`, vierge, `.bat`, trombino, sites médias, conventions…) → **consigner dans `MASTAURIGE\MEMOIRE.md`** (§ « v0.2 — FAIT FOI ») **dans la MÊME session, sans attendre de rappel utilisateur**.
 
 **Fichiers de mémoire à maintenir en priorité :**
 - `SCENARISTE\MEMOIRE.md` — narrative, discours, règles par exercice
 - `NOYAU\MEMOIRE.md` — patterns de routage, préférences utilisateur
 - `SYSTEME\DOSSIER_POSTE.md` — règles de production validées
 - Mémoire auto Claude (`memory\aurige_guillaume.md`) — état de production personnages
+- **`MASTAURIGE\MEMOIRE.md` — état & capacités de l'outillage MASTAURIGE. ⚠⚠ RÈGLE NON NÉGOCIABLE : (1) la LIRE AVANT toute intervention sur MASTAURIGE (code WEB / vierge / melmil / créateur / générateur / sites / trombino) ; (2) la METTRE À JOUR juste APRÈS tout changement, même mineur. Un hook le rappelle automatiquement à chaque édition d'un fichier MASTAURIGE — mais c'est dû quoi qu'il arrive.**
 
 ### Après chaque session productive
 - [ ] Mettre à jour `AGENT\MEMOIRE.md` des agents sollicités

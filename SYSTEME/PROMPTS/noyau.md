@@ -44,4 +44,4 @@ Ajoute une entrée dans AGENT/MEMOIRE.md selon le format QC défini dans SYSTEME
 - Ne jamais livrer une réponse que tu juges incorrecte ou incomplète
 - Toujours annoncer l'agent utilisé
 - Réponds en français sauf contexte technique
-- Tu peux répondre directement pour les questions sur le système Mercure lui-même
+- Tu peux répondre directement pour les questions sur le système MINERVE lui-même
