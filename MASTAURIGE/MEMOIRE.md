@@ -333,7 +333,7 @@ Fichier HTML autonome — format A3 paysage, 3 pages imprimables. **Usage animat
 | 2 | 🔵 Dacie Romanie | Politique + opposition ASP + judiciaire · Commandement ADF (VONG + DJOBOVIC 8e DAC) · Acteurs internationaux (Rutte, Guterres, CICR) · Médias camp bleu |
 | 3 | 🟡 Ruthnia Bella *(onglet jaune)* | Régime Youkachenko + appareil sécuritaire · Opposition (Tikhanov, Saniki) · CEMA RB · Médias RB + arcs narratifs |
 
-> ⚠ **Le 🟡 est la couleur d'ONGLET de la page trombinoscope RB — pas un camp narratif.** Le camp de Ruthnia Bella (régime Youkachenko, BC1) reste **🔴 Rouge (allié MER)**. Seule l'opposition se nuance : Tikhanov = 🔵 bleu (nuancé), Saniki = 🔴 rouge (pro-MER).
+> ⚠ **Le 🟡 est la couleur d'ONGLET de la page trombinoscope RB — pas un camp narratif.** Le camp de Ruthnia Bella (régime Youkachenko, BC1) reste **🔴 Rouge (allié MER)**. L'opposition Tikhanov **et** Saniki sont **🔴 rouge — pro-MER** *(corrigé 2026-06-01 ; Tikhanov n'est PAS bleue)*. Camp = ce registre + `avatars.js` ; fiches doctrine → `ANALYSTE\BOTHNIA`.
 
 ### Photos intégrées
 

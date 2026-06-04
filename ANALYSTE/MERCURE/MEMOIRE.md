@@ -424,6 +424,7 @@ Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils
 **Médias d'influence externe :**
 - **"Mercure Today"** — media anglophone externe à portée mondiale (Voice of Mercure, Radio HMunik)
 - **"Meracity"** — réseau social d'État pour contrer la dissidence intérieure
+- **"ZubrRadio.FM"** (98.6 — « la voix libre du Grand East ») — radio d'influence francophone pro-MER, créée pour AURIGE 2BB (04/06/2026). Diffuse vers l'opinion **française** (front intérieur) ; publie des **transcriptions automatiques par IA** de ses émissions (technique de blanchiment / déni : « ce n'est qu'une retranscription »). 1er usage : adresse du président **Olamao** « Ces vies que l'Occident a brisées » (inject 07.01.04Ei, LO4+LO3 — plaint les jeunes Français morts/mutilés, impute la guerre à l'hubris néo-coloniale occidentale). Vecteur web : `WEB\Site ZubrRadio\ZUBR_Transcript_Olamao.html`. **Devenu site-template réutilisable le 04/06** : `Site ZubrRadio\_TEMPLATE.html` (présent en 2BB **et** dans la vierge `D:\CECPC\MASTAURIGE` + ajouté au générateur `GENERER_VIERGE.py` SITES ; registre `articles.js` → `zubr`/ZBR + option créateur).
 
 **Posture informationnelle :**
 - Olamao considère l'environnement informationnel comme "stratégiquement décisif" — doctrine officielle

@@ -81,6 +81,24 @@
 
 ---
 
+## PRODUCTION D+40 (04 Juin 2026) — 07.01.04 « Pertes humaines / vies brisées » (LO3/LO2/LO4)
+
+> Session 2026-06-04. Lot produit et intégré (cards + ANIM_DATA + LO_BY_KEY + MELMIL inject_index, `?v=41`, VERIFIER OK). **Amplifie l'incident parent `07.01.04i`** (« La vie d'un soldat FR n'a aucune valeur aux yeux de ses chefs »). Publication étalée **04 Juin 08h30 → 10h30**. ⚠ **2BB uniquement — non introduit dans la vierge.**
+
+| Inject | Vecteur | Camp | LO | Heure | Fichier / clé |
+|---|---|---|---|---|---|
+| **07.01.04Bi** | Hexagone — reportage Invalides (retour des blessés) | 🔵 bleu | 3 | 08h30 | `HEX_Article_Invalides_Veterans` — **vrai reportage** qui blanchit involontairement le faux TF1 qui suit ; photo actu.fr en base64 |
+| **07.01.04Ci** | TF1 INFO **(DOPPELGANGER)** — mère de soldat tué | 🔴 rouge | 3,2 | 09h00 | `TF1_Article_Mere_Soldat` — journaliste **Liseron Boudoul** ; typosquat `tf1-info-actu.fr` ; hero = frame vidéo (femme en larmes + logo TF1) + figure Firefly **intégrée** (`images/07.01.04Ci_TF1_mere.jpg`, Base64 hero+figure, vignette card en réf fichier) |
+| **07.01.04Di** | Omerta Média — épouse de vétéran mutilé | 🔴 rouge | 3,4 | 09h30 | `OMR_Article_Epouse_Veteran` — journaliste **Régis le Sommier** ; ton accusateur « manipulé par ses chefs » ; photo mémorial (cheminsdememoire) base64 |
+| **07.01.04Ei** | ZubrRadio.FM — déclaration Olamao (transcription IA) | 🔴 rouge | 4,3 | 10h00 | `ZUBR_Transcript_Olamao` — **nouveau site/média** ; hubris néo-coloniale occidentale ; MER = protecteur |
+| **07.01.04Fi** | Tweet @HmunikVoice (conquérant) | 🔴 rouge | 3,2 | 10h15 | « 30 vies pour chacun de nos morts » |
+| **07.01.04Gi** | Tweet @KolesnikovAndrei (conquérant analytique) | 🔴 rouge | 3,2 | 10h20 | rapport de pertes / aventure perdue |
+| **07.01.04Hi** | Tweet @MaiaKovalenko (fausse compassion) | 🔴 rouge | 2,3 | 10h30 | « qu'on les laisse rentrer vivants » |
+
+**Templates réutilisés (déjà dans la vierge) :** TF1 INFO + Omerta Média (gabarits `_TEMPLATE.html`). **Aucun nouvel avatar** (Hmunik/Kolesnikov/Maia déjà au registre MASTAURIGE). ⚠ **Tweets Fi/Gi/Hi rédigés en ANGLAIS** : le 04/06 l'utilisateur a basculé les mégaphones officiels pro-MER (@HmunikVoice, @KolesnikovAndrei, @MaiaKovalenko) en anglais (infosphère internationale) — annule la désignation FR du 02/06 ; cf. [[feedback-avatar-langue]]. Leurs anciens tweets restent FR (bilingues). Personnages civils/soldats FR (Sylvie/Mathieu L., Camille/Julien) = fictifs côté France (pas MER/ARN/RB → pas d'enregistrement Analyste pays requis).
+
+---
+
 ## TIMING VALIDÉ — Injects D+34 (29 Mai 2026) — 07.05.04 Sommet secret Olamao-Youkachenko
 
 > Session 2026-05-30

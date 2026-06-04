@@ -46,6 +46,8 @@ Agent créé le **2026-05-27** (ex-ANALYSTE_RB) — **renommé ANALYSTE_BOT le 2
 | Lorentz Anders · Petra Erik · Andreas Boerck · Freja Madsen | Gouverneurs régionaux (Braheland · Belluxa · Bannova-Rheinland · Bområde) | BUP | Tous loyaux à la Présidente, nommés par le gouvernement |
 | **Ingo Jansen** | Chef opposition | **BNP** (centre-droit conservateur, 52/171) | Voix de poids au Parlement, sans menacer Peters |
 | **Hanna Hansen** | Chef opposition | **BPP** (social-démocrate) | 3ᵉ parti |
+| **Svetlana Tikhanov** | Opposition (hors Parlement) | **Nouvelle Pahonie** (nationaliste **pro-MER**) | Branche jeune, diaspora mercurienne ; pousse à l'alignement ouvert sur MER. Camp 🔴 — voir registre MASTAURIGE. **Fiche → §A-bis** |
+| **Andrei Saniki** | Opposition (hors Parlement) | **Bison Libre** (nationaliste **pro-mercurien**) | Parti historique ; Saniki bi-national (père mercurien). Camp 🔴 — voir registre MASTAURIGE. **Fiche → §A-bis** |
 
 **Régime :** démocratie parlementaire à façade libérale, tendance nationaliste-autoritaire douce. Idéologie BUP = **réintégration économique de la région Skolkan** (« Greater Skolkan »). Pouvoir exécutif = Présidente + gouvernement ; Parlement 171 sièges.
 
@@ -128,12 +130,67 @@ Agent créé le **2026-05-27** (ex-ANALYSTE_RB) — **renommé ANALYSTE_BOT le 2
 **Cabinet complet :** PM **Olaf Roland** · Éducation **Dr Leopold Thulin** · Finances **Quirin Rylander** · Santé **Dr Cecilia Buerger** · Intérieur **Dr Nele Meyer** · Transports **Sven Bruske** · Défense **Marc Schmit** · Travail **Maryam Zeelen** · Aff. étrangères **Catarina Diniz** · Environnement **Dorit Weber** · Dév. national **Edric Thinnes** · Info & Comms **Nero Amin** · Commerce & Industrie **Lisa Adam** · Culture **Dr Aiko Müller** · Justice **Prof. Veronika Strutz** · Dév. communautaire/Jeunesse/Sports **Patrick De Waele**.
 
 **Partis (complet) :** **BUP** (Roland, centre-droit, 94/171) · **BNP** (Jansen, centre-droit, 52/171, écolo-compatible, jeunes) · **BPP** (Hansen, social-démocrate, **pro-UE, critique MER**, fort sur les RS) · **LPB** Liberal Party (Anna Kramer, gauche modérée) · **GB** Green Bothnia (Palina Bryl, écolo, non représenté) · **BDP** (Yan Shauchenka, extrême gauche) · **AFB** Alliance for the Future of Bothnia (Marina Lapitski, extrême droite).
+**Opposition nationaliste PRO-MER (canon ajouté 2026-06-04 — cf. §A-bis) :** **Nouvelle Pahonie** (Svetlana Tikhanov — jeune, diaspora mercurienne, pro-MER, hors Parlement) · **Bison Libre** (Andrei Saniki — historique, pro-mercurien, hors Parlement).
 **Gouverneurs régionaux :** Braheland **Lorentz Anders** · Belluxa **Petra Erik** · Bområde **Freja Madsen** · Bannova-Rheinland **Andreas Boerck** (tous loyaux à Peters).
 **Élections :** Présidentielle **/7 ans** (Peters 3ᵉ et **dernier mandat**, prochaine **2028**) · Parlement **/5 ans** (171 sièges, BUP dominant) · régionales **/3 ans**. Suffrage universel 18+ (prisonniers inclus).
 **Justice & contrôle :** Cour suprême (**Siarhei Novik** admin, **Yauhen Ivanouski** éco) · Central Auditing Office (**Vassilina Sokal**) · Ombudsperson BOB (**Anton Turchyn**) · Anti-corruption CPIB (**Mikalai Dubrouski**) · Chancelier de Justice (**Ihar Tsikhanouski**).
 **Police (Min. Justice) :** National Police Board, Commissaire national **Ann Richter** ; ~75 000 (60k policiers + 15k civils) ; crime **bas**. Services nationaux : NCID (crime organisé), NECB (crimes éco), NTF, NSWAT, Police Air Service, Customs Service.
 **Sécurité/renseignement :** **NSS** (Halina Rynkevich) · **NSA** signals (Valery Radzivil) · **DIA** (Yury Kavalenka) · **CCB** cybersécurité (Alyaksei Astapenka).
 **Politique intérieure :** tout est subordonné à la **croissance économique** (objectif tacite : faire de Bothnia l'économie la plus moderne de la région).
+
+### A-bis. ⭐ Opposition nationaliste PRO-MER (canon Bothnia — intégrée 2026-06-04)
+
+> **Décision utilisateur (2026-06-04) :** **Svetlana Tikhanov** et **Andrei Saniki** (et leurs partis **Nouvelle Pahonie** et **Bison Libre**), créés pour l'exercice GUILLAUME (AURIGE 2BB), **entrent dans le countrybook Bothnia** comme acteurs **canoniques** (7BB & futurs). Ils s'enracinent dans la **diaspora mercurienne de Bothnia** (~500 000 personnes, **63 % se sentent plus proches de Mercure** — cf. §E) : ce sont les **voix nationalistes pro-MER** qui réclament l'**abandon de la « neutralité »** officielle de la Présidente Peters au profit d'un **alignement ouvert sur Mercure**.
+> - **Camp :** 🔴 **rouge / pro-MER** pour les deux — **source de vérité = registre MASTAURIGE** (`avatars.js` : `@S_Tikhanov`, `@A_Saniki`). Le countrybook **cite**, ne redéfinit pas (cf. règle anti-divergence CLAUDE.md).
+> - **Échiquier bothnien :** opposés frontalement au **BPP** (Hanna Hansen, social-démocrate **pro-UE, critique MER**) et au groupe de pression **European Tendency** (Milena Petrovic, pro-UE) ; critiquent la **prudence** de Peters (neutralité jugée timorée) — **pas** son alignement.
+> - **Partis non représentés au Parlement** (comme GB/AFB) mais **influence croissante** via RS + diaspora. **Leviers ILI : LO 5** (rupture des alliances / bascule pro-MER de Bothnia) **+ LO 4** (solidarité avec les Mercuriens menacés).
+
+**Partis ajoutés à l'échiquier (cf. liste §A) :**
+| Parti | Chef | Ligne | Représentation |
+|---|---|---|---|
+| **Nouvelle Pahonie** | Svetlana Tikhanov | Mouvement **jeune**, nationaliste **pro-MER**, ancré dans la diaspora mercurienne | Hors Parlement — influence RS/diaspora |
+| **Bison Libre** | Andrei Saniki | Parti **historique** de l'opposition nationaliste **pro-mercurienne** | Hors Parlement — cœur militant |
+
+#### Fiche bio — Svetlana TIKHANOV (Nouvelle Pahonie)
+> Source : `…\07 - RUTHNIA BELLA\POLITIQUE\Opposition BellaRussia.docx` — **lire « Bothnia » partout où le doc écrit « BellaRussia »**.
+| Donnée | Valeur |
+|---|---|
+| **Parti** | **Nouvelle Pahonie** — branche **plus jeune** de l'opposition ; loin du souvenir de l'**Empire Skolkan**, incarne un **nouveau souffle du nationalisme en Bothnia** |
+| **Rôle** | Dirigeante (fondatrice de fait) de Nouvelle Pahonie ; certains observateurs l'estiment déjà **capable de remplacer le Bison Libre** à la tête de l'opposition aux prochaines élections |
+| **Camp** | 🔴 rouge / pro-MER — **voir registre MASTAURIGE** (`@S_Tikhanov`). ⚠ pro-Mercure mais **PAS pro-OTAN ni pro-UE** — nationaliste |
+| **Positionnement** | Doctrine centrée sur la **défense des frontières nationales** ; réclame l'**abandon de la « neutralité »** et un **soutien ouvert à Mercure** ; une partie de sa base va plus loin et évoque des **volontés irrédentistes**, avec des **relais à l'étranger** |
+| **Formation** | **Diplômée en communication de HParis** ; y fonde un **blog**, base d'une nouvelle doctrine (défense des frontières) |
+| **Rayonnement** | **Militantisme très actif dans les diasporas** → rayonnement **international massif**, malgré une base militante encore **fragile** ; **aucun élu** à ce jour |
+| **Langue** | **Anglais** (registre MASTAURIGE — audience internationale) |
+| **LO** | **LO 5** (bascule pro-MER de Bothnia) + **LO 4** (solidarité diaspora mercurienne) |
+| **Calquée sur** | Sviatlana Tsikhanouskaya (forme) — positionnement **inversé : pro-MER / nationaliste**, pas pro-occidentale |
+| **Legacy AURIGE 2BB** | Même personnage habillé « Ruthnia Bella » (figé) — voir § Opposition politique RB plus bas |
+
+**Élément de langage — publication verbatim (EN, réaction au discours de paix ; réf. AURIGE 2BB) :**
+> *« WE the "ordinary people" should take this matter in our own hands rather than suffering the said consequences passively. Mentioning unaddressed grievances is one thing but we won't go anywhere as long as we won't dare to directly blame the responsible. WE dare to say that we are strangled both by NATO but also by Youkachenko who refuse to take this opportunity for OUR land. Time for dialogue is exceeded. »* #NouvellePahonie
+> *(En contexte **Bothnia** : transposer « Youkachenko » → le **gouvernement neutre en place** dont la prudence est dénoncée.)*
+
+#### Fiche bio — Andrei SANIKI (Bison Libre)
+> Source : `…\07 - RUTHNIA BELLA\POLITIQUE\Opposition BellaRussia.docx` — **lire « Bothnia » partout où le doc écrit « BellaRussia »**.
+| Donnée | Valeur |
+|---|---|
+| **Parti** | **Bison Libre** — **parti historique de l'opposition**, fondé de longue date ; ses prises de position ont évolué mais il subsiste un **cœur militant nationaliste pro-mercurien** |
+| **Rôle** | Dirigeant actuel du Bison Libre — **redonne un souffle aux volontés de rapprochement Bothnia↔Mercure** dans une partie de la base électorale |
+| **Camp** | 🔴 rouge / pro-MER — **voir registre MASTAURIGE** (`@A_Saniki`) |
+| **Origine** | **Bi-national bothnien-mercurien** — **né d'un père mercurien** → levier narratif fort (lien familial MER) |
+| **Positionnement** | Reconnaît des **griefs réels** dans la région voisine ; **soutient l'action de Mercure** pour « défendre les nôtres » ; critique la **méthode**/prudence du gouvernement, pas l'objectif |
+| **Langue** | **Anglais** (registre MASTAURIGE) |
+| **LO** | **LO 5** (bascule pro-MER) — « même l'opposition réclame l'alignement sur MER » ; **bi-nationalité = levier ILI direct** |
+| **Calqué sur** | Figures d'opposition nationaliste à tendance pro-russe |
+| **Legacy AURIGE 2BB** | Même personnage habillé « Ruthnia Bella » (figé) — voir § Opposition politique RB plus bas |
+
+**Élément de langage — publication verbatim (EN ; réf. AURIGE 2BB) :**
+> *« Our president is right for condemning the western intervention. However, grievances does exist in the neighboring region and should be addressed. We shall from now on support Mercure action to defend our people. Military action seems to be the only resort against the injustices suffered by our citizens in Dacia Romania. »* #BisonLibre
+> *(En contexte **Bothnia** : « our president » → le **gouvernement bothnien** ; « Dacia Romania » → le théâtre de l'exercice concerné.)*
+
+**Utilisation éditoriale (Bothnia / 7BB & futurs) :** voix nationalistes pro-MER **internes à Bothnia** — à mobiliser pour faire **basculer l'opinion** d'une « neutralité » vers un alignement ouvert sur Mercure (LO 5), en s'appuyant sur la **diaspora mercurienne** (LO 4). ⚠ **Ne jamais les présenter comme pro-OTAN/pro-UE.** Contre-poids narratif au **BPP (Hansen)** et à **European Tendency (Petrovic)**. Portraits Firefly disponibles (voir § Portraits).
+
+---
 
 ### C. ÉCONOMIE — détail
 PIB **296 Mds $**, /hab ~48 770 $, croissance +2,47 %, **Botmark**, balance commerciale +3,68 %, **tax/PIB 32,7 %**. 90 % production privée ; **BIH** (bras d'investissement de l'État, 380 staff, participations Telecom 35 %, Econombank 12 %) ; **Botoil** (pétrole d'État, monopole raffinage/import, + biodiesel). Énergie : **30 % du gaz importé de MER** + North Sea/**BGroningen** (un des plus grands champs gaziers au monde, séismes liés au fracking) ; **éolien 36 000 MW** (16 400 turbines onshore + 36 parcs offshore) ; nucléaire jusqu'à **2033**. Ressources : gaz/pétrole North Sea (Braheland), **lignite** Bannova-Rheinland (électricité), acier/zinc/cuivre/dolomie Belluxa, cobalt/étain/cadmium/germanium.
@@ -334,4 +391,5 @@ Voix **pro-MER (camp ROUGE)** de l'opposition RB — à NE PAS confondre avec un
 | Date | Exercice | Apprentissage |
 |---|---|---|
 | 2026-05-27 | AURIGE 2BB | SVETLANA Tikhanov + ANDREI Saniki créés — opposition démocratique RB pour contrer le discours de paix de Youkachenko (D+27). Portraits générés via Firefly, dossier `07 - RUTHNIA BELLA\Portraits`. Peuvent alimenter arcs TV4 / P.03 / EastWatch. |
+| 2026-06-04 | AURIGE 2BB → **Bothnia (canon)** | **Tikhanov (Nouvelle Pahonie)** & **Saniki (Bison Libre)** intégrés au **countrybook Bothnia** comme opposition nationaliste **pro-MER** (cf. **§A-bis**), ancrée dans la diaspora mercurienne. Fiches calées sur `Opposition BellaRussia.docx` (lire « Bothnia » pour « BellaRussia » ; ⚠ l'en-tête « Leaders » du doc inverse les partis — le corps + les publications font foi : **Tikhanov=Nouvelle Pahonie, Saniki=Bison Libre**). Camp = registre MASTAURIGE. Legacy RB figé conservé. |
 | — | À compléter | — |
