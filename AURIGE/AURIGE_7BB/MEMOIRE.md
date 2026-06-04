@@ -15,7 +15,7 @@
 | **Niveau** | PC brigade |
 | **Organisateur** | CECPC |
 | **Chemin exercice** | `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\` |
-| **Chemin IA Mercure** | `D:\CECPC\PRODUCTION\IA\MINERVE\AURIGE\AURIGE_7BB\` |
+| **Chemin IA MINERVE** | `D:\CECPC\PRODUCTION\IA\MINERVE\AURIGE\AURIGE_7BB\` |
 | **Cadre tactique** | ⚠️ À définir — synchromatrice à ingérer |
 | **Zone géographique** | ⚠️ À définir |
 | **Période** | ⚠️ À définir |

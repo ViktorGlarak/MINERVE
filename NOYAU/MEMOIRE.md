@@ -9,7 +9,7 @@ Contenu de la connaissance acquise.
 ---
 
 ## Contexte du projet — CE QUE FAIT L'UTILISATEUR
-Mercure est un assistant de production d'exercices militaires et civils de gestion de crise.
+MINERVE est un assistant de production d'exercices militaires et civils de gestion de crise.
 L'utilisateur crée des exercices complets incluant : scénarios, personnages fictifs, documents, images IA, vidéos IA, montage Premiere Pro.
 Exercices de référence : ORION 26 (grand exercice multi-cellules, Vienne/Poitiers) et AURIGE 2BB (production média, Lorraine).
 
@@ -247,7 +247,7 @@ NOYAU assure le contrôle qualité final dans tous les cas.
 
 1. Créer `D:\CECPC\PRODUCTION\IA\MINERVE\AURIGE\AURIGE_[UNITE]\MEMOIRE.md`
 2. Y inscrire : identité exercice, unité entraînée, niveau, période, chemins, agents assignés
-3. Créer l'agent éditorial dédié (ex : `GUILLAUME_3BB\`) au niveau racine Mercure
+3. Créer l'agent éditorial dédié (ex : `GUILLAUME_3BB\`) au niveau racine MINERVE
 4. Mettre à jour `AURIGE\MEMOIRE.md` — tableau des exercices
 5. Mettre à jour `CLAUDE.md` — registre agents + checklist
 
@@ -334,7 +334,7 @@ EXPERT_INFLUENCE ajouté le 2026-05-25 — expert doctrine ILI et conception de 
 ANALYSTE_BOT (ex-ANALYSTE_RB, **renommé le 2026-05-31**) — expert de l'État voisin pro-MER. **Canon = Bothnia** (countrybook ORION 26 : Pr. Lena Peters/BUP, démocratie parlementaire, allié MER via SCO/SSTO, Den Helder) pour MINOTAURE 26 + exercices futurs. **Legacy = Ruthnia Bella** (Youkachenko, BC1, opposition Tikhanov/Saniki, série 07.05) pour **AURIGE 2BB uniquement**. deepseek-r1:14b partagé avec ANALYSTE + ANALYSTE_ARN + PENSEUR. Dossier : `ANALYSTE\BOTHNIA\` (ex-`RUTHNIA_BELLA`). ⚠ Renommage, pas un ajout — compteur d'agents inchangé (18).
 
 ### [2026-05-25] Dossier GUILLAUME — créé + GAME PLAN AURIGE 2BB ingéré
-Dossier `GUILLAUME\` créé à la racine Mercure (manquait). Contient :
+Dossier `GUILLAUME\` créé à la racine MINERVE (manquait). Contient :
 - `GUILLAUME\README.md` — rôle, modèle, fichiers de référence
 - `GUILLAUME\MEMOIRE.md` — GAME PLAN AURIGE 2BB ingéré (données MAINBODY réelles) + 8 axes lacunaires + 15 propositions ILI doctrine russe
 
@@ -352,7 +352,7 @@ Couvrent 8 axes manquants (déni plausible, blanchiment, noyau vérité, industr
 ---
 
 ### [2026-05-25] Dossier ANALYSTE — structure par pays + Countrybook Mercure ingéré
-Dossier `ANALYSTE\` créé à la racine Mercure, centralise tous les analystes par pays :
+Dossier `ANALYSTE\` créé à la racine MINERVE, centralise tous les analystes par pays :
 - `ANALYSTE\MERCURE\` — Expert Mercure (Countrybook complet) + Doctrine OI Storm-1516 (rapport VIGINUM TLP:CLEAR)
 - `ANALYSTE\ARNLAND\` — Expert Arnland / Dacie Romanie (migré depuis `ANALYSTE_ARN\`, nom du pays variable selon exercice)
 - `ANALYSTE_ARN\` — supprimé le 2026-05-25

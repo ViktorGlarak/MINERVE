@@ -1,0 +1,6 @@
+# Obsidian — config locale du vault (ne pas versionner)
+.obsidian/
+.trash/
+
+# Obsidian — fichiers de travail
+*.tmp

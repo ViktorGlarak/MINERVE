@@ -50,7 +50,9 @@
       "Bash(py '/d/CECPC/PRODUCTION/CREATION/08 - MASTAURIGE VIERGE/OUTILS/verifier_mastaurige.py')",
       "Bash(sed -i 's/?v=27/?v=28/g' index_master.html)",
       "Bash(sed -i 's/?v=20260601i/?v=20260601j/g' MELMIL/MELMIL_ILI_GUILLAUME.html)",
-      "Bash(py OUTILS/verifier_mastaurige.py)"
+      "Bash(py OUTILS/verifier_mastaurige.py)",
+      "Bash(for d *)",
+      "Read(//c/Users/MTR/.claude/projects/**)"
     ]
   },
   "hooks": {
@@ -60,8 +62,8 @@
         "hooks": [
           {
             "type": "command",
-            "shell": "bash",
             "command": "py D:/CECPC/PRODUCTION/IA/MINERVE/.claude/hooks/mastaurige_memoire_reminder.py 2>/dev/null || true",
+            "shell": "bash",
             "statusMessage": "Vérification mémoire MASTAURIGE"
           }
         ]
