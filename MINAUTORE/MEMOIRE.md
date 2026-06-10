@@ -134,6 +134,39 @@ Phase Lines : **PL2 → PL21 → PL3 (= MDL) → PL4**.
 
 ---
 
+## 📅 SYNCHROMATRICE V5 + INVENTAIRE INJECTS (ingéré 2026-06-10)
+
+> Sources `01_Montage exercice\` : **`20260107_..._SYNCRHOMATRICE V5.xlsx`** (game plan + synchromatrice + TO 7e BB + RFI + légende), **`20260313 - ... EVENT LIST - MASTER SLIDES VF.pptx`** (codes injects détaillés), **`20260310_..._Brainstorming INJECTS.xlsx`** (matrice narrative LO × phases), **`20260518_..._MB-MINOTAURE-26.pdf`** (Main Body, 5,5 Mo), **`...SYNTHESE FINALE.pptx`**.
+
+### ⚠ Calendrier de jeu réel (synchromatrice V5) — à utiliser pour les onglets MELMIL
+La synchromatrice V5 date les D+ ainsi (≠ des 9-13 mars qui étaient les dates de l'atelier GT2) :
+| D+ | Date réelle | D+ | Date réelle |
+|---|---|---|---|
+| D+33 | 2026-06-23 | D+38 | 2026-06-28 (GELEX) |
+| D+34 | 2026-06-24 | D+39 | 2026-06-29 |
+| D+35 | 2026-06-25 | D+40 | 2026-06-30 (J+N) |
+| D+36 | 2026-06-26 | D+41 | 2026-07-01 |
+| D+37 | 2026-06-27 | | |
+Bandeau game plan : WARM UP TECH/TAC → **AURIGE 7e BB CAX1** (D+33-36) → 3AI/PREP EVAL → **CAX2** (D+39-41). PC joués : MND-SW/1e DIV, **7BB**, **27e BIM**, **9e BIMa**, **BFA**, BRI ARLAND, MERCURE.
+
+### Inventaire des injects (Event List 13/03) — socle MELMIL 7BB
+> ⚠ Mixte de formats dans la source : **07-01 en tirets** (`07-01-0X`), **07-02/03/04 en points** (`07.0X.YZ`). Le système MELMIL/normalizeIncident accepte les deux. Numérotation par **phase = dizaine** (1x = D+35-36, 2x = CAX1 D+37-38, 3x = CAX2 D+39-41).
+
+**07-01 VOLONTÉ DE COMBATTRE (LO2)** — D+36 puis CAX1/CAX2 :
+`07-01-01` Screenshot allocution TV PDT MER · `07-01-02` Post SOCMED « vous payerez le prix du sang, 1m² contre 100 morts » · `07-01-03` Screenshot MEDIA · `07-01-04` Post SOCMED · `07-01-05` Ciblage chef bleu (CDC/COMBRIG) ATK réputationnelle · `07-01-06` Ciblage bleu via famille · `07-01-07` SMS bombing / tags en ville · `07-01-08` tracts reddition largués par drones · `07-01-09/10/11` (CAX2 « grande guerre patriotique »).
+
+**07-02 GUERRE DES PERTES (LO3)** — 3 narratifs-parents × sous-injects :
+`07.02.01` (D+35-36) → sous `07.02.10/11/12/13` · `07.02.02` « 1 héros MER vengé par 30 morts bleus » (CAX1 D+37-38) → `07.02.20/21/22/23` · `07.02.03` « le rouleau compresseur écrasera vos cadavres » (CAX2 D+39-41) → `07.02.30/31/32/33`.
+
+**07-03 VENT DE LIBÉRATION (LO4)** — `07.03.01/02/03` (parents par phase) → sous-injects `07.03.10-13` (rappel colonial du franchissement, force permanente, réquisitions), `07.03.20-22`, `07.03.30-35`.
+
+**07-04 RUPTURE DES ALLIANCES (LO5)** — storyline cadrée (objectifs 7BB-002/007/008/014 ; cibles OTAN/ONU/UE/ARN ; « discréditer l'OTAN/ONU/alliés/ARN », mise en doute des alliances) ; **codes d'injects détaillés non encore numérotés** dans l'Event List 13/03 → à créer.
+
+⚠ **Anomalie source** : les slides 07-02 et 07-03 portent la même DESCRIPTION (« MER perçu comme le plus légitime / discréditer ARN » = texte LO4). Le **TITRE fait foi** : 07-02 = Guerre des pertes (LO3), 07-03 = Vent de libération (LO4).
+
+### Matrice narrative (Brainstorming INJECTS) — éléments de langage par phase
+Narratifs réutilisables (à décliner en injects) : LO2 « Nous combattrons jusqu'aux derniers défenseurs », « Luneville ne tombera pas », « Chacun son bleu », « As-tu confiance en tes chefs ? », « Le Griffon c'est le coup d'essai » · LO3 « 1 héros rouge pour 30 morts bleus », « le rouleau compresseur », « comptez vos morts — on arrête après 10 000 ? », « vous êtes déjà mort », « prochaine étape : ATK NUC », « appelez votre famille » · vecteurs : journal local, tableau BDA, SOCMED chef mili, faux CIVCAS, témoignage minorité MER, valorisation QIP/POL, rumeurs, SMS bombing, posts ultras, tracts reddition. Opportunité **CYBER = série `09-03`** (fausse antenne / ATK Griffon).
+
 ## CATALOGUE ILI — STORYLINES & OPPORTUNITÉS (Event List GT2)
 
 > Format des codes **7BB** : `07-0X-YZ` (X = storyline ; dizaine Y = phase : `.10`/`.1x` = D+35-36, `.20`/`.2x` = D+37-38, `.30`/`.3x` = D+39-41). ⚠️ Différent du `07.05.05i` d'AURIGE 2BB.
@@ -270,5 +303,6 @@ Types : manif locale, drapeau/tags ennemis, plainte maire, sermon, journal/radio
 ---
 
 ## ÉTAT DE PRODUCTION
-> Dernière mise à jour : 2026-05-31 — dossier de montage ingéré, agent opérationnel.
-- **0 inject produit** — calendrier éditorial à construire à partir des 4 storylines + 6 opportunités.
+> Dernière mise à jour : 2026-06-10 — synchromatrice V5 + Event List 13/03 ingérées, **outillage MASTAURIGE 7BB créé**.
+- **Outillage prêt** : instance MASTAURIGE 3 dossiers dans `00_Boites à outils\MASTAURIGE\` (LOCALSTORAGE/JOUEURS/EXE_MASTER), MELMIL configuré 7BB (9 jours D+33→D+41 = 23 Jun→01 Jul, lignes LO2-LO5 = storylines 07-01..07-04, pays délégitimé ARN). Socle = 18 incidents de l'Event List (07.01.01-11, 07.02/03.01-03, 07.04.01). Détail technique : `MASTAURIGE/MEMOIRE.md` § instance 7BB.
+- **0 inject produit** (cards) — calendrier éditorial à construire : décliner les sous-injects (07.02.1x/2x/3x, 07.03.1x/2x/3x), numéroter 07-04, croiser 4 storylines × 3 fenêtres (CAX1 D+33-36 / CAX1 D+37-38 / CAX2 D+39-41) + 6 opportunités. Casting BLEU/HN disponible (maires ZO 7BB chez ANALYSTE_ARN). **Production sur top utilisateur uniquement.**
