@@ -172,6 +172,56 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 
 ---
 
+## 📇 FICHES BIO HN (Host Nation) — ingérées le 2026-06-10
+
+> **Sources :** `D:\CECPC\PRODUCTION\CREATION\06 - Arnland\HN FICHE BIO\` (32 fichiers .docx) + `06 - Arnland\Interlocuteurs   +Tampons HN.docx`.
+> Deux corpus distincts : **MINOTAURE 26** (théâtre HLorraine, daté 2026-06-09) et **ORION 26 O41** (théâtre HPoitou/HVienne, datés 2026-03-17). Chaque fiche = Nom/Prénom/Âge + Parcours + Objectifs + Forces + Faiblesses + ligne Réseaux sociaux.
+
+### A. MINOTAURE 26 — `20260609_NU_MINOTAURE_26 - FICHES BIO ARNLAND.docx` ⭐ pour AURIGE 7BB
+
+**Gouvernement national (bios détaillées — confirment le roster déjà connu) :**
+| Personnage | Poste | Angle ILI exploitable (faiblesses de la fiche) |
+|---|---|---|
+| **Sture Pallesson** (48) | Président (APP) | Échec « War on Corruption » 2006 → lois sans effet ; privilégie la com sur l'action ; coalition fragile. Battu 2014, réélu sur la crise. Ex-gouverneur HHauts-de-France. X institutionnel |
+| **Vincent Karrlson** (54) | Premier ministre (APP) | Apparatchik sans base électorale ni charisme — choisi pour sa loyauté ; mal à l'aise en crise médiatique. X minimal |
+| **Mira Jankovic** (46) | MAE | Suspicion interne APP sur ses loyautés ; attaquée personnellement par réseaux pro-MER. Très active sur X (contre-narratifs, droit international) |
+| **Andrei Belov** (57) | MINDEF | Issu du complexe militaro-industriel ; dépendance OTAN ; tensions budgétaires avec Karrlson ; accès journalistes difficile. ⚠ **Anomalie source** : son § Parcours mentionne « Daniel Schmidt » (reliquat copier-coller de la fiche ORION SCHMIDT) — **Belov fait foi pour 7BB** |
+| **Dmitri Radulov** (51) | MININT | Ex-ASPS, dur, affaires de surveillance abusive classées ; rhétorique « 5e colonne » contre la diaspora MER (risque radicalisation) ; friction avec Jankovic. RS populiste-sécuritaire |
+
+**Échelon territorial HLorraine (= la ZO 7BB) — personnages clés injects brigade :**
+| Personnage | Poste | Profil / levier ILI |
+|---|---|---|
+| **Augustin Birkmann** (46) | Préfet région HLORRAINE | Homme de procédures, intègre mais dépassé par le tempo ; conteste légalement les injonctions Radulov ; isolé de Paris(HParis). Aucun RS personnel |
+| **Henri Weber** (63) | Maire HSARREBOURG | ⭐ Pharmacien, **proche des milieux pro-MER** (origines familiales) ; ville à **35 % de diaspora mercurienne** ; relaie des messages pro-MER. Cible/relais parfait LO4 |
+| **Émile Gervais** (44) | Maire HNANCY | Jeune ambitieux (gauche), vitrine « capitale de résistance », très actif RS, tensions avec le gouvernement, inexpérimenté militaire. Hub logistique/humanitaire |
+| **Bernard Thiebaut** (67) | Maire HCHATEAU-SALINS | Agriculteur retraité, maire depuis 2001, **liens familiaux avec des familles mercuriennes frontalières** ; commune en dépopulation ; aucun RS |
+| **Dorothée Lang** (41) | Maire HHAGUENAU | **Biculturelle MER/ARN**, avocate droit des minorités, position intenable, **sous surveillance MININT**, ~45 % électeurs d'origine MER. Personnage charnière LO4/LO5 |
+| **Isabelle Krauss** (39) | Maire HLUNEVILLE | Patriote arnlandaise (aile sociale APP, proche Karrlson), base arrière/hôpital de campagne ; peu charismatique. Présente Facebook + **ArnNet** |
+| **Boris Kalugin** (52) | Représentant ICRC Arnland | Médecin, depuis 2020 ; POW/civils/sensibilisation ; moyens limités, accès difficile *(même fiche qu'ORION — personnage stable inter-exercices)* |
+
+> **Usage 7BB :** ces maires sont exactement le catalogue « injects brigade » (plainte du maire, notable hostile, relais pro-MER local). Weber et Lang = relais/victimes des narratifs rouges 07-03 « Vent de libération » ; Gervais et Krauss = cibles de discrédit ; Thiebaut = inject « liens familiaux ambigus ». **MINAUTORE doit citer ces fiches, pas les redéfinir.**
+
+### B. ORION 26 O41 — 31 fiches HN théâtre HPoitou/HVienne (datées 2026-03-17)
+
+Roster compact (fiche complète dans le .docx du même nom) :
+| Domaine | Personnages |
+|---|---|
+| **Gouvernement** | MINDEF **Daniel Schmidt** (54) · MAE **Aleksandr Fischer** (58) |
+| **Préfets** | Région HPoitou-Charente : **Erik Karlson** (55) · Dép. HVienne : **Sergey Ivanov** (63) · Dép. HCharente-Maritime : **Alexei Lebedev** (43) · Dép. HDeux-Sèvres : **KULIS** *(fiche tabulaire)* |
+| **Maires** | HPoitiers : **Olena Hoffmann** (40) · HSaint-Maixent : **Dimitri Steiner** (51) |
+| **Militaires** | Com 5e Secteur HPoitiers : **Erik Alvarez** (51) · Com 5e Brigade HAngoulême : **Anton Kellerov** (49) · Com Légion de Gendarmerie : **Baltzar Bold** (55) · DMD HVienne : **Nikolai Kravchenko** (49) · DMD HDeux-Sèvres : **CHAREYRON** (+ adj. DEPOIRE ; *« Dmitri Volkov » dans le doc densification*) · DMD HCharente-Maritime : **FLUXA** (+ LAPORTE ; *« Serge Lazare » idem*) |
+| **Police / Gendarmerie** | Com Rég. Police : **Aleksandr Weiss** (50) · Police HVienne : **Katerina Vogelnyk** (40) · Police HDeux-Sèvres : **Serhiy Brandtsev** (43) · Gendarmeria Poitou : **Konrad Steinbeck** (51) · Gendarmerie HVienne : **Lukas Havrylenko** (44) · Gend. HDeux-Sèvres : **KERMOVANT** *(fiche tabulaire)* · ALC HCharente-Maritime : **Jannik Kostich** (41) · Resp. prison : **Viktor Kovalenko** (48) |
+| **ONG / OI** | ICRC : **Boris Kalugin** (52) · UNOCHA : **Anastasia Sokolova** (38) · UNHCR (porte-parole) : **Marko Iliev** (38) · ARC : **Igor Mishin** (48) · Blue Shield : **Elena Petrovna** (47) · NGO ISC : **Alexandr Korolev** (55) · CultarNGO : **Viktor Ivanovitch** (42) · ACDA : **Viktor Steinbach** (45) · AISA : **Markus Voldyski** (48) |
+
+Complément : `E20260317_...éléments modification bios.docx` = tableau de densification (objectifs/forces/faiblesses) pour Alvarez, DMD, ONG — déjà fusionné dans les fiches individuelles.
+
+### C. Tampons & signatures HN — `Interlocuteurs   +Tampons HN.docx`
+
+Document **visuel** (~0,8 Ko de texte, le reste = images) : **logos, tampons et blocs-signatures officiels** des autorités HN — préfectures HTOURS, HVIENNE, HCharente-Maritime, mairies HNIORT (bureau du maire + bureau communication J. Fabionneau), services régionaux de santé, signataires D. IVANOV (préfet HVienne), Viktor LANTANOV (MININT), Yann Lamoureux (bureau population HTours). Mail type `chh1@gouv.an`, téléphones en 05 49 78 XX XX (cohérent règle plages fictives zone 05).
+**Usage :** réservoir d'authenticité pour tout **courrier officiel HN fictif** (en-têtes, tampons, signatures scannées) — à ouvrir manuellement pour copier les visuels. POC exercice : SITCEN/GREY CELL/Host nation.
+
+---
+
 ## Données économiques
 
 - PIB : $625,3 Mds

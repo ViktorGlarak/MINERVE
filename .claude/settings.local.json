@@ -52,7 +52,12 @@
       "Bash(sed -i 's/?v=20260601i/?v=20260601j/g' MELMIL/MELMIL_ILI_GUILLAUME.html)",
       "Bash(py OUTILS/verifier_mastaurige.py)",
       "Bash(for d *)",
-      "Read(//c/Users/MTR/.claude/projects/**)"
+      "Read(//c/Users/MTR/.claude/projects/**)",
+      "PowerShell(\"---AVATARS---\")",
+      "PowerShell(\"---\")",
+      "Bash(py -c ' *)",
+      "Bash(py -m py_compile \"/d/CECPC/PRODUCTION/EXER/AURIGE 2BB/00_Boites à outils/MASTAURIGE/WEB/OUTILS/GENERER_VIERGE.py\")",
+      "Bash(node --check \"/d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/moteur/articles.js\")"
     ]
   },
   "hooks": {

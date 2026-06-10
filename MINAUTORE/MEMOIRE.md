@@ -191,8 +191,22 @@ MELMIL (côté EXCON, cellule CO SITCEN / ANIMATION) pilote par domaine : **RENS
 > - **Propriétaire des fiches Bothnia : ANALYSTE_BOT** (devenu expert Bothnia) — voir `ANALYSTE\BOTHNIA\MEMOIRE.md` § Canon Bothnia. MINAUTORE cite, ne redéfinit pas.
 > - **Reste à ingérer** : médias Bothnia, élite politique nominative, ORBAT BOT (countrybook non encore extrait au-delà de la carte d'identité).
 
+### 🔵 Casting BLEU/HN — FICHES BIO ARNLAND MINOTAURE 26 (ingérées 2026-06-10)
+
+> Source : `D:\CECPC\PRODUCTION\CREATION\06 - Arnland\HN FICHE BIO\20260609_NU_MINOTAURE_26 - FICHES BIO ARNLAND.docx`.
+> **Fiches complètes (bios + angles ILI) chez ANALYSTE_ARN § « FICHES BIO HN »** — MINAUTORE cite, ne redéfinit pas.
+
+| Échelon | Personnages disponibles |
+|---|---|
+| Gouvernement ARN | Pallesson (Pdt) · Karrlson (PM) · Jankovic (MAE) · Belov (MINDEF) · Radulov (MININT — rhétorique « 5e colonne ») |
+| Préfet HLORRAINE | **Birkmann** (procédurier dépassé, conteste Radulov) |
+| **Maires ZO 7BB** ⭐ | **Weber** (HSARREBOURG, pro-MER, 35 % diaspora) · **Gervais** (HNANCY, ambitieux, très actif RS) · **Thiebaut** (HCHATEAU-SALINS, liens familiaux MER) · **Lang** (HHAGUENAU, biculturelle sous surveillance) · **Krauss** (HLUNEVILLE, patriote, base arrière) |
+| ONG | Kalugin (ICRC — POW/civils) |
+
+**Exploitation storylines :** Weber + Lang = relais/otages narratifs 07-03 (libération) · Gervais + Krauss = cibles discrédit 07-01/07-04 · Thiebaut = inject ambiguïté familiale · Radulov vs Birkmann/Jankovic = fracture interne exploitable 07-04 · tampons/signatures officiels HN disponibles (`Interlocuteurs   +Tampons HN.docx`) pour courriers fictifs.
+
 ### ❌ Reste à créer pour MINOTAURE 26 (chacun → ANALYSTE MERCURE + MASTAURIGE pour avatars)
-1. **Témoins civils « minorité MER » locale** dans les villes GET (HLUNEVILLE, HCHATEAU-SALINS) — au-delà de TANTALE, des voix civiles ordinaires (storyline 07-03).
+1. **Témoins civils « minorité MER » locale** dans les villes GET (HLUNEVILLE, HCHATEAU-SALINS) — au-delà de TANTALE, des voix civiles ordinaires (storyline 07-03). *(Partiellement couvert depuis le 2026-06-10 par les maires HN — il manque encore les voix civiles non-élues.)*
 2. **Présentateur/ancre Today Mercure** pour les screenshots d'allocution TV (07-01-01).
 3. **Handles RS « résistance/libération GET »** locaux supplémentaires (tracts, SMS bombing) — MILANOV en couvre déjà une partie.
 

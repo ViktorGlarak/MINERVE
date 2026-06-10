@@ -301,6 +301,12 @@ Avant de démarrer AURIGE_3BB, NOYAU consulte automatiquement `AURIGE\AURIGE_2BB
 
 ## Décisions d'architecture
 
+### [2026-06-10] Pipeline « inject as code » — production de masse MASTAURIGE (axe 1)
+Pour toute **production en volume** (firehose, journées multi-injects 7BB), NOYAU n'édite plus les fichiers WEB un par un et ne passe plus par le wizard : il écrit un **PLAN_INJECTS.json** (déclaratif) que `OUTILS\generer_injects.py` (gabarit vierge) valide et convertit en `session_*.json` importable en 1 clic dans MELMIL. Les validations (camp vs avatars.js, codes, LO, jours) remplacent la checklist manuelle 4+1 **en amont**. Détails : `MASTAURIGE\MEMOIRE.md` § v0.2 (entrées 2026-06-10).
+- **Séries→LO** : source unique = `moteur/lo_config.js` (plus de miroir melmil.js ↔ index_master). Pour 7BB, MINAUTORE fait adapter ce seul fichier.
+- ⚠ La **vierge** (`D:\CECPC\MASTAURIGE\LOCALSTORAGE_WEB_VERSION`) est la **référence vivante** ; `GENERER_VIERGE.py` (2BB) est verrouillé anti-rollback.
+- Reste à faire (livrable 3 axe 1) : trombinoscope RS généré depuis `avatars.js`.
+
 ### [2026-05-06] Claude comme orchestrateur réel
 Choix validé : Claude appelle les modèles Ollama via API PowerShell (localhost:11434).
 Continue (VSCode) reste disponible pour accès direct aux agents individuels.
