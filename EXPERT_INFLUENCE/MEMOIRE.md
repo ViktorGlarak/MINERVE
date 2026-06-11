@@ -2,6 +2,16 @@
 
 > **2026-06-02 — Dépôt doctrinal unique.** Ajout de `REFERENCES/` : **Sun Tzu — *L'Art de la guerre*** + **Morelli — 10 principes de propagande** (déplacés depuis PENSEUR pour concentrer toute la doctrine dans une seule IA). EXPERT_INFLUENCE est désormais LE dépôt doctrinal ; PENSEUR (repassé en local deepseek-r1:14b) **cite** ces fiches au lieu de les détenir. Chaîne d'analyse : *effet (Sun Tzu) → principe(s) (Morelli) → LO (GLM26)*.
 
+## 🧭 PÉRIMÈTRE — doctrine PERMANENTE vs données PAR EXERCICE (anti-saturation, 2026-06-10)
+
+> **EXPERT_INFLUENCE ne porte QUE la doctrine permanente et transversale** (valable pour tous les exercices) : Storm-1516/VIGINUM, Morelli, Sun Tzu, L2I, mentalité russe, lawfare, GLM26 et le **mapping générique des 5 LO**, méthodologie de synchromatrice.
+>
+> **Les données SPÉCIFIQUES à un exercice** (narratifs concrets « Luneville ne tombera pas », codes d'injects 07-0X-YZ, calendrier D+, phases, casting) **restent chez l'agent éditorial de l'exercice** (GUILLAUME pour 2BB, MINAUTORE pour 7BB) — **on ne les recopie pas ici**. EXPERT_INFLUENCE est *consulté* pour la caution doctrinale, il rend un avis ; il ne devient pas le dépôt des contenus éphémères.
+>
+> **Pourquoi :** éviter que la mémoire doctrinale enfle d'exercice en exercice avec des contenus qui ne resservent plus → elle resterait lisible et réutilisable. **Archivage :** quand un exercice est clos, son matériel ILI vit dans `AURIGE\AURIGE_[UNITE]\` + la mémoire de l'agent éditorial (archive consultable), pas chez EXPERT_INFLUENCE.
+>
+> **AURIGE 7BB / MINOTAURE 26 :** matrice narrative, inventaire injects (07-01..04 = LO2..LO5), calendrier D+33-41 → **chez MINAUTORE** (`MINAUTORE\MEMOIRE.md`). EXPERT_INFLUENCE intervient sur demande (cohérence LO/effets/calibration), sans stocker ces narratifs.
+
 ## ⚡ Réflexe « mentalité russe » — checklist sur CHAQUE inject rouge
 
 > Référence complète : `REFERENCES/mentalite_russe_ILI.md` (créée 2026-06-02). Complète Morelli (*quoi* dire) par le *comment* russe (rythme, déni, contradiction).

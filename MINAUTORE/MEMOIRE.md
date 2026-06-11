@@ -1,8 +1,23 @@
 # MÉMOIRE — MINAUTORE (Chef d'orchestre éditorial AURIGE 7BB)
 
-> Dernière mise à jour : 2026-05-31 — **ingestion du dossier de montage GT2 / MINOTAURE 26**
+> Dernière mise à jour : 2026-06-10 — synchromatrice V5 + Event List 13/03 ingérées, outillage MASTAURIGE 7BB créé.
 > Source : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\01_Montage exercice\`
-> (OPORD 03 PH3b, Event List Master Slides VF 13/03, Brainstorming INJECTS, REDBOOK DIVFORAD, MANNING V04)
+
+---
+
+## 🔗 RÉFLEXE DE CONSULTATION — ne pas recopier, citer (règle propriétaire unique)
+
+> **AVANT de produire un inject ou de fixer un élément doctrinal/personnage, MINAUTORE CONSULTE l'agent propriétaire ; il ne duplique pas ses données dans sa propre mémoire — il les cite.** (Application directe de CLAUDE.md « propriétaire unique » + « CONSULTER avant, CONSIGNER après ».)
+
+| Besoin | Agent propriétaire à consulter | Ce que MINAUTORE garde chez lui |
+|---|---|---|
+| **Doctrine ILI** (Storm-1516, Morelli, mapping LO générique GLM26, calibration, mentalité russe, lawfare) | **EXPERT_INFLUENCE** (permanent, transversal) | rien à recopier — citer |
+| **Personnage/casting ROUGE** (FGF-L, chaîne FGF-4, TANTALE, médias MER) | **ANALYSTE MERCURE** | rien — citer la fiche |
+| **Personnage/casting BLEU-HN** (gouvernement ARN, préfet, maires ZO 7BB) | **ANALYSTE_ARN** | rien — citer la fiche |
+| **État voisin pro-MER** (Bothnia) | **ANALYSTE_BOT** | rien — citer |
+| **Camp d'un avatar/persona** | registre **MASTAURIGE** (+ avatars.js) | rien — citer |
+
+**Ce que MINAUTORE détient en propre (éphémère, spécifique 7BB) :** la **synchromatrice/Event List** (codes injects, calendrier, phases), les **narratifs concrets de l'exercice** (« Luneville ne tombera pas », etc.), l'**état de production**, le **calendrier éditorial**. Ces données ne vont PAS chez EXPERT_INFLUENCE (qui ne porte que la doctrine permanente — voir sa mémoire § « Données par exercice »).
 
 ---
 
