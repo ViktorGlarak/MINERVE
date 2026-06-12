@@ -199,7 +199,18 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 | **Isabelle Krauss** (39) | Maire HLUNEVILLE | Patriote arnlandaise (aile sociale APP, proche Karrlson), base arrière/hôpital de campagne ; peu charismatique. Présente Facebook + **ArnNet** |
 | **Boris Kalugin** (52) | Représentant ICRC Arnland | Médecin, depuis 2020 ; POW/civils/sensibilisation ; moyens limités, accès difficile *(même fiche qu'ORION — personnage stable inter-exercices)* |
 
-> **Usage 7BB :** ces maires sont exactement le catalogue « injects brigade » (plainte du maire, notable hostile, relais pro-MER local). Weber et Lang = relais/victimes des narratifs rouges 07-03 « Vent de libération » ; Gervais et Krauss = cibles de discrédit ; Thiebaut = inject « liens familiaux ambigus ». **MINAUTORE doit citer ces fiches, pas les redéfinir.**
+#### ⭐ MAJ 2026-06-11 — fichier `20260611_NU_MINOTAURE_26 - FICHES BIO ARNLAND.docx` (4 nouveaux maires + 2 leaders pro-MER)
+| Personnage | Poste | Camp | Note |
+|---|---|---|---|
+| **Irina Voloshyn** | Maire HTOUL | 🔵 bleu | nouvelle fiche |
+| **Nikolaï Brenner** | Maire HMORANGE | 🔵 bleu | nouvelle fiche |
+| **Grigori Hartmann** | Maire HSARRE-UNION | 🔵 bleu | nouvelle fiche (ville saisie par 27BIM en CAX1) |
+| **Dmitri Kovalev** | Maire HALBERSTROFF | 🔵 bleu | nouvelle fiche |
+| **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** | 🔴 rouge | relais ILI 07-03 « libération », sermons pro-MER |
+| **Nataliya Savchenko** | Leader associative **pro-Mercure** | 🔴 rouge | mobilisation de la diaspora MER, victimisation |
+> Détail complet (parcours/objectifs/forces/faiblesses) dans le .docx + **`bios.js` du trombinoscope** (cartes cliquables). Pallesson, Karrlson, Jankovic, Belov, Radulov, Birkmann, Weber, Gervais, Thiebaut, Lang, Krauss, Kalugin, Mishin (ARC), Petrovna (Blue Shield) = fiches **mises à jour** (version 06-11 plus riche).
+
+> **Usage 7BB :** ces maires sont exactement le catalogue « injects brigade » (plainte du maire, notable hostile, relais pro-MER local). Weber et Lang = relais/victimes des narratifs rouges 07-03 « Vent de libération » ; Gervais et Krauss = cibles de discrédit ; Thiebaut = inject « liens familiaux ambigus » ; Volkonsky/Savchenko = **voix pro-MER locales** (07-03). **MINAUTORE doit citer ces fiches, pas les redéfinir.**
 
 ### B. ORION 26 O41 — 31 fiches HN théâtre HPoitou/HVienne (datées 2026-03-17)
 

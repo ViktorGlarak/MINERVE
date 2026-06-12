@@ -51,6 +51,30 @@ Agent créé le **2026-05-27** (ex-ANALYSTE_RB) — **renommé ANALYSTE_BOT le 2
 
 **Régime :** démocratie parlementaire à façade libérale, tendance nationaliste-autoritaire douce. Idéologie BUP = **réintégration économique de la région Skolkan** (« Greater Skolkan »). Pouvoir exécutif = Présidente + gouvernement ; Parlement 171 sièges.
 
+#### ⭐ MAJ 2026-06-11 — fiches bio nominatives détaillées (2 fichiers : `Fiches bio BOTHNIA.docx` + `Fiche Bio - RUTHNIA BELLA.odt`)
+> Tous **🟢 neutre/pro-MER (acteurs d'État bothniens)** sauf indication. Détail complet (parcours/objectifs/forces/faiblesses) dans le `.odt`/`.docx` + **`bios.js` du trombinoscope** (cartes cliquables). MINAUTORE/MASTAURIGE **citent**, ne redéfinissent pas.
+
+**Gouvernement (compléments) :** **Catarina Diniz** (68, MAE — « diplomatie économique », troisième voie, déni plausible anti-OTAN) · **Marc Schmit** (Défense — ligne « belliqueuse » vs Diniz) · **Andreas Boerck** (Gouverneur Bannova-Rheinland) · **Viktor Holm** (DG **Nortek Industries** — levier économique). *(Peters, Roland, Meyer déjà au roster ci-dessus.)*
+
+**⭐ Commandement militaire (Forces de défense nationale de Bothnia) — 12 officiers, NOUVEAU :**
+| Officier | Grade | Fonction |
+|---|---|---|
+| **Tony Palmquetil** (58) | Général | **CEMA** (chef d'état-major des armées) — réformes pro-MER, interopérabilité Mercure |
+| **Leonard Brrouette** (54) | Général | Chef du **Commandement des opérations** (guerre hybride) |
+| **Josef Breesson** (57) | Général | CEM **Armée de terre** (blindés, école traditionnelle) |
+| **Anders Malmsten** (63) | Vice-amiral | CEM **Marine** (flotte du Nord, surveillance côtière) |
+| **Vensel Uhlmensch** (55) | Lt-général | CEM **Armée de l'air** (drones, DCA, pro-techno) |
+| **Kevin Lindquist** (54) | Lt-général | **Directeur du renseignement de défense** (cyber offensif) |
+| **Malte Gradholm** (49) | Lt-général | **Commandant des Gardes-frontières** (populaire terrain) |
+| **Wilhelm Rosenquist** (52) | Gén. division | **Directeur Défense civile** (résilience, infrastructures) |
+| **Niampsa Pierrinen** (58) | Général | **Chef de l'armée de terre** (province Kaina) |
+| **Teemu Kosmannen** | Lt-général | Cdt **Préparation opérationnelle** (innovation, PUB réformateur) |
+| **Harri Koho** | Lt-général | Cdt **Défense territoriale** (réservistes, défense en profondeur) |
+| **Tyko Groop** | Lt-général | Cdt **Soutien** (logistique) |
+
+**Figures religieuses (NOUVEAU) :** **Samuel Nyberg** (évêque luthérien Nordham — 🔵 **pro-OTAN**, démocraties occidentales) · **Oskar Viklund** (Église Réformée est du pays — 🔴 **pro-MER**, héritage skolkan) · **Henrik Eklund** (Primat — ⚪ **neutre**, désescalade, séparation Église/État).
+> ⚠ Le `.odt` mentionne par endroits « président Youkachenko » : **reliquat legacy Ruthnia Bella** — le canon Bothnia = **Présidente Lena Peters**. Tikhanov/Saniki camp 🔴 = registre MASTAURIGE (inchangé).
+
 ### B. ⭐ MÉDIAS (vecteurs ILI — essentiel pour la production 7BB)
 > Paysage « libéral » en apparence mais **contrôlé par l'État** via les participations de **BIH** (Bothnia Investment Holdings) → perçus comme **« the mouthpiece of the state »**. Censure **modérée**, **communication stratégique pro-active** plutôt que réglementation. Press Freedom **64/180**. Régulateur : **Ministry of Information and Communications**. Lois : **NetzDG** (haine en ligne, retrait 24 h, amendes ≤ 50 M€), **BOT-TERREG** (contenu terroriste, retrait 1 h).
 
