@@ -132,6 +132,8 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 | Doctrine narrative — **Arnland / Dacie Romanie** | `ANALYSTE\ARNLAND\MEMOIRE.md` *(idem)* |
 | Doctrine narrative — **Bothnia** *(+ legacy RB AURIGE 2BB)* | `ANALYSTE\BOTHNIA\MEMOIRE.md` *(idem)* |
 
+> 🗂️ **MAJ 2026-06-15 — couche `vault/`.** Le camp de chaque persona est désormais **consolidé en une note atomique unique** `vault\entities\personas\ENT-*.md` (champ `camp:`) — **miroir** du registre MASTAURIGE pour les avatars, **autorité** pour les figures pays sans avatar. Les `MEMOIRE.md` gardent le **détail exhaustif** et **citent** le camp (vue générée à jour : `vault\_vues\MEMOIRE_<pays>.generee.md`). ⚙️ **`vault\_tools\valider.py` impose la cohérence** : **échec du build** si `bios.js` contredit une entité, **avertissement** si une `MEMOIRE.md` la contredit (proximité émoji↔nom). Le vault **ne supprime pas** les dossiers d'agent : deux couches, propriété explicite, zéro conflit garanti par l'outillage.
+
 **Pourquoi :** divergences répétées du camp par recopie — Andrei Saniki (corrigé 2026-05-31) puis Svetlana Tikhanov (camp « bleu » recopié dans **7 fichiers**, faux : elle est 🔴 rouge pro-MER — corrigé 2026-06-01). Un inject construit sur la mauvaise valeur produit l'effet ILI **inverse**. D'où : **un seul endroit fait foi pour le camp**.
 
 **Comment appliquer :**
@@ -139,6 +141,7 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 - Tout autre fichier qui mentionne le camp écrit un **renvoi** (« camp : voir registre MASTAURIGE ») — jamais une valeur figée non annotée.
 - Décision/changement de camp d'un personnage pays : l'Analyste tranche, puis **met à jour le registre MASTAURIGE + avatars.js** (les deux), et les autres s'alignent.
 - **Garde-fou automatique** : `MASTAURIGE\WEB\OUTILS\verifier_mastaurige.py` (CONTROLE G) signale tout tweet dont le camp **contredit durement** (rouge↔bleu) son avatar. Un avatar ⚪ neutre qui penche (façade de blanchiment, ex. @EastWatch_Intl) n'est PAS une divergence.
+- **Garde-fou vault** : `vault\_tools\valider.py` (lancé par `vault\_tools\build.py`) **bloque** toute contradiction de camp entités↔`bios.js` et **signale** celles des `MEMOIRE.md`. À lancer avant tout commit touchant un camp.
 - Réflexe en cas de doute : `Grep` le nom du personnage sur tout le repo pour détecter les valeurs divergentes avant d'en ajouter une nouvelle.
 
 ### Règle de mise à jour automatique — OBLIGATOIRE

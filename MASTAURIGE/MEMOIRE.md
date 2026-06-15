@@ -1,6 +1,7 @@
 # MÉMOIRE — MASTAURIGE
 
-> 🗂️ **Vue méta** (notes atomiques qui *lient* cette mémoire, ne la dupliquent pas) : [vault/projects/MASTAURIGE.md](../vault/projects/MASTAURIGE.md) + [vault/INDEX.md](../vault/INDEX.md). **Ce fichier reste la source de vérité** ; le vault y renvoie. *(Vault créé le 2026-06-15 — couche méta de continuité, ne modifie pas l'outillage.)*
+> 🗂️ **Vue méta** (notes atomiques qui *lient* cette mémoire, ne la dupliquent pas) : [vault/projects/MASTAURIGE.md](../vault/projects/MASTAURIGE.md) + [vault/INDEX.md](../vault/INDEX.md). **Ce fichier (outillage) + le registre avatars (`avatars.js`) restent la source de vérité.** *(Vault créé le 2026-06-15 — couche méta, ne modifie pas l'outillage.)*
+> ⚙️ **Camps** : le registre des avatars (`avatars.js` / `bios.js`) fait foi, **miroir** dans `vault/entities/` ; `vault/_tools/valider.py` **bloque** toute contradiction de camp entre `bios.js` et les notes entité.
 
 ## Création
 Agent créé le **2026-05-24** pour la génération de contenus RS fictifs dans les exercices de type AURIGE (entraînement PC niveau brigade). MASTAURIGE est INDÉPENDANT de Mastorion — pas de lien avec la plateforme fictive ORION 26.

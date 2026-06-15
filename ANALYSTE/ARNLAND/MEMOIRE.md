@@ -1,5 +1,7 @@
 # MÉMOIRE — ANALYSTE ARNLAND (Expert Arnland / pays allié fictif)
 
+> 🗂️ **Articulation avec le vault** — **Roster & camps : autorité unique = `vault/entities/`** (1 persona = 1 note `ENT-*`, camp défini une seule fois). **Ce fichier = détail exhaustif** (doctrine, ORBAT, fiches bio HN, chronologies, règles éditoriales). Vue générée à jour : `vault/_vues/MEMOIRE_arnland.generee.md`. ⚙️ `vault/_tools/valider.py` **bloque** toute contradiction de camp entre ce fichier et les entités.
+
 Agent créé le **2026-05-23** — migré vers `ANALYSTE\ARNLAND\` le **2026-05-25**.
 **Sources countrybook** (officiel ORION 26, sections A→F + Annexes) :
 - `D:\CECPC\Orion 26 - Arnland (1).docx` (version Word, 11,5 Mo)

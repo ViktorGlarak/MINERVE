@@ -2,6 +2,8 @@
 
 > ✅ **Fichier CANONIQUE de l'expert Mercure.** Toute donnée détaillée Mercure (Countrybook, personnages, doctrine OI) vit ici. Le fichier parent `ANALYSTE\MEMOIRE.md` est l'ancienne version, conservée en référence rapide — en cas de divergence, **ce fichier fait foi**.
 
+> 🗂️ **Articulation avec le vault** — **Roster & camps : autorité unique = `vault/entities/`** (1 persona = 1 note `ENT-*`, camp défini une seule fois). **Ce fichier = détail exhaustif** (countrybook, doctrine Storm-1516, profils HVI FGF-4, chronologies). Vue générée à jour : `vault/_vues/MEMOIRE_mercure.generee.md`. ⚙️ `vault/_tools/valider.py` **bloque** toute contradiction de camp entre ce fichier et les entités.
+
 Agent créé le **2026-05-25** — Countrybook Mercure ingéré le **2026-05-25**.
 Deux domaines de maîtrise : **Mercure** (pays fictif Skolkan) + **Doctrine OI** (opérations informationnelles réalistes).
 

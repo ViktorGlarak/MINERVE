@@ -1,5 +1,7 @@
 # MÉMOIRE — ANALYSTE BOTHNIA (Expert de l'État voisin pro-MER du GET)
 
+> 🗂️ **Articulation avec le vault** — **Roster & camps : autorité unique = `vault/entities/`** (1 persona = 1 note `ENT-*`, camp défini une seule fois). **Ce fichier = détail exhaustif** (doctrine, ORBAT, chronologies, règles éditoriales, éléments de langage). Vue générée à jour : `vault/_vues/MEMOIRE_bothnia.generee.md`. ⚙️ `vault/_tools/valider.py` **bloque** toute contradiction de camp entre ce fichier et les entités.
+
 Agent créé le **2026-05-27** (ex-ANALYSTE_RB) — **renommé ANALYSTE_BOT le 2026-05-31**.
 - **Canon (MINOTAURE 26 + futurs) : Bothnia** — countrybook ORION 26 (voir § Canon Bothnia + § COUNTRYBOOK BOTHNIA ci-dessous).
 - **Legacy (AURIGE 2BB uniquement) : Ruthnia Bella** (Youkachenko/BC1) — les sections « RB » plus bas s'appliquent au seul 2BB.
