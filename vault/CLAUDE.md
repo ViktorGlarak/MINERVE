@@ -10,13 +10,15 @@ Outils dans `_tools/` : `build.py` (orchestre) · `valider.py` (🛡️ gardien)
 
 ---
 
-## 🔁 Au DÉMARRAGE de session (réflexe)
+## 🔁 Au DÉMARRAGE de session (réflexe) — commande **`/session_start`**
+> Déclenché à la main par l'utilisateur quand il commence à travailler (`.claude/commands/session_start.md`).
 1. Charger **[INDEX.md](INDEX.md)** (registre, tier 1 en priorité).
 2. Charger la **dernière note `daily/`** (reprise du fil — « Prochaine étape »).
 3. Charger le **context-pack du domaine** de la tâche (`context-packs/PACK-<domaine>.md`) : il liste les notes + les fichiers `source:` à ouvrir. Sinon, le **canvas** du projet/agent concerné.
 4. Ne PAS charger tout le vault : suivre le **tiering** (tier 1 toujours · tier 2 au besoin via `relevantFor` · tier 3 archive).
 
-## 🟢 En FIN de session (réflexe)
+## 🟢 En FIN de session (réflexe) — commande **`/session_end`**
+> Déclenché à la main par l'utilisateur quand il termine (`.claude/commands/session_end.md`).
 1. Créer/compléter **`daily/AAAA-MM-JJ.md`** (copier `templates/daily-note.md`) : objet, avancées, décisions/leçons, **fichiers autoritaires modifiés**, prochaine étape.
 2. Pour toute connaissance durable apparue : créer la **note atomique** (`decisions/`, `tools/`, `lessons/`, `architecture/`, `entities/`) depuis le template — frontmatter complet (cf. **`_SCHEMA.md`**), `source:` vers le fichier autoritaire, liens `[[...]]`.
 3. **Lancer `py _tools/build.py`** → régénère tout + **valide** (DOIT sortir en exit 0 avant commit). Le validateur fait respecter `_SCHEMA.md` : liens cassés, orphelins, id dupliqués, et la **règle anti-divergence du camp** (`camp` réservé aux notes `entity`).
