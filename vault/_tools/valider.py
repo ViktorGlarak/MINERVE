@@ -19,7 +19,7 @@ Usage :  py valider.py        (exit 0 = OK, exit 1 = au moins une erreur)
 import os, re, sys, datetime
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-VAULT = os.path.dirname(os.path.abspath(__file__))
+VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # _tools/ -> vault/
 SCAN_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities", "daily"]
 
 REQUIRED = ["id", "type", "title", "tags", "source", "linkedTo", "relevantFor", "tier", "created", "updated"]

@@ -11,9 +11,9 @@ Idempotent. Appele automatiquement par _generer_index.py.
 import os, re, sys, datetime, unicodedata
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-VAULT = os.path.dirname(os.path.abspath(__file__))
+VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # _tools/ -> vault/
 ROOT = os.path.dirname(VAULT)
-NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects"]
+NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "entities"]
 
 
 def slug(name):

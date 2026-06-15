@@ -1,0 +1,17 @@
+# 📦 Context-pack — minautore
+
+> ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « minautore ».**
+> Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
+> Généré le 2026-06-15 · 2 notes.
+
+## Notes (par tier)
+
+| Tier | ID | Titre | Type |
+|---|---|---|---|
+| 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
+| 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
+
+## 📄 Fichiers autoritaires à ouvrir (sources)
+
+- [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
+- [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)

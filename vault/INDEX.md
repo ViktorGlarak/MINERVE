@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**28 notes** · généré le 2026-06-15
+**47 notes** · généré le 2026-06-15
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -73,6 +73,30 @@
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | 1 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[ARCH-003]] [[DECISION-001]] [[TOOL-006]] |
 | [PROJ-MASTAURIGE](projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | 1 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[DECISION-002]] [[DECISION-004]] [[DECISION-006]] [[TOOL-001]] [[TOOL-002]] [[TOOL-005]] [[LESSON-001]] [[LESSON-002]] [[LESSON-007]] |
 | [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | 1 | [`CLAUDE.md`](../../CLAUDE.md) | [[ARCH-001]] [[ARCH-002]] [[ARCH-004]] |
+
+## 🤖 Agents (canvas générés)
+
+| ID | Titre | Tier | Source (vérité) | Liens |
+|---|---|---|---|---|
+| [AGENT-ANALYSTE-ARN](agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | 3 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | — |
+| [AGENT-ANALYSTE-BOT](agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | 3 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | — |
+| [AGENT-ANALYSTE-MERCURE](agents/AGENT-ANALYSTE-MERCURE.md) | ANALYSTE (Mercure) | 3 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | — |
+| [AGENT-ARCHITECTE](agents/AGENT-ARCHITECTE.md) | ARCHITECTE | 3 | [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md) | — |
+| [AGENT-ARCHIVISTE](agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | 3 | [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md) | — |
+| [AGENT-BROUILLON](agents/AGENT-BROUILLON.md) | BROUILLON | 3 | [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md) | — |
+| [AGENT-CINEASTE](agents/AGENT-CINEASTE.md) | CINÉASTE | 3 | [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md) | — |
+| [AGENT-ECLAIREUR](agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | 3 | [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md) | — |
+| [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
+| [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
+| [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 3 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | — |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] |
+| [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
+| [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
+| [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
+| [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
+| [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
+| [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
+| [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 3 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | — |
 
 ---
 

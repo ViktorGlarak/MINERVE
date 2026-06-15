@@ -9,13 +9,14 @@ Relance OBLIGATOIRE a chaque note creee / modifiee (cf. vault/CLAUDE.md).
 import os, re, sys, datetime
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-VAULT = os.path.dirname(os.path.abspath(__file__))
+VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # _tools/ -> vault/
 
 # dossiers de notes atomiques a indexer (on EXCLUT daily/, templates/, et les fichiers racine)
-NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects"]
+NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities"]
 TYPE_LABEL = {"decision": "🔧 Décisions", "tool": "🛠️ Outils", "lesson": "📚 Leçons",
-              "architecture": "🏛️ Architecture", "project": "🗂️ Projets (canvas)"}
-TYPE_ORDER = ["decision", "tool", "lesson", "architecture", "project"]
+              "architecture": "🏛️ Architecture", "project": "🗂️ Projets (canvas)",
+              "agent": "🤖 Agents (canvas générés)", "entity": "🌍 Entités (personas · pays · doctrine)"}
+TYPE_ORDER = ["decision", "tool", "lesson", "architecture", "project", "agent", "entity"]
 
 
 def parse_frontmatter(path):
@@ -45,16 +46,17 @@ def collect():
         folder = os.path.join(VAULT, d)
         if not os.path.isdir(folder):
             continue
-        for fn in sorted(os.listdir(folder)):
-            if not fn.endswith(".md") or fn.startswith("_"):
-                continue
-            p = os.path.join(folder, fn)
-            fm = parse_frontmatter(p)
-            if not fm or "id" not in fm:
-                print("  ⚠ frontmatter manquant/invalide :", os.path.join(d, fn))
-                continue
-            fm["_rel"] = (d + "/" + fn).replace("\\", "/")
-            notes.append(fm)
+        for root, _, files in os.walk(folder):          # recursif (entities/personas, /pays...)
+            for fn in sorted(files):
+                if not fn.endswith(".md") or fn.startswith("_"):
+                    continue
+                p = os.path.join(root, fn)
+                fm = parse_frontmatter(p)
+                if not fm or "id" not in fm:
+                    print("  ⚠ frontmatter manquant/invalide :", os.path.relpath(p, VAULT))
+                    continue
+                fm["_rel"] = os.path.relpath(p, VAULT).replace("\\", "/")
+                notes.append(fm)
     return notes
 
 
