@@ -9,12 +9,13 @@
 | arnland | 57 | [PACK-arnland](PACK-arnland.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |
 | bothnia | 72 | [PACK-bothnia](PACK-bothnia.md) |
-| exercices | 27 | [PACK-exercices](PACK-exercices.md) |
-| ili | 13 | [PACK-ili](PACK-ili.md) |
+| exercices | 31 | [PACK-exercices](PACK-exercices.md) |
+| ili | 17 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
 | mastaurige | 20 | [PACK-mastaurige](PACK-mastaurige.md) |
 | melmil | 3 | [PACK-melmil](PACK-melmil.md) |
+| mercure | 67 | [PACK-mercure](PACK-mercure.md) |
 | minautore | 2 | [PACK-minautore](PACK-minautore.md) |
 | noyau | 5 | [PACK-noyau](PACK-noyau.md) |
 | parser | 2 | [PACK-parser](PACK-parser.md) |

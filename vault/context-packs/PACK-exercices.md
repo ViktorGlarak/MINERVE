@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 27 notes.
+> Généré le 2026-06-15 · 31 notes.
 
 ## Notes (par tier)
 
@@ -11,11 +11,15 @@
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
 | 1 | [ENT-arnland](../entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity |
 | 1 | [ENT-bothnia](../entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity |
+| 1 | [ENT-mercure](../entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity |
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
+| 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
+| 2 | [ENT-milanov](../entities/personas/ENT-milanov.md) | Arkan Milanov | entity |
+| 2 | [ENT-olamao](../entities/personas/ENT-olamao.md) | Franz Olamao | entity |
 | 2 | [ENT-peters](../entities/personas/ENT-peters.md) | Lena Peters | entity |
 | 2 | [ENT-saniki](../entities/personas/ENT-saniki.md) | Andrei Saniki | entity |
 | 2 | [ENT-savchenko](../entities/personas/ENT-savchenko.md) | Nataliya Savchenko | entity |
@@ -41,6 +45,7 @@
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)
+- [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)
