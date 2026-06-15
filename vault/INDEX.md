@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**47 notes** · généré le 2026-06-15
+**57 notes** · généré le 2026-06-15
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -43,6 +43,9 @@
 | [TOOL-005](tools/TOOL-005.md) | Console MASTER (fusion / renumérotation / actus) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[TOOL-004]] |
 | [TOOL-006](tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-003]] [[ARCH-003]] |
 | [TOOL-007](tools/TOOL-007.md) | generer_injects.py | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-002]] [[DECISION-003]] |
+| [TOOL-008](tools/TOOL-008.md) | OmniVoice TTS (Voice Clone / Voice Design) | 2 | [`PARAMETRES_OMNIVOICE.md`](../../VOIX/PARAMETRES_OMNIVOICE.md) | [[ARCH-006]] [[LESSON-010]] |
+| [TOOL-009](tools/TOOL-009.md) | LTX 2.3 i2v/ia2v (ComfyUI) | 2 | [`PARAMETRES_LTX.md`](../../CINEASTE/PARAMETRES_LTX.md) | [[ARCH-006]] [[LESSON-011]] |
+| [TOOL-010](tools/TOOL-010.md) | Stack image (Firefly / Flow / Gemini) | 2 | [`PROMPTS_TYPES.md`](../../IMAGIER/PROMPTS_TYPES.md) | [[ARCH-006]] [[LESSON-009]] |
 
 ## 📚 Leçons
 
@@ -56,6 +59,9 @@
 | [LESSON-006](lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[LESSON-001]] |
 | [LESSON-007](lessons/LESSON-007.md) | Bloc parseur non borné → record poubelle | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-001]] [[LESSON-002]] |
 | [LESSON-008](lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | 1 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-002]] [[LESSON-001]] |
+| [LESSON-009](lessons/LESSON-009.md) | Prompts image — scènes civiles sans drapeaux + texte verbatim | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-010]] [[ARCH-006]] |
+| [LESSON-010](lessons/LESSON-010.md) | Texte TTS — préfixe H non prononcé, sigles lettre par lettre | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[ARCH-006]] |
+| [LESSON-011](lessons/LESSON-011.md) | Prompts LTX — paragraphe mouvement, ia2v synchro labiale | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-009]] [[ARCH-006]] |
 
 ## 🏛️ Architecture
 
@@ -65,6 +71,9 @@
 | [ARCH-002](architecture/ARCH-002.md) | Routage par modèle Ollama / co-résidence VRAM | 2 | [`ROUTAGE.md`](../../SYSTEME/ROUTAGE.md) | [[ARCH-004]] |
 | [ARCH-003](architecture/ARCH-003.md) | Structure des exercices AURIGE | 2 | [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md) | [[TOOL-006]] [[DECISION-001]] |
 | [ARCH-004](architecture/ARCH-004.md) | Registre des agents (renvoi) | 1 | [`CLAUDE.md`](../../CLAUDE.md) | [[ARCH-001]] [[ARCH-002]] |
+| [ARCH-005](architecture/ARCH-005.md) | Boucle QC — NOYAU évalue chaque réponse agent | 2 | [`QC.md`](../../SYSTEME/QC.md) | [[ARCH-001]] [[ARCH-002]] [[PROJ-MINERVE]] |
+| [ARCH-006](architecture/ARCH-006.md) | Pipeline de production média (image → vidéo → voix → montage) | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[TOOL-009]] [[TOOL-010]] [[LESSON-009]] [[LESSON-010]] [[LESSON-011]] [[PROJ-PROD-MEDIA]] |
+| [ARCH-007](architecture/ARCH-007.md) | Roadmap technique MINERVE (RAG · CONVERGENCE · orchestrateur autonome) | 3 | [`CONFIG.md`](../../SYSTEME/CONFIG.md) | [[ARCH-001]] [[ARCH-002]] [[PROJ-MINERVE]] |
 
 ## 🗂️ Projets (canvas)
 
@@ -72,7 +81,8 @@
 |---|---|---|---|---|
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | 1 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[ARCH-003]] [[DECISION-001]] [[TOOL-006]] |
 | [PROJ-MASTAURIGE](projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | 1 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[DECISION-002]] [[DECISION-004]] [[DECISION-006]] [[TOOL-001]] [[TOOL-002]] [[TOOL-005]] [[LESSON-001]] [[LESSON-002]] [[LESSON-007]] |
-| [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | 1 | [`CLAUDE.md`](../../CLAUDE.md) | [[ARCH-001]] [[ARCH-002]] [[ARCH-004]] |
+| [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | 1 | [`CLAUDE.md`](../../CLAUDE.md) | [[ARCH-001]] [[ARCH-002]] [[ARCH-004]] [[ARCH-005]] [[ARCH-007]] [[PROJ-PROD-MEDIA]] [[PROJ-MASTAURIGE]] [[PROJ-AURIGE-7BB]] |
+| [PROJ-PROD-MEDIA](projects/PROD-MEDIA.md) | Production média (image · vidéo · voix) | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[ARCH-006]] [[TOOL-008]] [[TOOL-009]] [[TOOL-010]] [[LESSON-009]] [[LESSON-010]] [[LESSON-011]] |
 
 ## 🤖 Agents (canvas générés)
 
@@ -84,11 +94,11 @@
 | [AGENT-ARCHITECTE](agents/AGENT-ARCHITECTE.md) | ARCHITECTE | 3 | [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md) | — |
 | [AGENT-ARCHIVISTE](agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | 3 | [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md) | — |
 | [AGENT-BROUILLON](agents/AGENT-BROUILLON.md) | BROUILLON | 3 | [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md) | — |
-| [AGENT-CINEASTE](agents/AGENT-CINEASTE.md) | CINÉASTE | 3 | [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md) | — |
+| [AGENT-CINEASTE](agents/AGENT-CINEASTE.md) | CINÉASTE | 2 | [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md) | [[TOOL-009]] |
 | [AGENT-ECLAIREUR](agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | 3 | [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md) | — |
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
-| [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 3 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | — |
+| [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
 | [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
@@ -96,7 +106,7 @@
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
-| [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 3 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | — |
+| [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |
 
 ---
 

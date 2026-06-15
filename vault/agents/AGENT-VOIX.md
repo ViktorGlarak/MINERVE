@@ -4,9 +4,9 @@ type: agent
 title: VOIX
 tags: [agent]
 source: ../../VOIX/MEMOIRE.md
-linkedTo: []
+linkedTo: [TOOL-008]
 relevantFor: [agents]
-tier: 3
+tier: 2
 created: 2026-06-15
 updated: 2026-06-15
 ---
@@ -22,7 +22,7 @@ updated: 2026-06-15
 - 📄 README : [README.md](../../VOIX/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- *(aucune note atomique transversale pour l'instant — à créer si une connaissance durable émerge)*
+- [[TOOL-008]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

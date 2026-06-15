@@ -4,9 +4,9 @@ type: agent
 title: IMAGIER
 tags: [agent]
 source: ../../IMAGIER/MEMOIRE.md
-linkedTo: []
+linkedTo: [TOOL-010]
 relevantFor: [agents]
-tier: 3
+tier: 2
 created: 2026-06-15
 updated: 2026-06-15
 ---
@@ -22,7 +22,7 @@ updated: 2026-06-15
 - 📄 README : [README.md](../../IMAGIER/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- *(aucune note atomique transversale pour l'instant — à créer si une connaissance durable émerge)*
+- [[TOOL-010]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

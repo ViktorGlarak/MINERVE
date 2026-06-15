@@ -105,7 +105,12 @@ def main():
             os.remove(os.path.join(folder, fn))
     n = 0
     for nom, prompt, mem in agents:
-        related = sorted(nid for nid, src in notes if src and src == mem.replace("\\", "/").lower())
+        mem_norm = mem.replace("\\", "/").lower()
+        afolder = os.path.dirname(mem_norm)  # ex. "voix", "analyste/mercure"
+        # rattache toute note dont la source vit dans le dossier de l'agent (pas que MEMOIRE.md :
+        # aussi PARAMETRES_OMNIVOICE.md, PATTERNS.md, etc.)
+        related = sorted(nid for nid, src in notes
+                         if src and (src == mem_norm or (afolder and src.startswith(afolder + "/"))))
         sid, content = build(nom, prompt, mem, related)
         open(os.path.join(folder, sid + ".md"), "w", encoding="utf-8").write(content)
         n += 1
