@@ -1,0 +1,23 @@
+---
+id: ENT-ivanovitch
+type: entity
+title: Viktor Ivanovitch
+tags: [arnland, persona, orion, orion-ong]
+source: ../../../ANALYSTE/ARNLAND/MEMOIRE.md
+linkedTo: [ENT-arnland]
+relevantFor: [arnland, orion]
+camp: neutre
+pays: Arnland
+tier: 3
+created: 2026-06-15
+updated: 2026-06-15
+---
+
+# 👤 Viktor Ivanovitch
+
+> camp ⚪ **neutre**. Rôle : CultarNGO (biens culturels).
+
+> Théâtre **ORION 26 O41** (HPoitou/HVienne) — distinct du théâtre AURIGE 7BB (HLorraine).
+
+## 🔗 Source de vérité
+[[../../../ANALYSTE/ARNLAND/MEMOIRE.md]] §B (ORION 26 O41). Pays : [[ENT-arnland]].

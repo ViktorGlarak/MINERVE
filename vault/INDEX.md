@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**274 notes** · généré le 2026-06-15
+**304 notes** · généré le 2026-06-15
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -91,7 +91,7 @@
 
 | ID | Titre | Tier | Source (vérité) | Liens |
 |---|---|---|---|---|
-| [AGENT-ANALYSTE-ARN](agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-andreev-milan]] [[ENT-antonov]] [[ENT-arne]] [[ENT-arnland]] [[ENT-baranov]] [[ENT-belov]] [[ENT-birkmann]] [[ENT-bodrova]] [[ENT-borchenko]] [[ENT-brenner]] [[ENT-bystrom]] [[ENT-dimitrov]] [[ENT-djobovic]] [[ENT-dragunov]] [[ENT-filipovic]] [[ENT-fries]] [[ENT-gervais]] [[ENT-gradholm-arn]] [[ENT-hartmann]] [[ENT-hus]] [[ENT-jankovic]] [[ENT-kalugin]] [[ENT-karadzic]] [[ENT-karrlson]] [[ENT-kovalev]] [[ENT-krauss]] [[ENT-kravtsova]] [[ENT-lang]] [[ENT-malenko]] [[ENT-marinov]] [[ENT-milova]] [[ENT-mishin]] [[ENT-morozov]] [[ENT-nikitin]] [[ENT-novak]] [[ENT-pallesson]] [[ENT-pavlenko-luka]] [[ENT-pavlenko-natalya]] [[ENT-petrova-irina]] [[ENT-petrovna]] [[ENT-radulov]] [[ENT-savchenko]] [[ENT-sidorov]] [[ENT-stanev]] [[ENT-stepanenko]] [[ENT-thiebaut]] [[ENT-vasilieva]] [[ENT-velkova]] [[ENT-volkonsky]] [[ENT-volkov-ivan]] [[ENT-voloshyn]] [[ENT-vong]] [[ENT-vukovic]] [[ENT-weber]] [[ENT-zhukova]] [[ENT-zoric-kristina]] [[ENT-zoric-nikolai]] [[REF-arnland-economie]] [[REF-arnland-infrastructure]] [[REF-arnland-medias]] [[REF-arnland-militaire]] [[REF-arnland-politique]] [[REF-arnland-societe]] [[REF-arnland-strategie]] |
+| [AGENT-ANALYSTE-ARN](agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-alvarez]] [[ENT-andreev-milan]] [[ENT-antonov]] [[ENT-arne]] [[ENT-arnland]] [[ENT-baranov]] [[ENT-belov]] [[ENT-birkmann]] [[ENT-bodrova]] [[ENT-bold]] [[ENT-borchenko]] [[ENT-brandtsev]] [[ENT-brenner]] [[ENT-bystrom]] [[ENT-chareyron]] [[ENT-depoire]] [[ENT-dimitrov]] [[ENT-djobovic]] [[ENT-dragunov]] [[ENT-filipovic]] [[ENT-fischer]] [[ENT-fluxa]] [[ENT-fries]] [[ENT-gervais]] [[ENT-gradholm-arn]] [[ENT-hartmann]] [[ENT-havrylenko]] [[ENT-hoffmann]] [[ENT-hus]] [[ENT-iliev]] [[ENT-ivanov-sergey]] [[ENT-ivanovitch]] [[ENT-jankovic]] [[ENT-kalugin]] [[ENT-karadzic]] [[ENT-karlson-erik]] [[ENT-karrlson]] [[ENT-kellerov]] [[ENT-kermovant]] [[ENT-korolev]] [[ENT-kostich]] [[ENT-kovalenko-viktor]] [[ENT-kovalev]] [[ENT-krauss]] [[ENT-kravchenko]] [[ENT-kravtsova]] [[ENT-kulis]] [[ENT-lang]] [[ENT-laporte]] [[ENT-lebedev]] [[ENT-malenko]] [[ENT-marinov]] [[ENT-milova]] [[ENT-mishin]] [[ENT-morozov]] [[ENT-nikitin]] [[ENT-novak]] [[ENT-pallesson]] [[ENT-pavlenko-luka]] [[ENT-pavlenko-natalya]] [[ENT-petrova-irina]] [[ENT-petrovna]] [[ENT-radulov]] [[ENT-savchenko]] [[ENT-schmidt]] [[ENT-sidorov]] [[ENT-sokolova-anastasia]] [[ENT-stanev]] [[ENT-steinbach-viktor]] [[ENT-steinbeck]] [[ENT-steiner]] [[ENT-stepanenko]] [[ENT-thiebaut]] [[ENT-vasilieva]] [[ENT-velkova]] [[ENT-vogelnyk]] [[ENT-voldyski]] [[ENT-volkonsky]] [[ENT-volkov-ivan]] [[ENT-voloshyn]] [[ENT-vong]] [[ENT-vukovic]] [[ENT-weber]] [[ENT-weiss]] [[ENT-zhukova]] [[ENT-zoric-kristina]] [[ENT-zoric-nikolai]] [[REF-arnland-economie]] [[REF-arnland-infrastructure]] [[REF-arnland-medias]] [[REF-arnland-militaire]] [[REF-arnland-politique]] [[REF-arnland-societe]] [[REF-arnland-strategie]] |
 | [AGENT-ANALYSTE-BOT](agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | 2 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-adam]] [[ENT-amin]] [[ENT-anders-lorentz]] [[ENT-andersen-line]] [[ENT-astapenka]] [[ENT-baradzin]] [[ENT-boerck]] [[ENT-bohler]] [[ENT-bothnia]] [[ENT-breesson]] [[ENT-brrouette]] [[ENT-bruske]] [[ENT-bryl]] [[ENT-buerger]] [[ENT-declercq]] [[ENT-dewaele]] [[ENT-diniz]] [[ENT-dubrouski]] [[ENT-eklund]] [[ENT-erik-petra]] [[ENT-gradholm]] [[ENT-groop]] [[ENT-hansen]] [[ENT-holm]] [[ENT-horby]] [[ENT-ivanouski]] [[ENT-jansen]] [[ENT-jensen-niels]] [[ENT-kalenik]] [[ENT-koho]] [[ENT-koivisto]] [[ENT-kosmannen]] [[ENT-kramer]] [[ENT-lapitski]] [[ENT-lindquist]] [[ENT-madsen-freja]] [[ENT-madsen-ida]] [[ENT-maes]] [[ENT-malmsten]] [[ENT-meyer]] [[ENT-muller-aiko]] [[ENT-nielsen-kasper]] [[ENT-novik]] [[ENT-nyberg]] [[ENT-palmquetil]] [[ENT-pavlenko-nikolai]] [[ENT-pedersen-anders]] [[ENT-peters]] [[ENT-petrovic]] [[ENT-pierrinen]] [[ENT-radzivil]] [[ENT-richter]] [[ENT-roland]] [[ENT-rosendaal]] [[ENT-rosenquist]] [[ENT-rylander]] [[ENT-rynkevich]] [[ENT-saniki]] [[ENT-schmit]] [[ENT-shauchenka]] [[ENT-sokal]] [[ENT-sokolova-natalia]] [[ENT-strutz]] [[ENT-thinnes]] [[ENT-thulin]] [[ENT-tikhanov]] [[ENT-tsikhanouski]] [[ENT-turchyn]] [[ENT-uhlmensch]] [[ENT-viklund]] [[ENT-weber-dorit]] [[ENT-zeelen]] [[REF-bothnia-economie]] [[REF-bothnia-infrastructure]] [[REF-bothnia-medias]] [[REF-bothnia-militaire]] [[REF-bothnia-politique]] [[REF-bothnia-societe]] [[REF-bothnia-strategie]] |
 | [AGENT-ANALYSTE-MERCURE](agents/AGENT-ANALYSTE-MERCURE.md) | ANALYSTE (Mercure) | 2 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-abdoulaiev]] [[ENT-andreev-boris]] [[ENT-baumgartner]] [[ENT-bielski]] [[ENT-denisov]] [[ENT-druey]] [[ENT-dvornikov]] [[ENT-erickson]] [[ENT-gerlach]] [[ENT-gourka]] [[ENT-grabowski]] [[ENT-gratchev]] [[ENT-grun]] [[ENT-guierassimov]] [[ENT-gusev]] [[ENT-horvat]] [[ENT-ivazov]] [[ENT-julius]] [[ENT-junker]] [[ENT-kaczmarek]] [[ENT-kaleva]] [[ENT-kievov]] [[ENT-kirillov]] [[ENT-koulikov]] [[ENT-lennartsson]] [[ENT-maizieree]] [[ENT-majcen]] [[ENT-makarova-francesco]] [[ENT-matovnikov]] [[ENT-maximov]] [[ENT-mercure]] [[ENT-michalski]] [[ENT-mikhailovic]] [[ENT-mikhelev]] [[ENT-milanov]] [[ENT-mizintsev]] [[ENT-morozov-nikolai]] [[ENT-muller-angela]] [[ENT-numelin]] [[ENT-oblak]] [[ENT-olamao]] [[ENT-orlov-irina]] [[ENT-petrov-marco]] [[ENT-popov]] [[ENT-pruniere]] [[ENT-rasof]] [[ENT-ribiki]] [[ENT-rossi]] [[ENT-rozman]] [[ENT-sanders]] [[ENT-sanna-oleg]] [[ENT-sikorski]] [[ENT-sokolova-iouri]] [[ENT-soloviev]] [[ENT-soucek]] [[ENT-stoph]] [[ENT-toti]] [[ENT-urban]] [[ENT-vassielvski]] [[ENT-viktorovitch]] [[ENT-vinogradov]] [[ENT-volkov-alessia]] [[ENT-vostrikov]] [[ENT-vydra]] [[ENT-werner]] [[ENT-zajac]] [[ENT-zhukov]] [[REF-mercure-economie]] [[REF-mercure-information]] [[REF-mercure-militaire]] [[REF-mercure-politique]] [[REF-mercure-relations]] [[REF-mercure-societe]] [[REF-storm1516]] |
 | [AGENT-ARCHITECTE](agents/AGENT-ARCHITECTE.md) | ARCHITECTE | 3 | [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md) | — |
@@ -117,6 +117,7 @@
 |---|---|---|---|---|
 | [ENT-abdoulaiev](entities/personas/ENT-abdoulaiev.md) | Sliman Abdoulaïev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-adam](entities/personas/ENT-adam.md) | Lisa Adam | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-alvarez](entities/personas/ENT-alvarez.md) | Erik Alvarez | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-amin](entities/personas/ENT-amin.md) | Nero Amin | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-anders-lorentz](entities/personas/ENT-anders-lorentz.md) | Lorentz Anders | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-andersen-line](entities/personas/ENT-andersen-line.md) | Line Andersen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
@@ -135,8 +136,10 @@
 | [ENT-bodrova](entities/personas/ENT-bodrova.md) | Tatiana Bodrova | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-boerck](entities/personas/ENT-boerck.md) | Andreas Boerck | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-peters]] |
 | [ENT-bohler](entities/personas/ENT-bohler.md) | Erika Bohler | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-bold](entities/personas/ENT-bold.md) | Baltzar Bold | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-borchenko](entities/personas/ENT-borchenko.md) | Maksym Borchenko | 2 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | 1 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-peters]] [[ENT-tikhanov]] [[ENT-saniki]] [[LESSON-001]] [[LESSON-004]] |
+| [ENT-brandtsev](entities/personas/ENT-brandtsev.md) | Serhiy Brandtsev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-breesson](entities/personas/ENT-breesson.md) | Josef Breesson | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-brenner](entities/personas/ENT-brenner.md) | Nikolaï Brenner | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-brrouette](entities/personas/ENT-brrouette.md) | Leonard Brrouette | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
@@ -144,8 +147,10 @@
 | [ENT-bryl](entities/personas/ENT-bryl.md) | Palina Bryl | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-buerger](entities/personas/ENT-buerger.md) | Dr Cecilia Buerger | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-bystrom](entities/personas/ENT-bystrom.md) | Bystrom | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-chareyron](entities/personas/ENT-chareyron.md) | Chareyron | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-declercq](entities/personas/ENT-declercq.md) | Annelies de Clercq | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-denisov](entities/personas/ENT-denisov.md) | Ilya Denisov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
+| [ENT-depoire](entities/personas/ENT-depoire.md) | Depoire | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-dewaele](entities/personas/ENT-dewaele.md) | Patrick De Waele | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-dimitrov](entities/personas/ENT-dimitrov.md) | Oleg Dimitrov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-diniz](entities/personas/ENT-diniz.md) | Catarina Diniz | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-schmit]] |
@@ -158,6 +163,8 @@
 | [ENT-erickson](entities/personas/ENT-erickson.md) | Josef Erickson | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-erik-petra](entities/personas/ENT-erik-petra.md) | Petra Erik | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-filipovic](entities/personas/ENT-filipovic.md) | Zoran Filipović | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-fischer](entities/personas/ENT-fischer.md) | Aleksandr Fischer | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-fluxa](entities/personas/ENT-fluxa.md) | Fluxa | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-fries](entities/personas/ENT-fries.md) | Fries | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-gerlach](entities/personas/ENT-gerlach.md) | Sabine Gerlach | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-gervais](entities/personas/ENT-gervais.md) | Émile Gervais | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
@@ -172,11 +179,16 @@
 | [ENT-gusev](entities/personas/ENT-gusev.md) | Leonid Gusev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-hansen](entities/personas/ENT-hansen.md) | Hanna Hansen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-petrovic]] [[ENT-tikhanov]] |
 | [ENT-hartmann](entities/personas/ENT-hartmann.md) | Grigori Hartmann | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-havrylenko](entities/personas/ENT-havrylenko.md) | Lukas Havrylenko | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-hoffmann](entities/personas/ENT-hoffmann.md) | Olena Hoffmann | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-holm](entities/personas/ENT-holm.md) | Viktor Holm | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-horby](entities/personas/ENT-horby.md) | Tor Horby | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-horvat](entities/personas/ENT-horvat.md) | Gregor Horvat | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-hus](entities/personas/ENT-hus.md) | Hus | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-iliev](entities/personas/ENT-iliev.md) | Marko Iliev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-ivanouski](entities/personas/ENT-ivanouski.md) | Yauhen Ivanouski | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-ivanov-sergey](entities/personas/ENT-ivanov-sergey.md) | Sergey Ivanov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-ivanovitch](entities/personas/ENT-ivanovitch.md) | Viktor Ivanovitch | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-ivazov](entities/personas/ENT-ivazov.md) | Ivan Ivazov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-jankovic](entities/personas/ENT-jankovic.md) | Mira Janković | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-jansen](entities/personas/ENT-jansen.md) | Ingo Jansen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
@@ -188,19 +200,29 @@
 | [ENT-kaleva](entities/personas/ENT-kaleva.md) | Viktor Kaleva | 2 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] [[ENT-milanov]] |
 | [ENT-kalugin](entities/personas/ENT-kalugin.md) | Boris Kalugin | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-karadzic](entities/personas/ENT-karadzic.md) | Bojan Karadzic | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-karlson-erik](entities/personas/ENT-karlson-erik.md) | Erik Karlson | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-karrlson](entities/personas/ENT-karrlson.md) | Vincent Karrlson | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-kellerov](entities/personas/ENT-kellerov.md) | Anton Kellerov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-kermovant](entities/personas/ENT-kermovant.md) | Kermovant | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-kievov](entities/personas/ENT-kievov.md) | Slava Kievov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-kirillov](entities/personas/ENT-kirillov.md) | Aleksandr Kirillov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-koho](entities/personas/ENT-koho.md) | Harri Koho | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-koivisto](entities/personas/ENT-koivisto.md) | Koivisto | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-korolev](entities/personas/ENT-korolev.md) | Alexandr Korolev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-kosmannen](entities/personas/ENT-kosmannen.md) | Teemu Kosmannen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-kostich](entities/personas/ENT-kostich.md) | Jannik Kostich | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-koulikov](entities/personas/ENT-koulikov.md) | Gueorgy Koulikov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
+| [ENT-kovalenko-viktor](entities/personas/ENT-kovalenko-viktor.md) | Viktor Kovalenko | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-kovalev](entities/personas/ENT-kovalev.md) | Dmitri Kovalev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-kramer](entities/personas/ENT-kramer.md) | Anna Kramer | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-krauss](entities/personas/ENT-krauss.md) | Isabelle Krauss | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-kravchenko](entities/personas/ENT-kravchenko.md) | Nikolai Kravchenko | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-kravtsova](entities/personas/ENT-kravtsova.md) | Anastasia Kravtsova | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-kulis](entities/personas/ENT-kulis.md) | Kulis | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-lang](entities/personas/ENT-lang.md) | Dorothée Lang | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-lapitski](entities/personas/ENT-lapitski.md) | Marina Lapitski | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-laporte](entities/personas/ENT-laporte.md) | Laporte | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-lebedev](entities/personas/ENT-lebedev.md) | Alexei Lebedev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-lennartsson](entities/personas/ENT-lennartsson.md) | Sixten Lennartsson | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-lindquist](entities/personas/ENT-lindquist.md) | Kevin Lindquist | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-madsen-freja](entities/personas/ENT-madsen-freja.md) | Freja Madsen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
@@ -266,16 +288,21 @@
 | [ENT-saniki](entities/personas/ENT-saniki.md) | Andrei Saniki | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-tikhanov]] [[LESSON-001]] [[LESSON-006]] |
 | [ENT-sanna-oleg](entities/personas/ENT-sanna-oleg.md) | Oleg Sanna | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-savchenko](entities/personas/ENT-savchenko.md) | Nataliya Savchenko | 2 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] [[ENT-volkonsky]] [[LESSON-001]] |
+| [ENT-schmidt](entities/personas/ENT-schmidt.md) | Daniel Schmidt | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-schmit](entities/personas/ENT-schmit.md) | Marc Schmit | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-diniz]] |
 | [ENT-shauchenka](entities/personas/ENT-shauchenka.md) | Yan Shauchenka | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-sidorov](entities/personas/ENT-sidorov.md) | Mikhail Sidorov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-sikorski](entities/personas/ENT-sikorski.md) | Andrzej Sikorski | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-sokal](entities/personas/ENT-sokal.md) | Vassilina Sokal | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-sokolova-anastasia](entities/personas/ENT-sokolova-anastasia.md) | Anastasia Sokolova | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-sokolova-iouri](entities/personas/ENT-sokolova-iouri.md) | Iouri Sokolova | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-sokolova-natalia](entities/personas/ENT-sokolova-natalia.md) | Natalia Sokolova | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
 | [ENT-soloviev](entities/personas/ENT-soloviev.md) | Igor Soloviev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-soucek](entities/personas/ENT-soucek.md) | Walter Soucek | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-stanev](entities/personas/ENT-stanev.md) | Aleksandr Stanev | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-steinbach-viktor](entities/personas/ENT-steinbach-viktor.md) | Viktor Steinbach | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-steinbeck](entities/personas/ENT-steinbeck.md) | Konrad Steinbeck | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-steiner](entities/personas/ENT-steiner.md) | Dimitri Steiner | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-stepanenko](entities/personas/ENT-stepanenko.md) | Mariya Stepanenko | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-stoph](entities/personas/ENT-stoph.md) | Dominic Stoph | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-strutz](entities/personas/ENT-strutz.md) | Prof. Veronika Strutz | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
@@ -294,6 +321,8 @@
 | [ENT-viklund](entities/personas/ENT-viklund.md) | Oskar Viklund | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-nyberg]] [[ENT-eklund]] |
 | [ENT-viktorovitch](entities/personas/ENT-viktorovitch.md) | Vladimir Viktorovitch | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-vinogradov](entities/personas/ENT-vinogradov.md) | Moritz Vinogradov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
+| [ENT-vogelnyk](entities/personas/ENT-vogelnyk.md) | Katerina Vogelnyk | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
+| [ENT-voldyski](entities/personas/ENT-voldyski.md) | Markus Voldyski | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-volkonsky](entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | 2 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] [[ENT-savchenko]] [[LESSON-001]] |
 | [ENT-volkov-alessia](entities/personas/ENT-volkov-alessia.md) | Alessia Volkov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-volkov-ivan](entities/personas/ENT-volkov-ivan.md) | Ivan Volkov | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
@@ -304,6 +333,7 @@
 | [ENT-vydra](entities/personas/ENT-vydra.md) | Marta Vydra | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-weber](entities/personas/ENT-weber.md) | Henri Weber | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-weber-dorit](entities/personas/ENT-weber-dorit.md) | Dorit Weber | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-weiss](entities/personas/ENT-weiss.md) | Aleksandr Weiss | 3 | [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] |
 | [ENT-werner](entities/personas/ENT-werner.md) | Elias Werner | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-zajac](entities/personas/ENT-zajac.md) | Mateusz Zajac | 3 | [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] |
 | [ENT-zeelen](entities/personas/ENT-zeelen.md) | Maryam Zeelen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |

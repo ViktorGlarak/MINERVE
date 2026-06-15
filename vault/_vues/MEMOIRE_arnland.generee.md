@@ -138,7 +138,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 
 ---
 
-## Roster — 56 personas (camp = autorité des notes entité)
+## Roster — 86 personas (camp = autorité des notes entité)
 
 ### 🔴 rouge — 2
 
@@ -147,38 +147,54 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Nataliya Savchenko** | Leader associative **pro-Mercure** dans la diaspora mercurienne. **Mobilisation de la diaspora MER + victimisation** (storyline 07-03 « libération ») | [[ENT-savchenko]] |
 | **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** dans la diaspora mercurienne d'Arnland. **Relais ILI** de la storyline **07-03 « Vent de libération »** : sermons pro-MER, légitimation religieuse de l'action mercurienne | [[ENT-volkonsky]] |
 
-### ⚪ neutre — 8
+### ⚪ neutre — 12
 
 | Persona | Rôle | Note |
 |---|---|---|
+| **Alexandr Korolev** | NGO ISC | [[ENT-korolev]] |
+| **Anastasia Sokolova** | UNOCHA (coordination humanitaire ONU) | [[ENT-sokolova-anastasia]] |
 | **Bojan Karadzic** | Président du SDP (centre-gauche) | [[ENT-karadzic]] |
 | **Dorothée Lang** | Maire de HHaguenau — biculturelle MER/ARN, charnière LO4/LO5, sous surveillance MININT | [[ENT-lang]] |
 | **Henri Weber** | Maire de HSarrebourg — pharmacien proche des milieux pro-MER, ville 35% diaspora (relais/cible LO4) | [[ENT-weber]] |
 | **Ivan Volkov** | Président de l'ACP (communiste) | [[ENT-volkov-ivan]] |
 | **Maksym Borchenko** | Patron de **Borchenko Transports** (52 ans, né à HSarrebourg), membre de la **FEA** (Federation of Employers in Arnland). Logistique transfrontalière — **l'une des rares infrastructures encore opérationnelles**. 340 employés **bilingues** (arnlandais/mercurien) | [[ENT-borchenko]] |
+| **Marko Iliev** | Porte-parole UNHCR (réfugiés ONU) | [[ENT-iliev]] |
+| **Viktor Ivanovitch** | CultarNGO (biens culturels) | [[ENT-ivanovitch]] |
 | **Vladislav Marinov** | Chef de l'ASP (opposition, pro-SCO/MER ambiguë, amplifié par MER) | [[ENT-marinov]] |
 | **Yegor Malenko** | Président du Dushman (allié-partenaire) | [[ENT-malenko]] |
 | **Yuri Antonov** | Avocat de la défense (célèbre) | [[ENT-antonov]] |
 
-### 🔵 bleu — 46
+### 🔵 bleu — 72
 
 | Persona | Rôle | Note |
 |---|---|---|
+| **Aleksandr Fischer** | Ministre des Affaires étrangères (ORION 26 O41) | [[ENT-fischer]] |
 | **Aleksandr Stanev** | Chef de l'ASPS | [[ENT-stanev]] |
+| **Aleksandr Weiss** | Commandant Régional de Police | [[ENT-weiss]] |
+| **Alexei Lebedev** | Préfet du département HCharente-Maritime | [[ENT-lebedev]] |
 | **Alexei Morozov** | Ministre Technologies / Numérisation | [[ENT-morozov]] |
 | **Anastasia Kravtsova** | Ministre Culture / Jeunesse / Sports | [[ENT-kravtsova]] |
 | **Andrei Belov** | Ministre de la Défense — dépendance OTAN, tensions budgétaires | [[ENT-belov]] |
+| **Anton Kellerov** | Commandant de la 5e Brigade HAngoulême | [[ENT-kellerov]] |
 | **Arne** | Ballistic Missile Force (BMF) | [[ENT-arne]] |
 | **Augustin Birkmann** | Préfet de la région HLorraine — intègre mais dépassé, isolé de HParis | [[ENT-birkmann]] |
+| **Baltzar Bold** | Commandant de la Légion de Gendarmerie | [[ENT-bold]] |
 | **Bernard Thiebaut** | Maire de HChâteau-Salins — liens familiaux mercuriens frontaliers | [[ENT-thiebaut]] |
 | **Boris Kalugin** | Représentant de l'ICRC en Arnland (POW/civils ; humanitaire) | [[ENT-kalugin]] |
 | **Boris Novak** | Ministre du Développement national/international | [[ENT-novak]] |
 | **Bystrom** | Chef de la Marine | [[ENT-bystrom]] |
+| **Chareyron** | DMD HDeux-Sèvres (adjoint : Depoire) | [[ENT-chareyron]] |
+| **Daniel Schmidt** | Ministre de la Défense (ORION 26 O41) | [[ENT-schmidt]] |
+| **Depoire** | Adjoint DMD HDeux-Sèvres | [[ENT-depoire]] |
+| **Dimitri Steiner** | Maire de HSaint-Maixent | [[ENT-steiner]] |
 | **Dmitri Kovalev** | Maire de HAlberstroff | [[ENT-kovalev]] |
 | **Dmitri Radulov** | Ministre de l'Intérieur (ex-ASPS) — rhétorique « 5e colonne » anti-diaspora MER | [[ENT-radulov]] |
 | **Ekaterina Milova** | Avocate générale | [[ENT-milova]] |
 | **Elena Petrovna** | Responsable de Blue Shield en Arnland (patrimoine culturel) | [[ENT-petrovna]] |
 | **Elena Vasilieva** | Ministre de la Justice | [[ENT-vasilieva]] |
+| **Erik Alvarez** | Commandant du 5e Secteur HPoitiers | [[ENT-alvarez]] |
+| **Erik Karlson** | Préfet de la région HPoitou-Charente | [[ENT-karlson-erik]] |
+| **Fluxa** | DMD HCharente-Maritime (adjoint : Laporte) | [[ENT-fluxa]] |
 | **Fries** | Chef de l'Armée de l'air | [[ENT-fries]] |
 | **Gradholm (ARN)** | Chef des forces spéciales (SOF) — homonyme distinct du Gradholm bothnien | [[ENT-gradholm-arn]] |
 | **Grigori Hartmann** | Maire de HSarre-Union (ville saisie par 27BIM en CAX1) | [[ENT-hartmann]] |
@@ -188,24 +204,38 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Irina Voloshyn** | Maire de HToul | [[ENT-voloshyn]] |
 | **Isabelle Krauss** | Maire de HLunéville — patriote arnlandaise (aile sociale APP), base arrière/hôpital | [[ENT-krauss]] |
 | **Ivan Baranov** | Ministre Agriculture / Alimentation | [[ENT-baranov]] |
+| **Jannik Kostich** | ALC HCharente-Maritime | [[ENT-kostich]] |
+| **Katerina Vogelnyk** | Police HVienne | [[ENT-vogelnyk]] |
+| **Kermovant** | Gendarmerie HDeux-Sèvres | [[ENT-kermovant]] |
+| **Konrad Steinbeck** | Gendarmeria Poitou | [[ENT-steinbeck]] |
 | **Kristina Zoric** | Porte-parole de l'OTAN | [[ENT-zoric-kristina]] |
+| **Kulis** | Préfet du département HDeux-Sèvres | [[ENT-kulis]] |
+| **Laporte** | Adjoint DMD HCharente-Maritime | [[ENT-laporte]] |
 | **Luka Pavlenko** | Président de l'ALP (centre, soutient l'APP) | [[ENT-pavlenko-luka]] |
+| **Lukas Havrylenko** | Gendarmerie HVienne | [[ENT-havrylenko]] |
 | **Mariya Stepanenko** | Juge constitutionnel | [[ENT-stepanenko]] |
 | **Marko Djobović** | Gén. de brigade — CO 8e DAC (capture des 104 soldats MER à HNancy) ; cible nominative de l'ILI MER | [[ENT-djobovic]] |
+| **Markus Voldyski** | AISA — agence de sécurité arnish (HN ; examen 5G Dushman) | [[ENT-voldyski]] |
 | **Mikhail Sidorov** | Président de l'ARP (droite, appui ponctuel à l'APP) | [[ENT-sidorov]] |
 | **Milan Andreev** | Porte-parole de l'UE | [[ENT-andreev-milan]] |
 | **Milena Zhukova** | Ministre Éducation / Recherche | [[ENT-zhukova]] |
 | **Mira Janković** | Ministre des Affaires étrangères — très active sur X (contre-narratifs, droit international) | [[ENT-jankovic]] |
 | **Natalya Pavlenko** | Ministre de l'Environnement | [[ENT-pavlenko-natalya]] |
+| **Nikolai Kravchenko** | DMD HVienne | [[ENT-kravchenko]] |
 | **Nikolai Zoric** | Juge pénal | [[ENT-zoric-nikolai]] |
 | **Nikolaï Brenner** | Maire de HMorange | [[ENT-brenner]] |
 | **Oleg Dimitrov** | Président de l'APP (centre-droit, dominant depuis 1991) | [[ENT-dimitrov]] |
+| **Olena Hoffmann** | Maire de HPoitiers | [[ENT-hoffmann]] |
 | **Sergei Nikitin** | Ministre Travail / Protection sociale | [[ENT-nikitin]] |
+| **Sergey Ivanov** | Préfet du département HVienne | [[ENT-ivanov-sergey]] |
+| **Serhiy Brandtsev** | Police HDeux-Sèvres | [[ENT-brandtsev]] |
 | **Stanislav Vuković** | Président de la Cour suprême | [[ENT-vukovic]] |
 | **Sture Pallesson** | Président de la République (APP, pro-OTAN) — com > action, coalition fragile | [[ENT-pallesson]] |
 | **Tatiana Bodrova** | Ministre Économie / Commerce | [[ENT-bodrova]] |
 | **Tatiana Velkova** | ICRC en Arnland (humanitaire) | [[ENT-velkova]] |
 | **Viktor Dragunov** | Ministre des Finances | [[ENT-dragunov]] |
+| **Viktor Kovalenko** | Responsable de prison | [[ENT-kovalenko-viktor]] |
+| **Viktor Steinbach** | ACDA — Arnland Civil Defence Agency (HN) | [[ENT-steinbach-viktor]] |
 | **Vincent Karrlson** | Premier ministre (APP) — apparatchik loyal, sans base | [[ENT-karrlson]] |
 | **Vong** | CHOD — chef des armées | [[ENT-vong]] |
 | **Zoran Filipović** | Ministre des Transports | [[ENT-filipovic]] |
