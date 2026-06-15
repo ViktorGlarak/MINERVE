@@ -138,7 +138,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 
 ---
 
-## Roster — 86 personas (camp = autorité des notes entité)
+## Roster — 98 personas (camp = autorité des notes entité)
 
 ### 🔴 rouge — 2
 
@@ -147,7 +147,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Nataliya Savchenko** | Leader associative **pro-Mercure** dans la diaspora mercurienne. **Mobilisation de la diaspora MER + victimisation** (storyline 07-03 « libération ») | [[ENT-savchenko]] |
 | **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** dans la diaspora mercurienne d'Arnland. **Relais ILI** de la storyline **07-03 « Vent de libération »** : sermons pro-MER, légitimation religieuse de l'action mercurienne | [[ENT-volkonsky]] |
 
-### ⚪ neutre — 12
+### ⚪ neutre — 21
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -157,14 +157,23 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Dorothée Lang** | Maire de HHaguenau — biculturelle MER/ARN, charnière LO4/LO5, sous surveillance MININT | [[ENT-lang]] |
 | **Henri Weber** | Maire de HSarrebourg — pharmacien proche des milieux pro-MER, ville 35% diaspora (relais/cible LO4) | [[ENT-weber]] |
 | **Ivan Volkov** | Président de l'ACP (communiste) | [[ENT-volkov-ivan]] |
+| **Katarina Durova** | Porte-parole de l'ASP (Arnland Socialist Party) | [[ENT-durova]] |
+| **Lidija Novik** | Porte-parole d'association (société civile) | [[ENT-novik-lidija]] |
 | **Maksym Borchenko** | Patron de **Borchenko Transports** (52 ans, né à HSarrebourg), membre de la **FEA** (Federation of Employers in Arnland). Logistique transfrontalière — **l'une des rares infrastructures encore opérationnelles**. 340 employés **bilingues** (arnlandais/mercurien) | [[ENT-borchenko]] |
 | **Marko Iliev** | Porte-parole UNHCR (réfugiés ONU) | [[ENT-iliev]] |
+| **Natalya Kostova** | Porte-parole du SDP (Social Democratic Party) | [[ENT-kostova]] |
+| **Radovan Jakšić** | Président d'association (société civile) | [[ENT-jaksic]] |
+| **Svetlana Radojević** | Porte-parole UNICEF (Arnland) | [[ENT-radojevic]] |
+| **Tanja Borović** | Porte-parole du Dushman (allié-partenaire) | [[ENT-borovic]] |
+| **Tomaš Vrenko** | Président d'association (société civile) | [[ENT-vrenko]] |
+| **Vesna Blazic** | Porte-parole d'association (société civile) | [[ENT-blazic]] |
 | **Viktor Ivanovitch** | CultarNGO (biens culturels) | [[ENT-ivanovitch]] |
 | **Vladislav Marinov** | Chef de l'ASP (opposition, pro-SCO/MER ambiguë, amplifié par MER) | [[ENT-marinov]] |
 | **Yegor Malenko** | Président du Dushman (allié-partenaire) | [[ENT-malenko]] |
 | **Yuri Antonov** | Avocat de la défense (célèbre) | [[ENT-antonov]] |
+| **Zoya Milenković** | Porte-parole de l'ACP (Arnland Communist Party) | [[ENT-milenkovic]] |
 
-### 🔵 bleu — 72
+### 🔵 bleu — 75
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -176,6 +185,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Anastasia Kravtsova** | Ministre Culture / Jeunesse / Sports | [[ENT-kravtsova]] |
 | **Andrei Belov** | Ministre de la Défense — dépendance OTAN, tensions budgétaires | [[ENT-belov]] |
 | **Anton Kellerov** | Commandant de la 5e Brigade HAngoulême | [[ENT-kellerov]] |
+| **Anya Savchenko** | Porte-parole de l'ALP (Arnland Liberal Party). ⚠ distincte de Nataliya Savchenko (leader pro-MER, rouge) | [[ENT-savchenko-anya]] |
 | **Arne** | Ballistic Missile Force (BMF) | [[ENT-arne]] |
 | **Augustin Birkmann** | Préfet de la région HLorraine — intègre mais dépassé, isolé de HParis | [[ENT-birkmann]] |
 | **Baltzar Bold** | Commandant de la Légion de Gendarmerie | [[ENT-bold]] |
@@ -202,6 +212,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Igor Mishin** | Président de l'Arnish Refugee Council (ARC) | [[ENT-mishin]] |
 | **Irina Petrova** | Ministre de la Santé | [[ENT-petrova-irina]] |
 | **Irina Voloshyn** | Maire de HToul | [[ENT-voloshyn]] |
+| **Irina Zhivković** | Porte-parole de l'APP (Arnland Prosperity Party) | [[ENT-zhivkovic]] |
 | **Isabelle Krauss** | Maire de HLunéville — patriote arnlandaise (aile sociale APP), base arrière/hôpital | [[ENT-krauss]] |
 | **Ivan Baranov** | Ministre Agriculture / Alimentation | [[ENT-baranov]] |
 | **Jannik Kostich** | ALC HCharente-Maritime | [[ENT-kostich]] |
@@ -226,6 +237,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Nikolaï Brenner** | Maire de HMorange | [[ENT-brenner]] |
 | **Oleg Dimitrov** | Président de l'APP (centre-droit, dominant depuis 1991) | [[ENT-dimitrov]] |
 | **Olena Hoffmann** | Maire de HPoitiers | [[ENT-hoffmann]] |
+| **Radmila Petrović** | Porte-parole de l'ARP (Arnland Republican Party) | [[ENT-petrovic-radmila]] |
 | **Sergei Nikitin** | Ministre Travail / Protection sociale | [[ENT-nikitin]] |
 | **Sergey Ivanov** | Préfet du département HVienne | [[ENT-ivanov-sergey]] |
 | **Serhiy Brandtsev** | Police HDeux-Sèvres | [[ENT-brandtsev]] |

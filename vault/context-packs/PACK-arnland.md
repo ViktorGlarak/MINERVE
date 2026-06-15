@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « arnland ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 94 notes.
+> Généré le 2026-06-15 · 106 notes.
 
 ## Notes (par tier)
 
@@ -23,8 +23,10 @@
 | 3 | [ENT-baranov](../entities/personas/ENT-baranov.md) | Ivan Baranov | entity |
 | 3 | [ENT-belov](../entities/personas/ENT-belov.md) | Andrei Belov | entity |
 | 3 | [ENT-birkmann](../entities/personas/ENT-birkmann.md) | Augustin Birkmann | entity |
+| 3 | [ENT-blazic](../entities/personas/ENT-blazic.md) | Vesna Blazic | entity |
 | 3 | [ENT-bodrova](../entities/personas/ENT-bodrova.md) | Tatiana Bodrova | entity |
 | 3 | [ENT-bold](../entities/personas/ENT-bold.md) | Baltzar Bold | entity |
+| 3 | [ENT-borovic](../entities/personas/ENT-borovic.md) | Tanja Borović | entity |
 | 3 | [ENT-brandtsev](../entities/personas/ENT-brandtsev.md) | Serhiy Brandtsev | entity |
 | 3 | [ENT-brenner](../entities/personas/ENT-brenner.md) | Nikolaï Brenner | entity |
 | 3 | [ENT-bystrom](../entities/personas/ENT-bystrom.md) | Bystrom | entity |
@@ -33,6 +35,7 @@
 | 3 | [ENT-dimitrov](../entities/personas/ENT-dimitrov.md) | Oleg Dimitrov | entity |
 | 3 | [ENT-djobovic](../entities/personas/ENT-djobovic.md) | Marko Djobović | entity |
 | 3 | [ENT-dragunov](../entities/personas/ENT-dragunov.md) | Viktor Dragunov | entity |
+| 3 | [ENT-durova](../entities/personas/ENT-durova.md) | Katarina Durova | entity |
 | 3 | [ENT-filipovic](../entities/personas/ENT-filipovic.md) | Zoran Filipović | entity |
 | 3 | [ENT-fischer](../entities/personas/ENT-fischer.md) | Aleksandr Fischer | entity |
 | 3 | [ENT-fluxa](../entities/personas/ENT-fluxa.md) | Fluxa | entity |
@@ -46,6 +49,7 @@
 | 3 | [ENT-iliev](../entities/personas/ENT-iliev.md) | Marko Iliev | entity |
 | 3 | [ENT-ivanov-sergey](../entities/personas/ENT-ivanov-sergey.md) | Sergey Ivanov | entity |
 | 3 | [ENT-ivanovitch](../entities/personas/ENT-ivanovitch.md) | Viktor Ivanovitch | entity |
+| 3 | [ENT-jaksic](../entities/personas/ENT-jaksic.md) | Radovan Jakšić | entity |
 | 3 | [ENT-jankovic](../entities/personas/ENT-jankovic.md) | Mira Janković | entity |
 | 3 | [ENT-kalugin](../entities/personas/ENT-kalugin.md) | Boris Kalugin | entity |
 | 3 | [ENT-karadzic](../entities/personas/ENT-karadzic.md) | Bojan Karadzic | entity |
@@ -55,6 +59,7 @@
 | 3 | [ENT-kermovant](../entities/personas/ENT-kermovant.md) | Kermovant | entity |
 | 3 | [ENT-korolev](../entities/personas/ENT-korolev.md) | Alexandr Korolev | entity |
 | 3 | [ENT-kostich](../entities/personas/ENT-kostich.md) | Jannik Kostich | entity |
+| 3 | [ENT-kostova](../entities/personas/ENT-kostova.md) | Natalya Kostova | entity |
 | 3 | [ENT-kovalenko-viktor](../entities/personas/ENT-kovalenko-viktor.md) | Viktor Kovalenko | entity |
 | 3 | [ENT-kovalev](../entities/personas/ENT-kovalev.md) | Dmitri Kovalev | entity |
 | 3 | [ENT-krauss](../entities/personas/ENT-krauss.md) | Isabelle Krauss | entity |
@@ -66,17 +71,22 @@
 | 3 | [ENT-lebedev](../entities/personas/ENT-lebedev.md) | Alexei Lebedev | entity |
 | 3 | [ENT-malenko](../entities/personas/ENT-malenko.md) | Yegor Malenko | entity |
 | 3 | [ENT-marinov](../entities/personas/ENT-marinov.md) | Vladislav Marinov | entity |
+| 3 | [ENT-milenkovic](../entities/personas/ENT-milenkovic.md) | Zoya Milenković | entity |
 | 3 | [ENT-milova](../entities/personas/ENT-milova.md) | Ekaterina Milova | entity |
 | 3 | [ENT-mishin](../entities/personas/ENT-mishin.md) | Igor Mishin | entity |
 | 3 | [ENT-morozov](../entities/personas/ENT-morozov.md) | Alexei Morozov | entity |
 | 3 | [ENT-nikitin](../entities/personas/ENT-nikitin.md) | Sergei Nikitin | entity |
 | 3 | [ENT-novak](../entities/personas/ENT-novak.md) | Boris Novak | entity |
+| 3 | [ENT-novik-lidija](../entities/personas/ENT-novik-lidija.md) | Lidija Novik | entity |
 | 3 | [ENT-pallesson](../entities/personas/ENT-pallesson.md) | Sture Pallesson | entity |
 | 3 | [ENT-pavlenko-luka](../entities/personas/ENT-pavlenko-luka.md) | Luka Pavlenko | entity |
 | 3 | [ENT-pavlenko-natalya](../entities/personas/ENT-pavlenko-natalya.md) | Natalya Pavlenko | entity |
 | 3 | [ENT-petrova-irina](../entities/personas/ENT-petrova-irina.md) | Irina Petrova | entity |
+| 3 | [ENT-petrovic-radmila](../entities/personas/ENT-petrovic-radmila.md) | Radmila Petrović | entity |
 | 3 | [ENT-petrovna](../entities/personas/ENT-petrovna.md) | Elena Petrovna | entity |
+| 3 | [ENT-radojevic](../entities/personas/ENT-radojevic.md) | Svetlana Radojević | entity |
 | 3 | [ENT-radulov](../entities/personas/ENT-radulov.md) | Dmitri Radulov | entity |
+| 3 | [ENT-savchenko-anya](../entities/personas/ENT-savchenko-anya.md) | Anya Savchenko | entity |
 | 3 | [ENT-schmidt](../entities/personas/ENT-schmidt.md) | Daniel Schmidt | entity |
 | 3 | [ENT-sidorov](../entities/personas/ENT-sidorov.md) | Mikhail Sidorov | entity |
 | 3 | [ENT-sokolova-anastasia](../entities/personas/ENT-sokolova-anastasia.md) | Anastasia Sokolova | entity |
@@ -93,9 +103,11 @@
 | 3 | [ENT-volkov-ivan](../entities/personas/ENT-volkov-ivan.md) | Ivan Volkov | entity |
 | 3 | [ENT-voloshyn](../entities/personas/ENT-voloshyn.md) | Irina Voloshyn | entity |
 | 3 | [ENT-vong](../entities/personas/ENT-vong.md) | Vong | entity |
+| 3 | [ENT-vrenko](../entities/personas/ENT-vrenko.md) | Tomaš Vrenko | entity |
 | 3 | [ENT-vukovic](../entities/personas/ENT-vukovic.md) | Stanislav Vuković | entity |
 | 3 | [ENT-weber](../entities/personas/ENT-weber.md) | Henri Weber | entity |
 | 3 | [ENT-weiss](../entities/personas/ENT-weiss.md) | Aleksandr Weiss | entity |
+| 3 | [ENT-zhivkovic](../entities/personas/ENT-zhivkovic.md) | Irina Zhivković | entity |
 | 3 | [ENT-zhukova](../entities/personas/ENT-zhukova.md) | Milena Zhukova | entity |
 | 3 | [ENT-zoric-kristina](../entities/personas/ENT-zoric-kristina.md) | Kristina Zoric | entity |
 | 3 | [ENT-zoric-nikolai](../entities/personas/ENT-zoric-nikolai.md) | Nikolai Zoric | entity |

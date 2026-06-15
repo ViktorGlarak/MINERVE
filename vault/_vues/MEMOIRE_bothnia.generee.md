@@ -141,7 +141,7 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 
 ---
 
-## Roster — 71 personas (camp = autorité des notes entité)
+## Roster — 83 personas (camp = autorité des notes entité)
 
 ### 🔴 rouge — 4
 
@@ -152,18 +152,21 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 | **Svetlana Tikhanov** | Dirigeante (fondatrice de fait) de **Nouvelle Pahonie**, branche jeune de l'opposition nationaliste pro-MER, ancrée dans la diaspora mercurienne. Hors Parlement, mais influence RS/diaspora croissante | [[ENT-tikhanov]] |
 | **Sviatlana Baradzin** | Juriste — pro-coopération avec Mercure | [[ENT-baradzin]] |
 
-### ⚪ neutre — 64
+### ⚪ neutre — 76
 
 | Persona | Rôle | Note |
 |---|---|---|
+| **Aliaksandr Radzivil** | Chef du NTF (National Task Force) | [[ENT-radzivil-aliaksandr]] |
 | **Alyaksei Astapenka** | CCB — cybersécurité | [[ENT-astapenka]] |
 | **Anders Malmsten** | Vice-amiral — CEM Marine (flotte du Nord, surveillance côtière) | [[ENT-malmsten]] |
 | **Anders Pedersen** | SSTO — Skolkan Security Treaty Organisation | [[ENT-pedersen-anders]] |
 | **Andreas Boerck** | Gouverneur régional de **Bannova-Rheinland** (région frontalière, lignite/énergie). Loyal à Peters (nommé par le gouvernement) | [[ENT-boerck]] |
+| **Andrej Hurski** | Député (MP) — Bothnian National Party (BNP) | [[ENT-hurski]] |
 | **Ann Richter** | Commissaire national de la Police | [[ENT-richter]] |
 | **Anna Kramer** | Cheffe du LPB (Liberal Party, gauche modérée) | [[ENT-kramer]] |
 | **Annelies de Clercq** | FARO — patrimoine | [[ENT-declercq]] |
 | **Anton Turchyn** | Ombudsperson (BOB) | [[ENT-turchyn]] |
+| **Artsiom Karpovitch** | Chef de la Police (countbook ORION). ⚠ DIVERGENCE : la mémoire ANALYSTE_BOT / le vault listent « Ann Richter » au même poste — à arbitrer | [[ENT-karpovitch]] |
 | **Catarina Diniz** | MAE (68 ans). Incarne la ligne **non-confrontationnelle par intérêt économique**. Tension de ligne avec [[ENT-schmit]] (Défense, « belliqueux ») | [[ENT-diniz]] |
 | **Dmitri Kalenik** | Juriste — droits humains | [[ENT-kalenik]] |
 | **Dorit Weber** | Ministre de l'Environnement | [[ENT-weber-dorit]] |
@@ -172,6 +175,7 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 | **Dr Leopold Thulin** | Ministre de l'Éducation | [[ENT-thulin]] |
 | **Dries Maes** | RAFB — anti-radicalisation | [[ENT-maes]] |
 | **Edric Thinnes** | Ministre du Développement national | [[ENT-thinnes]] |
+| **Emil Rasmussen** | Porte-parole de la CBE (Confederation of Bothnian Enterprise) | [[ENT-rasmussen]] |
 | **Erika Bohler** | NTUC — syndicats | [[ENT-bohler]] |
 | **Freja Madsen** | Gouverneur de Bområde (loyale à Peters) | [[ENT-madsen-freja]] |
 | **Halina Rynkevich** | NSS — sécurité nationale | [[ENT-rynkevich]] |
@@ -193,8 +197,11 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 | **Marc Schmit** | Ministre de la Défense. Ligne **« belliqueuse »** (contraste avec la prudence de [[ENT-diniz]]). Autorité civile sur le haut commandement (CHOD Palmquetil) | [[ENT-schmit]] |
 | **Marina Lapitski** | Cheffe de l'AFB (Alliance for the Future of Bothnia, extrême droite) | [[ENT-lapitski]] |
 | **Maryam Zeelen** | Ministre du Travail | [[ENT-zeelen]] |
+| **Maryia Dziadok** | Cheffe du NECB (National Economic Crimes Bureau) | [[ENT-dziadok-maryia]] |
+| **Michal Zhuk** | Député (MP) — Liberal Party of Bothnia (LPB) | [[ENT-zhuk]] |
 | **Mikalai Dubrouski** | Anti-corruption (CPIB) | [[ENT-dubrouski]] |
 | **Natalia Sokolova** | BFR — Bothnian Free Radicals | [[ENT-sokolova-natalia]] |
+| **Natallia Dziadok** | Députée (MP) — Bothnian Unity Party (BUP) | [[ENT-dziadok-natallia]] |
 | **Nele Meyer** | Ministre de l'Intérieur. **Conseillère la plus proche et amie de longue date de Peters** ; tient les régions sous contrôle central | [[ENT-meyer]] |
 | **Nero Amin** | Ministre de l'Information & des Communications | [[ENT-amin]] |
 | **Niampsa Pierrinen** | Général — Chef de l'armée de terre (province Kaina) | [[ENT-pierrinen]] |
@@ -204,15 +211,19 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 | **Oliver Rosendaal** | CBE — patronat | [[ENT-rosendaal]] |
 | **Palina Bryl** | Cheffe de Green Bothnia (écologiste, non représenté) | [[ENT-bryl]] |
 | **Patrick De Waele** | Ministre Dév. communautaire / Jeunesse / Sports | [[ENT-dewaele]] |
+| **Paval Shymanovich** | Chef du NCID (National Criminal Investigations Department) | [[ENT-shymanovich]] |
 | **Petra Erik** | Gouverneur de Belluxa (loyale à Peters) | [[ENT-erik-petra]] |
 | **Prof. Veronika Strutz** | Ministre de la Justice | [[ENT-strutz]] |
 | **Quirin Rylander** | Ministre des Finances | [[ENT-rylander]] |
+| **Raman Vasilevich** | Chef du NSWAT (anti-terroriste) | [[ENT-vasilevich]] |
 | **Siarhei Novik** | Cour suprême — administratif | [[ENT-novik]] |
 | **Sven Bruske** | Ministre des Transports | [[ENT-bruske]] |
+| **Tatsiana Marozau** | Cheffe du Police Air Service | [[ENT-marozau]] |
 | **Teemu Kosmannen** | Lt-général — Cdt Préparation opérationnelle (innovation, réformateur) | [[ENT-kosmannen]] |
 | **Tony Palmquetil** | Général — CHOD, chef d'état-major des armées (logisticien ; réformes pro-MER, interopérabilité Mercure) | [[ENT-palmquetil]] |
 | **Tor Horby** | Magnat des médias (Horby Holdings) | [[ENT-horby]] |
 | **Tyko Groop** | Lt-général — Cdt Soutien (logistique) | [[ENT-groop]] |
+| **Ulyana Makarevich** | Députée (MP) — Bothnian Prosperity Party (BPP) | [[ENT-makarevich]] |
 | **Valery Radzivil** | NSA — signals intelligence | [[ENT-radzivil]] |
 | **Vassilina Sokal** | Central Auditing Office | [[ENT-sokal]] |
 | **Vensel Uhlmensch** | Lt-général — CEM Armée de l'air (drones, DCA, pro-techno) | [[ENT-uhlmensch]] |
@@ -220,6 +231,7 @@ Rival économique ; ARN = fer de lance EU/OTAN, « woke » ; forte minorité bot
 | **Wilhelm Rosenquist** | Major-général — Directeur de la Défense civile (résilience) | [[ENT-rosenquist]] |
 | **Yan Shauchenka** | Chef du BDP (extrême gauche) | [[ENT-shauchenka]] |
 | **Yauhen Ivanouski** | Cour suprême — économique | [[ENT-ivanouski]] |
+| **Yury Kavalenka** | Directeur de la DIA (Defence Intelligence Agency) — countbook | [[ENT-kavalenka]] |
 
 ### 🔵 bleu — 3
 

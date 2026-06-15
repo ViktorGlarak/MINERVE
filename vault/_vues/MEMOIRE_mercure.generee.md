@@ -126,69 +126,116 @@ Espérance 74,8 ans, fécondité 1,54 (vieillissement). Égalité F/H 53,4/100.
 
 ---
 
-## Roster — 66 personas (camp = autorité des notes entité)
+## Roster — 113 personas (camp = autorité des notes entité)
 
-### 🔴 rouge — 57
+### 🔴 rouge — 104
 
 | Persona | Rôle | Note |
 |---|---|---|
+| **Agnieszka Haider** | Députée (Deema) | [[ENT-haider]] |
 | **Aleksandr Kirillov** | BG — CO 413 TANK BDE ; ne délègue pas ; harcèlement de son ex-femme (levier perso) | [[ENT-kirillov]] |
 | **Aleksandr Matovnikov** | BG — CO 412 TANK BDE ; « POPOV's right-hand man » ; InfoOps freak ; trop sûr de lui | [[ENT-matovnikov]] |
+| **Alexandre Vogel** | Membre — PECC | [[ENT-vogel]] |
+| **Alexei Neumann** | Président — Commission électorale populaire (PECC) | [[ENT-neumann]] |
 | **Alexei Vostrikov** | Vice-amiral — chef flotte du Nord (Baltique) | [[ENT-vostrikov]] |
+| **Alla Mancini** | Présidente régionale de Bavemberg | [[ENT-mancini]] |
+| **Anatoli Fredotov** | Porte-parole — PICC | [[ENT-fredotov]] |
 | **Andrzej Sikorski** | Chef d'EM des forces terrestres | [[ENT-sikorski]] |
 | **Angela Muller** | Ministre de l'Éducation — endoctrinement militaro-patriotique | [[ENT-muller-angela]] |
 | **Anton Bielski** | BG — CO 431 ABN BDE ; très résilient ; InfoOps & deception freak ; WIA 2008 | [[ENT-bielski]] |
+| **Antonia Schwarz** | Porte-parole — Les Gardiens du Peuple | [[ENT-schwarz]] |
 | **Arkan Milanov** | Numéro 2 de TANTALE. Ex-leader des supporters du **« Black Star Football Team »** ; gang fasciné par la violence, les mythes MER et la virilité. **Utilisateur SOCMED narcissique et démonstratif** : diffuse de la propagande pour TAN/MER/lui-même, appelle « les braves » à rejoindre « la guerre de libération ». En concurrence avec le crime organisé | [[ENT-milanov]] |
+| **Artem Ebner** | Président régional de Doluskie | [[ENT-ebner]] |
 | **Bartosz Kaczmarek** | Avocat pro-régime | [[ENT-kaczmarek]] |
+| **Benedikt Seidl** | Transports & Sécurité routière — Min. Intérieur | [[ENT-seidl]] |
 | **Boris Andreev** | Lt-Général — cdt FGF-1 ; offensive blindée ; « InfoOps & deception freak » ; leads from the front | [[ENT-andreev-boris]] |
 | **Dimitri Mikhailovic** | Colonel — CO 410 TANK BN ; liens avec la milice TAN ; ex-officier de rens. en Bothnia ; tensions avec ses subordonnés | [[ENT-mikhailovic]] |
+| **Dmitri Palmieri** | Organisation & Inspection — Min. Intérieur | [[ENT-palmieri]] |
 | **Dominic Stoph** | Ministre des Affaires étrangères — légitimation internationale | [[ENT-stoph]] |
 | **Elias Werner** | Président de la milice TANTALE (paramilitaire pro-Olamao) | [[ENT-werner]] |
+| **Emanuele Tarasov** | Sécurité économique — Min. Intérieur | [[ENT-tarasov]] |
+| **Federico Conti** | Représentant MER au SCO | [[ENT-conti]] |
 | **Franz Olamao** | Président depuis **2001** (réélu via amendements constitutionnels 2018) ; CINC des forces armées + Conseil de sécurité ; **pouvoir absolu**. Doctrine : environnement informationnel « stratégiquement décisif » | [[ENT-olamao]] |
+| **Franziska Urban** | Porte-parole — PJC | [[ENT-urban-franziska]] |
 | **Fred Numelin** | Chef d'EM général (5 étoiles) — capacitaire & préparation opérationnelle | [[ENT-numelin]] |
+| **Georg Auer** | Président régional de Lombmont | [[ENT-auer-georg]] |
 | **Gregor Horvat** | Chef du service de santé des forces armées | [[ENT-horvat]] |
+| **Greta Günther** | Porte-parole — PECC | [[ENT-gunther]] |
 | **Gueorgy Koulikov** | MG — CO 42 MECH DIV ; très populaire ; rival de Prunière ; ascension rapide = jalousies | [[ENT-koulikov]] |
+| **Heidi Moser** | Comité d'enquête — Min. Intérieur | [[ENT-moser]] |
+| **Henrik Zimmerman** | Président — Les Gardiens du Peuple | [[ENT-zimmerman]] |
 | **Ievgueni Gratchev** | MG — CO 13 INF DIV (FGF-1) ; blessures multiples → condition médicale | [[ENT-gratchev]] |
 | **Igor Guierassimov** | Général — cdt suprême FGF-L ; bras droit du Président ; instigateur de la doctrine InfoOps & déception MER | [[ENT-guierassimov]] |
 | **Igor Soloviev** | MSS (Mercure Security Service) — renseignement intérieur | [[ENT-soloviev]] |
 | **Ilya Denisov** | MIA (Military Intelligence Agency) — renseignement militaire | [[ENT-denisov]] |
 | **Ivan Ivazov** | MG — CO 31 MECH DIV (FGF-3) ; très populaire, résilient ; rivalité entre pairs | [[ENT-ivazov]] |
+| **Jakob Pichler** | Président régional de Tyrie | [[ENT-pichler]] |
+| **Jasna Zupan** | Présidente — La Voie Économique Libre | [[ENT-zupan]] |
 | **Jonas Junker** | Ministre de la Défense — ex-maréchal de l'air + ex-chef d'EM, cercle intime Olamao | [[ENT-junker]] |
 | **Josef Erickson** | Ministre de l'Économie / Finances — modèle d'économie dirigée | [[ENT-erickson]] |
+| **Jure Rupnik** | Porte-parole — La Voie Économique Libre | [[ENT-rupnik]] |
+| **Konstantin Zaitsev** | Président régional de Saxinga | [[ENT-zaitsev]] |
 | **Kristian Mikhelev** | BG — CO 423 TANK BDE ; OPSEC/rens. fort ; prudent ; peu réactif aux changements de plan | [[ENT-mikhelev]] |
+| **Ksenia Caruso** | Présidente régionale de Bohême | [[ENT-caruso]] |
 | **Leonid Gusev** | FIS (Foreign Intelligence Service) — renseignement extérieur | [[ENT-gusev]] |
+| **Lorenz König** | Département des enquêtes criminelles — Min. Intérieur | [[ENT-konig-lorenz]] |
 | **Louise Grun** | Ministre de l'Information | [[ENT-grun]] |
+| **Magdalena Leitgeb** | Députée (Deema) | [[ENT-leitgeb]] |
+| **Maja Jerman** | Présidente — Commission intégrité & anticorruption (PICC) | [[ENT-jerman]] |
+| **Maksim Kozlov** | Porte-parole — Fraternité des anciens combattants | [[ENT-kozlov]] |
 | **Marc Baumgartner** | Ministre de l'Environnement | [[ENT-baumgartner]] |
+| **Margarita Hofer** | Présidente — Les Racines du Peuple | [[ENT-hofer]] |
+| **Markus König** | Président régional de Bernino | [[ENT-konig-markus]] |
 | **Marta Vydra** | Ministre de la Culture + Transport — MERCULT, patrimoine | [[ENT-vydra]] |
 | **Mateusz Zajac** | Juge à la Cour suprême (affaires administratives) | [[ENT-zajac]] |
 | **Miha Majcen** | Chef des forces stratégiques (nucléaire) | [[ENT-majcen]] |
 | **Mikhail Zhukov** | MG — CO 43 ABN DIV ; perte de popularité après une affaire fiscale (levier LO4) ; 30% non-PRO | [[ENT-zhukov]] |
 | **Moritz Vinogradov** | Porte-parole de TANTALE | [[ENT-vinogradov]] |
+| **Natalia Wagner** | Représentante MER au SFTA | [[ENT-wagner-natalia]] |
 | **Nik Oblak** | Chef du commandement SOF | [[ENT-oblak]] |
+| **Niklas Wallner** | Police régionale — Min. Intérieur | [[ENT-wallner]] |
 | **Paolo Toti** | Vice-amiral — chef flotte du Sud (Méditerranée) | [[ENT-toti]] |
+| **Patryk Majewski** | Député (Deema) | [[ENT-majewski]] |
+| **Pavel Gallo** | Représentant MER au SIA | [[ENT-gallo]] |
 | **Pavel Maximov** | BG — CO 422 MECH BDE ; liens avec les autorités bothniennes (ex-LNO) ; PRO 40% seulement (point faible moral) | [[ENT-maximov]] |
 | **Peter Julius** | MG — CO 11 TANK DIV (FGF-1) ; fidèle au régime ; imprudent avec ses hommes | [[ENT-julius]] |
+| **Peter Tapeur** | Président de l'enclave HAquitaine | [[ENT-tapeur]] |
+| **Petra Pawlak** | Présidente de la Banque fédérale | [[ENT-pawlak]] |
+| **Piotr Frolov** | Membre — PJC | [[ENT-frolov]] |
 | **Piotr Vassielvski** | BG — CO 433 ABN BDE ; chasse les technologies récentes ; veuf ; leads from the front | [[ENT-vassielvski]] |
 | **Rafal Grabowski** | Chef d'EM de la Force aérienne | [[ENT-grabowski]] |
 | **Ragnar Sanders** | BG — CO 415 ARTY BDE ; lien familial avec Prunière ; veuf (décès récent de son épouse — facteur déstabilisant) | [[ENT-sanders]] |
 | **Rok Rozman** | Chef du Commandement des opérations | [[ENT-rozman]] |
+| **Roman Kuznetsov** | Co-président — Fraternité des anciens combattants | [[ENT-kuznetsov]] |
 | **Sabine Gerlach** | Ministre de la Justice | [[ENT-gerlach]] |
+| **Sarah Winkler** | Service logistique — Min. Intérieur | [[ENT-winkler]] |
 | **Sasha Maizierèe** | Ministre de la Santé — tutelle hôpitaux d'État | [[ENT-maizieree]] |
+| **Sebastian Franke** | Porte-parole — Les Racines du Peuple | [[ENT-franke]] |
 | **Sergueï Dvornikov** | BG — CO 411 TANK BDE ; « golden card of the Corps » ; tactics freak | [[ENT-dvornikov]] |
 | **Sergueï Gourka** | BG — CO 421 MECH BDE ; champion d'échecs ; WIA 2007 | [[ENT-gourka]] |
 | **Sergueï Rasof** | MG — CO 12 MECH DIV (FGF-1) ; très populaire ; leads from the front ; rivalité avec ses pairs | [[ENT-rasof]] |
+| **Sergueï Vassiliev** | Co-président — Fraternité des anciens combattants | [[ENT-vassiliev]] |
 | **Sixten Lennartsson** | Chef d'EM de la Marine (amiral) — capacité expéditionnaire | [[ENT-lennartsson]] |
 | **Slava Kievov** | BG — CO 425 ARTY BDE ; populaire ; veuf | [[ENT-kievov]] |
 | **Sliman Abdoulaïev** | Lt-Général — cdt FGF-3 ; « tank tactics freak » ; surnommé « butcher of Syria » ; ex-conseiller du Président | [[ENT-abdoulaiev]] |
+| **Stanislav Bogdanov** | Président régional de Vormaia | [[ENT-bogdanov]] |
+| **Theresa Reither** | Département financier & économique — Min. Intérieur | [[ENT-reither]] |
 | **Thierry Prunière** | MG — CO 41 TANK DIV ; ⚠ cible 3I/HAUTE ; ambition politique, rivalité avec le cdt 42 MECH ; leads from the front ; lien familial avec le cdt 415 ARTY | [[ENT-pruniere]] |
+| **Timur Kiselev** | Président — Commission judiciaire populaire (PJC) | [[ENT-kiselev]] |
+| **Tobias Auer** | Service des poursuites de l'État (SPS) — Min. Intérieur | [[ENT-auer-tobias]] |
 | **Ursula Druey** | Ministre de la Sécurité d'État | [[ENT-druey]] |
+| **Verena Fuchs** | Département de l'ordre public — Min. Intérieur | [[ENT-fuchs]] |
 | **Viktor Kaleva** | Chef de **TANTALE** (proxy paramilitaire MER). Maîtrise renseignement + modes d'action non conventionnels ; **famille influente proche du pouvoir MER** ; entraîné par le BG Viktorovitch (432 ABN). **Dépend du soutien MER** (armes, financement) **et de la diaspora** (rens., recrutement). Respecté de ses combattants, **craint de la population** | [[ENT-kaleva]] |
+| **Viktoria Müller** | Tête de la Deema (chambre) | [[ENT-muller-viktoria]] |
 | **Vladimir Mizintsev** | Lt-Général — cdt FGF-4 (IV(MER)CORPS, adversaire 7BB) ; pressenti futur cdt FGF-L ; « butcher of Syria » ; show off | [[ENT-mizintsev]] |
 | **Vladimir Popov** | BG — CO 414 MECH BDE ; co-auteur de la dernière doctrine MECH MER ; leads from the front | [[ENT-popov]] |
 | **Vladimir Viktorovitch** | BG — CO 432 ABN BDE ; planification ABN détaillée ; soupçonné d'activités illégales (black business) ; a entraîné Kaleva (TANTALE) | [[ENT-viktorovitch]] |
 | **Voichek Ribiki** | Ministre de l'Intérieur — ordre public, sécurité, infrastructure maritime | [[ENT-ribiki]] |
 | **Walter Soucek** | Ministre du Travail | [[ENT-soucek]] |
 | **Wiktoria Urban** | Juge à la Cour suprême (affaires économiques) | [[ENT-urban]] |
+| **Yuri Bauer** | Représentant MER à l'ONU | [[ENT-bauer-yuri]] |
+| **Zala Schmid** | Membre — PICC | [[ENT-schmid]] |
+| **Zoya Antonova** | Présidente régionale de Nieva | [[ENT-antonova]] |
 
 ### ⚪ neutre — 9
 
