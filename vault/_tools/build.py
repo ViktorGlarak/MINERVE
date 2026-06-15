@@ -16,6 +16,7 @@ STEPS = [
     ("generer_agents.py", "🤖 canvas agents"),
     ("generer_context_packs.py", "📦 context-packs"),
     ("generer_index.py", "🗂️ INDEX"),
+    ("generer_vue_memoire.py", "🤖 vues mémoire (Phase 4)"),
     ("valider.py", "🛡️ validation"),
 ]
 
