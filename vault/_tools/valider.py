@@ -200,6 +200,8 @@ def check_camp_coherence(notes):
             continue
         rel = os.path.relpath(mf, ROOT).replace("\\", "/")
         for i, line in enumerate(open(mf, encoding="utf-8"), 1):
+            if re.search(r"@[A-Za-z0-9_]", line):
+                continue          # ligne d'avatar (camp = registre avatars.js, hors périmètre entités pays)
             ll = low(line)
             for pos, ch in enumerate(line):
                 if ch not in EMOJI_CAMP:
