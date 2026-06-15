@@ -8,6 +8,7 @@
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
+| 2 | [AGENT-ANALYSTE-ARN](../agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | agent |
 | 2 | [AGENT-ANALYSTE-BOT](../agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | agent |
 | 2 | [AGENT-CINEASTE](../agents/AGENT-CINEASTE.md) | CINÉASTE | agent |
 | 2 | [AGENT-IMAGIER](../agents/AGENT-IMAGIER.md) | IMAGIER | agent |
@@ -15,7 +16,6 @@
 | 2 | [AGENT-MINAUTORE](../agents/AGENT-MINAUTORE.md) | MINAUTORE | agent |
 | 2 | [AGENT-SCENARISTE](../agents/AGENT-SCENARISTE.md) | SCÉNARISTE | agent |
 | 2 | [AGENT-VOIX](../agents/AGENT-VOIX.md) | VOIX | agent |
-| 3 | [AGENT-ANALYSTE-ARN](../agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | agent |
 | 3 | [AGENT-ANALYSTE-MERCURE](../agents/AGENT-ANALYSTE-MERCURE.md) | ANALYSTE (Mercure) | agent |
 | 3 | [AGENT-ARCHITECTE](../agents/AGENT-ARCHITECTE.md) | ARCHITECTE | agent |
 | 3 | [AGENT-ARCHIVISTE](../agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | agent |
@@ -30,6 +30,7 @@
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
+- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md)
@@ -37,7 +38,6 @@
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../VOIX/MEMOIRE.md)
-- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md)
