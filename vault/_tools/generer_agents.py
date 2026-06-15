@@ -37,20 +37,21 @@ def scan_notes():
     """[(id, type, source_root_relative, rel_path_from_agents)]"""
     notes = []
     for d in NOTE_DIRS:
-        folder = os.path.join(VAULT, d)
-        if not os.path.isdir(folder):
+        base = os.path.join(VAULT, d)
+        if not os.path.isdir(base):
             continue
-        for fn in sorted(os.listdir(folder)):
-            if not fn.endswith(".md") or fn.startswith("_"):
-                continue
-            txt = open(os.path.join(folder, fn), encoding="utf-8").read()
-            mid = re.search(r"^id:\s*(\S+)", txt, re.M)
-            msrc = re.search(r"^source:\s*(.*)$", txt, re.M)
-            if not mid:
-                continue
-            src = (msrc.group(1).strip().strip('"') if msrc else "")
-            src_root = re.sub(r"^(\.\./)+", "", src).replace("\\", "/").lower()
-            notes.append((mid.group(1), src_root))
+        for root, _, files in os.walk(base):          # recursif (entities/pays, /personas)
+            for fn in sorted(files):
+                if not fn.endswith(".md") or fn.startswith("_"):
+                    continue
+                txt = open(os.path.join(root, fn), encoding="utf-8").read()
+                mid = re.search(r"^id:\s*(\S+)", txt, re.M)
+                msrc = re.search(r"^source:\s*(.*)$", txt, re.M)
+                if not mid:
+                    continue
+                src = (msrc.group(1).strip().strip('"') if msrc else "")
+                src_root = re.sub(r"^(\.\./)+", "", src).replace("\\", "/").lower()
+                notes.append((mid.group(1), src_root))
     return notes
 
 

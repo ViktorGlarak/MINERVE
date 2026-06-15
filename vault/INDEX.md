@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**57 notes** · généré le 2026-06-15
+**72 notes** · généré le 2026-06-15
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -14,6 +14,7 @@
 | [ARCH-001](architecture/ARCH-001.md) | Vault MINERVE — source de vérité unique | architecture | systeme, tous |
 | [ARCH-004](architecture/ARCH-004.md) | Registre des agents (renvoi) | architecture | systeme, noyau |
 | [DECISION-001](decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision | mastaurige, exercices |
+| [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity | bothnia, exercices, ili |
 | [LESSON-001](lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson | mastaurige, analystes, exercices |
 | [LESSON-008](lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson | mastaurige, qualite |
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project | exercices, minautore |
@@ -89,7 +90,7 @@
 | ID | Titre | Tier | Source (vérité) | Liens |
 |---|---|---|---|---|
 | [AGENT-ANALYSTE-ARN](agents/AGENT-ANALYSTE-ARN.md) | ANALYSTE_ARN | 3 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | — |
-| [AGENT-ANALYSTE-BOT](agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | 3 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | — |
+| [AGENT-ANALYSTE-BOT](agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | 2 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-boerck]] [[ENT-bothnia]] [[ENT-diniz]] [[ENT-eklund]] [[ENT-hansen]] [[ENT-holm]] [[ENT-meyer]] [[ENT-nyberg]] [[ENT-peters]] [[ENT-petrovic]] [[ENT-roland]] [[ENT-saniki]] [[ENT-schmit]] [[ENT-tikhanov]] [[ENT-viklund]] |
 | [AGENT-ANALYSTE-MERCURE](agents/AGENT-ANALYSTE-MERCURE.md) | ANALYSTE (Mercure) | 3 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | — |
 | [AGENT-ARCHITECTE](agents/AGENT-ARCHITECTE.md) | ARCHITECTE | 3 | [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md) | — |
 | [AGENT-ARCHIVISTE](agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | 3 | [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md) | — |
@@ -107,6 +108,26 @@
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |
+
+## 🌍 Entités (personas · pays · doctrine)
+
+| ID | Titre | Tier | Source (vérité) | Liens |
+|---|---|---|---|---|
+| [ENT-boerck](entities/personas/ENT-boerck.md) | Andreas Boerck | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-peters]] |
+| [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | 1 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-peters]] [[ENT-tikhanov]] [[ENT-saniki]] [[LESSON-001]] [[LESSON-004]] |
+| [ENT-diniz](entities/personas/ENT-diniz.md) | Catarina Diniz | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-schmit]] |
+| [ENT-eklund](entities/personas/ENT-eklund.md) | Henrik Eklund | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-nyberg]] [[ENT-viklund]] |
+| [ENT-hansen](entities/personas/ENT-hansen.md) | Hanna Hansen | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-petrovic]] [[ENT-tikhanov]] |
+| [ENT-holm](entities/personas/ENT-holm.md) | Viktor Holm | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] |
+| [ENT-meyer](entities/personas/ENT-meyer.md) | Nele Meyer | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-peters]] |
+| [ENT-nyberg](entities/personas/ENT-nyberg.md) | Samuel Nyberg | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-viklund]] [[ENT-eklund]] |
+| [ENT-peters](entities/personas/ENT-peters.md) | Lena Peters | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-roland]] [[ENT-meyer]] |
+| [ENT-petrovic](entities/personas/ENT-petrovic.md) | Milena Petrovic | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-hansen]] |
+| [ENT-roland](entities/personas/ENT-roland.md) | Olaf Roland | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-peters]] |
+| [ENT-saniki](entities/personas/ENT-saniki.md) | Andrei Saniki | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-tikhanov]] [[LESSON-001]] [[LESSON-006]] |
+| [ENT-schmit](entities/personas/ENT-schmit.md) | Marc Schmit | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-diniz]] |
+| [ENT-tikhanov](entities/personas/ENT-tikhanov.md) | Svetlana Tikhanov | 2 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-saniki]] [[LESSON-001]] [[LESSON-006]] |
+| [ENT-viklund](entities/personas/ENT-viklund.md) | Oskar Viklund | 3 | [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-nyberg]] [[ENT-eklund]] |
 
 ---
 

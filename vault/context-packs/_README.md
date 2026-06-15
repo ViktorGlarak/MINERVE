@@ -7,7 +7,9 @@
 | agents | 19 | [PACK-agents](PACK-agents.md) |
 | analystes | 2 | [PACK-analystes](PACK-analystes.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |
-| exercices | 8 | [PACK-exercices](PACK-exercices.md) |
+| bothnia | 15 | [PACK-bothnia](PACK-bothnia.md) |
+| exercices | 23 | [PACK-exercices](PACK-exercices.md) |
+| ili | 9 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
 | mastaurige | 20 | [PACK-mastaurige](PACK-mastaurige.md) |
