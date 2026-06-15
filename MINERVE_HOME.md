@@ -100,6 +100,7 @@ graph LR
 - ⚙️ [SYSTEME/CONFIG.md](SYSTEME/CONFIG.md) — paramètres infra (modèles Ollama, chemins)
 - 📋 [SYSTEME/DOSSIER_POSTE.md](SYSTEME/DOSSIER_POSTE.md) — règles de production
 - 🔗 [CONVERGENCE/SYNTHESE.md](CONVERGENCE/SYNTHESE.md) — connaissances transversales
+- 🗂️ [vault/INDEX.md](vault/INDEX.md) — **registre des notes atomiques** (couche méta « qui lie, ne copie jamais » : décisions, outils, leçons, archi, canvas + journal `daily/`). Règles de maintenance : [vault/CLAUDE.md](vault/CLAUDE.md).
 
 ---
 
