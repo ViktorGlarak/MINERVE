@@ -5,11 +5,11 @@
 | Domaine | Notes | Pack |
 |---|---|---|
 | agents | 19 | [PACK-agents](PACK-agents.md) |
-| analystes | 2 | [PACK-analystes](PACK-analystes.md) |
+| analystes | 3 | [PACK-analystes](PACK-analystes.md) |
 | arnland | 106 | [PACK-arnland](PACK-arnland.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |
 | bothnia | 91 | [PACK-bothnia](PACK-bothnia.md) |
-| exercices | 52 | [PACK-exercices](PACK-exercices.md) |
+| exercices | 53 | [PACK-exercices](PACK-exercices.md) |
 | ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |

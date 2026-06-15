@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 52 notes.
+> Généré le 2026-06-15 · 53 notes.
 
 ## Notes (par tier)
 
@@ -27,6 +27,7 @@
 | 2 | [ENT-volkonsky](../entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | entity |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-004](../lessons/LESSON-004.md) | Règle GET (Grand East Territory) | lesson |
+| 2 | [LESSON-012](../lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |

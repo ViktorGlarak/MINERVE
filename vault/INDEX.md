@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**375 notes** · généré le 2026-06-15
+**376 notes** · généré le 2026-06-15
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -65,6 +65,7 @@
 | [LESSON-009](lessons/LESSON-009.md) | Prompts image — scènes civiles sans drapeaux + texte verbatim | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-010]] [[ARCH-006]] |
 | [LESSON-010](lessons/LESSON-010.md) | Texte TTS — préfixe H non prononcé, sigles lettre par lettre | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[ARCH-006]] |
 | [LESSON-011](lessons/LESSON-011.md) | Prompts LTX — paragraphe mouvement, ia2v synchro labiale | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-009]] [[ARCH-006]] |
+| [LESSON-012](lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | 2 | [`CLAUDE.md`](../../CLAUDE.md) | [[LESSON-001]] [[ENT-karpovitch]] [[ENT-bothnia]] |
 
 ## 🏛️ Architecture
 
