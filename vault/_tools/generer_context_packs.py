@@ -9,7 +9,7 @@ import os, re, sys, datetime, unicodedata
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities"]
+NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities", "knowledge"]
 MIN_NOTES = 2  # pas de pack pour un domaine a 1 seule note
 
 

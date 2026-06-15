@@ -12,11 +12,12 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # _tools/ -> vault/
 
 # dossiers de notes atomiques a indexer (on EXCLUT daily/, templates/, et les fichiers racine)
-NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities"]
+NOTE_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities", "knowledge"]
 TYPE_LABEL = {"decision": "🔧 Décisions", "tool": "🛠️ Outils", "lesson": "📚 Leçons",
               "architecture": "🏛️ Architecture", "project": "🗂️ Projets (canvas)",
-              "agent": "🤖 Agents (canvas générés)", "entity": "🌍 Entités (personas · pays · doctrine)"}
-TYPE_ORDER = ["decision", "tool", "lesson", "architecture", "project", "agent", "entity"]
+              "agent": "🤖 Agents (canvas générés)", "entity": "🌍 Entités (personas · pays · doctrine)",
+              "reference": "📚 Savoir countrybook / doctrine"}
+TYPE_ORDER = ["decision", "tool", "lesson", "architecture", "project", "agent", "entity", "reference"]
 
 
 def parse_frontmatter(path):

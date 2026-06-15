@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « ili ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 17 notes.
+> Généré le 2026-06-15 · 20 notes.
 
 ## Notes (par tier)
 
@@ -21,6 +21,9 @@
 | 2 | [ENT-savchenko](../entities/personas/ENT-savchenko.md) | Nataliya Savchenko | entity |
 | 2 | [ENT-tikhanov](../entities/personas/ENT-tikhanov.md) | Svetlana Tikhanov | entity |
 | 2 | [ENT-volkonsky](../entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | entity |
+| 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
+| 2 | [REF-bothnia-societe](../knowledge/REF-bothnia-societe.md) | Bothnia — société & diaspora (leviers narratifs) | reference |
+| 2 | [REF-bothnia-strategie](../knowledge/REF-bothnia-strategie.md) | Bothnia — stratégie & posture régionale | reference |
 | 3 | [ENT-hansen](../entities/personas/ENT-hansen.md) | Hanna Hansen | entity |
 | 3 | [ENT-nyberg](../entities/personas/ENT-nyberg.md) | Samuel Nyberg | entity |
 | 3 | [ENT-petrovic](../entities/personas/ENT-petrovic.md) | Milena Petrovic | entity |
@@ -32,3 +35,4 @@
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)

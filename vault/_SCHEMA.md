@@ -13,7 +13,7 @@
 | Champ | Type | Règle |
 |---|---|---|
 | `id` | string | Unique dans tout le vault. Préfixe = type (voir ci-dessous). |
-| `type` | enum | `decision` · `tool` · `lesson` · `architecture` · `project` · `agent` · `entity` · `daily` |
+| `type` | enum | `decision` · `tool` · `lesson` · `architecture` · `project` · `agent` · `entity` · `reference` · `daily` |
 | `title` | string | Court, explicite. |
 | `tags` | liste `[a, b]` | Minuscules, kebab-case. |
 | `source` | string | Chemin relatif vers le fichier AUTORITAIRE (`../../AGENT/MEMOIRE.md`) ou `""`. |
@@ -40,7 +40,10 @@
 | project | `PROJ-XXX` | `PROJ-MASTAURIGE` |
 | agent | `AGENT-XXX` | `AGENT-MASTAURIGE` (généré) |
 | entity | `ENT-XXX` | `ENT-tikhanov` · `ENT-bothnia` · `ENT-lo3` |
+| reference | `REF-XXX` | `REF-bothnia-economie` · `REF-storm1516` |
 | daily | `DAILY-AAAA-MM-JJ` | `DAILY-2026-06-15` |
+
+> **reference** = savoir countrybook/doctrine structuré (économie, société, ORBAT, médias, infrastructure, doctrine ILI…) **non lié à un persona unique**. Vit dans `knowledge/`. C'est la matière qui, à terme (Phase 4), permet de générer les `MEMOIRE.md` sans perte. `source:` pointe vers la `MEMOIRE.md` d'origine.
 
 ## Liens dans le corps
 - `[[ID]]` (majuscule) = lien vers une autre note → **doit résoudre** (sinon lien cassé).

@@ -20,14 +20,14 @@ import os, re, sys, datetime
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 VAULT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # _tools/ -> vault/
-SCAN_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities", "daily"]
+SCAN_DIRS = ["decisions", "tools", "lessons", "architecture", "projects", "agents", "entities", "knowledge", "daily"]
 
 REQUIRED = ["id", "type", "title", "tags", "source", "linkedTo", "relevantFor", "tier", "created", "updated"]
-TYPES = {"decision", "tool", "lesson", "architecture", "project", "agent", "entity", "daily"}
+TYPES = {"decision", "tool", "lesson", "architecture", "project", "agent", "entity", "reference", "daily"}
 ID_PAT = {
     "decision": r"^DECISION-\d{3}$", "tool": r"^TOOL-\d{3}$", "lesson": r"^LESSON-\d{3}$",
     "architecture": r"^ARCH-\d{3}$", "project": r"^PROJ-[A-Z0-9-]+$", "agent": r"^AGENT-[A-Z0-9-]+$",
-    "entity": r"^ENT-[A-Za-z0-9-]+$", "daily": r"^DAILY-\d{4}-\d{2}-\d{2}$",
+    "entity": r"^ENT-[A-Za-z0-9-]+$", "reference": r"^REF-[A-Za-z0-9-]+$", "daily": r"^DAILY-\d{4}-\d{2}-\d{2}$",
 }
 
 errors, warns = [], []

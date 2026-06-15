@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « bothnia ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 72 notes.
+> Généré le 2026-06-15 · 79 notes.
 
 ## Notes (par tier)
 
@@ -13,6 +13,10 @@
 | 2 | [ENT-peters](../entities/personas/ENT-peters.md) | Lena Peters | entity |
 | 2 | [ENT-saniki](../entities/personas/ENT-saniki.md) | Andrei Saniki | entity |
 | 2 | [ENT-tikhanov](../entities/personas/ENT-tikhanov.md) | Svetlana Tikhanov | entity |
+| 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
+| 2 | [REF-bothnia-militaire](../knowledge/REF-bothnia-militaire.md) | Bothnia — forces armées (BNDF, ORBAT) | reference |
+| 2 | [REF-bothnia-societe](../knowledge/REF-bothnia-societe.md) | Bothnia — société & diaspora (leviers narratifs) | reference |
+| 2 | [REF-bothnia-strategie](../knowledge/REF-bothnia-strategie.md) | Bothnia — stratégie & posture régionale | reference |
 | 3 | [ENT-adam](../entities/personas/ENT-adam.md) | Lisa Adam | entity |
 | 3 | [ENT-amin](../entities/personas/ENT-amin.md) | Nero Amin | entity |
 | 3 | [ENT-anders-lorentz](../entities/personas/ENT-anders-lorentz.md) | Lorentz Anders | entity |
@@ -80,7 +84,11 @@
 | 3 | [ENT-viklund](../entities/personas/ENT-viklund.md) | Oskar Viklund | entity |
 | 3 | [ENT-weber-dorit](../entities/personas/ENT-weber-dorit.md) | Dorit Weber | entity |
 | 3 | [ENT-zeelen](../entities/personas/ENT-zeelen.md) | Maryam Zeelen | entity |
+| 3 | [REF-bothnia-economie](../knowledge/REF-bothnia-economie.md) | Bothnia — économie & énergie | reference |
+| 3 | [REF-bothnia-infrastructure](../knowledge/REF-bothnia-infrastructure.md) | Bothnia — infrastructure | reference |
+| 3 | [REF-bothnia-politique](../knowledge/REF-bothnia-politique.md) | Bothnia — régime & institutions | reference |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)

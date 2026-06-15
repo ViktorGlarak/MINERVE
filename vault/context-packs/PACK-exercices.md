@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 31 notes.
+> Généré le 2026-06-15 · 38 notes.
 
 ## Notes (par tier)
 
@@ -27,6 +27,10 @@
 | 2 | [ENT-volkonsky](../entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | entity |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-004](../lessons/LESSON-004.md) | Règle GET (Grand East Territory) | lesson |
+| 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
+| 2 | [REF-bothnia-militaire](../knowledge/REF-bothnia-militaire.md) | Bothnia — forces armées (BNDF, ORBAT) | reference |
+| 2 | [REF-bothnia-societe](../knowledge/REF-bothnia-societe.md) | Bothnia — société & diaspora (leviers narratifs) | reference |
+| 2 | [REF-bothnia-strategie](../knowledge/REF-bothnia-strategie.md) | Bothnia — stratégie & posture régionale | reference |
 | 2 | [TOOL-006](../tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | tool |
 | 3 | [ENT-boerck](../entities/personas/ENT-boerck.md) | Andreas Boerck | entity |
 | 3 | [ENT-eklund](../entities/personas/ENT-eklund.md) | Henrik Eklund | entity |
@@ -39,6 +43,9 @@
 | 3 | [ENT-schmit](../entities/personas/ENT-schmit.md) | Marc Schmit | entity |
 | 3 | [ENT-viklund](../entities/personas/ENT-viklund.md) | Oskar Viklund | entity |
 | 3 | [LESSON-005](../lessons/LESSON-005.md) | Numéros de téléphone fictifs | lesson |
+| 3 | [REF-bothnia-economie](../knowledge/REF-bothnia-economie.md) | Bothnia — économie & énergie | reference |
+| 3 | [REF-bothnia-infrastructure](../knowledge/REF-bothnia-infrastructure.md) | Bothnia — infrastructure | reference |
+| 3 | [REF-bothnia-politique](../knowledge/REF-bothnia-politique.md) | Bothnia — régime & institutions | reference |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
@@ -50,4 +57,5 @@
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md)
