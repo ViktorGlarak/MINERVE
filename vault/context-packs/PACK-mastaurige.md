@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 21 notes.
+> Généré le 2026-06-15 · 24 notes.
 
 ## Notes (par tier)
 
@@ -21,7 +21,10 @@
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |
 | 2 | [LESSON-007](../lessons/LESSON-007.md) | Bloc parseur non borné → record poubelle | lesson |
+| 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
+| 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
+| 2 | [REF-storm1516](../knowledge/REF-storm1516.md) | Doctrine Storm-1516 (MOI russe — référentiel réalisme ILI) | reference |
 | 2 | [TOOL-001](../tools/TOOL-001.md) | generer_trombino_bios.py | tool |
 | 2 | [TOOL-003](../tools/TOOL-003.md) | GENERER_VIERGE.py | tool |
 | 2 | [TOOL-004](../tools/TOOL-004.md) | GENERER_KIT_JOUEURS.py | tool |
@@ -35,4 +38,6 @@
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

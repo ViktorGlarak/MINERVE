@@ -6,16 +6,16 @@
 |---|---|---|
 | agents | 19 | [PACK-agents](PACK-agents.md) |
 | analystes | 2 | [PACK-analystes](PACK-analystes.md) |
-| arnland | 57 | [PACK-arnland](PACK-arnland.md) |
+| arnland | 64 | [PACK-arnland](PACK-arnland.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |
 | bothnia | 79 | [PACK-bothnia](PACK-bothnia.md) |
-| exercices | 38 | [PACK-exercices](PACK-exercices.md) |
-| ili | 20 | [PACK-ili](PACK-ili.md) |
+| exercices | 52 | [PACK-exercices](PACK-exercices.md) |
+| ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
-| mastaurige | 21 | [PACK-mastaurige](PACK-mastaurige.md) |
+| mastaurige | 24 | [PACK-mastaurige](PACK-mastaurige.md) |
 | melmil | 3 | [PACK-melmil](PACK-melmil.md) |
-| mercure | 67 | [PACK-mercure](PACK-mercure.md) |
+| mercure | 74 | [PACK-mercure](PACK-mercure.md) |
 | minautore | 2 | [PACK-minautore](PACK-minautore.md) |
 | noyau | 5 | [PACK-noyau](PACK-noyau.md) |
 | parser | 2 | [PACK-parser](PACK-parser.md) |

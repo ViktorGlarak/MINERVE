@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mercure ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 67 notes.
+> Généré le 2026-06-15 · 74 notes.
 
 ## Notes (par tier)
 
@@ -12,6 +12,11 @@
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
 | 2 | [ENT-milanov](../entities/personas/ENT-milanov.md) | Arkan Milanov | entity |
 | 2 | [ENT-olamao](../entities/personas/ENT-olamao.md) | Franz Olamao | entity |
+| 2 | [REF-mercure-economie](../knowledge/REF-mercure-economie.md) | Mercure — économie & arme gazière | reference |
+| 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
+| 2 | [REF-mercure-militaire](../knowledge/REF-mercure-militaire.md) | Mercure — forces armées (FAM) | reference |
+| 2 | [REF-mercure-societe](../knowledge/REF-mercure-societe.md) | Mercure — société, ethnies & diaspora | reference |
+| 2 | [REF-storm1516](../knowledge/REF-storm1516.md) | Doctrine Storm-1516 (MOI russe — référentiel réalisme ILI) | reference |
 | 3 | [ENT-abdoulaiev](../entities/personas/ENT-abdoulaiev.md) | Sliman Abdoulaïev | entity |
 | 3 | [ENT-andreev-boris](../entities/personas/ENT-andreev-boris.md) | Boris Andreev | entity |
 | 3 | [ENT-baumgartner](../entities/personas/ENT-baumgartner.md) | Marc Baumgartner | entity |
@@ -75,7 +80,10 @@
 | 3 | [ENT-werner](../entities/personas/ENT-werner.md) | Elias Werner | entity |
 | 3 | [ENT-zajac](../entities/personas/ENT-zajac.md) | Mateusz Zajac | entity |
 | 3 | [ENT-zhukov](../entities/personas/ENT-zhukov.md) | Mikhail Zhukov | entity |
+| 3 | [REF-mercure-politique](../knowledge/REF-mercure-politique.md) | Mercure — régime & pouvoir | reference |
+| 3 | [REF-mercure-relations](../knowledge/REF-mercure-relations.md) | Mercure — relations internationales & infrastructure | reference |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

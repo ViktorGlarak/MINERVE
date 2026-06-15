@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « arnland ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 57 notes.
+> Généré le 2026-06-15 · 64 notes.
 
 ## Notes (par tier)
 
@@ -12,6 +12,10 @@
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-savchenko](../entities/personas/ENT-savchenko.md) | Nataliya Savchenko | entity |
 | 2 | [ENT-volkonsky](../entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | entity |
+| 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
+| 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
+| 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |
+| 2 | [REF-arnland-strategie](../knowledge/REF-arnland-strategie.md) | Arnland — tensions & posture narrative | reference |
 | 3 | [ENT-andreev-milan](../entities/personas/ENT-andreev-milan.md) | Milan Andreev | entity |
 | 3 | [ENT-antonov](../entities/personas/ENT-antonov.md) | Yuri Antonov | entity |
 | 3 | [ENT-arne](../entities/personas/ENT-arne.md) | Arne | entity |
@@ -65,7 +69,11 @@
 | 3 | [ENT-zhukova](../entities/personas/ENT-zhukova.md) | Milena Zhukova | entity |
 | 3 | [ENT-zoric-kristina](../entities/personas/ENT-zoric-kristina.md) | Kristina Zoric | entity |
 | 3 | [ENT-zoric-nikolai](../entities/personas/ENT-zoric-nikolai.md) | Nikolai Zoric | entity |
+| 3 | [REF-arnland-economie](../knowledge/REF-arnland-economie.md) | Arnland — économie & énergie | reference |
+| 3 | [REF-arnland-infrastructure](../knowledge/REF-arnland-infrastructure.md) | Arnland — infrastructure | reference |
+| 3 | [REF-arnland-politique](../knowledge/REF-arnland-politique.md) | Arnland — régime & institutions | reference |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
