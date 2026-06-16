@@ -8,7 +8,7 @@ linkedTo: [ARCH-003, DECISION-001, TOOL-006]
 relevantFor: [exercices, minautore]
 tier: 1
 created: 2026-06-12
-updated: 2026-06-12
+updated: 2026-06-16
 ---
 
 # 🗂️ AURIGE 7BB / MINOTAURE 26 — Canvas
@@ -19,7 +19,7 @@ updated: 2026-06-12
 Exercice PC niveau brigade (GT2 Mailly, D+33-41), agent éditorial MINAUTORE.
 
 ## État actuel
-Outillage MASTAURIGE 7BB en place (3 dossiers). MELMIL D+33-41, storylines 07-01..04 = LO2..LO5. ⚠ **Camps INVERSÉS** : entraînés = BLEU attaquent, MER = ROUGE défend/« libère ».
+🟢 **EXERCICE ACTIF depuis le 2026-06-16 → clôture 2026-07-03** (jeu in-game des injects D+33→D+41 = 23 juin → 1ᵉʳ juillet, synchromatrice V5). **Production autorisée** (fin du « top utilisateur uniquement »). Outillage MASTAURIGE 7BB en place (3 dossiers). MELMIL D+33-41, storylines 07-01..04 = LO2..LO5. ⚠ **Camps INVERSÉS** : entraînés = BLEU attaquent, MER = ROUGE défend/« libère ».
 
 ## Fichiers autoritaires (vérité)
 - [[../../MINAUTORE/MEMOIRE.md]] — calendrier, narration, injects

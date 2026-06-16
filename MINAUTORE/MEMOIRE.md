@@ -318,6 +318,18 @@ Types : manif locale, drapeau/tags ennemis, plainte maire, sermon, journal/radio
 ---
 
 ## ÉTAT DE PRODUCTION
-> Dernière mise à jour : 2026-06-10 — synchromatrice V5 + Event List 13/03 ingérées, **outillage MASTAURIGE 7BB créé**.
+> Dernière mise à jour : 2026-06-16 — 🟢 **EXERCICE LANCÉ** : fenêtre globale **2026-06-16 → 2026-07-03**, jeu in-game des injects **D+33→D+41 = 23 juin → 1ᵉʳ juillet** (synchromatrice V5). **Production désormais AUTORISÉE** (la mention « sur top utilisateur uniquement » est levée pour la durée de l'exercice). MINAUTORE = acteur principal sur l'essentiel du contenu produit jusqu'au 03/07.
+> *(historique : 2026-06-10 — synchromatrice V5 + Event List 13/03 ingérées, outillage MASTAURIGE 7BB créé.)*
 - **Outillage prêt** : instance MASTAURIGE 3 dossiers dans `00_Boites à outils\MASTAURIGE\` (LOCALSTORAGE/JOUEURS/EXE_MASTER), MELMIL configuré 7BB (9 jours D+33→D+41 = 23 Jun→01 Jul, lignes LO2-LO5 = storylines 07-01..07-04, pays délégitimé ARN). Socle = 18 incidents de l'Event List (07.01.01-11, 07.02/03.01-03, 07.04.01). Détail technique : `MASTAURIGE/MEMOIRE.md` § instance 7BB.
-- **0 inject produit** (cards) — calendrier éditorial à construire : décliner les sous-injects (07.02.1x/2x/3x, 07.03.1x/2x/3x), numéroter 07-04, croiser 4 storylines × 3 fenêtres (CAX1 D+33-36 / CAX1 D+37-38 / CAX2 D+39-41) + 6 opportunités. Casting BLEU/HN disponible (maires ZO 7BB chez ANALYSTE_ARN). **Production sur top utilisateur uniquement.**
+- **0 inject produit** (cards) — calendrier éditorial à construire : décliner les sous-injects (07.02.1x/2x/3x, 07.03.1x/2x/3x), numéroter 07-04, croiser 4 storylines × 3 fenêtres (CAX1 D+33-36 / CAX1 D+37-38 / CAX2 D+39-41) + 6 opportunités. Casting BLEU/HN disponible (maires ZO 7BB chez ANALYSTE_ARN).
+
+### 📥 MELMIL via JEMM (nouveau logiciel, remplace GESTIM) — 2026-06-16
+> JEMM exporte la MELMIL en **JSON** (1 fichier = 1 *Event*). Pipeline d'import : déposer les `.json` dans `…\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\MELMIL\JEMM\` → `Actualiser_MELMIL.bat` (ou `_JEMM`) → fusion dans `melmil_data.js` **sans perdre le socle ILI fait main**. Conversion code : `08.01.I01` → `08.01.01i`. Détail outil : `MASTAURIGE/MEMOIRE.md` § « IMPORTATEUR MELMIL UNIFIÉ ».
+- **EVENT_07 = ILI** (storylines 07.01-07.04) exporté **vide d'injects** dans JEMM → le contenu rouge ILI reste **à produire par MINAUTORE** (rien à attendre de JEMM côté 07).
+- **EVENT_08 = HOST NATION — 8 injects réels INGÉRÉS** dans le MELMIL 7BB (camp ⚪ HN / appui aux entraînés bleus). Storylines :
+  - **08.01 Arnland Civil authorities linkage** : `08.01.01i` évac. pop. avant combats urbains **HSARREBOURG** (→7BB, D+34 26/06) · `08.01.02i` **HMORHANGE** ville ouverte (→27BIM, 28/06) · `08.01.03i` **HTOUL** franchissement Moselle au profit pop. (→BFA, 28/06) · `08.01.04i` **HSARRE-UNION** évac. hôpital Robert Pax + EHPAD (→27BIM, 30/06) · `08.01.05i` **HTOUL** saturation déplacés (→BFA, 01/07).
+  - **08.02 Captured Personnel (CPERS)** : `08.02.01i` **HNANCY** ~75 MER se rendent à 2(ARN)RECCE → BFA (28/06) · `08.02.02i` **HLUNEVILLE** ~50 MER se rendent au 7BB (30/06) · `08.02.03i` **HALBERSDORF** reddition MER → 27BIM (01/07).
+  - ⚠ Géo nouvelle/à harmoniser avec ANALYSTE_ARN : **HMORHANGE** (≈ HMORANGE ?), **HALBERSDORF** (≈ HALBERSTROFF ?). Maires HTOUL/HSARRE-UNION déjà chez ANALYSTE_ARN.
+  - ✅ **Routage MELMIL tranché (2026-06-16)** : **ligne r6 = HOST NATION dédiée** (08.01/08.02 → `HN` → r6, sans badge LO). Les 6 **opportunités EXCON** (drone/NRBC/SEVESO/MASCAL/CYBER 09-03) basculent sur **r7 « GHOST / OPP »** (pas encore des injects). Régénéré via `CONFIGURER_EXERCICE.py`.
+
+**Production AUTORISÉE** pour la durée de l'exercice (cf. en-tête de section).
