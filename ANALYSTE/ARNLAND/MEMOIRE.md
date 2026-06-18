@@ -11,6 +11,24 @@ Agent créé le **2026-05-23** — migré vers `ANALYSTE\ARNLAND\` le **2026-05-
 
 ---
 
+## 🎯 CORRECTION DES CAMPS — fiches bio HN Arnland (2026-06-18, validé utilisateur/créateur)
+
+Audit des **21 fiches Arnland** du trombino MINAUTORE : le générateur déduisait le camp du **titre de poste** (heuristique) → orientation réelle (dans le **narratif**) ignorée. **7 camps corrigés** (autorité ANALYSTE_ARN, miroir `vault/entities/ENT-*` + bios.js) :
+
+| Figure | Avant | ✅ Après | Justification narratif |
+|---|---|---|---|
+| **Grigori Hartmann** (Maire HSarre-Union) | bleu | **🔴 rouge** | Élu sur des **listes pro-MER**, mercurianophone, relaie le discours pro-MER |
+| **Dmitri Kovalev** (Maire HAlberstroff) | bleu | **🔴 rouge** | **Ouvertement pro-MER**, facilite la présence MER + actions para-légales, publie en mercurien |
+| **Henri Weber** (Maire HSarrebourg) | neutre | **🔴 rouge** | « En réalité **proche des milieux pro-MER** », relaie des messages pro-MER |
+| **Boris Kalugin** (Représentant **CICR/ICRC**) | bleu | **⚪ neutre** | Le CICR est **neutre par mandat** (humanitaire impartial) |
+| **Elena Petrovna** (**Blue Shield**) | bleu | **⚪ neutre** | Protection du patrimoine, organisation internationale neutre |
+| **Igor Mishin** (Arnish Refugee Council) | bleu | **⚪ neutre** | ONG humanitaire (réfugiés) |
+| **Nikolaï Brenner** (Maire HMorhange) | bleu | **⚪ neutre** | Ex-officier ARN mais « positionnement **ambigu** », soutien des patriotes mercuriens |
+
+**Inchangés (corrects)** : gouvernement ARN + préfet (🔵), Gervais/Krauss/Voloshyn (🔵 maires pro-ARN), Borchenko (⚪ double jeu éco), Volkonsky/Savchenko (🔴 pro-MER explicites) ; **Lang et Thiebaut** laissés tels quels (validé).
+
+**Correction DURABLE** : table `CAMP_OVERRIDE` (par id `arn_*`) dans `MASTAURIGE\…\OUTILS\generer_trombino_bios.py` (les 2 instances 7BB) — prime sur l'heuristique → une régénération ne revient PAS en arrière. `vault/entities/ENT-{hartmann,kovalev,weber,kalugin,petrovna,mishin,brenner}.md` alignés (autorité camp). ⚠ Le **camp détermine l'effet ILI** : un mauvais camp inverse l'effet — d'où l'audit.
+
 ## ⚠ ÉVOLUTIONS SYSTÈME — 2026-05-29
 
 ### Règle MASTAURIGE obligatoire
@@ -205,9 +223,9 @@ Même pays, même Countrybook, même personnalités — seul le nom change selon
 | Personnage | Poste | Camp | Note |
 |---|---|---|---|
 | **Irina Voloshyn** | Maire HTOUL | 🔵 bleu | nouvelle fiche |
-| **Nikolaï Brenner** | Maire HMORANGE | 🔵 bleu | nouvelle fiche |
-| **Grigori Hartmann** | Maire HSARRE-UNION | 🔵 bleu | nouvelle fiche (ville saisie par 27BIM en CAX1) |
-| **Dmitri Kovalev** | Maire HALBERSTROFF | 🔵 bleu | nouvelle fiche |
+| **Nikolaï Brenner** | Maire HMORANGE | ⚪ neutre | positionnement ambigu (ex-officier ARN mais soutien des patriotes MER) — *corrigé 06-18* |
+| **Grigori Hartmann** | Maire HSARRE-UNION | 🔴 rouge | élu sur des **listes pro-MER**, mercurianophone (ville saisie par 27BIM en CAX1) — *corrigé 06-18* |
+| **Dmitri Kovalev** | Maire HALBERSTROFF | 🔴 rouge | **ouvertement pro-MER**, actions para-légales — *corrigé 06-18* |
 | **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** | 🔴 rouge | relais ILI 07-03 « libération », sermons pro-MER |
 | **Nataliya Savchenko** | Leader associative **pro-Mercure** | 🔴 rouge | mobilisation de la diaspora MER, victimisation |
 | **Maksym Borchenko** (52) | **Patron de Borchenko Transports**, membre FEA (Federation of Employers in Arnland) | ⚪ **neutre** (double-jeu) | Né à HSarrebourg ; logistique transfrontalière, l'une des rares infrastructures encore opérationnelles ; **entrepôt transfrontalier bloqué sous contrôle de fait des forces MER** (levier) ; 340 employés bilingues (arnlandais/mercurien) → pression sociale ; opportuniste « évite de s'engager prématurément d'un côté ou de l'autre » ; X minimaliste, aucune déclaration politique. **Acteur économique pivot** — cible/levier ILI possible (chantage entrepôt, légitimité sociale). *(Découvert 06-12 : son en-tête manquait au parseur trombino, fiche fusionnée à tort dans Petrovna — corrigé.)* |

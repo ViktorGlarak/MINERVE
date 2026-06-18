@@ -140,28 +140,34 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 
 ## Roster — 98 personas (camp = autorité des notes entité)
 
-### 🔴 rouge — 2
+### 🔴 rouge — 5
 
 | Persona | Rôle | Note |
 |---|---|---|
+| **Dmitri Kovalev** | Maire de HAlberstroff | [[ENT-kovalev]] |
+| **Grigori Hartmann** | Maire de HSarre-Union (ville saisie par 27BIM en CAX1) | [[ENT-hartmann]] |
+| **Henri Weber** | Maire de HSarrebourg — pharmacien proche des milieux pro-MER, ville 35% diaspora (relais/cible LO4) | [[ENT-weber]] |
 | **Nataliya Savchenko** | Leader associative **pro-Mercure** dans la diaspora mercurienne. **Mobilisation de la diaspora MER + victimisation** (storyline 07-03 « libération ») | [[ENT-savchenko]] |
 | **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** dans la diaspora mercurienne d'Arnland. **Relais ILI** de la storyline **07-03 « Vent de libération »** : sermons pro-MER, légitimation religieuse de l'action mercurienne | [[ENT-volkonsky]] |
 
-### ⚪ neutre — 21
+### ⚪ neutre — 24
 
 | Persona | Rôle | Note |
 |---|---|---|
 | **Alexandr Korolev** | NGO ISC | [[ENT-korolev]] |
 | **Anastasia Sokolova** | UNOCHA (coordination humanitaire ONU) | [[ENT-sokolova-anastasia]] |
 | **Bojan Karadzic** | Président du SDP (centre-gauche) | [[ENT-karadzic]] |
+| **Boris Kalugin** | Représentant de l'ICRC en Arnland (POW/civils ; humanitaire) | [[ENT-kalugin]] |
 | **Dorothée Lang** | Maire de HHaguenau — biculturelle MER/ARN, charnière LO4/LO5, sous surveillance MININT | [[ENT-lang]] |
-| **Henri Weber** | Maire de HSarrebourg — pharmacien proche des milieux pro-MER, ville 35% diaspora (relais/cible LO4) | [[ENT-weber]] |
+| **Elena Petrovna** | Responsable de Blue Shield en Arnland (patrimoine culturel) | [[ENT-petrovna]] |
+| **Igor Mishin** | Président de l'Arnish Refugee Council (ARC) | [[ENT-mishin]] |
 | **Ivan Volkov** | Président de l'ACP (communiste) | [[ENT-volkov-ivan]] |
 | **Katarina Durova** | Porte-parole de l'ASP (Arnland Socialist Party) | [[ENT-durova]] |
 | **Lidija Novik** | Porte-parole d'association (société civile) | [[ENT-novik-lidija]] |
 | **Maksym Borchenko** | Patron de **Borchenko Transports** (52 ans, né à HSarrebourg), membre de la **FEA** (Federation of Employers in Arnland). Logistique transfrontalière — **l'une des rares infrastructures encore opérationnelles**. 340 employés **bilingues** (arnlandais/mercurien) | [[ENT-borchenko]] |
 | **Marko Iliev** | Porte-parole UNHCR (réfugiés ONU) | [[ENT-iliev]] |
 | **Natalya Kostova** | Porte-parole du SDP (Social Democratic Party) | [[ENT-kostova]] |
+| **Nikolaï Brenner** | Maire de HMorange | [[ENT-brenner]] |
 | **Radovan Jakšić** | Président d'association (société civile) | [[ENT-jaksic]] |
 | **Svetlana Radojević** | Porte-parole UNICEF (Arnland) | [[ENT-radojevic]] |
 | **Tanja Borović** | Porte-parole du Dushman (allié-partenaire) | [[ENT-borovic]] |
@@ -173,7 +179,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Yuri Antonov** | Avocat de la défense (célèbre) | [[ENT-antonov]] |
 | **Zoya Milenković** | Porte-parole de l'ACP (Arnland Communist Party) | [[ENT-milenkovic]] |
 
-### 🔵 bleu — 75
+### 🔵 bleu — 69
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -190,26 +196,21 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Augustin Birkmann** | Préfet de la région HLorraine — intègre mais dépassé, isolé de HParis | [[ENT-birkmann]] |
 | **Baltzar Bold** | Commandant de la Légion de Gendarmerie | [[ENT-bold]] |
 | **Bernard Thiebaut** | Maire de HChâteau-Salins — liens familiaux mercuriens frontaliers | [[ENT-thiebaut]] |
-| **Boris Kalugin** | Représentant de l'ICRC en Arnland (POW/civils ; humanitaire) | [[ENT-kalugin]] |
 | **Boris Novak** | Ministre du Développement national/international | [[ENT-novak]] |
 | **Bystrom** | Chef de la Marine | [[ENT-bystrom]] |
 | **Chareyron** | DMD HDeux-Sèvres (adjoint : Depoire) | [[ENT-chareyron]] |
 | **Daniel Schmidt** | Ministre de la Défense (ORION 26 O41) | [[ENT-schmidt]] |
 | **Depoire** | Adjoint DMD HDeux-Sèvres | [[ENT-depoire]] |
 | **Dimitri Steiner** | Maire de HSaint-Maixent | [[ENT-steiner]] |
-| **Dmitri Kovalev** | Maire de HAlberstroff | [[ENT-kovalev]] |
 | **Dmitri Radulov** | Ministre de l'Intérieur (ex-ASPS) — rhétorique « 5e colonne » anti-diaspora MER | [[ENT-radulov]] |
 | **Ekaterina Milova** | Avocate générale | [[ENT-milova]] |
-| **Elena Petrovna** | Responsable de Blue Shield en Arnland (patrimoine culturel) | [[ENT-petrovna]] |
 | **Elena Vasilieva** | Ministre de la Justice | [[ENT-vasilieva]] |
 | **Erik Alvarez** | Commandant du 5e Secteur HPoitiers | [[ENT-alvarez]] |
 | **Erik Karlson** | Préfet de la région HPoitou-Charente | [[ENT-karlson-erik]] |
 | **Fluxa** | DMD HCharente-Maritime (adjoint : Laporte) | [[ENT-fluxa]] |
 | **Fries** | Chef de l'Armée de l'air | [[ENT-fries]] |
 | **Gradholm (ARN)** | Chef des forces spéciales (SOF) — homonyme distinct du Gradholm bothnien | [[ENT-gradholm-arn]] |
-| **Grigori Hartmann** | Maire de HSarre-Union (ville saisie par 27BIM en CAX1) | [[ENT-hartmann]] |
 | **Hus** | CGS — état-major terrestre | [[ENT-hus]] |
-| **Igor Mishin** | Président de l'Arnish Refugee Council (ARC) | [[ENT-mishin]] |
 | **Irina Petrova** | Ministre de la Santé | [[ENT-petrova-irina]] |
 | **Irina Voloshyn** | Maire de HToul | [[ENT-voloshyn]] |
 | **Irina Zhivković** | Porte-parole de l'APP (Arnland Prosperity Party) | [[ENT-zhivkovic]] |
@@ -234,7 +235,6 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Natalya Pavlenko** | Ministre de l'Environnement | [[ENT-pavlenko-natalya]] |
 | **Nikolai Kravchenko** | DMD HVienne | [[ENT-kravchenko]] |
 | **Nikolai Zoric** | Juge pénal | [[ENT-zoric-nikolai]] |
-| **Nikolaï Brenner** | Maire de HMorange | [[ENT-brenner]] |
 | **Oleg Dimitrov** | Président de l'APP (centre-droit, dominant depuis 1991) | [[ENT-dimitrov]] |
 | **Olena Hoffmann** | Maire de HPoitiers | [[ENT-hoffmann]] |
 | **Radmila Petrović** | Porte-parole de l'ARP (Arnland Republican Party) | [[ENT-petrovic-radmila]] |
