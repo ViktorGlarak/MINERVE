@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-18 · 56 notes.
+> Généré le 2026-06-18 · 58 notes.
 
 ## Notes (par tier)
 
@@ -17,6 +17,7 @@
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
+| 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
@@ -30,6 +31,7 @@
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-004](../lessons/LESSON-004.md) | Règle GET (Grand East Territory) | lesson |
 | 2 | [LESSON-012](../lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | lesson |
+| 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |

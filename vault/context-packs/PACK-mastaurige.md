@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-18 · 28 notes.
+> Généré le 2026-06-18 · 31 notes.
 
 ## Notes (par tier)
 
@@ -19,11 +19,14 @@
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
 | 2 | [DECISION-006](../decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | decision |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
+| 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [LESSON-002](../lessons/LESSON-002.md) | Espace insécable dans les labels → fusion de sections | lesson |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |
 | 2 | [LESSON-007](../lessons/LESSON-007.md) | Bloc parseur non borné → record poubelle | lesson |
 | 2 | [LESSON-013](../lessons/LESSON-013.md) | Serveur HTTP Python local lent → double pile IPv6 + Nagle + cache | lesson |
+| 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
+| 2 | [LESSON-015](../lessons/LESSON-015.md) | Outillage multi-exercice — zéro calendrier (ou contenu) d'exercice codé en dur | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
