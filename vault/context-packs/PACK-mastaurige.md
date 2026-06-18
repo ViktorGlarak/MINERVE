@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-18 · 27 notes.
+> Généré le 2026-06-18 · 28 notes.
 
 ## Notes (par tier)
 
@@ -18,6 +18,7 @@
 | 2 | [DECISION-003](../decisions/DECISION-003.md) | lo_config.js — source unique séries→LO | decision |
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
 | 2 | [DECISION-006](../decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | decision |
+| 2 | [DECISION-007](../decisions/DECISION-007.md) | Starter Package — code réservé 00.00.00i (carte ghost MELMIL) | decision |
 | 2 | [LESSON-002](../lessons/LESSON-002.md) | Espace insécable dans les labels → fusion de sections | lesson |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |

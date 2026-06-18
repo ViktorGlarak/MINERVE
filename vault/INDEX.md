@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**379 notes** · généré le 2026-06-18
+**380 notes** · généré le 2026-06-18
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -34,6 +34,7 @@
 | [DECISION-004](decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-003]] [[ARCH-002]] |
 | [DECISION-005](decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | 3 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-002]] |
 | [DECISION-006](decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-001]] [[LESSON-002]] |
+| [DECISION-007](decisions/DECISION-007.md) | Starter Package — code réservé 00.00.00i (carte ghost MELMIL) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[PROJ-MASTAURIGE]] [[ARCH-008]] |
 
 ## 🛠️ Outils
 
@@ -106,7 +107,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
