@@ -4,11 +4,11 @@ type: agent
 title: MASTAURIGE
 tags: [agent]
 source: ../../MASTAURIGE/MEMOIRE.md
-linkedTo: [DECISION-001, DECISION-002, DECISION-003, DECISION-004, DECISION-005, DECISION-006, LESSON-002, LESSON-006, LESSON-007, LESSON-008, PROJ-MASTAURIGE, TOOL-001, TOOL-002, TOOL-003, TOOL-004, TOOL-005, TOOL-006, TOOL-007]
+linkedTo: [ARCH-008, DECISION-001, DECISION-002, DECISION-003, DECISION-004, DECISION-005, DECISION-006, LESSON-002, LESSON-006, LESSON-007, LESSON-008, LESSON-013, PROJ-MASTAURIGE, TOOL-001, TOOL-002, TOOL-003, TOOL-004, TOOL-005, TOOL-006, TOOL-007, TOOL-011]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-15
-updated: 2026-06-15
+created: 2026-06-18
+updated: 2026-06-18
 ---
 
 # 🤖 MASTAURIGE — Canvas agent
@@ -22,6 +22,7 @@ updated: 2026-06-15
 - 📄 README : [README.md](../../MASTAURIGE/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
+- [[ARCH-008]]
 - [[DECISION-001]]
 - [[DECISION-002]]
 - [[DECISION-003]]
@@ -32,6 +33,7 @@ updated: 2026-06-15
 - [[LESSON-006]]
 - [[LESSON-007]]
 - [[LESSON-008]]
+- [[LESSON-013]]
 - [[PROJ-MASTAURIGE]]
 - [[TOOL-001]]
 - [[TOOL-002]]
@@ -40,6 +42,7 @@ updated: 2026-06-15
 - [[TOOL-005]]
 - [[TOOL-006]]
 - [[TOOL-007]]
+- [[TOOL-011]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

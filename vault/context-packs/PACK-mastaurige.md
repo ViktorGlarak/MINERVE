@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 24 notes.
+> Généré le 2026-06-18 · 27 notes.
 
 ## Notes (par tier)
 
@@ -13,6 +13,7 @@
 | 1 | [LESSON-008](../lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson |
 | 1 | [PROJ-MASTAURIGE](../projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project |
 | 1 | [TOOL-002](../tools/TOOL-002.md) | verifier_mastaurige.py (contrôles A-I) | tool |
+| 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [DECISION-002](../decisions/DECISION-002.md) | Pipeline « inject as code » | decision |
 | 2 | [DECISION-003](../decisions/DECISION-003.md) | lo_config.js — source unique séries→LO | decision |
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
@@ -21,6 +22,7 @@
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |
 | 2 | [LESSON-007](../lessons/LESSON-007.md) | Bloc parseur non borné → record poubelle | lesson |
+| 2 | [LESSON-013](../lessons/LESSON-013.md) | Serveur HTTP Python local lent → double pile IPv6 + Nagle + cache | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
@@ -31,6 +33,7 @@
 | 2 | [TOOL-005](../tools/TOOL-005.md) | Console MASTER (fusion / renumérotation / actus) | tool |
 | 2 | [TOOL-006](../tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | tool |
 | 2 | [TOOL-007](../tools/TOOL-007.md) | generer_injects.py | tool |
+| 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)

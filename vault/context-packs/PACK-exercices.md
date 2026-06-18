@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-15 · 53 notes.
+> Généré le 2026-06-18 · 55 notes.
 
 ## Notes (par tier)
 
@@ -15,6 +15,7 @@
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
+| 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
@@ -42,6 +43,7 @@
 | 2 | [REF-mercure-societe](../knowledge/REF-mercure-societe.md) | Mercure — société, ethnies & diaspora | reference |
 | 2 | [REF-storm1516](../knowledge/REF-storm1516.md) | Doctrine Storm-1516 (MOI russe — référentiel réalisme ILI) | reference |
 | 2 | [TOOL-006](../tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | tool |
+| 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
 | 3 | [ENT-boerck](../entities/personas/ENT-boerck.md) | Andreas Boerck | entity |
 | 3 | [ENT-eklund](../entities/personas/ENT-eklund.md) | Henrik Eklund | entity |
 | 3 | [ENT-hansen](../entities/personas/ENT-hansen.md) | Hanna Hansen | entity |

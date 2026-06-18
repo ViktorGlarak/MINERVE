@@ -7,8 +7,8 @@ source: ../../BROUILLON/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-06-15
-updated: 2026-06-15
+created: 2026-06-18
+updated: 2026-06-18
 ---
 
 # 🤖 BROUILLON — Canvas agent

@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**376 notes** · généré le 2026-06-15
+**379 notes** · généré le 2026-06-18
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -49,6 +49,7 @@
 | [TOOL-008](tools/TOOL-008.md) | OmniVoice TTS (Voice Clone / Voice Design) | 2 | [`PARAMETRES_OMNIVOICE.md`](../../VOIX/PARAMETRES_OMNIVOICE.md) | [[ARCH-006]] [[LESSON-010]] |
 | [TOOL-009](tools/TOOL-009.md) | LTX 2.3 i2v/ia2v (ComfyUI) | 2 | [`PARAMETRES_LTX.md`](../../CINEASTE/PARAMETRES_LTX.md) | [[ARCH-006]] [[LESSON-011]] |
 | [TOOL-010](tools/TOOL-010.md) | Stack image (Firefly / Flow / Gemini) | 2 | [`PROMPTS_TYPES.md`](../../IMAGIER/PROMPTS_TYPES.md) | [[ARCH-006]] [[LESSON-009]] |
+| [TOOL-011](tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[DECISION-002]] |
 
 ## 📚 Leçons
 
@@ -66,6 +67,7 @@
 | [LESSON-010](lessons/LESSON-010.md) | Texte TTS — préfixe H non prononcé, sigles lettre par lettre | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[ARCH-006]] |
 | [LESSON-011](lessons/LESSON-011.md) | Prompts LTX — paragraphe mouvement, ia2v synchro labiale | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-009]] [[ARCH-006]] |
 | [LESSON-012](lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | 2 | [`CLAUDE.md`](../../CLAUDE.md) | [[LESSON-001]] [[ENT-karpovitch]] [[ENT-bothnia]] |
+| [LESSON-013](lessons/LESSON-013.md) | Serveur HTTP Python local lent → double pile IPv6 + Nagle + cache | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] |
 
 ## 🏛️ Architecture
 
@@ -78,6 +80,7 @@
 | [ARCH-005](architecture/ARCH-005.md) | Boucle QC — NOYAU évalue chaque réponse agent | 2 | [`QC.md`](../../SYSTEME/QC.md) | [[ARCH-001]] [[ARCH-002]] [[PROJ-MINERVE]] |
 | [ARCH-006](architecture/ARCH-006.md) | Pipeline de production média (image → vidéo → voix → montage) | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[TOOL-009]] [[TOOL-010]] [[LESSON-009]] [[LESSON-010]] [[LESSON-011]] [[PROJ-PROD-MEDIA]] |
 | [ARCH-007](architecture/ARCH-007.md) | Roadmap technique MINERVE (RAG · CONVERGENCE · orchestrateur autonome) | 3 | [`CONFIG.md`](../../SYSTEME/CONFIG.md) | [[ARCH-001]] [[ARCH-002]] [[PROJ-MINERVE]] |
+| [ARCH-008](architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[DECISION-001]] [[LESSON-013]] |
 
 ## 🗂️ Projets (canvas)
 
@@ -103,7 +106,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
