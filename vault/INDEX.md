@@ -34,7 +34,7 @@
 | [DECISION-004](decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-003]] [[ARCH-002]] |
 | [DECISION-005](decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | 3 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[DECISION-002]] |
 | [DECISION-006](decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-001]] [[LESSON-002]] |
-| [DECISION-007](decisions/DECISION-007.md) | Starter Package — code réservé 00.00.00i (carte ghost MELMIL) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[PROJ-MASTAURIGE]] [[ARCH-008]] |
+| [DECISION-007](decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[PROJ-MASTAURIGE]] [[ARCH-008]] |
 
 ## 🛠️ Outils
 

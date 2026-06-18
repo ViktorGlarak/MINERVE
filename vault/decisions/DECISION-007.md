@@ -1,8 +1,8 @@
 ---
 id: DECISION-007
 type: decision
-title: Starter Package — code réservé 00.00.00i (carte ghost MELMIL)
-tags: [mastaurige, melmil, starter, convention, 7bb]
+title: STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL)
+tags: [mastaurige, melmil, startex, convention, 7bb]
 source: ../../MASTAURIGE/MEMOIRE.md
 linkedTo: [PROJ-AURIGE-7BB, PROJ-MASTAURIGE, ARCH-008]
 relevantFor: [mastaurige, exercices, minautore]
@@ -11,18 +11,18 @@ created: 2026-06-18
 updated: 2026-06-18
 ---
 
-# DECISION-007 — Starter Package : code réservé `00.00.00i`
+# DECISION-007 — STARTEX Package : sous-injects `00.00.00Ai…Ei` (incident `00.00.00i`)
 
 ## Décision
-Un **« Starter Package »** = lot d'articles donné aux joueurs au **démarrage** d'un exercice (7BB : le 23 juin / D+33) pour poser la **ligne de conduite / structure politique**. Ces injects **n'ont pas de vrai numéro** → on leur réserve le code **`00.00.00i`**.
+Un **« STARTEX Package »** (*Start of Exercise* — nommage corrigé de « Starter », 2026-06-18) = lot d'articles donné aux joueurs au **démarrage** d'un exercice (7BB : le 23 juin / D+33) pour poser la **ligne de conduite / structure politique**. Ces injects **n'ont pas de vrai numéro** → incident réservé **`00.00.00i`**, et **chaque article = un sous-inject** `00.00.00Ai`, `Bi`, `Ci`… (respecte la logique de codage MASTAURIGE : nom propre, draggable, statut).
 
-## Comportement (convention moteur, intégrée vierge + collab + 7BB)
-- La série `00` étant inconnue du plan, MELMIL place l'incident sur la **ligne r7 GHOST** automatiquement ; `melmil.js` l'**étiquette « 📦 STARTER PACKAGE »** (sinon `inj.sujet`).
-- Les cartes se colorent **par camp** (autorité qui parle) : 🔴 / 🔵 / ⚪.
-- Articles déjà rédigés (`.html` riches) = créations **`external:true` + `file`** → `CR_previewArticle` ouvre le **vrai `.html` en iframe** (pas de re-rendu). Auto-injectées (idempotent) par `moteur/starter_package.js`.
+## Comportement (convention moteur — instance 7BB + copie collab ; vierge alignée en fin de MINAUTORE)
+- La série `00` étant inconnue du plan, MELMIL traite chaque sous-inject via le **CAS 1.5** de `buildGhostInjects` → **une carte GHOST par camp** sur la **ligne r7 GHOST** au D+33, libellée **« 📦 STARTEX PACKAGE »**. Chaque carte ne montre au clic **que les injects de son camp** (sous-items cliquables individuellement).
+- Les cartes se colorent **par camp** (autorité qui parle) : 🔴 Olamao `Ai` · 🔵 Pallesson `Bi` / Rutte `Ci` · ⚪ Guterres ONU `Di` / TV4 `Ei`.
+- Articles déjà rédigés (`.html` riches) = créations **`external:true` + `file`** → `CR_previewArticle` **navigue vers le vrai `.html` dans le même onglet** (`saveMasterState()` + `?from=master`, comme `openCard`) ; bouton **« ← MASTAURIGE »** via `shared/back-btn.js` + scroll restauré au retour. Auto-injectées (idempotent) par `moteur/starter_package.js`, qui **réconcilie `num` + `file`** d'une ancienne instance localStorage (corrige aussi un 404 si l'ancien `file` était périmé). ⚠ chemin 7BB du script = `../../shared/back-btn.js` (`shared/` racine instance), pas `../shared/`.
 
 ## Pourquoi
-Donner aux joueurs un cadrage politique commun **sans polluer la numérotation** des injects ILI/HN, tout en restant visible et rangé (ghost) dans la synchromatrice.
+Donner aux joueurs un cadrage politique commun **sans polluer la numérotation** des injects ILI/HN, tout en restant visible, rangé (ghost) et **nommé inject par inject** dans la synchromatrice — une carte par camp évite d'entasser rouge/bleu/neutre dans une seule carte.
 
 ## Source (vérité)
-[[../../MASTAURIGE/MEMOIRE.md]] § « STARTER PACKAGE ». Exercice : [[PROJ-AURIGE-7BB]] ; collaboratif : [[ARCH-008]].
+[[../../MASTAURIGE/MEMOIRE.md]] § « STARTEX PACKAGE ». Exercice : [[PROJ-AURIGE-7BB]] ; collaboratif : [[ARCH-008]].
