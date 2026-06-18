@@ -21,8 +21,11 @@ Un **« STARTEX Package »** (*Start of Exercise* — nommage corrigé de « Sta
 - Les cartes se colorent **par camp** (autorité qui parle) : 🔴 Olamao `Ai` · 🔵 Pallesson `Bi` / Rutte `Ci` · ⚪ Guterres ONU `Di` / TV4 `Ei`.
 - Articles déjà rédigés (`.html` riches) = créations **`external:true` + `file`** → `CR_previewArticle` **navigue vers le vrai `.html` dans le même onglet** (`saveMasterState()` + `?from=master`, comme `openCard`) ; bouton **« ← MASTAURIGE »** via `shared/back-btn.js` + scroll restauré au retour. Auto-injectées (idempotent) par `moteur/starter_package.js`, qui **réconcilie `num` + `file`** d'une ancienne instance localStorage (corrige aussi un 404 si l'ancien `file` était périmé). ⚠ chemin 7BB du script = `../../shared/back-btn.js` (`shared/` racine instance), pas `../shared/`.
 
+## Portée — convention PERMANENTE (tous exercices futurs)
+**Décision utilisateur (2026-06-18) :** `00.00.00i` est un **code réservé standard**, pas un bricolage 7BB. Le **mécanisme** STARTEX (code réservé + label CAS 1.5 + nav `external` créateur + `back-btn.js` + correctifs calendrier-agnostiques) doit être **intégré au gabarit VIERGE en fin de MINAUTORE**, pour que **tout futur exercice** dispose nativement d'un emplacement STARTEX. ⚠ D'ici là **vierge intacte** ; on ne porte QUE le mécanisme (squelette `starter_package.js` vide), **jamais** les 5 articles 7BB (contenu spécifique). Checklist détaillée : `MASTAURIGE/MEMOIRE.md` § « STARTEX = fonctionnalité PERMANENTE de la vierge ».
+
 ## Pourquoi
-Donner aux joueurs un cadrage politique commun **sans polluer la numérotation** des injects ILI/HN, tout en restant visible, rangé (ghost) et **nommé inject par inject** dans la synchromatrice — une carte par camp évite d'entasser rouge/bleu/neutre dans une seule carte.
+Donner aux joueurs un cadrage politique commun **sans polluer la numérotation** des injects ILI/HN, tout en restant visible, rangé (ghost) et **nommé inject par inject** dans la synchromatrice — une carte par camp évite d'entasser rouge/bleu/neutre dans une seule carte. Réservé `00.00.00i` = **valable pour tous les exercices**, donc à inscrire dans le gabarit.
 
 ## Source (vérité)
 [[../../MASTAURIGE/MEMOIRE.md]] § « STARTEX PACKAGE ». Exercice : [[PROJ-AURIGE-7BB]] ; collaboratif : [[ARCH-008]].
