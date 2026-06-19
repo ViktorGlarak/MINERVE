@@ -7,8 +7,8 @@ source: ../../VOIX/MEMOIRE.md
 linkedTo: [TOOL-008]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-18
-updated: 2026-06-18
+created: 2026-06-20
+updated: 2026-06-20
 ---
 
 # 🤖 VOIX — Canvas agent

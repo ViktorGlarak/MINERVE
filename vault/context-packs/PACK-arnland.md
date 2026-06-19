@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « arnland ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-18 · 107 notes.
+> Généré le 2026-06-20 · 113 notes.
 
 ## Notes (par tier)
 
@@ -17,6 +17,7 @@
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |
 | 2 | [REF-arnland-strategie](../knowledge/REF-arnland-strategie.md) | Arnland — tensions & posture narrative | reference |
+| 3 | [ENT-adriane](../entities/personas/ENT-adriane.md) | Jean-Louis Adriane | entity |
 | 3 | [ENT-alvarez](../entities/personas/ENT-alvarez.md) | Erik Alvarez | entity |
 | 3 | [ENT-andreev-milan](../entities/personas/ENT-andreev-milan.md) | Milan Andreev | entity |
 | 3 | [ENT-antonov](../entities/personas/ENT-antonov.md) | Yuri Antonov | entity |
@@ -32,6 +33,7 @@
 | 3 | [ENT-brenner](../entities/personas/ENT-brenner.md) | Nikolaï Brenner | entity |
 | 3 | [ENT-bystrom](../entities/personas/ENT-bystrom.md) | Bystrom | entity |
 | 3 | [ENT-chareyron](../entities/personas/ENT-chareyron.md) | Chareyron | entity |
+| 3 | [ENT-danevois](../entities/personas/ENT-danevois.md) | Robert Danevois | entity |
 | 3 | [ENT-depoire](../entities/personas/ENT-depoire.md) | Depoire | entity |
 | 3 | [ENT-dimitrov](../entities/personas/ENT-dimitrov.md) | Oleg Dimitrov | entity |
 | 3 | [ENT-djobovic](../entities/personas/ENT-djobovic.md) | Marko Djobović | entity |
@@ -67,14 +69,17 @@
 | 3 | [ENT-kravchenko](../entities/personas/ENT-kravchenko.md) | Nikolai Kravchenko | entity |
 | 3 | [ENT-kravtsova](../entities/personas/ENT-kravtsova.md) | Anastasia Kravtsova | entity |
 | 3 | [ENT-kulis](../entities/personas/ENT-kulis.md) | Kulis | entity |
+| 3 | [ENT-laffin](../entities/personas/ENT-laffin.md) | Rémy Laffin | entity |
 | 3 | [ENT-lang](../entities/personas/ENT-lang.md) | Dorothée Lang | entity |
 | 3 | [ENT-laporte](../entities/personas/ENT-laporte.md) | Laporte | entity |
 | 3 | [ENT-lebedev](../entities/personas/ENT-lebedev.md) | Alexei Lebedev | entity |
 | 3 | [ENT-malenko](../entities/personas/ENT-malenko.md) | Yegor Malenko | entity |
 | 3 | [ENT-marinov](../entities/personas/ENT-marinov.md) | Vladislav Marinov | entity |
+| 3 | [ENT-martin-nathalie](../entities/personas/ENT-martin-nathalie.md) | Nathalie Martin | entity |
 | 3 | [ENT-milenkovic](../entities/personas/ENT-milenkovic.md) | Zoya Milenković | entity |
 | 3 | [ENT-milova](../entities/personas/ENT-milova.md) | Ekaterina Milova | entity |
 | 3 | [ENT-mishin](../entities/personas/ENT-mishin.md) | Igor Mishin | entity |
+| 3 | [ENT-mordidchev](../entities/personas/ENT-mordidchev.md) | Serge Mordidchev | entity |
 | 3 | [ENT-morozov](../entities/personas/ENT-morozov.md) | Alexei Morozov | entity |
 | 3 | [ENT-nikitin](../entities/personas/ENT-nikitin.md) | Sergei Nikitin | entity |
 | 3 | [ENT-novak](../entities/personas/ENT-novak.md) | Boris Novak | entity |
@@ -85,6 +90,7 @@
 | 3 | [ENT-petrova-irina](../entities/personas/ENT-petrova-irina.md) | Irina Petrova | entity |
 | 3 | [ENT-petrovic-radmila](../entities/personas/ENT-petrovic-radmila.md) | Radmila Petrović | entity |
 | 3 | [ENT-petrovna](../entities/personas/ENT-petrovna.md) | Elena Petrovna | entity |
+| 3 | [ENT-promesy](../entities/personas/ENT-promesy.md) | Nadia Promesy | entity |
 | 3 | [ENT-radojevic](../entities/personas/ENT-radojevic.md) | Svetlana Radojević | entity |
 | 3 | [ENT-radulov](../entities/personas/ENT-radulov.md) | Dmitri Radulov | entity |
 | 3 | [ENT-savchenko-anya](../entities/personas/ENT-savchenko-anya.md) | Anya Savchenko | entity |

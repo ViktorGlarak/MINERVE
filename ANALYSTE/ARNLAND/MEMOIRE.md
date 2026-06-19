@@ -40,6 +40,23 @@ Les injects AURIGE 2BB doivent être calibrés niveau **PC brigade**, pas état-
 - Villes ZO prioritaires : HCHATEAU-SALINS, HLUNEVILLE, HSARREBOURG, HToul
 - Personnage DJOBOVIC (8e DAC) : ancrage possible pour injects locaux (prise de position, communication terrain)
 
+### [2026-06-20] Récup HN 2BB→7BB dans le collab MINOTAURE (20 injects)
+Liste Guillaume `HN - ADAPTATION 2BB 7BB V1.docx` bakée dans le collab 7BB : **7 courriers HN** (maires/préfet — corridors humanitaires, écoles, musées, cultes, relances préfet) + 6 articles (panique civils, Guterres/ONU, POW/CICR) + 7 tweets. Codes 7BB **08.01.I0x / 08.02.I0x** (+ 2 vers 07.12.I05/06). Adaptation H-préfixe conservée (HSARREBOURG, HMORHANGE, HNANCY…), DAC→ARN. ⚠ **À valider par ANALYSTE_ARN** : noms des maires signataires des courriers (cohérence avec le roster HN + camps : Weber 🔴, Brenner ⚪, Birkmann 🔵) ; camps des courriers (mis « neutre » par défaut). Détail technique : `MASTAURIGE\MEMOIRE.md` [2026-06-20].
+
+### [2026-06-20] ⭐ ROSTER HLORRAINE V2 — fiches EHO ARNLAND (intégrées agents + trombino)
+Source : `CREATION\06 - Arnland\EHO ARNLAND - MODIFICATIONS V2.odt` (copiée depuis E:). **6 figures** intégrées (parser `parse_eho_v2` dans `generer_trombino_bios.py` → bios.js + pop-up). **Réseau informel d'élus lorrains** gravitant autour de **Mordidchev** — exploitable ILI.
+
+| Figure | Rôle | Âge | Camp | Parti | Levier ILI clé |
+|---|---|---|---|---|---|
+| **Rémy Laffin** | Gouverneur région HGrand Est | 67 | ⚪ neutre (corrompu) | aucun (haut fonctionnaire) | **Liens cachés groupe N.O.M** (chantage majeur, traçable via flux financiers régionaux) ; ami de Mordidchev ; surveillé par Radulov ; pré-retraite |
+| **Serge Mordidchev** | Maire **HNancy** | 50 | ⚪ neutre | ASP (opposition centre-gauche) | **Très actif sur X** ; pivot du réseau lorrain ; ami Laffin (éclaboussable si N.O.M révélé) ; calcul politique trop visible |
+| **Nathalie Martin** | Maire **HSarre-Union** (~35% merc.) | 41 | 🔴 pro-MER | sans étiquette (droite rég.) | **Fille Kimberley** liée à 2 militaires ARN pro-MER (Crusadier, Degardin) — levier de pression/coopération ; X rare |
+| **Robert Danevois** | Maire **HChateau-Salins** | 38 | 🔴 pro-MER | sans étiquette | **Lien suspecté avec Léon-Philippe Thely** (agitateur pro-MER) ; activité éco à l'arrêt → réceptif aux offres ; X absent |
+| **Nadia Promesy** | Maire **HSarrebourg** (~20% merc.) | 37 | 🔵 pro-ARN modéré | APP local / union | Jeune, non-partisane, difficile à attaquer ; connexions indirectes réseau Mordidchev-Danevois (associable) ; X modeste/sobre |
+| **Jean-Louis Adriane** | Maire **HLunéville** | 63 | ⚪ neutre | indépendant | Ami Mordidchev/Promesy ; lié à **Antoine Bourguignon** (prés. agriculteurs régionaux — réseau agroalimentaire stratégique en pénurie) ; sur X (info pratique) |
+
+⚠ **Remplacements de villes (validé utilisateur 2026-06-20)** : Mordidchev prend **HNancy** (ex-Gervais 🔵), Promesy prend **HSarrebourg** (ex-Weber 🔴), Martin prend **HSarre-Union** (ex-Hartmann 🔴). Les **3 anciens (Gervais, Weber, Hartmann) sont GARDÉS au trombino EN RÉSERVE** (« sans ville attribuée », camps conservés) — réemployables si on doit recaser un maire. ✅ **Courriers HN signés par les maires V2 (2026-06-20)** : les 7 courriers 08.01 (collab `Sites\COURRIERS`) ont leurs signataires remplacés par ville — HNancy=Mordidchev, HSarrebourg=Promesy, HChateau-Salins=Danevois, HSarre-Union=Martin, HLunéville=Adriane ; préfet=Birkmann ; HHaguenau (Lang) conservée car sans fiche V2. ✅ **Entités vault** créées : `vault\entities\personas\ENT-{laffin,mordidchev,martin-nathalie,danevois,promesy,adriane}.md` (build vert). Détail technique : `MASTAURIGE\MEMOIRE.md` [2026-06-20].
+
 ### Nouveaux injects 08.02 créés (2026-05-29)
 - `08.02.02Ai` : TV4 — capture 104 soldats MER par 8e DAC / DJOBOVIC (28 Mai)
 - `08.02.02Bi` : @KolesnikovAndrei — rumeurs maltraitance POW, discrédit DAC vs FR (29 Mai 16h00)

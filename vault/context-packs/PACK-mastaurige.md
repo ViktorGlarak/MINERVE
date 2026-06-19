@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-18 · 31 notes.
+> Généré le 2026-06-20 · 33 notes.
 
 ## Notes (par tier)
 
@@ -11,6 +11,7 @@
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [LESSON-008](../lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson |
+| 1 | [LESSON-016](../lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | lesson |
 | 1 | [PROJ-MASTAURIGE](../projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project |
 | 1 | [TOOL-002](../tools/TOOL-002.md) | verifier_mastaurige.py (contrôles A-I) | tool |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
@@ -38,6 +39,7 @@
 | 2 | [TOOL-006](../tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | tool |
 | 2 | [TOOL-007](../tools/TOOL-007.md) | generer_injects.py | tool |
 | 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
+| 2 | [TOOL-012](../tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | tool |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)

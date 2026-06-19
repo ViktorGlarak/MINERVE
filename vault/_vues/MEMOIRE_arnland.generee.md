@@ -2,7 +2,7 @@
 
 > ⚙️ **Document généré** par `generer_vue_memoire.py` depuis le vault atomique — **ne pas éditer à la main**.
 > Démonstration Phase 4 (inversion du flux). La vraie autorité de travail reste `ANALYSTE/ARNLAND/MEMOIRE.md` tant que la bascule n'est pas validée.
-> Le **camp** de chaque persona provient de **sa note entité** (source unique). Généré le 2026-06-18.
+> Le **camp** de chaque persona provient de **sa note entité** (source unique). Généré le 2026-06-20.
 
 ## Carte d'identité
 
@@ -138,9 +138,9 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 
 ---
 
-## Roster — 98 personas (camp = autorité des notes entité)
+## Roster — 104 personas (camp = autorité des notes entité)
 
-### 🔴 rouge — 5
+### 🔴 rouge — 7
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -148,9 +148,11 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Grigori Hartmann** | Maire de HSarre-Union (ville saisie par 27BIM en CAX1) | [[ENT-hartmann]] |
 | **Henri Weber** | Maire de HSarrebourg — pharmacien proche des milieux pro-MER, ville 35% diaspora (relais/cible LO4) | [[ENT-weber]] |
 | **Nataliya Savchenko** | Leader associative **pro-Mercure** dans la diaspora mercurienne. **Mobilisation de la diaspora MER + victimisation** (storyline 07-03 « libération ») | [[ENT-savchenko]] |
+| **Nathalie Martin** | Maire de HSarre-Union (~35% mercuriens) — pro-MER ; levier : sa fille Kimberley liée à des militaires ARN pro-MER | [[ENT-martin-nathalie]] |
 | **Piotr Volkonsky** | Leader religieux protestant **pro-Mercure** dans la diaspora mercurienne d'Arnland. **Relais ILI** de la storyline **07-03 « Vent de libération »** : sermons pro-MER, légitimation religieuse de l'action mercurienne | [[ENT-volkonsky]] |
+| **Robert Danevois** | Maire de HChateau-Salins — pro-MER ; lien suspecté avec l'agitateur pro-MER Léon-Philippe Thely ; éco perso à l'arrêt (réceptif aux offres) | [[ENT-danevois]] |
 
-### ⚪ neutre — 24
+### ⚪ neutre — 27
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -162,6 +164,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Elena Petrovna** | Responsable de Blue Shield en Arnland (patrimoine culturel) | [[ENT-petrovna]] |
 | **Igor Mishin** | Président de l'Arnish Refugee Council (ARC) | [[ENT-mishin]] |
 | **Ivan Volkov** | Président de l'ACP (communiste) | [[ENT-volkov-ivan]] |
+| **Jean-Louis Adriane** | Maire de HLunéville (indépendant) — neutre ; ami Mordidchev/Promesy ; lié à Antoine Bourguignon (président des agriculteurs régionaux) | [[ENT-adriane]] |
 | **Katarina Durova** | Porte-parole de l'ASP (Arnland Socialist Party) | [[ENT-durova]] |
 | **Lidija Novik** | Porte-parole d'association (société civile) | [[ENT-novik-lidija]] |
 | **Maksym Borchenko** | Patron de **Borchenko Transports** (52 ans, né à HSarrebourg), membre de la **FEA** (Federation of Employers in Arnland). Logistique transfrontalière — **l'une des rares infrastructures encore opérationnelles**. 340 employés **bilingues** (arnlandais/mercurien) | [[ENT-borchenko]] |
@@ -169,6 +172,8 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Natalya Kostova** | Porte-parole du SDP (Social Democratic Party) | [[ENT-kostova]] |
 | **Nikolaï Brenner** | Maire de HMorange | [[ENT-brenner]] |
 | **Radovan Jakšić** | Président d'association (société civile) | [[ENT-jaksic]] |
+| **Rémy Laffin** | Gouverneur de la région HGrand Est — neutre mais corrompu (liens cachés groupe N.O.M, levier de chantage majeur) ; ami de Mordidchev ; surveillé par Radulov | [[ENT-laffin]] |
+| **Serge Mordidchev** | Maire de HNancy (ASP, opposition centre-gauche) — pivot du réseau informel d'élus lorrains ; très actif sur X ; ami du gouverneur Laffin | [[ENT-mordidchev]] |
 | **Svetlana Radojević** | Porte-parole UNICEF (Arnland) | [[ENT-radojevic]] |
 | **Tanja Borović** | Porte-parole du Dushman (allié-partenaire) | [[ENT-borovic]] |
 | **Tomaš Vrenko** | Président d'association (société civile) | [[ENT-vrenko]] |
@@ -179,7 +184,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Yuri Antonov** | Avocat de la défense (célèbre) | [[ENT-antonov]] |
 | **Zoya Milenković** | Porte-parole de l'ACP (Arnland Communist Party) | [[ENT-milenkovic]] |
 
-### 🔵 bleu — 69
+### 🔵 bleu — 70
 
 | Persona | Rôle | Note |
 |---|---|---|
@@ -232,6 +237,7 @@ L'Arnland est la **nation hôte** que l'OTAN vient « libérer » ; la GET-R-FOR
 | **Milan Andreev** | Porte-parole de l'UE | [[ENT-andreev-milan]] |
 | **Milena Zhukova** | Ministre Éducation / Recherche | [[ENT-zhukova]] |
 | **Mira Janković** | Ministre des Affaires étrangères — très active sur X (contre-narratifs, droit international) | [[ENT-jankovic]] |
+| **Nadia Promesy** | Maire de HSarrebourg (~20% mercuriens) — pro-Arnland modéré, pharmacienne, non-partisane ; connexions indirectes au réseau Mordidchev-Danevois | [[ENT-promesy]] |
 | **Natalya Pavlenko** | Ministre de l'Environnement | [[ENT-pavlenko-natalya]] |
 | **Nikolai Kravchenko** | DMD HVienne | [[ENT-kravchenko]] |
 | **Nikolai Zoric** | Juge pénal | [[ENT-zoric-nikolai]] |

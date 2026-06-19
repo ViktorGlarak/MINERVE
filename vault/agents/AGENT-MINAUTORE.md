@@ -7,8 +7,8 @@ source: ../../MINAUTORE/MEMOIRE.md
 linkedTo: [PROJ-AURIGE-7BB]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-18
-updated: 2026-06-18
+created: 2026-06-20
+updated: 2026-06-20
 ---
 
 # 🤖 MINAUTORE — Canvas agent
