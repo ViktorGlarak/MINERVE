@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-20 · 33 notes.
+> Généré le 2026-06-20 · 35 notes.
 
 ## Notes (par tier)
 
@@ -21,6 +21,7 @@
 | 2 | [DECISION-006](../decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | decision |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
+| 2 | [DECISION-009](../decisions/DECISION-009.md) | Cartographie des injects ILI — « Piste C » (storyline = structure JEMM, LO = étiquette) | decision |
 | 2 | [LESSON-002](../lessons/LESSON-002.md) | Espace insécable dans les labels → fusion de sections | lesson |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |
@@ -40,6 +41,7 @@
 | 2 | [TOOL-007](../tools/TOOL-007.md) | generer_injects.py | tool |
 | 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
 | 2 | [TOOL-012](../tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | tool |
+| 2 | [TOOL-013](../tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | tool |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)

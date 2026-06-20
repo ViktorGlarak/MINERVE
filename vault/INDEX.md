@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**391 notes** · généré le 2026-06-20
+**393 notes** · généré le 2026-06-20
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -37,6 +37,7 @@
 | [DECISION-006](decisions/DECISION-006.md) | Trombino — pages A3 auto + bande bio + cache-buster | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-001]] [[LESSON-002]] |
 | [DECISION-007](decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[PROJ-MASTAURIGE]] [[ARCH-008]] |
 | [DECISION-008](decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[PROJ-MASTAURIGE]] [[PROJ-AURIGE-7BB]] |
+| [DECISION-009](decisions/DECISION-009.md) | Cartographie des injects ILI — « Piste C » (storyline = structure JEMM, LO = étiquette) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-013]] |
 
 ## 🛠️ Outils
 
@@ -54,6 +55,7 @@
 | [TOOL-010](tools/TOOL-010.md) | Stack image (Firefly / Flow / Gemini) | 2 | [`PROMPTS_TYPES.md`](../../IMAGIER/PROMPTS_TYPES.md) | [[ARCH-006]] [[LESSON-009]] |
 | [TOOL-011](tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[DECISION-002]] |
 | [TOOL-012](tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[LESSON-016]] |
+| [TOOL-013](tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[DECISION-009]] |
 
 ## 📚 Leçons
 
@@ -113,7 +115,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
