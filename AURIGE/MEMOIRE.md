@@ -256,6 +256,19 @@ Strasbourg → HSTRASBOURG
 
 ---
 
+## 🔧 MÉTHODOLOGIE DE TRAVAIL (évolutive — capitalisée inter-AURIGE)
+
+> Bonnes pratiques **transférables à TOUS les exercices AURIGE** (GUILLAUME 2BB, MINAUTORE 7BB, futurs). Découvertes sur un exercice → consignées ici pour profiter aux autres. *(Un hook `aurige_methodo_reminder.py` rappelle de faire vivre cette section.)*
+
+1. **Le chef d'orchestre de l'exercice est LE référent** (GUILLAUME pour 2BB, MINAUTORE pour 7BB). Pour toute question « quel inject / quelle date / quel persona / quel jour / cet article est-il utilisé ? » → **le consulter EN PREMIER**, jamais un grep à l'aveugle. *(MINOTAURE l'illustre via `MINAUTORE/ETAT_EXERCICE_7BB.md`.)*
+2. **Carte de référence d'exercice GÉNÉRÉE** : chaque chef devrait disposer d'une carte régénérable depuis les données réelles (calendrier D+↔date↔phase, storylines→LO, registre complet des injects code·D+·type·persona, vue par jour). → **à relancer après TOUTE modif** pour rester fiable. Modèle : `MINAUTORE/generer_etat_exercice.py`. *(À porter pour GUILLAUME 2BB.)*
+3. **« Modifier un inject » = entrer DANS le document** (article/tweet/courrier HTML), pas seulement la card/dayorder : corriger TOUT le contenu pour cohérence (dates internes, corps, encarts, renvois).
+4. **Cohérence des dates** : dateline d'un article = la **date D+ de sa card** ; date d'un **renvoi/related** = la date de l'**article visé** ; dates internes/décoratives (timelines, listes « recent », liens morts) = **+1 mois** (convention 2BB→7BB) ; **refs backstory en body** (ex. vote UNSC fondateur) **préservées**.
+5. **Relecture/validation par l'agent compétent** (le chef route, ne décide pas seul) : camp/persona pays → **ANALYSTE** du pays ; effets ILI/PSYOPS/synchromatrice/LO → **EXPERT_INFLUENCE** ; rédaction (voix locale, tracts, courriers) → **SCÉNARISTE** ; format RS/HTML → **MASTAURIGE**. Rapporter « validé/corrigé par X ».
+6. **Personas locaux crédibles** : un relais pro-MER local ne s'auto-désigne jamais « Citoyen/Patriote MER » (= propagande repérable) → **habitant / diaspora locale** ; ton « notre ville, nos droits », jamais « vive MER ».
+
+---
+
 ## Correspondance agents IA ↔ dossiers
 
 | Dossier | Agent(s) concerné(s) | Usage |

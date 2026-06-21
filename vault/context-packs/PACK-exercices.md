@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-20 · 58 notes.
+> Généré le 2026-06-21 · 61 notes.
 
 ## Notes (par tier)
 
@@ -13,6 +13,7 @@
 | 1 | [ENT-bothnia](../entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity |
 | 1 | [ENT-mercure](../entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity |
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
+| 1 | [LESSON-017](../lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson |
 | 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
@@ -32,6 +33,7 @@
 | 2 | [LESSON-004](../lessons/LESSON-004.md) | Règle GET (Grand East Territory) | lesson |
 | 2 | [LESSON-012](../lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | lesson |
 | 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
+| 2 | [LESSON-018](../lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |
@@ -47,6 +49,7 @@
 | 2 | [REF-storm1516](../knowledge/REF-storm1516.md) | Doctrine Storm-1516 (MOI russe — référentiel réalisme ILI) | reference |
 | 2 | [TOOL-006](../tools/TOOL-006.md) | CONFIGURER_EXERCICE.py + exercice_config.json | tool |
 | 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
+| 2 | [TOOL-014](../tools/TOOL-014.md) | generer_etat_exercice.py — carte de référence générée de l'exercice (MINAUTORE) | tool |
 | 3 | [ENT-boerck](../entities/personas/ENT-boerck.md) | Andreas Boerck | entity |
 | 3 | [ENT-eklund](../entities/personas/ENT-eklund.md) | Henrik Eklund | entity |
 | 3 | [ENT-hansen](../entities/personas/ENT-hansen.md) | Hanna Hansen | entity |
@@ -74,6 +77,7 @@
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
+- [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)

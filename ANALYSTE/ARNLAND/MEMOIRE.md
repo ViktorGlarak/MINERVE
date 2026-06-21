@@ -40,6 +40,15 @@ Les injects AURIGE 2BB doivent être calibrés niveau **PC brigade**, pas état-
 - Villes ZO prioritaires : HCHATEAU-SALINS, HLUNEVILLE, HSARREBOURG, HToul
 - Personnage DJOBOVIC (8e DAC) : ancrage possible pour injects locaux (prise de position, communication terrain)
 
+### [2026-06-21] ✅ VALIDÉ — Manif anti-OTAN 07.11.I02 (3 tweets, D+37, camps INVERSÉS 7BB)
+Re-revue ANALYSTE_ARN après corrections : **doctrinalement correct et crédible**.
+- **Personas (descriptifs trombino, handles + camps conservés) :**
+  - **@GavrilovBorislav** → « Borislav Gavrilov — Habitant **HDieuze** · diaspora mercurianophone d'Arnland » (🔴). Profil diaspora MER locale enracinée (« trois générations »), pas agent MER auto-désigné. ZO HLorraine, préfixe H OK, onomastique slave cohérente.
+  - **@MakarovSid** → « Sid Makarov — Habitant **HBlamont** · diaspora mercurianophone d'Arnland » (🔴). Idem.
+  - **@MarionKessler57** → « Marion Kessler — civil Moselle » (⚪). Civile non alignée, nom franco-allemand cohérent Arnish/Lorrain non-diaspora. Ancrage de crédibilité du cortège.
+- **Tweets** : escalade même jour (Kessler 9h HMorhange ⚪ → Gavrilov midi HDieuze 🔴 → Makarov 16h HBlamont 🔴). Registre « notre ville / nos droits / chez nous », **plus de « vive MER » ni auto-désignation** → effet ILI crédible (victimisation locale, pas slogan d'État). Gavrilov « occupants pas libérateurs » inverse le narratif OTAN « nation hôte libérée » (storyline 07-04) sans réclamer MER. Makarov : grief surveillance/répression → posture victimaire rouge.
+- **Note** : HMorhange = maire **Brenner** (⚪ ambigu) → une manif y démarrant avec une civile ⚪ renforce la cohérence, aucun conflit.
+
 ### [2026-06-20] Récup HN 2BB→7BB dans le collab MINOTAURE (20 injects)
 Liste Guillaume `HN - ADAPTATION 2BB 7BB V1.docx` bakée dans le collab 7BB : **7 courriers HN** (maires/préfet — corridors humanitaires, écoles, musées, cultes, relances préfet) + 6 articles (panique civils, Guterres/ONU, POW/CICR) + 7 tweets. Codes 7BB **08.01.I0x / 08.02.I0x** (+ 2 vers 07.12.I05/06). Adaptation H-préfixe conservée (HSARREBOURG, HMORHANGE, HNANCY…), DAC→ARN. ⚠ **À valider par ANALYSTE_ARN** : noms des maires signataires des courriers (cohérence avec le roster HN + camps : Weber 🔴, Brenner ⚪, Birkmann 🔵) ; camps des courriers (mis « neutre » par défaut). Détail technique : `MASTAURIGE\MEMOIRE.md` [2026-06-20].
 

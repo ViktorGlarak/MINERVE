@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**393 notes** · généré le 2026-06-20
+**396 notes** · généré le 2026-06-21
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -20,6 +20,7 @@
 | [LESSON-001](lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson | mastaurige, analystes, exercices |
 | [LESSON-008](lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson | mastaurige, qualite |
 | [LESSON-016](lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | lesson | mastaurige, minautore |
+| [LESSON-017](lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson | minautore, exercices, mastaurige, analystes |
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project | exercices, minautore |
 | [PROJ-MASTAURIGE](projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project | mastaurige |
 | [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | project | systeme, noyau |
@@ -56,6 +57,7 @@
 | [TOOL-011](tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[DECISION-002]] |
 | [TOOL-012](tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[LESSON-016]] |
 | [TOOL-013](tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[DECISION-009]] |
+| [TOOL-014](tools/TOOL-014.md) | generer_etat_exercice.py — carte de référence générée de l'exercice (MINAUTORE) | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[AGENT-MINAUTORE]] [[LESSON-017]] |
 
 ## 📚 Leçons
 
@@ -77,6 +79,8 @@
 | [LESSON-014](lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[ENT-arnland]] [[PROJ-AURIGE-7BB]] |
 | [LESSON-015](lessons/LESSON-015.md) | Outillage multi-exercice — zéro calendrier (ou contenu) d'exercice codé en dur | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[PROJ-AURIGE-7BB]] |
 | [LESSON-016](lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | 1 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-012]] |
+| [LESSON-017](lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | 1 | [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[AGENT-MINAUTORE]] [[AGENT-GUILLAUME]] [[TOOL-014]] [[LESSON-018]] |
+| [LESSON-018](lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | 2 | [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[LESSON-017]] |
 
 ## 🏛️ Architecture
 
@@ -117,7 +121,7 @@
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
 | [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
-| [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] |
+| [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |

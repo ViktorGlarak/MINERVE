@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « arnland ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-20 · 113 notes.
+> Généré le 2026-06-21 · 113 notes.
 
 ## Notes (par tier)
 

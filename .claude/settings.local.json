@@ -70,6 +70,18 @@
             "command": "py D:/CECPC/PRODUCTION/IA/MINERVE/.claude/hooks/mastaurige_memoire_reminder.py 2>/dev/null || true",
             "shell": "bash",
             "statusMessage": "Vérification mémoire MASTAURIGE"
+          },
+          {
+            "type": "command",
+            "command": "py D:/CECPC/PRODUCTION/IA/MINERVE/.claude/hooks/minautore_agent_reminder.py 2>/dev/null || true",
+            "shell": "bash",
+            "statusMessage": "Routage agent MINAUTORE (7BB)"
+          },
+          {
+            "type": "command",
+            "command": "py D:/CECPC/PRODUCTION/IA/MINERVE/.claude/hooks/aurige_methodo_reminder.py 2>/dev/null || true",
+            "shell": "bash",
+            "statusMessage": "Méthodologie AURIGE (transverse)"
           }
         ]
       }

@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-20 · 35 notes.
+> Généré le 2026-06-21 · 37 notes.
 
 ## Notes (par tier)
 
@@ -12,6 +12,7 @@
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [LESSON-008](../lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson |
 | 1 | [LESSON-016](../lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | lesson |
+| 1 | [LESSON-017](../lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson |
 | 1 | [PROJ-MASTAURIGE](../projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project |
 | 1 | [TOOL-002](../tools/TOOL-002.md) | verifier_mastaurige.py (contrôles A-I) | tool |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
@@ -29,6 +30,7 @@
 | 2 | [LESSON-013](../lessons/LESSON-013.md) | Serveur HTTP Python local lent → double pile IPv6 + Nagle + cache | lesson |
 | 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
 | 2 | [LESSON-015](../lessons/LESSON-015.md) | Outillage multi-exercice — zéro calendrier (ou contenu) d'exercice codé en dur | lesson |
+| 2 | [LESSON-018](../lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
@@ -48,6 +50,7 @@
 
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
+- [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)

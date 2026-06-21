@@ -4,11 +4,11 @@ type: agent
 title: MINAUTORE
 tags: [agent]
 source: ../../MINAUTORE/MEMOIRE.md
-linkedTo: [PROJ-AURIGE-7BB]
+linkedTo: [PROJ-AURIGE-7BB, TOOL-014]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-20
-updated: 2026-06-20
+created: 2026-06-21
+updated: 2026-06-21
 ---
 
 # 🤖 MINAUTORE — Canvas agent
@@ -23,6 +23,7 @@ updated: 2026-06-20
 
 ## Notes atomiques rattachées (par `source:`)
 - [[PROJ-AURIGE-7BB]]
+- [[TOOL-014]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)
