@@ -14,9 +14,11 @@ except Exception:
 p = (((data.get("tool_input") or {}).get("file_path")) or "").replace("\\", "/")
 low = p.lower()
 
-# Cible : contenu d'un exercice AURIGE — PAS la doctrine/mémoire AURIGE elle-même
-# (sinon le rappel se déclenche quand on la consigne).
-is_aurige = "aurige" in low
+# Cible : contenu d'un exercice AURIGE — PAS la doctrine/mémoire AURIGE elle-même.
+# ⚠ On retire "mastaurige" AVANT de chercher "aurige" : sinon "m-ast-AURIGE" déclenche
+# un faux positif sur tout l'outillage MASTAURIGE (et la vierge, qui n'est pas un exercice).
+cleaned = low.replace("mastaurige", "")
+is_aurige = ("aurige" in cleaned) or ("minotaure" in low) or ("minautore" in low)
 is_base = low.endswith("/aurige.md") or low.endswith("aurige/memoire.md") or low.endswith("aurige\\memoire.md")
 
 if is_aurige and not is_base:

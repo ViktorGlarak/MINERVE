@@ -66,6 +66,13 @@ Source : `CREATION\06 - Arnland\EHO ARNLAND - MODIFICATIONS V2.odt` (copiée dep
 
 ⚠ **Remplacements de villes (validé utilisateur 2026-06-20)** : Mordidchev prend **HNancy** (ex-Gervais 🔵), Promesy prend **HSarrebourg** (ex-Weber 🔴), Martin prend **HSarre-Union** (ex-Hartmann 🔴). Les **anciens maires sont GARDÉS au trombino EN RÉSERVE** (« sans ville attribuée », camps conservés) — réemployables si on doit recaser un maire. **5 en réserve (au 2026-06-20)** : Gervais (ex-HNancy 🔵), Weber (ex-HSarrebourg 🔴), Hartmann (ex-HSarre-Union 🔴), **Krauss (ex-HLunéville 🔵, reprise par Adriane)**, **Thiebaut (ex-HChateau-Salins 🔵, reprise par Danevois)**. ✅ **Courriers HN signés par les maires V2 (2026-06-20)** : les 7 courriers 08.01 (collab `Sites\COURRIERS`) ont leurs signataires remplacés par ville — HNancy=Mordidchev, HSarrebourg=Promesy, HChateau-Salins=Danevois, HSarre-Union=Martin, HLunéville=Adriane ; préfet=Birkmann ; HHaguenau (Lang) conservée car sans fiche V2. ✅ **Entités vault** créées : `vault\entities\personas\ENT-{laffin,mordidchev,martin-nathalie,danevois,promesy,adriane}.md` (build vert). Détail technique : `MASTAURIGE\MEMOIRE.md` [2026-06-20].
 
+### [2026-06-21] ✅ VALIDÉ — Nommage tweet propagande MER 07.08.I02 (@HmunikVoice 🔴, délégitimation ARN)
+Demande client « Modification produits » : P1 → « ARNLAND », P2 → « La république d'ARNLAND ». Or le tweet n'avait qu'**1 occurrence** (« Arnland : » en tête).
+- **Nom canonique 7BB** = **Arnland** (≠ « Dacie Romanie », qui est AURIGE 2BB). Forme formelle = **la République d'Arnland** (orthographe propre). Casse client retenue pour le rendu : « ARNLAND » / « La république d'ARNLAND ».
+- **Décision : (b) réécriture légère** pour satisfaire P1 ET P2 (le client demande les deux). Doctrine : opposer le titre officiel pompeux à la réalité dénoncée = procédé rouge LO4 (« voilà ce qu'ils OSENT appeler... ») → la 2e occurrence renforce l'effet ILI.
+- **Texte VALIDÉ :** « ARNLAND : un gouvernement qui vend ses ressources naturelles à des consortiums étrangers, qui réprime ses minorités depuis 20 ans, et qui appelle l'OTAN quand sa population commence à se réveiller. Voilà ce que ce régime ose appeler « La république d'ARNLAND ». Un État ? Non. »
+- Cohérence canonique vérifiée : ressources (charbon/gaz Grand Est, gaz 63 %), minorités (diaspora MER 8 %, citoyenneté durcie post-1991, médias MER bannis), OTAN (retrait SCO 2016 → MAP/EAPC, nation hôte 7BB).
+
 ### Nouveaux injects 08.02 créés (2026-05-29)
 - `08.02.02Ai` : TV4 — capture 104 soldats MER par 8e DAC / DJOBOVIC (28 Mai)
 - `08.02.02Bi` : @KolesnikovAndrei — rumeurs maltraitance POW, discrédit DAC vs FR (29 Mai 16h00)

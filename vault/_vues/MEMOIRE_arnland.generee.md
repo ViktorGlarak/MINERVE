@@ -2,7 +2,7 @@
 
 > ⚙️ **Document généré** par `generer_vue_memoire.py` depuis le vault atomique — **ne pas éditer à la main**.
 > Démonstration Phase 4 (inversion du flux). La vraie autorité de travail reste `ANALYSTE/ARNLAND/MEMOIRE.md` tant que la bascule n'est pas validée.
-> Le **camp** de chaque persona provient de **sa note entité** (source unique). Généré le 2026-06-21.
+> Le **camp** de chaque persona provient de **sa note entité** (source unique). Généré le 2026-06-22.
 
 ## Carte d'identité
 

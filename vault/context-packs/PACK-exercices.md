@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-21 · 61 notes.
+> Généré le 2026-06-22 · 63 notes.
 
 ## Notes (par tier)
 
@@ -17,6 +17,7 @@
 | 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
+| 2 | [ARCH-009](../architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | architecture |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
@@ -34,6 +35,7 @@
 | 2 | [LESSON-012](../lessons/LESSON-012.md) | Auditer le vault contre les countbooks SOURCES, pas seulement les mémoires | lesson |
 | 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
 | 2 | [LESSON-018](../lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | lesson |
+| 2 | [LESSON-019](../lessons/LESSON-019.md) | Exporter le contenu EFFECTIF (pas le localStorage seul) + jamais de fichier qui accumule | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |

@@ -7,8 +7,8 @@ source: ../../MASTODONTE/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-06-21
-updated: 2026-06-21
+created: 2026-06-22
+updated: 2026-06-22
 ---
 
 # 🤖 MASTODONTE — Canvas agent

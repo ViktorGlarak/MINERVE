@@ -1,7 +1,7 @@
 # 🗺️ ÉTAT DE L'EXERCICE — MINOTAURE 26 / AURIGE 7BB
 
 > ⚙️ **FICHIER GÉNÉRÉ** par `MINAUTORE/generer_etat_exercice.py` — ne pas éditer à la main.
-> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-21 21:17**.
+> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-21 22:46**.
 > Source = instance de travail collab (`melmil_data.js` socle + `tweets_data.js`/`articles_data.js` bakés).
 > Détail doctrinal / narratif : `MINAUTORE/MEMOIRE.md`.
 
@@ -60,8 +60,8 @@
 | 07.03.I08 | D+40 | LO2 | tweet · @HmunikVoice · Quinze Leclerc, le « fleuron » de l'armée français | Tweet destruction chars Leclerc (3/5) · Validated |
 | 07.03.I09 | D+40 | LO2 | tweet · @MaiaKovalenko · Des équipages entiers envoyés à la mort dans des e | Tweet sur destruction chars Leclerc (4/5) · Validated |
 | 07.03.I10 | D+40 | LO2 | tweet · @J_Vasseur · 15 Leclerc détruits. Le « fleuron » français, vieu | Tweet sur destruction chars Leclerc (5/5) · Validated |
-| 07.04.I01 | D+35 | LO3 | — | Reprise de l'allocution Mark RUTTE dans les m · Validated |
-| 07.04.I02 | D+35 | LO3 | — | Communique officiel allocution president ARN  · Validated |
+| 07.04.I01 | D+35 | LO3 | article · HEX · L'OTAN déploie ses forces en Arnland — Rutte prome | Reprise de l'allocution Mark RUTTE dans les m · Validated |
+| 07.04.I02 | D+35 | LO3 | article · TV4 · Pallesson : « There was no declaration, no warning | Communique officiel allocution president ARN  · Validated |
 | 07.04.I03 | D+36 | LO3 | article · TV4 · “Not Above You, Not Instead of You. With You.” — P | Article TV4 de reprise allocution PALLESSON · Validated |
 | 07.05.I01 | D+37 | LO3 | tract · TRACT · Chaque pas en avant en Arnland vous rapproche de v | Recueil tract de la propagande MER · Validated |
 | 07.05.I02 | D+37 | LO3 | tweet · @HmunikVoice · Les convois de l'OTAN traversent nos villes comme  | Tweet de critique de l'OTAN · Validated |
@@ -71,7 +71,7 @@
 | 07.06.I03 | D+40 | LO3 | tract · TRACT · 30 vies pour 1 mort de Mercure. | Recueil tract de la propagande MER · Validated |
 | 07.07.I01 | D+36 | LO4 | article · TM · 'A Tyranny Propped Up by Foreign Bayonets': Mercur | Article Today Mercure  de propagande MER · Validated |
 | 07.08.I01 | D+37 | LO4 | tweet · @GromovaYelena · TV4 | NATO StratCom confirms: "UNSCR 3510 provides<br>tweet · @KolesnikovAndrei · The evidence is now undeniable. NATO coalition ele | Tweet : non-respect droit international par O · Validated |
-| 07.08.I02 | D+38 | LO4 | tweet · @HmunikVoice · Arnland : un gouvernement qui vend ses ressources  | Tweet propagande pro MER : ARN, pays corrompu · Validated |
+| 07.08.I02 | D+38 | LO4 | tweet · @HmunikVoice · ARNLAND : un gouvernement qui vend ses ressources  | Tweet propagande pro MER : ARN, pays corrompu · Validated |
 | 07.09.I01 | D+39 | LO4 | article · TM · 'Mercure's Mandate Is Not Selective — We Protect A | Article Today MERCURE : protection civils ARN · Validated |
 | 07.09.I02 | D+40 | LO4 | tweet · @HmunikVoice · Les populations mercuriennes de Arnland nous atten | Tweet :  MER liberateur de ARN  · Validated |
 | 07.10.I01 | D+35 | LO5 | article · TM · 'The UN Has Become a Tool' — Mercure Challenges th | Article anti-ONU par MERCURE TODAY - vote AGN · Validated |
@@ -99,13 +99,15 @@
 | 08.02.I02 | D+38 | HN | — | CPERS in HLUNEVILLE surrender to 7BB · Validated |
 | 08.02.I03 | D+40 | HN | — | MER troops surrender in HALBERSDORF to 27BIM · Validated |
 | 08.02.I04 | D+40 | HN | tweet · @KolesnikovAndrei · Reports of mistreatment of Mercurian POWs held by  | POW · Validated |
+| 99.01.I01 | D+33 | — | article(live) · ONU · Déclaration du Secrétaire général de l'ONU — Grand | — |
+| 99.01.I02 | D+33 | — | article(live) · TV4 · Crise d'Arnland — l'ONU s'alarme des déplacements  | — |
 
 ## 📆 Vue par jour (injects bakés MASTAURIGE)
 - **D+31 (21 juin, CONVEX)** : —
 - **D+32 (22 juin, CONVEX)** : —
-- **D+33 (23 juin, WU TECH)** : —
+- **D+33 (23 juin, WU TECH)** : 99.01.I01 (article(live) ONU) · 99.01.I02 (article(live) TV4)
 - **D+34 (24 juin, WU TECH)** : —
-- **D+35 (25 juin, WU TAC)** : 07.01.I01 (article TM) · 07.10.I01 (article TM)
+- **D+35 (25 juin, WU TAC)** : 07.01.I01 (article TM) · 07.04.I01 (article HEX) · 07.04.I02 (article TV4) · 07.10.I01 (article TM)
 - **D+36 (26 juin, WU TAC)** : 07.01.I02 (tweet @HmunikVoice) · 07.04.I03 (article TV4) · 07.07.I01 (article TM) · 07.10.I02 (article TM) · 07.10.I03 (tweet @HmunikVoice) · 07.10.I04 (tweet @VoixArnland)
 - **D+37 (27 juin, CAX 1)** : 07.02.I01 (tweet @HmunikVoice) · 07.02.I02 (article TM) · 07.02.I03 (tweet @HmunikVoice) · 07.05.I01 (tract TRACT) · 07.05.I02 (tweet @HmunikVoice) · 07.08.I01 (tweet @GromovaYelena) · 07.08.I01 (tweet @KolesnikovAndrei) · 07.11.I01 (tweet @clambroise55) · 07.11.I02 (tweet @MarionKessler57) · 07.11.I02 (tweet @GavrilovBorislav) · 07.11.I02 (tweet @MakarovSid) · 08.01.I01 (courrier COURRIER)
 - **D+38 (28 juin, CAX 1)** : 07.02.I04 (article TF1) · 07.02.I05 (tweet @HmunikVoice) · 07.02.I06 (tweet @MaiaKovalenko) · 07.05.I03 (article TM) · 07.08.I02 (tweet @HmunikVoice) · 07.11.I03 (article TM) · 07.11.I04 (tweet @MaiaKovalenko) · 07.11.I05 (article TV4) · 07.11.I06 (tweet @J_Vasseur) · 07.11.I07 (article TV4) · 08.02.I01 (article TV4)

@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**396 notes** · généré le 2026-06-21
+**398 notes** · généré le 2026-06-22
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -81,6 +81,7 @@
 | [LESSON-016](lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | 1 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-012]] |
 | [LESSON-017](lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | 1 | [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[AGENT-MINAUTORE]] [[AGENT-GUILLAUME]] [[TOOL-014]] [[LESSON-018]] |
 | [LESSON-018](lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | 2 | [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[LESSON-017]] |
+| [LESSON-019](lessons/LESSON-019.md) | Exporter le contenu EFFECTIF (pas le localStorage seul) + jamais de fichier qui accumule | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-009]] [[PROJ-MASTAURIGE]] |
 
 ## 🏛️ Architecture
 
@@ -94,6 +95,7 @@
 | [ARCH-006](architecture/ARCH-006.md) | Pipeline de production média (image → vidéo → voix → montage) | 2 | [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md) | [[TOOL-008]] [[TOOL-009]] [[TOOL-010]] [[LESSON-009]] [[LESSON-010]] [[LESSON-011]] [[PROJ-PROD-MEDIA]] |
 | [ARCH-007](architecture/ARCH-007.md) | Roadmap technique MINERVE (RAG · CONVERGENCE · orchestrateur autonome) | 3 | [`CONFIG.md`](../../SYSTEME/CONFIG.md) | [[ARCH-001]] [[ARCH-002]] [[PROJ-MINERVE]] |
 | [ARCH-008](architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[DECISION-001]] [[LESSON-013]] |
+| [ARCH-009](architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[ARCH-008]] [[LESSON-019]] [[DECISION-001]] |
 
 ## 🗂️ Projets (canvas)
 
@@ -119,7 +121,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 3 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | — |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |

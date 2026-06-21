@@ -62,6 +62,30 @@ for o in jsarr(os.path.join(COLLAB, "moteur/articles_data.js")):
     num = o.get("num")
     if num: baked.setdefault(num, []).append((o.get("type") or "article", (o.get("site") or "?").upper(), d_of_dayorder(o.get("dayorder")), (o.get("title") or o.get("deck") or "")[:50], (o.get("lo") or [""])[0]))
 
+# ---- ÉTAT LIVE du serveur collab (STARTEX package + contenus créés via l'outil) ----
+# ⚠ Ces contenus vivent dans etat_mastaurige.json (mastaurige-articles / -creations),
+#    PAS dans les fichiers disque → indispensables pour que la carte soit COMPLÈTE.
+def _live_items():
+    p = os.path.join(os.path.dirname(COLLAB), "etat_mastaurige.json")
+    out = []
+    if not os.path.exists(p): return out
+    try: st = json.load(open(p, encoding="utf-8"))
+    except Exception: return out
+    for key in ("mastaurige-articles", "mastaurige-creations"):
+        raw = st.get(key)
+        if not raw: continue
+        try: obj = json.loads(raw) if isinstance(raw, str) else raw
+        except Exception: continue
+        for a in (obj.get("articles") or []):
+            if a.get("deleted"): continue   # corbeille (ex-STARTEX retiré) → ne pas afficher
+            out.append(((a.get("type") or "article") + "(live)", (a.get("site") or "?").upper(), a.get("num") or a.get("code"), a.get("dayorder"), (a.get("title") or a.get("deck") or "")[:50], (a.get("lo") or [""])[0] if a.get("lo") else ""))
+        for tw in (obj.get("tweets") or []):
+            if tw.get("deleted"): continue
+            out.append(("tweet(live)", tw.get("handle") or tw.get("nom") or "?", tw.get("num") or tw.get("code"), tw.get("dayorder"), (tw.get("text") or "")[:50], (tw.get("lo") or [""])[0] if tw.get("lo") else ""))
+    return out
+for typ, who, num, day, snip, lo in _live_items():
+    if num: baked.setdefault(num, []).append((typ, who, d_of_dayorder(day), snip, lo))
+
 SL = lo_cfg()
 def storyline_of(code):
     sl = ".".join(code.split(".")[:2])  # 07.11.I02 -> 07.11

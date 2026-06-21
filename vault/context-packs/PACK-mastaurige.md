@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-21 · 37 notes.
+> Généré le 2026-06-22 · 39 notes.
 
 ## Notes (par tier)
 
@@ -16,6 +16,7 @@
 | 1 | [PROJ-MASTAURIGE](../projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project |
 | 1 | [TOOL-002](../tools/TOOL-002.md) | verifier_mastaurige.py (contrôles A-I) | tool |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
+| 2 | [ARCH-009](../architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | architecture |
 | 2 | [DECISION-002](../decisions/DECISION-002.md) | Pipeline « inject as code » | decision |
 | 2 | [DECISION-003](../decisions/DECISION-003.md) | lo_config.js — source unique séries→LO | decision |
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
@@ -31,6 +32,7 @@
 | 2 | [LESSON-014](../lessons/LESSON-014.md) | Le camp d'une fiche ≠ son titre de poste — lire l'orientation dans le narratif | lesson |
 | 2 | [LESSON-015](../lessons/LESSON-015.md) | Outillage multi-exercice — zéro calendrier (ou contenu) d'exercice codé en dur | lesson |
 | 2 | [LESSON-018](../lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | lesson |
+| 2 | [LESSON-019](../lessons/LESSON-019.md) | Exporter le contenu EFFECTIF (pas le localStorage seul) + jamais de fichier qui accumule | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
