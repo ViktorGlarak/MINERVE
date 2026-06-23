@@ -68,3 +68,12 @@ Mélanger sciemment in bello et ad bellum : « ils ont commis des crimes de guer
 
 ## 6. Réflexe de classement
 Inject juridique → **ad bellum vs in bello** → **norme** invoquée/inversée → **pilier russe** ([[mentalite_russe_ili]]) → **principe Morelli** ([[principes_propagande_morelli]]) → **LO** ([[glm26-matrice-ili]]) → **phase Storm-1516**.
+
+
+---
+
+## 🔗 Voir aussi (doctrine ILI)
+
+[[art_de_la_guerre_suntzu]] · [[principes_propagande_morelli]] · [[mentalite_russe_ILI]]
+
+Rattaché à la doctrine ILI : voir la **Bibliothèque doctrinale** de EXPERT_INFLUENCE (MEMOIRE) et [[glm26_matrice_ili]].

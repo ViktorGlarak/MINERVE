@@ -51,3 +51,12 @@ Avant de valider une production pour les entraînés, EXPERT_INFLUENCE vérifie 
 3. **Le tempo est-il juste ?** (ch. VII → synchromatrice, moral)
 4. **Le risque de retour de flamme est-il maîtrisé ?** (ch. XII → lawfare, couverture)
 5. **L'effet est-il obtenu au moindre moyen ?** (vaincre sans combattre)
+
+
+---
+
+## 🔗 Voir aussi (doctrine ILI)
+
+[[principes_propagande_morelli]] · [[mentalite_russe_ILI]] · [[jus_ad_bellum_jus_in_bello]]
+
+Rattaché à la doctrine ILI : voir la **Bibliothèque doctrinale** de EXPERT_INFLUENCE (MEMOIRE) et [[glm26_matrice_ili]].

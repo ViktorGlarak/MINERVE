@@ -4,11 +4,11 @@ type: agent
 title: EXPERT_INFLUENCE
 tags: [agent]
 source: ../../EXPERT_INFLUENCE/MEMOIRE.md
-linkedTo: []
+linkedTo: [DECISION-010, LESSON-022]
 relevantFor: [agents]
-tier: 3
-created: 2026-06-22
-updated: 2026-06-22
+tier: 2
+created: 2026-06-23
+updated: 2026-06-23
 ---
 
 # 🤖 EXPERT_INFLUENCE — Canvas agent
@@ -22,7 +22,8 @@ updated: 2026-06-22
 - 📄 README : [README.md](../../EXPERT_INFLUENCE/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- *(aucune note atomique transversale pour l'instant — à créer si une connaissance durable émerge)*
+- [[DECISION-010]]
+- [[LESSON-022]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

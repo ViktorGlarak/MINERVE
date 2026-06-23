@@ -4,6 +4,8 @@
 
 > 🗂️ **Articulation avec le vault** — **Roster & camps : autorité unique = `vault/entities/`** (1 persona = 1 note `ENT-*`, camp défini une seule fois). **Ce fichier = détail exhaustif** (countrybook, doctrine Storm-1516, profils HVI FGF-4, chronologies). Vue générée à jour : `vault/_vues/MEMOIRE_mercure.generee.md`. ⚙️ `vault/_tools/valider.py` **bloque** toute contradiction de camp entre ce fichier et les entités.
 
+> **[2026-06-23] Communiqué officiel gouvernemental MER (7BB, inject 08.02.I03b)** — déclaration **non signée** « The Government of the Republic of Mercure » (vague, pas de ministre/président nommé) réclamant à la France et à l'Arnland de communiquer aux familles les conditions de détention des prisonniers MER + un traitement conforme au droit international (Genève III, accès CICR), citant HNancy/HSarrebourg/HALBERSDORF. Posture = **puissance protectrice de ses ressortissants** via le **lawfare** (l'arme est le droit, pas la menace) ; registre « our servicemen / their families ». Genre = communiqués officiels Mercure (charte Olamao réutilisée). *(Détail technique : `MASTAURIGE\MEMOIRE.md` ; arc ILI : `EXPERT_INFLUENCE` schéma « lawfare prisonniers de guerre ».)*
+
 Agent créé le **2026-05-25** — Countrybook Mercure ingéré le **2026-05-25**.
 Deux domaines de maîtrise : **Mercure** (pays fictif Skolkan) + **Doctrine OI** (opérations informationnelles réalistes).
 

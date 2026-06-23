@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-22 · 19 notes.
+> Généré le 2026-06-23 · 19 notes.
 
 ## Notes (par tier)
 
@@ -12,6 +12,7 @@
 | 2 | [AGENT-ANALYSTE-BOT](../agents/AGENT-ANALYSTE-BOT.md) | ANALYSTE_BOT | agent |
 | 2 | [AGENT-ANALYSTE-MERCURE](../agents/AGENT-ANALYSTE-MERCURE.md) | ANALYSTE (Mercure) | agent |
 | 2 | [AGENT-CINEASTE](../agents/AGENT-CINEASTE.md) | CINÉASTE | agent |
+| 2 | [AGENT-EXPERT-INFLUENCE](../agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | agent |
 | 2 | [AGENT-IMAGIER](../agents/AGENT-IMAGIER.md) | IMAGIER | agent |
 | 2 | [AGENT-MASTAURIGE](../agents/AGENT-MASTAURIGE.md) | MASTAURIGE | agent |
 | 2 | [AGENT-MINAUTORE](../agents/AGENT-MINAUTORE.md) | MINAUTORE | agent |
@@ -21,7 +22,6 @@
 | 3 | [AGENT-ARCHIVISTE](../agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | agent |
 | 3 | [AGENT-BROUILLON](../agents/AGENT-BROUILLON.md) | BROUILLON | agent |
 | 3 | [AGENT-ECLAIREUR](../agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | agent |
-| 3 | [AGENT-EXPERT-INFLUENCE](../agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | agent |
 | 3 | [AGENT-GUILLAUME](../agents/AGENT-GUILLAUME.md) | GUILLAUME | agent |
 | 3 | [AGENT-MASTODONTE](../agents/AGENT-MASTODONTE.md) | MASTODONTE | agent |
 | 3 | [AGENT-NOYAU](../agents/AGENT-NOYAU.md) | NOYAU | agent |
@@ -34,6 +34,7 @@
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
@@ -43,7 +44,6 @@
 - [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md)
-- [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md)

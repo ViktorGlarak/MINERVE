@@ -7,8 +7,8 @@ source: ../../ANALYSTE/ARNLAND/MEMOIRE.md
 linkedTo: [ENT-adriane, ENT-alvarez, ENT-andreev-milan, ENT-antonov, ENT-arne, ENT-arnland, ENT-baranov, ENT-belov, ENT-birkmann, ENT-blazic, ENT-bodrova, ENT-bold, ENT-borchenko, ENT-borovic, ENT-brandtsev, ENT-brenner, ENT-bystrom, ENT-chareyron, ENT-danevois, ENT-depoire, ENT-dimitrov, ENT-djobovic, ENT-dragunov, ENT-durova, ENT-filipovic, ENT-fischer, ENT-fluxa, ENT-fries, ENT-gervais, ENT-gradholm-arn, ENT-hartmann, ENT-havrylenko, ENT-hoffmann, ENT-hus, ENT-iliev, ENT-ivanov-sergey, ENT-ivanovitch, ENT-jaksic, ENT-jankovic, ENT-kalugin, ENT-karadzic, ENT-karlson-erik, ENT-karrlson, ENT-kellerov, ENT-kermovant, ENT-korolev, ENT-kostich, ENT-kostova, ENT-kovalenko-viktor, ENT-kovalev, ENT-krauss, ENT-kravchenko, ENT-kravtsova, ENT-kulis, ENT-laffin, ENT-lang, ENT-laporte, ENT-lebedev, ENT-malenko, ENT-marinov, ENT-martin-nathalie, ENT-milenkovic, ENT-milova, ENT-mishin, ENT-mordidchev, ENT-morozov, ENT-nikitin, ENT-novak, ENT-novik-lidija, ENT-pallesson, ENT-pavlenko-luka, ENT-pavlenko-natalya, ENT-petrova-irina, ENT-petrovic-radmila, ENT-petrovna, ENT-promesy, ENT-radojevic, ENT-radulov, ENT-savchenko, ENT-savchenko-anya, ENT-schmidt, ENT-sidorov, ENT-sokolova-anastasia, ENT-stanev, ENT-steinbach-viktor, ENT-steinbeck, ENT-steiner, ENT-stepanenko, ENT-thiebaut, ENT-vasilieva, ENT-velkova, ENT-vogelnyk, ENT-voldyski, ENT-volkonsky, ENT-volkov-ivan, ENT-voloshyn, ENT-vong, ENT-vrenko, ENT-vukovic, ENT-weber, ENT-weiss, ENT-zhivkovic, ENT-zhukova, ENT-zoric-kristina, ENT-zoric-nikolai, LESSON-014, REF-arnland-economie, REF-arnland-infrastructure, REF-arnland-medias, REF-arnland-militaire, REF-arnland-politique, REF-arnland-societe, REF-arnland-strategie]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-22
-updated: 2026-06-22
+created: 2026-06-23
+updated: 2026-06-23
 ---
 
 # 🤖 ANALYSTE_ARN — Canvas agent

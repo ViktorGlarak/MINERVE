@@ -7,8 +7,8 @@ source: ../../ANALYSTE/MERCURE/MEMOIRE.md
 linkedTo: [ENT-abdoulaiev, ENT-andreev-boris, ENT-antonova, ENT-auer-georg, ENT-auer-tobias, ENT-bauer-yuri, ENT-baumgartner, ENT-bielski, ENT-bogdanov, ENT-caruso, ENT-conti, ENT-denisov, ENT-druey, ENT-dvornikov, ENT-ebner, ENT-erickson, ENT-franke, ENT-fredotov, ENT-frolov, ENT-fuchs, ENT-gallo, ENT-gerlach, ENT-gourka, ENT-grabowski, ENT-gratchev, ENT-grun, ENT-guierassimov, ENT-gunther, ENT-gusev, ENT-haider, ENT-hofer, ENT-horvat, ENT-ivazov, ENT-jerman, ENT-julius, ENT-junker, ENT-kaczmarek, ENT-kaleva, ENT-kievov, ENT-kirillov, ENT-kiselev, ENT-konig-lorenz, ENT-konig-markus, ENT-koulikov, ENT-kozlov, ENT-kuznetsov, ENT-leitgeb, ENT-lennartsson, ENT-maizieree, ENT-majcen, ENT-majewski, ENT-makarova-francesco, ENT-mancini, ENT-matovnikov, ENT-maximov, ENT-mercure, ENT-michalski, ENT-mikhailovic, ENT-mikhelev, ENT-milanov, ENT-mizintsev, ENT-morozov-nikolai, ENT-moser, ENT-muller-angela, ENT-muller-viktoria, ENT-neumann, ENT-numelin, ENT-oblak, ENT-olamao, ENT-orlov-irina, ENT-palmieri, ENT-pawlak, ENT-petrov-marco, ENT-pichler, ENT-popov, ENT-pruniere, ENT-rasof, ENT-reither, ENT-ribiki, ENT-rossi, ENT-rozman, ENT-rupnik, ENT-sanders, ENT-sanna-oleg, ENT-schmid, ENT-schwarz, ENT-seidl, ENT-sikorski, ENT-sokolova-iouri, ENT-soloviev, ENT-soucek, ENT-stoph, ENT-tapeur, ENT-tarasov, ENT-toti, ENT-urban, ENT-urban-franziska, ENT-vassielvski, ENT-vassiliev, ENT-viktorovitch, ENT-vinogradov, ENT-vogel, ENT-volkov-alessia, ENT-vostrikov, ENT-vydra, ENT-wagner-natalia, ENT-wallner, ENT-werner, ENT-winkler, ENT-zaitsev, ENT-zajac, ENT-zhukov, ENT-zimmerman, ENT-zupan, REF-mercure-economie, REF-mercure-information, REF-mercure-militaire, REF-mercure-politique, REF-mercure-relations, REF-mercure-societe, REF-storm1516]
 relevantFor: [agents]
 tier: 2
-created: 2026-06-22
-updated: 2026-06-22
+created: 2026-06-23
+updated: 2026-06-23
 ---
 
 # 🤖 ANALYSTE (Mercure) — Canvas agent

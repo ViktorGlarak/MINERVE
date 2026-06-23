@@ -68,3 +68,12 @@
 ## 6. Réflexe de classement
 
 Inject rouge → **pilier(s) russe(s)** activé(s) → **principe(s) Morelli** ([[principes_propagande_morelli]]) → **ressort** (inversion / asymétrie / clôture) → **LO** ([[glm26-matrice-ili]]) → **phase Storm-1516**. Voir aussi [[art_de_la_guerre_suntzu]] pour la dimension déception/économie de l'effort.
+
+
+---
+
+## 🔗 Voir aussi (doctrine ILI)
+
+[[art_de_la_guerre_suntzu]] · [[principes_propagande_morelli]] · [[jus_ad_bellum_jus_in_bello]]
+
+Rattaché à la doctrine ILI : voir la **Bibliothèque doctrinale** de EXPERT_INFLUENCE (MEMOIRE) et [[glm26_matrice_ili]].

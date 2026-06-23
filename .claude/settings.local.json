@@ -57,7 +57,10 @@
       "PowerShell(\"---\")",
       "Bash(py -c ' *)",
       "Bash(py -m py_compile \"/d/CECPC/PRODUCTION/EXER/AURIGE 2BB/00_Boites à outils/MASTAURIGE/WEB/OUTILS/GENERER_VIERGE.py\")",
-      "Bash(node --check \"/d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/moteur/articles.js\")"
+      "Bash(node --check \"/d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/moteur/articles.js\")",
+      "Bash(py -)",
+      "PowerShell(& \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" \"d:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 7BB\\\\00_Boites � outils\\\\MASTAURIGE\\\\SERVEUR_COLLABORATIF\\\\mastaurige\\\\OUTILS\\\\BAKER_EDITIONS.py\" --dry-run)",
+      "PowerShell(& \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" \"C:\\\\Users\\\\MTR\\\\AppData\\\\Local\\\\Temp\\\\avatar_process.py\")"
     ]
   },
   "hooks": {

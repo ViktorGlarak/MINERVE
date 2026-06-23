@@ -40,3 +40,12 @@ Les 10 principes reposent tous sur **3 ressorts** qu'EXPERT_INFLUENCE doit savoi
 **Pédagogie entraînés (détection) :** pour chaque inject ennemi présenté, EXPERT_INFLUENCE peut aider à formuler « quel(s) principe(s) Morelli est/sont activé(s) ici ? » → grille d'analyse rapide pour le PC entraîné, et base des « actions attendues » + « solutions aux menaces » dans les PPT d'exercice.
 
 **Réflexe de classement :** principe(s) Morelli activé(s) → ressort (inversion / asymétrie / clôture) → LO visée (cf. `glm26-matrice-ili`). C'est la chaîne d'analyse à appliquer.
+
+
+---
+
+## 🔗 Voir aussi (doctrine ILI)
+
+[[art_de_la_guerre_suntzu]] · [[mentalite_russe_ILI]] · [[jus_ad_bellum_jus_in_bello]]
+
+Rattaché à la doctrine ILI : voir la **Bibliothèque doctrinale** de EXPERT_INFLUENCE (MEMOIRE) et [[glm26_matrice_ili]].

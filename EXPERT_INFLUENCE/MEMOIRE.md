@@ -1,5 +1,16 @@
 # MÉMOIRE — EXPERT_INFLUENCE (Doctrine ILI & Synchromatrice)
 
+## 📚 Bibliothèque doctrinale (REFERENCES) — liens Obsidian
+
+> ⚠ **Liage corrigé le 2026-06-23.** Les livres étaient cités en *chemins entre backticks* (`` `REFERENCES/…md` ``) → Obsidian ne crée **aucun lien de graphe** pour du texte en code, d'où des livres « à part ». On les relie désormais par **wikilinks** :
+>
+> - [[art_de_la_guerre_suntzu]] — Sun Tzu, *L'Art de la guerre* (l'**effet** recherché).
+> - [[principes_propagande_morelli]] — Morelli, *10 principes élémentaires de propagande de guerre* (le **quoi** dire).
+> - [[mentalite_russe_ILI]] — mentalité russe ILI (le **comment** : rythme, déni, contradiction, contrôle réflexif).
+> - [[jus_ad_bellum_jus_in_bello]] — droit de la guerre comme arme (lawfare).
+>
+> **Chaîne d'analyse canonique :** *effet ([[art_de_la_guerre_suntzu]]) → principe ([[principes_propagande_morelli]]) → comment ([[mentalite_russe_ILI]]) → LO (GLM26, [[glm26_matrice_ili]]) → phase Storm-1516.* Les 4 livres sont aussi **interconnectés entre eux** (footer « Voir aussi » dans chaque fiche).
+
 > **2026-06-02 — Dépôt doctrinal unique.** Ajout de `REFERENCES/` : **Sun Tzu — *L'Art de la guerre*** + **Morelli — 10 principes de propagande** (déplacés depuis PENSEUR pour concentrer toute la doctrine dans une seule IA). EXPERT_INFLUENCE est désormais LE dépôt doctrinal ; PENSEUR (repassé en local deepseek-r1:14b) **cite** ces fiches au lieu de les détenir. Chaîne d'analyse : *effet (Sun Tzu) → principe(s) (Morelli) → LO (GLM26)*.
 
 ## 🧭 PÉRIMÈTRE — doctrine PERMANENTE vs données PAR EXERCICE (anti-saturation, 2026-06-10)
@@ -11,6 +22,27 @@
 > **Pourquoi :** éviter que la mémoire doctrinale enfle d'exercice en exercice avec des contenus qui ne resservent plus → elle resterait lisible et réutilisable. **Archivage :** quand un exercice est clos, son matériel ILI vit dans `AURIGE\AURIGE_[UNITE]\` + la mémoire de l'agent éditorial (archive consultable), pas chez EXPERT_INFLUENCE.
 >
 > **AURIGE 7BB / MINOTAURE 26 :** matrice narrative, inventaire injects (07-01..04 = LO2..LO5), calendrier D+33-41 → **chez MINAUTORE** (`MINAUTORE\MEMOIRE.md`). EXPERT_INFLUENCE intervient sur demande (cohérence LO/effets/calibration), sans stocker ces narratifs.
+
+## 🎬 MÉTHODE STORYLANES v2 (synchromatrice) — arcs/procédés par LO *(2026-06-23)*
+
+> **Refonte** de la synchromatrice : on abandonne les 12 storylines *descriptives statiques* (1 slogan par couple LO×bloc) pour des **STORYLANES = arcs narratifs / procédés d'influence complets**. Plus cohérent avec l'influence mercurienne.
+>
+> **Définition :** une storylane = un **procédé** rattaché à **une LO**, identifié par un **code 07.XX**, joué sur une **fenêtre D+**, composé de **plusieurs injects coordonnés** réalisant un effet psychologique précis.
+>
+> **4 principes :** (1) **hero-centric ou thématique** — portée par un persona récurrent (VORIN le sniper, mère endeuillée, édile « libéré ») ou un procédé (rouleau compresseur, lawfare captifs) ; le héros = ancre crédible « vérifiable » qui revient. (2) **arc = séquence, pas paquet** — amorce (noyau de vérité) → amplification multi-voix (firehose) → verrouillage (lawfare/dismay). (3) **récurrence en escalade** — même code 07.XX, **2 entrées**, fenêtres D+ croissantes = **salami** russe visible (ex. VORIN créé → martyrisé → immortalisé). (4) **LO = colonne vertébrale, injects = chair**, chaque inject calibré **niveau brigade** (local, H-géo).
+>
+> **Schéma de numérotation :** `07.1x`=LO1 · `07.2x`=LO2 · `07.3x`=LO3 · `07.4x`=LO4 · `07.5x`=LO5 (dizaine = LO, unité = arc ; la LO se lit d'un coup d'œil). Les injects gardent la convention `.Ixx`.
+>
+> **Chaîne d'analyse par arc** (champ `description`) : effet ([[art_de_la_guerre_suntzu]]) → principe(s) ([[principes_propagande_morelli]]) → pilier russe ([[mentalite_russe_ILI]] : firehose/déni/contrôle réflexif/dismay/inversion) → phase Storm-1516 → LO (GLM26). Lawfare : [[jus_ad_bellum_jus_in_bello]].
+>
+> **1ʳᵉ proposition livrée** : 16 storylanes (2 récurrentes : 07.20 VORIN, 07.52 sang français) seedées dans `…\MELMIL\SYNCHROMATRICE\synchromatrice.js` (clé localStorage `v1→v2`). Casting 100 % existant, nommage ARN strict. **Pour le prochain exercice** (générique, calibré brigade). Détail outil : `MASTAURIGE\MEMOIRE.md`.
+
+## 🎯 SCHÉMA RÉUTILISABLE — « lawfare prisonniers de guerre » (arc 3 temps)
+> Pattern transversal d'instrumentalisation du **sort des captifs** (jus in bello, cf. `REFERENCES/jus_ad_bellum_jus_in_bello.md`), à partir d'un **noyau de vérité** (une reddition/capture réelle) :
+> 1. **Média neutre/adverse (bleu)** rapporte *objectivement* des craintes d'habitants sur le traitement des prisonniers → installe un **doute légitime** sans accusation. *(Piège : l'entraîné croit l'affaire close car le média est neutre — or ces citations crédibles deviennent le matériau brut des temps 2-3.)*
+> 2. **Témoin local (rouge crédible, registre « vu de mes yeux/nos fils »)** **requalifie** la reddition en **« capture forcée »** et **ouvre la question des droits** → pousse l'entraîné à se justifier publiquement (ce qui valide rétroactivement le doute).
+> 3. **Média d'État rouge** **verrouille en lawfare** : exigences juridiquement fondées (liste nominative, **accès CICR**, **Convention de Genève III**) → le **silence opérationnel** (sécurité, délais de notification normaux) est transformé en **aveu de culpabilité**, inversion du fardeau de la preuve au profit de l'agresseur-victime.
+> **LO** : LO3 (guerre des pertes / sort des captifs) + LO4 (force d'occupation qui « vole nos enfants »). **Contre-mesure entraîné** : communiquer tôt et factuellement sur la chaîne de transfert + l'accès CICR. *(1ʳᵉ instanciation : 7BB ligne 08.02 — détail chez MINAUTORE.)*
 
 ## ⚡ Réflexe « mentalité russe » — checklist sur CHAQUE inject rouge
 
