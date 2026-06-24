@@ -60,7 +60,8 @@
       "Bash(node --check \"/d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/moteur/articles.js\")",
       "Bash(py -)",
       "PowerShell(& \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" \"d:\\\\CECPC\\\\PRODUCTION\\\\EXER\\\\AURIGE 7BB\\\\00_Boites � outils\\\\MASTAURIGE\\\\SERVEUR_COLLABORATIF\\\\mastaurige\\\\OUTILS\\\\BAKER_EDITIONS.py\" --dry-run)",
-      "PowerShell(& \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" \"C:\\\\Users\\\\MTR\\\\AppData\\\\Local\\\\Temp\\\\avatar_process.py\")"
+      "PowerShell(& \"C:\\\\Users\\\\MTR\\\\Documents\\\\ComfyUI_windows_portable\\\\python_embeded\\\\python.exe\" \"C:\\\\Users\\\\MTR\\\\AppData\\\\Local\\\\Temp\\\\avatar_process.py\")",
+      "Bash(grep -noE '\\\\{\\\\{[A-Z_0-9]+\\\\}\\\\}|class=\"[a-z0-9_-]+\"|<aside|<footer|>[A-ZÀ-Ü][^<]{6,60}<' hex.html)"
     ]
   },
   "hooks": {
