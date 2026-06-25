@@ -297,6 +297,26 @@ Roster compact (fiche complète dans le .docx du même nom) :
 
 Complément : `E20260317_...éléments modification bios.docx` = tableau de densification (objectifs/forces/faiblesses) pour Alvarez, DMD, ONG — déjà fusionné dans les fiches individuelles.
 
+> **[2026-06-25] ONG/OI/Agences → trombinoscope 7BB + noms développés depuis le countrybook.** Les 9 acteurs sont affichés dans le **trombinoscope** (page Arnland), bloc orienté **organisme** (sigle/logo · type · représentant cliquable si fiche · camp · domaine). Noms complets **extraits des fiches HN du countrybook ORION 26 O41** (`…HN.KLE-BIO-ARN-…docx`) :
+>
+> | Sigle | Nom complet | Type | Camp |
+> |---|---|---|---|
+> | CICR/ICRC | Comité international de la Croix-Rouge | OI humanitaire | ⚪ neutre |
+> | UNOCHA | Bureau de la coordination des affaires humanitaires (ONU) | OI·ONU | ⚪ neutre |
+> | UNHCR/HCR | Haut-Commissariat des NU pour les réfugiés | OI·ONU | ⚪ neutre |
+> | ARC | **Arnish Refugee Council** | ONG | ⚪ neutre |
+> | Blue Shield | Blue Shield Arnland (non lucratif, patrimoine) | ONG | ⚪ neutre |
+> | NGO ISC | **NGO Information and Support Center** (~110 ONG membres) | ONG plateforme | ⚪ neutre |
+> | CultAr | **CultAr NGO** (patrimoine culturel) | ONG | ⚪ neutre |
+> | **ACDA** | **Arnland Civil Defence Agency** (protection civile) | **Agence d'État** | **🔵 bleu** |
+> | **AISA** | **Arnland Intelligence and Security Agency** (renseignement, anti-Mercure) | **Agence d'État** | **🔵 bleu** |
+>
+> ⚠ **CORRECTION DE CAMP (autorité ANALYSTE_ARN)** : ACDA et AISA **ne sont PAS des ONG neutres** — ce sont des **agences d'État arnlandaises** (défense civile / renseignement-sécurité, mandat explicite « national security & sovereignty of Arnland », « anti-Mercure ») → **🔵 bleu institutionnel**, pas ⚪. Les 7 autres restent ⚪ neutre (humanitaire impartial). Source = liste curée `ORGS_ARNLAND` dans `…\OUTILS\generer_trombino_bios.py`. Reps issus du théâtre **ORION 26 (HPoitou)** ≠ HLorraine 7BB — relocaliser si un inject 7BB les met en scène.
+
+> **[2026-06-25] FICHES DE LOCALITÉ (EHO) → trombino 7BB (bouton « EHO »).** 2 fiches intégrées (source `.docx FICHES LOCALITES`), cards cliquables → overlay : **HLunéville** (18 000 hab. ; maire **Jean-Louis Adriane** 63 ans, neutralité officielle mais lié réseaux pro-MER ; ~25 % pop. pro-MER ; leader protestant pro-MER **Piotr Volkonsky** présent ; manque hospitalier ; déclin éco) · **HCHATEAU-SALINS** (2 300 hab. ; maire **Robert Danevois** 38 ans, pro-MER, réseau informel, lien suspecté avec **Léon-Philippe Thely** agitateur pro-MER ; ~25 % pop. pro-MER ; déclin éco). ⚠ **À VALIDER** : j'ai complété les champs « à ajouter par IA » du .docx (environs + bullets ville) — marqués « (complété IA — à valider) » dans `LOCALITES_ARNLAND` (`generer_trombino_bios.py`) : nœud routier HLunéville, position avancée + tissu agricole HChateau-Salins, communes d'environs. Cohérence : maires = personas déjà au roster (Adriane/Danevois) ; camps pro-MER conformes.
+
+> **[2026-06-25] +3 fiches de localité (EHO) + évolution bio Promesy — spécifique MINOTAURE, BASE préservée.** Ajoutées à `LOCALITES_ARNLAND` (trombino MINOTAURE + JOUEURS) : **HSARRE-UNION** (2 700 hab, maire Nathalie Martin réseau pro-MER ; 25% pro-MER, pop. susceptible de fuir O/E), **HDELME** (1 200 hab, sans maire ; 25% pro-MER), **HSARREBOURG** (12 000 hab, maire **Nadia Promesy** plutôt pro-ARN + connexions diaspora ; 30% origine MER, tensions ARN/MER, **au cœur des combats**). Bullets ville complétés IA (corrélés au conflit) marqués « (complété IA — à valider) ». **Évolution bio Promesy** (`arn_nadia_promesy`) : **20%→30% d'origine mercurienne** + ajout situation (cœur des combats, tensions, position pro-ARN fragilisée). ⭐ **Mécanisme `BIO_PATCH_MINOTAURE`** dans le générateur **MINOTAURE uniquement** (appliqué après parsing du .docx) → la **VIERGE** (générateur sans patch + .docx intact) **garde la fiche BASE** (Promesy 20%) ; vérifié : vierge=20%, MINOTAURE=30%. **Convention pour faire évoluer une bio en cours d'exo : patcher via `BIO_PATCH_MINOTAURE`, jamais le .docx ni la vierge.** ✅ **HSARRE-UNION = 2 700 hab — TRANCHÉ (la fiche fait foi, demande user 2026-06-25)** : Martin (`arn_nathalie_martin`) patchée via `BIO_PATCH_MINOTAURE` (`replace 4 800→2 700`, s'applique aussi au `role`) → **MINOTAURE + JOUEURS = 2 700**, **VIERGE = 4 800** (base conservée). ✅ le **courrier** d'évacuation HSarre-Union (`ghn_08_01_I04`) **corrigé à 2 700** (HTML source `4&nbsp;800`→`2&nbsp;700` + `body` articles_data + re-bake arthtml) → cohérence totale HSarre-Union = 2 700 dans MINOTAURE. Bullets « complété IA » des localités : **user les regardera plus tard** (OK en l'état).
+
 ### C. Tampons & signatures HN — `Interlocuteurs   +Tampons HN.docx`
 
 Document **visuel** (~0,8 Ko de texte, le reste = images) : **logos, tampons et blocs-signatures officiels** des autorités HN — préfectures HTOURS, HVIENNE, HCharente-Maritime, mairies HNIORT (bureau du maire + bureau communication J. Fabionneau), services régionaux de santé, signataires D. IVANOV (préfet HVienne), Viktor LANTANOV (MININT), Yann Lamoureux (bureau population HTours). Mail type `chh1@gouv.an`, téléphones en 05 49 78 XX XX (cohérent règle plages fictives zone 05).

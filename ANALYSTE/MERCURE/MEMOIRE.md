@@ -29,6 +29,8 @@ Les injects D+31→D+34 étaient trop stratégiques (discours présidents, escal
 - Noyau de vérité : ancrer chaque inject dans un fait réel ou vraisemblable de la ZO
 - Profil personnages MER utilisés dans les tweets/articles (PRUNIERE, ZHUKOV, HVI…)
 
+> **[2026-06-25] Personas mineurs — inject 07.03.I11 « Déception Strava » (7BB, déception MER LO2)**. 4 soldats MER **fictifs** (figurants d'article, pas HVI) dont les profils Strava publics trahissent une présence à **HSaverne** : **Sgt Iouri Marchenko** (41e Div blindée), **Cpl-chef Dmitri Sorokin** (log.), **Sdt Pavel Grishin** (41e), **Cpl Sergueï Tarasov** (recon) — ils courent **le même parcours en groupe**. + **3 sock-puppets MER à FAÇADE pro-FR** (« avatar rouge simulant bleu ») amplifiant la déception : **@VeilleOSINT_Est, @T_Reynaud_FR, @Sophie_Moselle** — **camp ROUGE** (autorité = `avatars.js` + trombino). Détail design ILI + technique : `MINAUTORE/MEMOIRE.md`.
+
 ---
 
 Sources primaires :

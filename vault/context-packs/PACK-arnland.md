@@ -2,13 +2,14 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « arnland ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-23 · 113 notes.
+> Généré le 2026-06-25 · 114 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
 | 1 | [ENT-arnland](../entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity |
+| 2 | [ARCH-010](../architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | architecture |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-savchenko](../entities/personas/ENT-savchenko.md) | Nataliya Savchenko | entity |
 | 2 | [ENT-volkonsky](../entities/personas/ENT-volkonsky.md) | Piotr Volkonsky | entity |

@@ -7,8 +7,8 @@ source: ../../NOYAU/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-06-23
-updated: 2026-06-23
+created: 2026-06-25
+updated: 2026-06-25
 ---
 
 # 🤖 NOYAU — Canvas agent

@@ -19,6 +19,20 @@ HPARIS est donc la capitale fictive de Dacie Romanie — son usage est correct e
 
 ---
 
+## ⚠ RÈGLE MATÉRIEL — réalisme des équipements quand une scène sera illustrée [2026-06-25]
+
+Quand le SCÉNARISTE décrit une scène destinée à être **mise en image** (article avec hero photo, vidéo), il **nomme le matériel précisément, par camp**, pour guider l'IMAGIER :
+- 🔵 forces françaises/OTAN → **Griffon, Serval, Jaguar, Leclerc, VAB, VBCI, CAESAR, camions GBC 180 / TRM 10000 / PPLOG** ; camo **Centre-Europe**, **HK416/FAMAS**, **FÉLIN/SPECTRA**.
+- 🔴 Mercure → matériel **type russe** : **T-72/T-90, BTR-80, BMP, Ural-4320, 2S19 Msta**, camo **digital flora**, **AK**.
+- Ne jamais écrire « véhicules militaires » génériques : l'IA image tombe sinon sur du **matériel américain/d'époque** (FAUX pour un exercice FR/OTAN). Cause du correctif : inject 07.10.I02.
+
+📖 Détail + blocs prompts : **[`IMAGIER\REFERENTIEL_MATERIEL.md`](../IMAGIER/REFERENTIEL_MATERIEL.md)**.
+
+### Texte affiché à l'image (pancarte/affiche/tract/écran) — fournir le verbatim exact [2026-06-25]
+Quand une scène à illustrer comporte un **support porteur de texte** (pancarte de manif, banderole, tract, affiche, panneau), le SCÉNARISTE **fournit le texte exact, court, à afficher** (slogans réels de l'inject) — sinon l'IMAGIER doit **omettre** le support (jamais de pancarte vide). Cause : inject 07.11.I05 (pancartes générées vides). Slogans courts (3–5 mots) = mieux rendus.
+
+---
+
 ## Règles globales des exercices
 - La géographie est toujours réelle (France, régions, villes existantes) — le H-préfixe la rend fictive
 - Les factions/nations adverses sont fictives (ex : Titane, Ostland, Bothnia pour ORION)

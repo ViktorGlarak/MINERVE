@@ -1,7 +1,7 @@
 # 🗺️ ÉTAT DE L'EXERCICE — MINOTAURE 26 / AURIGE 7BB
 
 > ⚙️ **FICHIER GÉNÉRÉ** par `MINAUTORE/generer_etat_exercice.py` — ne pas éditer à la main.
-> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-23 21:31**.
+> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-25 18:16**.
 > Source = instance de travail collab (`melmil_data.js` socle + `tweets_data.js`/`articles_data.js` bakés).
 > Détail doctrinal / narratif : `MINAUTORE/MEMOIRE.md`.
 

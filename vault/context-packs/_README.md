@@ -6,15 +6,15 @@
 |---|---|---|
 | agents | 19 | [PACK-agents](PACK-agents.md) |
 | analystes | 4 | [PACK-analystes](PACK-analystes.md) |
-| arnland | 113 | [PACK-arnland](PACK-arnland.md) |
+| arnland | 114 | [PACK-arnland](PACK-arnland.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |
 | bothnia | 91 | [PACK-bothnia](PACK-bothnia.md) |
-| exercices | 67 | [PACK-exercices](PACK-exercices.md) |
+| exercices | 70 | [PACK-exercices](PACK-exercices.md) |
 | expert-influence | 3 | [PACK-expert-influence](PACK-expert-influence.md) |
 | ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
-| mastaurige | 43 | [PACK-mastaurige](PACK-mastaurige.md) |
+| mastaurige | 47 | [PACK-mastaurige](PACK-mastaurige.md) |
 | melmil | 3 | [PACK-melmil](PACK-melmil.md) |
 | mercure | 121 | [PACK-mercure](PACK-mercure.md) |
 | minautore | 11 | [PACK-minautore](PACK-minautore.md) |

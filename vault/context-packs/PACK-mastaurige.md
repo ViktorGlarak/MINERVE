@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-23 · 43 notes.
+> Généré le 2026-06-25 · 47 notes.
 
 ## Notes (par tier)
 
@@ -17,6 +17,7 @@
 | 1 | [TOOL-002](../tools/TOOL-002.md) | verifier_mastaurige.py (contrôles A-I) | tool |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [ARCH-009](../architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | architecture |
+| 2 | [ARCH-010](../architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | architecture |
 | 2 | [DECISION-002](../decisions/DECISION-002.md) | Pipeline « inject as code » | decision |
 | 2 | [DECISION-003](../decisions/DECISION-003.md) | lo_config.js — source unique séries→LO | decision |
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
@@ -36,6 +37,8 @@
 | 2 | [LESSON-019](../lessons/LESSON-019.md) | Exporter le contenu EFFECTIF (pas le localStorage seul) + jamais de fichier qui accumule | lesson |
 | 2 | [LESSON-020](../lessons/LESSON-020.md) | Les éditions « Modifier » du socle (collab) ne persistent pas dans le fichier — baker avant de copier | lesson |
 | 2 | [LESSON-021](../lessons/LESSON-021.md) | Donner une photo à un avatar MASTAURIGE = 3 couches (feed + fichier + markup trombino) | lesson |
+| 2 | [LESSON-023](../lessons/LESSON-023.md) | Backreference \1 via bash dans une str de remplacement Python → octal \x01 (corrompt le fichier) | lesson |
+| 2 | [LESSON-024](../lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
@@ -50,6 +53,7 @@
 | 2 | [TOOL-012](../tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | tool |
 | 2 | [TOOL-013](../tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | tool |
 | 2 | [TOOL-015](../tools/TOOL-015.md) | BAKER_EDITIONS.py — replie les éditions « Modifier » de l'overlay collab dans tweets_data.js | tool |
+| 2 | [TOOL-016](../tools/TOOL-016.md) | EHO éditable côté joueur — fiches bio + 4 familles de cartes + curseur de position + admin caché | tool |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
@@ -57,8 +61,8 @@
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
 - [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
-- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

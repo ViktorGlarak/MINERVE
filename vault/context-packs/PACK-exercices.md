@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-23 · 67 notes.
+> Généré le 2026-06-25 · 70 notes.
 
 ## Notes (par tier)
 
@@ -18,6 +18,7 @@
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [ARCH-009](../architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | architecture |
+| 2 | [ARCH-010](../architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | architecture |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [DECISION-010](../decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | decision |
@@ -39,6 +40,7 @@
 | 2 | [LESSON-019](../lessons/LESSON-019.md) | Exporter le contenu EFFECTIF (pas le localStorage seul) + jamais de fichier qui accumule | lesson |
 | 2 | [LESSON-020](../lessons/LESSON-020.md) | Les éditions « Modifier » du socle (collab) ne persistent pas dans le fichier — baker avant de copier | lesson |
 | 2 | [LESSON-021](../lessons/LESSON-021.md) | Donner une photo à un avatar MASTAURIGE = 3 couches (feed + fichier + markup trombino) | lesson |
+| 2 | [LESSON-024](../lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |
@@ -56,6 +58,7 @@
 | 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
 | 2 | [TOOL-014](../tools/TOOL-014.md) | generer_etat_exercice.py — carte de référence générée de l'exercice (MINAUTORE) | tool |
 | 2 | [TOOL-015](../tools/TOOL-015.md) | BAKER_EDITIONS.py — replie les éditions « Modifier » de l'overlay collab dans tweets_data.js | tool |
+| 2 | [TOOL-016](../tools/TOOL-016.md) | EHO éditable côté joueur — fiches bio + 4 familles de cartes + curseur de position + admin caché | tool |
 | 3 | [ENT-boerck](../entities/personas/ENT-boerck.md) | Andreas Boerck | entity |
 | 3 | [ENT-eklund](../entities/personas/ENT-eklund.md) | Henrik Eklund | entity |
 | 3 | [ENT-hansen](../entities/personas/ENT-hansen.md) | Hanna Hansen | entity |
@@ -86,9 +89,9 @@
 - [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)
+- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
-- [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)
 - [`DOSSIER_POSTE.md`](../../SYSTEME/DOSSIER_POSTE.md)

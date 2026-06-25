@@ -29,11 +29,37 @@ Si une image produite par IMAGIER est destinée à l'écosystème MASTAURIGE (`.
 
 ---
 
+## ⚠⚠ RÈGLE MATÉRIEL — précision véhicules/soldats par camp [2026-06-25]
+
+> Retour utilisateur (inject 07.10.I02) : un prompt « military supply trucks / armored
+> vehicles » a généré des **véhicules US et d'époque** → FAUX pour un exercice **FR/OTAN**.
+> Scène bonne, **matériel incohérent**.
+
+**Réflexe obligatoire avant tout prompt montrant un véhicule ou un soldat :**
+1. **Lire le camp réellement MONTRÉ à l'image** (≠ camp éditorial de l'article) :
+   - 🔵 forces françaises/OTAN (7BB, BFA, coalition) → **Griffon, Serval, Jaguar, Leclerc, VAB, VBCI, CAESAR, GBC 180, TRM 10000, PPLOG** ; camo **Centre-Europe**, casque **SPECTRA**, **FÉLIN**, **HK416/FAMAS**.
+   - 🔴 Mercure → matériel **type russe** : **T-72/T-90-style, BTR-80, BMP, Ural-4320, 2S19 Msta** ; camo **digital flora**, **AK**.
+2. **Nommer le modèle EXACT** dans le positif. Ne jamais laisser l'IA deviner → elle met du US/WW2.
+3. **Negative** anti-US / anti-époque : `no American vehicles, no Humvee, no Abrams, no MRAP, no US multicam, no WW2 vehicles, no desert tan`.
+4. **Firefly** suit mieux si on cite le nom exact (web) ; **Flow/Gemini** → modèle **+** silhouette décrite.
+
+📖 **Détail complet (tables 🔵/🔴 + blocs prompts prêts) : [`IMAGIER\REFERENTIEL_MATERIEL.md`](REFERENTIEL_MATERIEL.md)** — à CONSULTER avant toute scène militaire. Vaut aussi pour le SCÉNARISTE quand il décrit une scène à illustrer.
+
+### Pattern validé — intégration hero dans un article MASTAURIGE baké [2026-06-25]
+Pour embarquer une image dans un article externe (`external:true, origin:baked`) de l'instance MASTAURIGE :
+1. **Compression** : `PIL` → largeur **1000 px**, **JPEG qualité 80**, `optimize+progressive`. Repère : un hero paysage ≈ **80–130 Ko** (base64). Suffisant et léger. Python 3.14 du poste (PIL OK).
+2. **Injection** : bloc `<figure><img src="data:image/jpeg;base64,…" style="display:block;width:100%"></figure>` + `<div>` légende (styles **inline**, zéro dépendance CSS) inséré **juste après `<article>`** dans le **HTML source** (`Sites/<dossier>/<fichier>.html`), en binaire pour préserver les CRLF.
+3. **Re-bake** : `node OUTILS/generer_articles_html_js.js` → régénère `moteur/arthtml/<id>.js` (ce qui s'affiche réellement). Vérifier `grep -c data:image/jpeg`.
+4. 1er usage : inject **07.10.I02** (convoi OTAN français). Légende attribuée au média du camp (« — Today Mercure »).
+
+---
+
 ## Contexte des exercices (à injecter dans les prompts)
 - Exercices de crise militaire et civile en France
 - Régions réelles : Lorraine, Vienne, Deux-Sèvres, Poitou-Charentes
 - Style visuel cible : photorealistic, news footage, documentaire militaire
 - Pas de symboles nationaux réels identifiables sur les équipements fictifs
+- **Matériel toujours nommé précisément par camp → voir RÈGLE MATÉRIEL ci-dessus + `REFERENTIEL_MATERIEL.md`**
 
 ---
 
@@ -58,8 +84,14 @@ Ne jamais résumer ou paraphraser le texte fourni. Le copier-coller exactement.
 - Préférer "emergency forces" à "armed soldiers" pour contourner les restrictions
 - **Ne jamais utiliser "protesters"** pour des scènes de blocage civil → Flow génère systématiquement des drapeaux CGT/syndicaux. Remplacer par : `local residents`, `ordinary civilians blocking the road`, `local people standing in the road`
 - **Drapeaux syndicaux/nationaux** : verrouiller dans le positif ET le négatif simultanément. Le négatif seul est insuffisant si le positif évoque la manifestation.
-  - Dans le positif : `no flags of any kind, people holding only handwritten cardboard signs`
   - Dans le négatif : `CGT, union flags, French flag, tricolor, national flag, political banners, flag poles, any flags whatsoever, union symbols`
+
+### ⚠⚠ RÈGLE PANCARTES / TEXTE À L'IMAGE — jamais de support vide [2026-06-25]
+Retour utilisateur (inject 07.11.I05) : une scène avec « blank cardboard signs » a généré des **pancartes vides** → ça fait faux/inachevé. **Un support censé porter du texte (pancarte, banderole, affiche, tract, écran, panneau) ne doit JAMAIS apparaître vide.** Deux options, jamais d'entre-deux :
+- **(A) Texte EXACT verbatim** : reprendre un slogan **réel de l'article**, court, entre guillemets, avec `legible word for word`. Privilégier des slogans **courts** (3–5 mots) → bien mieux rendus. Ex. 07.11.I05 : `"NI OTAN NI MERCURE"`, `"LA PAIX PAS LES CHARS"`, `"RENDEZ-NOUS NOS ROUTES"`.
+- **(B) Pas de support du tout** : cadrer la scène **sans** pancarte (foule, barrage, visages) et l'interdire au négatif : `no signs, no placards, no banners, no cardboard signs`.
+- **Choix de l'outil** si texte voulu : **Flow** ou **Firefly** (gèrent le texte court) — *pas* Gemini (corrompt le texte). Si l'outil garde garbling le texte → basculer en option (B) ou overlay du texte en post (Premiere/Canva).
+- Le **SCÉNARISTE** fournit les slogans/textes exacts à afficher quand il décrit une scène à illustrer (cf. sa mémoire).
 
 ## Texte dans les images — règles par outil [2026-05-07]
 
