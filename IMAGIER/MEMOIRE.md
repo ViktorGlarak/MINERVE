@@ -114,6 +114,29 @@ Sur des messages WhatsApp (50+ mots), le texte sera corrompu (mots inventés, ph
 
 ## Prompts validés par exercice
 
+### AURIGE 7BB (MINOTAURE)
+
+#### [2026-06-26] 07.02.I07 — Drapeau MER sur la mairie de HLunéville (tweet @MakarovSid) — **PASS**
+**Outil :** Firefly (réf. photo mairie + drapeaux Arnland bleu / Mercure rouge-à-étoile). **Compo :** drapeaux Arnlandais bleus en façade + habitant sur le toit déroulant un grand drapeau MER rouge (étoile centrale) qui **recouvre** les bleus = supplantation ILI (LO2 « MER contrôle les villes »).
+**Itérations / leçons :** (1) **trop de monde** + **letterbox 16:9** → préciser ratio **3:2** + « almost empty square, 2-3 onlookers ». (2) **Échelle du perso sur le toit incohérente** (Firefly le grossit) → mot-clé **« small, distant figure, correctly scaled / dwarfed by the building »** dans le POSITIF **et** « oversized/giant/out-of-scale person » dans le NÉGATIF ; le plus fiable = **Remplissage génératif** sur la seule zone du personnage. (3) Drapeaux fictifs → toujours « as the reference flag » (sinon drapeau réel).
+**Intégration :** image finale `mairie.jpg` → **media de tweet** (≠ hero base64) : compressée **900×502 JPEG q77 = 79 Ko** dans `images/07_02_I07_luneville.jpg` + champ **`"media"`** sur le tweet `gctrl_hluneville_07_02_I07` ; copiée aussi dans `JOUEURS/images/` pour la diffusion. Auto-rendu via `TW.renderHTML()` (pas de bake).
+
+#### [2026-06-26] CIMIC réfugiés (08.02.I05, demandé « 08.02.I02 ») — soldat MER tend de l'eau + pancarte « HELP / AIDEZ-MOI » — *en attente résultat*
+**Outil :** Firefly (texte court) / Flow · **Réf. visuelle :** photo pêcheur philippin « HELP ME » (garde **la composition**, transpose en **route**, zéro maritime).
+**Compo imposée :** gauche = **soldat mercurien 🔴** (tenue **type russe digital flora**, casque, plate carrier, **sans insigne**) tendant une bouteille d'eau ; droite = **civil déplacé** épuisé tendant la main + **pancarte blanche peinte** « **HELP** » / « **AIDEZ-MOI** » (2 traductions, `legible word for word`) ; fond = file de déplacés + camion **Ural-4320** sur une route Grand-Est.
+**Négatif :** maritime (mer/bateau/navire/pêcheur), US/OTAN/FR, woodland multicam, drapeaux, Humvee, texte déformé.
+**⚠ Code :** 08.02.I02 = **fiche JEMM** (CPERS HLUNEVILLE surrender, pas d'article) → image embarquée dans l'**article CIMIC 08.02.I05** (confirmé user).
+**Résultat : PASS** — image Firefly OK (pancarte « HELP / AIDEZ-MOI » lisible), **hero embarqué** dans `TM_Article_CIMIC_Refugees.html` (1000×558, JPEG q78, **105 Ko**), arthtml `gcimic_refugees_08_02_I05` re-baké.
+**Leçon :** transposer une **photo de réf. célèbre** (ici le pêcheur « HELP ME ») en gardant la **composition** (acteurs gauche/droite, geste, pancarte) mais en **changeant le décor** (maritime→route) + **camp correct** (soldat MER = tenue russe) = visuel crédible et sur-mesure. Pancarte bilingue rendue OK par Firefly (texte court).
+
+
+#### [2026-06-26] 07.08.I03 — Feu de bois près de la BFA (tract HFM) — *en attente résultat*
+**Outil :** Firefly (recommandé) / Flow · **Scène :** incendie de forêt violent, **nuit éclairée par le feu**, lisière d'un **camp militaire de campagne** près de HToul (Grand-Est). Tract **HFM 🔴** revendiquant 3 feux près des positions **BFA 🔵** (LO4 « OTAN force d'occupation »).
+**Prompt :** voir réponse session (forêt tempérée Centre-Europe, flammes intenses, fumée, braises, camp = tentes + mât d'éclairage + caisses ; *pas de personnes au 1er plan*). **Négatif** : pas de texte/pancartes/drapeaux, **pas de véhicules US/WW2/desert tan**, pas de jour.
+**Matériel (si véhicule montré)** : BFA = **Griffon 6×6 / Boxer 8×8**, camo Centre-Europe — **jamais** de matériel russe (réflexe REFERENTIEL_MATERIEL). **Texte** : aucun dans l'image (le tract porte le texte à part → option B « pas de support »).
+**Résultat : PASS** — image Firefly générée (1376×768, véhicules FR), **intégrée au tract** `Sites\TRACTS\HFM_Claim_Tract_Fires.html` (arthtml `ghfm_tract_07_08_I03`).
+**Leçon :** (1) **Firefly = prompt COURT** (le prompt long passe mal) → garder l'essentiel + **nommer le véhicule exact** (« French Griffon 6×6, green camo ») = seul rempart anti-matériel US. (2) **Embed = caler le poids sur l'encadré** : encadré `.fire-img` 420×170 → **pré-crop au ratio de la boîte** (cover, ~1.7× = 714×289) + JPEG q70 → **38 Ko** (≠ embed pleine résolution). Pré-cropper plutôt que laisser `object-fit:cover` rogner = on ne stocke que le visible = poids mini.
+
 ### AURIGE 2BB
 
 #### [2026-05-06] QC : FAIL agent / PASS noyau — Screenshots WhatsApp 07.07

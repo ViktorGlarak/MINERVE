@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-25 · 19 notes.
+> Généré le 2026-06-28 · 19 notes.
 
 ## Notes (par tier)
 

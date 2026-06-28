@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**407 notes** · généré le 2026-06-25
+**409 notes** · généré le 2026-06-28
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -90,6 +90,7 @@
 | [LESSON-022](lessons/LESSON-022.md) | Obsidian — un chemin en code-span ne crée AUCUN lien de graphe ; utiliser des [[wikilinks]] | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[AGENT-EXPERT-INFLUENCE]] |
 | [LESSON-023](lessons/LESSON-023.md) | Backreference \1 via bash dans une str de remplacement Python → octal \x01 (corrompt le fichier) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-016]] [[TOOL-004]] [[PROJ-MASTAURIGE]] |
 | [LESSON-024](lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[LESSON-019]] [[ARCH-009]] [[TOOL-016]] [[TOOL-004]] [[PROJ-MASTAURIGE]] |
+| [LESSON-025](lessons/LESSON-025.md) | Désync de date MELMIL ↔ feed — clé card-day des articles (id vs basename) + piège GELEX | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[REF-calendrier-7bb-gelex]] |
 
 ## 🏛️ Architecture
 
@@ -130,7 +131,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[DECISION-010]] [[LESSON-022]] |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[LESSON-020]] [[LESSON-021]] [[LESSON-023]] [[LESSON-024]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] [[TOOL-015]] [[TOOL-016]] |
+| [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[LESSON-020]] [[LESSON-021]] [[LESSON-023]] [[LESSON-024]] [[LESSON-025]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] [[TOOL-015]] [[TOOL-016]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
@@ -465,6 +466,7 @@
 | [REF-bothnia-politique](knowledge/REF-bothnia-politique.md) | Bothnia — régime & institutions | 3 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[ENT-peters]] [[ENT-tikhanov]] |
 | [REF-bothnia-societe](knowledge/REF-bothnia-societe.md) | Bothnia — société & diaspora (leviers narratifs) | 2 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[REF-bothnia-strategie]] |
 | [REF-bothnia-strategie](knowledge/REF-bothnia-strategie.md) | Bothnia — stratégie & posture régionale | 2 | [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md) | [[ENT-bothnia]] [[REF-bothnia-economie]] [[REF-bothnia-societe]] |
+| [REF-calendrier-7bb-gelex](knowledge/REF-calendrier-7bb-gelex.md) | Calendrier AURIGE 7BB — mapping D+ ↔ date avec GELEX (29 Jun) | 2 | [`melmil.js"`]("../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js") | [[LESSON-025]] |
 | [REF-mercure-economie](knowledge/REF-mercure-economie.md) | Mercure — économie & arme gazière | 2 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] [[REF-mercure-relations]] |
 | [REF-mercure-information](knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | 2 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] [[REF-storm1516]] [[REF-mercure-politique]] |
 | [REF-mercure-militaire](knowledge/REF-mercure-militaire.md) | Mercure — forces armées (FAM) | 2 | [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md) | [[ENT-mercure]] [[ENT-numelin]] [[ENT-mizintsev]] [[REF-mercure-relations]] |

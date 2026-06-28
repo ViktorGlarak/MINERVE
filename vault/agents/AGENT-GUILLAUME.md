@@ -7,8 +7,8 @@ source: ../../GUILLAUME/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-06-25
-updated: 2026-06-25
+created: 2026-06-28
+updated: 2026-06-28
 ---
 
 # 🤖 GUILLAUME — Canvas agent

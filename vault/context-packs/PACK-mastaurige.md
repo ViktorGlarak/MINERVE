@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-25 · 47 notes.
+> Généré le 2026-06-28 · 49 notes.
 
 ## Notes (par tier)
 
@@ -39,8 +39,10 @@
 | 2 | [LESSON-021](../lessons/LESSON-021.md) | Donner une photo à un avatar MASTAURIGE = 3 couches (feed + fichier + markup trombino) | lesson |
 | 2 | [LESSON-023](../lessons/LESSON-023.md) | Backreference \1 via bash dans une str de remplacement Python → octal \x01 (corrompt le fichier) | lesson |
 | 2 | [LESSON-024](../lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | lesson |
+| 2 | [LESSON-025](../lessons/LESSON-025.md) | Désync de date MELMIL ↔ feed — clé card-day des articles (id vs basename) + piège GELEX | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
+| 2 | [REF-calendrier-7bb-gelex](../knowledge/REF-calendrier-7bb-gelex.md) | Calendrier AURIGE 7BB — mapping D+ ↔ date avec GELEX (29 Jun) | reference |
 | 2 | [REF-mercure-information](../knowledge/REF-mercure-information.md) | Mercure — environnement informationnel & médias d'influence | reference |
 | 2 | [REF-storm1516](../knowledge/REF-storm1516.md) | Doctrine Storm-1516 (MOI russe — référentiel réalisme ILI) | reference |
 | 2 | [TOOL-001](../tools/TOOL-001.md) | generer_trombino_bios.py | tool |
@@ -65,4 +67,5 @@
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
+- [`melmil.js`](../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

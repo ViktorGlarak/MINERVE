@@ -27,7 +27,20 @@ Audit des **21 fiches Arnland** du trombino MINAUTORE : le générateur déduisa
 
 **Inchangés (corrects)** : gouvernement ARN + préfet (🔵), Gervais/Krauss/Voloshyn (🔵 maires pro-ARN), Borchenko (⚪ double jeu éco), Volkonsky/Savchenko (🔴 pro-MER explicites) ; **Lang et Thiebaut** laissés tels quels (validé).
 
+> **[2026-06-26] Emile Gervais — ville attribuée (in-game MINOTAURE).** Gervais était dans MINOTAURE un **« maire sans ville »** (volontaire). Les **joueurs** lui ont attribué **HNEUFCHATEAU** + une bio réécrite : **44 ans, ingénieur en aménagement du territoire** (études HNANCY, 10 ans à Vandœuvre-lès-Nancy avant de revenir), élu 2020, marié 2 enfants en instance de divorce ; objectifs = revitalisation centre-ville / jeunes diplômés / transition écologique ; **pragmatique, proche des habitants** mais **inexpérimenté sur les questions militaires/sécuritaires** (délègue trop, confiance excessive) ; très actif sur les RS (« maire en action »). **Camp 🔵 bleu (pro-ARN) — inchangé, validé** (cohérent maire HN pro-coalition). Baké en dur dans les 2 EHO (`BIO_PATCH_MINOTAURE` → `arn_gervais`), remplace l'ancienne base 2BB (maire HNancy/avocat). ⚠ ne plus citer Gervais comme maire de HNancy en contexte MINOTAURE.
+
 **Correction DURABLE** : table `CAMP_OVERRIDE` (par id `arn_*`) dans `MASTAURIGE\…\OUTILS\generer_trombino_bios.py` (les 2 instances 7BB) — prime sur l'heuristique → une régénération ne revient PAS en arrière. `vault/entities/ENT-{hartmann,kovalev,weber,kalugin,petrovna,mishin,brenner}.md` alignés (autorité camp). ⚠ Le **camp détermine l'effet ILI** : un mauvais camp inverse l'effet — d'où l'audit.
+
+> **[2026-06-27] +5 maires secteur BFA** (docx `E:\06_FSH\D+36_26_Juin\Fiches biographiques pour maires secteur BFA.docx`) — intégrés dans l'EHO MINOTAURE (2 instances), camps fixés depuis le champ **Tendance** de chaque fiche :
+> | Maire | Ville (hab.) | Âge | Tendance fiche | ✅ Camp | id |
+> |---|---|---|---|---|---|
+> | **Dmitri Domchykov** | HAllain (490) | 67 | PRO ARN | **🔵 bleu** | `arn_domchykov` |
+> | **Luka Kovacic** | HMirecourt (4 700, 15 % MER) | 41 | PRO MER (fidèle de **Volkonsky**, protestant) | **🔴 rouge** | `arn_kovacic` |
+> | **Henri Sabersky** | HNeuves-Maisons (7 000, 31 % MER) | 42 | OPPORTUNISTE / corruption (né Bothnia, droit du sol) | **⚪ neutre** | `arn_sabersky` |
+> | **Isabella Orchkova** | HVézelise (1 346, 39 % MER) | 59 | NEUTRE / légaliste (nostalgique Skolkan mais droit des peuples) | **⚪ neutre** | `arn_orchkova` |
+> | **Sofia Renod** | HColombey-les-Belles | 73 | PRO ARN (ASP, anti-HFM) | **🔵 bleu** | `arn_sofia_renod` *(déjà existante — docx conforme, aucune modif)* |
+>
+> 4 NOUVELLES fiches ajoutées à la `fiches` list de `generer_trombino_bios.py` (le **modèle** des autres maires — mapping auto pays/initiales/groupe « Préfecture & maires (Host Nation) »). Renod existait déjà à l'identique → non touchée. Tous **groupe HN**, pays `arnland`. bios.js : 55 → **59 fiches**. Rappel narratif : **Kovacic** = fidèle de [[Piotr Volkonsky]] (🔴 pasteur pro-MER) — seul rouge du lot, à exploiter pour relais pro-MER local ; **Sabersky** = corruption / jeunes désœuvrés ouverts aux trafics = vulnérabilité ILI exploitable par les deux camps.
 
 ## ⚠ ÉVOLUTIONS SYSTÈME — 2026-05-29
 

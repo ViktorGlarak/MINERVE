@@ -14,7 +14,8 @@ import json, re, os, sys, datetime
 try: sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 except Exception: pass
 
-COLLAB = r"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/SERVEUR_COLLABORATIF/mastaurige"
+# Source = MASTER éditorial 7BB (le SERVEUR_COLLABORATIF est HS/obsolète depuis 2026-06 — repointé 2026-06-27).
+COLLAB = r"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ETAT_EXERCICE_7BB.md")
 
 # Calendrier de jeu (GELEX = 29 juin, sans D+)
@@ -108,7 +109,7 @@ L.append("# 🗺️ ÉTAT DE L'EXERCICE — MINOTAURE 26 / AURIGE 7BB")
 L.append("")
 L.append(f"> ⚙️ **FICHIER GÉNÉRÉ** par `MINAUTORE/generer_etat_exercice.py` — ne pas éditer à la main.")
 L.append(f"> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **{now}**.")
-L.append(f"> Source = instance de travail collab (`melmil_data.js` socle + `tweets_data.js`/`articles_data.js` bakés).")
+L.append(f"> Source = MASTER éditorial `MASTAURIGE/LOCALSTORAGE_WEB_VERSION` (`melmil_data.js` socle + `tweets_data.js`/`articles_data.js` bakés).")
 L.append("> Détail doctrinal / narratif : `MINAUTORE/MEMOIRE.md`.")
 L.append("")
 L.append("## 📅 Calendrier de jeu (D+ ↔ date ↔ phase)")
