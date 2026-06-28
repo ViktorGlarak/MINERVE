@@ -1,5 +1,6 @@
 ---
 id: LESSON-XXX
+aliases: ["LESSON-XXX"]
 type: lesson
 title: 
 tags: []

@@ -1,7 +1,7 @@
 # 🗺️ ÉTAT DE L'EXERCICE — MINOTAURE 26 / AURIGE 7BB
 
 > ⚙️ **FICHIER GÉNÉRÉ** par `MINAUTORE/generer_etat_exercice.py` — ne pas éditer à la main.
-> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-27 17:17**.
+> Carte de référence de MINAUTORE (référent de l'exercice). Régénéré le **2026-06-28 15:18**.
 > Source = MASTER éditorial `MASTAURIGE/LOCALSTORAGE_WEB_VERSION` (`melmil_data.js` socle + `tweets_data.js`/`articles_data.js` bakés).
 > Détail doctrinal / narratif : `MINAUTORE/MEMOIRE.md`.
 
@@ -52,7 +52,7 @@
 | 05.05.I09 | D+38 | — | tweet · @HmunikVoice · Nous sommes partout. Dans vos villes, sur vos rout | Revendication SOCMED de sabotage · Validated |
 | 05.08.I04 | D+40 | — | article · COURRIER · Courrier officiel — Mairie de HToul : mise à dispo | Proposition de soutien HN · Validated |
 | 05.09.I03 | D+37 | — | tweet · @GavrilovBorislav · Cette nuit, nous avons saboté un plot logistique d | Valorisation SOCMED pro MER · Validated |
-| 05.09.I04 | D+38 | — | — | Manifestation POP ARN · Validated |
+| 05.09.I04 | D+38 | — | tweet · @BelovDimitri · ALERTE ENVIRONNEMENT A HTOUL - Les autorités sanit<br>tweet · @ArnlandLovePeace · A TOUS LES HABITANTES ET HABITANTS DE HTOUL : des  | Manifestation POP ARN · Validated |
 | 05.09.I05 | D+38 | — | article · TM · « Ils ont empoisonné notre rivière » : la Vezouze  | Article pro MER denoncant la presence de l OT · Validated |
 | 05.09.I06 | D+38 | — | — | Liaison HN pour lutter contre la pollution · Validated |
 | 05.10.I05 | D+39 | — | tweet · @TemoignageArn · N4, hauteur de HBOIS-LE-COMTE, ce matin. Ce ne son | blocage du convoi LOG manifestants 1 · Validated |
@@ -86,17 +86,18 @@
 | 07.05.I01 | D+37 | LO3 | tract · TRACT · Chaque pas en avant en Arnland vous rapproche de v | Recueil tract de la propagande MER · Validated |
 | 07.05.I02 | D+37 | LO3 | tweet · @HmunikVoice · Les convois de l'OTAN traversent nos villes comme  | Tweet de critique de l'OTAN · Validated |
 | 07.05.I03 | D+38 | LO3 | article · TM · General Pruniere Commands From the Front: 'I Will  | Article eloge du general PRUNIERE · Validated |
-| 07.06.I01 | D+39 | LO3 | article · TM · 'Ils n'ont aucun endroit où se cacher' — Les Batte | Tweet : valorisation forces MER · Validated |
+| 07.06.I01 | D+39 | LO3 | article · TM · 'Ils n'ont aucun endroit où se cacher' — Les Batte | Article Today MER : valorisation forces MER · Validated |
 | 07.06.I02 | D+40 | LO3 | article · TV4 · “That Choice Will Not Be Forgotten” — Pallesson Ad | Article de presse : declaration PALLESSON · Validated |
 | 07.06.I03 | D+40 | LO3 | tract · TRACT · 30 vies pour 1 mort de Mercure. | Recueil tract de la propagande MER · Validated |
 | 07.07.I01 | D+36 | LO4 | article · TM · 'A Tyranny Propped Up by Foreign Bayonets': Mercur | Article Today Mercure  de propagande MER · Validated |
 | 07.08.I01 | D+37 | LO4 | tweet · @GromovaYelena · TV4 | NATO StratCom confirms: "UNSCR 3510 provides<br>tweet · @KolesnikovAndrei · The evidence is now undeniable. NATO coalition ele | Tweet : non-respect droit international par O · Validated |
 | 07.08.I02 | D+38 | LO4 | tweet · @HmunikVoice · ARNLAND : un gouvernement qui vend ses ressources  | Tweet propagande pro MER : ARN, pays corrompu · Validated |
 | 07.08.I03 | D+37 | LO4 | courrier · COURRIER · HFM — Threat letter to the BFA (leave the zone)<br>tract · TRACT · HFM — Claim of responsibility (three fires near BF | HFM — menace + revendication anti-BFA (HToul) · Draft |
-| 07.08.I05 | D+38 | LO4 | tweet · @BrigitteSchmitt67 · Je tremble encore en écrivant ces lignes. 😰 Je ven<br>tweet · @MarcWeber67 · ⚠ HSarre-Union : prenez en photo CHAQUE poteau et  | Atrocités attribuées à l'OTAN/BCA à HSarre-Un · Draft |
+| 07.08.I05 | D+38 | LO4 | tweet · @BrigitteSchmitt67 · Je suis terrifiée 😰 Je venais de sortir de la bibl<br>tweet · @MarcWeber67 · ⚠ HSarre-Union : prenez en photo CHAQUE poteau de  | Atrocités attribuées à l'OTAN/BCA à HSarre-Un · Draft |
 | 07.08.I06 | D+38 | LO4 | tweet · @JulienHolveck57 · J'en tremble encore. 😳 Les blindés du 5e régiment <br>tweet · @SylvieBrucker57 · Vingt-deux ans que je tenais l'épicerie de HMitter<br>article · TV4 · Forêt domaniale de HFénétrange : des blindés du 5e | Cluster exactions OTAN/5e RD (fuseau, 28 Jun) · Draft |
 | 07.09.I01 | D+39 | LO4 | article · TM · 'Mercure's Mandate Is Not Selective — We Protect A | Article Today MERCURE : protection civils ARN · Validated |
 | 07.09.I02 | D+40 | LO4 | tweet · @HmunikVoice · Les populations mercuriennes de Arnland nous atten | Tweet :  MER liberateur de ARN  · Validated |
+| 07.09.I03 | D+38 | LO4 | tweet · @PasteurVolkonsky · Je reviens de HThal-Marmoutier. L’artillerie de l’<br>tweet · @Stepan_Roubek · Cette église, on la connaît tous dans la région. C<br>tweet · @GromovaYelena · Je ne prends le parti d’aucune armée dans cette gu<br>article · TM · « Ils ont visé jusqu’à nos clochers » — L’artiller | Destruction de l’église St-Pierre-et-St-Paul  · Draft |
 | 07.10.I01 | D+35 | LO5 | article · TM · 'The UN Has Become a Tool' — Mercure Challenges th | Article anti-ONU par MERCURE TODAY - vote AGN · Validated |
 | 07.10.I02 | D+36 | LO5 | article · TM · 'Arnland's Allies Are Not Coming to Save It — They | Article anti-OTAN de MERCURE TODAY · Validated |
 | 07.10.I03 | D+36 | LO5 | tweet · @HmunikVoice · Aucune région d'Arnland n'a voté pour l'OTAN. Aucu | Tweet anti-OTAN @HmunikVoice : illigitimite · Validated |
@@ -108,6 +109,7 @@
 | 07.11.I05 | D+38 | LO5 | article · TV4 · Blocages routiers à Château-Salins, Dieuze et Morh | Article : Blocages routiers anti-OTAN · Validated |
 | 07.11.I06 | D+38 | LO5 | tweet · @J_Vasseur · J'ai laissé mes deux jambes au front pour Arnland. | Tweet soldat : Critique corruption OTAN · Validated |
 | 07.11.I07 | D+38 | LO5 | article · TV4 · Fact Check: The 'Supercar General' Story Bears the | Article TV4 : Dementi accusation corruption O · Validated |
+| 07.11.I08 | D+38 | LO5 | article · COURRIER · FACTURE Arrinera Hussarya GT — gén. de brigade Mar | Facture du supercar Arrinera au nom du gén. D · Draft |
 | 07.12.I01 | D+40 | LO5 | tweet · @KolesnikovAndrei · Les officiers français se croient au-dessus de tou | Tweet : Critique officiers francais · Validated |
 | 07.12.I02 | D+40 | LO5 | tweet · @TemoignageArn · Sur le terrain, ça crie. Hier encore, prise de bec | Tweet : Critique desaccords allies · Validated |
 | 07.12.I03 | D+40 | LO5 | tweet · @VoixArnland · Français, de la coalition, ARN… on passe plus de t | Tweet : Critique desaccords entre Allies · Validated |
@@ -132,7 +134,7 @@
 - **D+35 (25 juin, WU TAC)** : 07.01.I01 (article TM) · 07.04.I01 (article HEX) · 07.04.I02 (article ARN) · 07.10.I01 (article TM)
 - **D+36 (26 juin, WU TAC)** : 07.01.I02 (tweet @HmunikVoice) · 07.01.I03 (tweet @HmunikVoice) · 07.01.I03 (tweet @GavrilovBorislav) · 07.01.I03 (tweet @MaiaKovalenko) · 07.01.I03 (article COURRIER) · 07.04.I03 (article TV4) · 07.04.I03 (article TV4) · 07.07.I01 (article TM) · 07.10.I02 (article TM) · 07.10.I03 (tweet @HmunikVoice) · 07.10.I04 (tweet @VoixArnland) · 08.01.I01 (courrier COURRIER)
 - **D+37 (27 juin, CAX 1)** : 05.09.I03 (tweet @GavrilovBorislav) · 07.02.I01 (tweet @HmunikVoice) · 07.02.I02 (tweet @GavrilovBorislav) · 07.02.I03 (tweet @HmunikVoice) · 07.02.I09 (article TM) · 07.05.I01 (tract TRACT) · 07.05.I02 (tweet @HmunikVoice) · 07.08.I01 (tweet @GromovaYelena) · 07.08.I01 (tweet @KolesnikovAndrei) · 07.08.I03 (courrier COURRIER) · 07.08.I03 (tract TRACT) · 07.11.I01 (tweet @clambroise55) · 07.11.I02 (tweet @MarionKessler57) · 07.11.I02 (tweet @GavrilovBorislav) · 07.11.I02 (tweet @MakarovSid) · 08.01.I02 (courrier COURRIER)
-- **D+38 (28 juin, CAX 1)** : 04.01.I06 (tweet @VoixArnland) · 04.03.I06 (tweet @MakarovSid) · 05.02.I05 (tweet @HmunikVoice) · 05.05.I09 (tweet @HmunikVoice) · 05.09.I05 (article TM) · 07.02.I04 (article TF1) · 07.02.I05 (tweet @HmunikVoice) · 07.02.I06 (tweet @MaiaKovalenko) · 07.02.I07 (tweet @MakarovSid) · 07.02.I08 (tweet @VeilleOSINT_Est) · 07.02.I08 (tweet @T_Reynaud_FR) · 07.02.I08 (tweet @Sophie_Moselle) · 07.02.I08 (article TV4) · 07.05.I03 (article TM) · 07.08.I02 (tweet @HmunikVoice) · 07.08.I05 (tweet @BrigitteSchmitt67) · 07.08.I05 (tweet @MarcWeber67) · 07.08.I06 (tweet @JulienHolveck57) · 07.08.I06 (tweet @SylvieBrucker57) · 07.08.I06 (article TV4) · 07.11.I03 (article TM) · 07.11.I04 (tweet @MaiaKovalenko) · 07.11.I05 (article TV4) · 07.11.I06 (tweet @J_Vasseur) · 07.11.I07 (article TV4) · 08.01.I03 (courrier COURRIER) · 08.02.I01 (article TV4) · 08.02.I05 (tweet @N_Savchenko) · 08.02.I05 (tweet @PasteurVolkonsky) · 08.02.I05 (tweet @IgorMishin_ARC) · 08.02.I05 (article TM)
+- **D+38 (28 juin, CAX 1)** : 04.01.I06 (tweet @VoixArnland) · 04.03.I06 (tweet @MakarovSid) · 05.02.I05 (tweet @HmunikVoice) · 05.05.I09 (tweet @HmunikVoice) · 05.09.I04 (tweet @BelovDimitri) · 05.09.I04 (tweet @ArnlandLovePeace) · 05.09.I05 (article TM) · 07.02.I04 (article TF1) · 07.02.I05 (tweet @HmunikVoice) · 07.02.I06 (tweet @MaiaKovalenko) · 07.02.I07 (tweet @MakarovSid) · 07.02.I08 (tweet @VeilleOSINT_Est) · 07.02.I08 (tweet @T_Reynaud_FR) · 07.02.I08 (tweet @Sophie_Moselle) · 07.02.I08 (article TV4) · 07.05.I03 (article TM) · 07.08.I02 (tweet @HmunikVoice) · 07.08.I05 (tweet @BrigitteSchmitt67) · 07.08.I05 (tweet @MarcWeber67) · 07.08.I06 (tweet @JulienHolveck57) · 07.08.I06 (tweet @SylvieBrucker57) · 07.08.I06 (article TV4) · 07.09.I03 (tweet @PasteurVolkonsky) · 07.09.I03 (tweet @Stepan_Roubek) · 07.09.I03 (tweet @GromovaYelena) · 07.09.I03 (article TM) · 07.11.I03 (article TM) · 07.11.I04 (tweet @MaiaKovalenko) · 07.11.I05 (article TV4) · 07.11.I06 (tweet @J_Vasseur) · 07.11.I07 (article TV4) · 07.11.I08 (article COURRIER) · 08.01.I03 (courrier COURRIER) · 08.02.I01 (article TV4) · 08.02.I05 (tweet @N_Savchenko) · 08.02.I05 (tweet @PasteurVolkonsky) · 08.02.I05 (tweet @IgorMishin_ARC) · 08.02.I05 (article TM)
 - **D+39 (30 juin, CAX 2)** : 05.10.I05 (tweet @TemoignageArn) · 07.03.I01 (article TM) · 07.03.I02 (tweet @HmunikVoice) · 07.03.I06 (article BC1) · 07.03.I07 (article TM) · 07.03.I11 (tweet @BernardLutz67) · 07.06.I01 (article TM) · 07.09.I01 (article TM) · 08.01.I04 (courrier COURRIER) · 08.02.I02 (tweet @Stepan_Roubek)
 - **D+40 (01 juil., CAX 2)** : 05.02.I06 (tweet @MaiaKovalenko) · 05.08.I04 (article COURRIER) · 07.03.I03 (tweet @HmunikVoice) · 07.03.I04 (tweet @KolesnikovAndrei) · 07.03.I08 (tweet @HmunikVoice) · 07.03.I09 (tweet @MaiaKovalenko) · 07.03.I10 (tweet @J_Vasseur) · 07.06.I02 (article TV4) · 07.06.I03 (tract TRACT) · 07.09.I02 (tweet @HmunikVoice) · 07.12.I01 (tweet @KolesnikovAndrei) · 07.12.I02 (tweet @TemoignageArn) · 07.12.I03 (tweet @VoixArnland) · 07.12.I04 (tweet @HmunikVoice) · 08.01.I05 (courrier COURRIER) · 08.02.I03 (article TM) · 08.02.I03 (article MER) · 08.02.I04 (tweet @KolesnikovAndrei)
 - **D+41 (02 juil., CAX 2)** : 05.03.I08 (article TRACT) · 05.03.I09 (article TRACT) · 05.03.I10 (article TRACT) · 07.03.I05 (tweet @MaiaKovalenko) · 07.12.I05 (tweet @HmunikVoice)

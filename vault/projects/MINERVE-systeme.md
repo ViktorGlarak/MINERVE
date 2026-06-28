@@ -1,5 +1,6 @@
 ---
 id: PROJ-MINERVE
+aliases: ["PROJ-MINERVE"]
 type: project
 title: MINERVE — système multi-agents
 tags: [minerve, systeme, agents]

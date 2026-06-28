@@ -1,5 +1,6 @@
 ---
 id: PROJ-PROD-MEDIA
+aliases: ["PROJ-PROD-MEDIA"]
 type: project
 title: Production média (image · vidéo · voix)
 tags: [production, assets, pipeline]

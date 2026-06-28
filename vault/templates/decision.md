@@ -1,5 +1,6 @@
 ---
 id: DECISION-XXX
+aliases: ["DECISION-XXX"]
 type: decision
 title: 
 tags: []

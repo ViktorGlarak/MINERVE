@@ -1,5 +1,6 @@
 ---
 id: WEEKLY-YYYY-Www
+aliases: ["WEEKLY-YYYY-Www"]
 type: daily
 title: Revue hebdo YYYY semaine ww
 tags: [review]

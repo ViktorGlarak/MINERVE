@@ -1,5 +1,6 @@
 ---
 id: PROJ-AURIGE-7BB
+aliases: ["PROJ-AURIGE-7BB"]
 type: project
 title: AURIGE 7BB / MINOTAURE 26
 tags: [aurige, 7bb, minautore, exercice]

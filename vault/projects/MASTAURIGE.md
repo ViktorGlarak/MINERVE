@@ -1,5 +1,6 @@
 ---
 id: PROJ-MASTAURIGE
+aliases: ["PROJ-MASTAURIGE"]
 type: project
 title: MASTAURIGE — outillage production média
 tags: [mastaurige, projet]

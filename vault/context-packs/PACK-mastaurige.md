@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-28 · 49 notes.
+> Généré le 2026-06-28 · 50 notes.
 
 ## Notes (par tier)
 
@@ -26,6 +26,7 @@
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [DECISION-009](../decisions/DECISION-009.md) | Cartographie des injects ILI — « Piste C » (storyline = structure JEMM, LO = étiquette) | decision |
 | 2 | [DECISION-010](../decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | decision |
+| 2 | [DECISION-012](../decisions/DECISION-012.md) | avatars.js = liste maître des comptes RS — EHO généré + garde-fou VERIFIER | decision |
 | 2 | [LESSON-002](../lessons/LESSON-002.md) | Espace insécable dans les labels → fusion de sections | lesson |
 | 2 | [LESSON-003](../lessons/LESSON-003.md) | Pas de liens croisés vers articles futurs | lesson |
 | 2 | [LESSON-006](../lessons/LESSON-006.md) | Langue du tweet = langue de l'avatar | lesson |

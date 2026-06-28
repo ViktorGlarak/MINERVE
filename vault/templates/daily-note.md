@@ -1,5 +1,6 @@
 ---
 id: DAILY-YYYY-MM-DD
+aliases: ["DAILY-YYYY-MM-DD"]
 type: daily
 title: Session du YYYY-MM-DD
 tags: []

@@ -1,5 +1,6 @@
 ---
 id: PROJ-XXX
+aliases: ["PROJ-XXX"]
 type: project
 title: 
 tags: []
