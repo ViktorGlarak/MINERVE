@@ -165,14 +165,14 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 - Un nouveau pattern de routage → `NOYAU\MEMOIRE.md`
 - Un agent ajouté ou modifié → **tous les fichiers du registre** (voir checklist ci-dessus)
 - Le chemin racine change → **tous les fichiers de chemin** (voir checklist ci-dessus)
-- **Toute évolution de l'OUTILLAGE MASTAURIGE** (code WEB : `melmil.js`, créateur, `index_master.html`, générateur `GENERER_VIERGE.py`, vierge, `.bat`, trombino, sites médias, conventions…) → **consigner dans `MASTAURIGE\MEMOIRE.md`** (§ « v0.2 — FAIT FOI ») **dans la MÊME session, sans attendre de rappel utilisateur**.
+- **Toute évolution de l'OUTILLAGE MASTAURIGE** (code WEB : `melmil.js`, créateur, `index_master.html`, générateur `GENERER_VIERGE.py`, vierge, `.bat`, trombino, sites médias, conventions…) → **consigner dans la MÊME session, sans attendre de rappel utilisateur** : le **compte-rendu daté** du changement va dans **`MASTAURIGE\JOURNAL.md`** ; une nouvelle **règle / convention / capacité durable** va aussi dans **`MASTAURIGE\MEMOIRE.md`** *(mémoire scindée en 2 le 2026-07-22 : MEMOIRE = état durable lisible ~85 Ko · JOURNAL = historique)*.
 
 **Fichiers de mémoire à maintenir en priorité :**
 - `SCENARISTE\MEMOIRE.md` — narrative, discours, règles par exercice
 - `NOYAU\MEMOIRE.md` — patterns de routage, préférences utilisateur
 - `SYSTEME\DOSSIER_POSTE.md` — règles de production validées
 - Mémoire auto Claude (`memory\aurige_guillaume.md`) — état de production personnages
-- **`MASTAURIGE\MEMOIRE.md` — état & capacités de l'outillage MASTAURIGE. ⚠⚠ RÈGLE NON NÉGOCIABLE : (1) la LIRE AVANT toute intervention sur MASTAURIGE (code WEB / vierge / melmil / créateur / générateur / sites / trombino) ; (2) la METTRE À JOUR juste APRÈS tout changement, même mineur. Un hook le rappelle automatiquement à chaque édition d'un fichier MASTAURIGE — mais c'est dû quoi qu'il arrive.**
+- **`MASTAURIGE\MEMOIRE.md` (état durable) + `MASTAURIGE\JOURNAL.md` (historique) — l'outillage MASTAURIGE. ⚠⚠ RÈGLE NON NÉGOCIABLE : (1) LIRE `MEMOIRE.md` AVANT toute intervention sur MASTAURIGE (code WEB / vierge / melmil / créateur / générateur / sites / trombino) — c'est désormais lisible d'un coup (~85 Ko) ; au besoin, `grep` `JOURNAL.md` pour un détail d'implémentation daté ; (2) METTRE À JOUR juste APRÈS tout changement, même mineur — CR daté → `JOURNAL.md`, règle/capacité durable → `MEMOIRE.md`. Un hook le rappelle à chaque édition d'un fichier MASTAURIGE — mais c'est dû quoi qu'il arrive.**
 
 ### Après chaque session productive
 - [ ] Mettre à jour `AGENT\MEMOIRE.md` des agents sollicités

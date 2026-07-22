@@ -16,8 +16,10 @@ if "MASTAURIGE" in p and not p.lower().replace("\\", "/").endswith("mastaurige/m
         and not p.lower().endswith("\\memoire.md") and not p.lower().endswith("/memoire.md"):
     msg = (
         "⚠ RÈGLE MASTAURIGE (CLAUDE.md) : tu viens de modifier l'outillage MASTAURIGE. "
-        "Avant de clôturer, CONSIGNE ce changement dans MASTAURIGE\\MEMOIRE.md "
-        "(section « v0.2 — FAIT FOI »), et assure-toi d'avoir CONSULTÉ cette mémoire au préalable."
+        "Mémoire en 2 fichiers : CONSULTER MASTAURIGE\\MEMOIRE.md (état durable : règles, "
+        "conventions, capacités — ~85 Ko, lisible) AVANT ; puis CONSIGNER APRÈS — un compte-rendu "
+        "daté du changement dans MASTAURIGE\\JOURNAL.md, et si tu crées/changes une RÈGLE ou "
+        "CAPACITÉ durable, mets aussi à jour MEMOIRE.md."
     )
     print(json.dumps({
         "hookSpecificOutput": {
