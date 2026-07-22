@@ -15,10 +15,10 @@
 | ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
-| mastaurige | 50 | [PACK-mastaurige](PACK-mastaurige.md) |
-| melmil | 3 | [PACK-melmil](PACK-melmil.md) |
+| mastaurige | 51 | [PACK-mastaurige](PACK-mastaurige.md) |
+| melmil | 4 | [PACK-melmil](PACK-melmil.md) |
 | mercure | 121 | [PACK-mercure](PACK-mercure.md) |
-| minautore | 11 | [PACK-minautore](PACK-minautore.md) |
+| minautore | 12 | [PACK-minautore](PACK-minautore.md) |
 | noyau | 5 | [PACK-noyau](PACK-noyau.md) |
 | orion | 30 | [PACK-orion](PACK-orion.md) |
 | outillage | 2 | [PACK-outillage](PACK-outillage.md) |

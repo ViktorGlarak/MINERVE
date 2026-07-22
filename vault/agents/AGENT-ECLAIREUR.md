@@ -7,8 +7,8 @@ source: ../../ECLAIREUR/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-06-28
-updated: 2026-06-28
+created: 2026-06-29
+updated: 2026-06-29
 ---
 
 # 🤖 ÉCLAIREUR — Canvas agent

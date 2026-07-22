@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « minautore ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-28 · 11 notes.
+> Généré le 2026-06-29 · 12 notes.
 
 ## Notes (par tier)
 
@@ -15,6 +15,7 @@
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
 | 2 | [DECISION-009](../decisions/DECISION-009.md) | Cartographie des injects ILI — « Piste C » (storyline = structure JEMM, LO = étiquette) | decision |
 | 2 | [LESSON-018](../lessons/LESSON-018.md) | Modifier un inject = entrer dans le document + cohérence des dates (dateline=card D+, renvoi=article visé) | lesson |
+| 2 | [LESSON-026](../lessons/LESSON-026.md) | Placement card MELMIL (date ↔ standby) — exclusif ET appliqué au RENDU (bug card socle JEMM) | lesson |
 | 2 | [TOOL-011](../tools/TOOL-011.md) | generer_melmil.py (import MELMIL unifié GESTIM + JEMM) | tool |
 | 2 | [TOOL-012](../tools/TOOL-012.md) | Store baked articles (MASTAURIGE_ARTICLES) + type courrier — récup injets 2BB→7BB | tool |
 | 2 | [TOOL-013](../tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | tool |

@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « melmil ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-28 · 3 notes.
+> Généré le 2026-06-29 · 4 notes.
 
 ## Notes (par tier)
 
@@ -10,6 +10,7 @@
 |---|---|---|---|
 | 2 | [DECISION-003](../decisions/DECISION-003.md) | lo_config.js — source unique séries→LO | decision |
 | 2 | [DECISION-004](../decisions/DECISION-004.md) | MELMIL v0.2 — matrice par LO, cards 2 couleurs | decision |
+| 2 | [LESSON-026](../lessons/LESSON-026.md) | Placement card MELMIL (date ↔ standby) — exclusif ET appliqué au RENDU (bug card socle JEMM) | lesson |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
