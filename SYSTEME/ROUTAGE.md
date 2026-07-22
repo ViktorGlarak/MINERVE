@@ -80,10 +80,20 @@ La demande concerne...
 │       Cas : "qu'est-ce qu'on publie aujourd'hui ?", "est-ce cohérent avec ce qui est sorti ?", "quelle est la prochaine étape narrative ?"
 │       Sait : tous les acteurs, camps, médias fictifs, statut de chaque publication (publié / à produire / date à définir)
 │
-├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 7BB ?
+├── une question sur le CALENDRIER ÉDITORIAL ou la COHÉRENCE NARRATIVE d'AURIGE 7BB / MINOTAURE 26 ?
 │   └── MINAUTORE (claude-opus-4-7) → chef d'orchestre éditorial AURIGE 7BB
 │       Cas : mêmes que GUILLAUME mais pour l'exercice AURIGE 7BB
-│       Note : synchromatrice AURIGE 7BB à ingérer — agent initialisé le 2026-05-30
+│       ⚠ EXERCICE CLOS le 2026-07-03 → MINAUTORE = ARCHIVE DE RÉFÉRENCE (plus l'exercice actif)
+│       Contient le RETEX : MINAUTORE\RETEX_MINOTAURE_26.md (à lire avant tout nouvel exercice)
+│
+├── une question sur DELATTRE 26 (dit « DELATTRE ») — calendrier éditorial, cohérence narrative, injects ?
+│   └── DELATTRE (claude-opus-4-7) → chef d'orchestre éditorial DELATTRE 26  ⭐ EXERCICE À VENIR
+│       Cas : mêmes que GUILLAUME / MINAUTORE, mais pour DELATTRE 26
+│       Successeur de : GUILLAUME (2BB) → MINAUTORE (7BB) → DELATTRE
+│       Note : agent créé le 2026-07-22 — identité de l'exercice (unité, niveau, dates, zone, camps) À RENSEIGNER
+│       Réflexe : DELATTRE hérite du RETEX MINOTAURE (calibrer TACTIQUE, exiger la boucle de retour,
+│                GT productifs, casser les silos) + des actifs réutilisables (EHO 7BB, vierge MASTAURIGE v0.3,
+│                registre avatars, chartes médias)
 │
 ├── du CONTENU RS FICTIF pour un exercice AURIGE (entraînement PC niveau brigade) ?
 │   └── MASTAURIGE (mistral-nemo:latest) → avatars CASW, tweet cards HTML offline
@@ -127,4 +137,4 @@ $r.response
 | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, **BROUILLON** | ~15-30s (1ère fois) |
 | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE, VOIX, MASTODONTE, MASTAURIGE | ~10s |
 | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE, ARCHIVISTE | ~5s |
-| Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE | immédiat (API) |
+| Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, **DELATTRE** | immédiat (API) |

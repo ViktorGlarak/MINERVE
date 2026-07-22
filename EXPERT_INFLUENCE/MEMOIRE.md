@@ -23,6 +23,26 @@
 >
 > **AURIGE 7BB / MINOTAURE 26 :** matrice narrative, inventaire injects (07-01..04 = LO2..LO5), calendrier D+33-41 → **chez MINAUTORE** (`MINAUTORE\MEMOIRE.md`). EXPERT_INFLUENCE intervient sur demande (cohérence LO/effets/calibration), sans stocker ces narratifs.
 
+## ⭐ ENSEIGNEMENTS DOCTRINAUX DU RETEX MINOTAURE 26 (2026-07-22)
+
+> Seuls les enseignements **permanents et transversaux** sont retenus ici (règle de périmètre ci-dessus).
+> Détail complet et constats sourcés : `MINAUTORE\RETEX_MINOTAURE_26.md`.
+
+**1. Un effet ILI doit être calibré au NIVEAU DE L'ENTRAÎNÉ — sinon il n'existe pas.**
+Constat unanime des trois RETEX : la proportion de scénarios **stratégiques** était trop élevée face à un objectif de **réaction tactique de brigade**, et « **le discours politico-stratégique n'a pas d'impact sur une brigade** ». Doctrinalement : un effet informationnel ne se mesure pas à l'ambition du narratif mais à sa **prise sur le destinataire réel**. → Avant de valider un inject, poser : *qui, dans le PC entraîné, va le voir, et que peut-il en faire à son échelon ?* Si la réponse est « la Division », l'inject est **hors cible**. *(Renforce la doctrine de calibration brigade — `AURIGE\MEMOIRE.md`.)*
+
+**2. L'ILI doit préparer la DÉMONSTRATION de son impact (« so what ? »).**
+L'effet informationnel est plus difficile à mesurer que la LOG ou l'artillerie ; faute de métrique, il est **marginalisé** dans une animation rivée sur le cinétique — au point que des événements de niveau tactique ont été « complètement ignorés ». → Prévoir **dès la conception** les **indicateurs d'effet** attendus et réclamer des **éléments chiffrés dans les assessrep** (ex. IDPs). Sans boucle de mesure, l'ILI reste un produit invérifiable, donc déclassé.
+
+**3. Sans retour sur le traitement des injects, la manœuvre informationnelle est aveugle.**
+Ne pas savoir ce que l'entraîné a fait d'un inject empêche toute **exploitation en profondeur** : pas de relance, pas d'escalade, pas d'adaptation — les traitants « travaillent dans le vent ». Doctrinalement, une campagne d'influence est une **boucle action→observation→réaction** ; amputée de l'observation, elle dégénère en production de contenu. → **Exiger un responsable du retour** côté animation.
+
+**4. Rappeler les principes de base de l'influence et leur déclinaison PAR NIVEAU.**
+Recommandation explicite du Hot Wash Up : un **flou** a été entretenu sur les ciblages **stratégique / opératif / tactique**. → Prévoir, en début d'exercice, un **rappel doctrinal court** (effet → principe → niveau) à destination de la cellule et de l'animation. C'est un livrable EXPERT_INFLUENCE naturel pour les prochains exercices.
+
+**5. Les lignes d'opération sont une AIDE, pas une contrainte.**
+Le découpage **1 traitant par LO** a bien fonctionné (clarté, anti-doublon), mais les LO ne doivent pas **brider** la création de scénarios tactiques : recommandation de « considérer les LO comme une aide davantage que comme une contrainte ». → Une LO cadre l'**effet visé**, elle n'impose pas le niveau ni le vecteur.
+
 ## 🎬 MÉTHODE STORYLANES v2 (synchromatrice) — arcs/procédés par LO *(2026-06-23)*
 
 > **Refonte** de la synchromatrice : on abandonne les 12 storylines *descriptives statiques* (1 slogan par couple LO×bloc) pour des **STORYLANES = arcs narratifs / procédés d'influence complets**. Plus cohérent avec l'influence mercurienne.
