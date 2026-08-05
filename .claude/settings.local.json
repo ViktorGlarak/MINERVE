@@ -69,7 +69,13 @@
       "Read(//d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/**)",
       "Read(//d/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/**)",
       "Read(//d/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/moteur/**)",
-      "Read(//d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/shared/**)"
+      "Read(//d/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/shared/**)",
+      "Bash(cd \"D:/CECPC/MASTORION/mastorion-v0\" && wc -l apps/api/src/*.ts apps/api/src/*/*.ts vanilla-cockpit/res/app.js migrator/dump_users.js apps/sentinel-api/src/*.ts apps/sentinel-api/src/*/*.ts apps/sentinel-worker/src/*.py | sort -n | tail -60)",
+      "Read(//d/CECPC/MASTORION/mastorion-v0/**)",
+      "Bash(cd \"D:/CECPC/MASTORION/mastorion-v0\" && grep -rn \"^router\\\\.\\\\\\(get\\\\|post\\\\|patch\\\\|put\\\\|delete\\\\\\)\\\\|^  *router\\\\.\\\\\\(get\\\\|post\\\\|patch\\\\|put\\\\|delete\\\\\\)\" apps/api/src apps/sentinel-api/src --include=\"*.ts\" | sed 's/:.*router\\\\./  /' | head -120)",
+      "Bash(cd \"D:/CECPC/MASTORION/mastorion-v0\" && echo \"=== migrator.env ===\"; cat apps/api/migrator.env; echo; echo \"=== migrator/dump_users.js ===\"; cat migrator/dump_users.js; echo; echo \"=== mastodon_users_mapping.json \\(head\\) ===\"; head -c 600 migrator/mastodon_users_mapping.json)",
+      "Bash(cd \"D:/CECPC/MASTORION/mastorion-v0\" && echo \"=== migrator.ts functions/steps ===\"; grep -n \"^async function\\\\|^function\\\\|^const \\\\|console.log\\(\\\\\"===\\\\|=== \" apps/api/src/migrator.ts | head -50; echo; echo \"=== db.ts ===\"; cat apps/api/src/db.ts; echo \"=== migrate.ts ===\"; cat apps/api/src/migrate.ts)",
+      "Bash(cd \"D:/CECPC/MASTORION/mastorion-v0\" && echo \"=== admin timeline component \\(head 60\\) ===\"; head -60 apps/admin/src/app/components/timeline/timeline.ts; echo \"=== admin dashboard signals ===\"; grep -n \"template:\\\\|<h[12]\\\\|label=\\\\\"\\\\|title\" apps/admin/src/app/pages/dashboard/dashboard.ts | head -30)"
     ],
     "ask": [
       "Read(//d/CECPC/DOC REF/MERCURE/RENS/01_Fiches bio/**)",

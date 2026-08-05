@@ -48,6 +48,7 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 | EXPERT_INFLUENCE | Claude (cloud) — claude-opus-4-7 | GUILLAUME, MINAUTORE, PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert doctrine ILI & synchromatrice — **dépôt doctrinal unique** (VIGINUM, Storm-1516, L2I, GLM26/LO + **Sun Tzu** & **Morelli 10 principes** dans `EXPERT_INFLUENCE\REFERENCES\`, ajoutés 2026-06-02) ; planification effets informationnels, cohérence inter-camps, transversal tous exercices |
 | MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30 ; exercice **CLOS le 2026-07-03** → archive de référence + `RETEX_MINOTAURE_26.md`)* |
 | DELATTRE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, IMAGIER, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, AURIGE | Chef d'orchestre éditorial **DELATTRE 26** *(dit « DELATTRE »)* — calendrier publications, cohérence narrative, programmation des injects ; **exercice suivant MINOTAURE 26** *(dossier : `DELATTRE\` — créé 2026-07-22 ; identité de l'exercice à renseigner)* |
+| MASTORION | Claude (cloud) — claude-opus-4-7 | MASTAURIGE, ARCHITECTE, EXPERT_INFLUENCE, SCÉNARISTE, DELATTRE, MASTODONTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert plateforme **MASTORION** — plateforme RS fictive **nouvelle génération** (application web, repo GitHub cloné), exercices niveau **division/corps** ; capitalise le savoir MASTAURIGE/MINERVE (avatars-camps, LO, calendriers D+, vérificateurs) pour améliorer la plateforme *(dossier agent : `MASTORION\` — créé 2026-07-27 ; plateforme : `D:\CECPC\MASTORION\` ; ⚠ repo `mastorion-v0` en **LECTURE SEULE** jusqu'à autorisation explicite de l'utilisateur)* |
 | BROUILLON | deepseek-r1:14b | — *(bac à sable personnel utilisateur)* | Incubateur d'idées non abouties — IA **locale** pour **économiser les tokens** ; stockage d'idées brutes à travailler dans le temps *(dossier : `BROUILLON\` — créé 2026-06-02)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
@@ -68,6 +69,8 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 | Index BDA | `D:\CECPC\PRODUCTION\BDA\_CATALOGUE.md` |
 | Exercice AURIGE 2BB | `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB` |
 | Exercice ORION 26 | `D:\CECPC\PRODUCTION\EXER\01 ORION 26` |
+| Plateforme MASTORION (racine) | `D:\CECPC\MASTORION\` |
+| Repo MASTORION (clone GitHub — ⚠ lecture seule) | `D:\CECPC\MASTORION\mastorion-v0` |
 | ComfyUI | `C:\Users\MTR\Documents\ComfyUI_windows_portable\ComfyUI` |
 | Whisper | `..\models\audio_encoders\openai_whisper-large-v3-turbo` |
 | Continue config | `C:\Users\MTR\.continue\config.yaml` |

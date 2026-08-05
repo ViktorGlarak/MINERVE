@@ -321,12 +321,12 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-07-22] 20 agents au total
+### [2026-05-25 — mis à jour 2026-07-27] 21 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-12 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, **DELATTRE**) +
+13 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 12 + 1 = **20 agents** (vérifié contre le registre CLAUDE.md le 2026-07-22)
+= 4 + 3 + 13 + 1 = **21 agents** (vérifié contre le registre CLAUDE.md le 2026-07-27)
 
 > MINAUTORE ajouté le 2026-05-30 — chef d'orchestre éditorial AURIGE 7BB, claude-opus-4-7 (même modèle que GUILLAUME). Dossier exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\`. Synchromatrice à ingérer. **⚠ Exercice CLOS le 2026-07-03** → MINAUTORE devient l'**archive de référence** du 7BB (+ `MINAUTORE\RETEX_MINOTAURE_26.md`), il n'est plus l'exercice actif.
 > **DELATTRE créé le 2026-07-22** — chef d'orchestre éditorial de l'exercice **DELATTRE 26** (dit « DELATTRE »), claude-opus-4-7, **successeur de MINAUTORE**. Dossier : `DELATTRE\`. Prompt hérité de MINAUTORE + gabarit `aurige.md`, **enrichi du RETEX MINOTAURE** (calibrer tactique, boucle de retour, GT productifs, casser les silos). ⚠ **Identité de l'exercice (unité, niveau, dates, zone, camps) encore à renseigner** — la demander avant toute production. **Routage : toute demande liée à DELATTRE 26 → DELATTRE en agent primaire** (comme GUILLAUME pour 2BB, MINAUTORE pour 7BB).

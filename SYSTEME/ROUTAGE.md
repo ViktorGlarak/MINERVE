@@ -98,12 +98,18 @@ La demande concerne...
 ├── du CONTENU RS FICTIF pour un exercice AURIGE (entraînement PC niveau brigade) ?
 │   └── MASTAURIGE (mistral-nemo:latest) → avatars CASW, tweet cards HTML offline
 │       Cas : onglet RS de l'agrégateur WEB, posts fictifs scénario AURIGE 2BB et exercices brigade
-│       Note : MASTAURIGE est INDÉPENDANT de Mastorion — pas de lien avec la plateforme sociale fictive
+│       Note : MASTAURIGE est INDÉPENDANT de MASTORION — outillage HTML statique niveau brigade
 │
-├── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon, Mastorion) ?
+├── un POST / THREAD / CAMPAGNE réseaux sociaux fictifs (Mastodon) ?
 │   └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
 │       Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
-│       Note : Mastorion = plateforme distincte avec IA dédiée (développement futur — hors système MINERVE actuel)
+│
+├── une question sur la PLATEFORME MASTORION (repo, architecture, fonctionnalités, roadmap, amélioration) ?  ⭐ créé 2026-07-27
+│   └── MASTORION (claude-opus-4-7) → Expert plateforme MASTORION — RS fictifs nouvelle génération, exercices DIVISION/CORPS
+│       Cas : "comment fonctionne mastorion-v0 ?", "où brancher les avatars/camps ?", "porter le savoir MASTAURIGE dans la plateforme"
+│       Chemins : D:\CECPC\MASTORION\ (racine) · D:\CECPC\MASTORION\mastorion-v0 (clone GitHub)
+│       ⚠ RÈGLE : repo mastorion-v0 en LECTURE SEULE — aucune modification sans autorisation explicite de l'utilisateur
+│       Collabore : MASTAURIGE (savoir hérité), ARCHITECTE (code), EXPERT_INFLUENCE (ILI), SCÉNARISTE, analystes pays
 │
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
@@ -137,4 +143,4 @@ $r.response
 | deepseek-r1:14b | PENSEUR, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, **BROUILLON** | ~15-30s (1ère fois) |
 | mistral-nemo:latest | SECRÉTAIRE, SCÉNARISTE, VOIX, MASTODONTE, MASTAURIGE | ~10s |
 | llama3.1:8b | ÉCLAIREUR, IMAGIER, CINÉASTE, ARCHIVISTE | ~5s |
-| Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, **DELATTRE** | immédiat (API) |
+| Claude (cloud) | NOYAU, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, DELATTRE, **MASTORION** | immédiat (API) |
