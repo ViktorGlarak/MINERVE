@@ -83,7 +83,13 @@
       "Bash(cd \"C:/CECPC/MASTORION/mastorion-v0/apps/admin\"; grep -n \"groups\\\\|sheet_to_json\\\\|import\\(\\\\|COLUMNS\\\\|colonnes\\\\|header\" src/app/components/import-users/import-users.ts 2>/dev/null | head -20)",
       "Read(//c/CECPC/MASTORION/mastorion-v0/apps/admin/**)",
       "Bash(cmd //c \"C:\\\\\\\\CECPC\\\\\\\\MASTORION\\\\\\\\SAUVEGARDES\\\\\\\\SAUVEGARDER.bat\")",
-      "Bash(cmd //c \"C:\\\\\\\\CECPC\\\\\\\\MASTORION\\\\\\\\SAUVEGARDES\\\\\\\\RESTAURER.bat\")"
+      "Bash(cmd //c \"C:\\\\\\\\CECPC\\\\\\\\MASTORION\\\\\\\\SAUVEGARDES\\\\\\\\RESTAURER.bat\")",
+      "Read(//d/CECPC/PRODUCTION/EXER/AURIGE 2BB/00_Boites à outils/MASTAURIGE/WEB/**)",
+      "Bash(cd \"D:/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope\" && grep -o '\"nom\"[^,]*' bios.js | head -100)",
+      "Read(//d/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/**)",
+      "Bash(cd /tmp)",
+      "Bash(awk -F'\\\\t' '$3==\"Mercure\"{print $1\"\\\\t\"$5\"\\\\t\"$4}' casw_map.tsv)",
+      "Bash(python -)"
     ],
     "ask": [
       "Read(//d/CECPC/DOC REF/MERCURE/RENS/01_Fiches bio/**)",

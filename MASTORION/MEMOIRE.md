@@ -134,6 +134,51 @@ MASTORION est une **application client-serveur** : installée sur **un serveur**
 **Chiffres de recouvrement** : 11 avatars communs 7BB↔2BB · seulement 9/35 (7BB) et 6/13 (2BB) présents dans CASW → **la majorité des avatars AURIGE ont été créés hors base ORION**. Remplissage obtenu : bio 83 %, âge 90 %, pays 90 %, caractère 67 %. Contrôlé : **0 doublon** username/email, 0 champ obligatoire vide, colonnes toutes reconnues par l'import.
 **Limites** : ~17 % sans bio (avatars AURIGE sans fiche nulle part) · **portraits non résolus** (colonne `avatar` = URL ; ORION pointe vers `masstalk-api.orion.fr` hors ligne, AURIGE = fichiers locaux → MASTORION affiche les initiales) · mots de passe repris de CASW sinon générés par la plateforme.
 
+### 🏷️ Taxonomie des groupes — refonte 2026-07-28 (demande utilisateur)
+
+**Constat utilisateur après import** : 55 groupes hérités de la base CASW, hétérogènes, souvent **à 1 seul membre**, avec des libellés à rallonge → inexploitable. *(Cause partielle : un bug de mon extracteur CASW captait les puces de la section biographie comme des groupes — corrigé : ne lire que les puces de la section `### Groupes`.)*
+
+**Taxonomie retenue — `PAYS - FONCTION`**, demandée explicitement (« MER - POLITICIEN, ARN - JOURNALISTE, ARN - PACIFISTE… tout détailler pour que ce soit très bien rangé ») :
+- **Codes pays** : `MER` Mercure · `ARN` Arnland · `FR` France · `BOT` Bothnia · `TIT` Titane.
+- **Fonctions** : POLITICIEN · MILITAIRE · JOURNALISTE · AUTORITE LOCALE · PATRIOTE · PACIFISTE · PRO-MERCURE · OPPOSITION · CITOYEN · REFUGIE · INFLUENCEUR · FAMILLE DE MILITAIRE · RELIGIEUX · ACTEUR ECONOMIQUE · SOCK-PUPPET · GROUPE CLANDESTIN.
+- **Transverses sans pays** : ONG · INSTITUTION INTERNATIONALE · MEDIA INTERNATIONAL · OTAN · UE · ANIMATION EXERCICE.
+- **+ groupes d'exercice** : EXERCICE ORION 26 / MINOTAURE 26 / GUILLAUME 2BB.
+- **Cumul assumé** : un persona appartient à plusieurs groupes (moyenne **2,2**) — ex. `@ArnlandLovePeace` = `ARN - PACIFISTE` + `ARN - PRO-MERCURE` (façade écolo, manœuvre rouge).
+
+**Résultat : 55 → 35 groupes**, tous signifiants, 6 singletons légitimes (Bothnia peu peuplée). Le camp reste porté par les 3 onglets (CAMP ROUGE/BLEU/NEUTRE) car il sert au **ciblage des likes/RT synthétiques**, usage distinct de l'organisation.
+
+⚠️ **Pièges rencontrés — à ne pas refaire :**
+1. **Regex trop larges** : `\bun\b` (ONU) et `\beu\b` (UE) matchent des mots français courants → 17 faux « institutions ». **Ne chercher les institutions que dans le NOM et le HANDLE**, jamais dans la bio (où « OTAN », « ONU » sont des *sujets*, pas l'appartenance du persona).
+2. **`\d{2}` pris pour un département français** : `@BernardLutz67`, `@JulienHolveck57` classés FR alors que **la Lorraine « H-préfixe » du 7BB est ARNLANDAISE** (la Lorraine du 2BB, elle, est la vraie France). → table `OVERRIDES` de 21 personas AURIGE, alimentée par la connaissance MINERVE.
+3. **Pays « ANIMATION »** dans CASW : l'AIEA / Amnesty / le HCR ont ce pays → ils tombaient en « ANIMATION EXERCICE ». La **détection d'institution par le nom doit primer** sur le champ pays.
+4. Un persona a souvent **plusieurs groupes CASW** (40 cas) → ne pas n'en garder qu'un, les cumuler.
+
+### ✅ Audit par les agents-experts — 2026-07-28 (demande utilisateur)
+
+Déclencheur : `@6e_Army` / `@20e_Army` (comptes d'unité) classés MER - POLITICIEN. Cause : les groupes CASW « Comptes Officiels X » disent le **statut** du compte, pas le **métier** → règle corrigée (croisement avec le champ `activite`).
+**4 agents saisis en parallèle** (ANALYSTE Mercure · ANALYSTE_ARN · ANALYSTE_BOT+France+transverses · MINAUTORE+GUILLAUME sur l'emploi éditorial réel), chacun ayant lu sa mémoire avant de juger. **~70 corrections appliquées**, consignées dans la table `OVERRIDES` du générateur avec leur justification.
+
+**🐛 Deux bugs de parsing révélés par l'audit (29 fiches perdues silencieusement) :**
+1. Le séparateur précédant la **1ʳᵉ fiche** du fichier CASW comporte une ligne vide (les autres non) → la fiche **AIEA** restait collée à l'en-tête et disparaissait. Correctif : `\n---\n\s*(?=## )`.
+2. **28 pseudos** contenant une apostrophe typographique (`@Let’sgoMercure`) ou des **espaces** (`@Honneur et Patrie`) échouaient sur la classe `[A-Za-z0-9_.]` → capturer large puis **assainir** (fonction `assainir_pseudo`, équivalent du `sanitizeUsername` de `toolbox.ts`).
+→ **220 → 249 personas**. Leçon générale : sur un corpus Markdown, **toujours vérifier le compte extrait contre le total annoncé** (le fichier annonçait 222).
+
+**Apports doctrinaux majeurs des agents :**
+- **Règle des comptes à façade** (MINAUTORE) : un compte piloté est classé selon sa **nature** (`MER - SOCK-PUPPET`), la façade restant lisible en 2ᵉ groupe. S'applique à `@TemoignageDAC/Arn`, `@VoixDACia/Arnland`, `@J_Vasseur`, `@CorrespondantEst`, `@EastWatch_Intl` — alignés sur les sock-puppets Strava déjà identifiés.
+- **Anti-inversion Bothnia** : `@S_Tikhanov` et `@A_Saniki` sont **opposition PRO-MERCURE** ; « OPPOSITION » seul se lit spontanément comme dissidence pro-occidentale — c'est exactement l'erreur de 2026-06-01 (camp « bleu » recopié dans 7 fichiers). D'où le triple marquage OPPOSITION + PRO-MERCURE + POLITICIEN.
+- **Acteurs économiques** (ANALYSTE_ARN) : techniciens EDA (réseau électrique), ingénieurs ARTC (rail), PME d'eau potable — noyés dans « PATRIOTE », désormais `ARN - ACTEUR ECONOMIQUE` (8).
+- **Milice TANTALE** (ANALYSTE MER) : `@ViktorSlade` (2IC), `@NATOgohome` (collecteur de fonds) → GROUPE CLANDESTIN, pas « patriote ».
+- **Bothnia complétée** : 4 → 8 personas (échiquier régime / opposition pro-MER / contre-poids pro-UE / base civile).
+
+**Résultat : 47 groupes** (44 fonctions + 3 exercices), **248 personas**, 0 « NON CLASSÉ ».
+
+### ⚖️ Arbitrages tranchés par l'utilisateur — 2026-07-28 (font désormais autorité)
+
+1. **« Titane » n'est PAS une nation** → le code pays **TIT est supprimé**, tout revient à **MER**. Titane = nom de la **force FORAD** de l'armée mercurienne (toutes les fiches CASW marquées TITAN portent `Pays = Mercure`). ⚠ `SYSTEME\DOSSIER_POSTE.md` liste encore « Titane » parmi les nations fictives — **à corriger** pour lever l'ambiguïté.
+2. **Aucune région française réelle dans les exercices** : les civils de la zone d'opération sont **arnlandais**, y compris en 2BB (Arnland = France fictive, convention préfixe H). `@clambroise55` → `ARN - CITOYEN`. Le code **FR reste** pour la France **intervenante** (soldats, médias, associations d'anciens combattants) — pas pour les habitants de la ZO.
+3. **`@GavrilovBorislav` : sa BIOGRAPHIE fait foi** → `MER - MILITAIRE` (sergent senior, 47ᵉ division, 26ᵉ régt de chars). ⚠ **Contredit la revue MINOTAURE du 2026-06-21** qui en faisait un habitant de HDieuze issu de la diaspora : les **injects 7BB qui l'emploient comme témoin local (07.11.I02, 07.02.I02, 05.09.I03) sont à revoir** — un sergent mercurien qui se présente comme habitant détruit l'effet ILI. *(Cas parallèle non tranché : `@MakarovSid`, sans biographie, reste `ARN - PRO-MERCURE` selon la revue ANALYSTE_ARN.)*
+4. **Un seul persona par identité** : `@Kozi_Aus` (« Andrei Kolesnikov » apprenti, homonyme exact du sergent `@KolesnikovAndrei` employé dans les 2 exercices) est **exclu** de la bibliothèque via la liste `EXCLUSIONS` du générateur.
+
 **Point clé** : le contenu des bibliothèques **existe déjà dans MINERVE** (registre avatars MASTAURIGE + `avatars.js` + `bios.js` du trombinoscope pour Skolkan ; 222 avatars CASW pour ORION 26) → c'est un travail de **conversion vers le format XLSX MASTORION**, pas de création. Débouché : un pipeline unique MINERVE → MASTORION.
 
 ## Repartir sur une base vierge / sauvegarder (outillage créé 2026-07-27)

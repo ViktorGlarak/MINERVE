@@ -36,6 +36,367 @@ COLS = ["masto_id", "username", "display_name", "email", "password", "bio", "gro
 
 CAMP_LABEL = {"rouge": "CAMP ROUGE", "bleu": "CAMP BLEU", "neutre": "CAMP NEUTRE"}
 
+# ══════════════════════════════════════════════════════════════════════
+#  TAXONOMIE DES GROUPES  —  format « PAYS - FONCTION »
+#  (refonte 2026-07-28 : les groupes CASW d'origine etaient trop nombreux,
+#   heterogenes et souvent a un seul membre)
+# ══════════════════════════════════════════════════════════════════════
+# ⚠ DECISION UTILISATEUR 2026-07-28 : « Titane » n'est PAS une nation distincte —
+#   c'est le nom de la force FORAD de l'armee mercurienne (toutes les fiches CASW
+#   marquees TITAN ont Pays = Mercure). Le code TIT est supprime, tout revient a MER.
+PAYS_CODE = {
+    "mercure": "MER", "mer": "MER", "titane": "MER", "titan": "MER",
+    "arnland": "ARN", "arn": "ARN", "arnish": "ARN",
+    "france": "FR", "francaise": "FR", "français": "FR",
+    "bothnia": "BOT", "bot": "BOT",
+}
+PAYS_NOM = {"MER": "Mercure", "ARN": "Arnland", "FR": "France", "BOT": "Bothnia"}
+
+# Personas ecartes de la bibliotheque (doublons d'identite tranches par l'utilisateur)
+EXCLUSIONS = {
+    "@kozi_aus",   # « Andrei Kolesnikov » apprenti, homonyme exact du sergent
+                   # @KolesnikovAndrei (employe dans les 2 exercices) -> un seul conserve
+}
+
+# Groupes transverses, SANS prefixe pays
+TRANSVERSE = ("ONG", "INSTITUTION INTERNATIONALE", "OTAN", "UE",
+              "MEDIA INTERNATIONAL", "ANIMATION EXERCICE")
+
+# ── Corrections manuelles, issues de la connaissance MINERVE (registre MASTAURIGE,
+#    mémoires MINAUTORE / GUILLAUME / ANALYSTE_ARN). Priment sur la deduction.
+#    ⚠ Piege corrige ici : la Lorraine « H-prefixe » du 7BB est ARNLANDAISE (fiction),
+#    alors que la Lorraine du 2BB est la vraie France -> les handles en 57/67 ne sont
+#    PAS des departements francais cote MINOTAURE.
+OVERRIDES = {
+    "@stepan_roubek":    ["ARN - PRO-MERCURE", "ARN - CITOYEN"],   # temoin mercurianophone HSarrebourg
+    "@j_vasseur":        ["ARN - MILITAIRE"],                      # veteran DAC (=ARN) amputé
+    "@makarovsid":       ["ARN - PRO-MERCURE"],                    # habitant HBlamont, diaspora MER
+    "@gavrilovborislav": ["ARN - PRO-MERCURE"],                    # habitant HDieuze, diaspora MER
+    "@eastwatch_intl":   ["MEDIA INTERNATIONAL"],                  # relais OSINT, blanchiment MER
+    "@temoignagearn":    ["ARN - PRO-MERCURE"],                    # compte « temoignage » pilote MER
+    "@voixarnland":      ["ARN - PRO-MERCURE"],
+    "@temoignagedac":    ["ARN - PRO-MERCURE"],
+    "@voixdacia":        ["ARN - PRO-MERCURE"],
+    "@bernardlutz67":    ["ARN - CITOYEN"],                        # habitant HSaverne (7BB)
+    "@julienholveck57":  ["ARN - CITOYEN"],                        # habitant arnlandais (7BB)
+    "@sylviebrucker57":  ["ARN - CITOYEN"],                        # commercante HMittersheim (7BB)
+    "@brigitteschmitt67": ["ARN - PRO-MERCURE", "ARN - CITOYEN"],  # HSarre-Union, penchant MER
+    "@marcweber67":      ["ARN - PRO-MERCURE", "ARN - CITOYEN"],
+    "@marionkessler57":  ["ARN - CITOYEN"],                        # 7BB, zone H-prefixe
+    "@veilleosint_est":  ["MER - SOCK-PUPPET"],                    # facade pro-FR, operation MER
+    "@t_reynaud_fr":     ["MER - SOCK-PUPPET"],
+    "@sophie_moselle":   ["MER - SOCK-PUPPET"],
+    "@novusordomundi":   ["ARN - GROUPE CLANDESTIN"],              # organisation clandestine pro-MER
+    "@arnlandlovepeace": ["ARN - PACIFISTE", "ARN - PRO-MERCURE"], # facade eco-pacifiste, manoeuvre rouge
+    "@clambroise55":     ["FR - CITOYEN"],                         # 2BB : vraie Lorraine francaise
+
+    # ── Audit ANALYSTE (Mercure), 2026-07-28 — corrections fondées sur
+    #    ANALYSTE\MERCURE\MEMOIRE.md + registre MASTAURIGE + fiches CASW
+    "@home_mum":         ["MER - FAMILLE DE MILITAIRE"],           # mere d'un soldat du 5e bat. artillerie
+    "@1aia":             ["MER - MILITAIRE"],                      # 1ere Armee Blindee de la Garde (unite)
+    "@titancom":         ["MER - MILITAIRE"],                      # compte du COM FORAD (Lt-Gen Kissel)
+    "@2divinfmec":       ["MER - MILITAIRE"],                      # CASW pays=Mercure (TITAN = force FORAD)
+    "@4divbld":          ["MER - MILITAIRE"],
+    "@mpaleksanvorynofficial": ["MER - POLITICIEN"],               # depute MUP, proche d'Olamao
+    "@loloanna":         ["MER - INFLUENCEUR"],                    # influenceuse / tele-realite
+    "@viktorslade":      ["ARN - GROUPE CLANDESTIN", "ARN - PRO-MERCURE"],  # 2IC milice TANTALE
+    "@natogohome":       ["MER - GROUPE CLANDESTIN", "MER - PATRIOTE"],     # collecteur de fonds Tantale
+    "@mamamia":          ["MER - REFUGIE", "MER - PATRIOTE"],       # refugie MER en Haquitaine
+    "@meihoffrudolf":    ["MER - REFUGIE", "MER - PATRIOTE"],
+    "@petrovaferapont":  ["MER - PATRIOTE", "MER - FAMILLE DE MILITAIRE", "MER - INFLUENCEUR"],
+    "@mercurerealnews":  ["MER - PATRIOTE", "MER - INFLUENCEUR"],
+    "@calgarmarneus":    ["MER - RELIGIEUX", "MER - PACIFISTE"],    # pope orthodoxe anti-guerre
+    "@gotmituns":        ["MER - RELIGIEUX", "MER - PACIFISTE"],
+    "@love_our_soldiers": ["MER - PACIFISTE", "MER - OPPOSITION", "MER - INFLUENCEUR"],
+    "@temoignagedac":    ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],  # rouge camoufle civil (Storm-1516)
+    "@voixdacia":        ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],
+    "@temoignagearn":    ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],  # equivalents 7BB
+    "@voixarnland":      ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],
+    "@siegumjedenpreis": ["ARN - PRO-MERCURE"],                     # diaspora MER residant en ARN
+    "@hmunikvoice":      ["ARN - PRO-MERCURE", "ARN - JOURNALISTE"], # propagandiste radio
+    "@maiakovalenko":    ["ARN - PRO-MERCURE", "ARN - JOURNALISTE"],
+    "@karidovmichel":    ["BOT - CITOYEN"],                         # CASW pays=Bothnia
+    "@svetlovirina":     ["BOT - CITOYEN"],
+    "@swifttaylor":      ["ANIMATION EXERCICE"],                    # CASW pays=ANIMATION
+
+    # ── Audit ANALYSTE_ARN (Arnland), 2026-07-28
+    "@timesarnish":      ["ARN - JOURNALISTE"],                     # organe de presse, pas un citoyen
+    "@officialskolkan":  ["ARN - PRO-MERCURE", "ARN - JOURNALISTE"],  # station Skolkan FM, pro-MER
+    "@asps_officiel":    ["ARN - AUTORITE LOCALE"],                 # Arnland State Police Services
+    "@acquarnland":      ["ARN - ACTEUR ECONOMIQUE"],               # PME eau potable pres de HLa Rochelle
+    "@ionescupetr_ceo_artc": ["ARN - ACTEUR ECONOMIQUE"],           # CEO Arnland Rail Transportation Co
+    "@ivanhorvat_artc":  ["ARN - ACTEUR ECONOMIQUE"],               # ingenieur maintenance ARTC
+    "@dragovic_novak_eda": ["ARN - ACTEUR ECONOMIQUE"],             # reseau electrique EDA
+    "@kovalenkoandrei_eda": ["ARN - ACTEUR ECONOMIQUE"],
+    "@pavelkov_novak_eda": ["ARN - ACTEUR ECONOMIQUE"],
+    "@petrenko_dnepr_eda": ["ARN - ACTEUR ECONOMIQUE"],
+    "@freunderolf":      ["ARN - CITOYEN"],                         # etudiant refractaire, refuse de se battre
+    "@giselam":          ["ARN - CITOYEN"],
+    "@keypof":           ["ARN - CITOYEN"],                         # adolescente a HParis
+    "@togwewin":         ["ARN - MILITAIRE", "ARN - PATRIOTE"],     # soldat logistique ARN
+    "@kevdu13":          ["FR - MILITAIRE"],                        # CASW pays=France, CCH de la SDCO
+    "@arnwillwin":       ["FR - INFLUENCEUR", "FR - REFUGIE"],      # influenceuse FR refugiee dans la Loire
+    "@manfredk":         ["ARN - CITOYEN"],                         # franco-ARN vivant en ARN, non deplace
+    "@faahcharentemaritime": ["ARN - MILITAIRE", "ARN - AUTORITE LOCALE"],  # DMD HCharente-Maritime
+    "@pasteurvolkonsky": ["ARN - PRO-MERCURE", "ARN - RELIGIEUX"],  # leader protestant pro-MER
+    "@shootarnland":     ["ARN - PRO-MERCURE", "ARN - PACIFISTE"],  # collectif anti-guerre MAIS pro-MER
+    "@correspondantest": ["MEDIA INTERNATIONAL", "MER - SOCK-PUPPET"],  # couche 2 piege retroactif
+
+    # ── Audit MINAUTORE + GUILLAUME (emploi editorial reel dans les injects), 2026-07-28
+    #    Regle degagee : un compte a FAÇADE est classe selon sa NATURE (sock-puppet MER),
+    #    la façade restant lisible en 2e groupe.
+    "@temoignagedac_":   [],                                         # (placeholder, voir ci-dessous)
+    "@j_vasseur":        ["MER - SOCK-PUPPET", "ARN - MILITAIRE"],   # veteran ARN/DAC = relais rouge (08.03.04Gi)
+    "@eastwatch_intl":   ["MEDIA INTERNATIONAL", "MER - SOCK-PUPPET"],  # think-tank de blanchiment MER
+    "@arnlandlovepeace": ["ARN - PRO-MERCURE", "ARN - PACIFISTE"],   # manoeuvre rouge sous façade verte (05.09.I04)
+    "@s_tikhanov":       ["BOT - POLITICIEN", "BOT - OPPOSITION", "BOT - PRO-MERCURE"],
+    "@a_saniki":         ["BOT - POLITICIEN", "BOT - OPPOSITION", "BOT - PRO-MERCURE"],
+    "@h_hansen":         ["BOT - POLITICIEN", "BOT - OPPOSITION"],   # cheffe opposition BPP pro-UE (Bothnia)
+    "@eurotendency_b":   ["UE", "BOT - ACTEUR ECONOMIQUE"],          # groupe de pression pro-UE en Bothnia
+    "@gavrilovborislav": ["ARN - PRO-MERCURE", "ARN - CITOYEN"],     # habitant HDieuze, diaspora (revue 06-21)
+    "@makarovsid":       ["ARN - PRO-MERCURE", "ARN - CITOYEN"],     # habitant HBlamont, diaspora
+    "@novusordomundi":   ["ARN - GROUPE CLANDESTIN", "ARN - PRO-MERCURE"],
+    "@sylviebrucker57":  ["ARN - CITOYEN", "ARN - ACTEUR ECONOMIQUE"],  # epiciere ruinee de HMittersheim
+    "@pasteurvolkonsky": ["ARN - RELIGIEUX", "ARN - PRO-MERCURE"],   # pasteur de HLuneville
+}
+# Comptes « temoignage / voix » : façade civile, outil rouge (Storm-1516 couche 1)
+for _h in ("@temoignagedac", "@voixdacia", "@temoignagearn", "@voixarnland"):
+    OVERRIDES[_h] = ["MER - SOCK-PUPPET", "ARN - PRO-MERCURE"]
+OVERRIDES.pop("@temoignagedac_", None)
+
+# ── Audit ANALYSTE_BOT (Bothnia + France + transverses), 2026-07-28
+OVERRIDES.update({
+    "@a_saniki":         ["BOT - OPPOSITION", "BOT - PRO-MERCURE", "BOT - POLITICIEN"],
+    "@compteofficielcicr": ["INSTITUTION INTERNATIONALE"],          # CICR = OI a mandat DIH, pas une ONG
+    "@1fracorpsinarnland": ["FR - MILITAIRE"],                      # compte officiel de corps d'armee
+    "@cimic_1div":       ["FR - MILITAIRE"],                        # officier CIMIC 1re DIV
+    "@1stdivinarn":      ["FR - MILITAIRE"],                        # 1re division deployee en Arnland
+    "@corpswarfighting": ["FR - MILITAIRE"],                        # etat-major de corps
+    "@milimothers":      ["FR - PATRIOTE", "FR - FAMILLE DE MILITAIRE"],  # assoc. femmes de militaires
+    "@kardashiankim":    ["FR - INFLUENCEUR"],                      # vecteur de notoriete
+
+    # ── Arbitrages utilisateur du 2026-07-28
+    #  (2) Pas de region francaise reelle dans les exercices : les civils de la zone
+    #      d'operation sont arnlandais (France fictive = Arnland), meme en 2BB.
+    "@clambroise55":     ["ARN - CITOYEN"],
+    #  (3) Sa BIOGRAPHIE fait foi : sergent senior de la 47e division mercurienne.
+    #      ⚠ contredit la revue MINOTAURE du 2026-06-21 qui en faisait un habitant
+    #      de HDieuze (diaspora) — les injects 7BB concernes sont a revoir.
+    "@gavrilovborislav": ["MER - MILITAIRE"],
+})
+
+# CASW : groupe d'origine -> (code pays ou None = deduire, FONCTION)
+MAP_CASW = {
+    "o4 comptes officiels mercure": ("MER", "POLITICIEN"),
+    "o4 groupe animation ili mercure": (None, "ANIMATION EXERCICE"),
+    "o4 groupe patriote mercure": ("MER", "PATRIOTE"),
+    "o4 groupe pacifiste mercure": ("MER", "PACIFISTE"),
+    "o4 groupe soldat mercure/titane": ("MER", "MILITAIRE"),
+    "o4 heros de guerre mercurien": ("MER", "MILITAIRE"),
+    "o4 groupe femmes de militaires forad": ("MER", "FAMILLE DE MILITAIRE"),
+    "o4 groupe officiel titan": ("MER", "POLITICIEN"),   # TITAN = force FORAD mercurienne
+    "o4 officiel arn": ("ARN", "POLITICIEN"),
+    "o4 patriotes arn": ("ARN", "PATRIOTE"),
+    "o4 groupe soldats arn": ("ARN", "MILITAIRE"),
+    "o4 groupe pro-mercure en arn": ("ARN", "PRO-MERCURE"),
+    "o4 refugies arn": ("ARN", "REFUGIE"),
+    "o4_autoriteshn": ("ARN", "AUTORITE LOCALE"),
+    "o4 groupe officiel francais": ("FR", "POLITICIEN"),
+    "o4 groupe soldat francais": ("FR", "MILITAIRE"),
+    "o4 groupe patriote francais": ("FR", "PATRIOTE"),
+    "o4 groupe anti-militariste francais": ("FR", "PACIFISTE"),
+    "o4 medias francais": ("FR", "JOURNALISTE"),
+    "o4 mediafrancelarontonde": ("FR", "JOURNALISTE"),
+    "o4 media france journal national": ("FR", "JOURNALISTE"),
+    "o4 media france hexagone": ("FR", "JOURNALISTE"),
+    "o4 media france afg": ("FR", "JOURNALISTE"),
+    "02-redteam - presse": (None, "JOURNALISTE"),
+    "o4 ong ngos": (None, "ONG"),
+    "o2 - ani haute ong": (None, "ONG"),
+    "o4 army": (None, "MILITAIRE"),
+    "o4animation1ca": (None, "ANIMATION EXERCICE"),
+    "o4 animation div1": (None, "ANIMATION EXERCICE"),
+}
+
+# EHO (trombinoscope 7BB) : champ `groupe` -> FONCTION
+MAP_EHO = {
+    "gouvernement": "POLITICIEN",
+    "gouvernement & institutions": "POLITICIEN",
+    "prefecture & maires (host nation)": "AUTORITE LOCALE",
+    "commandement militaire (bndf)": "MILITAIRE",
+    "ong & humanitaire": "ONG",
+    "acteurs economiques": "ACTEUR ECONOMIQUE",
+    "societe civile pro-mercure": "PRO-MERCURE",
+    "opposition": "OPPOSITION",
+    "religieux": "RELIGIEUX",
+}
+
+# Metier declare (champ CASW `activite`) -> FONCTION, en dernier recours
+MAP_ACTIVITE = {
+    "militaire": "MILITAIRE", "journaliste": "JOURNALISTE", "chroniqueur": "JOURNALISTE",
+    "politicien": "POLITICIEN", "influenceur": "INFLUENCEUR", "procureur": "AUTORITE LOCALE",
+    "professeur": "CITOYEN", "etudiant": "CITOYEN", "artiste": "CITOYEN",
+    "chanteur": "CITOYEN", "retraite": "CITOYEN",
+}
+
+
+def _cle(s):
+    return norm2(s)
+
+
+def norm2(s):
+    """Normalisation souple pour comparer des libelles (accents, casse, ponctuation)."""
+    s = unicodedata.normalize("NFD", str(s or "")).encode("ascii", "ignore").decode()
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9&\-_/ ]", " ", s.lower())).strip()
+
+
+def deduire_pays(cw, fe, nom, handle, note=""):
+    """Code pays : champ `pays` (CASW/EHO) > pays porte par le groupe CASW
+    d'origine > indice explicite dans le nom / le handle / la note."""
+    for source in (cw.get("pays"), fe.get("pays")):
+        c = PAYS_CODE.get(norm2(source))
+        if c:
+            return c
+    for g in cw.get("groupes", []):                      # ex. « O4 Patriotes ARN » -> ARN
+        cible = MAP_CASW.get(norm2(g))
+        if cible and cible[0]:
+            return cible[0]
+    txt = norm2(" ".join([nom, handle, note or ""]))
+    for motif, code in ((r"titan", "TIT"), (r"mercur|\bmer\b|hmunik", "MER"),
+                        (r"arnland|arnish|\barn\b|dacia|\bdac\b", "ARN"),
+                        (r"bothnia|\bbot\b|\bbc1\b|pahonie", "BOT"),
+                        (r"franc|\bfr\b|lorrain|moselle|\d{2}\b", "FR")):
+        if re.search(motif, txt):
+            return code
+    return None
+
+
+# Institutions reconnaissables — cherchees UNIQUEMENT dans le nom et le handle
+# (⚠ ne jamais chercher dans les bios : « ONU », « OTAN », « UE » y sont des SUJETS,
+#  pas l'appartenance du persona ; et « un »/« eu » sont des mots francais courants)
+MOTIFS_INSTITUTION = (
+    (r"\bonu\b|\bunhcr\b|\bunocha\b|\baiea\b|\biaea\b|nations unies|united nations",
+     "INSTITUTION INTERNATIONALE"),
+    (r"\botan\b|\bnato\b|\bshape\b|\bsaceur\b", "OTAN"),
+    (r"amnesty|croix[- ]rouge|\bcicr\b|\bicrc\b|humanitaire|medecins sans|\bmsf\b|\bhrw\b",
+     "ONG"),
+    (r"union europeenne|\bue\b|european union|\beuropean commission\b", "UE"),
+)
+
+
+def deduire_fonction(cw, fe, nom, handle, note):
+    """FONCTION d'un persona, par ordre de fiabilite decroissante."""
+    identite = norm2(nom + " " + handle)
+
+    # 1. institution internationale identifiee par le NOM (pas par la bio)
+    for motif, fonction in MOTIFS_INSTITUTION:
+        if re.search(motif, identite):
+            return fonction
+
+    # 2. groupes CASW d'origine
+    for g in cw.get("groupes", []):
+        cible = MAP_CASW.get(norm2(g))
+        if cible:
+            return cible[1]
+
+    # 3. groupe EHO (trombinoscope)
+    f = MAP_EHO.get(norm2(fe.get("groupe", "")))
+    if f:
+        return f
+
+    # 4. role EHO / metier declare
+    role = norm2(fe.get("role", ""))
+    if role:
+        if re.search(r"president|ministre|depute|secretaire|gouverneur|porte.parole|ambassad", role):
+            return "POLITICIEN"
+        if re.search(r"general|colonel|commandant|chef d.etat.major|militaire|armee", role):
+            return "MILITAIRE"
+        if re.search(r"maire|prefet|prefecture", role):
+            return "AUTORITE LOCALE"
+        if re.search(r"journalist|redacteur|correspondant|presse", role):
+            return "JOURNALISTE"
+        if re.search(r"eveque|pasteur|imam|rabbin|eglise", role):
+            return "RELIGIEUX"
+    f = MAP_ACTIVITE.get(norm2(cw.get("activite", "")))
+    if f:
+        return f
+
+    # 5. indices textuels — sur l'identite ET la note de registre (jamais la bio complete)
+    txt = norm2(" ".join([nom, handle, note or ""]))
+    if re.search(r"pacifis|anti.?guerre|anti.?militar|love.?peace|stop.?war", txt):
+        return "PACIFISTE"
+    if re.search(r"refugie|deplace|exil", txt):
+        return "REFUGIE"
+    if re.search(r"osint|veille|analyst", txt):
+        return "INFLUENCEUR"
+    if re.search(r"media|news|tv\d|radio|channel|\binfo\b|journal|presse|temoignage|voix|watch",
+                 txt):
+        return "JOURNALISTE"
+    if re.search(r"pro.?mercure|patriot|ordo mundi|\bnom\b", txt):
+        return "PATRIOTE"
+    if re.search(r"maire|prefet|mairie", txt):
+        return "AUTORITE LOCALE"
+    return "CITOYEN"
+
+
+def groupes_final(cw, fe, nom, handle, note):
+    """Liste des groupes d'un persona (il peut en cumuler plusieurs :
+    p.ex. « ARN - JOURNALISTE » + « ARN - PRO-MERCURE »).
+    Retourne (liste_de_groupes, code_pays, fonction_principale)."""
+    forces = OVERRIDES.get((handle or "").lower())
+    if forces:
+        pays = forces[0].split(" - ")[0] if " - " in forces[0] else None
+        fonction = forces[0].split(" - ")[-1]
+        return list(forces), (pays if pays in PAYS_NOM else None), fonction
+
+    pays = deduire_pays(cw, fe, nom, handle, note)
+
+    # institution internationale reconnue au NOM : prime sur le pays « ANIMATION »
+    identite = norm2(nom + " " + handle)
+    for motif, fonction in MOTIFS_INSTITUTION:
+        if re.search(motif, identite):
+            return [fonction], None, fonction
+
+    def nommer(f):
+        if f in TRANSVERSE:
+            return f
+        return "%s - %s" % (pays, f) if pays else "NON CLASSE - %s" % f
+
+    # Les groupes « officiels » (comptes institutionnels) ne disent PAS le metier :
+    # un compte d'unite (@6e_Army, @27BgdInfMec) y figure aussi. On affine avec
+    # le metier declare (`activite`) — sinon tout finit en POLITICIEN.
+    GROUPES_OFFICIELS = {"o4 comptes officiels mercure", "o4 officiel arn",
+                         "o4 groupe officiel francais", "o4 groupe officiel titan"}
+    metier = MAP_ACTIVITE.get(norm2(cw.get("activite", "")))
+
+    groupes = []
+    # toutes les appartenances declarees dans la base CASW
+    for g in cw.get("groupes", []):
+        cible = MAP_CASW.get(norm2(g))
+        if not cible:
+            continue
+        fonction = cible[1]
+        if norm2(g) in GROUPES_OFFICIELS and metier and metier != "POLITICIEN":
+            fonction = metier            # ex. compte officiel MER + metier Militaire -> MILITAIRE
+        code = cible[0] or pays
+        nom_g = fonction if fonction in TRANSVERSE else (
+            "%s - %s" % (code, fonction) if code else "NON CLASSE - %s" % fonction)
+        if nom_g not in groupes:
+            groupes.append(nom_g)
+    # appartenance issue du trombinoscope EHO
+    f_eho = MAP_EHO.get(norm2(fe.get("groupe", "")))
+    if f_eho and nommer(f_eho) not in groupes:
+        groupes.append(nommer(f_eho))
+    # comptes d'animation de l'exercice (pays « ANIMATION » dans la base CASW)
+    if not groupes and norm2(cw.get("pays")) == "animation":
+        groupes.append("ANIMATION EXERCICE")
+    # a defaut, deduction complete
+    if not groupes:
+        groupes.append(nommer(deduire_fonction(cw, fe, nom, handle, note)))
+
+    principal = groupes[0]
+    return groupes, pays, principal.split(" - ")[-1]
+
 
 def norm(s):
     s = unicodedata.normalize("NFD", str(s or "")).encode("ascii", "ignore").decode()
@@ -44,6 +405,15 @@ def norm(s):
 
 def lire(p):
     return io.open(p, encoding="utf-8", errors="replace").read()
+
+
+def assainir_pseudo(p):
+    """Rend un pseudo utilisable comme `username` MASTORION (equivalent du
+    sanitizeUsername de toolbox.ts) : accents retires, apostrophes/espaces
+    supprimes, seuls [A-Za-z0-9_.] conserves."""
+    p = unicodedata.normalize("NFD", str(p or "")).encode("ascii", "ignore").decode()
+    p = p.replace("'", "").replace("`", "").replace(" ", "_")
+    return re.sub(r"[^A-Za-z0-9_.]", "", p).strip("_")
 
 
 # ---------------------------------------------------------------- avatars.js
@@ -111,7 +481,9 @@ def composer_bio_eho(fiche, max_len=1500):
 # ---------------------------------------------------------------- CASW ORION 26
 def charger_casw(path):
     raw = lire(path)
-    blocs = [b for b in re.split(r"\n---\n(?=## )", raw) if b.strip().startswith("## ")]
+    # ⚠ le separateur precedant la 1re fiche comporte une ligne vide (les autres non)
+    #   -> sans le \s*, la fiche AIEA restait collee a l'en-tete du fichier et etait perdue.
+    blocs = [b for b in re.split(r"\n---\n\s*(?=## )", raw) if b.strip().startswith("## ")]
     out = []
     for b in blocs:
         entete = re.match(r"##\s+(.+?)\s+\(id:\s*(\d+)\)", b.strip())
@@ -121,8 +493,14 @@ def charger_casw(path):
         champs = {}
         for m in re.finditer(r"^\|\s*\*{0,2}([^|*]+?)\*{0,2}\s*\|\s*`?([^|`]*?)`?\s*\|\s*$", b, re.M):
             champs[m.group(1).strip().lower()] = m.group(2).strip()
-        compte = re.search(r"\|\s*Mastodon\s*\|\s*`?(\d*)`?\s*\|\s*(@[A-Za-z0-9_.]+)\s*\|\s*`?([^|`]*)`?\s*\|\s*([^|]*)\|", b)
-        groupes = [g.strip("- ").strip() for g in re.findall(r"^-\s+(.+)$", b, re.M)]
+        # ⚠ certains pseudos contiennent une apostrophe typographique (@Let’sgoMercure)
+        #   ou des espaces (@Honneur et Patrie) -> capturer large PUIS assainir,
+        #   sinon 28 fiches etaient silencieusement perdues.
+        compte = re.search(r"\|\s*Mastodon\s*\|\s*`?(\d*)`?\s*\|\s*@?([^|]+?)\s*\|\s*`?([^|`]*)`?\s*\|\s*([^|]*)\|", b)
+        # ⚠ ne prendre QUE les puces de la section "### Groupes" (sinon on capture
+        #    les puces de biographie -> faux groupes a rallonge)
+        sec_g = re.search(r"###\s*Groupes\s*\n(.*?)(?=\n\s*(?:###|\*\*|\Z))", b, re.S)
+        groupes = [g.strip() for g in re.findall(r"^\s*-\s+(.+)$", sec_g.group(1), re.M)] if sec_g else []
         portrait = re.search(r"\*\*Portrait\s*:\*\*\s*(\S+)", b)
         obs = re.search(r"### Observations\s*\n+(.+?)(?:\n#|\Z)", b, re.S)
 
@@ -139,7 +517,7 @@ def charger_casw(path):
             "origine": c("origine"), "religion": c("religion"), "situation": c("situation"),
             "caractere": c("caractère"), "langage": c("langage"), "activite": c("activité"),
             "masto_id": compte.group(1) if compte else "",
-            "handle": compte.group(2) if compte else "",
+            "handle": ("@" + assainir_pseudo(compte.group(2))) if compte else "",
             "password": compte.group(3).strip() if compte else "",
             "email": compte.group(4).strip() if compte else "",
             "groupes": [g for g in groupes if g and not g.startswith("**")],
@@ -225,8 +603,11 @@ def construire():
         ajouter(c["handle"], c["nom"], camp, "", "ORION 26", 3)
 
     lignes = []
-    stats = {"eho": 0, "note": 0, "casw_bio": 0, "registre": 0, "sans_bio": 0}
+    stats = {"eho": 0, "note": 0, "casw_bio": 0, "registre": 0, "sans_bio": 0, "exclus": 0}
     for k, f in fiches.items():
+        if (f["handle"] or "").lower() in EXCLUSIONS:
+            stats["exclus"] += 1
+            continue
         cw = casw_par_handle.get(k) or casw_par_nom.get(norm(f["nom"])) or {}
         fe = eho_par_nom.get(norm(f["nom"])) or {}
 
@@ -249,16 +630,10 @@ def construire():
         # --- age : EHO d'abord (priorite MINOTAURE), sinon CASW
         age = re.sub(r"\D", "", fe.get("age", "") or "") or cw.get("age", "") or ""
 
-        groupes = []
-        pays = (fe.get("pays") or cw.get("pays") or "").strip()
-        if pays:
-            groupes.append("PAYS %s" % pays.upper())
-        for ex in f["exercices"]:
-            groupes.append("EXERCICE %s" % ex)
-        if fe.get("groupe"):
-            groupes.append(fe["groupe"])
-        for g in cw.get("groupes", []):
-            groupes.append(g)
+        # ── groupes : taxonomie « PAYS - FONCTION » + appartenance aux exercices
+        g_pays, code_pays, fonction = groupes_final(cw, fe, f["nom"], f["handle"], f.get("note"))
+        groupes = g_pays + ["EXERCICE %s" % ex for ex in f["exercices"]]
+        pays = PAYS_NOM.get(code_pays, (fe.get("pays") or cw.get("pays") or "").strip().capitalize())
 
         lignes.append({
             "camp": f["camp"],
@@ -273,7 +648,7 @@ def construire():
             "age": age,
             "genre": cw.get("genre", ""),
             "pays": pays,
-            "label": cw.get("label", "") or CAMP_LABEL.get(f["camp"], ""),
+            "label": fonction,
             "origine": cw.get("origine", ""),
             "religion": cw.get("religion", ""),
             "situation": cw.get("situation", ""),
@@ -313,12 +688,27 @@ def ecrire(lignes):
 
 
 if __name__ == "__main__":
+    from collections import Counter
     lignes, stats = construire()
     ecrire(lignes)
     print("Fichier : %s" % SORTIE)
     print("Personas : %d" % len(lignes))
     for camp in ("rouge", "bleu", "neutre"):
         print("   %-12s %d" % (CAMP_LABEL[camp], sum(1 for l in lignes if l["camp"] == camp)))
+    grp = Counter(g for l in lignes for g in l["groups"].split(";")
+                  if g and not g.startswith("EXERCICE"))
+    exo = Counter(g for l in lignes for g in l["groups"].split(";") if g.startswith("EXERCICE"))
+    print("\nGroupes « PAYS - FONCTION » (%d) — un persona peut en cumuler plusieurs :" % len(grp))
+    for k, v in sorted(grp.items(), key=lambda x: (-x[1], x[0])):
+        print("   %-34s %3d" % (k, v))
+    print("\nGroupes d'exercice :")
+    for k, v in exo.most_common():
+        print("   %-34s %3d" % (k, v))
+    seuls = [k for k, v in grp.items() if v == 1]
+    print("\nTotal groupes : %d | a 1 seul persona : %d %s"
+          % (len(grp) + len(exo), len(seuls), seuls))
+    print("moyenne de groupes par persona : %.1f"
+          % (sum(len(l["groups"].split(";")) for l in lignes) / len(lignes)))
     print("Bios — EHO MINOTAURE : %(eho)d | registre MINOTAURE : %(note)d | "
           "registre MASTAURIGE/GUILLAUME : %(registre)d | CASW ORION : %(casw_bio)d | "
           "sans bio : %(sans_bio)d" % stats)
