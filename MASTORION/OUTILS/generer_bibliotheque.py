@@ -24,6 +24,7 @@ EXER = r"D:\CECPC\PRODUCTION\EXER"
 MINERVE = r"D:\CECPC\PRODUCTION\IA\MINERVE"
 A7_AVA = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\moteur\avatars.js")
 A7_BIO = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\Sites\Trombinoscope\bios.js")
+A7_RZO = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\Sites\Trombinoscope\rzo_data.js")
 A2_AVA = os.path.join(EXER, r"AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\avatars.js")
 CASW = os.path.join(EXER, r"01 ORION 26\01 - O41 - ARCHIVAGE - DOCUMENTS TRIES\01 - ORIGINE WORKING FIELDO41\99-TOOLS\setup\orion26-stobo\avatars_casw_ia_usable.md")
 REGISTRE = os.path.join(MINERVE, r"MASTAURIGE\MEMOIRE.md")
@@ -462,6 +463,44 @@ def charger_eho(path):
     return d
 
 
+# ---------------------------------------------------------------- rzo_data.js (reseau RENS/RZO)
+def charger_rzo(path):
+    raw = lire(path)
+    s = raw.index("[", raw.index("window.TROMBI_RZO"))
+    d, _ = json.JSONDecoder().raw_decode(raw[s:])
+    return d
+
+
+# reseaux consideres clandestins (mecanique paramilitaire/subversive) -> GROUPE CLANDESTIN
+NETS_CLANDESTINS = {"hfm", "nom", "nom (relais/enablers)", "redskulls"}
+
+
+def classer_rzo_fonction(role):
+    r = norm2(role)
+    # ⚠ « Pro-MER » = sympathie politique d'un resident ARN (schema ARN-PRO-MERCURE
+    #   deja etabli lors de l'audit) — a checker AVANT les autres motifs, sinon un
+    #   « Complotiste Pro-MER » finirait classe INFLUENCEUR sans le tag politique.
+    if re.search(r"pro-?mer\b", r): return "PRO-MERCURE"
+    if re.search(r"maire|prefet", r): return "AUTORITE LOCALE"
+    if re.search(r"militaire|instructeur|guerilla|\bdiv\b|regiment|bataillon|adjoint", r): return "MILITAIRE"
+    if re.search(r"journalist|radio|animateur|redacteur", r): return "JOURNALISTE"
+    if re.search(r"complotiste|influenceu|chanteu|celebrite|agitateur", r): return "INFLUENCEUR"
+    if re.search(r"commerc", r): return "ACTEUR ECONOMIQUE"
+    if re.search(r"gouverneur|president|depute|ministre", r): return "POLITICIEN"
+    if re.search(r"agriculteur", r): return "ACTEUR ECONOMIQUE"
+    return "CITOYEN"
+
+
+def classer_rzo_pays(role):
+    # ⚠ « Pro-MER » ≠ nationalite mercurienne (reside en Arnland, sympathie politique).
+    #   Seuls des marqueurs d'identite EXPLICITES (« Chanteur MER », « Celebrite MER »)
+    #   indiquent une nationalite/appartenance mercurienne reelle.
+    r = norm2(role)
+    if re.search(r"pro-?mer\b", r): return "ARN"
+    if re.search(r"chanteu[a-z]*\s*mer\b|celebrite\s*mer\b", r): return "MER"
+    return "ARN"
+
+
 def composer_bio_eho(fiche, max_len=1500):
     """Assemble les sections narratives de l'EHO en un texte de bio."""
     bio = fiche.get("bio") or {}
@@ -602,6 +641,17 @@ def construire():
                 "neutre": "neutre"}.get(c["label"].strip().lower(), "neutre")
         ajouter(c["handle"], c["nom"], camp, "", "ORION 26", 3)
 
+    # ── fiches EHO (bios.js) SANS handle avatars.js : jamais couvertes jusqu'ici
+    #    (presidents, ministres, prefets, maires, generaux, eveques...). Handle
+    #    synthetique "@<id_eho>" (deja unique/propre) pour rester dans le meme pipeline.
+    noms_couverts = {norm(f["nom"]) for f in fiches.values()}
+    for v in eho.values():
+        if norm(v["nom"]) in noms_couverts:
+            continue
+        fiches[v["id"]] = {"handle": "@" + v["id"], "nom": v["nom"], "camp": v.get("camp", "neutre"),
+                           "img": "", "exercices": ["MINOTAURE 26"], "prio": 1, "note": ""}
+        noms_couverts.add(norm(v["nom"]))
+
     lignes = []
     stats = {"eho": 0, "note": 0, "casw_bio": 0, "registre": 0, "sans_bio": 0, "exclus": 0}
     for k, f in fiches.items():
@@ -633,7 +683,10 @@ def construire():
         # ── groupes : taxonomie « PAYS - FONCTION » + appartenance aux exercices
         g_pays, code_pays, fonction = groupes_final(cw, fe, f["nom"], f["handle"], f.get("note"))
         groupes = g_pays + ["EXERCICE %s" % ex for ex in f["exercices"]]
-        pays = PAYS_NOM.get(code_pays, (fe.get("pays") or cw.get("pays") or "").strip().capitalize())
+        # ⚠ pour un groupe transverse (code_pays=None : ONG, INSTITUTION INTERNATIONALE,
+        #   ANIMATION EXERCICE...), le pays doit rester VIDE, jamais un artefact CASW
+        #   du type "Animation" (le champ `pays` de la fiche brute, pas une vraie nation).
+        pays = PAYS_NOM.get(code_pays, "")
 
         lignes.append({
             "camp": f["camp"],
@@ -660,6 +713,54 @@ def construire():
             "aime": "", "deteste": "",
         })
     return lignes, stats
+
+
+def fusionner_rzo(lignes, path):
+    """Integre le reseau RENS/RZO (rzo_data.js) dans `lignes` (in place) :
+    - un acteur RZO qui correspond (par nom) a une fiche DEJA presente est
+      FUSIONNE (ajout d'un tag de groupe, jamais de doublon de ligne) ;
+    - sinon une nouvelle ligne (legere) est creee."""
+    rzo = charger_rzo(path)
+    par_nom = {}
+    for l in lignes:
+        k = norm(l["display_name"]) or l["display_name"].strip().lower()  # garde-fou noms non-latins (norm() les vide -> collision)
+        par_nom[k] = l
+    ajouts, fusions = 0, 0
+    for p in rzo:
+        k = norm(p["nom"]) or p["nom"].strip().lower()
+        clandestin = norm2(p.get("net", "")) in NETS_CLANDESTINS
+        if k in par_nom:
+            l = par_nom[k]
+            g = [x for x in l["groups"].split(";") if x]
+            if "RESEAU RZO" not in g:
+                g.append("RESEAU RZO")
+            if clandestin:
+                pays_code = next((x.split(" - ")[0] for x in g if " - " in x and x.split(" - ")[0] in PAYS_NOM), "ARN")
+                tag = "%s - GROUPE CLANDESTIN" % pays_code
+                if tag not in g:
+                    g.append(tag)
+            l["groups"] = ";".join(g)
+            fusions += 1
+            continue
+        pays_code = classer_rzo_pays(p.get("role", ""))
+        fonction = "GROUPE CLANDESTIN" if clandestin else classer_rzo_fonction(p.get("role", ""))
+        username = re.sub(r"[^a-z0-9_]", "_", p["id"].replace("-", "_")).strip("_") or ("rzo_%d" % ajouts)
+        groupes = ["%s - %s" % (pays_code, fonction), "RESEAU RZO", "EXERCICE MINOTAURE 26"]
+        ligne = {
+            "camp": p.get("camp", "neutre"), "masto_id": "", "username": username,
+            "display_name": p["nom"], "email": "%s@mastorion.local" % username,
+            "password": "", "bio": "",
+            "groups": ";".join(OrderedDict.fromkeys(groupes)), "avatar": "",
+            "age": "", "genre": "", "pays": PAYS_NOM.get(pays_code, ""), "label": fonction,
+            "origine": "", "religion": "", "situation": "", "caractere": "", "langage": "",
+            "activite": p.get("role", ""), "observations": "",
+            "qualifications": "Source bio : Réseau RZO (MINOTAURE 26)",
+            "aime": "", "deteste": "",
+        }
+        lignes.append(ligne)
+        par_nom[k] = ligne
+        ajouts += 1
+    return ajouts, fusions
 
 
 def ecrire(lignes):
@@ -690,8 +791,10 @@ def ecrire(lignes):
 if __name__ == "__main__":
     from collections import Counter
     lignes, stats = construire()
+    ajouts_rzo, fusions_rzo = fusionner_rzo(lignes, A7_RZO)
     ecrire(lignes)
     print("Fichier : %s" % SORTIE)
+    print("Reseau RZO : %d fusionnes (deja presents) | %d nouvelles fiches" % (fusions_rzo, ajouts_rzo))
     print("Personas : %d" % len(lignes))
     for camp in ("rouge", "bleu", "neutre"):
         print("   %-12s %d" % (CAMP_LABEL[camp], sum(1 for l in lignes if l["camp"] == camp)))

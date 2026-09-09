@@ -7,7 +7,7 @@
 
 | Fichier | Contenu |
 |---|---|
-| `BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx` | **220 personas** — tous les avatars de **MINOTAURE 26 (7BB)**, **GUILLAUME (2BB)** et **ORION 26 (CASW)**, dédoublonnés. Fichier de **test**. |
+| `BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx` | **404 personas** (2026-09-09) — tous les avatars de **MINOTAURE 26 (7BB)**, **GUILLAUME (2BB)** et **ORION 26 (CASW)**, dédoublonnés, **+ les 54 fiches EHO sans handle** (présidents/ministres/maires/généraux/évêques) **+ le réseau RENS/RZO** (107 acteurs, 5 fusionnés sans doublon avec des personas déjà présents, 102 nouveaux). Détail de cette extension : `MASTORION\MEMOIRE.md` § 2026-09-09. Fichier de **test**. |
 
 ## Comment importer
 
@@ -16,31 +16,26 @@
 2. Admin (`localhost:4201`) → **Groupes & Users** → **Importer** → choisir le classeur
 3. Vérifier l'aperçu (modifiable) puis valider
 
-## Ce que l'import crée — taxonomie des groupes (refondue le 2026-07-28)
+## Ce que l'import crée — taxonomie des groupes (refondue le 2026-07-28, étendue le 2026-09-09)
 
-**35 groupes** au total, tous porteurs de sens (avant refonte : 55 groupes hétérogènes, souvent à 1 membre, avec des libellés à rallonge issus de la base CASW). Moyenne : **2,2 groupes par persona**.
+**48 groupes fonction** au total (+ 3 groupes d'exercice), tous porteurs de sens. Moyenne : **2,5 groupes par persona**. ⚠ « Titane » n'est plus un code pays (décision utilisateur 2026-07-28 : Titane = force FORAD de Mercure, pas une nation — tout est sous `MER`).
 
 **1. Les 3 onglets = les camps** (pour le ciblage des likes/retweets synthétiques)
-`CAMP ROUGE` (107) · `CAMP BLEU` (61) · `CAMP NEUTRE` (52)
+`CAMP ROUGE` (212) · `CAMP BLEU` (89) · `CAMP NEUTRE` (103)
 
-**2. Colonne `groups` — format `PAYS - FONCTION`**
+**2. Colonne `groups` — format `PAYS - FONCTION`**, codes présents : `MER` (Mercure) · `ARN` (Arnland) · `FR` (France) · `BOT` (Bothnia). Fonctions : POLITICIEN, MILITAIRE, JOURNALISTE, AUTORITE LOCALE, PATRIOTE, PACIFISTE, PRO-MERCURE, OPPOSITION, CITOYEN, REFUGIE, INFLUENCEUR, FAMILLE DE MILITAIRE, RELIGIEUX, ACTEUR ECONOMIQUE, SOCK-PUPPET, **GROUPE CLANDESTIN** (milices/réseaux paramilitaires — HFM, NOM, Redskulls).
 
-| Pays | Code | Fonctions présentes |
-|---|---|---|
-| Mercure | `MER` | MILITAIRE, PATRIOTE, JOURNALISTE, POLITICIEN, PACIFISTE, FAMILLE DE MILITAIRE, SOCK-PUPPET, CITOYEN |
-| Arnland | `ARN` | JOURNALISTE, PRO-MERCURE, PATRIOTE, AUTORITE LOCALE, CITOYEN, MILITAIRE, POLITICIEN, REFUGIE, PACIFISTE, GROUPE CLANDESTIN |
-| France | `FR` | JOURNALISTE, PATRIOTE, MILITAIRE, CITOYEN, PACIFISTE, POLITICIEN |
-| Bothnia | `BOT` | JOURNALISTE, OPPOSITION, POLITICIEN |
-| Titane | `TIT` | POLITICIEN |
+**Groupes transverses (sans pays)** : `ONG` · `INSTITUTION INTERNATIONALE` · `MEDIA INTERNATIONAL` · `ANIMATION EXERCICE` · `UE` · **`RESEAU RZO`** (marque les 107 acteurs du réseau RENS/RZO, ajout du 2026-09-09).
 
-**Groupes transverses (sans pays)** : `ONG` · `INSTITUTION INTERNATIONALE` · `MEDIA INTERNATIONAL` · `ANIMATION EXERCICE` *(+ `OTAN` et `UE` prévus dans la taxonomie, sans membre dans ce jeu de données)*
-
-**3. Appartenance aux exercices** : `EXERCICE ORION 26` (192) · `EXERCICE MINOTAURE 26` (35) · `EXERCICE GUILLAUME 2BB` (13)
+**3. Appartenance aux exercices** : `EXERCICE ORION 26` (220) · `EXERCICE MINOTAURE 26` (191) · `EXERCICE GUILLAUME 2BB` (13).
 
 > Un persona **cumule** ses appartenances : `@HmunikVoice` = `ARN - PRO-MERCURE` + les 3 exercices ; `@ArnlandLovePeace` = `ARN - PACIFISTE` + `ARN - PRO-MERCURE` (façade écolo, manœuvre rouge).
 
 ### Corrections manuelles (table `OVERRIDES` du générateur)
 21 personas AURIGE sont classés d'après la **connaissance MINERVE** et non d'après la déduction automatique. Le cas le plus important : **la Lorraine « H-préfixe » du 7BB est ARNLANDAISE** (fiction), alors que la Lorraine du 2BB est la vraie France — les handles en `57`/`67` ne sont donc **pas** des départements français côté MINOTAURE (`@BernardLutz67` = habitant de HSaverne → `ARN - CITOYEN`). Autres cas : sock-puppets Strava à façade pro-FR (`MER - SOCK-PUPPET`), comptes « Témoignage/Voix » pilotés par Mercure (`ARN - PRO-MERCURE`), N.O.M (`ARN - GROUPE CLANDESTIN`).
+
+### ⭐ Extension 2026-09-09 — EHO sans handle + réseau RZO
++156 personas au-delà du jeu du 27/07 : les **54 fiches EHO** (`bios.js`) qui n'avaient jamais de compte `avatars.js` (présidents, ministres, préfets, maires, généraux, évêques) + le **réseau RENS/RZO** (`rzo_data.js`, 107 acteurs — 5 fusionnés sans doublon avec des personas déjà présents, 102 nouveaux, réseaux `HFM`/`NOM`/`Redskulls` classés `GROUPE CLANDESTIN`). Détail complet (bugs trouvés/corrigés, méthode) : `MASTORION\MEMOIRE.md` § « Extension majeure (2026-09-09) ».
 
 ## Règle de priorité appliquée (demande utilisateur 2026-07-27)
 

@@ -31,6 +31,11 @@
 - Résultat intermédiaire : 49 groupes, 0 non-classé. 4 arbitrages soumis à l'utilisateur.
 - **Arbitrages tranchés le même jour** : (1) Titane ramené sous MER, code TIT supprimé ; (2) pas de région française réelle → `@clambroise55` en ARN ; (3) `@GavrilovBorislav` = sergent MER d'après sa bio (⚠ contredit la revue 7BB du 21/06 — injects à revoir) ; (4) homonyme `@Kozi_Aus` exclu. Classeur final : **248 personas, 47 groupes**.
 
+## 2026-07-28 (suite) — Annuaire visuel de lecture (demande utilisateur)
+
+- Nouveau classeur `RECAPS\ANNUAIRE_PERSONAS.xlsx` : rendu esthétique, filtres natifs, code couleur camp/pays, tableau de bord avec graphiques — pour la lecture humaine, hors format d'import. Généré par `OUTILS\generer_annuaire_visuel.py`, qui réutilise `generer_bibliotheque.construire()` (source unique, cohérence garantie avec le fichier d'import).
+- 🐛 Bug trouvé en le construisant : le champ `pays` des personas transverses (ONG, institutions, animation) valait l'artefact CASW brut `"Animation"` au lieu de rester vide — ce champ alimente le profil importé dans MASTORION. Corrigé dans `generer_bibliotheque.py` ; les deux classeurs régénérés et vérifiés (AIEA/Amnesty/CICR ont bien `pays` vide désormais).
+
 ## 2026-07-28 — Refonte de la taxonomie des groupes
 
 - Constat utilisateur après import dans MASTORION : **55 groupes** hérités de CASW, souvent à 1 membre, libellés à rallonge. Demande : repenser les groupes en `PAYS - FONCTION` (MER - POLITICIEN, ARN - JOURNALISTE, ARN - PACIFISTE…), « tout détailler pour que ce soit très bien rangé ».
@@ -45,3 +50,12 @@
 - **Audit de la mémoire de l'agent** (demande utilisateur : « ces notions sont-elles bien assimilées ? ») → 1 règle devenue fausse corrigée (§ périmètre d'écriture : la lecture seule stricte ne vaut plus que pour D:, l'exécution est autorisée sur C:, le code source reste sous autorisation) + 3 manques comblés (MASSTALK↔Admin, absence de messagerie, roadmap n°10) + 1 ligne obsolète supprimée (« Sentinel hors périmètre »).
 
 - ✅ **SENTINEL MONTÉ** (demande utilisateur) : découverte que turbo dev lance déjà sentinel-api (:3100) + sentinel-ui (:4203, repli de port silencieux) ; modèles Ollama natifs pullés (qwen2.5:3b + snowflake-arctic-embed:137m) ; conteneurs sentinel-pg (pgvector, :5433) + sentinel-worker buildés/démarrés via compose overlay ; bug résolu : secret JWT divergent entre api et sentinel-api (« Token invalide ») → `.env` aligné sur `mastorion-dev-secret` + redémarrage dev ; validation : `/api/sentinel-health` = status ok, 8 tables `sentinel_*` créées par le worker dans pgvector. Détails durables en MEMOIRE.
+
+## 2026-09-09 — Réseau RZO + 54 fiches EHO manquantes → bibliothèque 248 → 404 personas
+
+- Suite du portage EHO éditable côté MASTAURIGE (vierge) : l'utilisateur demande de vérifier si les comptes nouvellement découverts (réseau RZO 107 acteurs, section addendum) existent dans `BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx`. Vérifié précisément : addendum déjà couvert (0 manquant, source commune `avatars.js`) ; RZO totalement absent (`generer_bibliotheque.py` ne lisait jamais `rzo_data.js`).
+- **Découverte plus large** : 54 des 59 fiches `bios.js` (EHO) n'avaient jamais été importées — tout le gouvernement/commandement militaire/clergé des deux pays (présidents, ministres, préfets, maires, généraux, évêques) — car `construire()` ne créait un persona qu'à partir d'un compte **avec handle** (avatars.js/CASW), l'EHO ne servant qu'à enrichir une bio déjà repérée. Beaucoup de RZO recoupent ces 54 (ex. Nadia Promesy = même personne côté RZO et côté EHO).
+- Question posée à l'utilisateur (3 options) → **intégration complète sans doublon** choisie.
+- Implémentation `generer_bibliotheque.py` : `construire()` étendu (ajoute les fiches EHO sans handle, `@<id_eho>` synthétique) + nouvelle fonction `fusionner_rzo()` (fusion par nom si déjà présent — tag `RESEAU RZO` + `GROUPE CLANDESTIN` si réseau HFM/NOM/Redskulls — sinon fiche légère créée) + classificateurs `classer_rzo_fonction`/`classer_rzo_pays`.
+- 🐛 2 bugs trouvés et corrigés en vérifiant : (1) « Pro-MER » classé à tort comme nationalité mercurienne (corrigé en `ARN - PRO-MERCURE`, cohérent avec l'audit à 4 agents) ; (2) `norm()` vide silencieusement un nom 100 % cyrillique → 3 acteurs RZO (Алексей Аксёненко/Сюзанна Светличная/Капитан Хэдок) fusionnés à tort en une seule fiche (corrigé par repli sur le nom brut minuscule quand `norm()` renvoie vide — piège à retenir pour tout futur générateur).
+- **Résultat vérifié : 404 personas, 0 doublon username/email**, cas de fusion contrôlés un par un (Promesy/Adriane/Danevois/Martin : bio complète conservée, tag réseau ajouté, aucun doublon). `generer_annuaire_visuel.py` aligné (appelle aussi `fusionner_rzo()`).

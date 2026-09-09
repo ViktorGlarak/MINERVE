@@ -89,7 +89,12 @@
       "Read(//d/CECPC/PRODUCTION/EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/**)",
       "Bash(cd /tmp)",
       "Bash(awk -F'\\\\t' '$3==\"Mercure\"{print $1\"\\\\t\"$5\"\\\\t\"$4}' casw_map.tsv)",
-      "Bash(python -)"
+      "Bash(python -)",
+      "PowerShell(Start-Process \"$env:LOCALAPPDATA\\\\Programs\\\\DockerDesktop\\\\Docker Desktop.exe\"; Write-Output \"Docker Desktop lance, attente du moteur...\")",
+      "Bash(C:/Users/MTR/AppData/Local/Python/pythoncore-3.14-64/python.exe -m py_compile D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/OUTILS/generer_trombino_bios.py)",
+      "Bash(node --check D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/bios.js)",
+      "Bash(node --check D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/rzo_data.js)",
+      "Bash(awk '{print $5, $NF}')"
     ],
     "ask": [
       "Read(//d/CECPC/DOC REF/MERCURE/RENS/01_Fiches bio/**)",

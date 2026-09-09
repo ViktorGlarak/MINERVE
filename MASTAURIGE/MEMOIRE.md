@@ -21,6 +21,67 @@ Agent créé le **2026-05-24** pour la génération de contenus RS fictifs dans 
 | AURIGE 2BB | HTML statique ZIP offline (`WEB/index_master.html`) | Actif |
 | Exercices AURIGE futurs | HTML statique ZIP offline (même format) | Extensible |
 
+## ⭐ Capacité — EHO éditable (trombino) portée dans la VIERGE (2026-09-09)
+
+La **base vierge** (`D:\CECPC\MASTAURIGE\LOCALSTORAGE_WEB_VERSION`) dispose désormais, dès le premier exercice qui en repartira, de la **mécanique complète d'édition de l'EHO** (`OUTILS\generer_trombino_bios.py`, bloc `BIOS_BLOCK`) — jusque-là présente uniquement dans l'instance MINOTAURE 26 (7BB) et jamais portée (cf. historique [[TOOL-016]] vault, « ⏭ à porter dans la vierge », 2026-06-25/26).
+
+**Ce que ça permet, dès l'ouverture d'un nouvel exercice depuis la vierge :**
+- Éditer une fiche bio (rôle, âge, sections Parcours/Objectifs/Forces/Faiblesses/Réseaux sociaux) au clic, y compris créer une fiche vierge sur une carte sans bio.
+- Ajuster la **position politique** au curseur (0=100 % bleu · 50=neutre · 100=100 % rouge), avec libellé live et couleur dégradée.
+- Marquer un persona **décédé** (carte grisée, croix rouge), **créer** une nouvelle personnalité ou ville, **supprimer** une fiche créée.
+- Éditeur générique étendu aux **4 familles de cartes** : avatars RS, médias, ONG/OI, localités (+ section RÉSEAU RENS/RZO si `rzo_data.js` est alimenté).
+- **Actif aussi côté animateur** (pas seulement le kit joueurs) depuis la décision du 2026-06-26 — `window.EHO_EDITABLE=true` est posé en dur dans `BIOS_BLOCK`.
+- Persistance dans une clé unique `localStorage['EHO_EDITS']`.
+
+**Ce qui reste VOLONTAIREMENT vide dans la vierge** (base propre, [[ARCH-010]] : les spécificités d'exercice vivent dans le générateur, jamais dans la base) :
+- `ORGS_ARNLAND = []` et `LOCALITES_ARNLAND = []` (listes vides, à remplir par le prochain exercice — voir commentaires dans le script).
+- `Sites/Trombinoscope/rzo_data.js` créé **vide** (`window.TROMBI_RZO = [];`) — le mécanisme RZO est prêt mais sans données.
+- **`BIO_PATCH_MINOTAURE` n'a PAS été porté** (patch d'évolution de bios propre à MINOTAURE, cf. `apply_bio_patch()`) — reste dans l'instance 7BB uniquement, comme prévu par la doctrine.
+
+**⚠ Hors périmètre de ce portage** (non fait, à la demande explicite si besoin) : la propagation vers `OUTILS\GENERER_KIT_JOUEURS.py` (panneau admin caché Alt+clic : export/purge EHO, réinitialiser le fil) et l'intégration dans `index_master.html` (`_consoIsModKey` incluant `EHO_EDITS` pour la consolidation multi-traitants). Le portage actuel couvre l'édition en instance animateur (`LOCALSTORAGE_WEB_VERSION`), pas la chaîne de distribution/consolidation joueurs.
+
+**Méthode de portage** : remplacement du bloc `BIOS_BLOCK` par édition littérale exacte (`Edit`, pas de regex/backreference — cf. [[LESSON-023]], corruption passée sur ce même fichier). Vérifié après coup : `py_compile` OK, `node --check` OK sur `bios.js`/`rzo_data.js`, syntaxe de l'IIFE injectée validée par `new Function()`, absence de l'octet `\x01`, 55 fiches bio inchangées, `TROMBI_ORGS`/`TROMBI_LOCALITES` bien vides. Sauvegardes horodatées conservées (`*.bak_20260909_141544`). Détail : [[JOURNAL.md]] (2026-09-09).
+
+### ⭐⭐ Suite (même jour) — PARITÉ COMPLÈTE demandée par l'utilisateur : contenu MINOTAURE recopié dans la vierge
+
+L'utilisateur a explicitement demandé, à deux reprises, de **« tout récupérer »** de la page EHO MINOTAURE vers la vierge (pas seulement le mécanisme) — capture d'écran à l'appui (réseau RZO + section « ajouts auto »). **Décision : priorité à l'instruction explicite et répétée de l'utilisateur sur la doctrine base/évolution ([[ARCH-010]]).** Trois compléments apportés (au-delà du portage mécanique déjà fait) :
+
+1. **4 fiches bio manquantes** ajoutées à `parse_rear_eho()` de la vierge (maires « secteur BFA », ajout du 2026-06-26 côté MINOTAURE, jamais reporté) : Dmitri Domchykov (HAllain), Luka Kovacic (HMirecourt), Henri Sabersky (HNeuves-Maisons), Isabella Orchkova (HVézelise). **55 → 59 fiches, parité totale avec MINOTAURE.**
+2. **`Sites\Trombinoscope\rzo_data.js` intégralement copié depuis MINOTAURE** (107 acteurs du réseau RENS/RZO — bien plus que les 3 premières lignes lues lors du premier passage, erreur d'appréciation initiale) + **83 photos** (`Sites\Trombinoscope\img\rzo\`). Cette fois la donnée EST portée (pas vide), à la demande explicite.
+3. **Section « ACTEURS — ajouts auto (couverture créateur, source: avatars.js) »** — découverte d'un **3ᵉ générateur** jusque-là inconnu : `OUTILS\generer_acteurs_addendum.py` (lit `moteur/avatars.js`, injecte entre marqueurs `<!-- ACTEURS_ADDENDUM:START/END -->` les comptes RS non curés dans l'EHO). Script **générique et sûr** (remplacement littéral, pas de backreference) → **copié tel quel dans `OUTILS\` de la vierge** (réutilisable pour un futur exercice, piloté par SON propre `avatars.js`). Pour restituer l'EXACT contenu vu par l'utilisateur : le bloc déjà généré chez MINOTAURE (11 cartes) a été **extrait et transplanté verbatim** dans la vierge plutôt que régénéré depuis l'`avatars.js` de la vierge (qui n'a que 13 comptes génériques vs 35 chez MINOTAURE — aurait produit un addendum très différent).
+
+**Ce qui reste volontairement NON touché** : `moteur\avatars.js` de la vierge (13 comptes génériques, pas les 35 de MINOTAURE) — le registre d'avatars pilote d'autres outils MASTAURIGE (créateur de tweets) au-delà du seul trombino ; l'élargir n'a pas été demandé. `ORGS_ARNLAND`/`LOCALITES_ARNLAND` restent vides (non demandés, absents du screenshot de référence).
+
+**Vérification renforcée** : installation ponctuelle de `jsdom` (scratch dir) pour un **vrai chargement de page simulé** (pas une simple analyse de texte) → **0 erreur JS**, `TROMBI_BIOS`=59, `TROMBI_RZO`=107, `EHO_EDITABLE`=true, **bouton « ➕ Nouvelle fiche » confirmé présent dans le DOM après `init()`** (doute initial de l'utilisateur sur sa visibilité — non fondé, le bouton s'affichait déjà correctement), zone RZO rendue avec 107 cartes, 32 cartes `avatar-rs-item` câblées éditables, 218 `actor-card` au total dans le document. `\x01` absent, balises `bios.js`/`rzo_data.js` intactes. 2ᵉ jeu de sauvegardes horodatées (`*.bak2_20260909_143653`).
+
+### ⭐⭐⭐⭐ 3ᵉ écart trouvé le même jour — section « Avatars RS FORAD — AURIGE 2BB » figée à l'ancienne composition
+
+Après les deux passes précédentes, l'utilisateur a signalé une **3ᵉ liste statique** manquante à l'appel, distincte de l'EHO (bios.js), du réseau RZO (rzo_data.js) **et** de l'addendum auto (`ACTEURS_ADDENDUM`, avatars.js) : la bande **« Avatars RS FORAD — AURIGE 2BB »**, une liste `.avatar-rs-item` **curée à la main directement dans le HTML** (pas générée par un script). Le **titre de section existait déjà** dans la vierge (héritage commun 2BB) — seul son **contenu** était resté figé à l'ancienne composition du 2BB, jamais mis à jour au fil de l'évolution MINOTAURE.
+
+**Écart mesuré** : 12 cartes (vierge) vs **15 cartes (MINOTAURE)**. Diff exact :
+- 2 comptes **renommés** DAC→ARN (convention de renommage du pays) : `@TemoignageDAC`→`@TemoignageArn`, `@VoixDACia`→`@VoixArnland`.
+- 3 comptes **réellement nouveaux**, absents de la vierge : `@VeilleOSINT_Est`, `@T_Reynaud_FR`, `@Sophie_Moselle` — le **trio de sock-puppets de la déception Strava** (07.03.I11), classés `MER - SOCK-PUPPET` dans la bibliothèque MASTORION (cf. audit à 4 agents).
+
+**Méthode de transplantation** (plus robuste que les 2 fois précédentes, où le repérage se faisait par marqueurs HTML explicites `<!-- X:START/END -->`) : ici il n'y a **aucun marqueur de bloc** — extraction par **équilibrage exact des balises `<div>`/`</div>`** depuis le commentaire `<!-- AVATARS RS — bande pleine largeur (2/3) -->` jusqu'à la fermeture de la `.section` correspondante (fonction Python dédiée, pas de regex gourmande ni de comptage de lignes à l'œil). Remplacement en un seul `str.replace()` littéral (toujours **pas de backreference** — [[LESSON-023]]). Garde-fou : le script **refuse d'agir** si le bloc extrait côté vierge ne se retrouve pas identique dans le fichier (`if bloc_dst not in dst: raise`).
+
+**Vérifié** : `\x01` absent, les 15 handles attendus tous présents, **re-simulation jsdom complète → 0 erreur JS**, cartes `avatar-rs-item` éditables 32→35 (+3, exactement les comptes Strava ajoutés), RZO/EHO/bouton de création toujours intacts. 3ᵉ jeu de sauvegardes horodatées (`*.bak3_20260909_150549`).
+
+**⚠ Leçon pour la suite** : après ce 3ᵉ écart trouvé successivement (RZO, EHO, puis cette liste FORAD), il est **probable qu'il subsiste d'autres listes curées à la main** dans `ACTEURS_A3_model.html` qui n'ont jamais été comparées système­atiquement entre les deux instances. Un contrôle systématique (diff complet des deux fichiers HTML, section par section) serait plus fiable qu'une découverte au coup par coup pilotée par l'utilisateur.
+
+**Contrôle exhaustif fait dans la foulée** : comptage des cartes (`actor-card`/`avatar-rs-item`/`media-card`/`org-card`/`loc-card`) section par section (14 titres) **et** en totaux plein document → **parité stricte confirmée partout** (69/39/19/6/7 des deux côtés) au moment du contrôle.
+
+### ⭐⭐⭐⭐⭐ 4ᵉ écart trouvé le même jour — 2 photos de dirigeants Bothnia absentes (balise ET fichier)
+
+Malgré le contrôle exhaustif ci-dessus (qui compte les **cartes**, pas leur **contenu média**), l'utilisateur a repéré que **Lena Peters** (Présidente Bothnia) et **Olaf Roland** (Premier ministre) n'affichaient pas leur photo côté vierge — carte présente, mais réduite aux initiales. Cause double : (1) la balise `<img>` elle-même **absente du HTML** vierge pour ces 2 cartes (juste `<div class="actor-photo-wrap"><div class="actor-initials">LP</div></div>`, sans `<img>` ni bloc initiales masqué) ; (2) les **fichiers image eux-mêmes absents** de `Sites\Trombinoscope\img\` côté vierge (`BOT_Presidente_Lena_Peters.jpg`, `BOT_PM_Olaf_Roland.jpg`).
+
+**Recherche systématique faite avant correction** (éviter un 5ᵉ signalement) : comparaison de **toutes** les références `img src="img/…"` des deux fichiers HTML → **seules ces 2 images manquaient** (les autres écarts trouvés par le script étaient des faux positifs — du code JS type `'+esc(b.photo)+'` capté par le grep, pas de vrais fichiers). Vérifié aussi : aucune balise présente pointant vers un fichier absent ailleurs (pas de cas inverse).
+
+**Correctif** : les 2 `.jpg` copiés depuis MINOTAURE vers `img\` de la vierge ; balisage `<img>` (avec repli `onerror` vers les initiales, identique à MINOTAURE) restauré par édition littérale exacte sur les 2 cartes concernées.
+
+**Vérifié** : `\x01` absent, les 2 références `BOT_Presidente_Lena_Peters`/`BOT_PM_Olaf_Roland` présentes dans le HTML, re-simulation jsdom → **0 erreur JS**, tout le reste (RZO/EHO/FORAD/bouton création) intact.
+
+**⚠ Leçon renforcée** : le contrôle « comptage de cartes » ne suffit pas — une carte peut exister et **quand même manquer son média**. Pour une vérification vraiment exhaustive d'une future divergence vierge↔instance, croiser aussi la liste complète des `img src=` référencés contre le contenu réel du dossier `img/` des deux côtés (méthode utilisée ici, à réutiliser directement si besoin).
+
 ## Architecture dossiers AURIGE 2BB — Chemins de production
 
 > Chemin racine exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\`

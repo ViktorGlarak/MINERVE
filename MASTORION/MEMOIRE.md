@@ -117,6 +117,27 @@ MASTORION est une **application client-serveur** : installée sur **un serveur**
 - *Niveau 3 (nécessite du code — à spécifier puis négocier avec le mainteneur)* : notion d'`Univers`/`Library` sur `Group`+`User`, filtre d'univers actif dans l'Admin → l'éditeur d'injects ne proposerait QUE les comptes de l'univers actif (supprime le risque d'erreur à la racine).
 - ❌ *Option écartée* : préfixer les noms de groupes (`SKOLKAN/…`, `ORION26/…`) et tout laisser cohabiter — gratuit, mais les personas étrangers restent sélectionnables dans l'éditeur d'injects = exactement l'erreur de cohérence à éviter.
 
+### ⭐⭐⭐ Extension majeure (2026-09-09) — réseau RZO + 54 fiches EHO sans handle → 248 → 404 personas
+
+Suite au portage de l'EHO éditable dans la vierge (même session, cf. plus haut), l'utilisateur a demandé de vérifier — puis d'intégrer — dans la bibliothèque MASTORION les comptes nouvellement découverts (réseau RZO, section « ajouts auto »). Vérification précise (pas d'approximation) : **les 11 comptes de l'addendum (source `avatars.js`) étaient déjà couverts** ; **les 107 acteurs RZO étaient tous absents** (le générateur ne lisait jamais `rzo_data.js`).
+
+**Découverte plus large en creusant** : sur les **59 fiches de l'EHO** (`bios.js`), **54 n'avaient JAMAIS été importées** dans la bibliothèque — présidents, ministres, préfets, maires, généraux, évêques des deux pays — car `construire()` ne construisait ses personas qu'à partir des comptes **avec un handle** (`avatars.js`/CASW) ; l'EHO ne servait qu'à *enrichir la bio* d'un persona déjà repéré ailleurs, jamais à en créer un nouveau. Et une bonne partie des 107 acteurs RZO sont en réalité **les mêmes personnes** que ces 54 fiches manquantes (ex. « Nadia PROMESY » RZO = la maire de HSarrebourg de l'EHO).
+
+**Décision utilisateur (question posée, 3 options)** : intégration complète sans doublon (option recommandée).
+
+**Implémentation dans `generer_bibliotheque.py`** :
+1. **`construire()` étendu** : après le pipeline existant (avatars/CASW), une passe ajoute toute fiche `bios.js` dont le nom n'est **pas déjà couvert** (`noms_couverts` par nom normalisé) — handle synthétique `@<id_eho>` (l'id bios.js, déjà unique et propre) pour rester dans le même pipeline (bio/pays/fonction déjà bien gérés par `groupes_final()`/`MAP_EHO` sans code neuf).
+2. **`fusionner_rzo(lignes, path)`** (nouvelle fonction, appelée après `construire()`, pas dedans) : charge `rzo_data.js`, pour chaque acteur — **fusion** par nom déjà présent (ajoute un tag `RESEAU RZO`, + `<PAYS> - GROUPE CLANDESTIN` si réseau HFM/NOM/Redskulls, sans dupliquer la ligne ni écraser sa bio) sinon **création** d'une fiche légère (username dérivé de l'`id` RZO, camp/rôle du réseau).
+3. **Classificateur dédié** `classer_rzo_fonction`/`classer_rzo_pays` : réseaux `HFM`/`NOM`/`NOM (relais/enablers)`/`Redskulls` → `GROUPE CLANDESTIN` systématique (paramilitaire/subversif) ; `RZO local` → classification par mots-clés du rôle (maire→AUTORITE LOCALE, militaire/DIV/régiment→MILITAIRE, journaliste/radio→JOURNALISTE, complotiste/influenceur/chanteur→INFLUENCEUR, commerçant→ACTEUR ECONOMIQUE…).
+
+**🐛 Deux bugs trouvés et corrigés en cours de route** :
+- **« Pro-MER » ≠ nationalité mercurienne** : 1ʳᵉ version du classificateur assignait `pays=MER` dès que le rôle contenait « MER », faisant passer des résidents d'Arnland sympathisants (« Complotiste Pro-MER », « Commerçante Pro-MER ») pour des Mercuriens. Corrigé : seuls des marqueurs d'identité explicites (« Chanteur MER », « Célébrité MER ») valent nationalité ; « Pro-MER » devient `ARN - PRO-MERCURE` (schéma déjà établi lors de l'audit à 4 agents).
+- **Collision de noms cyrilliques** : la fonction `norm()` (translittération ASCII agressive) réduit un nom **entièrement cyrillique** à une chaîne **vide** — 3 acteurs RZO (Алексей Аксёненко / Сюзанна Светличная / Капитан Хэдок) normalisaient tous vers `""` et se sont fusionnés à tort en une seule fiche (perte de 2 identités). Corrigé dans `fusionner_rzo` : repli sur le nom brut en minuscules quand `norm()` renvoie vide. **Aucune autre source du pipeline n'est touchée par ce piège** (vérifié : 0 nom à `norm()` vide ailleurs dans CASW/EHO/avatars.js).
+
+**Résultat final vérifié** : **404 personas** (248 + 54 EHO + 102 RZO nouveaux, 5 fusionnés sans doublon), **0 doublon username/email**, les 3 noms cyrilliques désormais distincts, `RESEAU RZO` présent sur exactement 107 lignes (= le compte source). Les cas de fusion attendus contrôlés un par un (Promesy/Adriane/Danevois/Martin : 1 seule occurrence chacun, bio complète conservée + tag réseau ajouté). `generer_annuaire_visuel.py` mis à jour pour appeler aussi `fusionner_rzo()` (les deux fichiers de sortie restent synchronisés, même source).
+
+**⚠ Piège `norm()` à retenir pour tout futur générateur** : cette fonction (translittération NFD + strip non-ASCII) **vide silencieusement** un nom sans caractère latin. Ne jamais l'utiliser seule comme clé de dédoublonnage — toujours prévoir un repli (`norm(x) or x.strip().lower()`).
+
 ### ✅ 1ʳᵉ bibliothèque produite (2026-07-27) — `BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx`
 
 `MASTORION\BIBLIOTHEQUES\BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx` (+ `README.md`) — **220 personas** dédoublonnés : 3 onglets = 3 groupes (CAMP ROUGE 107 · CAMP BLEU 61 · CAMP NEUTRE 52), colonne `groups` = PAYS/EXERCICE/faction CASW. Généré par **`MASTORION\OUTILS\generer_bibliotheque.py`** (versionné, relançable, lecture seule sur les sources).
@@ -172,6 +193,19 @@ Déclencheur : `@6e_Army` / `@20e_Army` (comptes d'unité) classés MER - POLITI
 
 **Résultat : 47 groupes** (44 fonctions + 3 exercices), **248 personas**, 0 « NON CLASSÉ ».
 
+**🐛 Bug corrigé (trouvé en construisant l'annuaire visuel, 2026-07-28) :** le champ `pays` d'un persona **transverse** (ONG, INSTITUTION INTERNATIONALE, ANIMATION EXERCICE…) valait l'artefact brut de la fiche CASW (`"Animation"`) au lieu de rester **vide** — ce champ alimente directement le profil `pays` importé dans MASTORION, donc l'AIEA/Amnesty/CICR auraient hérité d'une fausse nationalité « Animation ». Corrigé : `pays = PAYS_NOM.get(code_pays, "")` (plus de repli sur le champ CASW brut). Les deux classeurs ont été régénérés.
+
+## 📇 Annuaire visuel de lecture — `RECAPS\ANNUAIRE_PERSONAS.xlsx` (2026-07-28)
+
+Second classeur, **hors format d'import**, pour une lecture humaine confortable des mêmes personas que la bibliothèque d'import (demande utilisateur : rendu esthétique, filtres, compréhension visuelle) — **404 depuis l'extension RZO/EHO du 2026-09-09** (248 au lancement du 2026-07-28). Généré par `OUTILS\generer_annuaire_visuel.py`, qui réutilise **exactement** `generer_bibliotheque.construire()` + `fusionner_rzo()` (aucune double saisie — un seul générateur source pour les deux fichiers, toujours synchronisés).
+
+**3 onglets :**
+- **Tableau de bord** — tuiles KPI colorées (total, pays, groupes, camps) + 2 graphiques à barres (par pays, par exercice).
+- **Annuaire** — tableau Excel natif (`openpyxl.worksheet.table.Table`, style bandé) avec **filtres déroulants sur chaque colonne** (Camp, Pays, Handle, Nom, Groupes, Exercices, Âge, Genre, Rôle, Source bio, Aperçu bio) + **mise en forme conditionnelle** : ligne colorée par camp (rouge/bleu/gris) et par pays (rouge Mercure, bleu Arnland, violet France, sarcelle Bothnia), volets figés (`C2`).
+- **Légende** — code couleur expliqué + mode d'emploi des filtres.
+
+⚠ Ne pas confondre avec `BIBLIOTHEQUES\BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx` : celui-ci reste le **seul** à importer dans MASTORION (colonnes contraintes par `KNOWN_COLS`) ; l'annuaire est **read-only**, ses colonnes (« Groupe(s) », « Aperçu biographie »…) ne correspondent pas au schéma d'import.
+
 ### ⚖️ Arbitrages tranchés par l'utilisateur — 2026-07-28 (font désormais autorité)
 
 1. **« Titane » n'est PAS une nation** → le code pays **TIT est supprimé**, tout revient à **MER**. Titane = nom de la **force FORAD** de l'armée mercurienne (toutes les fiches CASW marquées TITAN portent `Pays = Mercure`). ⚠ `SYSTEME\DOSSIER_POSTE.md` liste encore « Titane » parmi les nations fictives — **à corriger** pour lever l'ambiguïté.
@@ -186,7 +220,7 @@ Déclencheur : `@6e_Army` / `@20e_Army` (comptes d'unité) classés MER - POLITI
 **Outillage MINERVE ajouté** — ⚠ **écrit par nous, ne fait PAS partie du dépôt `mastorion-v0`** (vérifié : 0 `.bat` versionné dans le projet, `git status` propre). Le projet ne fournit que `deploy/backup-db.sh` (script **Linux** pour le **serveur** : cron 4 h, conteneur `orion26-mariadb-1`) — sans équivalent poste Windows, d'où ces scripts.
 **Deux emplacements** : copie **de référence versionnée** dans `MINERVE\MASTORION\OUTILS\` (+ son `README.md`) · copie **d'exploitation** dans `C:\CECPC\MASTORION\SAUVEGARDES\` (à côté des `.sql`). Toute modification doit être reportée dans les deux.
 Testé et validé (groupe témoin inséré → restauré → disparu) :
-- `BASE_VIERGE.sql` — instantané de l'**état vierge de référence** (1 user `test@test.fr`, 0 groupe/scénario/inject/post), figé le 2026-07-27.
+- `BASE_VIERGE.sql` — instantané de l'**état vierge de référence** (1 user `test@test.fr`, 0 groupe/scénario/inject/post), figé le 2026-07-27. ⚠⚠ **IDENTIFIANTS APRÈS RESTAURATION DE CE FICHIER : `test@test.fr` / `password123`** (PAS `admin@mastorion.local` — ce compte n'existe QUE si l'API a démarré à froid sur une base vraiment sans aucun `APP_ADMIN` ; ici `ensureAdmin()` se tait car `test@test.fr` porte déjà ce rôle). Toujours vérifier avec `docker exec mastorion-db mariadb … -e "SELECT email FROM users;"` avant d'annoncer un identifiant.
 - `SAUVEGARDER.bat` — **demande un NOM** (ex. `UNIVERS SKOLKAN`) ; Entrée = nom daté automatique. Produit `<NOM>.sql` + `<NOM>_uploads\` (images). Propose d'écraser si le nom existe.
 - `RESTAURER.bat` — liste les sauvegardes/univers par leur nom, sélection par numéro, confirmation « OUI », recharge base **et** images. ⚠ Rappelle de se **reconnecter** après (les comptes changent → jeton invalide).
 - **Bascule d'univers = `RESTAURER.bat` + numéro + OUI + reconnexion** (~10 s). D'où l'importance de **nommer** les sauvegardes.

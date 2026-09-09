@@ -3,6 +3,18 @@
 > Classeurs Excel **de consultation** (≠ `BIBLIOTHEQUES\`, qui contient les fichiers destinés à l'**import** MASTORION).
 > Générés depuis l'outillage MASTAURIGE des exercices, en lecture seule.
 
+## `ANNUAIRE_PERSONAS.xlsx`
+
+Version **lisible** (filtres, couleurs, tableau de bord) de la bibliothèque `BIBLIOTHEQUES\BIBLIOTHEQUE_TEST_3_EXERCICES.xlsx` — même générateur source (`generer_bibliotheque.py` + `fusionner_rzo()`), donc **toujours synchronisée** avec elle. **404 personas** (2026-09-09) :
+
+| Source | Apport |
+|---|---|
+| `avatars.js` (7BB + 2BB) + CASW ORION 26 | 248 personas (base — voir `BIBLIOTHEQUES\README.md`) |
+| `bios.js` (EHO) — fiches **sans** handle `avatars.js` | +54 (présidents, ministres, préfets, maires, généraux, évêques — jamais importés avant, l'EHO ne servait qu'à enrichir une bio déjà repérée ailleurs) |
+| `rzo_data.js` — réseau RENS/RZO | +102 nouvelles fiches, 5 fusionnées avec des personas déjà présents (ex. Nadia Promesy = même personne côté RZO et côté EHO → 1 seule fiche, tag `RESEAU RZO` ajouté). **107 acteurs au total** portent ce tag. |
+
+**Réseaux considérés clandestins** (`HFM`, `NOM`, `NOM (relais/enablers)`, `Redskulls`) → tag automatique `<PAYS> - GROUPE CLANDESTIN`. Régénérer : `python ..\OUTILS\generer_annuaire_visuel.py` (appelle `generer_bibliotheque.construire()` puis `fusionner_rzo()`).
+
 ## `RECAP_INJECTS_GUILLAUME_MINOTAURE.xlsx`
 
 Vue « qu'a-t-on joué ? » — **un onglet par exercice** :
