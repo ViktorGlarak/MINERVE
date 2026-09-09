@@ -267,6 +267,7 @@ if __name__ == "__main__":
     from openpyxl import Workbook
     lignes, _ = G.construire()
     G.fusionner_rzo(lignes, G.A7_RZO)
+    G.fusionner_planche(lignes, G.A7_PLANCHE)   # cartes ecrites en dur dans la planche EHO
     rows = preparer(lignes)
 
     os.makedirs(os.path.dirname(SORTIE), exist_ok=True)

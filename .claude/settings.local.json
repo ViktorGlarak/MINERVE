@@ -94,7 +94,14 @@
       "Bash(C:/Users/MTR/AppData/Local/Python/pythoncore-3.14-64/python.exe -m py_compile D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/OUTILS/generer_trombino_bios.py)",
       "Bash(node --check D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/bios.js)",
       "Bash(node --check D:/CECPC/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/Sites/Trombinoscope/rzo_data.js)",
-      "Bash(awk '{print $5, $NF}')"
+      "Bash(awk '{print $5, $NF}')",
+      "Read(//c/CECPC/MASTORION/mastorion-v0/apps/**)",
+      "Bash(cp admin/tsconfig.json eho/tsconfig.json)",
+      "Bash(cp admin/tsconfig.app.json eho/tsconfig.app.json)",
+      "Bash(cp admin/.gitignore eho/.gitignore)",
+      "Bash(cp admin/.editorconfig eho/.editorconfig)",
+      "Bash(grep -v \"^\\\\.$\\\\|^\\\\.\\\\.$\")",
+      "Bash(cd \"C:/CECPC/MASTORION/mastorion-v0/apps/admin\" && grep -rhoE \"from 'primeng/[a-z]+'\" src/ | sort -u | head -25)"
     ],
     "ask": [
       "Read(//d/CECPC/DOC REF/MERCURE/RENS/01_Fiches bio/**)",

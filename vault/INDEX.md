@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**412 notes** · généré le 2026-06-29
+**417 notes** · généré le 2026-09-09
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -42,6 +42,7 @@
 | [DECISION-010](decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[AGENT-EXPERT-INFLUENCE]] [[AGENT-MASTAURIGE]] [[AGENT-MINAUTORE]] |
 | [DECISION-011](decisions/DECISION-011.md) | MINERVE Local — assistant RAG de CONSULTATION (lecture seule, Ollama) | 2 | [`CONFIG.md"`]("../../SYSTEME/CONFIG.md") | [[PROJ-MINERVE]] [[AGENT-ANALYSTE-MERCURE]] [[AGENT-EXPERT-INFLUENCE]] [[AGENT-PENSEUR]] |
 | [DECISION-012](decisions/DECISION-012.md) | avatars.js = liste maître des comptes RS — EHO généré + garde-fou VERIFIER | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[PROJ-MASTAURIGE]] [[AGENT-MINAUTORE]] [[AGENT-ANALYSTE-ARN]] |
+| [DECISION-013](decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[LESSON-027]] [[LESSON-028]] [[TOOL-016]] |
 
 ## 🛠️ Outils
 
@@ -94,6 +95,9 @@
 | [LESSON-024](lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[LESSON-019]] [[ARCH-009]] [[TOOL-016]] [[TOOL-004]] [[PROJ-MASTAURIGE]] |
 | [LESSON-025](lessons/LESSON-025.md) | Désync de date MELMIL ↔ feed — clé card-day des articles (id vs basename) + piège GELEX | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[REF-calendrier-7bb-gelex]] |
 | [LESSON-026](lessons/LESSON-026.md) | Placement card MELMIL (date ↔ standby) — exclusif ET appliqué au RENDU (bug card socle JEMM) | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[PROJ-MASTAURIGE]] [[AGENT-MASTAURIGE]] |
+| [LESSON-027](lessons/LESSON-027.md) | Import MASTORION — deux fiches partageant email ou masto_id fusionnent EN SILENCE | 2 | [`JOURNAL.md`](../../MASTORION/JOURNAL.md) | [[DECISION-013]] [[ARCH-011]] [[TOOL-016]] |
+| [LESSON-028](lessons/LESSON-028.md) | La bio MASTORION est PUBLIQUE côté réseau social — le renseignement animateur va dans observations | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[DECISION-013]] [[ARCH-011]] [[LESSON-027]] |
+| [LESSON-029](lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[LESSON-027]] [[TOOL-016]] |
 
 ## 🏛️ Architecture
 
@@ -109,6 +113,7 @@
 | [ARCH-008](architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[DECISION-001]] [[LESSON-013]] |
 | [ARCH-009](architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[ARCH-008]] [[LESSON-019]] [[DECISION-001]] |
 | [ARCH-010](architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[TOOL-001]] [[TOOL-003]] [[TOOL-016]] [[PROJ-MASTAURIGE]] |
+| [ARCH-011](architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[ARCH-010]] |
 
 ## 🗂️ Projets (canvas)
 

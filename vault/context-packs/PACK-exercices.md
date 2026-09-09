@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-06-29 · 72 notes.
+> Généré le 2026-09-09 · 75 notes.
 
 ## Notes (par tier)
 
@@ -19,9 +19,11 @@
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
 | 2 | [ARCH-009](../architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | architecture |
 | 2 | [ARCH-010](../architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | architecture |
+| 2 | [ARCH-011](../architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | architecture |
 | 2 | [DECISION-007](../decisions/DECISION-007.md) | STARTEX Package — sous-injects 00.00.00Ai…Ei (cartes ghost par camp, MELMIL) | decision |
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [DECISION-010](../decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | decision |
+| 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
@@ -42,6 +44,7 @@
 | 2 | [LESSON-021](../lessons/LESSON-021.md) | Donner une photo à un avatar MASTAURIGE = 3 couches (feed + fichier + markup trombino) | lesson |
 | 2 | [LESSON-024](../lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | lesson |
 | 2 | [LESSON-025](../lessons/LESSON-025.md) | Désync de date MELMIL ↔ feed — clé card-day des articles (id vs basename) + piège GELEX | lesson |
+| 2 | [LESSON-028](../lessons/LESSON-028.md) | La bio MASTORION est PUBLIQUE côté réseau social — le renseignement animateur va dans observations | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-arnland-militaire](../knowledge/REF-arnland-militaire.md) | Arnland — forces armées (ADF/SDF, ORBAT) | reference |
 | 2 | [REF-arnland-societe](../knowledge/REF-arnland-societe.md) | Arnland — société & diaspora mercurienne | reference |
@@ -92,8 +95,10 @@
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
 - [`aurige.md`](../../SYSTEME/PROMPTS/aurige.md)
 - [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
+- [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
+- [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`melmil.js`](../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

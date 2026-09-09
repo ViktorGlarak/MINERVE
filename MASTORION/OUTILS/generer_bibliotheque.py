@@ -25,6 +25,10 @@ MINERVE = r"D:\CECPC\PRODUCTION\IA\MINERVE"
 A7_AVA = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\moteur\avatars.js")
 A7_BIO = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\Sites\Trombinoscope\bios.js")
 A7_RZO = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\Sites\Trombinoscope\rzo_data.js")
+# Planche EHO : contient des cartes ECRITES EN DUR dans le HTML (gouvernements,
+# etats-majors, justice, acteurs internationaux) qui n'existent dans AUCUN
+# fichier de donnees -> invisibles des autres chargeurs. Source ajoutee le 2026-09-09.
+A7_PLANCHE = os.path.join(EXER, r"AURIGE 7BB\00_Boites à outils\MASTAURIGE\LOCALSTORAGE_WEB_VERSION\Sites\Trombinoscope\ACTEURS_A3_model.html")
 A2_AVA = os.path.join(EXER, r"AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\avatars.js")
 CASW = os.path.join(EXER, r"01 ORION 26\01 - O41 - ARCHIVAGE - DOCUMENTS TRIES\01 - ORIGINE WORKING FIELDO41\99-TOOLS\setup\orion26-stobo\avatars_casw_ia_usable.md")
 REGISTRE = os.path.join(MINERVE, r"MASTAURIGE\MEMOIRE.md")
@@ -70,25 +74,14 @@ TRANSVERSE = ("ONG", "INSTITUTION INTERNATIONALE", "OTAN", "UE",
 #    PAS des departements francais cote MINOTAURE.
 OVERRIDES = {
     "@stepan_roubek":    ["ARN - PRO-MERCURE", "ARN - CITOYEN"],   # temoin mercurianophone HSarrebourg
-    "@j_vasseur":        ["ARN - MILITAIRE"],                      # veteran DAC (=ARN) amputé
-    "@makarovsid":       ["ARN - PRO-MERCURE"],                    # habitant HBlamont, diaspora MER
-    "@gavrilovborislav": ["ARN - PRO-MERCURE"],                    # habitant HDieuze, diaspora MER
-    "@eastwatch_intl":   ["MEDIA INTERNATIONAL"],                  # relais OSINT, blanchiment MER
-    "@temoignagearn":    ["ARN - PRO-MERCURE"],                    # compte « temoignage » pilote MER
-    "@voixarnland":      ["ARN - PRO-MERCURE"],
-    "@temoignagedac":    ["ARN - PRO-MERCURE"],
-    "@voixdacia":        ["ARN - PRO-MERCURE"],
     "@bernardlutz67":    ["ARN - CITOYEN"],                        # habitant HSaverne (7BB)
     "@julienholveck57":  ["ARN - CITOYEN"],                        # habitant arnlandais (7BB)
-    "@sylviebrucker57":  ["ARN - CITOYEN"],                        # commercante HMittersheim (7BB)
     "@brigitteschmitt67": ["ARN - PRO-MERCURE", "ARN - CITOYEN"],  # HSarre-Union, penchant MER
     "@marcweber67":      ["ARN - PRO-MERCURE", "ARN - CITOYEN"],
     "@marionkessler57":  ["ARN - CITOYEN"],                        # 7BB, zone H-prefixe
     "@veilleosint_est":  ["MER - SOCK-PUPPET"],                    # facade pro-FR, operation MER
     "@t_reynaud_fr":     ["MER - SOCK-PUPPET"],
     "@sophie_moselle":   ["MER - SOCK-PUPPET"],
-    "@novusordomundi":   ["ARN - GROUPE CLANDESTIN"],              # organisation clandestine pro-MER
-    "@arnlandlovepeace": ["ARN - PACIFISTE", "ARN - PRO-MERCURE"], # facade eco-pacifiste, manoeuvre rouge
     "@clambroise55":     ["FR - CITOYEN"],                         # 2BB : vraie Lorraine francaise
 
     # ── Audit ANALYSTE (Mercure), 2026-07-28 — corrections fondées sur
@@ -109,10 +102,6 @@ OVERRIDES = {
     "@calgarmarneus":    ["MER - RELIGIEUX", "MER - PACIFISTE"],    # pope orthodoxe anti-guerre
     "@gotmituns":        ["MER - RELIGIEUX", "MER - PACIFISTE"],
     "@love_our_soldiers": ["MER - PACIFISTE", "MER - OPPOSITION", "MER - INFLUENCEUR"],
-    "@temoignagedac":    ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],  # rouge camoufle civil (Storm-1516)
-    "@voixdacia":        ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],
-    "@temoignagearn":    ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],  # equivalents 7BB
-    "@voixarnland":      ["ARN - PRO-MERCURE", "MER - SOCK-PUPPET"],
     "@siegumjedenpreis": ["ARN - PRO-MERCURE"],                     # diaspora MER residant en ARN
     "@hmunikvoice":      ["ARN - PRO-MERCURE", "ARN - JOURNALISTE"], # propagandiste radio
     "@maiakovalenko":    ["ARN - PRO-MERCURE", "ARN - JOURNALISTE"],
@@ -139,7 +128,6 @@ OVERRIDES = {
     "@arnwillwin":       ["FR - INFLUENCEUR", "FR - REFUGIE"],      # influenceuse FR refugiee dans la Loire
     "@manfredk":         ["ARN - CITOYEN"],                         # franco-ARN vivant en ARN, non deplace
     "@faahcharentemaritime": ["ARN - MILITAIRE", "ARN - AUTORITE LOCALE"],  # DMD HCharente-Maritime
-    "@pasteurvolkonsky": ["ARN - PRO-MERCURE", "ARN - RELIGIEUX"],  # leader protestant pro-MER
     "@shootarnland":     ["ARN - PRO-MERCURE", "ARN - PACIFISTE"],  # collectif anti-guerre MAIS pro-MER
     "@correspondantest": ["MEDIA INTERNATIONAL", "MER - SOCK-PUPPET"],  # couche 2 piege retroactif
 
@@ -154,7 +142,6 @@ OVERRIDES = {
     "@a_saniki":         ["BOT - POLITICIEN", "BOT - OPPOSITION", "BOT - PRO-MERCURE"],
     "@h_hansen":         ["BOT - POLITICIEN", "BOT - OPPOSITION"],   # cheffe opposition BPP pro-UE (Bothnia)
     "@eurotendency_b":   ["UE", "BOT - ACTEUR ECONOMIQUE"],          # groupe de pression pro-UE en Bothnia
-    "@gavrilovborislav": ["ARN - PRO-MERCURE", "ARN - CITOYEN"],     # habitant HDieuze, diaspora (revue 06-21)
     "@makarovsid":       ["ARN - PRO-MERCURE", "ARN - CITOYEN"],     # habitant HBlamont, diaspora
     "@novusordomundi":   ["ARN - GROUPE CLANDESTIN", "ARN - PRO-MERCURE"],
     "@sylviebrucker57":  ["ARN - CITOYEN", "ARN - ACTEUR ECONOMIQUE"],  # epiciere ruinee de HMittersheim
@@ -185,6 +172,25 @@ OVERRIDES.update({
     #      de HDieuze (diaspora) — les injects 7BB concernes sont a revoir.
     "@gavrilovborislav": ["MER - MILITAIRE"],
 })
+
+
+def verifier_overrides_uniques():
+    """Echoue si une cle apparait deux fois dans un MEME bloc {...} d'overrides.
+
+    Une cle dupliquee dans un meme literal est ecrasee EN SILENCE par Python
+    (dernier gagne) : trois valeurs successives pour @gavrilovborislav ont
+    ainsi coexiste sans que rien ne le signale (constate le 2026-09-09).
+    Les couches OVERRIDES.update({...}) d'audit, elles, sont legitimes :
+    la verification est par bloc, pas globale."""
+    import io as _io
+    source = _io.open(__file__, encoding="utf-8").read()
+    for i, bloc in enumerate(re.findall(r"OVERRIDES(?:\.update\()?\s*=?\s*\{(.*?)^\}", source, re.S | re.M)):
+        cles = re.findall(r'"(@[a-z0-9_]+)"\s*:', bloc)
+        doublons = sorted({c for c in cles if cles.count(c) > 1})
+        if doublons:
+            raise SystemExit("OVERRIDES : cle(s) en double dans le bloc %d -> %s "
+                             "(la 2e ecraserait la 1re en silence)" % (i + 1, ", ".join(doublons)))
+
 
 # CASW : groupe d'origine -> (code pays ou None = deduire, FONCTION)
 MAP_CASW = {
@@ -404,6 +410,36 @@ def norm(s):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
+def ascii_id(s):
+    """Identifiant technique sur : minuscules ASCII, chiffres et « _ ».
+    Indispensable pour un `username` : « arn_rémy_laffin » n'est ni lisible
+    ni manipulable proprement (constate en base le 2026-09-09)."""
+    s = unicodedata.normalize("NFD", str(s or "")).encode("ascii", "ignore").decode()
+    return re.sub(r"_+", "_", re.sub(r"[^a-z0-9]+", "_", s.lower())).strip("_")
+
+
+# Titres et grades a ignorer pour reconnaitre UNE MEME PERSONNE :
+# « Dr Nele Meyer » et « Nele Meyer » sont la meme ministre.
+TITRES = r"^(dr|pr|me|mgr|mg|bg|lt|ltc|col|gen|general|gen\.|sgt|cpt|cne|adj|amiral|m|mme|mlle)\s+"
+
+# Variantes orthographiques d'un MEME individu, declarees a la main : ces cas
+# ne peuvent pas etre deduits sans risque de confondre deux homonymes.
+# Cle = variante rencontree, valeur = forme retenue.
+ALIAS_PERSONNES = {
+    "laffinremi": "laffinremy",     # « Rémi LAFFIN » (RZO) = « Rémy Laffin » (EHO), gouverneur
+}
+
+
+def cle_personne(nom):
+    """Cle d'identite servant a NE PAS creer de doublon : sans titre, sans
+    accent, mots tries (absorbe « Nom Prenom » / « Prenom Nom »)."""
+    s = unicodedata.normalize("NFD", str(nom or "")).encode("ascii", "ignore").decode().lower()
+    s = re.sub(TITRES, "", s.strip())
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    k = "".join(sorted(s.split()))
+    return ALIAS_PERSONNES.get(k, k) or str(nom or "").strip().lower()
+
+
 def lire(p):
     return io.open(p, encoding="utf-8", errors="replace").read()
 
@@ -485,9 +521,14 @@ def classer_rzo_fonction(role):
     if re.search(r"militaire|instructeur|guerilla|\bdiv\b|regiment|bataillon|adjoint", r): return "MILITAIRE"
     if re.search(r"journalist|radio|animateur|redacteur", r): return "JOURNALISTE"
     if re.search(r"complotiste|influenceu|chanteu|celebrite|agitateur", r): return "INFLUENCEUR"
-    if re.search(r"commerc", r): return "ACTEUR ECONOMIQUE"
+    # ⚠ Le SECTEUR prime sur le TITRE : « Président des Agriculteurs » est un
+    #   representant professionnel, pas un dirigeant politique. Sans cette
+    #   priorite, il etait classe POLITICIEN et remontait en tete du bloc
+    #   politique, devant le chef de l'Etat (constate le 2026-09-09).
+    if re.search(r"commerc|agriculteur|syndicat|syndical|exploitant|eleveur|"
+                 r"patron|entrepreneur|industriel|transporteur|artisan", r):
+        return "ACTEUR ECONOMIQUE"
     if re.search(r"gouverneur|president|depute|ministre", r): return "POLITICIEN"
-    if re.search(r"agriculteur", r): return "ACTEUR ECONOMIQUE"
     return "CITOYEN"
 
 
@@ -644,13 +685,13 @@ def construire():
     # ── fiches EHO (bios.js) SANS handle avatars.js : jamais couvertes jusqu'ici
     #    (presidents, ministres, prefets, maires, generaux, eveques...). Handle
     #    synthetique "@<id_eho>" (deja unique/propre) pour rester dans le meme pipeline.
-    noms_couverts = {norm(f["nom"]) for f in fiches.values()}
+    noms_couverts = {cle_personne(f["nom"]) for f in fiches.values()}
     for v in eho.values():
-        if norm(v["nom"]) in noms_couverts:
+        if cle_personne(v["nom"]) in noms_couverts:
             continue
-        fiches[v["id"]] = {"handle": "@" + v["id"], "nom": v["nom"], "camp": v.get("camp", "neutre"),
+        fiches[v["id"]] = {"handle": "@" + ascii_id(v["id"]), "nom": v["nom"], "camp": v.get("camp", "neutre"),
                            "img": "", "exercices": ["MINOTAURE 26"], "prio": 1, "note": ""}
-        noms_couverts.add(norm(v["nom"]))
+        noms_couverts.add(cle_personne(v["nom"]))
 
     lignes = []
     stats = {"eho": 0, "note": 0, "casw_bio": 0, "registre": 0, "sans_bio": 0, "exclus": 0}
@@ -723,11 +764,10 @@ def fusionner_rzo(lignes, path):
     rzo = charger_rzo(path)
     par_nom = {}
     for l in lignes:
-        k = norm(l["display_name"]) or l["display_name"].strip().lower()  # garde-fou noms non-latins (norm() les vide -> collision)
-        par_nom[k] = l
+        par_nom[cle_personne(l["display_name"])] = l
     ajouts, fusions = 0, 0
     for p in rzo:
-        k = norm(p["nom"]) or p["nom"].strip().lower()
+        k = cle_personne(p["nom"])
         clandestin = norm2(p.get("net", "")) in NETS_CLANDESTINS
         if k in par_nom:
             l = par_nom[k]
@@ -744,7 +784,7 @@ def fusionner_rzo(lignes, path):
             continue
         pays_code = classer_rzo_pays(p.get("role", ""))
         fonction = "GROUPE CLANDESTIN" if clandestin else classer_rzo_fonction(p.get("role", ""))
-        username = re.sub(r"[^a-z0-9_]", "_", p["id"].replace("-", "_")).strip("_") or ("rzo_%d" % ajouts)
+        username = ascii_id(p["id"]) or ("rzo_%d" % ajouts)
         groupes = ["%s - %s" % (pays_code, fonction), "RESEAU RZO", "EXERCICE MINOTAURE 26"]
         ligne = {
             "camp": p.get("camp", "neutre"), "masto_id": "", "username": username,
@@ -761,6 +801,220 @@ def fusionner_rzo(lignes, path):
         par_nom[k] = ligne
         ajouts += 1
     return ajouts, fusions
+
+
+def charger_planche(path):
+    """Lit les cartes ECRITES EN DUR dans ACTEURS_A3_model.html.
+
+    Ces acteurs (gouvernements, etats-majors, justice, acteurs internationaux,
+    entites para-etatiques) ne figurent dans aucun fichier de donnees : ni
+    avatars.js, ni bios.js, ni rzo_data.js. Ils etaient donc absents de la
+    bibliotheque jusqu'au 2026-09-09."""
+    html = lire(path)
+    if not html:
+        return []
+    PAGES = {"page-mercure": "MER", "page-dr": "ARN", "page-br": "BOT"}
+    acteurs, pays, section = [], "ARN", ""
+    motif = (r'class="page[^"]*"'
+             r'|<div class="section-title[^"]*">(.*?)</div>'
+             r'|<div class="actor-name"[^>]*>(.*?)</div>\s*<div class="actor-role"[^>]*>(.*?)</div>')
+    for m in re.finditer(motif, html, re.S):
+        txt = m.group(0)
+        if txt.startswith('class="page'):
+            for k, v in PAGES.items():
+                if k in txt:
+                    pays = v
+        elif m.group(1) is not None:
+            section = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(1))).strip()
+        elif m.group(2) is not None:
+            nom = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2))).strip()
+            role = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3))).strip()
+            if nom and "'+" not in nom:      # ecarte les gabarits JS
+                acteurs.append({"nom": nom, "role": role, "pays": pays, "section": section})
+    return acteurs
+
+
+# Valeurs d'`activite` qui n'apprennent rien de plus que le groupe PAYS - FONCTION :
+# elles peuvent etre remplacees par le role detaille de la planche.
+GENERIQUES = {
+    "politicien", "militaire", "journaliste", "citoyen", "religieux", "opposition",
+    "influenceur", "patriote", "pacifiste", "refugie", "autorite locale",
+    "acteur economique", "sock-puppet", "groupe clandestin", "justice",
+    "institution internationale", "media international", "ong", "",
+}
+
+
+def classer_planche(a):
+    """Fonction + camp d'un acteur de la planche, d'apres sa section et son role."""
+    s, r = norm2(a["section"]), norm2(a["role"])
+    t = s + " " + r
+
+    def mot(*mots):
+        """Recherche par MOT ENTIER — indispensable ici : « politique » contient
+        « ue », « anti-otan » contient « otan ». Piege deja rencontre sur
+        \\bun\\b/\\beu\\b lors de la refonte de taxonomie du 2026-07-28."""
+        return re.search(r"\b(?:%s)\b" % "|".join(mots), t) is not None
+
+    # L'ordre compte : les cas les plus specifiques d'abord.
+    if "para-etatique" in s or mot("milice", "paramilitaire") or "novus ordo" in t:
+        fonction = "GROUPE CLANDESTIN"
+    elif "media" in s or mot("presse", "journaliste", "chaine"):
+        fonction = "JOURNALISTE"
+    elif mot("juge", "constitutionnel", "penal") or "cour supreme" in t:
+        fonction = "JUSTICE"
+    elif ("acteurs internationaux" in s
+          or mot("cicr", "onu", "cooperation", "delegation")
+          or "porte-parole otan" in t or "porte-parole ue" in t
+          or "secretaire general" in t or "security treaty" in t
+          or "union europeenne" in t):
+        fonction = "INSTITUTION INTERNATIONALE"
+    elif "opposition" in s:
+        fonction = "OPPOSITION"
+    elif ("militaire" in s
+          or mot("chod", "cgs", "sof", "commandant", "division", "brigade",
+                 "regiment", "sniper", "armees", "rg", "dac", "bmf")
+          or "etat-major" in t or "renseignement" in t or "intelligence" in t
+          or "surete de l etat" in t):
+        fonction = "MILITAIRE"
+    else:
+        fonction = "POLITICIEN"
+
+    # Camp : aligne sur la convention deja en vigueur (cf. repartition en base).
+    # Toute figure ajoutee ici porte la mention de sa source dans `qualifications`
+    # pour que l'Analyste du pays puisse trancher (regle CLAUDE.md : le camp
+    # appartient au registre MASTAURIGE, on ne l'invente pas en silence).
+    if fonction == "INSTITUTION INTERNATIONALE":
+        camp = "neutre"
+    elif a["pays"] == "MER":
+        camp = "rouge"
+    elif a["pays"] == "ARN":
+        camp = "rouge" if fonction in ("GROUPE CLANDESTIN",) else "bleu"
+    else:                                   # Bothnia : neutre, comme l'existant
+        camp = "neutre"
+    return fonction, camp
+
+
+def fusionner_planche(lignes, path):
+    """Integre les acteurs statiques de la planche dans `lignes` (in place).
+
+    Meme principe que fusionner_rzo : fusion par nom si la fiche existe deja
+    (aucun doublon), creation sinon."""
+    acteurs = charger_planche(path)
+    par_nom = {}
+    for l in lignes:
+        par_nom[cle_personne(l["display_name"])] = l
+    ajouts, fusions = 0, 0
+    for a in acteurs:
+        k = cle_personne(a["nom"])
+        fonction, camp = classer_planche(a)
+        tag = "%s - %s" % (a["pays"], fonction)
+        if k in par_nom:                     # deja connu -> on complete ses groupes
+            l = par_nom[k]
+            g = [x for x in l["groups"].split(";") if x]
+            if tag not in g:
+                g.append(tag)
+            l["groups"] = ";".join(g)
+            # Le role de la planche est la formulation EHO de reference
+            # (« President de la Republique »). Il prime sur une valeur
+            # generique deja en place (« Politicien »), qui n'apporte rien de
+            # plus que le groupe PAYS - FONCTION.
+            ancien = norm2(l.get("activite", ""))
+            generique = (not ancien) or ancien in GENERIQUES or len(ancien) < len(norm2(a["role"])) / 2
+            if generique and a["role"]:
+                l["activite"] = a["role"]
+            fusions += 1
+            continue
+        # ⚠ norm() (et non ascii_id) : ce schema est celui deja en base depuis
+        #   le 2026-09-09. Passer aux underscores renommerait les 49 fiches de
+        #   la planche, creant autant de doublons et orphelinant leurs portraits.
+        username = norm(a["nom"])
+        if not username:
+            username = "eho_%d" % ajouts
+        while any(l["username"] == username for l in lignes):
+            username += "_2"
+        lignes.append({
+            "camp": camp, "masto_id": "", "username": username,
+            "display_name": a["nom"], "email": "%s@mastorion.local" % username,
+            "password": "", "bio": "",
+            "groups": ";".join(OrderedDict.fromkeys([tag, "EXERCICE MINOTAURE 26"])),
+            "avatar": "", "age": "", "genre": "",
+            "pays": PAYS_NOM.get(a["pays"], ""), "label": fonction,
+            "origine": "", "religion": "", "situation": "", "caractere": "", "langage": "",
+            "activite": a["role"], "observations": "",
+            "qualifications": "Source : planche EHO ACTEURS_A3 (%s) — camp a valider par l'Analyste"
+                              % a["section"],
+            "aime": "", "deteste": "",
+        })
+        ajouts += 1
+    return ajouts, fusions
+
+
+# Formulation neutre : le cas vaut pour une personne comme pour un media
+# (« Arnish Times » possede deux comptes).
+MENTION = ("⚠ COMPTES MULTIPLES — cette entité possède aussi le compte %s. "
+           "Comptes distincts, à ne pas confondre.")
+
+
+def clarifier_comptes_multiples(lignes):
+    """Rend explicite le cas « une personne, plusieurs comptes ».
+
+    MASTORION n'est pas prevu pour cela (demande utilisateur 2026-09-09) : si
+    le cas se presente, il doit etre **ecrit dans la bio** des deux fiches.
+    Cette passe fait trois choses, dans cet ordre :
+
+      1. `masto_id` et `email` sont rendus UNIQUES. Sans cela l'import
+         MASTORION, qui remonte par masto_id puis par email, **fusionne les
+         deux fiches en silence** : c'est ce qui a fait disparaitre
+         @GavrilovBorislav derriere @The_Grass_hopper (constate le 2026-09-09).
+      2. chaque bio recoit une mention en tete, listant les autres comptes.
+      3. la liste des cas est renvoyee, pour etre tracee dans la sortie.
+    """
+    par_personne = OrderedDict()
+    for l in lignes:
+        par_personne.setdefault(cle_personne(l["display_name"]), []).append(l)
+
+    multi = []
+    for _, grp in par_personne.items():
+        if len(grp) < 2:
+            continue
+        # Le compte « de reference » garde l'identite technique d'origine
+        # (masto_id + email reels) ; les autres recoivent une adresse dediee.
+        for l in grp[1:]:
+            l["masto_id"] = ""
+            l["email"] = "%s@mastorion.local" % ascii_id(l["username"])
+        for l in grp:
+            autres = ", ".join("@" + a["username"] for a in grp if a is not l)
+            texte = MENTION % autres
+            # ⚠ Dans OBSERVATIONS, pas dans la bio : la bio est PUBLIQUE cote
+            #   reseau social (servie a tous par l'API sociale) — y ecrire le
+            #   lien entre les comptes revelerait aux joueurs precisement ce
+            #   qu'ils doivent decouvrir (constate 2026-09-09, phase EHO v2).
+            #   `observations` n'est visible que de l'animateur.
+            saut = chr(10)
+            if texte not in (l.get("observations") or ""):
+                l["observations"] = (texte + saut + saut + (l.get("observations") or "")).strip()
+            # purge une mention posee en bio par les generations passees
+            if "COMPTES MULTIPLES" in (l.get("bio") or ""):
+                l["bio"] = saut.join(x for x in l["bio"].split(saut)
+                                     if "COMPTES MULTIPLES" not in x).strip()
+        multi.append([l["username"] for l in grp])
+
+    # Garde-fou : deux PERSONNES differentes ne doivent jamais partager un email
+    # ni un masto_id, meme cause, memes degats.
+    for champ in ("email", "masto_id"):
+        vus = {}
+        for l in lignes:
+            v = (l.get(champ) or "").strip().lower()
+            if not v:
+                continue
+            if v in vus and cle_personne(vus[v]["display_name"]) != cle_personne(l["display_name"]):
+                if champ == "email":
+                    l["email"] = "%s@mastorion.local" % ascii_id(l["username"])
+                else:
+                    l["masto_id"] = ""
+            else:
+                vus[v] = l
+    return multi
 
 
 def ecrire(lignes):
@@ -790,11 +1044,21 @@ def ecrire(lignes):
 
 if __name__ == "__main__":
     from collections import Counter
+    verifier_overrides_uniques()
     lignes, stats = construire()
     ajouts_rzo, fusions_rzo = fusionner_rzo(lignes, A7_RZO)
+    ajouts_pl, fusions_pl = fusionner_planche(lignes, A7_PLANCHE)
+    multi = clarifier_comptes_multiples(lignes)
     ecrire(lignes)
     print("Fichier : %s" % SORTIE)
     print("Reseau RZO : %d fusionnes (deja presents) | %d nouvelles fiches" % (fusions_rzo, ajouts_rzo))
+    print("Planche EHO : %d fusionnes (deja presents) | %d nouvelles fiches" % (fusions_pl, ajouts_pl))
+    if multi:
+        print("Comptes multiples signales en observations (%d personne(s)) :" % len(multi))
+        for grp in multi:
+            print("   %s" % " + ".join("@" + u for u in grp))
+    else:
+        print("Comptes multiples : aucun")
     print("Personas : %d" % len(lignes))
     for camp in ("rouge", "bleu", "neutre"):
         print("   %-12s %d" % (CAMP_LABEL[camp], sum(1 for l in lignes if l["camp"] == camp)))
