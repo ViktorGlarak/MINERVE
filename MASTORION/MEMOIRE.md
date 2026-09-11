@@ -5,6 +5,35 @@
 
 ---
 
+## ⚠⚠ RECADRAGE DU 2026-09-11 — À LIRE EN PREMIER
+
+> **« MASTORION » ne désigne plus le programme entier.** Tout ce qui suit dans cette mémoire a été écrit quand MASTORION était le nom du système ; **lire ces pages avec cette grille**.
+
+| Avant (jusqu'au 2026-09-10) | Depuis le 2026-09-11 |
+|---|---|
+| MASTORION = le programme / la plateforme | **PLEIADE = le système global** → agent `PLEIADE\` |
+| — | **MASTORION = seulement le réseau social**, une app du catalogue PLEIADE, **qui sera renommée à terme** |
+| Dépôt `XTalandier/mastorion-v0`, clones `D:\` et `C:\CECPC\MASTORION\mastorion-v0` | Dépôt **`cecpc-pleiade/mastorion`** → **`D:\CECPC\PLEIADE\mastorion`** (les anciens clones sont **dépassés**) |
+| App EHO en **Angular** dans `apps/eho` (branche `feat/eho`) | **EHO réécrit** en dépôt autonome **Next.js** → `D:\CECPC\PLEIADE\eho` |
+
+**Ce qui reste valable dans cette mémoire** : tout le savoir applicatif du réseau social (modèle de données, API, scénarios, scheduler, bibliothèques de personas, pièges d'import, doctrine de classement) — c'est le cœur du métier de cet agent.
+
+**Ce qui a changé et qu'il faut aller lire ailleurs** :
+- architecture système, zones, instances, **Keycloak**, Traefik, serveur, déploiement → **`PLEIADE\MEMOIRE.md`** ;
+- nouveautés du dépôt depuis le 2026-09-10 (Keycloak câblé, rôles de client KC → rôles applicatifs, layouts sociaux configurables, impersonation imposée + audit, **fallback EHO** pour résoudre les comptes de scénario via `EHO_URL`) → `CLAUDE.md` du dépôt + `PLEIADE\MEMOIRE.md` § 7.2.
+
+### ✅ Sort de l'app EHO Angular — TRANCHÉ le 2026-09-11
+**L'EHO a été porté dans le dépôt autonome `cecpc-pleiade/eho` (Next.js), branche `MEYTRE`** : trombinoscope, modèles d'EHO, **package STARTEX**, planche joueur et vue comparative y sont opérationnels sur **453 avatars** (les cellules/équipes ont été **écartées** — un joueur = un compte Keycloak). **La branche `origin/feat/eho` de ce dépôt-ci n'a donc plus vocation à être fusionnée.**
+> 📍 **Tout le suivi de l'EHO est désormais chez l'agent PLEIADE** : `PLEIADE\MEMOIRE.md` § 8bis (règles du jeu, choix de conception, données en place, comptes de test, faille d'autorisation connue) et `PLEIADE\JOURNAL.md`. Ne pas dupliquer ici.
+
+### ⚠ Historique — l'app EHO Angular que nous avions développée
+La branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe toujours** mais n'a **jamais été fusionnée dans `main`**, et `main` a divergé profondément. **L'EHO a été réécrit en Next.js comme dépôt autonome** — les fonctionnalités que nous avions livrées (**modèles d'EHO** SKOLKAN/VIERGE, **cellules joueurs**, **fiches d'analyse**, **package STARTEX**, **trombinoscope**, **vue comparative**) **n'y sont pas**.
+> Le savoir de conception consigné ci-dessous et dans `JOURNAL.md` (09–10 sept.) **reste du capital réutilisable** pour le nouvel EHO. Décision à prendre avec l'utilisateur : abandonner ou porter.
+>
+> 🟢 **Bonne nouvelle vérifiée** : le nouvel EHO porte **exactement les mêmes champs de persona** (`pays`, `label`, `activite`, `observations`, `qualifications`…) → **les bibliothèques MINERVE restent exploitables** (⚠ import attendu en **CSV**, et `User.id` = **UUID Keycloak**).
+
+---
+
 ## Identité & périmètre
 
 - **MASTORION** = plateforme de réseaux sociaux fictifs **nouvelle génération**, travaillée **en parallèle** de l'outillage MASTAURIGE, destinée principalement aux exercices de niveau **division / corps d'armée**.
@@ -89,6 +118,7 @@ Poste : Node v24 ✅ · npm 11 ✅ · Docker Desktop ✅ (installé + WSL2 le 20
 - **Ports dev complets** : API 3000 · social 4200 · admin 4201 · cockpit 4202 · **sentinel-ui 4203** · sentinel-api 3100 · MariaDB 3306 · pgvector 5433 · Ollama natif 11434.
 - ⚠ **Piège « Token invalide » partout dans l'IHM** : le JWT est stocké côté navigateur (localStorage) et signé avec `JWT_SECRET`. **Tout changement de `JWT_SECRET` invalide instantanément toutes les sessions ouvertes** — l'IHM reste affichée (elle croit l'utilisateur connecté) mais chaque appel API renvoie 401 « Token invalide », donnant des listes vides + toasts rouges. **Remède : se déconnecter / se reconnecter** (jeton neuf). Vécu le 2026-07-27 après l'alignement du secret pour Sentinel. Même symptôme attendu à l'expiration naturelle (JWT valable **7 jours**) → réflexe n°1 devant « Token invalide » : reconnexion, pas de débogage serveur.
 - ⚠⚠ **CONFLIT DE PORT 4203 depuis les commits Xavier du 2026-09-09** : la nouvelle app **`apps/docs`** (Docusaurus) démarre sur **4203 en dur** (`docusaurus start --port 4203`), or `sentinel-ui` (`ng serve` sans port) s'y replie automatiquement. Les deux se disputent le port et, **turbo abattant tout le pipeline dès qu'une tâche échoue**, c'est TOUTE la stack (API comprise) qui tombe. **Remède non destructif retenu — ne pas modifier le code de Xavier** : lancer `npx turbo dev --filter='!docs'`. Correctif de fond à arbitrer avec Xavier (donner un port explicite à `sentinel-ui`, ex. 4204). Pour lire la doc : `npm run dev -w docs` séparément, stack arrêtée.
+- ⚠⚠ **NE JAMAIS TUER LE PROCESSUS D'UN PORT TENU PAR UNE TÂCHE TURBO** (vécu 2026-09-10) : tuer le `ng serve` du port 4204 alors qu'il était lancé PAR `turbo dev` → turbo considère sa tâche `eho#dev` échouée et **abat TOUTE la stack, API comprise** — symptômes trompeurs côté navigateur : pages Angular encore affichées (orphelines) mais login refusé et photos absentes (l'API :3000 morte les servait). **Réflexe** : pour redémarrer UNE app, arrêter tout le pipeline turbo puis le relancer (`npx turbo dev --filter='!docs'`) ; ne lancer une app en solo (`npx ng serve`) QUE si elle est exclue du filtre turbo. Diagnostic : `tail` du log turbo → `Failed: <app>#dev`.
 - ⚠⚠ **`prisma migrate` est INUTILISABLE sur ce dépôt — ne jamais suivre la suggestion de Prisma.** `npx prisma migrate status` échoue en **P3019** : `prisma/migrations/migration_lock.toml` déclare `sqlite` alors que le schéma est `mysql`. Défaut **préexistant** (présent dès le commit initial `b7c6332`, pas une conséquence de nos travaux) : le projet fonctionne au `db push`, pas à l'historique de migrations. Prisma conseille alors de « supprimer le dossier de migrations et repartir d'un nouvel historique » → **destructif, interdit**. **Vérification de schéma en lecture seule à privilégier** : comparer le nombre de `model` du schéma au nombre de tables réelles (`SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='mastorion'`) — 17 = 17 au 2026-09-09. Noter aussi que `--skip-generate` n'existe plus en Prisma 7.
 - ⚠⚠ **DETTE À SOLDER AVANT TOUT DÉPLOIEMENT SERVEUR** : notre `.env` local utilise `JWT_SECRET=mastorion-dev-secret` (le **défaut du code**, aligné le 2026-07-27 pour faire dialoguer api et sentinel-api). Sur un serveur multi-postes, ce secret connu permettrait à quiconque de **forger un jeton APP_ADMIN**. À la mise en production : générer un secret aléatoire et le poser dans `.env.prod` (il est lu par les deux API via `env_file`). Même vigilance pour `apps/api/migrator.env` (mots de passe réels commités) et `ADMIN_PASSWORD`.
 
@@ -287,7 +317,8 @@ Traces de JSON dans la plateforme (pour mémoire) : conversion interne XLSX→JS
 - **Import EHO à garde anti-fusion** (`/api/eho/personas/import`) : upsert par **username seul** ; ligne visant un compte humain OU un email/masto_id porté par une autre fiche → **refusée ligne à ligne** (leçon Gavrilov codée dans l'API). L'app n'appelle **plus aucun** `/api/admin/*`.
 - **Admin MASTORION recentré humains** (décision utilisateur) : paramètre optionnel `comptes=humains|personas` sur `GET /api/admin/users` (défaut inchangé), front admin filtré, boutons Importer/Exporter masqués.
 - 🔒 **Règle bio/observations** : la `bio` est **publique côté réseau social** → tout renseignement animateur (mentions COMPTES MULTIPLES, liens entre comptes) va dans **`observations`**, jamais en bio.
-- ⏳ Arbitrage en attente (Analyste Mercure) : camp de `@GavrilovBorislav` maintenant que `@The_Grass_hopper` porte l'identité « sergent » — arbitrage utilisateur 07-28 conservé (`MER - MILITAIRE`) en attendant.
+- ✅ **Arbitrage Gavrilov CLOS (2026-09-10)** : `@GavrilovBorislav` supprimé (doublon), **seul `@The_Grass_hopper`** porte l'identité (MER - MILITAIRE, sergent 47e div.). Handle en `EXCLUSIONS` du générateur — ne peut plus réapparaître à l'export/import. L'archive 7BB MASTAURIGE garde le sien (hors périmètre bibliothèque).
+- **⭐ Package STARTEX (2026-09-10)** : les **autorités connues des countrybooks** arrivent **pré-placées et verrouillées** chez les joueurs (fiche officielle visible, seules des **notes complémentaires** possibles — verrou côté serveur). Le package = le **groupe `STARTEX`** (0 table, présent dans l'Excel/les modèles/les sauvegardes), marqué à la source dans `generer_bibliotheque.py` (acteurs planche, **clandestins exclus**) → 62 autorités. Sélection anim : trombinoscope → bouton « STARTEX (n) » (clic = ajout/retrait, badge ★). ⚠ Recapturer le modèle SKOLKAN-PERSONA après toute modification durable du package.
 - Comptes de démo : cellule « CELLULE ALPHA », joueur `joueur_alpha_1@eho.mastorion.local` / `alpha123`.
 
 ## Capacités / travaux

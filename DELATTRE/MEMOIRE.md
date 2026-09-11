@@ -28,6 +28,30 @@
 
 ---
 
+## 1bis. ⭐ PREMIER ÉLÉMENT CONCRET — Réseau RENS/RZO (diagramme SITCEN, ingéré 2026-09-10)
+
+> **Source autoritaire** : `EXER\DELATTRE 26_Montage exercice\RENS60904_NP_DLT26_SITCEN_RENS_Diagramme RZO.pptx` (le `.pdf` homonyme est identique — 1 diapositive, 0 note, vérifié fragment par fragment).
+
+### Ce que le document révèle de l'exercice
+- **Insignes d'unités : `1 DIV` (sur HETTA) · `27 BIM` (sur CIRKOF) · `9 BIMa` (sur MICHEL)** → unités visées/infiltrées par le réseau — indice fort d'un exercice **niveau division** (1re DIV) avec la 27e BIM et le 9e BIMa. ⚠ À confirmer par l'utilisateur avant d'en faire une base de calibration (point n°1 du RETEX).
+- **Continuité MINOTAURE → DELATTRE** : 28 des 30 acteurs sont la reprise du réseau RENS/RZO du 7BB (mêmes noms, mêmes photos). Zone toujours HLorraine (maires HSARREBOURG, HNANCY, HLUNÉVILLE, HCHATEAU-SALINS, HSARRE-UNION) + « Gouverneur GET ».
+
+### Structure du réseau (30 acteurs, 7 types de liens)
+- **Tête** : `Patrick HETTA` — « ARN-ProMER, CDT RÉGION », **visage NON identifié (silhouette — voulu)**, insigne 1 DIV. **Commande** (liens noirs) 2 cellules : `Jules CIRKOF (27 BIM)` ↔ `Thomas MICHEL (9 BIMa)` · `Louis YARBOT (adjoint)`–`Bernard LECONE (geek-cyber)`–`Firmin LAPOTRE (instructeur guérilla)`–`Éric HERVOUET (artificier)`. **Ex-relation intime** avec `Cathy POMMEROND` (commerçante pro-MER).
+- **Sphère clandestine HFM/NOM** (liens rouges pointillés) : masques anonymes + agitateurs `The flying fly`, `Le Padupe`, `Léon-Philippe THELY` ; symboles HFM (tête de mort ▽) et NOM (étoile rouge).
+- **Maillage civil RZO** (liens bleus) : les 5 maires (`PROMESY`, `ADRIANE`, `MORDVIDCHEV`, `DANEVOIS`, `MARTIN`) + `Rémi LAFFIN (Gouverneur GET)` + `José PERNOD (journaliste régional)` + `Antoine BOURGUIGNON (pdt des Agriculteurs)` + `Pascal DEGARDIN (ancien militaire)` + `Thomas CRUSADIER (militaire ARN)`.
+- **Sphère MER** : `Armin KRASNI (43e DIV)`, `Gennady YEREMIN (42e DIV)`, influenceurs `Капитан Хэдок`, `Marie NASSAH`, `Béa_HVT (complotiste)`, célébrités `Алексей Аксёненко`, `Сюзанна Светличная`, `Katia CHAPMAN`. `HERVOUET` **en relation intime** avec `Béa_HVT` ; `Хэдок` avec `NASSAH`.
+- **Liens familiaux** (verts) : `Kimberley (« Fille de… », identité incomplète)` ↔ `Nathalie MARTIN` et ↔ `Pascal DEGARDIN` ; Kimberley **en relation intime** avec `CRUSADIER`.
+- **Liens suspectés** (orange) : LAFFIN↔symboles NOM/HFM, THELY↔DANEVOIS, CHAPMAN↔СВЕТЛИЧНАЯ/NASSAH, KRASNI↔étoile NOM, CRUSADIER↔masque central, etc.
+- Légende complète : noir=commande · rouge pointillé=HFM/NOM · vert=familial · bleu=RZO · violet pointillé=ex-intime · violet plein=intime · orange=suspecté.
+
+### État EHO MASTORION (fait le 2026-09-10)
+- **30/30 présents** dans le modèle SKOLKAN-PERSONA, tous taggés `EXERCICE DELATTRE 26` ; **29/30 avec portrait conforme au diagramme** (HETTA sans photo = VOULU).
+- **2 créés pour DELATTRE** : `@rzo_patrick_hetta` (ARN-GROUPE CLANDESTIN/PRO-MERCURE, rouge) · `@rzo_kimberley` (ARN-CITOYEN, neutre) — inscrits À LA SOURCE dans `MASTORION\OUTILS\generer_bibliotheque.py` (`PERSONAS_DELATTRE` + `RESEAU_DELATTRE`) → classeur Excel 453 personas, annuaire alignés, modèle recapturé.
+- **7 portraits récupérés du PPTX même** (les sources 7BB avaient des placeholders `rzo-x*`) : Хэдок, Аксёненко, Светличная, The flying fly, Le Padupe, Kimberley, Mordidchev.
+- ⚠ **Divergence d'orthographe À TRANCHER par l'utilisateur** : le diagramme écrit « Serge **MORDVIDCHEV** », l'EHO 7BB « Serge **Mordidchev** » (maire HNancy). Même personne (alias posé dans le générateur) — quelle graphie fait foi pour DELATTRE ?
+- ⚠ Trio cyrillique : usernames hérités de placeholders source (`@rzo_x`, `@rzo_x_2`, `@rzo_x_3`) — fonctionnels mais laids ; renommage possible si demandé.
+
 ## 2. Socle hérité — acquis valables dès maintenant
 
 ### Lignes Opératoires GLM26 (référence permanente)

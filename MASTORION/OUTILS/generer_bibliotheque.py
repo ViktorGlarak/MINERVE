@@ -61,6 +61,13 @@ PAYS_NOM = {"MER": "Mercure", "ARN": "Arnland", "FR": "France", "BOT": "Bothnia"
 EXCLUSIONS = {
     "@kozi_aus",   # « Andrei Kolesnikov » apprenti, homonyme exact du sergent
                    # @KolesnikovAndrei (employe dans les 2 exercices) -> un seul conserve
+    "@gavrilovborislav",   # decision utilisateur 2026-09-10 : doublon de la MEME
+                           # personne — seul @The_Grass_hopper (CASW ORION 26,
+                           # sergent 47e div.) est conserve. Clot l'arbitrage
+                           # « comptes multiples Gavrilov » ouvert le 2026-09-09.
+                           # ⚠ l'archive 7BB (avatars.js/injects MASTAURIGE)
+                           # garde son @GavrilovBorislav : on n'exclut ici que
+                           # de la bibliotheque MASTORION.
 }
 
 # Groupes transverses, SANS prefixe pays
@@ -167,10 +174,10 @@ OVERRIDES.update({
     #  (2) Pas de region francaise reelle dans les exercices : les civils de la zone
     #      d'operation sont arnlandais (France fictive = Arnland), meme en 2BB.
     "@clambroise55":     ["ARN - CITOYEN"],
-    #  (3) Sa BIOGRAPHIE fait foi : sergent senior de la 47e division mercurienne.
-    #      ⚠ contredit la revue MINOTAURE du 2026-06-21 qui en faisait un habitant
-    #      de HDieuze (diaspora) — les injects 7BB concernes sont a revoir.
-    "@gavrilovborislav": ["MER - MILITAIRE"],
+    #  (3) [CLOS le 2026-09-10] L'override "@gavrilovborislav": ["MER - MILITAIRE"]
+    #      (arbitrage du 2026-07-28 : « sa bio fait foi, sergent 47e div. »)
+    #      est retire : le handle est desormais EXCLU de la bibliotheque
+    #      (cf. EXCLUSIONS) — seul @The_Grass_hopper porte cette identite.
 })
 
 
@@ -427,6 +434,9 @@ TITRES = r"^(dr|pr|me|mgr|mg|bg|lt|ltc|col|gen|general|gen\.|sgt|cpt|cne|adj|ami
 # Cle = variante rencontree, valeur = forme retenue.
 ALIAS_PERSONNES = {
     "laffinremi": "laffinremy",     # « Rémi LAFFIN » (RZO) = « Rémy Laffin » (EHO), gouverneur
+    "mordvidchevserge": "mordidchevserge",  # diagramme RENS DELATTRE ecrit
+                                    # « MORDVIDCHEV », l'EHO 7BB « Mordidchev »
+                                    # (maire HNancy) — meme personne (2026-09-10)
 }
 
 
@@ -814,9 +824,16 @@ def charger_planche(path):
     if not html:
         return []
     PAGES = {"page-mercure": "MER", "page-dr": "ARN", "page-br": "BOT"}
-    acteurs, pays, section = [], "ARN", ""
+    acteurs, pays, section, sous_section = [], "ARN", "", ""
+    # ⚠ 2 pieges de balayage corriges le 2026-09-10 :
+    #   - les titres portant un attribut (style=...) etaient RATES par l'ancien
+    #     motif qui exigeait `">` colle -> la section precedente debordait
+    #     (le CHOD Palmquetil se retrouvait « Opposition parlementaire ») ;
+    #   - les sous-titres `section-separator` (« Organisations Skolkan »)
+    #     n'etaient pas lus -> Nielsen/Pedersen herites de « Medias ».
     motif = (r'class="page[^"]*"'
-             r'|<div class="section-title[^"]*">(.*?)</div>'
+             r'|<div class="section-title[^"]*"[^>]*>(.*?)</div>'
+             r'|<div class="section-separator[^"]*"[^>]*>(.*?)</div>'
              r'|<div class="actor-name"[^>]*>(.*?)</div>\s*<div class="actor-role"[^>]*>(.*?)</div>')
     for m in re.finditer(motif, html, re.S):
         txt = m.group(0)
@@ -826,11 +843,15 @@ def charger_planche(path):
                     pays = v
         elif m.group(1) is not None:
             section = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(1))).strip()
+            sous_section = ""                # un nouveau titre remet le sous-titre a zero
         elif m.group(2) is not None:
-            nom = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2))).strip()
-            role = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3))).strip()
+            sous_section = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2))).strip()
+        elif m.group(3) is not None:
+            nom = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3))).strip()
+            role = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(4))).strip()
             if nom and "'+" not in nom:      # ecarte les gabarits JS
-                acteurs.append({"nom": nom, "role": role, "pays": pays, "section": section})
+                acteurs.append({"nom": nom, "role": role, "pays": pays,
+                                "section": (section + " " + sous_section).strip()})
     return acteurs
 
 
@@ -855,27 +876,37 @@ def classer_planche(a):
         \\bun\\b/\\beu\\b lors de la refonte de taxonomie du 2026-07-28."""
         return re.search(r"\b(?:%s)\b" % "|".join(mots), t) is not None
 
-    # L'ordre compte : les cas les plus specifiques d'abord.
-    if "para-etatique" in s or mot("milice", "paramilitaire") or "novus ordo" in t:
+    # L'ORDRE COMPTE — refonte 2026-09-10 : le ROLE explicite prime sur la
+    # SECTION (un ministre civil assis dans le bloc militaire reste un
+    # politicien ; une org internationale rangee apres le titre « Medias »
+    # reste internationale). Les sections ne servent que de filet.
+    # « tantale » : le porte-parole de la milice (Werner) est assis sous un
+    # sous-titre « Renseignement » — sans ce mot-cle il filait en MILITAIRE
+    # et donc au STARTEX, revelant une entite clandestine (constate 2026-09-10).
+    if "para-etatique" in s or mot("milice", "paramilitaire", "tantale") or "novus ordo" in t:
         fonction = "GROUPE CLANDESTIN"
-    elif "media" in s or mot("presse", "journaliste", "chaine"):
-        fonction = "JOURNALISTE"
     elif mot("juge", "constitutionnel", "penal") or "cour supreme" in t:
         fonction = "JUSTICE"
-    elif ("acteurs internationaux" in s
+    elif ("acteurs internationaux" in s or "organisations skolkan" in s
           or mot("cicr", "onu", "cooperation", "delegation")
           or "porte-parole otan" in t or "porte-parole ue" in t
           or "secretaire general" in t or "security treaty" in t
           or "union europeenne" in t):
         fonction = "INSTITUTION INTERNATIONALE"
-    elif "opposition" in s:
-        fonction = "OPPOSITION"
+    elif mot("ministre", "gouverneur", "depute", "vice-president") \
+            or "premier ministre" in t or "chef de l etat" in t \
+            or re.match(r"^president", r):
+        fonction = "POLITICIEN"
     elif ("militaire" in s
-          or mot("chod", "cgs", "sof", "commandant", "division", "brigade",
+          or mot("chod", "cgs", "sof", "command", "commandant", "division", "brigade",
                  "regiment", "sniper", "armees", "rg", "dac", "bmf")
           or "etat-major" in t or "renseignement" in t or "intelligence" in t
           or "surete de l etat" in t):
         fonction = "MILITAIRE"
+    elif "media" in s or mot("presse", "journaliste", "chaine"):
+        fonction = "JOURNALISTE"
+    elif "opposition" in s:
+        fonction = "OPPOSITION"
     else:
         fonction = "POLITICIEN"
 
@@ -907,12 +938,28 @@ def fusionner_planche(lignes, path):
     for a in acteurs:
         k = cle_personne(a["nom"])
         fonction, camp = classer_planche(a)
-        tag = "%s - %s" % (a["pays"], fonction)
+        # ⚠ Les ORGANISMES INTERNATIONAUX (ONU, OTAN, UE, CICR, orgs Skolkan)
+        #   ne portent PAS le pays de la PAGE de planche ou ils figurent :
+        #   Rutte/Guterres se retrouvaient « Arnland » en base — incoherent
+        #   jusque dans la comparaison joueur (constat utilisateur 2026-09-10).
+        #   Fonction transverse -> groupe SANS prefixe pays, champ pays VIDE.
+        transverse = fonction in TRANSVERSE
+        tag = fonction if transverse else "%s - %s" % (a["pays"], fonction)
+        # ⭐ PACKAGE STARTEX (demande utilisateur 2026-09-10) : les acteurs de
+        #   la planche sont les AUTORITES CONNUES des countrybooks — les
+        #   joueurs les connaissent AVANT l'exercice. Ils portent le groupe
+        #   `STARTEX` : cote app EHO, leur carte arrive pre-placee et
+        #   verrouillee, fiche officielle visible. EXCEPTION : les entites
+        #   clandestines (TANTALE, N.O.M., leurs porte-parole) restent a
+        #   decouvrir — jamais de STARTEX pour un GROUPE CLANDESTIN.
+        startex = fonction != "GROUPE CLANDESTIN"
         if k in par_nom:                     # deja connu -> on complete ses groupes
             l = par_nom[k]
             g = [x for x in l["groups"].split(";") if x]
             if tag not in g:
                 g.append(tag)
+            if startex and "STARTEX" not in g:
+                g.append("STARTEX")
             l["groups"] = ";".join(g)
             # Le role de la planche est la formulation EHO de reference
             # (« President de la Republique »). Il prime sur une valeur
@@ -936,9 +983,10 @@ def fusionner_planche(lignes, path):
             "camp": camp, "masto_id": "", "username": username,
             "display_name": a["nom"], "email": "%s@mastorion.local" % username,
             "password": "", "bio": "",
-            "groups": ";".join(OrderedDict.fromkeys([tag, "EXERCICE MINOTAURE 26"])),
+            "groups": ";".join(OrderedDict.fromkeys(
+                [tag] + (["STARTEX"] if startex else []) + ["EXERCICE MINOTAURE 26"])),
             "avatar": "", "age": "", "genre": "",
-            "pays": PAYS_NOM.get(a["pays"], ""), "label": fonction,
+            "pays": "" if transverse else PAYS_NOM.get(a["pays"], ""), "label": fonction,
             "origine": "", "religion": "", "situation": "", "caractere": "", "langage": "",
             "activite": a["role"], "observations": "",
             "qualifications": "Source : planche EHO ACTEURS_A3 (%s) — camp a valider par l'Analyste"
@@ -1017,6 +1065,90 @@ def clarifier_comptes_multiples(lignes):
     return multi
 
 
+# ══════════════════════════════════════════════════════════════════════
+#  DELATTRE 26 — réseau RENS (diagramme RZO du SITCEN)
+#  Source : EXER\DELATTRE 26\01_Montage exercice\RENS\
+#           20260904_NP_DLT26_SITCEN_RENS_Diagramme RZO.pptx/pdf (identiques)
+#  30 acteurs (reprise du réseau RENS/RZO de MINOTAURE + 2 créations propres),
+#  insignes d'unités 1 DIV / 27 BIM / 9 BIMa, 7 types de liens.
+# ══════════════════════════════════════════════════════════════════════
+
+# Les 30 acteurs du diagramme -> tag d'appartenance EXERCICE DELATTRE 26.
+RESEAU_DELATTRE = [
+    "Patrick HETTA", "Jules CIRKOF", "Thomas MICHEL", "Louis YARBOT",
+    "Bernard LECONE", "Firmin LAPOTRE", "Éric HERVOUET", "Капитан Хэдок",
+    "Marie NASSAH", "Béa_HVT", "Thomas CRUSADIER", "Cathy POMMEROND",
+    "Pascal DEGARDIN", "Kimberley", "Nathalie MARTIN", "Robert DANEVOIS",
+    "Serge MORDVIDCHEV", "Rémi LAFFIN", "Nadia PROMESY", "Jean-Louis ADRIANE",
+    "Antoine BOURGUIGNON", "José PERNOD", "The flying fly", "Le Padupe",
+    "Léon-Philippe THELY", "Armin KRASNI", "Gennady YEREMIN",
+    "Алексей Аксёненко", "Сюзанна Светличная", "Katia CHAPMAN",
+]
+
+# Personas propres a DELATTRE (absents de toutes les sources MINOTAURE).
+# ⚠ HETTA n'a volontairement PAS de portrait : le diagramme RENS le
+#   represente en silhouette (visage non identifie) — ne pas en ajouter.
+PERSONAS_DELATTRE = [
+    {
+        "camp": "rouge", "username": "rzo_patrick_hetta", "display_name": "Patrick HETTA",
+        "pays": "Arnland", "label": "GROUPE CLANDESTIN",
+        "activite": "CDT RÉGION — commandant régional du réseau clandestin (ARN pro-MER)",
+        "groupes": ["ARN - GROUPE CLANDESTIN", "ARN - PRO-MERCURE", "RESEAU RZO"],
+        "observations": "Commande les cellules CIRKOF/MICHEL (27 BIM / 9 BIMa) et "
+                        "YARBOT-LECONE-LAPOTRE-HERVOUET. Insigne 1 DIV. "
+                        "Ex-relation intime avec Cathy POMMEROND. Visage non identifié (silhouette).",
+    },
+    {
+        "camp": "neutre", "username": "rzo_kimberley", "display_name": "Kimberley",
+        "pays": "Arnland", "label": "CITOYEN",
+        "activite": "« Fille de… » — liens familiaux avec Nathalie MARTIN et Pascal DEGARDIN",
+        "groupes": ["ARN - CITOYEN", "RESEAU RZO"],
+        "observations": "En relation intime avec Thomas CRUSADIER (militaire ARN). "
+                        "Identité complète non établie par le RENS.",
+    },
+]
+
+
+def fusionner_delattre(lignes):
+    """Marque les acteurs du diagramme RENS DELATTRE (EXERCICE DELATTRE 26)
+    et cree les personas propres a l'exercice. Meme principe de fusion par
+    nom que fusionner_rzo/planche — jamais de doublon."""
+    par_nom = {}
+    for l in lignes:
+        par_nom[cle_personne(l["display_name"])] = l
+    tags, crees = 0, 0
+    for nom in RESEAU_DELATTRE:
+        l = par_nom.get(cle_personne(nom))
+        if l is None:
+            continue                     # les creations arrivent juste apres
+        g = [x for x in l["groups"].split(";") if x]
+        if "EXERCICE DELATTRE 26" not in g:
+            g.append("EXERCICE DELATTRE 26")
+            l["groups"] = ";".join(g)
+            tags += 1
+    for p in PERSONAS_DELATTRE:
+        if cle_personne(p["display_name"]) in par_nom:
+            continue
+        ligne = {
+            "camp": p["camp"], "masto_id": "", "username": p["username"],
+            "display_name": p["display_name"],
+            "email": "%s@mastorion.local" % p["username"],
+            "password": "", "bio": "",
+            "groups": ";".join(p["groupes"] + ["EXERCICE DELATTRE 26"]),
+            "avatar": "", "age": "", "genre": "",
+            "pays": p["pays"], "label": p["label"],
+            "origine": "", "religion": "", "situation": "", "caractere": "", "langage": "",
+            "activite": p["activite"], "observations": p["observations"],
+            "qualifications": "Source : Diagramme RZO RENS DELATTRE 26 "
+                              "(20260904_NP_DLT26_SITCEN_RENS)",
+            "aime": "", "deteste": "",
+        }
+        lignes.append(ligne)
+        par_nom[cle_personne(p["display_name"])] = ligne
+        crees += 1
+    return tags, crees
+
+
 def ecrire(lignes):
     from openpyxl import Workbook
     from openpyxl.styles import Font, PatternFill, Alignment
@@ -1048,11 +1180,13 @@ if __name__ == "__main__":
     lignes, stats = construire()
     ajouts_rzo, fusions_rzo = fusionner_rzo(lignes, A7_RZO)
     ajouts_pl, fusions_pl = fusionner_planche(lignes, A7_PLANCHE)
+    tags_dlt, crees_dlt = fusionner_delattre(lignes)
     multi = clarifier_comptes_multiples(lignes)
     ecrire(lignes)
     print("Fichier : %s" % SORTIE)
     print("Reseau RZO : %d fusionnes (deja presents) | %d nouvelles fiches" % (fusions_rzo, ajouts_rzo))
     print("Planche EHO : %d fusionnes (deja presents) | %d nouvelles fiches" % (fusions_pl, ajouts_pl))
+    print("Reseau DELATTRE 26 : %d acteurs tagges | %d crees (HETTA, Kimberley)" % (tags_dlt, crees_dlt))
     if multi:
         print("Comptes multiples signales en observations (%d personne(s)) :" % len(multi))
         for grp in multi:

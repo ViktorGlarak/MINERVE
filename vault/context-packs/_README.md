@@ -4,7 +4,7 @@
 
 | Domaine | Notes | Pack |
 |---|---|---|
-| agents | 19 | [PACK-agents](PACK-agents.md) |
+| agents | 22 | [PACK-agents](PACK-agents.md) |
 | analystes | 4 | [PACK-analystes](PACK-analystes.md) |
 | arnland | 114 | [PACK-arnland](PACK-arnland.md) |
 | assets | 2 | [PACK-assets](PACK-assets.md) |

@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « bibliotheques ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-09 · 3 notes.
+> Généré le 2026-09-11 · 3 notes.
 
 ## Notes (par tier)
 

@@ -129,6 +129,9 @@ graph LR
 | MINAUTORE | [prompt](SYSTEME/PROMPTS/minautore.md) | [mémoire](MINAUTORE/MEMOIRE.md) |
 | EXPERT_INFLUENCE | [prompt](SYSTEME/PROMPTS/expert_influence.md) | [mémoire](EXPERT_INFLUENCE/MEMOIRE.md) |
 | BROUILLON | [prompt](SYSTEME/PROMPTS/brouillon.md) | [mémoire](BROUILLON/MEMOIRE.md) |
+| DELATTRE | [prompt](SYSTEME/PROMPTS/delattre.md) | [mémoire](DELATTRE/MEMOIRE.md) |
+| MASTORION | [prompt](SYSTEME/PROMPTS/mastorion.md) | [mémoire](MASTORION/MEMOIRE.md) |
+| PLEIADE | [prompt](SYSTEME/PROMPTS/pleiade.md) | [mémoire](PLEIADE/MEMOIRE.md) |
 
 ---
 

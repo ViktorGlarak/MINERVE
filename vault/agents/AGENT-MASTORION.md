@@ -1,29 +1,32 @@
 ---
-id: AGENT-EXPERT-INFLUENCE
+id: AGENT-MASTORION
 type: agent
-title: EXPERT_INFLUENCE
+title: MASTORION
 tags: [agent]
-source: ../../EXPERT_INFLUENCE/MEMOIRE.md
-linkedTo: [DECISION-010, LESSON-022]
+source: ../../MASTORION/MEMOIRE.md
+linkedTo: [ARCH-011, DECISION-013, LESSON-027, LESSON-028, LESSON-029]
 relevantFor: [agents]
 tier: 2
 created: 2026-09-11
 updated: 2026-09-11
 ---
 
-# 🤖 EXPERT_INFLUENCE — Canvas agent
+# 🤖 MASTORION — Canvas agent
 
 > ⚙️ **Généré** par `_generer_agents.py` — ne pas éditer à la main. Liens purs (zéro copie).
 > **Rôle & modèle Ollama : voir le registre** → [CLAUDE.md](../../CLAUDE.md) (source de vérité unique).
 
 ## Fiches autoritaires
-- 🧠 Mémoire (vérité vivante) : [MEMOIRE.md](../../EXPERT_INFLUENCE/MEMOIRE.md)
-- 🗣️ Prompt système : [expert_influence.md](../../SYSTEME/PROMPTS/expert_influence.md)
-- 📄 README : [README.md](../../EXPERT_INFLUENCE/README.md)
+- 🧠 Mémoire (vérité vivante) : [MEMOIRE.md](../../MASTORION/MEMOIRE.md)
+- 🗣️ Prompt système : [mastorion.md](../../SYSTEME/PROMPTS/mastorion.md)
+- 📄 README : [README.md](../../MASTORION/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- [[DECISION-010]]
-- [[LESSON-022]]
+- [[ARCH-011]]
+- [[DECISION-013]]
+- [[LESSON-027]]
+- [[LESSON-028]]
+- [[LESSON-029]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

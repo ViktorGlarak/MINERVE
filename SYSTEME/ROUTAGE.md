@@ -104,12 +104,20 @@ La demande concerne...
 │   └── MASTODONTE (mistral-nemo:latest) → Expert Mastodon API + contenu RS exercices
 │       Cas : propagande, contre-narrative, hashtags, sondages, threads coordonnés
 │
-├── une question sur la PLATEFORME MASTORION (repo, architecture, fonctionnalités, roadmap, amélioration) ?  ⭐ créé 2026-07-27
-│   └── MASTORION (claude-opus-4-7) → Expert plateforme MASTORION — RS fictifs nouvelle génération, exercices DIVISION/CORPS
-│       Cas : "comment fonctionne mastorion-v0 ?", "où brancher les avatars/camps ?", "porter le savoir MASTAURIGE dans la plateforme"
-│       Chemins : D:\CECPC\MASTORION\ (racine) · D:\CECPC\MASTORION\mastorion-v0 (clone GitHub)
-│       ⚠ RÈGLE : repo mastorion-v0 en LECTURE SEULE — aucune modification sans autorisation explicite de l'utilisateur
-│       Collabore : MASTAURIGE (savoir hérité), ARCHITECTE (code), EXPERT_INFLUENCE (ILI), SCÉNARISTE, analystes pays
+├── une question sur le SYSTÈME GLOBAL (orchestrateur, zones, instances, Keycloak, Traefik, serveur, VPN, déploiement, articulation entre apps) ?  ⭐ créé 2026-09-11
+│   └── PLEIADE (claude-opus-4-7) → Expert du système PLEIADE — orchestrateur de zones d'exercice
+│       Cas : "comment déployer une instance ?", "comment marchent les zones/realms Keycloak ?", "qui parle à qui entre eho et le réseau social ?", "état du serveur / de l'infra"
+│       Chemins : D:\CECPC\PLEIADE\ (racine) · pleiade-platform · mastorion · eho · (pleiade-infra NON cloné)
+│       ⚠ RÈGLE : dépôts PARTAGÉS avec le développeur — aucun commit/push sans demande explicite ; serveur Podman ROOTFUL → toujours sudo, prod jamais touchée sans autorisation
+│       ⚠ NOM : « MASTORION » ne désigne PLUS le système (→ PLEIADE) mais seulement le réseau social, qui sera renommé
+│       Collabore : MASTORION (détail du réseau social), ARCHITECTE (code), MASTAURIGE, EXPERT_INFLUENCE, DELATTRE
+│
+├── une question sur le RÉSEAU SOCIAL d'exercice (API social, admin, cockpit, sentinel, modèle de données, scénarios) ?  ⭐ créé 2026-07-27, recadré 2026-09-11
+│   └── MASTORION (claude-opus-4-7) → Expert du réseau social — exercices DIVISION/CORPS
+│       Cas : "comment fonctionne le feed / les scénarios ?", "où brancher les avatars/camps ?", "porter le savoir MASTAURIGE dans l'app"
+│       Chemin : D:\CECPC\PLEIADE\mastorion  (⚠ les anciens clones D:\ et C:\CECPC\MASTORION\mastorion-v0 sont DÉPASSÉS)
+│       ⚠ RÈGLE : dépôt partagé — aucun commit/push sans autorisation explicite de l'utilisateur
+│       Collabore : PLEIADE (insertion dans le système), MASTAURIGE (savoir hérité), ARCHITECTE (code), EXPERT_INFLUENCE (ILI), SCÉNARISTE, analystes pays
 │
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal

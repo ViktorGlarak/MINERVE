@@ -1,29 +1,28 @@
 ---
-id: AGENT-EXPERT-INFLUENCE
+id: AGENT-DELATTRE
 type: agent
-title: EXPERT_INFLUENCE
+title: DELATTRE
 tags: [agent]
-source: ../../EXPERT_INFLUENCE/MEMOIRE.md
-linkedTo: [DECISION-010, LESSON-022]
+source: ../../DELATTRE/MEMOIRE.md
+linkedTo: []
 relevantFor: [agents]
-tier: 2
+tier: 3
 created: 2026-09-11
 updated: 2026-09-11
 ---
 
-# 🤖 EXPERT_INFLUENCE — Canvas agent
+# 🤖 DELATTRE — Canvas agent
 
 > ⚙️ **Généré** par `_generer_agents.py` — ne pas éditer à la main. Liens purs (zéro copie).
 > **Rôle & modèle Ollama : voir le registre** → [CLAUDE.md](../../CLAUDE.md) (source de vérité unique).
 
 ## Fiches autoritaires
-- 🧠 Mémoire (vérité vivante) : [MEMOIRE.md](../../EXPERT_INFLUENCE/MEMOIRE.md)
-- 🗣️ Prompt système : [expert_influence.md](../../SYSTEME/PROMPTS/expert_influence.md)
-- 📄 README : [README.md](../../EXPERT_INFLUENCE/README.md)
+- 🧠 Mémoire (vérité vivante) : [MEMOIRE.md](../../DELATTRE/MEMOIRE.md)
+- 🗣️ Prompt système : [delattre.md](../../SYSTEME/PROMPTS/delattre.md)
+- 📄 README : [README.md](../../DELATTRE/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- [[DECISION-010]]
-- [[LESSON-022]]
+- *(aucune note atomique transversale pour l'instant — à créer si une connaissance durable émerge)*
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

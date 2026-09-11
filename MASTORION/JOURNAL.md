@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-09-11 — ⚠ RECADRAGE DE PÉRIMÈTRE : MASTORION n'est plus le système, mais le réseau social
+
+- **Décision utilisateur** : « le programme devait s'appeler MASTORION ; maintenant MASTORION devient simplement un réseau social et à terme on lui changera de nom ». Un agent **PLEIADE** est créé pour le **système global** (22ᵉ agent MINERVE).
+- **Nouvelle réalité du dépôt** : organisation GitHub **`cecpc-pleiade`** (l'ancien `XTalandier/mastorion-v0` est dépassé) ; clone de travail **`D:\CECPC\PLEIADE\mastorion`** ; les clones `D:\` et `C:\CECPC\MASTORION\mastorion-v0` ne doivent plus servir.
+- **Nouveautés de `main` constatées** (non encore détaillées ici, cf. `CLAUDE.md` du dépôt) : **Keycloak** câblé au démarrage (web+admin), `KEYCLOAK_PUBLIC_URL`, **rôles de client Keycloak → rôles applicatifs**, **layouts sociaux configurables** (mastodon/twitter/facebook/instagram), **impersonation imposée + journal d'audit**, **fallback EHO** pour résoudre les comptes de scénario (`EHO_URL` → `GET /api/users?search=`). 8 apps au turborepo (ajout de `docs`, `sentinel-*`).
+- ⚠ **L'EHO a été RÉÉCRIT** en dépôt autonome **Next.js 16 + next-auth v5 + Keycloak** (`D:\CECPC\PLEIADE\eho`, 3 commits). Notre app **Angular `apps/eho`** vit toujours sur **`origin/feat/eho`** (8 commits `b2e91ec`…`89ad382`) mais **n'a jamais été fusionnée** dans `main`. Fonctionnalités livrées par nous et **absentes du nouvel EHO** : modèles d'EHO (SKOLKAN/VIERGE) + application verrouillée, cellules joueurs, fiches d'analyse, **package STARTEX**, trombinoscope, vue comparative. **→ Décision à prendre : abandonner ou porter.**
+- 🟢 **Vérifié** : le nouvel EHO porte **exactement les mêmes champs de persona** que le réseau social (`pays`, `label`, `activite`, `observations`, `qualifications`…) → **les bibliothèques MINERVE restent exploitables**. ⚠ import attendu en **CSV** (`csv-parse`) et `User.id` = **UUID Keycloak** (plus d'auto-incrément) — à prendre en compte avant tout import.
+- **Fichiers MINERVE mis à jour** : `MASTORION\README.md` (rôle + chemins + articulation avec PLEIADE), `MASTORION\MEMOIRE.md` (bandeau de recadrage en tête), `SYSTEME\PROMPTS\mastorion.md`, `CLAUDE.md` (registre + chemins), `SYSTEME\ROUTAGE.md`, `NOYAU\MEMOIRE.md` (21 → 22 agents).
+
 ## 2026-07-27 — Création de l'agent + première analyse du repo
 
 - Agent MASTORION créé (21ᵉ agent) selon la checklist CLAUDE.md : registre, compteur NOYAU (20→21), branche ROUTAGE, prompt `SYSTEME\PROMPTS\mastorion.md`, dossier `MASTORION\` (README/MEMOIRE/JOURNAL — convention 2 fichiers dès le jour 1).
@@ -94,6 +103,57 @@
 - Vérifié sur données réelles : CELLULE ALPHA 3 évalués → 2 écarts pays (Gavrilov, Peters) + 1 écart camp (Peters) détectés, la lecture correcte (HmunikVoice) hors du bandeau « mal lus ». 403 joueur re-testé côté API en phase 1.
 - Serveur eho redémarré systématiquement après gros ajout (piège du watcher consigné en phase 3) — bundle vérifié.
 - ⏭ Reste : **phase 5** — gestion complète (CRUD personas, cellules & joueurs dans l'UI, import/export) + déplacement des mentions « COMPTES MULTIPLES » de `bio` (publique côté réseau social) vers `observations`.
+
+## 2026-09-10 (suite 7) — Réseau RENS DELATTRE 26 ingéré dans la bibliothèque et l'EHO
+
+- **Diagramme RZO du SITCEN DELATTRE 26 analysé** (pptx+pdf identiques vérifiés) : 30 acteurs, 7 types de liens, insignes 1 DIV/27 BIM/9 BIMa. Détail complet consigné chez l'agent **DELATTRE** (`DELATTRE\MEMOIRE.md` §1bis) — règle CONSULTER/CONSIGNER respectée.
+- **Générateur** : `RESEAU_DELATTRE` (tag `EXERCICE DELATTRE 26` sur les 30) + `PERSONAS_DELATTRE` (créations HETTA sans photo VOULU + Kimberley) + alias `Mordvidchev→Mordidchev`. Classeur **453**, annuaire aligné (fusion ajoutée à `generer_annuaire_visuel` aussi), base importée, **modèle SKOLKAN recapturé (453/58)**.
+- **7 portraits extraits DU PPTX** (appariement par position image↔étiquette, vérifiés visuellement) pour les fiches à placeholder (`rzo-x*` dans rzo_data.js 7BB : Хэдок/Аксёненко/Светличная/flying fly/Padupe) + Kimberley + Mordidchev. **Bilan : 30/30 présents, 29/30 avec photo (HETTA silhouette voulue), 30/30 taggés.**
+- ⏳ À trancher (utilisateur) : graphie MORDVIDCHEV (diagramme) vs Mordidchev (EHO 7BB) ; renommage éventuel des usernames placeholder du trio cyrillique.
+
+## 2026-09-10 (suite 6) — Dialogues sans boutons : pTemplate niché dans un @if (commit `poussé`)
+
+- Signalement joueur : fiche de carte éditable mais **aucun bouton Enregistrer** (seule la croix, qui ferme sans sauver). Cause : `<ng-template pTemplate="footer">` placé DANS le `@if` du dialogue — **PrimeNG recense ses pTemplate une seule fois à l'initialisation** : niché dans un @if, jamais enregistré, pied invisible. ⚠ **Règle : les `pTemplate` restent HORS de tout bloc conditionnel** (le contenu, lui, peut être conditionné à l'intérieur).
+- 4 dialogues corrigés : fiche joueur · fiche persona Gestion · confirmation suppression · **confirmation d'application de modèle** (son bouton Appliquer était lui aussi invisible — l'écran Modèles était inutilisable à la souris ; nos bascules passaient par l'API, le défaut était passé inaperçu).
+
+## 2026-09-10 (suite 5) — ARBITRAGE GAVRILOV CLOS : @GavrilovBorislav supprimé, @The_Grass_hopper seul conservé
+
+- **Décision utilisateur** (clôt l'arbitrage « comptes multiples » ouvert le 2026-09-09) : `@GavrilovBorislav` est un **doublon** de `@The_Grass_hopper` → supprimé. Un seul compte porte désormais l'identité Borislav Gavrilov (sergent 47e div., CASW ORION 26).
+- **Base** : persona supprimé via `DELETE /api/eho/personas` (dépendances + fiches joueurs purgées) ; `@The_Grass_hopper` conserve photo et fiche, sa mention « COMPTES MULTIPLES » retirée des observations (réimport). **451 personas / 111 portraits**.
+- **Générateur — verrouillé contre la réapparition** : `@gavrilovborislav` ajouté à `EXCLUSIONS` (même mécanisme que `@Kozi_Aus`) ; l'override `MER - MILITAIRE` du 2026-07-28 retiré (commentaire de clôture en place). Classeur + annuaire régénérés (451), **modèle SKOLKAN-PERSONA recapturé** (451/57). Le signalement multi-comptes ne concerne plus qu'Arnish Times (média, voulu).
+- ⚠ Périmètre : l'**archive 7BB MASTAURIGE** (avatars.js, injects joués) garde son `@GavrilovBorislav` — l'exclusion ne vaut que pour la bibliothèque MASTORION.
+
+## 2026-09-10 (suite 4) — Comparaison : 100 % du « placé » joueur, STARTEX jamais en écart (commit ci-après)
+
+- Constat utilisateur : la comparaison ne montrait que 4 fiches (jamais les 62 STARTEX) et **Lena Peters sortait « mal placée »** — un placement joueur ANTÉRIEUR à son entrée au package survivait dans `eho_assessments`.
+- **Règle durable ajoutée** : entrer au STARTEX **purge automatiquement** les estimations joueurs existantes (pays/camp/fonction) sur ces personas — les notes sont conservées. Purge rejouée sur les 62 membres (le résidu Peters a disparu).
+- `/compare/:teamId` couvre désormais fiches de cellule + **toutes** les autorités STARTEX (flag, écarts jamais calculés, notes lisibles) ; vue d'ensemble « X + 62 ★ / 452 placés », STARTEX exclus des « mal lus » (n'y reste que Gavrilov — écart pédagogique légitime). UI : badge ★, liseré ambre, « pré-placé (pays) ★ », case « afficher aussi les STARTEX sans note » (repli par défaut).
+
+## 2026-09-10 (suite 3) — Barre de recherche EHO rendue fonctionnelle (commit `d569992`)
+
+- Constat utilisateur : la recherche ne filtrait pas. **Cause** : `search` était une **propriété simple** alors que le filtrage est un `computed()` de signaux Angular → la frappe n'invalidait jamais le calcul (inerte depuis sa création). ⚠ **Règle à retenir : tout état lu par un `computed()` DOIT être un signal.**
+- Corrigé dans les 2 vues (`search = signal('')` + binding `[ngModel]/(ngModelChange)`) ; champs cherchés élargis au **rôle détaillé** (`activite`) côté anim et aux fonctions officielle/estimée côté joueur. Taper un nom/prénom/fonction masque instantanément cartes ET encadrés pays non concernés.
+
+## 2026-09-10 (suite 2) — Encadré ORGANISATIONS INTERNATIONALES + légendes (commit `4d9e6c7`)
+
+- **Constat utilisateur** : Rutte/Guterres/ONU affichés dans l'encadré ARNLAND (leur `pays` valait « Arnland » en base, hérité de la PAGE de planche) — incohérent jusque dans la comparaison. **Corrigé à la source** : fonction transverse → groupe SANS préfixe pays + champ `pays` vide (`fusionner_planche`), réimport via l'endpoint EHO (remplace les appartenances), groupe `ARN - INSTITUTION INTERNATIONALE` purgé, **modèle SKOLKAN-PERSONA recapturé**.
+- 🐛 **2 défauts du balayage de la planche découverts et corrigés** : (1) les titres `section-title` porteurs d'un `style=` étaient RATÉS (motif exigeant `">` collé) → le CHOD Palmquetil et le ministre Schmit se retrouvaient « Opposition parlementaire » ; (2) les sous-titres `section-separator` ignorés → Nielsen/Pedersen (« Organisations Skolkan ») hérités de « Médias ». `charger_planche` lit désormais titres avec attributs + sous-sections (remises à zéro à chaque titre).
+- **Refonte de l'ordre `classer_planche` : le RÔLE explicite prime sur la SECTION** (clandestin → justice → international → politicien-par-rôle → militaire → média → opposition → défaut). Piège attrapé en vérifiant : **Elias Werner (porte-parole TANTALE)** filait en MILITAIRE via le sous-titre « Renseignement » → serait entré au STARTEX en révélant une entité clandestine ; mot-clé `tantale` ajouté à la branche clandestine. STARTEX stable à 62.
+- **UI** : encadré ORGANISATIONS INTERNATIONALES au trombinoscope (sélection par FONCTION transverse, 19 personas, 452/452 répartis vérifiés) ; côté joueur les internationaux STARTEX tombent en zone AUTRE/INTERNATIONAL (Rutte vérifié). **Légendes** ★/● sous le titre des 2 vues + infobulle manquante sur la pastille joueur.
+- ⚠ Curiosité repérée, non traitée : la carte planche « Boris Kalugin Tatiana Velkova — Délégation CICR » porte DEUX noms sur une seule fiche, et coexiste avec un « Boris Kalugin » ONG distinct — à trancher un jour (2 fiches ? renommage ?).
+
+## 2026-09-10 (suite) — Panne login/photos : turbo abattu par le kill d'une de ses tâches
+
+- Signalement utilisateur : login habituel refusé + photos des trombinoscopes absentes. **Cause : ma faute du matin** — le serveur eho tournait DANS turbo (contrairement à la veille) ; en tuant le processus :4204 pour le redémarrer, turbo a marqué `eho#dev` échouée et a abattu toute la stack (log : `Failed: eho#dev`), API comprise. Pages Angular orphelines encore servies → symptômes « photos cassées / login KO » alors que **la base était intacte (112 photos vérifiées)**.
+- Réparé : nettoyage des orphelins + relance `npx turbo dev --filter='!docs'` → login `test@test.fr` OK, portrait Junker servi HTTP 200 (44 Ko), état EHO SKOLKAN-PERSONA/452 intact. **Piège consigné en MEMOIRE** (ne jamais tuer un port tenu par turbo ; redémarrer via le pipeline entier).
+
+## 2026-09-10 — PACKAGE STARTEX : les autorités countrybook pré-placées chez les joueurs
+
+- **Demande utilisateur** : avant l'exercice, l'animateur sélectionne depuis le trombinoscope les personas « d'office bien placés » (autorités connues des countrybooks — Olamao est forcément président de Mercure) ; les joueurs ne les placent pas, voient la fiche officielle, et peuvent seulement **ajouter des notes**.
+- **Mécanisme retenu : package = groupe `STARTEX`** — 0 table nouvelle, voyage dans le classeur Excel (colonne groups), les modèles d'EHO et les sauvegardes. Marquage **à la source** dans `generer_bibliotheque.py` (`fusionner_planche` : acteurs de la planche countrybook, **GROUPE CLANDESTIN exclu** — TANTALE/N.O.M. restent à découvrir) → **62 autorités**. Classeur+annuaire régénérés, base importée (57 groupes), **modèle SKOLKAN-PERSONA recapturé**.
+- **Livré (commit `9eb3de1` sur `feat/eho`)** : trombinoscope anim = bouton « STARTEX (n) » → mode sélection au clic, badge ★ permanent ; endpoints `GET /startex` + `POST /startex/toggle` (anim seul, personas seuls) ; board joueur = cartes STARTEX **pré-placées au pays officiel, verrouillées** (drag off), fonction affichée, anneau au camp officiel, fiche = **bio officielle en lecture seule + notes de cellule** ; compteurs recalculés (STARTEX hors « à classer »).
+- ⚠ **Verrou côté serveur** (pas que l'UI) : `PUT /my/assessments` **ignore** pays/camp/fonction estimés sur un STARTEX (notes seules) ; `/my/board` ne transmet les champs officiels QUE pour les membres du package. Vérifié 6/6 : 62 au package · Olamao pré-placé avec bio · non-STARTEX dépouillé · re-placement joueur ignoré mais note enregistrée · toggle joueur 403 · retrait/remise anim OK.
+- 📌 Leçon de vérif : `grep` du bundle — un code de page *lazy* vit dans les **chunks**, pas dans `main.js` (seules les routes y sont).
 
 ## 2026-09-10 — PHASE 5 EHO v2 : l'EHO propriétaire des personas, l'Admin recentré sur les humains
 
