@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**420 notes** · généré le 2026-09-11
+**425 notes** · généré le 2026-09-11
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -13,7 +13,10 @@
 |---|---|---|---|
 | [ARCH-001](architecture/ARCH-001.md) | Vault MINERVE — source de vérité unique | architecture | systeme, tous |
 | [ARCH-004](architecture/ARCH-004.md) | Registre des agents (renvoi) | architecture | systeme, noyau |
+| [ARCH-012](architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture | pleiade, mastorion, exercices |
 | [DECISION-001](decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision | mastaurige, exercices |
+| [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision | pleiade, mastorion, exercices |
+| [DECISION-015](decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | decision | pleiade, exercices |
 | [ENT-arnland](entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity | arnland, exercices, ili |
 | [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity | bothnia, exercices, ili |
 | [ENT-mercure](entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity | mercure, exercices, ili |
@@ -43,6 +46,8 @@
 | [DECISION-011](decisions/DECISION-011.md) | MINERVE Local — assistant RAG de CONSULTATION (lecture seule, Ollama) | 2 | [`CONFIG.md"`]("../../SYSTEME/CONFIG.md") | [[PROJ-MINERVE]] [[AGENT-ANALYSTE-MERCURE]] [[AGENT-EXPERT-INFLUENCE]] [[AGENT-PENSEUR]] |
 | [DECISION-012](decisions/DECISION-012.md) | avatars.js = liste maître des comptes RS — EHO généré + garde-fou VERIFIER | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[PROJ-MASTAURIGE]] [[AGENT-MINAUTORE]] [[AGENT-ANALYSTE-ARN]] |
 | [DECISION-013](decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[LESSON-027]] [[LESSON-028]] [[TOOL-016]] |
+| [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] [[ARCH-011]] |
+| [DECISION-015](decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-014]] [[ARCH-012]] [[ARCH-011]] [[LESSON-030]] [[LESSON-031]] |
 
 ## 🛠️ Outils
 
@@ -98,6 +103,8 @@
 | [LESSON-027](lessons/LESSON-027.md) | Import MASTORION — deux fiches partageant email ou masto_id fusionnent EN SILENCE | 2 | [`JOURNAL.md`](../../MASTORION/JOURNAL.md) | [[DECISION-013]] [[ARCH-011]] [[TOOL-016]] |
 | [LESSON-028](lessons/LESSON-028.md) | La bio MASTORION est PUBLIQUE côté réseau social — le renseignement animateur va dans observations | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[DECISION-013]] [[ARCH-011]] [[LESSON-027]] |
 | [LESSON-029](lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[LESSON-027]] [[TOOL-016]] |
+| [LESSON-030](lessons/LESSON-030.md) | Ne jamais déduire un champ d'API par supposition avant une suppression de masse | 2 | [`JOURNAL.md`](../../PLEIADE/JOURNAL.md) | [[DECISION-015]] [[LESSON-029]] |
+| [LESSON-031](lessons/LESSON-031.md) | exFAT (D:) n'exécute aucun binaire natif — clone d'exécution sur NTFS obligatoire | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] |
 
 ## 🏛️ Architecture
 
@@ -114,6 +121,7 @@
 | [ARCH-009](architecture/ARCH-009.md) | Diffusion joueurs MASTAURIGE — mode fichiers par lots incrémentaux | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[ARCH-008]] [[LESSON-019]] [[DECISION-001]] |
 | [ARCH-010](architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[TOOL-001]] [[TOOL-003]] [[TOOL-016]] [[PROJ-MASTAURIGE]] |
 | [ARCH-011](architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[ARCH-010]] |
+| [ARCH-012](architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-014]] [[DECISION-015]] [[LESSON-031]] |
 
 ## 🗂️ Projets (canvas)
 
@@ -146,7 +154,7 @@
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
-| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 3 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | — |
+| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-014]] [[DECISION-015]] [[LESSON-030]] [[LESSON-031]] |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |

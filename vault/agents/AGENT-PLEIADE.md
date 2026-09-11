@@ -4,9 +4,9 @@ type: agent
 title: PLEIADE
 tags: [agent]
 source: ../../PLEIADE/MEMOIRE.md
-linkedTo: []
+linkedTo: [ARCH-012, DECISION-014, DECISION-015, LESSON-030, LESSON-031]
 relevantFor: [agents]
-tier: 3
+tier: 2
 created: 2026-09-11
 updated: 2026-09-11
 ---
@@ -22,7 +22,11 @@ updated: 2026-09-11
 - 📄 README : [README.md](../../PLEIADE/README.md)
 
 ## Notes atomiques rattachées (par `source:`)
-- *(aucune note atomique transversale pour l'instant — à créer si une connaissance durable émerge)*
+- [[ARCH-012]]
+- [[DECISION-014]]
+- [[DECISION-015]]
+- [[LESSON-030]]
+- [[LESSON-031]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

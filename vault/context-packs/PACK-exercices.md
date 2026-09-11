@@ -2,13 +2,16 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-11 · 75 notes.
+> Généré le 2026-09-11 · 78 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
+| 1 | [ARCH-012](../architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture |
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
+| 1 | [DECISION-014](../decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision |
+| 1 | [DECISION-015](../decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | decision |
 | 1 | [ENT-arnland](../entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity |
 | 1 | [ENT-bothnia](../entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity |
 | 1 | [ENT-mercure](../entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity |
@@ -86,6 +89,7 @@
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
+- [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)

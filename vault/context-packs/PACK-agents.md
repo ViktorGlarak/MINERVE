@@ -17,6 +17,7 @@
 | 2 | [AGENT-MASTAURIGE](../agents/AGENT-MASTAURIGE.md) | MASTAURIGE | agent |
 | 2 | [AGENT-MASTORION](../agents/AGENT-MASTORION.md) | MASTORION | agent |
 | 2 | [AGENT-MINAUTORE](../agents/AGENT-MINAUTORE.md) | MINAUTORE | agent |
+| 2 | [AGENT-PLEIADE](../agents/AGENT-PLEIADE.md) | PLEIADE | agent |
 | 2 | [AGENT-SCENARISTE](../agents/AGENT-SCENARISTE.md) | SCÉNARISTE | agent |
 | 2 | [AGENT-VOIX](../agents/AGENT-VOIX.md) | VOIX | agent |
 | 3 | [AGENT-ARCHITECTE](../agents/AGENT-ARCHITECTE.md) | ARCHITECTE | agent |
@@ -28,7 +29,6 @@
 | 3 | [AGENT-MASTODONTE](../agents/AGENT-MASTODONTE.md) | MASTODONTE | agent |
 | 3 | [AGENT-NOYAU](../agents/AGENT-NOYAU.md) | NOYAU | agent |
 | 3 | [AGENT-PENSEUR](../agents/AGENT-PENSEUR.md) | PENSEUR | agent |
-| 3 | [AGENT-PLEIADE](../agents/AGENT-PLEIADE.md) | PLEIADE | agent |
 | 3 | [AGENT-SECRETAIRE](../agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | agent |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
@@ -42,6 +42,7 @@
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../VOIX/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md)
@@ -53,5 +54,4 @@
 - [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md)
 - [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md)
-- [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md)
