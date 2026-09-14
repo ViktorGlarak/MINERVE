@@ -7,8 +7,8 @@ source: ../../MASTORION/MEMOIRE.md
 linkedTo: [ARCH-011, DECISION-013, LESSON-027, LESSON-028, LESSON-029]
 relevantFor: [agents]
 tier: 2
-created: 2026-09-11
-updated: 2026-09-11
+created: 2026-09-14
+updated: 2026-09-14
 ---
 
 # 🤖 MASTORION — Canvas agent

@@ -176,8 +176,9 @@ Fonctionnalités développées côté Angular et **ABSENTES du nouvel EHO Next.j
 - **L'écart de zone se calcule sur la ZONE ATTENDUE, pas sur le pays brut** : un avatar sans pays (ONU, CICR) est attendu en « Autre / International » — sinon un rangement juste compterait pour faux (`zoneAttendue()`).
 - **Un STARTEX n'est jamais en écart**, mais reste affiché en comparaison dès qu'il porte une note.
 
-### Données en place (2026-09-11)
+### Données en place (à jour 2026-09-14)
 **453 avatars** = 451 de la bibliothèque MINERVE (après retrait du doublon Gavrilov) **+ Patrick HETTA et Kimberley** (créés depuis le diagramme RENS DELATTRE 26). **58 groupes · 1 643 appartenances · 118 portraits · STARTEX = 62.**
+Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des joueurs, dont le curseur) et **`eho_dispositions`** (rangement personnel : rubriques + ordre).
 ⚠ Les **20 avatars de démonstration** livrés avec le nouvel EHO (noms génériques français, groupes « Population civile », « Journalistes »…) ont été **supprimés** — ils n'étaient pas à nous.
 **Modèles disponibles** : `SKOLKAN` (453 avatars / 58 groupes, STARTEX inclus) et `VIERGE`.
 
@@ -187,9 +188,47 @@ Fonctionnalités développées côté Angular et **ABSENTES du nouvel EHO Next.j
 - **Comptes de test créés dans le realm `cecpc`** : `joueur_test` / `test123` (aucun rôle → vue joueur) · `anim_test` / `test123` (rôle `admin` → trombinoscope, STARTEX, comparaison). `thomas` = compte utilisateur (rôles `admin` + `cockpit`).
 - Pour obtenir un jeton en script : flux mot de passe sur le client `eho` (secret lu via l'API admin KC). ⚠ Keycloak 26 exige un **profil complet** (prénom, nom, email vérifié) et le rôle `default-roles-cecpc`, sinon « Account is not fully set up ».
 
+### Acquis du 2026-09-14 — ce que l'EHO sait faire de plus
+
+| Capacité | Où | Règle à retenir |
+|---|---|---|
+| **Cloisonnement des rôles** | `lib/roles.ts` · `(admin)/layout.tsx` | La section animation est **refusée côté serveur** (anonyme → `/login`, sans rôle → `/mon-eho`). Masquer une entrée de menu ne protège rien. |
+| **Écran de sélection STARTEX** | `(admin)/trombinoscope` | Rien n'est écrit avant « Appliquer » ; un retrait massif demande confirmation ; l'état est **relu** avant et après. |
+| **Curseur d'alignement** | `lib/camp.ts` · `camp_curseur` | ⭐ Le curseur (−100 bleu → +100 rouge) est la **valeur de référence** ; `campEstime` en est **déduit côté serveur**. |
+| **Rangement personnel du joueur** | `eho_dispositions` · `lib/zones-planche.ts` | Ordre libre + **rubriques créées par le joueur** dans chaque pays. Purement **affichage** : n'entre dans aucun calcul d'écart. |
+| **Mise en forme des bios** | `lib/bio.ts` | Reconnaît les fiches structurées de countrybook et le Markdown. **Aucun mot n'est modifié** — seulement la mise en forme. |
+| **Fiches unifiées** | `components/fiche.tsx` | Une seule coquille pour les **trois** fiches de l'application. |
+| **Filtrage des animateurs** | `lib/keycloak-admin.ts` | Les planches des porteurs du rôle admin sont exclues des écrans « joueurs » et des statistiques. Échec Keycloak → filtre désactivé, jamais d'écran vide. |
+
+#### ⭐ Règles de conception nées de cette séance
+
+1. **Un échec de lecture ne doit JAMAIS être présenté comme un résultat valide.** Deux incidents de la même famille le même jour : un 401 traité comme « package vide » a fait disparaître les 62 étoiles ; des rôles vidés après un jeton non rafraîchi ont fait passer un animateur pour un joueur, **menu à l'appui**. Lever, afficher, désactiver l'action — mais ne pas rendre « vide » ou « sans rôle » ce qu'on n'a pas pu lire.
+2. **Une action destructive se calcule sur l'état RELU du serveur**, jamais sur une copie locale qui a pu vieillir (session expirée, rechargement à chaud, autre animateur).
+3. **Deux champs qui disent la même chose finissent par se contredire.** D'où : le camp est *déduit* du curseur, jamais saisi en parallèle ; les zones de la planche sont déclarées une seule fois ; les trois fiches partagent une coquille ; le formulaire de création est unique.
+4. **Une règle métier doit valoir sur TOUS les chemins.** La purge des estimations à l'entrée au STARTEX manquait sur la case à cocher de la fiche d'avatar — exactement le symptôme « Lena Peters mal placée ». Elle est désormais écrite une fois (`purgerEstimations`).
+5. **Stocker au bon grain** : le rangement d'un joueur tient en **une ligne JSON** par joueur, avec des listes **partielles**. Une colonne par carte aurait écrit 391 lignes pour remonter un avatar d'un cran.
+6. **Un écran filtré n'enregistre pas ce qu'il affiche** : l'ordre est calculé sur la zone complète, sinon une recherche en cours amputerait le rangement des cartes masquées.
+
+#### Vocabulaire d'interface (à respecter)
+
+- Dans l'EHO, il n'y a **que des avatars** — plus aucune occurrence du mot « utilisateur » dans les écrans d'animation (« utilisateur » désigne un compte humain, et ceux-là vivent dans Keycloak / MASTORION).
+- **Une seule entrée « Avatars »**, deux vues : **Planche** (le trombinoscope, vue par défaut) et **Liste** (le registre : email, statut, création, suppression).
+- Côté animateur, « **EHO joueurs** » = la planche d'un joueur telle qu'il l'a rangée ; « **Comparatif** » = le même travail champ par champ face à l'officiel. L'animateur n'a **pas** de planche personnelle : son EHO, c'est le trombinoscope.
+- La **planche joueur est la référence esthétique** : bandeau de zone plein + liseré d'accent + panneau attaché, sous-blocs titrés par un filet de couleur. Le trombinoscope s'y est aligné le 2026-09-14.
+
+#### ⚠ Pièges d'environnement (vérifiés deux fois chacun)
+
+- **Après `prisma generate`, REDÉMARRER le serveur de dev** : il conserve l'ancien client en mémoire et les écritures échouent en **500**.
+- **Contrôler le code HTTP** dans tout script d'essai : un script qui parse la réponse sans regarder le statut avale les 500 et fait croire que tout fonctionne.
+- Les **sessions expirent** : un 401 en cours d'essai n'est pas un bug de l'application (et se voit désormais à la pastille de la barre).
+- Le **modèle SKOLKAN n'est pas un fichier Excel** mais un instantané JSON (`data/eho/templates/skolkan/`) capturé depuis la base : il conserve les **identifiants**, ce que le classeur ne fait pas.
+- **Aller-retour Excel prouvé** (2026-09-14) : export → modification → ré-export → réimport = `created 0, updated 453, refused 0`, groupes, appartenances, STARTEX, portraits et lectures intacts. Appariement **par `username` uniquement**.
+
+
 ### ⚠⚠ Faille de sécurité connue, NON corrigée (arbitrage utilisateur en attente)
 **10 routes API n'ont aucun contrôle d'autorisation** : `/api/users`, `/api/users/[id]`, `/api/groups*`, `/api/import`, `/api/uploads*`, `/api/activity`, `/api/avatars/export`.
 **Démontré** : sans aucune authentification, `GET /api/users` renvoie les 453 avatars avec `pays`, `label`, `activite`, `observations` → **cela annule le dépouillement de la planche joueur**.
+⚠ **Le cas le plus exposé** : `GET /api/avatars/export` télécharge **toute la bibliothèque en classeur Excel, sans session** (vérifié le 2026-09-14).
 ⚠ Tension produit : la page `(player)/avatars` (choix d'avatar) consomme `/api/users` et a besoin des identifiants — la fermer telle quelle la casserait. **Piste recommandée** : charge utile réduite pour les non-admins sur `/api/users`, + `exigerAdmin` sur import/export/activity/uploads.
 
 ### 🔴 Leçon durement apprise (2026-09-11)

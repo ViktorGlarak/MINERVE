@@ -4,11 +4,11 @@ type: agent
 title: PLEIADE
 tags: [agent]
 source: ../../PLEIADE/MEMOIRE.md
-linkedTo: [ARCH-012, DECISION-014, DECISION-015, LESSON-030, LESSON-031]
+linkedTo: [ARCH-012, DECISION-014, DECISION-015, DECISION-016, LESSON-030, LESSON-031, LESSON-032, TOOL-017]
 relevantFor: [agents]
 tier: 2
-created: 2026-09-11
-updated: 2026-09-11
+created: 2026-09-14
+updated: 2026-09-14
 ---
 
 # 🤖 PLEIADE — Canvas agent
@@ -25,8 +25,11 @@ updated: 2026-09-11
 - [[ARCH-012]]
 - [[DECISION-014]]
 - [[DECISION-015]]
+- [[DECISION-016]]
 - [[LESSON-030]]
 - [[LESSON-031]]
+- [[LESSON-032]]
+- [[TOOL-017]]
 
 ## Navigation
 - Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

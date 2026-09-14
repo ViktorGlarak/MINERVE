@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-11 · 51 notes.
+> Généré le 2026-09-14 · 52 notes.
 
 ## Notes (par tier)
 
@@ -58,6 +58,7 @@
 | 2 | [TOOL-013](../tools/TOOL-013.md) | Synchromatrice — planche de travail des storylines (LO × temps de jeu) | tool |
 | 2 | [TOOL-015](../tools/TOOL-015.md) | BAKER_EDITIONS.py — replie les éditions « Modifier » de l'overlay collab dans tweets_data.js | tool |
 | 2 | [TOOL-016](../tools/TOOL-016.md) | EHO éditable côté joueur — fiches bio + 4 familles de cartes + curseur de position + admin caché | tool |
+| 2 | [TOOL-017](../tools/TOOL-017.md) | lib/bio.ts — rendre lisibles les bios de la bibliothèque sans les modifier | tool |
 | 3 | [DECISION-005](../decisions/DECISION-005.md) | Format codes incident 2 ou 3 chiffres | decision |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
@@ -71,3 +72,4 @@
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`melmil.js`](../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)

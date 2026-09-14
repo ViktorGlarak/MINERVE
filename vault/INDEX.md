@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**425 notes** · généré le 2026-09-11
+**428 notes** · généré le 2026-09-14
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -24,6 +24,7 @@
 | [LESSON-008](lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson | mastaurige, qualite |
 | [LESSON-016](lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | lesson | mastaurige, minautore |
 | [LESSON-017](lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson | minautore, exercices, mastaurige, analystes |
+| [LESSON-032](lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson | pleiade, mastorion, outillage |
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project | exercices, minautore |
 | [PROJ-MASTAURIGE](projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project | mastaurige |
 | [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | project | systeme, noyau |
@@ -48,6 +49,7 @@
 | [DECISION-013](decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[LESSON-027]] [[LESSON-028]] [[TOOL-016]] |
 | [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] [[ARCH-011]] |
 | [DECISION-015](decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-014]] [[ARCH-012]] [[ARCH-011]] [[LESSON-030]] [[LESSON-031]] |
+| [DECISION-016](decisions/DECISION-016.md) | Le rangement du joueur (rubriques + ordre) est une préférence d'affichage, stockée à part | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-015]] [[LESSON-032]] [[ARCH-012]] |
 
 ## 🛠️ Outils
 
@@ -69,6 +71,7 @@
 | [TOOL-014](tools/TOOL-014.md) | generer_etat_exercice.py — carte de référence générée de l'exercice (MINAUTORE) | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[AGENT-MINAUTORE]] [[LESSON-017]] |
 | [TOOL-015](tools/TOOL-015.md) | BAKER_EDITIONS.py — replie les éditions « Modifier » de l'overlay collab dans tweets_data.js | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[PROJ-MASTAURIGE]] [[AGENT-MASTAURIGE]] [[LESSON-020]] |
 | [TOOL-016](tools/TOOL-016.md) | EHO éditable côté joueur — fiches bio + 4 familles de cartes + curseur de position + admin caché | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[TOOL-001]] [[TOOL-004]] [[DECISION-006]] [[ARCH-010]] [[LESSON-023]] [[LESSON-024]] [[PROJ-MASTAURIGE]] [[AGENT-MASTAURIGE]] |
+| [TOOL-017](tools/TOOL-017.md) | lib/bio.ts — rendre lisibles les bios de la bibliothèque sans les modifier | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-016]] [[LESSON-032]] |
 
 ## 📚 Leçons
 
@@ -105,6 +108,7 @@
 | [LESSON-029](lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[LESSON-027]] [[TOOL-016]] |
 | [LESSON-030](lessons/LESSON-030.md) | Ne jamais déduire un champ d'API par supposition avant une suppression de masse | 2 | [`JOURNAL.md`](../../PLEIADE/JOURNAL.md) | [[DECISION-015]] [[LESSON-029]] |
 | [LESSON-031](lessons/LESSON-031.md) | exFAT (D:) n'exécute aucun binaire natif — clone d'exécution sur NTFS obligatoire | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] |
+| [LESSON-032](lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-016]] [[LESSON-030]] [[ARCH-012]] |
 
 ## 🏛️ Architecture
 
@@ -154,7 +158,7 @@
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
-| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-014]] [[DECISION-015]] [[LESSON-030]] [[LESSON-031]] |
+| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[TOOL-017]] |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |

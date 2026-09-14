@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastorion ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-11 · 9 notes.
+> Généré le 2026-09-14 · 10 notes.
 
 ## Notes (par tier)
 
@@ -10,6 +10,7 @@
 |---|---|---|---|
 | 1 | [ARCH-012](../architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture |
 | 1 | [DECISION-014](../decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision |
+| 1 | [LESSON-032](../lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson |
 | 2 | [ARCH-011](../architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | architecture |
 | 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
 | 2 | [LESSON-027](../lessons/LESSON-027.md) | Import MASTORION — deux fiches partageant email ou masto_id fusionnent EN SILENCE | lesson |

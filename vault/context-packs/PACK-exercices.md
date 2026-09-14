@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-11 · 78 notes.
+> Généré le 2026-09-14 · 80 notes.
 
 ## Notes (par tier)
 
@@ -27,6 +27,7 @@
 | 2 | [DECISION-008](../decisions/DECISION-008.md) | Accès serveur collaboratif — PIN animateur + vue joueur (pas de .exe) | decision |
 | 2 | [DECISION-010](../decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | decision |
 | 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
+| 2 | [DECISION-016](../decisions/DECISION-016.md) | Le rangement du joueur (rubriques + ordre) est une préférence d'affichage, stockée à part | decision |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |
@@ -67,6 +68,7 @@
 | 2 | [TOOL-014](../tools/TOOL-014.md) | generer_etat_exercice.py — carte de référence générée de l'exercice (MINAUTORE) | tool |
 | 2 | [TOOL-015](../tools/TOOL-015.md) | BAKER_EDITIONS.py — replie les éditions « Modifier » de l'overlay collab dans tweets_data.js | tool |
 | 2 | [TOOL-016](../tools/TOOL-016.md) | EHO éditable côté joueur — fiches bio + 4 familles de cartes + curseur de position + admin caché | tool |
+| 2 | [TOOL-017](../tools/TOOL-017.md) | lib/bio.ts — rendre lisibles les bios de la bibliothèque sans les modifier | tool |
 | 3 | [ENT-boerck](../entities/personas/ENT-boerck.md) | Andreas Boerck | entity |
 | 3 | [ENT-eklund](../entities/personas/ENT-eklund.md) | Henrik Eklund | entity |
 | 3 | [ENT-hansen](../entities/personas/ENT-hansen.md) | Hanna Hansen | entity |

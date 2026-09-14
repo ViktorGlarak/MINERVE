@@ -4,6 +4,76 @@
 
 ---
 
+## 2026-09-14 — EHO PLEIADE : sécurité des écrans, rangement du joueur, refonte visuelle (branche `MEYTRE`)
+
+Séance longue, entièrement dans `cecpc-pleiade/eho`, branche `MEYTRE`. Rien sur le serveur : tout en local (`C:\CECPC\PLEIADE\eho`, port 3001).
+
+### 1. Cloisonnement animateur / joueur
+
+- **La navigation suit le rôle** : rubrique « Animation » (configurer l'EHO) + « Joueurs » (ce qu'ils en ont fait) pour l'animateur ; rubrique « Joueur » seule pour l'entraîné. `lib/roles.ts` centralise les rôles admissibles (`admin`, `realm-admin`), partagé par le garde d'API, le garde de layout et la barre.
+- ⚠ **Découverte : toute la partie animation était OUVERTE sans authentification** (`/dashboard` répondait 200 sans session). Verrou posé **côté serveur** dans `(admin)/layout.tsx` : anonyme → `/login`, opérateur sans rôle → `/mon-eho`. Vérifié 14/14 (anonyme, joueur, animateur × 9 pages).
+- **Panne latente révélée** : `KEYCLOAK_CLIENT_SECRET` du `.env` (`eho-secret`) ne correspondait pas au client Keycloak (`eho-dev-secret`). Keycloak validait l'identité puis refusait l'échange du code — « Server error » générique. Personne ne l'avait vu **parce qu'on ne se connectait jamais** : les écrans étaient ouverts et mes vérifications passaient par des jetons obtenus directement.
+- **Filtrage des planches** : `lib/keycloak-admin.ts` demande au realm qui porte un rôle d'animation ; ces comptes sont exclus de la liste des joueurs ET du classement des avatars mal lus. Un animateur qui essaie le dispositif ne fausse plus les statistiques de ses entraînés. Échec Keycloak → filtre désactivé (jamais un écran vide).
+
+### 2. 🔴 Bug de conception grave : la dégradation silencieuse
+
+Deux incidents de la même famille, remontés par l'utilisateur :
+
+- **« Je suis en vue joueur »** alors qu'il était `thomas` (animateur). Cause : quand le rafraîchissement du jeton échoue, `auth.ts` **vide les rôles** ; la barre en déduisait « pas admin, donc joueur » et repliait le menu **sans rien dire**. L'interface annonçait un rôle faux. Corrigé : bandeau « Session expirée — ce menu ne reflète pas votre rôle réel » + bouton de reconnexion, pastille « rôle inconnu », et les écrans d'animation renvoient vers `/login` au lieu de déposer l'animateur sur la planche joueur. La barre est en outre devenue **collante** : le compte connecté était auparavant en bas d'une page de 4 000 px, donc invisible.
+- **« Appliquer a vidé tout le package STARTEX »** : la lecture du package renvoyait 401 (session expirée) et le code traitait cet échec comme **un package vide**. Aucune donnée perdue (journal d'activité vierge), mais avec un autre enchaînement le retrait des 62 aurait été réellement envoyé.
+
+> ⚠ **Règle tirée de ces deux incidents : un échec de lecture ne doit JAMAIS être présenté comme un résultat valide.** Lever, afficher, désactiver l'action — mais ne pas rendre « vide » ou « sans rôle » ce qu'on n'a pas pu lire.
+
+Durcissements appliqués au package : la lecture lève au lieu de rendre un ensemble vide ; le bouton reste désactivé tant que le package n'est pas connu ; **« Appliquer » relit le serveur** avant de calculer l'écart (au lieu de se fier à une copie locale vieillie) ; un retrait de plus de 5 avatars représentant la moitié du package demande confirmation ; l'état est **relu** après application au lieu d'être supposé.
+
+### 3. Package STARTEX — l'écran manquant
+
+L'API existait depuis le portage, **sans aucune interface** : il n'y avait donc aucun endroit correct pour modifier le package. Mode sélection ajouté au trombinoscope (★ pleine / ☆ creuse, pastilles `+`/`−` de ce qui va changer, barre d'action collante, rien d'écrit avant « Appliquer »).
+
+⚠ **Faille trouvée en chemin** : cocher le groupe STARTEX depuis la fiche d'un avatar **n'appliquait pas la purge des estimations** — exactement le symptôme « Lena Peters mal placée » du 10 septembre. La règle est désormais écrite une fois (`purgerEstimations`) et appliquée sur **tous** les chemins.
+
+### 4. Ce que le joueur peut faire de sa planche
+
+- **Curseur d'alignement** (−100 bleu · 0 neutre · +100 rouge) : porte le camp ET la force de conviction d'un seul geste. ⭐ Le curseur est la **valeur de référence**, `campEstime` en est **déduit côté serveur** — deux champs disant la même chose finissent toujours par se contredire, et c'est sur le camp que la comparaison marque les écarts. Colonne `camp_curseur` ajoutée, script de reprise idempotent `npm run backfill:curseur` pour les lectures antérieures.
+- **Ordre libre des cartes** dans une zone, puis **rubriques créées par le joueur** (« Politique » dans MERCURE…), avec renommage et suppression sans perte.
+- ⭐ **Choix de stockage** : une **seule ligne par joueur** (`eho_dispositions`, JSON zone → rubriques + listes). Une colonne par carte aurait écrit 391 lignes pour remonter un avatar d'un cran. Les listes sont **partielles** : seul ce qui a été déplacé à la main est enregistré. Le format initial (liste simple par zone) est relu sans perte par `normaliserDisposition`.
+- L'ordre enregistré est calculé sur la zone **complète**, recherche ignorée : filtrer puis déplacer aurait effacé la position des cartes masquées.
+- **La vue animateur reproduit la planche à l'identique** — mêmes rubriques, même ordre, même ordre de repli (les deux écrans appellent la même fonction de répartition).
+
+### 5. Fiches et lisibilité
+
+- **La fiche du trombinoscope ne s'ouvrait pas** : `<dialog>` natif + `showModal()`, cause exacte non identifiée (pas de navigateur pilotable sur le poste). Remplacé par la surcouche qui fonctionne partout → **les trois fiches de l'application partagent une seule mécanique** (`components/fiche.tsx` : Modale, Biographie, Champs, Rubrique, LiseréCouleur).
+- **Les bios ne sont pas des pavés** : 57 des 262 sont des **fiches structurées de countrybook** (`Parcours : … | Objectifs : … ; … ; …`), une est en **Markdown**, le reste en prose continue **sans un seul saut de ligne** (la plus longue : 3 006 caractères). `lib/bio.ts` reconnaît la structure et la restitue en rubriques et listes ; la prose est aérée en paragraphes. **Aucun mot n'est modifié.** Test sur les 262 bios réelles : `npm run test:bio`, **538/538**, le plus long bloc passe de 1 411 à 612 caractères.
+- Fiche sur **deux colonnes** (état civil en rail, biographie à droite), champs `aime`/`deteste`/`email` qui n'arrivaient jamais à l'écran.
+
+### 6. Ergonomie et design
+
+- **Barre repliable** (68 px en icônes), choix retenu et synchronisé entre onglets via `useSyncExternalStore`.
+- **Planches en pleine largeur** (le trombinoscope était bridé à 1 600 px) ; le Comparatif reste borné à 1 500 px — c'est un écran de lecture.
+- **Fusion « Avatars » + « Trombinoscope » en une seule entrée**, avec bascule **Planche | Liste** ; la planche est la vue par défaut. Bouton « + Nouvel avatar » sur les deux vues, **un seul formulaire** (`components/nouvel-avatar.tsx`).
+- Libellés corrigés : ce bouton crée un **avatar**, pas un « utilisateur » — plus aucune occurrence du mot dans les écrans d'animation.
+- **Trombinoscope aligné sur la planche joueur** : bandeau pays + panneau attaché, catégories en filet de couleur + libellé + effectif. Le gris est réservé au panneau ; les cartes restent sur blanc (les fiches non dirigeantes sont en #fafafa et s'y fondraient).
+- Indicateur de dev Next déplacé en bas à droite : il recouvrait la déconnexion de la barre repliée.
+
+### 7. Vérifications de la séance
+
+Aller-retour Excel prouvé : export (453 avatars, 22 colonnes, onglet groupes) → modification d'une fiche → ré-export (la modification y est) → **réimport : `created 0, updated 453, refused 0`**, 58 groupes, 1 643 appartenances, 62 STARTEX, portraits et lectures intacts. Appariement **par `username` uniquement**.
+
+⚠ Rappel : le **modèle SKOLKAN n'est pas un fichier Excel** mais un instantané JSON (`data/eho/templates/skolkan/`) capturé depuis la base — il conserve les identifiants, ce que le classeur ne fait pas.
+
+### 8. Pièges d'environnement rencontrés (à ne pas réapprendre)
+
+- **Après `prisma generate`, REDÉMARRER le serveur de dev** : il garde l'ancien client en mémoire et les écritures échouent en 500. Vu deux fois.
+- **Toujours contrôler le code HTTP** dans les scripts d'essai : un script qui parse la réponse sans regarder le statut avale les 500 et fait croire que tout marche.
+- Les sessions de test expirent au bout d'une heure : un 401 en cours d'essai n'est pas un bug de l'application.
+
+### 9. État final
+
+Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lectures · 1 disposition**. `tsc` et ESLint propres (hors avertissement `<img>` préexistant), **71/71** tests trombinoscope, **538/538** tests bios.
+
+⚠⚠ **Toujours ouvert** : les **10 routes API sans contrôle d'autorisation** (`/api/users`, `/api/groups*`, `/api/import`, `/api/uploads*`, `/api/activity`, `/api/avatars/export`). `GET /api/avatars/export` télécharge **toute la bibliothèque sans authentification**. Le dépouillement de la planche joueur reste contournable par `GET /api/users`.
+
+
 ## 2026-09-11 (suite 2) — Modèle SKOLKAN créé · 🔴 incident : suppression accidentelle des 63 groupes
 
 - **Question utilisateur « pourquoi 473 avatars ? »** — décompte établi : **453 à nous** (451 de la bibliothèque après retrait du doublon Gavrilov **+ HETTA et Kimberley**, créés la veille depuis le diagramme RENS DELATTRE 26) **+ 20 avatars de démonstration** préexistants dans le nouvel EHO (noms français génériques, groupes « Journalistes / Population civile / Autorites locales / Groupe hostile / Influenceurs » — données de Xavier, pas les nôtres). Les 20 ont été supprimés → **453**.
