@@ -29,6 +29,16 @@
 
 Chaque dépôt possède **son propre `CLAUDE.md`** : le respecter quand on travaille dedans. Le `CLAUDE.md` de MINERVE reste la source de vérité côté MINERVE.
 
+### 📄 Documents de référence — `PLEIADE/REFERENCES/`
+
+| Document | Ce que c'est |
+|---|---|
+| **`Pleiade-presentation.pdf`** | ⭐ **La présentation de PLEIADE par Xavier** (draft, 19 pages, 2026-09-14). La vision d'ensemble : zones étanches, catalogue d'applications, scénarios orchestrés, cockpit de veille, réseau fermé sous VPN. **À lire avant toute discussion d'architecture avec Xavier.** |
+
+`REFERENCES/README.md` en donne le sommaire page par page **et les écarts** avec la présente
+mémoire. ⚠ C'est un **draft de présentation** : quand il contredit le code des dépôts, **le
+code fait foi**.
+
 ---
 
 ## 3. Architecture serveur (production)
@@ -97,7 +107,22 @@ Chaque instance reçoit automatiquement :
 
 ## 6. Catalogue d'applications déployables
 
-`pleiade-platform/catalog/*.yml` — **4 apps** : `mastorion.yml`, `eho.yml`, `wordpress.yml`, `webserver.yml`.
+`pleiade-platform/catalog/*.yml` — **8 apps** (relevé le 2026-09-15) :
+
+| App | Ce qu'elle fait |
+|---|---|
+| `social` | Réseau social d'exercice — **remplace `mastorion`** dans le catalogue |
+| `presse` | Site de presse en ligne (articles, une, fil en direct, thème réglable depuis la rédaction) |
+| `messagerie` | Messagerie instantanée — canaux, groupes, conversations privées, messages programmés |
+| ⭐ `admin` | **Administration de la zone** : scénarios multi-applications, publication orchestrée, supervision |
+| ⭐ `cockpit` | **Veille multi-réseaux** de la zone (toutes les instances `social`) |
+| `eho` | Gestion des avatars et utilisateurs — **notre chantier** |
+| `wordpress` | CMS (OIDC Keycloak pré-configuré) |
+| `webserver` | Fichiers statiques avec explorateur admin |
+
+⚠ **`admin` et `cockpit` sont nouveaux et recoupent directement le savoir MINERVE** — l'un
+orchestre des déroulés heure par heure avec import XLSX (cf. MELMIL / synchromatrice), l'autre
+fait de la veille et du reporting comparatif. Voir `REFERENCES/README.md`.
 
 Un template déclare : `image`, `port`, `healthcheck`, `icon` · `keycloak` (clientId + clientType) · `requires` (DB + mapping d'env) · `env` (variables typées : select, couleur, nombre, `secret`, `editable`, défauts avec substitution `{instance}` / `{domain}` / `{auto}`) · `volumes`.
 
@@ -224,6 +249,53 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - Le **modèle SKOLKAN n'est pas un fichier Excel** mais un instantané JSON (`data/eho/templates/skolkan/`) capturé depuis la base : il conserve les **identifiants**, ce que le classeur ne fait pas.
 - **Aller-retour Excel prouvé** (2026-09-14) : export → modification → ré-export → réimport = `created 0, updated 453, refused 0`, groupes, appartenances, STARTEX, portraits et lectures intacts. Appariement **par `username` uniquement**.
 
+### Acquis du 2026-09-15 — travail collectif et planche relationnelle
+
+| Capacité | Où | Règle à retenir |
+|---|---|---|
+| **Groupes de travail (GT)** | `lib/keycloak-admin.ts` · `lib/porteur.ts` | ⭐ **Un GT = un sous-groupe du groupe Keycloak `GT`** (`/GT/<nom>`), rien d'autre. Les groupes **ne sont pas dans le jeton** : résolution serveur par l'API d'admin. `groupesDeTravail` renvoie **`null` en cas d'échec, jamais `[]`** → **503**, jamais « pas membre ». |
+| **Une planche, deux porteurs** | `components/planche.tsx` | « Mon EHO » et « EHO GT » sont **le même composant**, paramétré par `gt`. Toute route EHO accepte `?gt=` et **revérifie l'appartenance côté serveur**. |
+| **Verrou d'édition** | `eho_verrous` | Verrou **par carte et par porteur**, TTL + battement de cœur. Carte déjà ouverte → **on voit qui la tient, on ne peut pas écrire**. Le verrou protège la **fiche**, pas le rangement. |
+| **Import GT → personnel** | `/api/eho/importer-gt` | Écrit d'abord une **sauvegarde restaurable** (`eho_sauvegardes`). |
+| **Versement personnel → GT** | `/api/eho/verser-gt` (+ `/annuler`) | Trois grains (carte / rubrique / pays), déclenché par une **icône** — le bouton de carte vit **dans la fiche**. Instantané `eho_versements` avant écriture. |
+| **⭐ Planche relationnelle** | `(player)/graphe` · `components/graphe.tsx` · `eho_graphes` | **React Flow** (`@xyflow/react`, MIT, 3 dépendances). Une **ligne JSON par porteur**. Assainissement serveur : 600 nœuds, 2 000 liens, coordonnées bornées, `#RRGGBB`, **auto-liens refusés**. |
+
+#### ⭐ Règles de conception nées de cette séance
+
+1. **Verser, c'est deux listes, pas une** : `aVerser` (cartes qui ont une lecture à copier) et `aPlacer` (toutes les cartes demandées). Une carte sans lecture doit quand même être **placée** — sinon elle reste « sans rubrique ».
+2. **Un versement porte sa STRUCTURE** (`parRubrique: [{nom, ids}]`). Une liste plate + une rubrique cible **aplatit tout le GT**.
+3. **Annuler ne doit jamais détruire le travail d'un autre** : l'annulation **épargne** les cartes modifiées depuis par un tiers ou verrouillées, et ne restaure la disposition **que si rien n'a été épargné**.
+4. **Toute action collective doit être réversible** — import comme versement écrivent leur instantané **avant** d'écrire.
+5. **Sur la planche relationnelle, une accroche ne doit jamais recouvrir son nœud** : elle capte l'appui et rend le nœud **impossible à déplacer**.
+6. **Un texte placé DANS un nœud en change la taille** — et React Flow pose les accroches sur les **bords** de cette boîte. D'où : la pastille porte son nom **hors flux**, et la version nommée est **un vrai rectangle** dont le texte est légitimement l'intérieur.
+
+7. **Une page qui répond 200 à un inconnu est une page ouverte, même vide.** La section **joueur** n'avait aucun garde : `/mon-eho`, `/eho-gt`, `/graphe`, `/avatars` étaient servis à un anonyme (coque et navigation comprises), alors que seules les routes `/api` refusaient. Corrigé le 2026-09-15. **Chaque groupe de routes porte son propre garde** — `(player)` vérifie seulement **être connecté** (il n'y a pas de rôle « joueur », et un animateur doit pouvoir ouvrir ces écrans).
+8. **Les accroches sont invisibles au repos** (`components/graphe.tsx` → `Accroches`, + § accroches de `globals.css`). Elles se posent au survol du nœud, et **tout le plan les montre en retrait pendant qu'un lien est tracé**. La **zone de préhension n'est pas le dessin** : boîte de 18 px, pastille de 10 px. ⚠ `useConnection` **toujours avec un sélecteur**, sinon redessin à chaque pixel du tracé.
+
+9. **Une écriture « en bloc » sur une ressource partagée exige un filet.** `eho_graphes` ne garde qu'une ligne par porteur, réécrite entièrement : une fausse manœuvre effaçait le travail de tout un groupe, sans recours. D'où **`eho_graphe_versions`** (`lib/graphe-versions.ts`) — mais **pas un instantané par enregistrement** (la planche s'enregistre chaque seconde de repos) : on retient sur **acte délibéré**, quand **un autre a écrit en dernier**, ou après **3 min**. 20 versions par porteur. Le filet **ne lève jamais** : il ne doit pas empêcher d'enregistrer. Restaurer conserve l'état courant, et **l'écran recharge** — sinon l'enregistrement différé du client réécrit l'ancien plan par-dessus.
+10. **Lire avant d'écrire, toujours** — et ne jamais poser un plan d'essai sur un porteur vivant : c'est de là que sont venus les deux écrasements du 2026-09-15.
+11. **Transférer sans jamais effacer** : le transfert d'encadré entre planches (`/api/eho/graphe/transferer`) n'ajoute ou ne remplace que l'encadré visé, son contenu et les liens **dont les deux bouts sont dedans** — d'où l'absence de bouton « annuler » : il n'y a rien à restaurer. Les identifiants sont conservés, donc reverser **met à jour** au lieu de dupliquer.
+
+12. ⭐ **Trois porteurs de planche, pas deux** : `joueur`, `gt`, et **`officiel`** (id réservé `"officiel"`, animation seule, vérifié serveur). La planche officielle est la **seule vue non dépouillée** — `composerCarte(..., { officiel })` — et le drapeau est **déduit du porteur**, jamais réclamé par le client.
+13. ⭐ **La planche officielle voyage avec le modèle d'EHO** (`Payload.graphe`) : ses nœuds portent des identifiants d'avatars, elle n'a de sens qu'avec eux. ⚠ **Absent ≠ vide** — un modèle sans la clé `graphe` la **laisse en place** ; seul le VIERGE, qui porte une planche vide explicite, l'efface.
+14. ⭐ **Appliquer un modèle efface le travail des joueurs — et c'est VOULU** (arbitrage utilisateur du 2026-09-15 : « un nouveau modèle est un nouvel exercice »). Rien n'est restitué automatiquement. Le filet est ailleurs : la **sauvegarde d'avant-application est désormais complète** (lectures + rangements + planches) et **plafonnée à 3**, purgée à chaque écriture ; aucune écriture s'il n'y a rien à sauver. ⚠ **`travail` va dans les SAUVEGARDES, jamais dans les MODÈLES** — sinon les analyses d'un exercice passé ressurgiraient chez les joueurs du suivant. ⚠ 4 applications d'affilée effacent l'état d'origine : c'est le prix assumé du plafond. Pour garder un exercice **volontairement**, on **capture un modèle** — la sauvegarde est un filet, pas une archive.
+
+15. ⭐ **Porteur `observateur` = lecture stricte.** `?joueur=<sub>` (admin) et `?gt=<id>` pour un non-membre admin rendent un porteur **observé** ; **toute route d'écriture le refuse** (`refusObservateur()`). ⚠ Le danger n'était pas l'UI mais **l'enregistrement automatique** : ouvrir la planche d'un joueur suffisait à l'écraser. Trois verrous : serveur (403), enregistrement différé désarmé, gestes neutralisés par la classe `.lecture-seule`.
+16. 🔴 **Keycloak 26 ne remplit plus `subGroups`** — les sous-groupes se lisent sur **`/groups/{id}/children`**. `tousLesGroupesDeTravail` rendait donc **toujours `[]`**, silencieusement (corrigé le 2026-09-15). Réflexe : devant une liste vide venant de Keycloak, **vérifier la forme réelle de la réponse** avant de conclure qu'il n'y a rien.
+
+#### Où vivent les écrans (ne pas les déplacer sans raison)
+
+- **ANIMATION** : Tableau de bord · Avatars · Groupes · **Planche officielle** · Modèles d'EHO · Import/Export. La planche officielle est là, **juste avant les Modèles**, parce qu'elle est la **vérité de l'exercice** et qu'elle **voyage avec le modèle**.
+- **JOUEURS** (ce que les entraînés ont produit) : EHO joueurs · Comparatif · **Planches relationnelles** (celles des joueurs ET des GT, en lecture seule).
+- **JOUEUR** : Mon EHO · EHO GT · Planche relationnelle · Choix d'avatar.
+
+#### Vocabulaire et gestes de la planche relationnelle
+
+- **Jonction** (dite « connecteur ») : le point matériel où converger, **parce qu'un lien ne peut pas être la cible d'un autre lien**. Deux apparences — **pastille de 16 px** sans nom, **rectangle blanc bordé de sa couleur, à l'image des cartes**, dès qu'on la nomme *(2026-09-15)*. Accroches `j-<côté>` / `s-j-<côté>` sur les quatre bords ; liens **rectilignes** depuis une jonction, pour filer **droit vers la carte**.
+- **Casser un lien** : clic maintenu puis tirer — le trait s'étire et **rompt** (geste de ComfyUI). ⚠ Ne pas poser de pastilles sur le tracé : elles gênent ce geste. Les options du lien vivent dans la **barre d'inspection en pied de planche** (couleur, texte, supprimer).
+- **Libellé** : **au-dessus** du trait et **orienté comme lui** (`<textPath>` sur un rail inversé). Pas de pointe de flèche — la relation n'est pas orientée.
+- ↩️ **N'a PAS été retenu** : la disparition automatique d'une jonction tombée sous 3 liens (**annulé sur demande** de l'utilisateur, « remet la version d'avant c'était bien »).
+- ⏳ **Concurrence non traitée** sur la planche relationnelle collective : **dernière écriture gagnante**, sans verrou. Le grain « carte » du verrou EHO ne s'y transpose pas.
 
 ### ⚠⚠ Faille de sécurité connue, NON corrigée (arbitrage utilisateur en attente)
 **10 routes API n'ont aucun contrôle d'autorisation** : `/api/users`, `/api/users/[id]`, `/api/groups*`, `/api/import`, `/api/uploads*`, `/api/activity`, `/api/avatars/export`.
@@ -253,3 +325,5 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - ⏳ **Nouveau nom du réseau social** (« MASTORION » est transitoire).
 - ⏳ `pleiade-infra` **non cloné** sur ce poste — le cloner si l'on doit travailler l'infra.
 - ⏳ Le **package STARTEX**, les **452 personas** et les classeurs MINERVE (`MASTORION\BIBLIOTHEQUES\`) visent le schéma MASTORION ; vérifier leur import dans le **nouvel EHO** (format CSV attendu, `id` = UUID Keycloak).
+- ⏳ **Groupes de travail réels** : les sous-groupes `/GT/1re Division` et `/GT/27e Brigade` sont des **groupes d'essai** — à remplacer par les vrais GT de l'exercice.
+- ⏳ **Concurrence sur la planche relationnelle collective** (`eho_graphes` d'un GT) : aujourd'hui **dernière écriture gagnante**. Le verrou par carte ne s'y transpose pas — décider du modèle (verrou de planche, fusion, ou statu quo assumé).
