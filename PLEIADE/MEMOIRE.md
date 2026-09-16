@@ -213,6 +213,19 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - **Comptes de test créés dans le realm `cecpc`** : `joueur_test` / `test123` (aucun rôle → vue joueur) · `anim_test` / `test123` (rôle `admin` → trombinoscope, STARTEX, comparaison). `thomas` = compte utilisateur (rôles `admin` + `cockpit`).
 - Pour obtenir un jeton en script : flux mot de passe sur le client `eho` (secret lu via l'API admin KC). ⚠ Keycloak 26 exige un **profil complet** (prénom, nom, email vérifié) et le rôle `default-roles-cecpc`, sinon « Account is not fully set up ».
 
+#### ▶️ Relancer l'environnement de dev EHO (procédure)
+1. **Conteneurs** : `docker compose -f D:\CECPC\PLEIADE\eho\docker-compose.yml up -d eho-db keycloak keycloak-db` — en pratique **Docker Desktop les remonte tout seul** au démarrage du poste (`restart: unless-stopped`). ⚠ Ne PAS monter le service `eho` du compose : le serveur de dev tient ce rôle.
+2. **Attendre Keycloak** : `curl -o /dev/null -w "%{http_code}" http://localhost:8180/realms/cecpc/.well-known/openid-configuration` doit rendre **200**.
+3. **Serveur de dev**, dans le clone d'exécution **C:** : `cd C:\CECPC\PLEIADE\eho && npm run dev -- -p 3001` — ⚠ le `-p 3001` est **obligatoire** (`package.json` ne le porte pas, et `.env` déclare `NEXTAUTH_URL=http://localhost:3001` : sur 3000 la connexion Keycloak casse). Prêt en ~1,5 s → **http://localhost:3001**.
+4. **Contrôle en 10 s** : `/login` répond 200, et la base rend `avatars=453 · groupes=58 · appartenances=1643` (`docker exec eho-eho-db-1 mariadb -uroot -peho2026 -N -e "select count(*) from users" eho`).
+- ⭐ **Branches (au 2026-09-16, après la fusion ET le réalignement fait par l'utilisateur)** : **`MEYTRE` et `main` sont au MÊME commit `ff1c63a`, au même arbre — zéro divergence dans les deux sens.** `MEYTRE` redevient la **branche de travail** (repartie d'une base commune propre), `main` l'intégration. **Les deux clones (C: et D:) sont sur `MEYTRE`**, propres et à jour. Point de retour de la fusion : tag `avant-fusion-MEYTRE`. `prod` reste à `e3e2acc` et **se déploie automatiquement** (workflow `.github/workflows/deployer-prod.yml`) — ne jamais y pousser sans décision explicite.
+- ⚠ **Après un réalignement de branches fait hors session, vérifier la branche LOCALE du clone d'exécution `C:`** : `origin/MEYTRE` était à jour mais la `MEYTRE` locale de C: était restée **10 commits en arrière** — commiter là aurait reconstruit une divergence. `git checkout MEYTRE && git merge --ff-only origin/MEYTRE` (arbre identique à `main`, donc aucun fichier ne bouge et le serveur de dev n'est pas perturbé).
+- **Filet gardé dans C:** : `stash@{0}` « etat MEYTRE avant bascule sur main (2026-09-16) » — l'état non commité d'avant la bascule, à supprimer quand l'utilisateur le dira.
+- ⚠ **Avant toute bascule de branche dans C:, comparer d'abord** (`diff -r` sur `src/`, `prisma/`, `scripts/`, `package.json`) l'arbre vivant avec le commit visé : le travail y vit souvent **non commité**. Puis `git stash push -u` plutôt qu'un `reset --hard` — un filet récupérable, jamais une destruction.
+- ⚙️ **Vérifier une fusion / une branche sans toucher au travail en cours** : `git worktree add` dans le répertoire temporaire, puis `tsc` + `eslint` + `npm run test` + `npm run build`. ⚠ **`node_modules` doit être une VRAIE copie** (`robocopy /E /MT:16`, 0,7 Go, ~30 s) : monté en **jonction**, Turbopack plante (`Symlink [project]/node_modules is invalid, it points out of the filesystem root`).
+- ⚠ **Le flux Keycloak n'aboutit que sur le port 3001** : le client `eho` n'autorise que cette URL de retour. Démarrer une version d'essai sur un autre port permet de tester l'anonyme (307/401), **pas** le comportement connecté par rôle.
+- Conteneur `mastorion-mastorion-1` en **boucle de redémarrage** (sa base `mastorion-mariadb-1` est tombée) — **sans effet sur l'EHO**, à ignorer ou arrêter.
+
 ### Acquis du 2026-09-14 — ce que l'EHO sait faire de plus
 
 | Capacité | Où | Règle à retenir |
@@ -240,11 +253,17 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - **Une seule entrée « Avatars »**, deux vues : **Planche** (le trombinoscope, vue par défaut) et **Liste** (le registre : email, statut, création, suppression).
 - Côté animateur, « **EHO joueurs** » = la planche d'un joueur telle qu'il l'a rangée ; « **Comparatif** » = le même travail champ par champ face à l'officiel. L'animateur n'a **pas** de planche personnelle : son EHO, c'est le trombinoscope.
 - La **planche joueur est la référence esthétique** : bandeau de zone plein + liseré d'accent + panneau attaché, sous-blocs titrés par un filet de couleur. Le trombinoscope s'y est aligné le 2026-09-14.
+- **Menu JOUEUR (au 2026-09-16)** : `Mon EHO` · `EHO GT` · `Planche relationnelle`. **Rien d'autre.** ↩️ L'onglet **« Choix d'avatar » a été SUPPRIMÉ** (page `(player)/avatars` effacée) : vestige de l'échafaudage d'origine, il **ne choisissait rien** (aucun `onClick`, aucun enregistrement — reliquat de l'époque « un avatar = un compte Keycloak », close par `0720ab1`) et servait à tout joueur la **bio et les groupes** des 453 avatars, soit **exactement ce que `composerCarte` s'applique à lui cacher**. ⚠ **Ne pas le réintroduire** : un écran qui liste les avatars n'a de sens que côté animation.
 
 #### ⚠ Pièges d'environnement (vérifiés deux fois chacun)
 
 - **Après `prisma generate`, REDÉMARRER le serveur de dev** : il conserve l'ancien client en mémoire et les écritures échouent en **500**.
 - **Contrôler le code HTTP** dans tout script d'essai : un script qui parse la réponse sans regarder le statut avale les 500 et fait croire que tout fonctionne.
+- ⭐⭐ **Un contrôle SAUTÉ n'est pas un contrôle RÉUSSI** *(règle née du défaut de `test:bio`, 2026-09-16)*. Un test qui n'a pas pu lire ses données doit **sortir en échec** et **nommer la cause**, jamais afficher « TOUT PASSE » sur ce qui reste. Trois exigences :
+  1. **Ne pas confondre les causes** — `!reponse?.ok` mélangeait serveur éteint, serveur qui **refuse** (401/403) et serveur qui plante (500), tous annoncés « injoignable ». Les distinguer, et le dire.
+  2. ⭐ **Un script d'essai qui éprouve une LOGIQUE lit la base directement** (`PrismaClient` + `PrismaMariaDb`, helper `urlBase()` de `backfill-curseur.mts`), **pas l'API** : la couche HTTP n'est pas le sujet, et la question de l'autorisation disparaît avec elle. Ne passer par l'API que pour éprouver l'API elle-même — et alors, se présenter avec la **clé de service `X-API-Key`** (`PLEIADE_API_KEY`).
+  3. **Une base vide est un « incomplet »**, pas un succès : il n'y avait rien à éprouver.
+  ⚠ En remontant la cause d'une erreur Prisma, ne pas prendre `e.message.split("\n")[0]` : le message **s'ouvre par une ligne vide**, puis « Invalid `prisma.x.y()` invocation: », puis un extrait de code — la cause réelle vient **après**.
 - Les **sessions expirent** : un 401 en cours d'essai n'est pas un bug de l'application (et se voit désormais à la pastille de la barre).
 - Le **modèle SKOLKAN n'est pas un fichier Excel** mais un instantané JSON (`data/eho/templates/skolkan/`) capturé depuis la base : il conserve les **identifiants**, ce que le classeur ne fait pas.
 - **Aller-retour Excel prouvé** (2026-09-14) : export → modification → ré-export → réimport = `created 0, updated 453, refused 0`, groupes, appartenances, STARTEX, portraits et lectures intacts. Appariement **par `username` uniquement**.
@@ -297,11 +316,13 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - ↩️ **N'a PAS été retenu** : la disparition automatique d'une jonction tombée sous 3 liens (**annulé sur demande** de l'utilisateur, « remet la version d'avant c'était bien »).
 - ⏳ **Concurrence non traitée** sur la planche relationnelle collective : **dernière écriture gagnante**, sans verrou. Le grain « carte » du verrou EHO ne s'y transpose pas.
 
-### ⚠⚠ Faille de sécurité connue, NON corrigée (arbitrage utilisateur en attente)
-**10 routes API n'ont aucun contrôle d'autorisation** : `/api/users`, `/api/users/[id]`, `/api/groups*`, `/api/import`, `/api/uploads*`, `/api/activity`, `/api/avatars/export`.
-**Démontré** : sans aucune authentification, `GET /api/users` renvoie les 453 avatars avec `pays`, `label`, `activite`, `observations` → **cela annule le dépouillement de la planche joueur**.
-⚠ **Le cas le plus exposé** : `GET /api/avatars/export` télécharge **toute la bibliothèque en classeur Excel, sans session** (vérifié le 2026-09-14).
-⚠ Tension produit : la page `(player)/avatars` (choix d'avatar) consomme `/api/users` et a besoin des identifiants — la fermer telle quelle la casserait. **Piste recommandée** : charge utile réduite pour les non-admins sur `/api/users`, + `exigerAdmin` sur import/export/activity/uploads.
+### ✅ Faille des 10 routes API — FERMÉE le 2026-09-16 (par la fusion de `MEYTRE` dans `main`)
+**L'ancien état** (constaté les 2026-09-11/14, sur `MEYTRE` seule) : 10 routes sans aucun contrôle — `GET /api/users` rendait les 453 avatars avec `pays`, `label`, `activite`, `observations` **sans authentification**, et `GET /api/avatars/export` téléchargeait toute la bibliothèque en classeur Excel de la même façon.
+**Ce qui l'a refermée** : le commit `4b11a0d` « Fermer l'annuaire des avatars » de **Xavier** sur `main` — `exigerLecture` (toute session de la zone) / `exigerEcriture` (rôle admin) / clé de service `PLEIADE_API_KEY` en en-tête `X-API-Key` pour les appels app-à-app. Arrivé chez nous par la fusion du 2026-09-16.
+**Vérifié en anonyme sur la version fusionnée démarrée** : les 9 routes → **401** ; les 8 pages joueur et animation → **307**.
+- `uploads/[nom]` (servir un portrait) reste **volontairement publique** — mastorion affiche les portraits. Ce n'est pas un oubli, c'est écrit dans le code.
+- ⏳ **Ce qui reste ouvert** : `GET /api/users` est gardé par `exigerLecture` et renvoie la **charge utile complète** (toute la ligne `User` moins `rawPassword` : `age, genre, pays, label, origine, religion, situation, caractere, langage, activite, observations, qualifications, aime, deteste`). Un **joueur connecté** peut donc lire ce que sa planche lui cache. Le dépouillement n'est plus contournable par un anonyme, mais l'est encore **par un participant**.
+  - ⭐ **Le verrou produit qui bloquait la correction a sauté le 2026-09-16** : la page `(player)/avatars`, seul écran joueur à consommer `/api/users`, **a été supprimée**. Plus rien côté joueur n'a besoin de cette route → la **charge utile réduite pour les non-admins** (ou `exigerEcriture` pur et simple sur `GET /api/users`) est désormais applicable **sans rien casser**. ⚠ Vérifier auparavant les consommateurs restants : **MASTORION** (`admin/scenario-items.ts`, recherche par `username`) passe par la **clé de service `X-API-Key`**, pas par une session — il n'est donc pas concerné par une réduction visant les sessions non-admin.
 
 ### 🔴 Leçon durement apprise (2026-09-11)
 **Ne JAMAIS déduire un nom de champ d'API par supposition avant une opération destructive.** En cherchant les groupes vides, j'ai testé `_count.users` / `userCount` / `nbAvatars` — aucun n'existe dans la réponse de `/api/groups` → **tous les groupes ont été jugés vides et les 63 ont été supprimés**. Réparé par réimport du classeur (`updated 453`, groupes et appartenances reconstruits), mais la règle vaut pour tout : **lire la réponse réelle d'abord, et vérifier sur UN élément avant de boucler.**
@@ -320,7 +341,10 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 ## 10. Points ouverts / à trancher avec l'utilisateur
 
 - ✅ **Sort du travail EHO Angular — TRANCHÉ (2026-09-11)** : porté vers le nouvel EHO (trombinoscope, modèles, STARTEX, planche joueur, comparaison) ; **les cellules/équipes sont écartées**. La branche `origin/feat/eho` de mastorion n'a plus vocation à être fusionnée.
-- ⏳ **Faille d'autorisation des 10 routes API** de l'EHO (cf. § 8bis) — décision attendue sur la charge utile réduite pour les non-admins.
+- ✅ **Faille d'autorisation des 10 routes API — FERMÉE** le 2026-09-16 par la fusion (cf. § 8bis). ⏳ **Reste à trancher** : la charge utile réduite de `GET /api/users` pour les non-admins — un joueur connecté lit encore ce que sa planche lui cache.
+- ✅ **`main` poussé** le 2026-09-16 (`e3e2acc..ff1c63a`) — Xavier voit la fusion. `prod` non touchée, aucun déploiement déclenché.
+- ⏳ **Deux configs Prisma sur `main`** : `prisma.config.ts` (Xavier) et `prisma7.config.ts` (nous, depuis le commit initial). Prisma charge **`prisma7.config.ts`**. Même schéma et même URL des deux côtés, donc sans effet aujourd'hui — mais à unifier avec Xavier.
+- ⏳ **Un comportement de `main` écarté par la fusion** : un opérateur sans le rôle admin est **redirigé vers `/mon-eho`** (notre décision du 2026-09-14) au lieu de l'écran « Accès refusé » de Xavier. À lui signaler.
 - ⏳ **Modèle DELATTRE 26 à part ?** HETTA et Kimberley sont aujourd'hui DANS le modèle `SKOLKAN` ; l'utilisateur peut vouloir un modèle distinct pour l'exercice.
 - ⏳ **Nouveau nom du réseau social** (« MASTORION » est transitoire).
 - ⏳ `pleiade-infra` **non cloné** sur ce poste — le cloner si l'on doit travailler l'infra.

@@ -4,6 +4,82 @@
 
 ---
 
+## 2026-09-16 — Fusion de `MEYTRE` dans `main` : notre EHO de jeu rejoint la mise en production de Xavier
+
+**Demande utilisateur** : « tout le travail réalisé dans la branche MEYTRE, peux-tu le commiter dans main pour qu'on soit bien à jour ? » — avec la consigne explicite de **résoudre les conflits sans casser ce qui a été fait sur main**, et de **retenir les évolutions de MEYTRE** là où la mise à jour vient bien de MEYTRE.
+
+### Ce que chaque branche apportait (séparées depuis `830a0eb`)
+- **MEYTRE — 4 commits, nous** : STARTEX, planche joueur, comparaison animateur, cloisonnement des rôles, groupes de travail, verrous, versement granulaire, planche relationnelle, planche officielle.
+- **`main` — 8 commits, Xavier** : image Docker et `docker-entrypoint.sh`, Prisma 7 (client dans `src/generated`, `prisma.config.ts`), Keycloak derrière Traefik + thème Pléiade, mise en production automatique depuis la branche `prod`, et ⭐ **« Fermer l'annuaire des avatars »** — les gardes `exigerLecture` / `exigerEcriture` / clé de service `PLEIADE_API_KEY` sur toutes les routes.
+- ⭐ **Les deux branches avaient attaqué le MÊME problème** (fermer l'application aux non-autorisés) **sans se voir**. D'où exactement deux conflits, tous deux sur des gardes d'autorisation.
+
+### Résolution des deux conflits — on garde les DEUX apports, jamais « la version d'un camp »
+| Fichier | Retenu de MEYTRE | Retenu de `main` |
+|---|---|---|
+| `(admin)/layout.tsx` | Le garde complet : `auth()` + **traitement de `session.error`** (rôles vides ≠ joueur → reconnexion, leçon du 2026-09-14), `estRoleAdmin` (`lib/roles.ts` = source unique), redirection vers `/mon-eho`, padding responsive | `export const dynamic = "force-dynamic"` + la doctrine du rôle « Administration » déclaré au catalogue Pléiade (commentaire) |
+| `(player)/layout.tsx` | La **coque** (Sidebar + `min-w-0 … p-4 sm:p-6 lg:p-8`) dont dépend toute la refonte visuelle | Le garde `operateurCourant()` + `force-dynamic` |
+
+- **Arbitrage assumé** : un opérateur sans le rôle admin est **redirigé vers `/mon-eho`** (décision du 2026-09-14) plutôt que de recevoir l'écran « Accès refusé » de Xavier — un joueur n'a rien à faire sur une page d'erreur. ⏳ **À signaler à Xavier** : c'est le seul endroit où son comportement a été écarté au profit du nôtre.
+
+### ⚠ Ce que la fusion automatique a fait dans notre dos — et qu'il a fallu contrôler un par un
+- `lib/api-auth.ts` (touché des deux côtés) : git a gardé **les rôles de CLIENT** lus par Xavier (`resource_access[eho]` — sans eux, **aucun administrateur n'est vu dans une zone Pléiade**, les rôles y sont créés comme rôles de client) **et** notre source unique `lib/roles.ts`. Le `const ROLES_ADMIN` local de `main` a disparu au profit du module partagé : **plus de liste dupliquée**, exactement ce qu'on voulait.
+- `lib/auth.ts` (touché par `main` seul) : vérifié que le **contrat dont dépend notre garde tient toujours** — la session expose bien `roles`, `error` et `username`. Xavier y a même corrigé la lecture des rôles de client.
+- Routes API : les gardes de `main` se sont posés **sans effacer nos ajouts** (planche officielle dans l'import, `PORTEUR_OFFICIEL` dans l'export, `purgerEstimations` sur la fiche d'avatar).
+- 🔧 **Corrigé à la main** : `api/import/route.ts` se retrouvait avec **deux `import` du même module** `@/lib/api-auth` (une ligne de chaque branche) — refondus en un seul.
+
+### 🔒 Conséquence majeure : la faille des 10 routes est FERMÉE
+Le travail de Xavier, en arrivant par la fusion, referme le trou décrit au § 8bis de `MEMOIRE.md`. **Vérifié en anonyme sur la version fusionnée réellement démarrée** : `/api/users`, `/api/users/[id]`, `/api/groups*`, `/api/import`, `/api/uploads`, `/api/activity`, `/api/avatars/export` → **401**. Les pages `/mon-eho`, `/eho-gt`, `/graphe`, `/avatars`, `/trombinoscope`, `/users`, `/comparaison`, `/planche-officielle` → **307**.
+- **10ᵉ route, `uploads/[nom]` : délibérément publique**, ce n'est pas un oubli — les portraits sont affichés par mastorion, c'est écrit dans le code.
+- ⏳ **Ce qui RESTE ouvert** : `GET /api/users` est gardé par `exigerLecture` (n'importe quelle session de la zone) et renvoie la **charge utile complète**. Un **joueur connecté** peut donc y lire `pays`, `label`, `activite`, `observations` — ce que la planche joueur lui cache. Le dépouillement reste contournable **par un participant**, plus par un anonyme. C'est l'arbitrage encore en attente (charge utile réduite pour les non-admins).
+
+### Contrôles de la fusion — dans un arbre de travail isolé sur `C:` (jamais sur l'arbre de travail de l'utilisateur)
+`npx tsc --noEmit` **0 erreur** · `npx eslint` **0 erreur** (1 avertissement `<img>` préexistant) · `npm run test` **71/71** · `npm run test:bio` **538/538** · `npm run build` **réussi**, toutes les routes des deux branches présentes · serveur de production démarré sur le **port 3002** pour tester les gardes en anonyme.
+- ⚠ **Piège d'outillage rencontré** : un `node_modules` monté en **jonction** fait **planter Turbopack** (`Symlink [project]/node_modules is invalid, it points out of the filesystem root`). Il faut une **vraie copie** (0,7 Go, ~30 s en `robocopy /MT:16`). Ce n'était pas un défaut de la fusion.
+- ⚠ **Non vérifié** : le comportement **connecté** par rôle (animateur → trombinoscope, joueur → renvoyé sur `/mon-eho`). Le flux Keycloak n'aboutit pas sur un autre port que 3001 (le client `eho` n'autorise que celui-là) et je n'ai pas modifié la configuration Keycloak pour un essai. Le code de ce garde est **repris mot pour mot de MEYTRE**, que l'utilisateur fait tourner depuis deux jours.
+- ⚠ **Découvert au passage** : Prisma charge `prisma7.config.ts` (notre fichier, présent depuis le commit initial) **et non** `prisma.config.ts` (celui de Xavier). Les deux existent sur `main` — la duplication **préexiste à la fusion**, je n'y ai pas touché. Ils déclarent le même schéma et la même URL, donc le comportement est identique aujourd'hui, mais **lequel gagne n'est pas évident** : à trancher avec Xavier.
+
+### État des dépôts en fin de séance
+- **`main` POUSSÉ** sur `origin` (`e3e2acc..ff1c63a`) — décision de l'utilisateur. `prod` n'a pas été touchée, **aucun déploiement automatique n'a été déclenché**. Point de retour conservé : tag **`avant-fusion-MEYTRE`** (= `e3e2acc`, l'état de `main` avant fusion).
+- `D:\CECPC\PLEIADE\eho` — branche `main`, à jour avec `origin/main`.
+- `C:\CECPC\PLEIADE\eho` (clone d'exécution) — **basculé de `MEYTRE` sur `main`** à la demande de l'utilisateur. Le travail y est désormais fait sur une base qui contient **aussi le durcissement de Xavier**.
+  - ⚠ **Vérifié AVANT de toucher à quoi que ce soit** : le travail vivant non commité y était **identique au commit `15d8b25`** (`diff -r` sur `src/`, `prisma/`, `scripts/`, `package.json` — seul `src/generated`, ignoré par git, différait). Rien ne pouvait être perdu.
+  - **Filet conservé** : `stash@{0}` — « etat MEYTRE avant bascule sur main (2026-09-16) ». À supprimer quand l'utilisateur le décidera (`git stash drop`).
+  - `npm install` (ajout de `dotenv` par `main`) + `prisma generate` refaits ; **aucun `db push`** — le schéma de `main` est identique à celui de `MEYTRE`, la base était déjà en phase.
+  - Serveur de dev **relancé sur 3001**, gardes vérifiés en anonyme : `/mon-eho`, `/graphe`, `/trombinoscope`, `/planche-officielle` → **307** ; `/api/users`, `/api/avatars/export` → **401**.
+
+### Dans la foulée — l'utilisateur réaligne `MEYTRE` sur `main` (vérifié)
+Pour repartir d'une base commune et commiter proprement ses prochains travaux, l'utilisateur a reporté `main` dans `MEYTRE` et poussé. **Contrôlé** : `origin/MEYTRE` et `origin/main` sont au **même commit `ff1c63a`** et au **même arbre** (`ecfa6a6`) — `0` commit d'écart **dans les deux sens**. `prod` n'a pas bougé (`e3e2acc`).
+- ⚠ **Une seule chose n'était pas en ordre, en local** : le clone d'exécution `C:` était resté sur `main`, et sa branche **`MEYTRE` locale traînait 10 commits en arrière**. Commiter là-dessus aurait **reconstruit une divergence** dès le premier travail. Remis d'aplomb (`checkout MEYTRE` + `merge --ff-only`) : comme l'arbre est identique à celui de `main`, **aucun fichier n'a bougé** et le serveur de dev n'a pas bronché (`/login` 200, `/mon-eho` 307, `/api/users` 401).
+- **Les deux clones sont maintenant sur `MEYTRE`**, propres, à jour, base strictement identique à `main`.
+- Le filet `stash@{0}` de C: est devenu **redondant** (l'état qu'il conserve est entièrement contenu dans `ff1c63a`) — conservé tant que l'utilisateur ne dit pas de le supprimer.
+
+### Suppression de l'onglet « Choix d'avatar » (section joueur)
+**Question de l'utilisateur** : « à quoi sert l'onglet *Choix d'avatar* dans la partie joueur ? » — puis, à la lecture de la réponse : « supprime-le, il ne convient plus aux décisions qu'on a prises aujourd'hui ».
+
+**Ce que la lecture du code a montré** :
+- La page annonçait « Sélectionnez votre personnage » mais **ne sélectionnait rien** : aucun `onClick` sur les cartes, aucun `POST`, aucune persistance. Les seuls boutons actifs étaient les filtres par groupe.
+- `git log --follow` : elle date du **commit initial** `a071eed` — vestige de l'échafaudage d'origine, quand **un avatar était un compte Keycloak**. La prémisse est morte avec `0720ab1` (« fin du lien avatar/Keycloak ») ; l'écran, lui, était resté. Même famille que les 20 avatars de démonstration supprimés le 2026-09-14.
+- ⚠ **Elle contredisait frontalement la règle n°1 du jeu.** `lib/eho-joueur.ts` dit : « le dépouillement est la règle : hors STARTEX, un joueur ne doit RIEN savoir d'officiel ». Or la page appelait `/api/users` en simple joueur connecté et **affichait la bio et les groupes** des 453 avatars (le reste de la ligne `User` étant dans la réponse réseau). **`Mon EHO` cachait ce que `Choix d'avatar` distribuait, dans le même menu, au même joueur.**
+
+**Fait** : entrée retirée de `components/Sidebar.tsx` (menu JOUEUR = `Mon EHO` · `EHO GT` · `Planche relationnelle`), page `(player)/avatars/page.tsx` **effacée**, commentaire d'en-tête du Sidebar corrigé et daté. Aucune autre référence dans le code (`grep` sur `"/avatars"` : la ligne du menu était la seule).
+**Vérifié** : `tsc` **0 erreur** · `eslint` **0 erreur** (l'avertissement `<img>` disparaît, il venait de cette page) · `npm run test` **71/71** · `/avatars` renvoie **404** sur le serveur de dev, `/login` toujours 200.
+**⭐ Effet de bord utile** : cette page était **le seul écran joueur à consommer `/api/users`** — c'est elle qui bloquait la réduction de charge utile réclamée depuis le 2026-09-14. **Le verrou a sauté.**
+
+#### 🔎 Défaut trouvé au passage — `npm run test:bio` mentait depuis la fusion (CORRIGÉ le jour même)
+**Le défaut** : `scripts/test-bio.mts` lisait les vraies bios via `fetch("http://localhost:3001/api/users")` **sans session**. Depuis que la route est gardée, il recevait **401**, tombait dans sa branche `!reponse?.ok`, annonçait « **serveur injoignable sur :3001** » — **faux : le serveur avait répondu, il avait refusé** — puis passait de **538 contrôles à 13** en affichant toujours « **TOUT PASSE** », code de sortie **0**.
+⚠ Exactement le travers que le projet s'interdit : « un échec de lecture ne doit jamais être présenté comme un résultat valide » · « contrôler le code HTTP dans tout script d'essai ». `!reponse?.ok` confondait **trois** situations : serveur éteint, serveur qui refuse (401/403), serveur qui plante (500).
+
+**Le correctif retenu — supprimer la cause, pas le symptôme** : le script **lit désormais les bios DIRECTEMENT en base** (`PrismaClient` + `PrismaMariaDb`, helper `urlBase()` repris tel quel de `backfill-curseur.mts`). ⭐ **La couche HTTP n'a jamais été le sujet** : ce qu'on éprouve, c'est le découpage d'un texte. En allant à la source, **la question de l'autorisation disparaît**, et le script ne dépend plus du tout du serveur de dev.
+**Et le diagnostic devient honnête** :
+- échec de lecture → message qui **nomme la cause réelle** (l'enrobage Prisma — ligne vide, « Invalid `prisma.x.y()` invocation: », extrait de code annoté — est écarté pour garder la ligne qui renseigne, tronquée à 110 caractères) ;
+- ⭐ **un contrôle sauté n'est plus un contrôle réussi** : la conclusion affiche « **INCOMPLET** » au lieu de « TOUT PASSE » et le script **sort en code 1**, avec le remède à faire (`docker compose up -d eho-db`) ;
+- une base **vide** est également traitée comme incomplet — il n'y avait rien à éprouver, ce n'est pas un succès.
+- ⚠ Piège évité de justesse : `e.message.split("\n")[0]` donnait « base inaccessible **()** » — un motif vide, soit le défaut qu'on corrigeait, en plus petit.
+
+**Vérifié sur les trois chemins** : cas normal **538/538**, code 0 (mêmes chiffres qu'avant la fusion : 262 bios, 57 fiches structurées, 59/59 aérées) · base éteinte → INCOMPLET, code **1** · mauvais mot de passe → INCOMPLET, code **1**. `tsc` et `eslint` 0 erreur, `npm run test` 71/71.
+
+---
+
 ## 2026-09-15 — EHO PLEIADE : groupes de travail, verrous, versement granulaire, planche relationnelle (branche `MEYTRE`)
 
 **Demande utilisateur, en cinq temps** : (1) affilier un joueur à un **groupe de travail** et lui donner, en plus de « Mon EHO », un **« EHO GT »** commun où le groupe travaille ensemble ; (2) **avertir et bloquer** quand une carte est déjà ouverte par quelqu'un d'autre ; (3) pouvoir **importer** l'EHO GT dans son EHO personnel ; (4) **verser** l'inverse — une carte, une rubrique ou un pays — par une **icône**, avec **retour arrière** ; (5) une **planche relationnelle** en onglet séparé, inspirée de *Board* d'Adobe : poser des cartes, tirer des liens, canevas infini.
