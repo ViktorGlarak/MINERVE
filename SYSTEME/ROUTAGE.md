@@ -115,7 +115,7 @@ La demande concerne...
 ├── une question sur le RÉSEAU SOCIAL d'exercice (API social, admin, cockpit, sentinel, modèle de données, scénarios) ?  ⭐ créé 2026-07-27, recadré 2026-09-11
 │   └── MASTORION (claude-opus-4-7) → Expert du réseau social — exercices DIVISION/CORPS
 │       Cas : "comment fonctionne le feed / les scénarios ?", "où brancher les avatars/camps ?", "porter le savoir MASTAURIGE dans l'app"
-│       Chemin : C:\CECPC\pleiade\mastorion  (⚠ les anciens clones D:\ et C:\CECPC\MASTORION\mastorion-v0 sont DÉPASSÉS)
+│       Chemin : C:\CECPC\pleiade\app-social  (⚠ les anciens clones D:\ et C:\CECPC\MASTORION\mastorion-v0 sont DÉPASSÉS)
 │       ⚠ RÈGLE : dépôt partagé — aucun commit/push sans autorisation explicite de l'utilisateur
 │       Collabore : PLEIADE (insertion dans le système), MASTAURIGE (savoir hérité), ARCHITECTE (code), EXPERT_INFLUENCE (ILI), SCÉNARISTE, analystes pays
 │

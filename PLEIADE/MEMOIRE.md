@@ -10,26 +10,43 @@
 
 **PLEIADE est l'écosystème logiciel complet d'entraînement du CECPC** : un **orchestrateur de zones d'exercice** qui déploie, dans des espaces isolés, des instances d'applications (réseau social, gestion d'avatars, sites web…) avec une **authentification centralisée Keycloak**.
 
-⚠ **Changement de nom majeur (2026-09-11)** : le programme s'appelait **MASTORION**. Désormais :
-- **PLEIADE** = le **système global** (la plateforme, l'orchestrateur, l'ensemble).
-- **MASTORION** = **seulement le réseau social**, une app parmi d'autres du catalogue — **son nom changera à terme** (à surveiller, ne pas le figer dans les productions).
+⚠ **Changement de nom mené à son terme** — deux étapes, la seconde constatée le **2026-09-16** :
+1. *(2026-09-11)* le programme entier s'appelait **MASTORION** → il devient **PLEIADE** (la plateforme, l'orchestrateur, l'ensemble), et « MASTORION » se réduit au **réseau social** seul.
+2. ⭐ *(constaté le 2026-09-16)* le réseau social a **lui aussi** été renommé : c'est **`social`**, dépôt **`app-social`**.
+
+👉 **Le mot « MASTORION » ne désigne plus rien de vivant.** Il ne subsiste que comme nom de l'ancêtre du réseau social (dépôt `mastorion`, figé) et comme nom de l'**agent MINERVE** qui en tient l'expertise. **Ne plus l'employer dans les productions durables.**
 
 ---
 
 ## 2. Organisation GitHub — `cecpc-pleiade`
 
-| Dépôt | Rôle | Stack | Cloné en local ? |
+⭐ **11 dépôts, TOUS clonés dans `C:\CECPC\pleiade\`** *(relevé et complété le 2026-09-16 — les 7 `app-*` manquaient)*. Un dépôt = une brique déployable ; **les 8 apps du catalogue ont chacune le sien**.
+
+### Les deux briques de plateforme
+| Dépôt | Rôle | Stack |
+|---|---|---|
+| **`pleiade-platform`** | **Orchestrateur** — zones, instances, catalogue, builds, Keycloak, `/api/internal` | Node.js 22 + Express + TypeScript |
+| **`pleiade-infra`** | Infra serveur : Traefik, PKI, monitoring, VPN | Docker Compose |
+
+### Les 8 apps déployables (1 app du catalogue = 1 dépôt)
+| Dépôt | Ce qu'elle fait | Stack | Port dev |
 |---|---|---|---|
-| **`pleiade-platform`** | **Orchestrateur** — zones, instances, catalogue, builds, Keycloak | Node.js 22 + Express + TypeScript | ✅ `C:\CECPC\pleiade\pleiade-platform` |
-| **`mastorion`** | **Réseau social** d'exercice (+ admin, cockpit, sentinel) | Node 22 + Express 5 + Angular 21 + PrimeNG + Prisma 7 | ✅ `C:\CECPC\pleiade\mastorion` |
-| **`eho`** | **Gestion avatars / utilisateurs** (Environnement Humain d'Opération) | **Next.js 16** + next-auth v5 + Keycloak + Prisma 7 | ✅ `C:\CECPC\pleiade\eho` |
-| **`pleiade-infra`** | Infra serveur : Traefik, PKI, monitoring, VPN | Docker Compose | ✅ `C:\CECPC\pleiade\pleiade-infra` *(constaté le 2026-09-16 — la mémoire le disait « non cloné » depuis le 2026-09-11, c'était faux)* |
+| ⭐ **`eho`** | **Identités de la zone** — avatars, groupes, EHO de jeu. **Source d'identité de TOUTES les autres apps.** | Next.js 16 + next-auth v5 + Prisma 7 | **3001** |
+| **`app-social`** | **Réseau social** (ex-`mastorion`) — Mastodon-like, apparences configurables (mastodon / twitter / facebook / instagram / youtube) | Node 22 + Express 5 + Angular 21 + PrimeNG + Prisma 7 | 3000 / 4200 |
+| **`app-admin`** | **Administration centrale de zone** — scénarios **multi-apps** + **scheduler** qui publie | Next.js + Prisma | 3400 |
+| **`app-cockpit`** | **Veille multi-réseaux** de la zone — BFF en éventail sur toutes les instances | Next.js 16 (BFF, sans Prisma en phase 1) | 3000 |
+| **`app-press`** | **Site de presse** — 1 instance = 1 titre ; site public + rédaction | Next.js + Prisma | 3500 |
+| **`app-messagerie`** | **Messagerie** esprit Telegram — canaux, groupes, privés, transferts, envois programmés. ⚠ **Fondations seules : l'interface reste à écrire** | Next.js 16 + Prisma | 3600 |
+| **`app-webserver`** | Fichiers statiques + explorateur admin | Node + `server.js` | — |
+| **`app-wordpress`** | Image WordPress OIDC (Dockerfile + `mu-plugins`) | Docker | — |
+
+### ⚠⚠ `mastorion` est un ANCÊTRE, plus une brique vivante
+**`app-social` contient tout `mastorion` PLUS 19 commits** (même commit initial `b7c6332`, `mastorion` s'arrête à `61d1a5f`). Le renommage annoncé le 2026-09-11 **a eu lieu** — commit « *Devenir social : renommage et mise en production automatique* ».
+👉 **Travailler dans `app-social`. Ne plus toucher au clone `mastorion`**, conservé comme repère historique. *(Les très anciens clones `D:\CECPC\MASTORION\mastorion-v0` et `C:\CECPC\MASTORION\mastorion-v0`, organisation `XTalandier`, sont dépassés depuis plus longtemps encore.)*
 
 > 📁 **`C:\CECPC\pleiade\dev\`** — scripts d'environnement local, hors dépôts : `up.ps1` / `down.ps1` (monter et descendre la pile), `bootstrap-keycloak.mjs`, `seed-eho.mjs`, `seed-mastorion-posts.mjs`, `purge-comptes-avatars.mjs`, `README.md`. ⚠ **Non versionnés** — ils n'existent que sur ce poste.
 
-> ⚠ **Ancienne organisation** : le dépôt mastorion vivait sous `github.com/XTalandier/mastorion-v0`. Il est désormais sous **`github.com/cecpc-pleiade/mastorion`**. Les anciens clones (`D:\CECPC\MASTORION\mastorion-v0`, `C:\CECPC\MASTORION\mastorion-v0`) pointent encore sur l'ancien remote — **travailler désormais dans `C:\CECPC\pleiade\`**.
-
-Chaque dépôt possède **son propre `CLAUDE.md`** : le respecter quand on travaille dedans. Le `CLAUDE.md` de MINERVE reste la source de vérité côté MINERVE.
+Chaque dépôt possède **son propre `CLAUDE.md` / `README.md`** : le lire et le respecter quand on travaille dedans. Le `CLAUDE.md` de MINERVE reste la source de vérité côté MINERVE.
 
 ### 📄 Documents de référence — `PLEIADE/REFERENCES/`
 
@@ -40,6 +57,45 @@ Chaque dépôt possède **son propre `CLAUDE.md`** : le respecter quand on trava
 `REFERENCES/README.md` en donne le sommaire page par page **et les écarts** avec la présente
 mémoire. ⚠ C'est un **draft de présentation** : quand il contredit le code des dépôts, **le
 code fait foi**.
+
+---
+
+## 2bis. ⭐⭐ Le modèle de branches — `main` on travaille, `prod` on déploie
+
+> ⚠⚠ **RÈGLE DE SÉCURITÉ, pas une convention de confort.** *(Écrit le 2026-09-16 à la demande de l'utilisateur ; jusque-là la doctrine n'existait QUE dans l'en-tête des workflows, dans aucun `.md`.)*
+
+### Les trois étages
+| Branche | Ce que c'est | Qui la touche |
+|---|---|---|
+| **branche provisoire** *(nommée librement)* | Là où l'on **fait** le travail, dans le dépôt concerné | nous, librement |
+| **`main`** | La branche **principale d'intégration** — on y **importe** le travail depuis la branche provisoire | sur décision |
+| ⚠ **`prod`** | **Ce qui tourne réellement** sur le serveur d'exercice, **devant des participants** | ⚠ **jamais sans décision explicite de l'utilisateur** |
+
+**Branches provisoires réellement observées** (2026-09-16) : `MEYTRE` (la nôtre), `cle-de-service-eho`, `exiger-un-role`, `editeur-et-cle-de-service`, `feat/eho-data-volume`, `fix/keycloak-issuer-public-url`, `infra/traefik-prod-compose`, `durcissement-acces-et-portail`.
+
+### ⭐ Pousser sur `prod` N'EST PAS un enregistrement : c'est LE geste de déploiement
+`.github/workflows/deployer-prod.yml` se déclenche sur `push: branches: [prod]`, sur un **runner auto-hébergé sur le serveur d'exercice** (donc ni clé SSH ni secret à stocker) : il construit l'image en rootless, la pousse au registre interne, puis demande à Pléiade de **promouvoir la version sur les zones de production**.
+
+Mot pour mot, l'en-tête du workflow d'`eho` :
+> *« Le geste de déploiement, c'est de pousser sur `prod` — jamais sur `main`. `main` est là où l'on travaille ; `prod` est ce qui tourne devant des participants. […] **une app cassée se voit en salle**, pas seulement par nous. »*
+
+- ✅ **Bonne nouvelle** : la promotion **ne touche QUE les instances de l'app concernée** — *« une correction urgente ne doit pas couper les autres apps d'un exercice en cours »*. Un `concurrency` par app empêche deux déploiements simultanés, **sans annuler le premier** (un déploiement interrompu à mi-chemin laisserait la pile dans un état bâtard).
+
+### ⚠ Deux nuances que le modèle général ne dit pas — vérifiées dépôt par dépôt
+1. ⚠⚠ **`pleiade-platform` n'a PAS de branche `prod`** : son workflow (`deployer.yml`) se déclenche sur **`main`**. **Pousser sur `main` de l'orchestrateur DÉPLOIE**, immédiatement. *(Le workflow d'`eho` assume l'asymétrie : « le sas se justifie ici bien plus que pour l'orchestrateur ».)* Seul garde-fou : `paths-ignore: '**.md'` — *« un changement de documentation ne justifie pas un redéploiement »*.
+2. **Trois dépôts n'ont ni `prod` ni workflow de déploiement** : `pleiade-infra`, `app-webserver`, `app-wordpress`.
+
+| Dépôt | Branche qui déploie |
+|---|---|
+| `eho` · `app-social` · `app-admin` · `app-cockpit` · `app-press` · `app-messagerie` | **`prod`** |
+| ⚠ `pleiade-platform` | **`main`** *(pas de sas !)* |
+| `pleiade-infra` · `app-webserver` · `app-wordpress` | aucune (déploiement manuel) |
+
+### Ce que cela m'impose
+1. **Travailler sur une branche provisoire**, jamais directement sur `main`.
+2. **Ne jamais pousser sur `prod`** — ni sur le `main` de `pleiade-platform` — **sans que l'utilisateur l'ait explicitement demandé pour CE dépôt**. Une autorisation donnée une fois ne vaut pas pour la suivante.
+3. **Toujours annoncer l'effet** avant de pousser : « ceci déploiera sur le serveur d'exercice » n'est pas la même phrase que « ceci enregistre le travail ».
+4. Ces dépôts sont **partagés avec Xavier** : vérifier `git status`, la branche et le remote avant toute intervention.
 
 ---
 
@@ -111,16 +167,18 @@ Chaque instance reçoit automatiquement :
 
 `pleiade-platform/catalog/*.yml` — **8 apps** (relevé le 2026-09-15) :
 
-| App | Ce qu'elle fait |
-|---|---|
-| `social` | Réseau social d'exercice — **remplace `mastorion`** dans le catalogue |
-| `presse` | Site de presse en ligne (articles, une, fil en direct, thème réglable depuis la rédaction) |
-| `messagerie` | Messagerie instantanée — canaux, groupes, conversations privées, messages programmés |
-| ⭐ `admin` | **Administration de la zone** : scénarios multi-applications, publication orchestrée, supervision |
-| ⭐ `cockpit` | **Veille multi-réseaux** de la zone (toutes les instances `social`) |
-| `eho` | Gestion des avatars et utilisateurs — **notre chantier** |
-| `wordpress` | CMS (OIDC Keycloak pré-configuré) |
-| `webserver` | Fichiers statiques avec explorateur admin |
+⭐ **Chaque entrée du catalogue a SON dépôt** (correspondance 1:1 vérifiée le 2026-09-16) :
+
+| App (YAML) | Dépôt | Ce qu'elle fait | Rôles Keycloak |
+|---|---|---|---|
+| `social` | **`app-social`** | Réseau social d'exercice — **remplace `mastorion`** | `animateur` (seul ; lecture seule sans lui) |
+| `presse` | **`app-press`** | Site de presse — 1 instance = 1 titre | `journaliste` · `redacteurchef` · `directeur` |
+| `messagerie` | **`app-messagerie`** | Messagerie instantanée — canaux, groupes, privés, programmés | `admin` · `moderateur` *(outil de JOUEUR : tout compte du royaume entre ; les rôles ne servent qu'à la supervision)* |
+| ⭐ `admin` | **`app-admin`** | **Administration de la zone** : scénarios multi-apps, publication orchestrée | Administration · Conduite d'exercice |
+| ⭐ `cockpit` | **`app-cockpit`** | **Veille multi-réseaux** de la zone | Veille · Environnement |
+| `eho` | **`eho`** | Identités de la zone — **notre chantier**, et **source d'identité de toutes les autres** | Administration · Environnement |
+| `wordpress` | **`app-wordpress`** | CMS (OIDC Keycloak pré-configuré) | Administrateur · Éditeur |
+| `webserver` | **`app-webserver`** | Fichiers statiques avec explorateur admin | Administration · Environnement |
 
 ⚠ **`admin` et `cockpit` sont nouveaux et recoupent directement le savoir MINERVE** — l'un
 orchestre des déroulés heure par heure avec import XLSX (cf. MELMIL / synchromatrice), l'autre
@@ -135,15 +193,76 @@ Quand **eho et mastorion coexistent dans une zone**, `EHO_URL` est **automatique
 
 ---
 
-## 7. État des trois applications (au 2026-09-11)
+## 6bis. ⭐⭐ Comment les apps d'une zone se parlent — les 4 mécanismes à connaître
+
+*(Établi le 2026-09-16 à la lecture des `README`/`CLAUDE` des 7 dépôts `app-*`. C'est LE modèle à avoir en tête avant toute discussion d'architecture.)*
+
+### 1. L'identité est UNE, et elle vient d'eho
+`identity_id` = **UUID eho** = `sub` Keycloak = **le même identifiant sur toutes les apps de la zone**. Un avatar déclaré une fois dans eho agit partout : il signe un article dans `app-press`, poste dans `app-social`, écrit dans `app-messagerie`.
+- ⚠ Une app **n'a pas de comptes à elle** : elle ne stocke qu'un `identityId`. `app-press` compose sa rédaction en **cochant des groupes eho** — un avatar ajouté au groupe « Journalistes » devient signataire sans ressaisie.
+- ⚠ Un persona reçoit un `user.id` **différent dans chaque instance** de `app-social`. C'est `identity_id` qui fait le pont, et `/accounts/lookup?identity=` qui le résout. **Sans lui, aucune vue transverse n'est possible** — c'est la clé du cockpit.
+- 👉 **Conséquence pour nous : notre chantier eho est la pierre angulaire de la zone**, pas une app parmi d'autres.
+
+### 2. La découverte se fait à l'EXÉCUTION, jamais en dur
+Aucune app ne connaît ses voisines par configuration. Chacune interroge l'orchestrateur :
+`GET {PLEIADE_URL}/api/internal/zones/{PLEIADE_ZONE}/instances` avec `PLEIADE_API_KEY` → `{id, label, appType, url, publicUrl}`.
+- Rafraîchi ~30 s ; **dernière liste conservée si l'orchestrateur est injoignable** (application de « un échec de lecture n'est pas un résultat valide »).
+- `url` = adresse interne (nom de conteneur, pour le serveur) · `publicUrl` = pour rendre **absolus les médias**, que les apps renvoient relatifs à *leur* origine.
+- 👉 **Une app ajoutée ou retirée d'une zone est vue sans redéploiement.**
+
+### 3. La clé de service `X-API-Key` — parce que personne n'est en ligne
+C'est **la clé de la zone**, injectée par Pléiade dans toutes ses apps.
+- ⭐ **Pourquoi pas le jeton de l'opérateur** : le scheduler de `app-admin` publie un inject à **T+37 min**, quand plus personne n'est devant l'écran. La session Keycloak de l'opérateur ne sert alors qu'à **signer le journal**.
+- **Cloisonnement** : une app compromise ne voit que **sa** zone.
+
+### 4. Le contrat `/api/service/*` est le MÊME partout
+`app-social`, `app-press` et `app-messagerie` exposent le même contrat (`health`, `accounts?identity=`, `users?search=`, `groups`, `publish`, `posts/[id]`…).
+- 👉 **`app-admin` vise n'importe quelle app sans rien savoir d'elle.** C'est ce qui rend les scénarios multi-apps possibles.
+- ⚠ Un item de scénario cible **une INSTANCE (`instanceId`), jamais un type de réseau** : *« s'il y a trois YouTube, ce sont trois cibles »*.
+- ⚠ **Un message publié par le scénario doit être strictement indiscernable d'un message tapé par un joueur** : `source = "scenario"` n'apparaît **jamais** côté joueur, seulement en supervision.
+
+### ⭐ Le démantèlement de l'admin embarquée — à connaître pour ne pas chercher au mauvais endroit
+L'administration et le cockpit vivaient **dans** mastorion (`apps/admin`, `apps/cockpit`). Ils en ont été **retirés** (commits « Retirer l'administration et le cockpit embarqués », « Retirer la gestion des comptes… ») et répartis :
+
+| Ce qui était dans mastorion | Vit désormais dans |
+|---|---|
+| Comptes, utilisateurs, groupes | ⭐ **`eho`** |
+| Scénarios, publication programmée | **`app-admin`** (multi-apps) |
+| Veille, tendances, reporting | **`app-cockpit`** (multi-réseaux) |
+| Rôles | **Keycloak**, via Pléiade |
+
+Il ne reste au social **qu'un seul rôle : `animateur`** — et **lecture seule sans lui**.
+
+### Ce que `app-cockpit` a appris (utile au-delà du cockpit)
+- **BFF dans le même processus** : le navigateur ne parle qu'au BFF, qui fait l'éventail en serveur-à-serveur. → **pas de CORS**, pas de *web origins* Keycloak à configurer, **un seul jeton** (toutes les instances d'une zone partagent le realm et le client).
+- ⚠ **Les ids sont désambiguïsés** : `key = "{instance}:{id}"` — *« le post 42 n'est pas le même d'une base à l'autre »*, d'où aussi un **curseur de polling par réseau**.
+- ⚠ **Une instance en panne ne fait jamais échouer les autres** : chaque réponse porte ses `errors` par réseau.
+- **Persona = 3ᵉ type de source**, transverse : un `identity_id` résolu sur chaque réseau, non-lus cumulés.
+
+### Le design system Pléiade (toutes les apps)
+Graphite + **craie comme seule couleur de marque**, angles vifs, **Archivo + JetBrains Mono**, aucune ombre ni *scale*, mention « **Exercice · non classifié** » sur toute surface. Mode clair par **inversion** (la craie devient le support), jetons inchangés sous `html[data-theme="light"]`.
+⚠ **`pleiade-theme.css` est une COPIE CONFORME dans chaque app — ne jamais l'éditer sur place**, le recopier quand le thème évolue à la source.
+
+### Conventions de code des apps (relevées dans `app-messagerie`)
+- Texte affiché **en français avec accents** ; **commentaires de code en français sans accents**, qui expliquent le **pourquoi**.
+- **Jamais** de `prompt` / `confirm` / `alert` du navigateur — un `ConfirmDialog` maison.
+- **Deux mondes dans une seule feuille de style** : l'app crédible pour les joueurs, le thème Pléiade pour la supervision.
+- Polices **auto-hébergées** (`next/font`) : *« un exercice tourne sur réseau fermé, rien ne sort »*.
+
+---
+
+## 7. État des briques principales
+
+> ⚠ Section écrite le **2026-09-11**, quand le poste ne connaissait que 3 dépôts. **Le paysage a changé** : voir §2 (11 dépôts) et §6bis (comment ils se parlent). Ce qui suit reste vrai pour `pleiade-platform` ; **7.2 est à lire à la lumière du démantèlement** de l'admin embarquée ; **7.3 est largement dépassé** — l'état réel d'eho est au §8.
 
 ### 7.1 `pleiade-platform` — l'orchestrateur
 `src/` : `index.ts` (Express, routes API, portail dynamique) · `config.ts` · `db.ts` (pool MySQL + migrations) · `catalog.ts` (chargement YAML) · `zone-manager.ts` (CRUD zones/instances, compose, .env) · `keycloak-manager.ts` (API Admin KC).
 Dev local : `docker compose -f docker-compose.platform.yml up -d` puis `npm run dev` → **http://localhost:4204**.
 Acquis récents : design system Pléiade + thème de login Keycloak · **import/export Excel des utilisateurs**, mot de passe auto, gestion des groupes · variables d'env typées · rôles de client KC + matrice groupes×rôles · app `webserver` au catalogue.
 
-### 7.2 `mastorion` — le réseau social
-8 apps dans le turborepo : `api` · `web` · `admin` · `cockpit` · `docs` · `sentinel-api` · `sentinel-ui` · `sentinel-worker`.
+### 7.2 le réseau social — ⚠ désormais `app-social`, et amputé de l'admin et du cockpit
+⭐ **Lire `app-social`, pas `mastorion`** (cf. §2). Le turborepo comptait 8 apps : `api` · `web` · `admin` · `cockpit` · `docs` · `sentinel-api` · `sentinel-ui` · `sentinel-worker`. **`admin` et `cockpit` en ont été RETIRÉS** et sont devenus les dépôts `app-admin` et `app-cockpit` ; la gestion des comptes est partie chez `eho` (cf. §6bis). Restent l'API, le front social et la lignée sentinel.
+Docs internes du dépôt : `docs/deploiement.md`, `docs/cockpit-spec.md` (746 l.), `docs/sentinel-spec.md` (Orion — embeddings, BERTopic, Ollama).
 Acquis récents : **Keycloak câblé au démarrage** (web + admin), `KEYCLOAK_PUBLIC_URL` pour le frontend, **rôles de client KC → rôles Mastorion**, **layouts sociaux configurables** (mastodon / twitter / facebook / instagram), **impersonation imposée pour toute interaction + journal d'audit**, **fallback EHO** pour résoudre les comptes de scénario.
 Détail exhaustif de la plateforme : `MASTORION\MEMOIRE.md` (agent dédié) et le `CLAUDE.md` du dépôt.
 
@@ -194,7 +313,7 @@ Fonctionnalités développées côté Angular et **ABSENTES du nouvel EHO Next.j
 
 ### Les 3 règles du jeu — appliquées CÔTÉ SERVEUR, jamais par masquage d'UI
 1. **Dépouillement** : `/api/eho/mon-eho` ne transmet que nom, handle, portrait. Pays, camp, fonction et bio officiels **ne sortent QUE pour les avatars STARTEX** (`composerCarte`).
-2. **Verrou STARTEX** : sur un avatar du package, `PUT /api/eho/mon-eho/[id]` **ignore** zone/camp/fonction et ne retient que la note. Entrer au package **purge** les rangements déjà posés (les notes sont conservées).
+2. **Verrou STARTEX — porte sur l'IDENTITÉ, pas sur l'alignement** *(précisé le 2026-09-16)* : sur un avatar du package, `PUT /api/eho/mon-eho/[id]` **ignore `paysEstime` et `fonctionEstimee`** (faits du countrybook) et ne retient que **la note et le CURSEUR**. Entrer au package **purge** les rangements déjà posés (les notes sont conservées).
 3. **Validation** : toute zone ou tout camp hors liste est refusé (400) — un appel forgé ne peut pas semer de valeurs qui fausseraient la comparaison.
 
 ### Choix de conception à connaître
@@ -225,7 +344,7 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 2. **Attendre Keycloak** : `curl -o /dev/null -w "%{http_code}" http://localhost:8180/realms/cecpc/.well-known/openid-configuration` doit rendre **200**.
 3. **Serveur de dev** (seul emplacement, il n'y a plus de second clone) : `cd C:\CECPC\pleiade\eho && npm run dev -- -p 3001` — ⚠ le `-p 3001` est **obligatoire** (`package.json` ne le porte pas, et `.env` déclare `NEXTAUTH_URL=http://localhost:3001` : sur 3000 la connexion Keycloak casse). Prêt en ~1,5 s → **http://localhost:3001**.
 4. **Contrôle en 10 s** : `/login` répond 200, et la base rend `avatars=453 · groupes=58 · appartenances=1643` (`docker exec eho-eho-db-1 mariadb -uroot -peho2026 -N -e "select count(*) from users" eho`).
-- ⭐ **Branches (au 2026-09-16, après la fusion ET le réalignement fait par l'utilisateur)** : **`MEYTRE` et `main` sont au MÊME commit `ff1c63a`, au même arbre — zéro divergence dans les deux sens.** `MEYTRE` redevient la **branche de travail** (repartie d'une base commune propre), `main` l'intégration. La copie de travail `C:\CECPC\pleiade\eho` est sur `MEYTRE`, propre et à jour (le doublon D: a été supprimé le 2026-09-16). Point de retour de la fusion : tag `avant-fusion-MEYTRE`. `prod` reste à `e3e2acc` et **se déploie automatiquement** (workflow `.github/workflows/deployer-prod.yml`) — ne jamais y pousser sans décision explicite.
+- ⭐ **Branches (au 2026-09-16, après la fusion ET le réalignement fait par l'utilisateur)** : **`MEYTRE` et `main` sont au MÊME commit `ff1c63a`, au même arbre — zéro divergence dans les deux sens.** `MEYTRE` redevient la **branche de travail** (repartie d'une base commune propre), `main` l'intégration. La copie de travail `C:\CECPC\pleiade\eho` est sur `MEYTRE`, propre et à jour (le doublon D: a été supprimé le 2026-09-16). Point de retour de la fusion : tag `avant-fusion-MEYTRE`. `prod` reste à `e3e2acc` — **c'est la branche de DÉPLOIEMENT, voir §2bis** : y pousser met en production devant les participants, jamais sans décision explicite.
 - ⚠ **Après un réalignement de branches fait hors session, vérifier la branche LOCALE de la copie de travail** : `origin/MEYTRE` était à jour mais la `MEYTRE` locale de C: était restée **10 commits en arrière** — commiter là aurait reconstruit une divergence. `git checkout MEYTRE && git merge --ff-only origin/MEYTRE` (arbre identique à `main`, donc aucun fichier ne bouge et le serveur de dev n'est pas perturbé).
 - **Filet gardé dans C:** : `stash@{0}` « etat MEYTRE avant bascule sur main (2026-09-16) » — l'état non commité d'avant la bascule, à supprimer quand l'utilisateur le dira.
 - ⚠ **Avant toute bascule de branche dans C:, comparer d'abord** (`diff -r` sur `src/`, `prisma/`, `scripts/`, `package.json`) l'arbre vivant avec le commit visé : le travail y vit souvent **non commité**. Puis `git stash push -u` plutôt qu'un `reset --hard` — un filet récupérable, jamais une destruction.
@@ -239,7 +358,24 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 |---|---|---|
 | **Cloisonnement des rôles** | `lib/roles.ts` · `(admin)/layout.tsx` | La section animation est **refusée côté serveur** (anonyme → `/login`, sans rôle → `/mon-eho`). Masquer une entrée de menu ne protège rien. |
 | **Écran de sélection STARTEX** | `(admin)/trombinoscope` | Rien n'est écrit avant « Appliquer » ; un retrait massif demande confirmation ; l'état est **relu** avant et après. |
-| **Curseur d'alignement** | `lib/camp.ts` · `camp_curseur` | ⭐ Le curseur (−100 bleu → +100 rouge) est la **valeur de référence** ; `campEstime` en est **déduit côté serveur**. |
+| **Curseur d'alignement** | `lib/camp.ts` · `camp_curseur` | ⭐ Le curseur (−100 bleu → +100 rouge) est la **valeur de référence** ; `campEstime` en est **déduit côté serveur**. ⭐⭐ **Depuis le 2026-09-16 il est ouvert AUSSI sur les STARTEX** — voir la règle ci-dessous. |
+
+#### ⭐⭐ Le curseur pose DEUX questions différentes selon la carte *(2026-09-16)*
+
+C'est la clé pour ne pas défaire ce réglage par mégarde :
+
+| Carte | Question posée | Départ du curseur | Compté en écart ? |
+|---|---|---|---|
+| Avatar **inconnu** | « **qui est-il ?** » — une identification | « je ne me prononce pas » | **Oui** — juste ou faux face au countrybook |
+| Autorité **STARTEX** | « **où en est-il avec nous ?** » — une **attitude** | **la position officielle**, marquée d'un repère noir | **Jamais** (`calculerEcarts` rend `null` sur un STARTEX) |
+
+**Pourquoi** (demande utilisateur du 2026-09-16) : sur une autorité connue, la première question n'a pas lieu d'être — le countrybook y a répondu. Mais son attitude, elle, **bouge avec ce que les joueurs font** sur le terrain et sur les réseaux : *« un maire ménagé se rapproche, un maire humilié bascule »*. Les joueurs doivent pouvoir l'enregistrer.
+
+- ⚠ **Le dépouillement n'est PAS relâché** : `paysEstime` et `fonctionEstimee` restent **ignorés côté serveur** sur un STARTEX. Vérifié par un appel forgé qui tentait de les poser en même temps que le curseur — les deux ont été écartés, seul le curseur a pris.
+- ⚠ **Le curseur part de la position officielle, pas de zéro** : sans point de départ visible, il n'y a **pas de dérive à lire**. Le repère noir (motif repris de `JaugeCamp`) montre d'où l'on vient, et le bouton devient « **Revenir à la position officielle** » au lieu de « je ne me prononce pas ».
+- **La carte de la planche suit l'alignement observé** dès qu'il existe (`couleurCamp`) : un maire qui bascule doit se voir **sur la planche**, pas seulement au fond de sa fiche. Tant que rien n'a bougé, la couleur est identique à avant.
+- **Côté animateur, c'est de la matière d'animation, pas une faute** : la comparaison affiche officiel et observé côte à côte (`officiel.campCurseur` vs `joueur.campCurseur`) avec `ecarts: null`.
+- ⚠ **Un seul chemin d'écriture** pour le curseur, commun aux deux cas : la validation ne doit jamais valoir « ici mais pas là ».
 | **Rangement personnel du joueur** | `eho_dispositions` · `lib/zones-planche.ts` | Ordre libre + **rubriques créées par le joueur** dans chaque pays. Purement **affichage** : n'entre dans aucun calcul d'écart. |
 | **Mise en forme des bios** | `lib/bio.ts` | Reconnaît les fiches structurées de countrybook et le Markdown. **Aucun mot n'est modifié** — seulement la mise en forme. |
 | **Fiches unifiées** | `components/fiche.tsx` | Une seule coquille pour les **trois** fiches de l'application. |
@@ -338,6 +474,7 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 
 1. **Périmètre** : PLEIADE = le **système global** (orchestrateur, zones, Keycloak, infra, articulation entre apps). Le détail interne du réseau social reste chez l'agent **MASTORION** ; le contenu d'exercice chez les agents d'exercice (DELATTRE, MINAUTORE, GUILLAUME) ; l'outillage HTML brigade chez **MASTAURIGE**.
 2. **Les dépôts sont partagés avec le développeur (Xavier)** : ne jamais committer/pousser sans demande explicite ; vérifier `git status`, branche et remote avant toute intervention.
+2bis. ⚠⚠ **Modèle de branches — voir §2bis, c'est une règle de sécurité.** Travailler sur une **branche provisoire**, l'importer dans **`main`**, et ne **JAMAIS** pousser sur **`prod`** — ni sur le **`main` de `pleiade-platform`**, qui déploie sans sas — sans demande explicite **pour ce dépôt-là**. Pousser sur `prod` n'enregistre pas : **cela met en production devant les participants**. Toujours annoncer l'effet avant de pousser.
 3. **Sur le serveur, toujours `sudo`** pour Docker/Podman (mode rootful). Ne jamais toucher à la production sans autorisation.
 4. **Ne pas figer le nom « MASTORION »** dans les productions durables : le réseau social sera renommé.
 5. **CONSULTER avant / CONSIGNER après** — cette mémoire + `JOURNAL.md`.
@@ -353,7 +490,7 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - ⏳ **Deux configs Prisma sur `main`** : `prisma.config.ts` (Xavier) et `prisma7.config.ts` (nous, depuis le commit initial). Prisma charge **`prisma7.config.ts`**. Même schéma et même URL des deux côtés, donc sans effet aujourd'hui — mais à unifier avec Xavier.
 - ⏳ **Un comportement de `main` écarté par la fusion** : un opérateur sans le rôle admin est **redirigé vers `/mon-eho`** (notre décision du 2026-09-14) au lieu de l'écran « Accès refusé » de Xavier. À lui signaler.
 - ⏳ **Modèle DELATTRE 26 à part ?** HETTA et Kimberley sont aujourd'hui DANS le modèle `SKOLKAN` ; l'utilisateur peut vouloir un modèle distinct pour l'exercice.
-- ⏳ **Nouveau nom du réseau social** (« MASTORION » est transitoire).
+- ✅ **Nom du réseau social — TRANCHÉ** : c'est **`social`** (dépôt `app-social`, commit « Devenir social : renommage et mise en production automatique »). « MASTORION » n'est plus qu'un nom d'ancêtre — **ne plus l'employer** dans les productions durables.
 - ✅ `pleiade-infra` **est cloné** (`C:\CECPC\pleiade\pleiade-infra`) — constaté le 2026-09-16 ; la mémoire l'affirmait absent à tort depuis le 2026-09-11.
 - ⏳ Le **package STARTEX**, les **452 personas** et les classeurs MINERVE (`MASTORION\BIBLIOTHEQUES\`) visent le schéma MASTORION ; vérifier leur import dans le **nouvel EHO** (format CSV attendu, `id` = UUID Keycloak).
 - ⏳ **Groupes de travail réels** : les sous-groupes `/GT/1re Division` et `/GT/27e Brigade` sont des **groupes d'essai** — à remplacer par les vrais GT de l'exercice.

@@ -103,6 +103,68 @@ Pour repartir d'une base commune et commiter proprement ses prochains travaux, l
 - ⚠ Le dossier réel s'écrit en **minuscules** : `C:\CECPC\pleiade`.
 - **Vault revalidé** : 449 notes, 0 erreur bloquante (l'avertissement `bios.js` est antérieur et sans rapport).
 
+### ⭐ Le curseur d'alignement ouvert sur les autorités STARTEX — suivre une ATTITUDE, pas deviner une identité
+**Constat utilisateur** (vue joueur, compte `joueur_test`) : « quand je clique sur une card qui est en startex package, il m'est impossible d'avoir le même rendu qu'une card qui n'est pas dans le startex package ; ce qui m'intéresserait c'est d'avoir le curseur du camp estimé, car selon les actions que vont mener les joueurs sur le terrain et réseaux sociaux, un avatar va mal réagir ou bien réagir — il faudrait que les joueurs puissent modifier la position de ce curseur pour **un maire** par exemple ».
+
+#### ⭐ La clé : ce n'est pas la même question
+Ce n'est **pas** un relâchement du dépouillement, c'est une **autre question posée au même widget** :
+| Carte | Question | Départ | Écart ? |
+|---|---|---|---|
+| Avatar inconnu | « **qui est-il ?** » — identification | « je ne me prononce pas » | **oui** |
+| Autorité STARTEX | « **où en est-il avec nous ?** » — attitude | **la position officielle** | **jamais** |
+
+Sur une autorité connue, la première question n'a pas lieu d'être : le countrybook y a répondu. La seconde, elle, **bouge avec l'exercice**.
+
+#### Fait
+- **Serveur** (`PUT /api/eho/mon-eho/[avatarId]`) : le verrou STARTEX portait sur *« les champs de rangement »* ; il porte désormais explicitement sur l'**IDENTITÉ** — `paysEstime` et `fonctionEstimee` restent ignorés, le **curseur passe**. Un **seul chemin d'écriture** pour le curseur, commun aux deux cas : la validation ne vaut jamais « ici mais pas là ».
+- **`components/curseur-camp.tsx`** : `CurseurCamp` gagne `titre`, `aide` et surtout **`officiel`** — un **repère noir fixe** sur la piste, motif repris de `JaugeCamp` côté animateur. ⚠ `pointer-events-none` dessus : un trait qui intercepterait le clic empêcherait de saisir la poignée juste à cet endroit. Avec un repère, le bouton devient « **Revenir à la position officielle** » — « je ne me prononce pas » n'a plus de sens quand on connaît le départ.
+- **`components/planche.tsx`** : le curseur apparaît dans l'encadré ambre de la fiche STARTEX, sous la bio, titré « **Alignement observé — évolue avec vos actions** ». ⭐ Il **part de la position officielle** (`curseurDepuisCamp(campOfficiel)`), pas de zéro : **sans point de départ, il n'y a pas de dérive à lire**. La carte de la planche suit l'alignement **observé** dès qu'il existe — un maire qui bascule doit se voir sur la planche, pas au fond de sa fiche.
+
+#### Vérifié en conditions réelles (jeton Keycloak de `joueur_test`, pas une simulation)
+- `PUT` d'un curseur à **+40** sur une autorité STARTEX bleue → accepté, `campEstime` **déduit côté serveur** à `rouge`, `campOfficiel` **inchangé** (`bleu`).
+- ⭐ **Le dépouillement tient** : le même appel tentait de forcer `paysEstime: "Mercure"` et `fonctionEstimee: "espion infiltré"` → **les deux écartés**, seul le curseur a pris.
+- **Aucun faux écart** : la comparaison animateur rend `"ecarts": null` sur cette ligne, tout en affichant les deux positions côte à côte (officiel −70 / observé +40). C'est de la matière d'animation, pas une faute.
+- `tsc` 0 erreur · `eslint` 0 erreur · `npm run test` 71/71 · `test:bio` 538/538 · le serveur de dev recompile et sert `/mon-eho` en 200.
+- ⚠ **Essai mené sur la planche VIVANTE de `joueur_test`** (celle que l'utilisateur avait sous les yeux), donc selon la règle du 2026-09-15 : cible **vierge** choisie exprès, état **lu avant**, **restauré après**, et la **ligne `eho_lectures` créée par l'essai supprimée** (suppression gardée par une condition sur chacun de ses champs). Zéro trace.
+
+### ⭐⭐ Les 11 dépôts de `cecpc-pleiade` clonés et compris — l'agent PLEIADE remis à niveau
+**Demande utilisateur** : cloner tous les dépôts de `github.com/cecpc-pleiade` dans `C:\CECPC\pleiade`, **lire leurs `.md` pour comprendre qui fait quoi**, et mettre à jour l'agent PLEIADE en conséquence. ⚠ Consigne expresse : *« le répertoire EHO doit exactement correspondre à l'EHO sur lequel on travaillait — assure-toi que rien n'est supprimé »*.
+
+- **L'organisation compte 11 dépôts, le poste n'en avait que 4.** Les 7 manquants sont tous des **applications du catalogue** : `app-admin`, `app-cockpit`, `app-messagerie`, `app-press`, `app-social`, `app-webserver`, `app-wordpress`. Clonés. ⭐ **Règle découverte : 1 app du catalogue = 1 dépôt** (correspondance 1:1 vérifiée avec `pleiade-platform/catalog/*.yml`).
+- ⚠ **Dépôts privés** : l'API anonyme rend une liste vide. Énumérés avec les identifiants **déjà enregistrés sur le poste** (`git credential fill`), jamais affichés.
+- ✅ **`eho` garanti intact** : je n'y ai pas touché. Vérifié avant et après — même branche `MEYTRE`, mêmes **3 fichiers modifiés** (le travail sur le curseur), rien de perdu. L'utilisateur avait poussé entre-temps : `origin/main` **et** `origin/MEYTRE` sont sur `f8ba88a`, donc GitHub = notre local, **au travail en cours près**.
+
+#### ⭐⭐ Ce que la lecture des documents a révélé — deux faits que la mémoire ignorait
+1. **Le renommage du réseau social a EU LIEU.** `app-social` contient **tout `mastorion` plus 19 commits** (même commit initial `b7c6332`), dont « *Devenir social : renommage et mise en production automatique* ». Le point ouvert « nouveau nom du réseau social » est **tranché** : c'est **`social`**. Le clone `mastorion` est un **ancêtre figé**.
+2. ⭐ **L'admin embarquée dans mastorion a été DÉMANTELÉE** (commits « Retirer l'administration et le cockpit embarqués », « Retirer la gestion des comptes… ») et répartie : **comptes → `eho`** · **scénarios → `app-admin`** · **veille → `app-cockpit`** · **rôles → Keycloak**. Il ne reste au social **qu'un seul rôle, `animateur`**, et **lecture seule sans lui**.
+   👉 **Conséquence directe pour nous : `eho` n'est pas une app parmi d'autres, c'est la source d'identité de toute la zone.** Notre chantier est la pierre angulaire.
+
+#### Les 4 mécanismes d'une zone, désormais écrits dans la mémoire (§6bis)
+1. **L'identité est UNE** : `identity_id` = UUID eho = `sub` Keycloak, **le même sur toutes les apps**. Une app ne stocke pas de comptes — `app-press` compose sa rédaction en **cochant des groupes eho**. ⚠ Un persona a un `user.id` **différent dans chaque instance** sociale : seul `identity_id` fait le pont, et **sans lui aucune vue transverse n'existe**.
+2. **Découverte à l'exécution**, jamais en dur : `GET {PLEIADE_URL}/api/internal/zones/{zone}/instances`, rafraîchi 30 s, **dernière liste conservée si l'orchestrateur tombe**. Une app ajoutée à une zone est vue **sans redéploiement**.
+3. **Clé de service `X-API-Key`** (clé de zone) pour l'app-à-app — ⭐ *parce que personne n'est en ligne quand le scheduler publie à T+37 min* ; la session de l'opérateur ne sert qu'à **signer le journal**. Une app compromise ne voit que sa zone.
+4. **Contrat `/api/service/*` identique** sur social, presse et messagerie → `app-admin` **vise n'importe quelle app sans rien savoir d'elle**. ⚠ Un item cible **une instance**, jamais un type de réseau (*« s'il y a trois YouTube, ce sont trois cibles »*), et un message de scénario doit être **indiscernable** d'un message de joueur (`source="scenario"` n'apparaît qu'en supervision).
+
+**Aussi consigné** : les leçons du BFF cockpit (pas de CORS, ids désambiguïsés `{instance}:{id}`, curseur par réseau, une instance en panne n'en fait pas échouer d'autres), le **design system Pléiade** (`pleiade-theme.css` = copie conforme, **ne jamais l'éditer sur place**), et les **conventions de code des apps** (texte FR accentué / commentaires FR sans accents expliquant le *pourquoi* ; jamais de `prompt`/`confirm`/`alert` ; polices auto-hébergées *« un exercice tourne sur réseau fermé, rien ne sort »*).
+
+**Fichiers mis à jour** : `PLEIADE\MEMOIRE.md` (§1 renommage achevé, §2 les 11 dépôts, §6 catalogue↔dépôts↔rôles, **§6bis nouveau**, §7 recadré, points ouverts), `CLAUDE.md` (chemins + registre MASTORION/PLEIADE), `SYSTEME\PROMPTS\pleiade.md` (table des dépôts + les 4 mécanismes), `SYSTEME\PROMPTS\mastorion.md`, `SYSTEME\ROUTAGE.md`, `PLEIADE\README.md`, `MASTORION\README.md` + `MASTORION\MEMOIRE.md`.
+
+- ⚠ **Incident d'outillage, corrigé** : une substitution Python a interprété `\a` de `…\app-social` comme le caractère **BEL** (0x07), écrivant `pleiade<BEL>pp-social` dans `CLAUDE.md`. Détecté par un balayage des caractères de contrôle sur tous les `.md`, réparé, **plus aucun caractère parasite**. 👉 **Règle : ne jamais écrire un chemin Windows en littéral dans un script de substitution** — composer l'antislash (`chr(92)`), ou passer par l'outil d'édition.
+- 🔎 **Trouvé au passage, non corrigé** : `DELATTRE\MEMOIRE.md` contient un caractère de contrôle **0x01** — antérieur à cette séance, signalé à l'utilisateur.
+
+#### ⭐⭐ Dans la foulée — le modèle de branches enfin écrit (§2bis)
+**Question de l'utilisateur** : *« as-tu compris que `main` est la branche principale où l'on importe nos travaux depuis une branche provisoire, et que `prod` est reliée au serveur où tourne réellement PLEIADE ? ça devrait être écrit dans un des .md »*.
+
+**Vérifié dans les workflows plutôt qu'acquiescé — et il avait raison sur les deux points** :
+- Le modèle est **exact** : `.github/workflows/deployer-prod.yml` se déclenche sur `push: branches: [prod]`, sur un **runner auto-hébergé sur le serveur d'exercice**, et **promeut la version sur les zones de production**. L'en-tête du workflow d'`eho` l'énonce mot pour mot : *« Le geste de déploiement, c'est de pousser sur `prod` — jamais sur `main`. […] une app cassée se voit en salle, pas seulement par nous. »*
+- ⚠ **Et ce n'était écrit dans AUCUN `.md`** — uniquement dans les en-têtes de workflow. C'est désormais **§2bis de la mémoire**, la **règle 2bis** des règles de travail, et le **prompt de l'agent**.
+
+**⚠ Deux nuances trouvées en vérifiant dépôt par dépôt, que le modèle général ne dit pas** :
+1. ⚠⚠ **`pleiade-platform` n'a pas de branche `prod`** : son workflow se déclenche sur **`main`** — **y pousser déploie immédiatement**, sans sas (seul garde-fou : `paths-ignore: '**.md'`). Le workflow d'`eho` assume l'asymétrie : *« le sas se justifie ici bien plus que pour l'orchestrateur »*.
+2. **`pleiade-infra`, `app-webserver`, `app-wordpress`** n'ont ni `prod` ni workflow de déploiement.
+
+**Aussi retenu** : la promotion **ne touche QUE les instances de l'app concernée** — *« une correction urgente ne doit pas couper les autres apps d'un exercice en cours »* — et le `concurrency` fait **attendre** un second déploiement **sans annuler le premier**, un déploiement interrompu laissant la pile dans un état bâtard.
+
 ---
 
 ## 2026-09-15 — EHO PLEIADE : groupes de travail, verrous, versement granulaire, planche relationnelle (branche `MEYTRE`)

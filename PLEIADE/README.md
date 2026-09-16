@@ -24,7 +24,7 @@ Claude (cloud) — claude-opus-4-7 *(même famille que MASTORION / GUILLAUME / D
 | Dépôt | Clone local | Rôle |
 |---|---|---|
 | `pleiade-platform` | `C:\CECPC\pleiade\pleiade-platform` | Orchestrateur (zones, instances, catalogue, Keycloak) |
-| `mastorion` | `C:\CECPC\pleiade\mastorion` | Réseau social d'exercice |
+| `mastorion` | `C:\CECPC\pleiade\app-social` | Réseau social d'exercice |
 | `eho` | `C:\CECPC\pleiade\eho` | Gestion avatars/utilisateurs — **Next.js**, réécrit |
 | `pleiade-infra` | ❌ non cloné | Traefik, PKI, monitoring, VPN |
 
