@@ -20,12 +20,14 @@
 
 | Dépôt | Rôle | Stack | Cloné en local ? |
 |---|---|---|---|
-| **`pleiade-platform`** | **Orchestrateur** — zones, instances, catalogue, builds, Keycloak | Node.js 22 + Express + TypeScript | ✅ `D:\CECPC\PLEIADE\pleiade-platform` |
-| **`mastorion`** | **Réseau social** d'exercice (+ admin, cockpit, sentinel) | Node 22 + Express 5 + Angular 21 + PrimeNG + Prisma 7 | ✅ `D:\CECPC\PLEIADE\mastorion` |
-| **`eho`** | **Gestion avatars / utilisateurs** (Environnement Humain d'Opération) | **Next.js 16** + next-auth v5 + Keycloak + Prisma 7 | ✅ `D:\CECPC\PLEIADE\eho` |
-| **`pleiade-infra`** | Infra serveur : Traefik, PKI, monitoring, VPN | Docker Compose | ❌ **non cloné** sur ce poste |
+| **`pleiade-platform`** | **Orchestrateur** — zones, instances, catalogue, builds, Keycloak | Node.js 22 + Express + TypeScript | ✅ `C:\CECPC\pleiade\pleiade-platform` |
+| **`mastorion`** | **Réseau social** d'exercice (+ admin, cockpit, sentinel) | Node 22 + Express 5 + Angular 21 + PrimeNG + Prisma 7 | ✅ `C:\CECPC\pleiade\mastorion` |
+| **`eho`** | **Gestion avatars / utilisateurs** (Environnement Humain d'Opération) | **Next.js 16** + next-auth v5 + Keycloak + Prisma 7 | ✅ `C:\CECPC\pleiade\eho` |
+| **`pleiade-infra`** | Infra serveur : Traefik, PKI, monitoring, VPN | Docker Compose | ✅ `C:\CECPC\pleiade\pleiade-infra` *(constaté le 2026-09-16 — la mémoire le disait « non cloné » depuis le 2026-09-11, c'était faux)* |
 
-> ⚠ **Ancienne organisation** : le dépôt mastorion vivait sous `github.com/XTalandier/mastorion-v0`. Il est désormais sous **`github.com/cecpc-pleiade/mastorion`**. Les anciens clones (`D:\CECPC\MASTORION\mastorion-v0`, `C:\CECPC\MASTORION\mastorion-v0`) pointent encore sur l'ancien remote — **travailler désormais dans `D:\CECPC\PLEIADE\`**.
+> 📁 **`C:\CECPC\pleiade\dev\`** — scripts d'environnement local, hors dépôts : `up.ps1` / `down.ps1` (monter et descendre la pile), `bootstrap-keycloak.mjs`, `seed-eho.mjs`, `seed-mastorion-posts.mjs`, `purge-comptes-avatars.mjs`, `README.md`. ⚠ **Non versionnés** — ils n'existent que sur ce poste.
+
+> ⚠ **Ancienne organisation** : le dépôt mastorion vivait sous `github.com/XTalandier/mastorion-v0`. Il est désormais sous **`github.com/cecpc-pleiade/mastorion`**. Les anciens clones (`D:\CECPC\MASTORION\mastorion-v0`, `C:\CECPC\MASTORION\mastorion-v0`) pointent encore sur l'ancien remote — **travailler désormais dans `C:\CECPC\pleiade\`**.
 
 Chaque dépôt possède **son propre `CLAUDE.md`** : le respecter quand on travaille dedans. Le `CLAUDE.md` de MINERVE reste la source de vérité côté MINERVE.
 
@@ -208,18 +210,23 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 **Modèles disponibles** : `SKOLKAN` (453 avatars / 58 groupes, STARTEX inclus) et `VIERGE`.
 
 ### Environnement de travail
-- ⚠⚠ **D: est en exFAT → AUCUN binaire natif ne s'y exécute** : `next build` et `prisma db push` échouent en **EPERM**. D'où un **clone d'exécution `C:\CECPC\PLEIADE\eho`** (NTFS) — npm, Prisma et le serveur de dev y tournent (**port 3001**). Le dépôt `D:\CECPC\PLEIADE\eho` reste la copie de référence ; **GitHub fait foi**, les deux clones s'y synchronisent.
+- ⭐⭐ **UN SEUL emplacement : `C:\CECPC\pleiade\` — il n'y a plus de second clone** *(consolidé le 2026-09-16)*.
+  - ⚠⚠ **Pourquoi C: et pas D:** : **D: est formaté en exFAT → AUCUN binaire natif ne s'y exécute** (`npm`, `next build`, `prisma generate`/`db push` échouent en **EPERM**). **C: est en NTFS.** Un dépôt de code sur D: n'est donc qu'une **archive morte** — il ne peut ni se construire, ni se lancer, ni se tester.
+  - 🗑️ Le doublon **`D:\CECPC\PLEIADE` a été SUPPRIMÉ** le 2026-09-16 (0,8 Go, figé au 2026-09-11) après vérification : 0 commit non poussé, 0 remise, toutes les branches sur `origin`, aucun `.env` ni dossier `data/` — rien que des artefacts régénérables. **Ne pas le recréer.**
+  - ⚠ **Fin de la doctrine « clone d'exécution + copie de référence »** : elle entretenait deux vérités qui divergeaient (le matin même, la `MEYTRE` locale de C: traînait 10 commits en arrière). Désormais : **une seule copie de travail, sur C:, et GitHub fait foi.**
+  - ✅ En revanche **`D:\CECPC\PRODUCTION\` reste sur D:** (MINERVE, EXER, BDA, CREATION, DOC REF — 17,9 Go) : ce sont des **documents**, pas du code, exFAT ne les gêne pas.
+  - ⚠ Le dossier réel s'écrit en **minuscules** (`C:\CECPC\pleiade`). Windows est insensible à la casse, mais `git` affiche le chemin tel qu'il est.
 - Pile locale (conteneurs) : `eho-eho-db-1` (MariaDB, port **3307**), `eho-keycloak-1` (**8180**, realm `cecpc`, admin/admin sur le realm *master*), `eho-keycloak-db-1`.
 - **Comptes de test créés dans le realm `cecpc`** : `joueur_test` / `test123` (aucun rôle → vue joueur) · `anim_test` / `test123` (rôle `admin` → trombinoscope, STARTEX, comparaison). `thomas` = compte utilisateur (rôles `admin` + `cockpit`).
 - Pour obtenir un jeton en script : flux mot de passe sur le client `eho` (secret lu via l'API admin KC). ⚠ Keycloak 26 exige un **profil complet** (prénom, nom, email vérifié) et le rôle `default-roles-cecpc`, sinon « Account is not fully set up ».
 
 #### ▶️ Relancer l'environnement de dev EHO (procédure)
-1. **Conteneurs** : `docker compose -f D:\CECPC\PLEIADE\eho\docker-compose.yml up -d eho-db keycloak keycloak-db` — en pratique **Docker Desktop les remonte tout seul** au démarrage du poste (`restart: unless-stopped`). ⚠ Ne PAS monter le service `eho` du compose : le serveur de dev tient ce rôle.
+1. **Conteneurs** : `docker compose -f C:\CECPC\pleiade\eho\docker-compose.yml up -d eho-db keycloak keycloak-db` — en pratique **Docker Desktop les remonte tout seul** au démarrage du poste (`restart: unless-stopped`). ⚠ Ne PAS monter le service `eho` du compose : le serveur de dev tient ce rôle.
 2. **Attendre Keycloak** : `curl -o /dev/null -w "%{http_code}" http://localhost:8180/realms/cecpc/.well-known/openid-configuration` doit rendre **200**.
-3. **Serveur de dev**, dans le clone d'exécution **C:** : `cd C:\CECPC\PLEIADE\eho && npm run dev -- -p 3001` — ⚠ le `-p 3001` est **obligatoire** (`package.json` ne le porte pas, et `.env` déclare `NEXTAUTH_URL=http://localhost:3001` : sur 3000 la connexion Keycloak casse). Prêt en ~1,5 s → **http://localhost:3001**.
+3. **Serveur de dev** (seul emplacement, il n'y a plus de second clone) : `cd C:\CECPC\pleiade\eho && npm run dev -- -p 3001` — ⚠ le `-p 3001` est **obligatoire** (`package.json` ne le porte pas, et `.env` déclare `NEXTAUTH_URL=http://localhost:3001` : sur 3000 la connexion Keycloak casse). Prêt en ~1,5 s → **http://localhost:3001**.
 4. **Contrôle en 10 s** : `/login` répond 200, et la base rend `avatars=453 · groupes=58 · appartenances=1643` (`docker exec eho-eho-db-1 mariadb -uroot -peho2026 -N -e "select count(*) from users" eho`).
-- ⭐ **Branches (au 2026-09-16, après la fusion ET le réalignement fait par l'utilisateur)** : **`MEYTRE` et `main` sont au MÊME commit `ff1c63a`, au même arbre — zéro divergence dans les deux sens.** `MEYTRE` redevient la **branche de travail** (repartie d'une base commune propre), `main` l'intégration. **Les deux clones (C: et D:) sont sur `MEYTRE`**, propres et à jour. Point de retour de la fusion : tag `avant-fusion-MEYTRE`. `prod` reste à `e3e2acc` et **se déploie automatiquement** (workflow `.github/workflows/deployer-prod.yml`) — ne jamais y pousser sans décision explicite.
-- ⚠ **Après un réalignement de branches fait hors session, vérifier la branche LOCALE du clone d'exécution `C:`** : `origin/MEYTRE` était à jour mais la `MEYTRE` locale de C: était restée **10 commits en arrière** — commiter là aurait reconstruit une divergence. `git checkout MEYTRE && git merge --ff-only origin/MEYTRE` (arbre identique à `main`, donc aucun fichier ne bouge et le serveur de dev n'est pas perturbé).
+- ⭐ **Branches (au 2026-09-16, après la fusion ET le réalignement fait par l'utilisateur)** : **`MEYTRE` et `main` sont au MÊME commit `ff1c63a`, au même arbre — zéro divergence dans les deux sens.** `MEYTRE` redevient la **branche de travail** (repartie d'une base commune propre), `main` l'intégration. La copie de travail `C:\CECPC\pleiade\eho` est sur `MEYTRE`, propre et à jour (le doublon D: a été supprimé le 2026-09-16). Point de retour de la fusion : tag `avant-fusion-MEYTRE`. `prod` reste à `e3e2acc` et **se déploie automatiquement** (workflow `.github/workflows/deployer-prod.yml`) — ne jamais y pousser sans décision explicite.
+- ⚠ **Après un réalignement de branches fait hors session, vérifier la branche LOCALE de la copie de travail** : `origin/MEYTRE` était à jour mais la `MEYTRE` locale de C: était restée **10 commits en arrière** — commiter là aurait reconstruit une divergence. `git checkout MEYTRE && git merge --ff-only origin/MEYTRE` (arbre identique à `main`, donc aucun fichier ne bouge et le serveur de dev n'est pas perturbé).
 - **Filet gardé dans C:** : `stash@{0}` « etat MEYTRE avant bascule sur main (2026-09-16) » — l'état non commité d'avant la bascule, à supprimer quand l'utilisateur le dira.
 - ⚠ **Avant toute bascule de branche dans C:, comparer d'abord** (`diff -r` sur `src/`, `prisma/`, `scripts/`, `package.json`) l'arbre vivant avec le commit visé : le travail y vit souvent **non commité**. Puis `git stash push -u` plutôt qu'un `reset --hard` — un filet récupérable, jamais une destruction.
 - ⚙️ **Vérifier une fusion / une branche sans toucher au travail en cours** : `git worktree add` dans le répertoire temporaire, puis `tsc` + `eslint` + `npm run test` + `npm run build`. ⚠ **`node_modules` doit être une VRAIE copie** (`robocopy /E /MT:16`, 0,7 Go, ~30 s) : monté en **jonction**, Turbopack plante (`Symlink [project]/node_modules is invalid, it points out of the filesystem root`).
@@ -347,7 +354,7 @@ Au 2026-09-14 s'y ajoutent les tables de jeu : **`eho_lectures`** (lectures des 
 - ⏳ **Un comportement de `main` écarté par la fusion** : un opérateur sans le rôle admin est **redirigé vers `/mon-eho`** (notre décision du 2026-09-14) au lieu de l'écran « Accès refusé » de Xavier. À lui signaler.
 - ⏳ **Modèle DELATTRE 26 à part ?** HETTA et Kimberley sont aujourd'hui DANS le modèle `SKOLKAN` ; l'utilisateur peut vouloir un modèle distinct pour l'exercice.
 - ⏳ **Nouveau nom du réseau social** (« MASTORION » est transitoire).
-- ⏳ `pleiade-infra` **non cloné** sur ce poste — le cloner si l'on doit travailler l'infra.
+- ✅ `pleiade-infra` **est cloné** (`C:\CECPC\pleiade\pleiade-infra`) — constaté le 2026-09-16 ; la mémoire l'affirmait absent à tort depuis le 2026-09-11.
 - ⏳ Le **package STARTEX**, les **452 personas** et les classeurs MINERVE (`MASTORION\BIBLIOTHEQUES\`) visent le schéma MASTORION ; vérifier leur import dans le **nouvel EHO** (format CSV attendu, `id` = UUID Keycloak).
 - ⏳ **Groupes de travail réels** : les sous-groupes `/GT/1re Division` et `/GT/27e Brigade` sont des **groupes d'essai** — à remplacer par les vrais GT de l'exercice.
 - ⏳ **Concurrence sur la planche relationnelle collective** (`eho_graphes` d'un GT) : aujourd'hui **dernière écriture gagnante**. Le verrou par carte ne s'y transpose pas — décider du modèle (verrou de planche, fusion, ou statu quo assumé).

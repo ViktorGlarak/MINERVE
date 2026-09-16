@@ -23,9 +23,9 @@ Claude (cloud) — claude-opus-4-7 *(même famille que MASTORION / GUILLAUME / D
 ## Dépôts (organisation GitHub `cecpc-pleiade`)
 | Dépôt | Clone local | Rôle |
 |---|---|---|
-| `pleiade-platform` | `D:\CECPC\PLEIADE\pleiade-platform` | Orchestrateur (zones, instances, catalogue, Keycloak) |
-| `mastorion` | `D:\CECPC\PLEIADE\mastorion` | Réseau social d'exercice |
-| `eho` | `D:\CECPC\PLEIADE\eho` | Gestion avatars/utilisateurs — **Next.js**, réécrit |
+| `pleiade-platform` | `C:\CECPC\pleiade\pleiade-platform` | Orchestrateur (zones, instances, catalogue, Keycloak) |
+| `mastorion` | `C:\CECPC\pleiade\mastorion` | Réseau social d'exercice |
+| `eho` | `C:\CECPC\pleiade\eho` | Gestion avatars/utilisateurs — **Next.js**, réécrit |
 | `pleiade-infra` | ❌ non cloné | Traefik, PKI, monitoring, VPN |
 
 ## Fichiers

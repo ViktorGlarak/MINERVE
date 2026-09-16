@@ -78,6 +78,31 @@ Pour repartir d'une base commune et commiter proprement ses prochains travaux, l
 
 **Vérifié sur les trois chemins** : cas normal **538/538**, code 0 (mêmes chiffres qu'avant la fusion : 262 bios, 57 fiches structurées, 59/59 aérées) · base éteinte → INCOMPLET, code **1** · mauvais mot de passe → INCOMPLET, code **1**. `tsc` et `eslint` 0 erreur, `npm run test` 71/71.
 
+### 🗑️ Consolidation sur `C:` — le doublon `D:\CECPC\PLEIADE` supprimé
+**Question de l'utilisateur** : « on ne peut pas tout synchroniser sur le C: plutôt que de l'avoir sur D: ? Car le D: apparemment ne sert à rien. »
+
+**Ce que l'inventaire a montré — c'était déjà fait à 95 %, sans que personne le sache** :
+| | `C:\CECPC\pleiade` | `D:\CECPC\PLEIADE` |
+|---|---|---|
+| `eho` | MEYTRE, nos commits du jour | ff1c63a, figé |
+| `mastorion` | branche `fix/keycloak-issuer-public-url` | `main`, figé au 11/09 |
+| `pleiade-platform` | 2 fichiers en cours | figé au 11/09 |
+| `pleiade-infra` | ✅ **présent** | ❌ absent |
+| `dev/` (up/down.ps1, seeds, bootstrap KC) | ✅ | ❌ |
+
+- ⭐ **Deux faits périmés corrigés au passage** : `pleiade-infra` **EST cloné** (la mémoire le disait absent depuis le 2026-09-11) ; et le dossier **`dev/`** — scripts d'environnement local **non versionnés**, donc présents nulle part ailleurs — n'était documenté nulle part. Il l'est désormais.
+- ⚠⚠ **La vraie raison, à ne jamais redécouvrir** : **D: est formaté en exFAT → aucun binaire natif ne s'y exécute** (`npm`, `next build`, `prisma generate`). Un dépôt de code sur D: **ne peut ni se construire, ni se lancer, ni se tester** : c'est une archive morte qui ne peut que vieillir. C: est en NTFS.
+- **Vérifié avant suppression** (pas seulement la branche courante) : sur les 3 dépôts D:, **0 commit non poussé toutes branches confondues**, **0 remise (stash)**, toutes les branches locales contenues dans `origin`, **aucun `.env` ni dossier `data/`** — uniquement `src/generated` et `tsbuildinfo`, régénérables. Le tag de retour `avant-fusion-MEYTRE` a été confirmé **présent sur C:** avant d'effacer.
+- **Fait** : `D:\CECPC\PLEIADE` supprimé, **0,8 Go libérés**.
+- ⭐ **Fin de la doctrine « clone d'exécution + copie de référence »**. Elle entretenait deux vérités qui divergeaient — le matin même, la `MEYTRE` locale de C: traînait 10 commits en arrière. Désormais : **une seule copie de travail, sur C:, GitHub fait foi.**
+- ✅ **`D:\CECPC\PRODUCTION` n'est PAS concerné** (17,9 Go : MINERVE, EXER, BDA, CREATION, DOC REF). Ce sont des **documents**, pas du code : exFAT ne les gêne pas, et les déplacer casserait les chemins de `CLAUDE.md`, les hooks et les permissions `.claude`. La distinction a été posée explicitement à l'utilisateur avant d'agir.
+
+**Documentation rebasculée sur `C:\CECPC\pleiade`** : `CLAUDE.md` (table des chemins permanents + registre des agents MASTORION/PLEIADE, avec une note expliquant **pourquoi** C: et pas D:), `SYSTEME\ROUTAGE.md`, `SYSTEME\PROMPTS\pleiade.md`, `SYSTEME\PROMPTS\mastorion.md`, `PLEIADE\MEMOIRE.md`, `PLEIADE\README.md`, `PLEIADE\REFERENCES\README.md`, `MASTORION\MEMOIRE.md`, `MASTORION\README.md`, `NOYAU\MEMOIRE.md`, `vault\decisions\DECISION-014.md` (consigne permanente, `updated` bumpé).
+- Les `JOURNAL.md` et `vault\daily\` **gardent leurs mentions de D:** — c'est de l'historique, on ne le réécrit pas.
+- `.claude\settings.local.json` : **aucune permission** ne référençait ce chemin, rien à faire.
+- ⚠ Le dossier réel s'écrit en **minuscules** : `C:\CECPC\pleiade`.
+- **Vault revalidé** : 449 notes, 0 erreur bloquante (l'avertissement `bios.js` est antérieur et sans rapport).
+
 ---
 
 ## 2026-09-15 — EHO PLEIADE : groupes de travail, verrous, versement granulaire, planche relationnelle (branche `MEYTRE`)

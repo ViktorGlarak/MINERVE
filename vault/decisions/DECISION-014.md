@@ -9,7 +9,7 @@ linkedTo: [ARCH-012, DECISION-015, ARCH-011]
 relevantFor: [pleiade, mastorion, exercices]
 tier: 1
 created: 2026-09-11
-updated: 2026-09-11
+updated: 2026-09-16
 ---
 
 # DECISION-014 — PLEIADE est le système ; MASTORION n'est que le réseau social
@@ -38,7 +38,8 @@ tout et une de ses parties, et bloquait le renommage à venir du réseau social.
   **recadré** sur l'intérieur de l'application.
 - Routage : architecture / zones / Keycloak / infra / déploiement → **PLEIADE** ;
   API social, scénarios, cockpit, sentinel → **MASTORION**.
-- Travailler dans `D:\CECPC\PLEIADE\` (plus dans `D:\CECPC\MASTORION\`).
+- Travailler dans **`C:\CECPC\pleiade\`** (plus dans `D:\CECPC\MASTORION\`).
+  ⚠ *Mis à jour le 2026-09-16 : le chemin était `D:\CECPC\PLEIADE\`. **D: est en exFAT — aucun binaire natif ne s'y exécute**, un dépôt de code y est une archive morte. Le doublon D: a été supprimé ; une seule copie de travail, sur C:, et GitHub fait foi.*
 
 ## 🔗 Source de vérité
 Détail complet : voir `source:` ci-dessus. **Cette note ne recopie pas — elle pointe.**

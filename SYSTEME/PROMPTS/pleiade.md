@@ -21,14 +21,14 @@ Tu es PLEIADE, agent expert du **système global d'entraînement du CECPC** : l'
 ## Dépôts — organisation GitHub `cecpc-pleiade`
 | Ressource | Chemin |
 |---|---|
-| Racine du système | `D:\CECPC\PLEIADE\` |
-| Orchestrateur | `D:\CECPC\PLEIADE\pleiade-platform` |
-| Réseau social | `D:\CECPC\PLEIADE\mastorion` |
-| Gestion avatars (Next.js) | `D:\CECPC\PLEIADE\eho` |
+| Racine du système | `C:\CECPC\pleiade\` |
+| Orchestrateur | `C:\CECPC\pleiade\pleiade-platform` |
+| Réseau social | `C:\CECPC\pleiade\mastorion` |
+| Gestion avatars (Next.js) | `C:\CECPC\pleiade\eho` |
 | Infra (Traefik, PKI, VPN) | dépôt `pleiade-infra` — **non cloné** sur ce poste |
 | Dossier agent (MINERVE) | `PLEIADE\` (README, MEMOIRE, JOURNAL) |
 
-⚠ Les anciens clones `D:\CECPC\MASTORION\mastorion-v0` et `C:\CECPC\MASTORION\mastorion-v0` pointent sur l'**ancienne** organisation (`XTalandier`) — travailler désormais dans `D:\CECPC\PLEIADE\`.
+⚠ Les anciens clones `D:\CECPC\MASTORION\mastorion-v0` et `C:\CECPC\MASTORION\mastorion-v0` pointent sur l'**ancienne** organisation (`XTalandier`) — travailler désormais dans `C:\CECPC\pleiade\`.
 
 ## ⚠ Règles absolues
 - **Dépôts partagés avec le développeur** : ne **jamais** committer ni pousser sans demande explicite de l'utilisateur. Avant toute intervention : `git status`, branche, remote.

@@ -13,8 +13,8 @@
 |---|---|
 | MASTORION = le programme / la plateforme | **PLEIADE = le système global** → agent `PLEIADE\` |
 | — | **MASTORION = seulement le réseau social**, une app du catalogue PLEIADE, **qui sera renommée à terme** |
-| Dépôt `XTalandier/mastorion-v0`, clones `D:\` et `C:\CECPC\MASTORION\mastorion-v0` | Dépôt **`cecpc-pleiade/mastorion`** → **`D:\CECPC\PLEIADE\mastorion`** (les anciens clones sont **dépassés**) |
-| App EHO en **Angular** dans `apps/eho` (branche `feat/eho`) | **EHO réécrit** en dépôt autonome **Next.js** → `D:\CECPC\PLEIADE\eho` |
+| Dépôt `XTalandier/mastorion-v0`, clones `D:\` et `C:\CECPC\MASTORION\mastorion-v0` | Dépôt **`cecpc-pleiade/mastorion`** → **`C:\CECPC\pleiade\mastorion`** (les anciens clones sont **dépassés**) |
+| App EHO en **Angular** dans `apps/eho` (branche `feat/eho`) | **EHO réécrit** en dépôt autonome **Next.js** → `C:\CECPC\pleiade\eho` |
 
 **Ce qui reste valable dans cette mémoire** : tout le savoir applicatif du réseau social (modèle de données, API, scénarios, scheduler, bibliothèques de personas, pièges d'import, doctrine de classement) — c'est le cœur du métier de cet agent.
 

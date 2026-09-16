@@ -17,7 +17,7 @@ que le dépôt.
 | **Titre interne** | « Pléiade » |
 
 > ⚠ **C'est un DRAFT, pas une spécification.** Les écrans qu'il montre sont des maquettes
-> de présentation. Quand il contredit le code des dépôts (`D:\CECPC\PLEIADE\`), **c'est le
+> de présentation. Quand il contredit le code des dépôts (`C:\CECPC\pleiade\`), **c'est le
 > code qui fait foi** — voir les écarts relevés plus bas.
 
 ### Le propos, en une phrase
