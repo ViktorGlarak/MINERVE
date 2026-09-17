@@ -91,6 +91,15 @@ Verrous portés par les statuts :
 10. **On ne consulte un contrôle archivé que si l'on y a contribué** *(§ VI.B.8)*.
 11. **Rubrique physio** : `valeurs` vide = **saisie libre** ; sinon **liste de choix**.
 12. **Import Excel complet des grilles = ÉCRASE tout l'existant** *(admin § VI.B.1)*.
+13. ⭐⭐ **Figer un cycle est un état MÉTIER, pas un verrou d'écriture** *(§ III.B)*.
+    Une saisie émise hors ligne **avant** le figeage et remontée **après** est
+    **acceptée**, puis **signalée**. La refuser reconstruirait le défaut annoncé
+    en § V.B.8 (*« toute modification durant la synchronisation sera perdue »*).
+    ⚠ La comparaison se fait sur l'**horloge de Lamport**, jamais sur une date :
+    deux tablettes n'ont pas la même heure. Voir `vault\decisions\DECISION-023`.
+14. **Une seule réserve empêche de figer** : l'absence de porteur du drapeau.
+    Tout le reste **informe sans bloquer** — sinon un contrôleur absent bloque un
+    cycle indéfiniment. Le chef de contrôle est l'autorité, on l'informe.
 
 ---
 
@@ -161,7 +170,7 @@ avec des gants.**
 | Moteur de fusion terrain | ✅ `src/lib/sync/fusion.ts` |
 | Calcul de notation + barèmes | ✅ `src/lib/domaine/notation.ts` |
 | Système visuel | ✅ `src/app/globals.css` |
-| Tests de logique métier | ✅ **78/78** |
+| Tests de logique métier | ✅ **92/92** |
 | ⭐ **Écran de notation terrain** | ✅ **écrit et validé** 2026-09-17 (`src/app/page.tsx`) — commit `aeceeb8` |
 | ⭐ **Persistance hors ligne** (IndexedDB + journal d'opérations) | ✅ 2026-09-17 — `src/lib/offline/` — commit `7c640d1` |
 | ⭐ **Écran de synchronisation** + revue des collisions | ✅ 2026-09-17 — `src/app/synchronisation/` |
@@ -169,11 +178,12 @@ avec des gants.**
 | ⭐ **Écran de paramétrage ODM** (4 onglets § V.A) | ✅ 2026-09-17 — `src/app/parametrage/` — commits `fe90ede` puis `86da06d` (**persisté** au journal d'opérations, un champ par membre) |
 | Règle de nommage de l'intitulé, **assistée et testée** | ✅ `src/lib/domaine/intitule.ts` — commit `8b51061` |
 | ⭐ **Tableau de bord de la réunion quotidienne** (§ V.B.9) | ✅ 2026-09-17 — `src/app/tableau-de-bord/` + `src/lib/domaine/bilan.ts` — commit `d352962` |
+| ⭐ **Écran de fin de cycle** (§ III.B / III.C) | ✅ 2026-09-17 — `src/app/fin-de-cycle/` + `src/lib/domaine/cycle.ts` — commit `edbf801` |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |
 
-**Répartition de la couverture** : 🟢 **10 faites** · 🟡 57 modèle en place · ⚪ 21
+**Répartition de la couverture** : 🟢 **12 faites** · 🟡 55 modèle en place · ⚪ 21
 spécifiées · 🔵 **29 repensées** (le dispositif technique qui les imposait
 disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
 

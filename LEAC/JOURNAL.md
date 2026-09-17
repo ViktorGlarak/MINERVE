@@ -73,9 +73,54 @@ lui est une note que personne n'assume.
 - Taux en points et non en moyenne de taux (cas 60/60 + 0/6).
 - Contrôle vierge : note `null`, barème `null`, taux `0` — **pas `NaN`**.
 
+### 4. Écran de fin de cycle (§ III.B / § III.C) — commit `edbf801`
+
+`/fin-de-cycle` + `src/lib/domaine/cycle.ts`. Trois gestes dans l'ordre du soir :
+lire les réserves, écrire le bilan et les synthèses, figer.
+
+⭐⭐ **La décision centrale — figer est un état MÉTIER, pas un verrou
+d'écriture.** Une note posée hors ligne **avant** le figeage peut très bien ne
+remonter qu'**après** : c'est même le cas normal d'un contrôleur qui rentre au
+bureau en fin de soirée. La refuser reconstruirait de nos mains le défaut annoncé
+au § V.B.8. Elle est donc **acceptée, conservée, et signalée** — l'écran liste ce
+qui est arrivé depuis la décision, et le chef de contrôle tranche s'il rouvre.
+→ [[DECISION-023]]
+
+⚠ La comparaison se fait sur l'**horloge de Lamport**, jamais sur une date : deux
+tablettes n'ont pas la même heure, et une tablette éteinte trois jours revient
+avec une horloge murale fausse. L'horloge de référence est lue **avant** d'écrire
+le figeage, sinon le figeage se signalerait lui-même comme une saisie tardive.
+
+**Une seule réserve est bloquante** — l'absence de porteur du drapeau (le cycle
+serait figé sur un bilan sans auteur). Tout le reste informe sans empêcher :
+exiger la complétude produit le piège classique où un contrôleur absent bloque un
+cycle indéfiniment. ⚠ L'écran **dit pourquoi** les autres ne bloquent pas — sinon
+un avertissement qui laisse passer se lit comme un bug.
+
+Le reste :
+- § III.C — les **synthèses générales** restent **visibles et verrouillées** hors
+  chef de contrôle. Les masquer ferait croire qu'elles n'existent pas, et la
+  question reviendrait à chaque contrôle.
+- ⚠ Ces verrous sont de **lisibilité**. La règle qui compte s'applique **au
+  serveur**, à la réception des opérations — un écran ne protège rien, et le
+  fichier le dit pour qu'on ne s'y trompe pas.
+- **Confirmation maison, jamais `confirm()`** : sur tablette la boîte système est
+  minuscule, hors charte, et se valide par réflexe.
+- **Rouvrir n'efface rien** : c'est une opération de plus, la trace reste.
+- **Sélecteur de rôle**, marqué comme échafaudage de démonstration : il permet
+  d'**éprouver** le cloisonnement au lieu de le croire sur parole. Il disparaît
+  avec la session Keycloak.
+- Les membres de démonstration ont un `identityId`, **sauf `m6`** : c'est le
+  renfort de dernière minute (§ V.B.3), créé en local, sans identité de zone. Les
+  écrans doivent le supporter — c'est un cas réel, pas une donnée incomplète.
+
+**14 tests de plus (92/92)**, dont ceux qui verrouillent qu'une saisie **à**
+l'horloge du figeage n'est **pas** tardive, et que le figeage ne se signale pas
+lui-même.
+
 ### 📝 Fichiers autoritaires modifiés
-- `app-leac` : commits **`86da06d`** et **`d352962`** — `docs/COUVERTURE.md`
-  passe à 🟢 **10 faites** / 🟡 57 / ⚪ 21 / 🔵 29.
+- `app-leac` : commits **`86da06d`**, **`d352962`** et **`edbf801`** —
+  `docs/COUVERTURE.md` passe à 🟢 **12 faites** / 🟡 55 / ⚪ 21 / 🔵 29.
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
@@ -83,8 +128,9 @@ lui est une note que personne n'assume.
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape
-1. **Écran de validation de fin de cycle** (§ III.B) — figer un cycle, valider
-   les observations, basculer vers la 3A.
+1. **Validation de grille** (§ III.D) — le geste manque : l'état `grilleValidee`
+   est affiché mais rien ne permet de le poser. Et **ouvrir le cycle suivant**
+   (§ V.B.7).
 2. **Génération 3A (.pptx) / CR (.docx)** — ⏳ bloqué sur le **modèle de CR** du
    CECPC (§ X, « en cours de rédaction »), demandé par l'utilisateur.
 3. **Import/export Excel des grilles** — ⏳ bloqué de même (§ XII).

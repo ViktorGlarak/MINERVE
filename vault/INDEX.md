@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**439 notes** · généré le 2026-09-17
+**440 notes** · généré le 2026-09-17
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -60,6 +60,7 @@
 | [DECISION-020](decisions/DECISION-020.md) | L'onglet « Choix d'avatar » supprimé — un écran qui liste les avatars n'a de sens que côté animation | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-015]] [[DECISION-018]] [[ARCH-013]] |
 | [DECISION-021](decisions/DECISION-021.md) | LEAC — on écrit un CHAMP par cible, jamais un objet entier ; c'est la granularité qui achète l'absence de conflit | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-022]] |
 | [DECISION-022](decisions/DECISION-022.md) | LEAC — le « drapeau » devient un choix explicite et un filtre réel, il ne dépend plus d'un ordre de clic | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[LESSON-034]] |
+| [DECISION-023](decisions/DECISION-023.md) | LEAC — figer un cycle est un état métier, jamais un verrou d'écriture sur le journal | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[LESSON-034]] |
 
 ## 🛠️ Outils
 
@@ -166,7 +167,7 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[DECISION-010]] [[LESSON-022]] |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-LEAC](agents/AGENT-LEAC.md) | LEAC | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[LESSON-034]] |
+| [AGENT-LEAC](agents/AGENT-LEAC.md) | LEAC | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[DECISION-023]] [[LESSON-034]] |
 | [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[DECISION-012]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[LESSON-020]] [[LESSON-021]] [[LESSON-023]] [[LESSON-024]] [[LESSON-025]] [[LESSON-026]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] [[TOOL-015]] [[TOOL-016]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MASTORION](agents/AGENT-MASTORION.md) | MASTORION | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[LESSON-029]] |
