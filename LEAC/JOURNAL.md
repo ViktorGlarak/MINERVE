@@ -319,6 +319,30 @@ au premier oubli. Le royaume ne tranche que l'accès au **référentiel** (`admi
    que le **certificat wildcard** couvre ce domaine — `pleiade-infra` génère
    encore `*.mastorion.internal`.
 
+#### ✅ Mise en service constatée le 2026-09-17
+
+`app-leac` poussé sur `main`, et `pleiade-platform` poussé par l'utilisateur.
+**Vérifié sur le serveur, pas supposé** :
+
+- `https://pleiade.cecpc.internal/api/version` rend **`commit: f7d075a`** — c'est
+  le commit du catalogue. ⭐ **LEAC est donc dans le catalogue de PLÉIADE** et
+  assignable à une zone.
+- ⚠ **L'image `leac` n'est PAS dans le registre** (`registry.cecpc.internal/v2/_catalog` :
+  admin, cockpit, eho, messagerie, pleiade-orchestrator, presse, social).
+  👉 **Créer une instance LEAC maintenant échouerait au démarrage** : rien à tirer.
+  L'image n'est fabriquée que par le workflow `prod`.
+- ⭐ **Le premier `push prod` fait l'essentiel même s'il « échoue »** : les étapes
+  1 et 2 (construire, pousser au registre) aboutissent ; seule la promotion
+  échoue, faute de `leac` dans `pleiade-promouvoir`. Or la promotion ne sert
+  qu'à **mettre à jour des instances existantes** — et il n'y en a aucune. Donc
+  après ce push, l'image est là et l'instance peut être créée.
+
+**Adressage relevé au passage** *(voir `PLEIADE\MEMOIRE.md` §3, corrigé)* :
+`BASE_DOMAIN = pleiade.internal`, donc une instance LEAC vivra à
+**`{instance}.{zone}.pleiade.internal`**. La zone `exercice` tourne déjà
+(`eho.exercice.pleiade.internal` répond), et Traefik y sert un certificat
+**par zone** — la réserve que j'avais émise sur le certificat était infondée.
+
 ### 📝 Fichiers autoritaires modifiés
 - `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
   **`7510830`**, **`eeb64ea`** et **`675cfd3`** — `docs/COUVERTURE.md` passe à

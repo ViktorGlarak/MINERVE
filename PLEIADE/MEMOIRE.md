@@ -111,37 +111,45 @@ Interface  : 10.9.0.1
 Client VPN ──> 10.9.0.1:443 ──> Traefik ──> conteneurs
 ```
 
-### ⚠⚠ Domaine — `cecpc.internal`, et non plus `mastorion.internal` *(corrigé 2026-09-17)*
+### ⭐⭐ Domaine et adressage — **relevé SUR LE SERVEUR** le 2026-09-17
 
-**Le tableau de bord est à `https://pleiade.cecpc.internal/`** — confirmé par
-l'utilisateur ET par `pleiade-platform/docker-compose.prod.yml`, où la règle
-Traefik est écrite **en dur** : ``Host(`pleiade.cecpc.internal`)`` et
-``Host(`auth.cecpc.internal`)``.
+> ⚠ La mémoire annonçait `*.mastorion.internal`. **C'était faux.** Ce qui suit
+> n'est pas déduit des dépôts : c'est mesuré sur le serveur, par VPN.
 
-⚠ **Transition inachevée, à ne pas confondre** — trois valeurs coexistent dans
-les dépôts :
-
-| Où | Valeur | Statut |
+| Ce qu'on veut joindre | Adresse réelle | Comment on le sait |
 |---|---|---|
-| `docker-compose.prod.yml` (routes en dur) | **`cecpc.internal`** | ✅ ce qui tourne |
-| `docker-compose.prod.yml` — `BASE_DOMAIN` par défaut | `pleiade.internal` | ⚠ surchargé par le `.env` DU SERVEUR, illisible d'ici |
-| `pleiade-infra` — `make-cert.sh`, `traefik/dynamic/` | `mastorion.internal` | ⛔ **pas encore migré** |
+| Tableau de bord de l'orchestrateur | **`pleiade.cecpc.internal`** | répond 302 → `/auth/login` |
+| Keycloak | **`auth.cecpc.internal`** | route en dur dans `docker-compose.prod.yml` |
+| Registre d'images | ⭐ **`registry.cecpc.internal`** | `/v2/_catalog` répond ; `registry.mastorion.internal` est **mort** |
+| **Portail d'une zone** | **`{zone}.pleiade.internal`** | tout `{x}.pleiade.internal` répond 302 |
+| ⭐ **Instance d'application** | **`{instance}.{zone}.pleiade.internal`** | `eho.exercice.pleiade.internal` répond 307 |
 
-⭐ **Conséquence à vérifier avant tout déploiement** : l'URL d'une instance est
-`{instance}.{zone}.{BASE_DOMAIN}`. La valeur réelle de `BASE_DOMAIN` n'existe que
-dans le `.env` du serveur — **la lire là-bas**, ne pas la déduire des dépôts. Et
-vérifier que le **certificat wildcard couvre bien ce domaine** : `make-cert.sh`
-génère aujourd'hui `*.mastorion.internal` et `*.cecpc.mastorion.internal`.
+⭐⭐ **`BASE_DOMAIN` = `pleiade.internal`** — et non `cecpc.internal`, qui ne sert
+qu'aux hôtes d'infrastructure. **Déterminé par l'épreuve** : `{x}.pleiade.internal`
+est capté par le routeur de portail (302), `{x}.cecpc.internal` ne l'est pas (404
+Traefik). ⚠ **Ne pas déduire cette valeur des dépôts** : elle vit dans le `.env`
+du serveur, et les trois candidats qu'on y lit se contredisent.
 
-### Services exposés via Traefik (HTTPS)
-| URL | Service |
-|---|---|
-| `pleiade.cecpc.internal` | Dashboard orchestrateur |
-| `auth.cecpc.internal` | Keycloak (admin/admin) |
-| `{instance}.{zone}.{BASE_DOMAIN}` | Instances d'applications |
-| `traefik.mastorion.internal` | Dashboard Traefik *(⚠ non migré)* |
-| `metrics.cecpc.mastorion.internal` | Grafana *(⚠ idem)* |
-| `vpn.cecpc.mastorion.internal` | Console Pritunl *(⚠ idem)* |
+⭐ **Certificats : il y en a un PAR ZONE, et c'est nécessaire.** Un wildcard TLS
+ne couvre **qu'un seul niveau** — `*.pleiade.internal` matche
+`exercice.pleiade.internal` mais **pas** `leac.exercice.pleiade.internal`. Traefik
+présente donc, selon le SNI demandé :
+- `*.cecpc.internal` (+ `*.pleiade.internal`) pour l'infrastructure ;
+- ⭐ **`*.exercice.pleiade.internal`** pour les instances de la zone `exercice`.
+
+👉 **Créer une zone impose donc un certificat pour elle.** Une zone dont le
+certificat manque servira ses instances sous un certificat qui ne les couvre pas
+— avertissement de sécurité **devant les participants**.
+
+⚠ **`pleiade-infra` NE REFLÈTE PLUS LE SERVEUR** : `make-cert.sh` et
+`traefik/dynamic/` y parlent encore de `mastorion.internal`, domaine qui ne
+répond plus. Le dépôt a dérivé de la réalité — ne pas s'y fier pour l'adressage.
+
+### Zone `exercice` — ce qui tourne (2026-09-17)
+`eho.exercice.pleiade.internal` répond. Registre : `admin`, `cockpit`, `eho`,
+`messagerie`, `pleiade-orchestrator`, `presse`, `social` — ⚠ **pas `leac`** :
+l'image n'existe que si le workflow `prod` de `app-leac` a tourné au moins une
+fois.
 
 ### Chemins sur le serveur
 `~/mastorion/pleiade/` (orchestrateur) · `~/mastorion/mastorion-v0/` · `~/mastorion/infra/` · `~/mastorion/pleiade/data/zones/` (instances déployées)
@@ -162,7 +170,7 @@ Chaque instance reçoit automatiquement :
 - un `docker-compose.yml` **généré** depuis le template du catalogue
 - un `.env` avec les variables injectées (DB, Keycloak…)
 - un **client Keycloak** (public ou confidential selon l'app)
-- une **route Traefik** : `{instanceId}.{zoneName}.{BASE_DOMAIN}` *(⚠ voir §3 : le domaine a changé)*
+- une **route Traefik** : `{instanceId}.{zoneName}.pleiade.internal` *(voir §3 — relevé sur le serveur)*
 
 ### Conventions de nommage (à respecter scrupuleusement)
 | Objet | Forme |
