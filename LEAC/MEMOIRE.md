@@ -223,6 +223,7 @@ avec des gants.**
 | **Cycles réels** (§ V.B.7) + **validation de grille** (§ III.D) | ✅ 2026-09-17 — commit `7510830` · le cycle entre dans la clé des notes |
 | ⭐ **Domaines transverses** (§ V.A.3) — pondération, observateurs, drapeau **par domaine** | ✅ 2026-09-17 — `src/lib/domaine/domaines.ts` — commit `eeb64ea` |
 | ⭐ **Compactage du journal** — une saisie annulée ne remonte pas | ✅ 2026-09-17 — `src/lib/sync/compactage.ts` + table `socle` — commit `675cfd3` |
+| ⭐⭐ **App de zone PLEIADE déployable** — Dockerfile, workflow `prod`, sondes, Keycloak | ✅ 2026-09-17 — commit `4eccf1f` + `catalog/leac.yml` (`b96fd8b`) · voir `docs/DEPLOIEMENT.md` |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |

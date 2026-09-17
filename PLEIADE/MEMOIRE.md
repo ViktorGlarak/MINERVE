@@ -88,7 +88,7 @@ Mot pour mot, l'en-tête du workflow d'`eho` :
 
 | Dépôt | Branche qui déploie |
 |---|---|
-| `eho` · `app-social` · `app-admin` · `app-cockpit` · `app-press` · `app-messagerie` | **`prod`** |
+| `eho` · `app-social` · `app-admin` · `app-cockpit` · `app-press` · `app-messagerie` · ⭐ `app-leac` | **`prod`** |
 | ⚠ `pleiade-platform` | **`main`** *(pas de sas !)* |
 | `pleiade-infra` · `app-webserver` · `app-wordpress` | aucune (déploiement manuel) |
 
@@ -111,15 +111,37 @@ Interface  : 10.9.0.1
 Client VPN ──> 10.9.0.1:443 ──> Traefik ──> conteneurs
 ```
 
-### Services exposés via Traefik (HTTPS, `*.mastorion.internal`)
+### ⚠⚠ Domaine — `cecpc.internal`, et non plus `mastorion.internal` *(corrigé 2026-09-17)*
+
+**Le tableau de bord est à `https://pleiade.cecpc.internal/`** — confirmé par
+l'utilisateur ET par `pleiade-platform/docker-compose.prod.yml`, où la règle
+Traefik est écrite **en dur** : ``Host(`pleiade.cecpc.internal`)`` et
+``Host(`auth.cecpc.internal`)``.
+
+⚠ **Transition inachevée, à ne pas confondre** — trois valeurs coexistent dans
+les dépôts :
+
+| Où | Valeur | Statut |
+|---|---|---|
+| `docker-compose.prod.yml` (routes en dur) | **`cecpc.internal`** | ✅ ce qui tourne |
+| `docker-compose.prod.yml` — `BASE_DOMAIN` par défaut | `pleiade.internal` | ⚠ surchargé par le `.env` DU SERVEUR, illisible d'ici |
+| `pleiade-infra` — `make-cert.sh`, `traefik/dynamic/` | `mastorion.internal` | ⛔ **pas encore migré** |
+
+⭐ **Conséquence à vérifier avant tout déploiement** : l'URL d'une instance est
+`{instance}.{zone}.{BASE_DOMAIN}`. La valeur réelle de `BASE_DOMAIN` n'existe que
+dans le `.env` du serveur — **la lire là-bas**, ne pas la déduire des dépôts. Et
+vérifier que le **certificat wildcard couvre bien ce domaine** : `make-cert.sh`
+génère aujourd'hui `*.mastorion.internal` et `*.cecpc.mastorion.internal`.
+
+### Services exposés via Traefik (HTTPS)
 | URL | Service |
 |---|---|
-| `pleiade.mastorion.internal` | Dashboard orchestrateur |
-| `auth.mastorion.internal` | Keycloak (admin/admin) |
-| `{instance}.{zone}.mastorion.internal` | Instances d'applications |
-| `traefik.mastorion.internal` | Dashboard Traefik |
-| `metrics.cecpc.mastorion.internal` | Grafana |
-| `vpn.cecpc.mastorion.internal` | Console Pritunl |
+| `pleiade.cecpc.internal` | Dashboard orchestrateur |
+| `auth.cecpc.internal` | Keycloak (admin/admin) |
+| `{instance}.{zone}.{BASE_DOMAIN}` | Instances d'applications |
+| `traefik.mastorion.internal` | Dashboard Traefik *(⚠ non migré)* |
+| `metrics.cecpc.mastorion.internal` | Grafana *(⚠ idem)* |
+| `vpn.cecpc.mastorion.internal` | Console Pritunl *(⚠ idem)* |
 
 ### Chemins sur le serveur
 `~/mastorion/pleiade/` (orchestrateur) · `~/mastorion/mastorion-v0/` · `~/mastorion/infra/` · `~/mastorion/pleiade/data/zones/` (instances déployées)
@@ -140,7 +162,7 @@ Chaque instance reçoit automatiquement :
 - un `docker-compose.yml` **généré** depuis le template du catalogue
 - un `.env` avec les variables injectées (DB, Keycloak…)
 - un **client Keycloak** (public ou confidential selon l'app)
-- une **route Traefik** : `{instanceId}.{zoneName}.mastorion.internal`
+- une **route Traefik** : `{instanceId}.{zoneName}.{BASE_DOMAIN}` *(⚠ voir §3 : le domaine a changé)*
 
 ### Conventions de nommage (à respecter scrupuleusement)
 | Objet | Forme |
@@ -166,7 +188,7 @@ Chaque instance reçoit automatiquement :
 
 ## 6. Catalogue d'applications déployables
 
-`pleiade-platform/catalog/*.yml` — **8 apps** (relevé le 2026-09-15) :
+`pleiade-platform/catalog/*.yml` — **9 apps** *(`leac` ajouté le 2026-09-17)* :
 
 ⭐ **Chaque entrée du catalogue a SON dépôt** (correspondance 1:1 vérifiée le 2026-09-16) :
 
@@ -180,6 +202,7 @@ Chaque instance reçoit automatiquement :
 | `eho` | **`eho`** | Identités de la zone — **notre chantier**, et **source d'identité de toutes les autres** | Administration · Environnement |
 | `wordpress` | **`app-wordpress`** | CMS (OIDC Keycloak pré-configuré) | Administrateur · Éditeur |
 | `webserver` | **`app-webserver`** | Fichiers statiques avec explorateur admin | Administration · Environnement |
+| ⭐ `leac` | **`app-leac`** | **Contrôle des PC** — notation terrain hors ligne, concaténation au retour | `admin` *(référentiel seulement — voir ci-dessous)* |
 
 ⚠ **`admin` et `cockpit` sont nouveaux et recoupent directement le savoir MINERVE** — l'un
 orchestre des déroulés heure par heure avec import XLSX (cf. MELMIL / synchromatrice), l'autre
@@ -188,6 +211,9 @@ fait de la veille et du reporting comparatif. Voir `REFERENCES/README.md`.
 Un template déclare : `image`, `port`, `healthcheck`, `icon` · `keycloak` (clientId + clientType) · `requires` (DB + mapping d'env) · `env` (variables typées : select, couleur, nombre, `secret`, `editable`, défauts avec substitution `{instance}` / `{domain}` / `{auto}`) · `volumes`.
 
 > **Ajouter une app au catalogue = déposer un YAML** — c'est une opération de contenu, pas de code.
+> ⚠ **Mais le catalogue est copié DANS l'image de l'orchestrateur** (`COPY catalog/ catalog/`) : il faut donc **redéployer `pleiade-platform`** pour qu'un nouveau YAML atteigne le serveur — donc pousser sur son `main`, **qui déploie sans sas**.
+
+> ⭐ **Leçon de `leac` sur les rôles Keycloak** *(2026-09-17)* : ne déclarer au royaume que ce qui est **stable**. « Chef de contrôle », « chef d'équipe », « officier de marque » sont des **fonctions tenues dans une équipe**, qui changent d'un contrôle à l'autre — le même officier est chef d'équipe lundi et contrôleur S4 jeudi. Les mettre dans Keycloak obligerait à le rejouer à chaque nouvelle équipe, et **les deux vérités divergeraient au premier oubli**. Elles restent donc dans l'app. Le royaume ne tranche que l'accès au **référentiel**.
 
 ### ⭐ Liaison inter-instances (cross-instance linking)
 Quand **eho et mastorion coexistent dans une zone**, `EHO_URL` est **automatiquement injecté** dans le `.env` de mastorion. Mastorion s'en sert pour **résoudre un compte par username auprès de l'EHO** quand il ne le trouve pas chez lui (`apps/api/src/admin/scenario-items.ts` → `GET {EHO_URL}/api/users?search=…`). **L'EHO devient donc la source d'identité des personas, mastorion le consommateur.**

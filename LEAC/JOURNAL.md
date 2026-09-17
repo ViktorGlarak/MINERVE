@@ -256,6 +256,69 @@ reconstruit depuis les valeurs sans opération en sursis.
 **17 tests de plus (120/120)**, dont celui qui verrouille que `0` et `false` ne
 sont **pas** vides : un poids à 0 neutralise une fonction, c'est une décision.
 
+### 8. LEAC devient une app de zone PLEIADE déployable — commits `4eccf1f` + `b96fd8b`
+
+**Demande** : configurer `app-leac` comme les autres dépôts, pour pouvoir y
+introduire une branche `prod` qui met l'application à jour automatiquement, et
+l'introduire comme **instance** assignable à une zone depuis
+`https://pleiade.cecpc.internal/`.
+
+LEAC suivait déjà les conventions PLEIADE **dans son code** ; il lui manquait
+tout ce qui en fait une app **déployable**.
+
+#### Chaîne de déploiement (`app-leac`)
+- `Dockerfile` — sortie standalone, CLI Prisma isolé, schéma poussé au
+  démarrage. ⭐ **`npm test` AVANT `npm run build`**, et c'est un choix de fond :
+  les tests tiennent les règles de notation et de fusion, dont les erreurs sont
+  **invisibles à l'œil**. Les faire échouer là, c'est refuser de fabriquer
+  l'image. **Le serveur n'a pas Node** : c'est le seul endroit où ils tournent
+  automatiquement.
+- `.github/workflows/deployer-prod.yml` — déclenché sur `prod`, runner
+  auto-hébergé, promotion limitée aux seules instances de `leac`.
+- ⚠ **Port 3000 dans le conteneur** comme toutes les apps ; le 3700 ne sert qu'à
+  cohabiter en local avec eho et les autres.
+
+#### Intégration à la zone
+- **Deux sondes, à ne pas confondre** : `/api/sante` (Podman, sans
+  authentification, ne touche **ni la base ni Pléiade** — sinon une instance qui
+  démarre pendant que MariaDB se réveille serait déclarée morte et ne
+  reviendrait jamais) et `/api/service/health` (contrat commun, derrière
+  `X-API-Key`).
+- Découverte des voisines **à l'exécution**, avec conservation de la dernière
+  liste si l'orchestrateur est injoignable.
+- **Keycloak du royaume de la zone.** Les écrans passent dans un groupe de
+  routes `(controle)` dont le layout est le sas : un seul endroit, pas de boucle
+  de redirection, la page de connexion reste dehors.
+- ⚠ Échappatoire `LEAC_DEV_USER` **fermée en production**. Vérifié : sans elle,
+  `/` et `/parametrage` renvoient **307** vers `/connexion`.
+
+#### ⚠ Défaut de schéma révélé par la première construction
+`prisma generate` **n'avait jamais été lancé** sur ce schéma : il ne validait
+pas. `@@unique([acronyme, definition])` portait sur un `@db.Text`, que MySQL
+n'indexe pas sans longueur. Passé en `VarChar(255)`. Garder `Text` aurait obligé
+à **renoncer à l'unicité**, donc à accepter deux fois le même couple dans le
+glossaire. ⭐ C'est exactement ce que la construction d'image doit attraper.
+
+#### Catalogue (`pleiade-platform`)
+`catalog/leac.yml` — opération de **contenu**, aucune ligne de code de
+l'orchestrateur touchée. ⚠ Mais le catalogue est **copié dans l'image** de
+l'orchestrateur : il faut redéployer `pleiade-platform`, dont le `main`
+**déploie sans sas**.
+
+⭐ **Un seul rôle Keycloak, et c'est une décision** : « chef de contrôle »,
+« chef d'équipe », « officier de marque » sont des **fonctions tenues dans une
+équipe**, qui changent d'un contrôle à l'autre. Les mettre dans le royaume
+obligerait à rejouer Keycloak à chaque équipe, et les deux vérités divergeraient
+au premier oubli. Le royaume ne tranche que l'accès au **référentiel** (`admin`).
+
+#### ⚠ Ce qui reste à faire, hors de nos dépôts
+1. `/usr/local/sbin/pleiade-promouvoir` doit connaître `leac` (script + sudoers
+   du compte `runner`) — sinon l'image est construite et poussée, mais **rien
+   n'est promu**.
+2. Vérifier la valeur réelle de **`BASE_DOMAIN`** dans le `.env` du serveur, et
+   que le **certificat wildcard** couvre ce domaine — `pleiade-infra` génère
+   encore `*.mastorion.internal`.
+
 ### 📝 Fichiers autoritaires modifiés
 - `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
   **`7510830`**, **`eeb64ea`** et **`675cfd3`** — `docs/COUVERTURE.md` passe à
@@ -265,7 +328,7 @@ sont **pas** vides : un poids à 0 neutralise une fonction, c'est une décision.
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
-`app-leac` est **en avance de 11 commits** sur `origin/main`. Dépôt partagé avec
+`app-leac` est **en avance de 12 commits** sur `origin/main`, et `pleiade-platform` de **1**. Dépôt partagé avec
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape
