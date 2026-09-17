@@ -16,7 +16,7 @@
 | ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
-| leac | 5 | [PACK-leac](PACK-leac.md) |
+| leac | 6 | [PACK-leac](PACK-leac.md) |
 | mastaurige | 53 | [PACK-mastaurige](PACK-mastaurige.md) |
 | mastorion | 14 | [PACK-mastorion](PACK-mastorion.md) |
 | melmil | 4 | [PACK-melmil](PACK-melmil.md) |
@@ -26,7 +26,7 @@
 | orion | 30 | [PACK-orion](PACK-orion.md) |
 | outillage | 9 | [PACK-outillage](PACK-outillage.md) |
 | parser | 2 | [PACK-parser](PACK-parser.md) |
-| pleiade | 16 | [PACK-pleiade](PACK-pleiade.md) |
+| pleiade | 17 | [PACK-pleiade](PACK-pleiade.md) |
 | production | 8 | [PACK-production](PACK-production.md) |
 | qualite | 2 | [PACK-qualite](PACK-qualite.md) |
 | systeme | 6 | [PACK-systeme](PACK-systeme.md) |

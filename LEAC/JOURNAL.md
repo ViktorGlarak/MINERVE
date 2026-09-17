@@ -214,15 +214,58 @@ un transverse n'appartient à personne.
 
 **11 tests de plus (103/103)**, tous sur la règle qui était fausse.
 
+### 7. Compactage du journal — commit `675cfd3`
+
+**Constat de l'utilisateur à l'usage** : *« si je pose une notation puis que je
+la retire, on a quand même X saisies à remonter alors que je ne fais que cliquer
+et annuler le clic — ça risque de surcharger les données, non ? »*
+
+⭐⭐ **La question portait sur le volume ; le vrai problème est la JUSTESSE.**
+
+Serveur à « rien ». Tablette A pose 3, se ravise, retire. Tablette B, hors ligne
+elle aussi, pose 4 sur le même point.
+- **A remonte son retrait** : il porte une horloge **plus récente** que le 4 de
+  B. À la fusion, le retrait gagne et **efface le travail de B** — alors que A
+  n'a rien changé, il a écrit puis annulé.
+- **A ne remonte rien** : le 4 de B tient. Seul résultat correct.
+
+Une opération **nette nulle** n'est donc pas inutile : elle **écrase le travail
+d'autrui au nom d'un geste qui n'a pas eu lieu**. → [[DECISION-024]]
+
+**La règle** : pour une cible donnée, tant qu'aucune opération n'est partie, on
+ne garde que l'écart net par rapport à ce que le serveur connaît. Écart nul, il
+ne reste rien.
+
+⚠⚠ **La limite, absolue** : jamais une opération **déjà remontée**. Elle
+appartient à l'histoire commune.
+
+⚠ **Ce qu'on perd, assumé** : les états intermédiaires d'une frappe. Le journal
+sert à **synchroniser**, pas à reconstituer les hésitations de quelqu'un.
+
+**Une quatrième table locale : `socle`** — ce que le serveur connaît de chaque
+cible. ⚠ Elle se met à jour **même quand une opération distante n'est pas
+appliquée à l'écran** : « ce que le serveur détient » et « ce que j'affiche »
+sont deux choses différentes.
+
+⚠ **La migration v1 → v2 était dangereuse** et a été traitée : un socle vide
+signifie « le serveur ne connaît rien », ce qui aurait **fait taire une
+suppression légitime** — retirer une note déjà remontée serait passé pour un
+geste annulé, et le serveur l'aurait gardée pour toujours. Le socle est donc
+reconstruit depuis les valeurs sans opération en sursis.
+
+**17 tests de plus (120/120)**, dont celui qui verrouille que `0` et `false` ne
+sont **pas** vides : un poids à 0 neutralise une fonction, c'est une décision.
+
 ### 📝 Fichiers autoritaires modifiés
 - `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
-  **`7510830`** et **`eeb64ea`** — `docs/COUVERTURE.md` passe à 🟢 **15 faites** /
-  🟡 52 / ⚪ 21 / 🔵 29, et gagne une section **« Écarts assumés avec le
-  memento v2.5 »**.
+  **`7510830`**, **`eeb64ea`** et **`675cfd3`** — `docs/COUVERTURE.md` passe à
+  🟢 **16 faites** / 🟡 52 / ⚪ 21 / 🔵 29, et gagne une section **« Écarts
+  assumés avec le memento v2.5 »**. ⭐ Le compactage est la **118ᵉ** fonction :
+  elle ne vient pas du memento, la v2.5 n'avait pas lieu de l'avoir.
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
-`app-leac` est **en avance de 10 commits** sur `origin/main`. Dépôt partagé avec
+`app-leac` est **en avance de 11 commits** sur `origin/main`. Dépôt partagé avec
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape

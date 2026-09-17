@@ -131,6 +131,13 @@ Verrous portés par les statuts :
     `Note#<cycle>:<pointId>`. Chaque cycle **renote les mêmes critères**, et
     c'est **l'écart entre cycles** qui dit si le PC progresse. Sans le cycle dans
     la clé, la 2ᵉ journée écrase la 1ʳᵉ et le découpage perd sa raison d'être.
+17. ⭐⭐ **Une saisie annulée ne remonte pas.** Tant qu'aucune opération n'est
+    partie, on ne garde que l'**écart net** par rapport à ce que le serveur
+    connaît (table `socle`). ⚠ Ce n'est **pas** une économie de volume : un
+    retrait remonté porte une horloge récente et **écraserait la note qu'un
+    collègue vient de poser hors ligne**, au nom d'un geste qui n'a pas eu lieu.
+    ⚠⚠ **Jamais une opération déjà remontée** — elle appartient à l'histoire
+    commune. Voir `vault\decisions\DECISION-024`.
 16. **Chacun valide SA grille** *(§ III.D)* — jamais celle d'un autre. Une
     validation est un engagement sur ce qu'on a noté ; elle ne se délègue pas
     plus qu'une signature.
@@ -204,7 +211,7 @@ avec des gants.**
 | Moteur de fusion terrain | ✅ `src/lib/sync/fusion.ts` |
 | Calcul de notation + barèmes | ✅ `src/lib/domaine/notation.ts` |
 | Système visuel | ✅ `src/app/globals.css` |
-| Tests de logique métier | ✅ **103/103** |
+| Tests de logique métier | ✅ **120/120** |
 | ⭐ **Écran de notation terrain** | ✅ **écrit et validé** 2026-09-17 (`src/app/page.tsx`) — commit `aeceeb8` |
 | ⭐ **Persistance hors ligne** (IndexedDB + journal d'opérations) | ✅ 2026-09-17 — `src/lib/offline/` — commit `7c640d1` |
 | ⭐ **Écran de synchronisation** + revue des collisions | ✅ 2026-09-17 — `src/app/synchronisation/` |
@@ -215,6 +222,7 @@ avec des gants.**
 | ⭐ **Écran de fin de cycle** (§ III.B / III.C) | ✅ 2026-09-17 — `src/app/fin-de-cycle/` + `src/lib/domaine/cycle.ts` — commit `edbf801` |
 | **Cycles réels** (§ V.B.7) + **validation de grille** (§ III.D) | ✅ 2026-09-17 — commit `7510830` · le cycle entre dans la clé des notes |
 | ⭐ **Domaines transverses** (§ V.A.3) — pondération, observateurs, drapeau **par domaine** | ✅ 2026-09-17 — `src/lib/domaine/domaines.ts` — commit `eeb64ea` |
+| ⭐ **Compactage du journal** — une saisie annulée ne remonte pas | ✅ 2026-09-17 — `src/lib/sync/compactage.ts` + table `socle` — commit `675cfd3` |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |
