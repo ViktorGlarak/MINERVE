@@ -271,7 +271,9 @@ avec des gants.**
 | ⭐ **Compte rendu final (.docx)** — lettre + annexes I à VII | ✅ 2026-09-17 — `/compte-rendu` — commits `16627e3` et `02ca61d` |
 | ⭐ **3A (.pptx)** — une diapo par domaine, taux à côté du camembert | ✅ 2026-09-17 — commit `02ca61d` |
 | **Pondérations adaptables par le mandat du N+1** | ✅ 2026-09-17 — commit `e3079f8` |
-| ⭐ **Branches `main` et `prod` en place sur GitHub** | ✅ 2026-09-17 — `prod` créée depuis `main` au commit `f3e0555` |
+| ⭐ **Branches `main` et `prod` en place sur GitHub** | ✅ 2026-09-17 |
+| ⭐⭐ **EN PRODUCTION** — `https://leac.cecpc-div-eval.pleiade.internal` | ✅ 2026-09-17 au commit `a747d4f` · image au registre, 30 tables créées, sonde à 200 |
+| ⚠ **Synchronisation SERVEUR** — le cœur de la finalité | ❌ **à écrire** · Prisma généré mais jamais instancié ; l'écran de synchronisation *simule* |
 | **Note d'intégration pour la plateforme** | ✅ `docs/INTEGRATION-PLEIADE.md` — écrite pour qui devra comprendre sans avoir écrit |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |

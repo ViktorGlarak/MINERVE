@@ -4,6 +4,77 @@
 
 ---
 
+## 2026-09-17 (suite 4) — ⭐⭐ LEAC tourne sur le serveur
+
+**Première mise en production réussie.** `https://leac.cecpc-div-eval.pleiade.internal`
+
+Vérifié depuis le poste, par VPN : `/` renvoie **307** vers `/connexion`,
+`/api/sante` rend `{"ok":true,"app":"LEAC"}`, `/connexion` répond **200**, et
+`/api/service/health` refuse bien sans clé (**401**).
+
+### La chaîne, et qui a fait quoi
+
+Je n'ai **jamais touché au serveur** — ni SSH, ni commande à distance. Tout est
+passé par Git.
+
+1. J'écris `Dockerfile`, `docker-entrypoint.sh`, le workflow et `catalog/leac.yml`.
+2. L'utilisateur pousse `pleiade-platform` sur `main` → l'orchestrateur se
+   redéploie **avec le catalogue**.
+3. Je pousse `app-leac` sur `prod`, sur son feu vert explicite.
+4. Le **runner auto-hébergé, sur le serveur**, construit l'image et la pousse au
+   registre interne. ⭐ Les **214 tests tournent dans le `podman build`**, avant
+   la compilation : s'ils cassent, aucune image n'est fabriquée.
+5. L'utilisateur crée l'instance depuis le tableau de bord.
+6. Pléiade fabrique base, client Keycloak, `compose`, `.env`, route Traefik.
+
+### ⚠ Deux échecs avant d'y arriver, tous deux de mon fait
+
+**Exit code 125 au premier essai.** Ma première hypothèse — le runner ne serait
+pas disponible pour ce dépôt neuf — était **fausse** : la capture d'écran a
+montré un job qui avait tourné 2 min 29 puis échoué.
+
+1. **`public/` absent du dépôt.** J'avais repris le `Dockerfile` de
+   `app-messagerie`, qui en a un. ⚠ Et Git n'enregistre pas un dossier vide : il
+   a fallu y mettre une vraie favicon.
+2. **`docker-entrypoint.sh` extrait en CRLF** → « no such file or directory » sur
+   un fichier pourtant présent.
+
+⭐ Trouvés en **reproduisant le build ici** — ce poste a Docker. Clone propre de
+`prod`, `docker build`, puis exécution contre une vraie MariaDB. Deux minutes.
+
+⚠ **Vérifié avant de « réparer »** : le blob Git de l'entrypoint était bien en
+**LF** (`git show HEAD:… | od -c`). Le serveur n'était donc pas touché par le
+second ; c'est la copie de travail Windows qui l'était. Sans ce contrôle,
+j'aurais corrigé un problème que le dépôt n'avait pas. → [[LESSON-035]]
+
+### Ce que la mise en production a validé
+
+- `prisma db push` applique **réellement** le schéma : **30 tables** créées,
+  `operations` comprise avec sa `sequence` auto-incrémentée.
+- Le **certificat par zone** est créé automatiquement pour une zone neuve.
+- ⚠ Traefik rend **404 tant que le conteneur n'est pas prêt** — ça ressemble à
+  une erreur de configuration et n'en est pas.
+
+### ⚠⚠ Ce que la mise en production ne change PAS
+
+**LEAC déployé est une démonstration, pas encore un outil.** Chaque tablette a sa
+base isolée dans son navigateur ; Prisma est généré mais **jamais instancié** ;
+l'écran de synchronisation **simule** un échange. Deux contrôleurs sur cette
+instance ne verraient pas le travail l'un de l'autre.
+
+Or « concaténer les données de chaque contrôleur » **est** la finalité du projet.
+
+### ⏭️ Prochaine étape
+1. ⭐⭐ **La couche de synchronisation serveur.** Le modèle existe (`Appareil`,
+   `Operation` et son curseur `sequence`), le moteur de fusion est écrit et
+   testé — il manque le tuyau : client Prisma, `POST /api/sync`, et le
+   branchement de l'écran qui simule.
+2. ⚠ **Côté serveur, chez Xavier** : faire connaître `leac` à
+   `pleiade-promouvoir`, sans quoi la prochaine mise à jour ne se propagera pas.
+3. Charger un **vrai contrôle** depuis la base, et l'équipe depuis **eho**.
+
+---
+
 ## 2026-09-17 (suite 3) — La directive N4 2026 entre dans le logiciel
 
 **Documents reçus** : `D:\Nouveau dossier` — demande client, mémoire de

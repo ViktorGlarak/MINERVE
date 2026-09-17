@@ -145,11 +145,34 @@ certificat manque servira ses instances sous un certificat qui ne les couvre pas
 `traefik/dynamic/` y parlent encore de `mastorion.internal`, domaine qui ne
 répond plus. Le dépôt a dérivé de la réalité — ne pas s'y fier pour l'adressage.
 
+### ⭐ Zone `cecpc-div-eval` — LEAC en production (2026-09-17)
+
+**Première mise en production de LEAC réussie.** L'instance répond à
+`https://leac.cecpc-div-eval.pleiade.internal` — 307 vers `/connexion`,
+`/api/sante` en 200, `/api/service/health` en 401 sans clé.
+
+⭐ **Le certificat par zone est bien créé automatiquement** :
+`*.cecpc-div-eval.pleiade.internal`. Le mécanisme décrit plus haut fonctionne
+pour une zone neuve.
+
+⚠ **Traefik rend 404 tant que le conteneur n'est pas prêt** — le temps de tirer
+l'image, de pousser le schéma et de démarrer. Ça ressemble à une erreur de
+configuration et n'en est pas : attendre une minute et recharger.
+
+⚠⚠ **`pleiade-promouvoir` ne connaît PAS `leac`.** La dernière étape du workflow
+échoue donc, et le job apparaît en rouge alors que l'image est bien au registre.
+Sans conséquence pour une PREMIÈRE instance (la promotion ne met à jour que des
+instances existantes), mais **bloquant dès la deuxième mise à jour** : il
+faudrait recréer l'instance à la main. À faire ajouter côté serveur (script
+`/usr/local/sbin/pleiade-promouvoir` + sudoers du compte `runner`).
+
 ### Zone `exercice` — ce qui tourne (2026-09-17)
 `eho.exercice.pleiade.internal` répond. Registre : `admin`, `cockpit`, `eho`,
-`messagerie`, `pleiade-orchestrator`, `presse`, `social` — ⚠ **pas `leac`** :
-l'image n'existe que si le workflow `prod` de `app-leac` a tourné au moins une
-fois.
+`messagerie`, `pleiade-orchestrator`, `presse`, `social` et ✅ **`leac`**
+(étiquettes `latest` et `a747d4f`).
+
+⚠ Ce registre publie des manifestes au format **OCI**, pas Docker v2 : une
+requête avec le mauvais en-tête `Accept` rend 404 sur un manifeste qui existe.
 
 ### Chemins sur le serveur
 `~/mastorion/pleiade/` (orchestrateur) · `~/mastorion/mastorion-v0/` · `~/mastorion/infra/` · `~/mastorion/pleiade/data/zones/` (instances déployées)

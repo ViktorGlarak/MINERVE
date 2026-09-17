@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « pleiade ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-17 · 17 notes.
+> Généré le 2026-09-17 · 18 notes.
 
 ## Notes (par tier)
 
@@ -17,6 +17,7 @@
 | 1 | [DECISION-019](../decisions/DECISION-019.md) | Une seule copie de travail des dépôts PLEIADE, sur C: — le doublon D: supprimé | decision |
 | 1 | [DECISION-024](../decisions/DECISION-024.md) | LEAC — une saisie annulée ne remonte pas ; le compactage du journal est une question de justesse, pas de volume | decision |
 | 1 | [LESSON-032](../lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson |
+| 1 | [LESSON-035](../lessons/LESSON-035.md) | Un build applicatif qui passe ne prouve RIEN pour un déploiement conteneurisé — reproduire l'image en local | lesson |
 | 2 | [DECISION-016](../decisions/DECISION-016.md) | Le rangement du joueur (rubriques + ordre) est une préférence d'affichage, stockée à part | decision |
 | 2 | [DECISION-018](../decisions/DECISION-018.md) | Le curseur d'alignement est ouvert sur les STARTEX — il y mesure une ATTITUDE, pas une identité | decision |
 | 2 | [DECISION-020](../decisions/DECISION-020.md) | L'onglet « Choix d'avatar » supprimé — un écran qui liste les avatars n'a de sens que côté animation | decision |
@@ -30,4 +31,5 @@
 
 - [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../LEAC/MEMOIRE.md)
+- [`JOURNAL.md`](../../LEAC/JOURNAL.md)
 - [`JOURNAL.md`](../../PLEIADE/JOURNAL.md)

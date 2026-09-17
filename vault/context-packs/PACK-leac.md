@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « leac ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-17 · 8 notes.
+> Généré le 2026-09-17 · 9 notes.
 
 ## Notes (par tier)
 
@@ -12,6 +12,7 @@
 | 1 | [DECISION-024](../decisions/DECISION-024.md) | LEAC — une saisie annulée ne remonte pas ; le compactage du journal est une question de justesse, pas de volume | decision |
 | 1 | [DECISION-025](../decisions/DECISION-025.md) | LEAC — on pose une MENTION et on enregistre le MOT, jamais le chiffre | decision |
 | 1 | [DECISION-026](../decisions/DECISION-026.md) | LEAC — le LABEL qualifie l'exercice, et une exigence obligatoire manquante invalide le contrôle | decision |
+| 1 | [LESSON-035](../lessons/LESSON-035.md) | Un build applicatif qui passe ne prouve RIEN pour un déploiement conteneurisé — reproduire l'image en local | lesson |
 | 2 | [DECISION-021](../decisions/DECISION-021.md) | LEAC — on écrit un CHAMP par cible, jamais un objet entier ; c'est la granularité qui achète l'absence de conflit | decision |
 | 2 | [DECISION-022](../decisions/DECISION-022.md) | LEAC — le « drapeau » devient un choix explicite et un filtre réel, il ne dépend plus d'un ordre de clic | decision |
 | 2 | [DECISION-023](../decisions/DECISION-023.md) | LEAC — figer un cycle est un état métier, jamais un verrou d'écriture sur le journal | decision |
@@ -20,3 +21,4 @@
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`MEMOIRE.md`](../../LEAC/MEMOIRE.md)
+- [`JOURNAL.md`](../../LEAC/JOURNAL.md)
