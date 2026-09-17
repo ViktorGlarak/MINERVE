@@ -175,14 +175,54 @@ apparaître dans la revue de synchronisation. Lu via `useSyncExternalStore` :
 l'outil prévu pour un magasin extérieur à React, qui traite aussi le rendu
 serveur, lequel n'a pas de stockage.
 
+### 6. CORRECTIF — le drapeau ne s'applique qu'aux transverses — commit `eeb64ea`
+
+**Relance de l'utilisateur** : *« un profil qui porte le drapeau met en avant ses
+observations sur toutes les grilles ? »* — lecture exacte de ce que faisait mon
+code, **et mon code était faux**.
+
+Mon filtre était **global** : il retenait les observations du porteur sur tout le
+contrôle. Les remarques du S4 sur **sa propre** grille disparaissaient donc du
+tableau de bord dès que le drapeau était ailleurs — alors que personne d'autre
+n'écrit sur un domaine de fonction.
+
+**Ce que dit réellement le memento** : le § V.A.3 est situé dans l'onglet
+« pondérations », au milieu des domaines transverses. Le drapeau y coche « les
+personnes qui pourront mettre des observations **dans les domaines
+transverses** ». Il ne concerne qu'eux.
+
+La distinction vit désormais dans `src/lib/domaine/domaines.ts`, avec la règle
+`remonteAuTableauDeBord` en **un seul endroit** — elle était auparavant répartie
+entre l'écran et le hook, et fausse aux deux.
+
+⚠ **Corollaire** : le drapeau appartient au **domaine**, pas au contrôle. Chaque
+transverse a **son propre** porteur. L'onglet Pondérations devient donc un bloc
+par transverse — la forme exacte de l'écran du memento p. 15 : poids, « observe »,
+drapeau, pour chaque membre.
+
+⭐ **Écrit comme « QUI le porte »**, champ unique par domaine, et non comme un
+booléen sur chaque membre. Avec un booléen, deux tablettes hors ligne qui
+désignent chacune leur porteur remontent deux `true` sur des **cibles
+différentes** : la fusion les garde **tous les deux**, le domaine se retrouve
+avec **deux drapeaux**. Champ unique = même cible = l'horloge tranche.
+
+Aussi : un domaine transverse réel rejoint les données de démonstration
+(FONCTIONNEMENT GÉNÉRAL ET TRAVAIL COLLECTIF DU PC, § IV.B), et l'écran de
+notation permet d'en changer — sans quoi le drapeau restait **invérifiable à
+l'usage**. `GRILLES_PAR_MEMBRE` ne contient plus que les domaines de fonction :
+un transverse n'appartient à personne.
+
+**11 tests de plus (103/103)**, tous sur la règle qui était fausse.
+
 ### 📝 Fichiers autoritaires modifiés
 - `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
-  **`7510830`** — `docs/COUVERTURE.md` passe à 🟢 **14 faites** / 🟡 53 / ⚪ 21 /
-  🔵 29, et gagne une section **« Écarts assumés avec le memento v2.5 »**.
+  **`7510830`** et **`eeb64ea`** — `docs/COUVERTURE.md` passe à 🟢 **15 faites** /
+  🟡 52 / ⚪ 21 / 🔵 29, et gagne une section **« Écarts assumés avec le
+  memento v2.5 »**.
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
-`app-leac` est **en avance de 9 commits** sur `origin/main`. Dépôt partagé avec
+`app-leac` est **en avance de 10 commits** sur `origin/main`. Dépôt partagé avec
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape

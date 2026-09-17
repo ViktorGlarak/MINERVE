@@ -15,12 +15,24 @@ updated: 2026-09-17
 # DECISION-022 — Une conséquence lourde ne peut pas dépendre de l'ordre dans lequel on a coché des cases
 
 ## À quoi sert le drapeau (le memento ne le dit jamais)
-Un **domaine transverse** — fonctionnement général du PC, travail collectif —
-**n'appartient à aucune fonction** : plusieurs contrôleurs l'observent, chacun
-depuis son poste. Les **notes** se moyennent, pondérées par membre. Les
+Il y a **deux sortes de domaines**, et c'est toute la clé :
+
+- **Domaine de FONCTION** (S4 Logistique, S2 Renseignement) — rattaché à une
+  fonction. **Un seul** contrôleur le note et l'observe. La question « qui
+  parle ? » ne s'y pose pas : il n'y a qu'une voix.
+- **Domaine TRANSVERSE** (fonctionnement général du PC, travail collectif) —
+  rattaché à **aucune** fonction. **Plusieurs** contrôleurs le notent, chacun
+  depuis son poste (memento § IV.B).
+
+Sur un transverse, les **notes** se moyennent, pondérées par membre. Les
 **observations**, elles, sont du **texte libre** : on ne fait pas la moyenne de
 quatre paragraphes. **Il faut donc une voix**, et le drapeau la désigne — c'est
 son bilan que projette la réunion du soir (memento p. 27).
+
+⚠⚠ **Le drapeau appartient au DOMAINE, pas au contrôle.** Chaque transverse a
+son propre porteur. L'appliquer globalement fait disparaître du tableau de bord
+les observations du S4 sur **sa propre** grille — erreur commise puis corrigée
+le 2026-09-17.
 
 ## Contexte / problème
 Memento utilisateur § V.A.3 : sur un domaine transverse, *« la première personne
@@ -36,7 +48,15 @@ Deux défauts, et le second est le plus grave :
 ## Décision
 - Le porteur du drapeau se **désigne explicitement** (un bouton « donner le
   drapeau »), et l'écran **nomme la conséquence** au lieu de la cacher.
-- Le tableau de bord **filtre réellement** sur l'**auteur** des observations.
+- Le tableau de bord **filtre réellement** sur l'**auteur** des observations —
+  ⚠ **mais uniquement sur les domaines transverses**. Une observation de domaine
+  de fonction remonte toujours.
+- Le drapeau est écrit comme **« QUI le porte »** (`Domaine#<id>#porteDrapeau`),
+  un champ unique par domaine, **jamais** un booléen par membre. Avec un
+  booléen, deux tablettes hors ligne désignant chacune leur porteur remontent
+  deux `true` sur des **cibles différentes** : la fusion les garde tous les deux
+  et le domaine se retrouve avec **deux drapeaux**. Champ unique = même cible =
+  l'horloge tranche = **un seul porteur par construction**.
 - ⚠ **Écart assumé** : la v2.5 écrit *« SEULS ses commentaires seront vus »* —
   le travail écrit de trois contrôleurs disparaît de la réunion sans que
   personne le sache. En v3 le bilan du porteur reste la **parole officielle,

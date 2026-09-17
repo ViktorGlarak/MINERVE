@@ -68,26 +68,42 @@ Verrous portés par les statuts :
    noté.
 3. **Pondération à deux étages** : par **fonction** (note finale) et, sur les
    domaines **transverses**, par **membre**.
-4. **Le drapeau** *(§ V.A.3)* — ⭐ **à quoi il sert**, car le memento ne le dit
-   jamais : un **domaine transverse** (fonctionnement général du PC, travail
-   collectif) n'appartient à aucune fonction, **plusieurs contrôleurs
-   l'observent**. Les **notes** se moyennent (pondération par membre) ; les
-   **observations**, qui sont du **texte libre**, ne se moyennent pas. Le drapeau
-   désigne donc **la voix dont le bilan est projeté à la réunion du soir** —
-   sinon le tableau de bord afficherait quatre paragraphes concurrents et le chef
-   de contrôle arbitrerait en séance.
-   ⚠ **Recadré en v3** : la v2.5 le donnait à *« la première personne cochée »*,
-   c'est-à-dire à un **ordre de clic**. Une conséquence aussi lourde ne peut pas
-   dépendre de l'ordre dans lequel on a coché des cases : en v3 le porteur se
-   **désigne explicitement**, et le tableau de bord **filtre réellement** sur
-   l'auteur des observations (`lireEtatDetaille` rend l'auteur de chaque valeur).
+4. ⭐⭐ **Le drapeau** *(§ V.A.3)* — **à quoi il sert**, car le memento ne le dit
+   jamais. Il y a **DEUX sortes de domaines** :
+   - **Domaine de FONCTION** (S4 Logistique, S2…) — `fonctionId` renseigné.
+     **Un seul** contrôleur le note et l'observe. ⚠ **Le drapeau n'y a rien à
+     faire** : il n'y a qu'une voix, celle du titulaire.
+   - **Domaine TRANSVERSE** (fonctionnement général du PC, travail collectif) —
+     `fonctionId = null`, `transverse = true`. **Plusieurs** contrôleurs le
+     notent *(memento § IV.B : le chef d'équipe « a notamment en charge la
+     synthèse du fonctionnement général et du travail collectif du PC »)*.
+
+   Sur un transverse, les **notes** se moyennent (pondération par membre), mais
+   les **observations sont du texte** : trois paragraphes ne donnent pas un
+   paragraphe, aucune opération ne les fusionne. **Le drapeau désigne la voix
+   reprise à la réunion** *(memento p. 27 : « le bilan de cycle de la personne
+   désignée par le drapeau »)*.
+
+   ⚠⚠ **Le drapeau appartient au DOMAINE, pas au contrôle.** Chaque transverse a
+   **son propre** porteur, qui peut être quelqu'un d'autre. Un drapeau unique
+   pour tout le contrôle est une **faute** : il fait disparaître du tableau de
+   bord les observations du S4 sur **sa propre** grille. *(Erreur effectivement
+   commise le 2026-09-17, corrigée le même jour — commit `eeb64ea`.)*
+
+   ⭐ **Écrit comme « QUI le porte »** (`Domaine#<id>#porteDrapeau`), champ
+   unique par domaine — **pas** un booléen sur chaque membre. Avec un booléen,
+   deux tablettes hors ligne désignant chacune leur porteur remontent deux
+   `true` sur des **cibles différentes** : la fusion les garde **tous les deux**
+   et le domaine se retrouve avec **deux drapeaux**. Champ unique = même cible =
+   l'horloge tranche = **un seul porteur par construction**.
+
    ⚠ **Écart assumé avec le memento** *(voir `app-leac\docs\COUVERTURE.md`,
    § « Écarts assumés »)* : la v2.5 dit *« SEULS ses commentaires seront vus »*.
-   Appliqué à la lettre, le travail écrit de trois contrôleurs **disparaît** de
-   la réunion. En v3 le bilan du porteur reste la **parole officielle, seule
-   affichée par défaut** — l'intention est tenue — mais les autres sont
-   **consultables d'un geste**, nommées, « hors bilan officiel ». **Réversible
-   en une ligne** si le CECPC préfère la règle stricte.
+   Appliqué à la lettre, le travail écrit des autres **disparaît** de la réunion.
+   En v3 le bilan du porteur reste la **parole officielle, seule affichée par
+   défaut** — l'intention est tenue — mais les autres sont **consultables d'un
+   geste**, nommées. **Réversible en une ligne** si le CECPC préfère la règle
+   stricte.
 5. **Barème** *(admin § VI.E.7)* : note finale → tranche, niveau, label.
    ⚠ **Convention de bornes : `min` incluse, `max` exclue.** Sans elle, une note
    pile sur une borne tombe dans deux tranches ou aucune, selon l'ordre des lignes.
@@ -188,7 +204,7 @@ avec des gants.**
 | Moteur de fusion terrain | ✅ `src/lib/sync/fusion.ts` |
 | Calcul de notation + barèmes | ✅ `src/lib/domaine/notation.ts` |
 | Système visuel | ✅ `src/app/globals.css` |
-| Tests de logique métier | ✅ **92/92** |
+| Tests de logique métier | ✅ **103/103** |
 | ⭐ **Écran de notation terrain** | ✅ **écrit et validé** 2026-09-17 (`src/app/page.tsx`) — commit `aeceeb8` |
 | ⭐ **Persistance hors ligne** (IndexedDB + journal d'opérations) | ✅ 2026-09-17 — `src/lib/offline/` — commit `7c640d1` |
 | ⭐ **Écran de synchronisation** + revue des collisions | ✅ 2026-09-17 — `src/app/synchronisation/` |
@@ -198,11 +214,12 @@ avec des gants.**
 | ⭐ **Tableau de bord de la réunion quotidienne** (§ V.B.9) | ✅ 2026-09-17 — `src/app/tableau-de-bord/` + `src/lib/domaine/bilan.ts` — commit `d352962` |
 | ⭐ **Écran de fin de cycle** (§ III.B / III.C) | ✅ 2026-09-17 — `src/app/fin-de-cycle/` + `src/lib/domaine/cycle.ts` — commit `edbf801` |
 | **Cycles réels** (§ V.B.7) + **validation de grille** (§ III.D) | ✅ 2026-09-17 — commit `7510830` · le cycle entre dans la clé des notes |
+| ⭐ **Domaines transverses** (§ V.A.3) — pondération, observateurs, drapeau **par domaine** | ✅ 2026-09-17 — `src/lib/domaine/domaines.ts` — commit `eeb64ea` |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |
 
-**Répartition de la couverture** : 🟢 **14 faites** · 🟡 53 modèle en place · ⚪ 21
+**Répartition de la couverture** : 🟢 **15 faites** · 🟡 52 modèle en place · ⚪ 21
 spécifiées · 🔵 **29 repensées** (le dispositif technique qui les imposait
 disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
 
