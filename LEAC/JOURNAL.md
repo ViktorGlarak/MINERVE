@@ -343,6 +343,27 @@ au premier oubli. Le royaume ne tranche que l'accès au **référentiel** (`admi
 (`eho.exercice.pleiade.internal` répond), et Traefik y sert un certificat
 **par zone** — la réserve que j'avais émise sur le certificat était infondée.
 
+#### Mise en production engagée — branche `prod` créée le 2026-09-17
+
+À la demande de l'utilisateur, et **après** avoir écrit
+`docs/INTEGRATION-PLEIADE.md` pour que la branche l'emporte avec elle :
+
+```
+git switch -c prod && git push -u origin prod
+```
+
+`prod` part de `main` au commit **`f3e0555`**. Le workflow construit l'image,
+lance les **120 tests** (ils sont dans le `Dockerfile`, avant le build), pousse
+au registre, puis tente la promotion.
+
+⏳ Attendu : **succès jusqu'au registre, échec à la promotion** faute de `leac`
+dans `pleiade-promouvoir`. ⭐ Sans conséquence pour un premier déploiement — la
+promotion ne met à jour que des **instances existantes**, et il n'y en a aucune.
+
+⚠ **À partir de la 2ᵉ mise à jour**, ce manque se fera sentir : il faudrait
+recréer l'instance à la main au lieu de la promouvoir. C'est le point à faire
+traiter côté serveur.
+
 ### 📝 Fichiers autoritaires modifiés
 - `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
   **`7510830`**, **`eeb64ea`** et **`675cfd3`** — `docs/COUVERTURE.md` passe à
@@ -352,7 +373,9 @@ au premier oubli. Le royaume ne tranche que l'accès au **référentiel** (`admi
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
-`app-leac` est **en avance de 12 commits** sur `origin/main`, et `pleiade-platform` de **1**. Dépôt partagé avec
+✅ **Tout est poussé** : `app-leac` `main` et `prod` au commit `f3e0555`,
+`pleiade-platform` `main` au commit `f7d075a` (déployé, vérifié par
+`/api/version`). Dépôt partagé avec
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape
