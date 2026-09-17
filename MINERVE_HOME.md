@@ -132,6 +132,7 @@ graph LR
 | DELATTRE | [prompt](SYSTEME/PROMPTS/delattre.md) | [mémoire](DELATTRE/MEMOIRE.md) |
 | MASTORION | [prompt](SYSTEME/PROMPTS/mastorion.md) | [mémoire](MASTORION/MEMOIRE.md) |
 | PLEIADE | [prompt](SYSTEME/PROMPTS/pleiade.md) | [mémoire](PLEIADE/MEMOIRE.md) |
+| LEAC | [prompt](SYSTEME/PROMPTS/leac.md) | [mémoire](LEAC/MEMOIRE.md) |
 
 ---
 

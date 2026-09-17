@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-14 · 52 notes.
+> Généré le 2026-09-17 · 53 notes.
 
 ## Notes (par tier)
 
@@ -42,6 +42,7 @@
 | 2 | [LESSON-024](../lessons/LESSON-024.md) | Fil joueur = baked (fichiers) + localStorage (AW.merged) — un navigateur sale gonfle le compte | lesson |
 | 2 | [LESSON-025](../lessons/LESSON-025.md) | Désync de date MELMIL ↔ feed — clé card-day des articles (id vs basename) + piège GELEX | lesson |
 | 2 | [LESSON-026](../lessons/LESSON-026.md) | Placement card MELMIL (date ↔ standby) — exclusif ET appliqué au RENDU (bug card socle JEMM) | lesson |
+| 2 | [LESSON-033](../lessons/LESSON-033.md) | Ne jamais écrire un chemin Windows en littéral dans un script de substitution | lesson |
 | 2 | [REF-arnland-medias](../knowledge/REF-arnland-medias.md) | Arnland — environnement informationnel | reference |
 | 2 | [REF-bothnia-medias](../knowledge/REF-bothnia-medias.md) | Bothnia — médias (vecteurs ILI) | reference |
 | 2 | [REF-calendrier-7bb-gelex](../knowledge/REF-calendrier-7bb-gelex.md) | Calendrier AURIGE 7BB — mapping D+ ↔ date avec GELEX (29 Jun) | reference |
@@ -69,6 +70,7 @@
 - [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
+- [`JOURNAL.md`](../../PLEIADE/JOURNAL.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`melmil.js`](../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

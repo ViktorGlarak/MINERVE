@@ -1,0 +1,31 @@
+---
+id: AGENT-LEAC
+type: agent
+title: LEAC
+tags: [agent]
+source: ../../LEAC/MEMOIRE.md
+linkedTo: [ARCH-014, DECISION-021, DECISION-022, LESSON-034]
+relevantFor: [agents]
+tier: 2
+created: 2026-09-17
+updated: 2026-09-17
+---
+
+# 🤖 LEAC — Canvas agent
+
+> ⚙️ **Généré** par `_generer_agents.py` — ne pas éditer à la main. Liens purs (zéro copie).
+> **Rôle & modèle Ollama : voir le registre** → [CLAUDE.md](../../CLAUDE.md) (source de vérité unique).
+
+## Fiches autoritaires
+- 🧠 Mémoire (vérité vivante) : [MEMOIRE.md](../../LEAC/MEMOIRE.md)
+- 🗣️ Prompt système : [leac.md](../../SYSTEME/PROMPTS/leac.md)
+- 📄 README : [README.md](../../LEAC/README.md)
+
+## Notes atomiques rattachées (par `source:`)
+- [[ARCH-014]]
+- [[DECISION-021]]
+- [[DECISION-022]]
+- [[LESSON-034]]
+
+## Navigation
+- Carte du système : [MINERVE_HOME](../../MINERVE_HOME.md) · Index vault : [INDEX](../INDEX.md)

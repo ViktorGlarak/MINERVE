@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**428 notes** · généré le 2026-09-14
+**439 notes** · généré le 2026-09-17
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -14,9 +14,13 @@
 | [ARCH-001](architecture/ARCH-001.md) | Vault MINERVE — source de vérité unique | architecture | systeme, tous |
 | [ARCH-004](architecture/ARCH-004.md) | Registre des agents (renvoi) | architecture | systeme, noyau |
 | [ARCH-012](architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture | pleiade, mastorion, exercices |
+| [ARCH-013](architecture/ARCH-013.md) | Une zone PLEIADE — 11 dépôts, 1 app = 1 dépôt, et 4 mécanismes qui les font parler | architecture | pleiade, mastorion, exercices |
+| [ARCH-014](architecture/ARCH-014.md) | LEAC v3 — journal d'opérations et horloge de Lamport remplacent le PC maître, la clé USB et la réplication MariaDB | architecture | leac, pleiade |
 | [DECISION-001](decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision | mastaurige, exercices |
 | [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision | pleiade, mastorion, exercices |
 | [DECISION-015](decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | decision | pleiade, exercices |
+| [DECISION-017](decisions/DECISION-017.md) | Modèle de branches — on travaille sur une provisoire, on intègre dans main, on déploie par prod | decision | pleiade, mastorion, outillage |
+| [DECISION-019](decisions/DECISION-019.md) | Une seule copie de travail des dépôts PLEIADE, sur C: — le doublon D: supprimé | decision | pleiade, mastorion, outillage |
 | [ENT-arnland](entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity | arnland, exercices, ili |
 | [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity | bothnia, exercices, ili |
 | [ENT-mercure](entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity | mercure, exercices, ili |
@@ -47,9 +51,15 @@
 | [DECISION-011](decisions/DECISION-011.md) | MINERVE Local — assistant RAG de CONSULTATION (lecture seule, Ollama) | 2 | [`CONFIG.md"`]("../../SYSTEME/CONFIG.md") | [[PROJ-MINERVE]] [[AGENT-ANALYSTE-MERCURE]] [[AGENT-EXPERT-INFLUENCE]] [[AGENT-PENSEUR]] |
 | [DECISION-012](decisions/DECISION-012.md) | avatars.js = liste maître des comptes RS — EHO généré + garde-fou VERIFIER | 2 | [`MEMOIRE.md"`]("../../MASTAURIGE/MEMOIRE.md") | [[PROJ-MASTAURIGE]] [[AGENT-MINAUTORE]] [[AGENT-ANALYSTE-ARN]] |
 | [DECISION-013](decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[LESSON-027]] [[LESSON-028]] [[TOOL-016]] |
-| [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] [[ARCH-011]] |
+| [DECISION-014](decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] [[ARCH-011]] [[ARCH-013]] |
 | [DECISION-015](decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-014]] [[ARCH-012]] [[ARCH-011]] [[LESSON-030]] [[LESSON-031]] |
 | [DECISION-016](decisions/DECISION-016.md) | Le rangement du joueur (rubriques + ordre) est une préférence d'affichage, stockée à part | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-015]] [[LESSON-032]] [[ARCH-012]] |
+| [DECISION-017](decisions/DECISION-017.md) | Modèle de branches — on travaille sur une provisoire, on intègre dans main, on déploie par prod | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-013]] [[ARCH-012]] [[DECISION-019]] |
+| [DECISION-018](decisions/DECISION-018.md) | Le curseur d'alignement est ouvert sur les STARTEX — il y mesure une ATTITUDE, pas une identité | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-015]] [[DECISION-016]] [[DECISION-020]] [[TOOL-016]] [[ARCH-013]] |
+| [DECISION-019](decisions/DECISION-019.md) | Une seule copie de travail des dépôts PLEIADE, sur C: — le doublon D: supprimé | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[LESSON-031]] [[ARCH-013]] [[DECISION-017]] |
+| [DECISION-020](decisions/DECISION-020.md) | L'onglet « Choix d'avatar » supprimé — un écran qui liste les avatars n'a de sens que côté animation | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-015]] [[DECISION-018]] [[ARCH-013]] |
+| [DECISION-021](decisions/DECISION-021.md) | LEAC — on écrit un CHAMP par cible, jamais un objet entier ; c'est la granularité qui achète l'absence de conflit | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-022]] |
+| [DECISION-022](decisions/DECISION-022.md) | LEAC — le « drapeau » devient un choix explicite et un filtre réel, il ne dépend plus d'un ordre de clic | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[LESSON-034]] |
 
 ## 🛠️ Outils
 
@@ -108,7 +118,9 @@
 | [LESSON-029](lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | 2 | [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py) | [[LESSON-027]] [[TOOL-016]] |
 | [LESSON-030](lessons/LESSON-030.md) | Ne jamais déduire un champ d'API par supposition avant une suppression de masse | 2 | [`JOURNAL.md`](../../PLEIADE/JOURNAL.md) | [[DECISION-015]] [[LESSON-029]] |
 | [LESSON-031](lessons/LESSON-031.md) | exFAT (D:) n'exécute aucun binaire natif — clone d'exécution sur NTFS obligatoire | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-015]] |
-| [LESSON-032](lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-016]] [[LESSON-030]] [[ARCH-012]] |
+| [LESSON-032](lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-016]] [[LESSON-030]] [[LESSON-033]] [[ARCH-012]] |
+| [LESSON-033](lessons/LESSON-033.md) | Ne jamais écrire un chemin Windows en littéral dans un script de substitution | 2 | [`JOURNAL.md`](../../PLEIADE/JOURNAL.md) | [[LESSON-032]] [[DECISION-019]] |
+| [LESSON-034](lessons/LESSON-034.md) | « Pas de note » n'est pas « zéro » — la confusion est invisible à l'œil et fait déclarer un PC inapte | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-022]] |
 
 ## 🏛️ Architecture
 
@@ -126,6 +138,8 @@
 | [ARCH-010](architecture/ARCH-010.md) | Base vs évolution — la vierge/.docx = base, les spécificités exercice vivent dans le générateur (patch/flag) | 2 | [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md) | [[TOOL-001]] [[TOOL-003]] [[TOOL-016]] [[PROJ-MASTAURIGE]] |
 | [ARCH-011](architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[ARCH-010]] |
 | [ARCH-012](architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-014]] [[DECISION-015]] [[LESSON-031]] |
+| [ARCH-013](architecture/ARCH-013.md) | Une zone PLEIADE — 11 dépôts, 1 app = 1 dépôt, et 4 mécanismes qui les font parler | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-013]] [[DECISION-014]] [[DECISION-017]] |
+| [ARCH-014](architecture/ARCH-014.md) | LEAC v3 — journal d'opérations et horloge de Lamport remplacent le PC maître, la clé USB et la réplication MariaDB | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-013]] [[DECISION-021]] [[DECISION-022]] [[LESSON-034]] |
 
 ## 🗂️ Projets (canvas)
 
@@ -152,13 +166,14 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[DECISION-010]] [[LESSON-022]] |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
+| [AGENT-LEAC](agents/AGENT-LEAC.md) | LEAC | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[LESSON-034]] |
 | [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[DECISION-012]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[LESSON-020]] [[LESSON-021]] [[LESSON-023]] [[LESSON-024]] [[LESSON-025]] [[LESSON-026]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] [[TOOL-015]] [[TOOL-016]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MASTORION](agents/AGENT-MASTORION.md) | MASTORION | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[LESSON-029]] |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
-| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[TOOL-017]] |
+| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[ARCH-013]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[DECISION-017]] [[DECISION-018]] [[DECISION-019]] [[DECISION-020]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[LESSON-033]] [[TOOL-017]] |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |

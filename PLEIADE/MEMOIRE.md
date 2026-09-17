@@ -20,7 +20,7 @@
 
 ## 2. Organisation GitHub — `cecpc-pleiade`
 
-⭐ **11 dépôts, TOUS clonés dans `C:\CECPC\pleiade\`** *(relevé et complété le 2026-09-16 — les 7 `app-*` manquaient)*. Un dépôt = une brique déployable ; **les 8 apps du catalogue ont chacune le sien**.
+⭐ **12 dépôts, TOUS clonés dans `C:\CECPC\pleiade\`** *(relevé et complété le 2026-09-16 — les 7 `app-*` manquaient)*. Un dépôt = une brique déployable ; **les 8 apps du catalogue ont chacune le sien**.
 
 ### Les deux briques de plateforme
 | Dépôt | Rôle | Stack |
@@ -39,6 +39,7 @@
 | **`app-messagerie`** | **Messagerie** esprit Telegram — canaux, groupes, privés, transferts, envois programmés. ⚠ **Fondations seules : l'interface reste à écrire** | Next.js 16 + Prisma | 3600 |
 | **`app-webserver`** | Fichiers statiques + explorateur admin | Node + `server.js` | — |
 | **`app-wordpress`** | Image WordPress OIDC (Dockerfile + `mu-plugins`) | Docker | — |
+| ⭐ **`app-leac`** | **Contrôle des PC** — préparation, notation **terrain sur tablette hors ligne**, concaténation par VPN, 3A et compte rendu *(créé 2026-09-17, 12ᵉ dépôt)* | Next.js 16 + Prisma 7 + IndexedDB | **3700** |
 
 ### ⚠⚠ `mastorion` est un ANCÊTRE, plus une brique vivante
 **`app-social` contient tout `mastorion` PLUS 19 commits** (même commit initial `b7c6332`, `mastorion` s'arrête à `61d1a5f`). Le renommage annoncé le 2026-09-11 **a eu lieu** — commit « *Devenir social : renommage et mise en production automatique* ».

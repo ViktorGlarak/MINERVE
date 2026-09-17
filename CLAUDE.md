@@ -49,7 +49,8 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 | MINAUTORE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Chef d'orchestre éditorial AURIGE 7BB — calendrier publications, cohérence narrative, programmation des injects *(dossier : `MINAUTORE\` — créé 2026-05-30 ; exercice **CLOS le 2026-07-03** → archive de référence + `RETEX_MINOTAURE_26.md`)* |
 | DELATTRE | Claude (cloud) — claude-opus-4-7 | EXPERT_INFLUENCE, MASTAURIGE, SCÉNARISTE, IMAGIER, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, AURIGE | Chef d'orchestre éditorial **DELATTRE 26** *(dit « DELATTRE »)* — calendrier publications, cohérence narrative, programmation des injects ; **exercice suivant MINOTAURE 26** *(dossier : `DELATTRE\` — créé 2026-07-22 ; identité de l'exercice à renseigner)* |
 | MASTORION | Claude (cloud) — claude-opus-4-7 | PLEIADE, MASTAURIGE, ARCHITECTE, EXPERT_INFLUENCE, SCÉNARISTE, DELATTRE, MASTODONTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT | Expert du **réseau social d'exercice** (dépôt **`app-social`**, ex-`mastorion`) — API social, admin, cockpit, sentinel ; exercices niveau **division/corps** ; capitalise le savoir MASTAURIGE/MINERVE (avatars-camps, LO, calendriers D+, vérificateurs) *(dossier agent : `MASTORION\` — créé 2026-07-27 ; dépôt : `C:\CECPC\pleiade\app-social`)* ⚠ **recadré le 2026-09-11** : MASTORION n'est plus le nom du système (→ **PLEIADE**) mais seulement le réseau social. ⚠⚠ **Renommage ACHEVÉ le 2026-09-16** : le réseau social s'appelle **`social`** (dépôt `app-social`) ; l'admin et le cockpit embarqués en ont été **retirés** (→ `app-admin`, `app-cockpit`) et les comptes sont partis chez **eho**. Le clone `mastorion` est un **ancêtre figé**. |
-| PLEIADE | Claude (cloud) — claude-opus-4-7 | MASTORION, ARCHITECTE, MASTAURIGE, EXPERT_INFLUENCE, DELATTRE | Expert du **SYSTÈME GLOBAL** — orchestrateur de **zones d'exercice** déployant des **instances d'apps** (réseau social, eho, WordPress, webserver) avec **Keycloak** centralisé, Traefik, serveur Podman + VPN. Tient l'architecture, l'articulation entre les **11 dépôts** de l'organisation GitHub **`cecpc-pleiade`** (2 briques de plateforme + 8 apps du catalogue + l'ancêtre `mastorion`) et le déploiement *(dossier agent : `PLEIADE\` — créé 2026-09-11 ; racine : `C:\CECPC\pleiade\`)* |
+| PLEIADE | Claude (cloud) — claude-opus-4-7 | MASTORION, ARCHITECTE, MASTAURIGE, EXPERT_INFLUENCE, DELATTRE | Expert du **SYSTÈME GLOBAL** — orchestrateur de **zones d'exercice** déployant des **instances d'apps** (réseau social, eho, WordPress, webserver) avec **Keycloak** centralisé, Traefik, serveur Podman + VPN. Tient l'architecture, l'articulation entre les **12 dépôts** de l'organisation GitHub **`cecpc-pleiade`** (2 briques de plateforme + 9 apps dont `app-leac` + l'ancêtre `mastorion`) et le déploiement *(dossier agent : `PLEIADE\` — créé 2026-09-11 ; racine : `C:\CECPC\pleiade\`)* |
+| LEAC | Claude (cloud) — claude-opus-4-7 | ⚠ *à préciser une fois le périmètre connu* — a priori ARCHITECTE, PENSEUR, SECRÉTAIRE, et PLEIADE si rattachement plateforme | **Référent unique du système LEAC** — détient la documentation, les décisions et le **suivi du projet** ; **seul propriétaire** de ces informations, les autres agents le citent *(dossier : `LEAC\` — créé 2026-09-17 ; mémoire + journal séparés dès le départ)*. ✅ **Identité RENSEIGNÉE le 2026-09-17** : **LEAC = Logiciel d'Élaboration et d'Appui au Contrôle** — contrôle des postes de commandement (CECPC / CNCIA / EMAT). Réécriture **v3** d'un logiciel existant (v2.5, 2022), devenue **app de zone PLEIADE** : dépôt **`app-leac`**, notation **terrain sur tablette hors ligne**, **concaténation par VPN** au retour. Les deux mementos sources sont ingérés (`LEAC\REFERENCES\`) et les **117 fonctions inventoriées** dans `app-leac\docs\COUVERTURE.md`. ⭐ **Réflexe imposé par l'utilisateur : le CONSULTER dès que LEAC est évoqué, et le METTRE À JOUR à chaque avancée, à l'ouverture et à la fermeture de session.** |
 | BROUILLON | deepseek-r1:14b | — *(bac à sable personnel utilisateur)* | Incubateur d'idées non abouties — IA **locale** pour **économiser les tokens** ; stockage d'idées brutes à travailler dans le temps *(dossier : `BROUILLON\` — créé 2026-06-02)* |
 
 **Fichiers à mettre à jour si un agent est ajouté, supprimé ou change de modèle :**
@@ -57,6 +58,7 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 2. `SYSTEME\ROUTAGE.md` — arbre de décision (logique de routage, pas une copie du registre).
 3. `SYSTEME\PROMPTS\nom_agent.md` — créer / supprimer le prompt système.
 4. Créer le dossier `NOM_AGENT\` avec `README.md` et `MEMOIRE.md`.
+5. ⚠ **`MINERVE_HOME.md` — ajouter la ligne de l'agent à la table « Agent / Prompt / Mémoire »** *(oubli constaté le 2026-09-17)*. C'est **cette table**, et non le registre ci-dessus, que lit `vault\_tools\generer_agents.py` : sans elle, l'agent **n'a pas de canvas dans le vault** et reste invisible des context-packs. Puis relancer `py vault\_tools\build.py`.
 
 > `SYSTEME\CONFIG.md` et `SYSTEME\DOSSIER_POSTE.md` **ne contiennent plus de copie du registre** — ils renvoient ici. Rien à y modifier pour un simple ajout d'agent (sauf info infra spécifique : taille modèle dans CONFIG si nouveau modèle Ollama).
 
@@ -79,6 +81,7 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 | ⤷ Veille multi-réseaux (dépôt `app-cockpit`) | `C:\CECPC\pleiade\app-cockpit` |
 | ⤷ Presse (dépôt `app-press`) · Messagerie (dépôt `app-messagerie`) | `C:\CECPC\pleiade\app-press` · `…\app-messagerie` |
 | ⤷ Serveur de fichiers (dépôt `app-webserver`) · WordPress OIDC (dépôt `app-wordpress`) | `C:\CECPC\pleiade\app-webserver` · `…\app-wordpress` |
+| ⤷ **LEAC** (dépôt `app-leac`) — contrôle des PC, terrain-first *(créé 2026-09-17)* | `C:\CECPC\pleiade\app-leac` |
 | ⤷ Scripts d'environnement local (up/down, seeds, bootstrap Keycloak) | `C:\CECPC\pleiade\dev\` |
 | ⚠ **Ancêtre du réseau social** — figé, `app-social` le contient + 19 commits | `C:\CECPC\pleiade\mastorion` |
 | ⚠ Anciens clones (organisation `XTalandier`, dépassés) | `D:\CECPC\MASTORION\mastorion-v0` · `C:\CECPC\MASTORION\mastorion-v0` |
@@ -128,6 +131,8 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 - [ ] `SYSTEME\ROUTAGE.md` — ajouter la branche de routage de l'agent
 - [ ] `SYSTEME\PROMPTS\nom_agent.md` — créer le prompt système
 - [ ] `NOM_AGENT\README.md` et `NOM_AGENT\MEMOIRE.md` — créer les fichiers
+- [ ] ⚠ **`MINERVE_HOME.md`** — ajouter la ligne à la table « Agent / Prompt / Mémoire » : c'est **elle** que lit `generer_agents.py`, pas le registre. Sans elle, **pas de canvas vault**.
+- [ ] **`py vault\_tools\build.py`** — régénère le canvas de l'agent + l'INDEX, et valide (doit sortir en **exit 0**)
 - [ ] `SYSTEME\CONFIG.md` — **seulement si nouveau modèle Ollama** (ajouter sa taille) ; sinon rien (renvoie au registre)
 - [ ] `SYSTEME\DOSSIER_POSTE.md` — rien (renvoie au registre)
 

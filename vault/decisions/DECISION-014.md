@@ -5,7 +5,7 @@ type: decision
 title: PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé)
 tags: [pleiade, mastorion, perimetre, renommage, agents]
 source: ../../PLEIADE/MEMOIRE.md
-linkedTo: [ARCH-012, DECISION-015, ARCH-011]
+linkedTo: [ARCH-012, DECISION-015, ARCH-011, ARCH-013]
 relevantFor: [pleiade, mastorion, exercices]
 tier: 1
 created: 2026-09-11
@@ -32,6 +32,13 @@ Décision utilisateur (2026-09-11) :
 ## Pourquoi (alternatives écartées)
 Garder « MASTORION » comme nom du système : entretenait la confusion entre le
 tout et une de ses parties, et bloquait le renommage à venir du réseau social.
+
+## ✅ Suite — le second renommage a eu lieu (2026-09-16)
+Cette note annonçait que le nom « MASTORION » du réseau social **changerait à
+terme**. C'est fait : le réseau social s'appelle **`social`**, dépôt
+**`app-social`**, qui contient tout `mastorion` plus 19 commits.
+👉 **« MASTORION » ne désigne plus rien de vivant** — seulement l'ancêtre figé et
+l'agent MINERVE qui en tient l'expertise. Voir [[ARCH-013]].
 
 ## Conséquences / à respecter
 - **Agent PLEIADE créé** (22ᵉ) pour le système ; l'agent MASTORION est

@@ -2,13 +2,14 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-14 · 80 notes.
+> Généré le 2026-09-17 · 83 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
 | 1 | [ARCH-012](../architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture |
+| 1 | [ARCH-013](../architecture/ARCH-013.md) | Une zone PLEIADE — 11 dépôts, 1 app = 1 dépôt, et 4 mécanismes qui les font parler | architecture |
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
 | 1 | [DECISION-014](../decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision |
 | 1 | [DECISION-015](../decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | decision |
@@ -28,6 +29,8 @@
 | 2 | [DECISION-010](../decisions/DECISION-010.md) | Méthode « storylanes v2 » de la synchromatrice — arcs/procédés ILI par LO | decision |
 | 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
 | 2 | [DECISION-016](../decisions/DECISION-016.md) | Le rangement du joueur (rubriques + ordre) est une préférence d'affichage, stockée à part | decision |
+| 2 | [DECISION-018](../decisions/DECISION-018.md) | Le curseur d'alignement est ouvert sur les STARTEX — il y mesure une ATTITUDE, pas une identité | decision |
+| 2 | [DECISION-020](../decisions/DECISION-020.md) | L'onglet « Choix d'avatar » supprimé — un écran qui liste les avatars n'a de sens que côté animation | decision |
 | 2 | [ENT-borchenko](../entities/personas/ENT-borchenko.md) | Maksym Borchenko | entity |
 | 2 | [ENT-diniz](../entities/personas/ENT-diniz.md) | Catarina Diniz | entity |
 | 2 | [ENT-kaleva](../entities/personas/ENT-kaleva.md) | Viktor Kaleva | entity |

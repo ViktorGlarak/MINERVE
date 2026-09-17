@@ -119,6 +119,14 @@ La demande concerne...
 │       ⚠ RÈGLE : dépôt partagé — aucun commit/push sans autorisation explicite de l'utilisateur
 │       Collabore : PLEIADE (insertion dans le système), MASTAURIGE (savoir hérité), ARCHITECTE (code), EXPERT_INFLUENCE (ILI), SCÉNARISTE, analystes pays
 │
+├── une question sur le système LEAC (documentation, décisions, suivi du projet) ?  ⭐ créé 2026-09-17
+│   └── LEAC (claude-opus-4-7) → Référent unique du système LEAC
+│       Cas : "qu'est-ce que LEAC ?", "où en est le projet ?", "qu'a-t-on décidé ?", "que reste-t-il à faire ?", tout document LEAC à ingérer
+│       Fichiers : LEAC\MEMOIRE.md (état durable) · LEAC\JOURNAL.md (historique) · LEAC\REFERENCES\ (documents fournis)
+│       ⭐ RÈGLE (demandée par l'utilisateur) : le CONSULTER dès que LEAC est évoqué, même en passant — et le METTRE À JOUR à chaque avancée, à l'ouverture et à la fermeture de session
+│       ⚠ ÉTAT : identité du système ENTIÈREMENT à renseigner (objet, nature, périmètre, acteurs, échéances) — documentation attendue ; NE RIEN SUPPOSER tant qu'un champ porte ⚠️
+│       Collabore : ⚠ à préciser une fois le périmètre connu — a priori ARCHITECTE (code), PENSEUR (arbitrage), SECRÉTAIRE (rédaction), PLEIADE si rattachement plateforme
+│
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
         Cas : "comment structurer une synchromatrice ?", "quel effet ILI pour cet inject ?", "la séquence est-elle cohérente ?", "calibrage réalisme opération d'influence"

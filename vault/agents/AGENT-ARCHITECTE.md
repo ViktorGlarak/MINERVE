@@ -7,8 +7,8 @@ source: ../../ARCHITECTE/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-09-14
-updated: 2026-09-14
+created: 2026-09-17
+updated: 2026-09-17
 ---
 
 # 🤖 ARCHITECTE — Canvas agent

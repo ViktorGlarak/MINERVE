@@ -5,11 +5,11 @@ type: lesson
 title: Un échec de lecture ne doit jamais être présenté comme un résultat valide
 tags: [eho, pleiade, securite, ux, piege, keycloak]
 source: ../../PLEIADE/MEMOIRE.md
-linkedTo: [DECISION-016, LESSON-030, ARCH-012]
+linkedTo: [DECISION-016, LESSON-030, LESSON-033, ARCH-012]
 relevantFor: [pleiade, mastorion, outillage]
 tier: 1
 created: 2026-09-14
-updated: 2026-09-14
+updated: 2026-09-16
 ---
 
 # LESSON-032 — Un échec de lecture n'est pas un résultat
@@ -46,9 +46,29 @@ Trois corollaires appliqués dans l'EHO :
   confirmation**, en disant à l'utilisateur ce qu'il est probablement en train
   de subir plutôt que de vouloir.
 
+## ⭐ Troisième incident (2026-09-16) — et le corollaire qui manquait
+`npm run test:bio` lisait les vraies bios via l'API. Depuis que la route est
+gardée, il recevait **401**, le confondait avec « serveur injoignable », **sautait
+les 525 contrôles** et concluait « **13/13 — TOUT PASSE** », **code de sortie 0**.
+Le test pouvait mentir pendant des semaines.
+
+**Le corollaire, à tenir désormais : un contrôle SAUTÉ n'est pas un contrôle
+RÉUSSI.** Un test qui n'a pas pu lire ses données **sort en échec** et **nomme sa
+cause** ; une base vide est un « incomplet », pas un succès.
+
+Et la cause a été supprimée, pas le symptôme : ⭐ **un script d'essai qui éprouve
+une LOGIQUE lit la base directement, pas l'API** — la couche HTTP n'est pas le
+sujet, et la question de l'autorisation disparaît avec elle. Ne passer par l'API
+que pour éprouver l'API, et alors se présenter avec la clé de service.
+
+⚠ Piège dans le piège : remonter la cause avec `e.message.split("\n")[0]` donnait
+un motif **vide** — un message Prisma s'ouvre par une ligne blanche. C'était le
+défaut qu'on corrigeait, en plus petit.
+
 ## À retenir au-delà de l'EHO
 Voir aussi [[LESSON-030]] — supposer un nom de champ d'API avant une suppression
-de masse. Même famille : **l'outil se tait, l'utilisateur paie**.
+de masse — et [[LESSON-033]], où c'est la **documentation** que l'outil a
+silencieusement faussée. Même famille : **l'outil se tait, l'utilisateur paie**.
 
 ⚠ Pièges d'environnement de la même séance, à ne pas réapprendre :
 **après `prisma generate`, redémarrer le serveur de dev** (il garde l'ancien

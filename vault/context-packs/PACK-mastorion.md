@@ -2,17 +2,21 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastorion ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-14 · 10 notes.
+> Généré le 2026-09-17 · 14 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
 | 1 | [ARCH-012](../architecture/ARCH-012.md) | PLEIADE — orchestrateur de zones d'exercice (instances, Keycloak, Traefik) | architecture |
+| 1 | [ARCH-013](../architecture/ARCH-013.md) | Une zone PLEIADE — 11 dépôts, 1 app = 1 dépôt, et 4 mécanismes qui les font parler | architecture |
 | 1 | [DECISION-014](../decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision |
+| 1 | [DECISION-017](../decisions/DECISION-017.md) | Modèle de branches — on travaille sur une provisoire, on intègre dans main, on déploie par prod | decision |
+| 1 | [DECISION-019](../decisions/DECISION-019.md) | Une seule copie de travail des dépôts PLEIADE, sur C: — le doublon D: supprimé | decision |
 | 1 | [LESSON-032](../lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson |
 | 2 | [ARCH-011](../architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | architecture |
 | 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
+| 2 | [DECISION-018](../decisions/DECISION-018.md) | Le curseur d'alignement est ouvert sur les STARTEX — il y mesure une ATTITUDE, pas une identité | decision |
 | 2 | [LESSON-027](../lessons/LESSON-027.md) | Import MASTORION — deux fiches partageant email ou masto_id fusionnent EN SILENCE | lesson |
 | 2 | [LESSON-028](../lessons/LESSON-028.md) | La bio MASTORION est PUBLIQUE côté réseau social — le renseignement animateur va dans observations | lesson |
 | 2 | [LESSON-029](../lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | lesson |

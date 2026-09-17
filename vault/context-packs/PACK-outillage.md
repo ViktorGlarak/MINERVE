@@ -2,18 +2,21 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « outillage ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-14 · 6 notes.
+> Généré le 2026-09-17 · 9 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
+| 1 | [DECISION-017](../decisions/DECISION-017.md) | Modèle de branches — on travaille sur une provisoire, on intègre dans main, on déploie par prod | decision |
+| 1 | [DECISION-019](../decisions/DECISION-019.md) | Une seule copie de travail des dépôts PLEIADE, sur C: — le doublon D: supprimé | decision |
 | 1 | [LESSON-032](../lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson |
 | 2 | [DECISION-012](../decisions/DECISION-012.md) | avatars.js = liste maître des comptes RS — EHO généré + garde-fou VERIFIER | decision |
 | 2 | [LESSON-023](../lessons/LESSON-023.md) | Backreference \1 via bash dans une str de remplacement Python → octal \x01 (corrompt le fichier) | lesson |
 | 2 | [LESSON-029](../lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | lesson |
 | 2 | [LESSON-030](../lessons/LESSON-030.md) | Ne jamais déduire un champ d'API par supposition avant une suppression de masse | lesson |
 | 2 | [LESSON-031](../lessons/LESSON-031.md) | exFAT (D:) n'exécute aucun binaire natif — clone d'exécution sur NTFS obligatoire | lesson |
+| 2 | [LESSON-033](../lessons/LESSON-033.md) | Ne jamais écrire un chemin Windows en littéral dans un script de substitution | lesson |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 

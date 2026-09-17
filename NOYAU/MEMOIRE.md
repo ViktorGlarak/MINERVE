@@ -321,12 +321,14 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-09-11] 22 agents au total
+### [2026-05-25 — mis à jour 2026-09-17] 23 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-14 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**) +
+15 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 14 + 1 = **22 agents** (vérifié contre le registre CLAUDE.md le 2026-09-11)
+= 4 + 3 + 15 + 1 = **23 agents** (vérifié contre le registre CLAUDE.md le 2026-09-17)
+
+> ⭐ **LEAC ajouté le 2026-09-17** — référent unique du **système LEAC** (nouveau projet) : documentation, décisions et **suivi du projet**. claude-opus-4-7. Dossier `LEAC\` (mémoire + journal séparés dès le départ). ⚠ **Identité du système entièrement à renseigner** — documentation attendue de l'utilisateur, **ne rien supposer**. **Réflexe imposé : le consulter dès que LEAC est évoqué, le mettre à jour à chaque avancée et à chaque ouverture/fermeture de session.**
 
 > MINAUTORE ajouté le 2026-05-30 — chef d'orchestre éditorial AURIGE 7BB, claude-opus-4-7 (même modèle que GUILLAUME). Dossier exercice : `D:\CECPC\PRODUCTION\EXER\AURIGE 7BB\`. Synchromatrice à ingérer. **⚠ Exercice CLOS le 2026-07-03** → MINAUTORE devient l'**archive de référence** du 7BB (+ `MINAUTORE\RETEX_MINOTAURE_26.md`), il n'est plus l'exercice actif.
 > **DELATTRE créé le 2026-07-22** — chef d'orchestre éditorial de l'exercice **DELATTRE 26** (dit « DELATTRE »), claude-opus-4-7, **successeur de MINAUTORE**. Dossier : `DELATTRE\`. Prompt hérité de MINAUTORE + gabarit `aurige.md`, **enrichi du RETEX MINOTAURE** (calibrer tactique, boucle de retour, GT productifs, casser les silos). ⚠ **Identité de l'exercice (unité, niveau, dates, zone, camps) encore à renseigner** — la demander avant toute production. **Routage : toute demande liée à DELATTRE 26 → DELATTRE en agent primaire** (comme GUILLAUME pour 2BB, MINAUTORE pour 7BB).

@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-14 · 22 notes.
+> Généré le 2026-09-17 · 23 notes.
 
 ## Notes (par tier)
 
@@ -14,6 +14,7 @@
 | 2 | [AGENT-CINEASTE](../agents/AGENT-CINEASTE.md) | CINÉASTE | agent |
 | 2 | [AGENT-EXPERT-INFLUENCE](../agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | agent |
 | 2 | [AGENT-IMAGIER](../agents/AGENT-IMAGIER.md) | IMAGIER | agent |
+| 2 | [AGENT-LEAC](../agents/AGENT-LEAC.md) | LEAC | agent |
 | 2 | [AGENT-MASTAURIGE](../agents/AGENT-MASTAURIGE.md) | MASTAURIGE | agent |
 | 2 | [AGENT-MASTORION](../agents/AGENT-MASTORION.md) | MASTORION | agent |
 | 2 | [AGENT-MINAUTORE](../agents/AGENT-MINAUTORE.md) | MINAUTORE | agent |
@@ -39,6 +40,7 @@
 - [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md)
+- [`MEMOIRE.md`](../../LEAC/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md)
