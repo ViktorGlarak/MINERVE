@@ -4,7 +4,7 @@ type: agent
 title: LEAC
 tags: [agent]
 source: ../../LEAC/MEMOIRE.md
-linkedTo: [ARCH-014, DECISION-021, DECISION-022, DECISION-023, DECISION-024, LESSON-034]
+linkedTo: [ARCH-014, DECISION-021, DECISION-022, DECISION-023, DECISION-024, DECISION-025, DECISION-026, LESSON-034]
 relevantFor: [agents]
 tier: 2
 created: 2026-09-17
@@ -27,6 +27,8 @@ updated: 2026-09-17
 - [[DECISION-022]]
 - [[DECISION-023]]
 - [[DECISION-024]]
+- [[DECISION-025]]
+- [[DECISION-026]]
 - [[LESSON-034]]
 
 ## Navigation

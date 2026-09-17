@@ -131,6 +131,10 @@ Verrous portés par les statuts :
     `Note#<cycle>:<pointId>`. Chaque cycle **renote les mêmes critères**, et
     c'est **l'écart entre cycles** qui dit si le PC progresse. Sans le cycle dans
     la clé, la 2ᵉ journée écrase la 1ʳᵉ et le découpage perd sa raison d'être.
+
+16. **Chacun valide SA grille** *(§ III.D)* — jamais celle d'un autre. Une
+    validation est un engagement sur ce qu'on a noté ; elle ne se délègue pas
+    plus qu'une signature.
 17. ⭐⭐ **Une saisie annulée ne remonte pas.** Tant qu'aucune opération n'est
     partie, on ne garde que l'**écart net** par rapport à ce que le serveur
     connaît (table `socle`). ⚠ Ce n'est **pas** une économie de volume : un
@@ -138,9 +142,45 @@ Verrous portés par les statuts :
     collègue vient de poser hors ligne**, au nom d'un geste qui n'a pas eu lieu.
     ⚠⚠ **Jamais une opération déjà remontée** — elle appartient à l'histoire
     commune. Voir `vault\decisions\DECISION-024`.
-16. **Chacun valide SA grille** *(§ III.D)* — jamais celle d'un autre. Une
-    validation est un engagement sur ce qu'on a noté ; elle ne se délègue pas
-    plus qu'une signature.
+
+18. ⭐⭐ **On pose une MENTION, pas une note — et on ENREGISTRE LE MOT.**
+    *« Comme la note n'est pas visible, on empêche les chiffres de guider le
+    contrôleur »* (CECPC) ; *« les notes ne sont pas communiquées, seul le niveau
+    est révélé »* (cours CBA Rubben). Le journal garde `"Remarquable"`, jamais
+    `4,75` : l'échelle est en cours de recalibration, et un journal de nombres
+    aurait perdu ce que le contrôleur voulait dire.
+    ⚠ **Un mot retiré de l'échelle ne vaut pas zéro** — il ne compte pas, et il
+    est **signalé**. Voir `vault\decisions\DECISION-025`.
+    ⚠ **Où le chiffre a le droit d'apparaître** : tableau de bord de l'équipe
+    (outil de travail interne), **jamais** l'écran de notation ni le compte rendu.
+19. **Échelle N4 retenue** *(à faire confirmer)* : Exceptionnel 5 · Remarquable
+    **4,75** · **Très satisfaisant 4,5** · **Satisfaisant 4** · Moyen 3,5 ·
+    Insuffisant 3 · Défaillant 2,5 · Mauvais esprit 2. Le haut passe au **quart
+    de point**, le bas reste au demi : c'est en haut que les seuils sont serrés.
+    ⚠ **Effet de bord assumé** : remonter Remarquable de 4,50 à 4,75 remonte les
+    moyennes — une grille tout « Remarquable » passe du niveau 4 au niveau 5.
+20. **Barème CFOT 2026** — ≥ 4,65 niveau 5 · 4,4–4,65 niveau 4 · 4–4,4 niveau 3 ·
+    < 4 niveau 2. ⚠ **Remplace** celui du memento v2.5 (4,5 / 4 / 3). Le
+    **niveau 1 = « non observé »** : ce n'est pas une tranche de note.
+21. ⭐⭐ **Le LABEL qualifie l'EXERCICE, pas l'unité.** Les critères mesurent la
+    production → un **niveau** ; les 10 exigences mesurent les conditions du
+    contrôle → une **lettre**. 9-10 = A · 7-8 = B · 5-6 = C.
+    ⚠⚠ **« ≤ 4 exigences OU exigences obligatoires non réalisées = contrôle non
+    validé »** : neuf exigences sur dix ne donnent **pas** le label A si une des
+    **cinq obligatoires** manque. Et cela peut entraîner la **rétrogradation de
+    l'ANTARES en observation**.
+    ⚠ « Sans ses appuis » est un **plafond** (label C max), pas une note : il ne
+    peut que faire baisser. Voir `vault\decisions\DECISION-026`.
+22. **La pondération porte sur le DOMAINE**, pas sur le membre qui l'observe —
+    le classeur NG donne Fonctionnement général 8, Travail collectif 6, … total
+    54. ✅ **Le classeur NG fait foi** ; l'annexe VII du modèle de CRF porte
+    d'autres valeurs, elle est d'une autre époque.
+    ⭐ **Le mandat du N+1 les adapte** : seules les valeurs *changées* sont
+    enregistrées, et le compte rendu dit lesquelles s'écartent du référentiel.
+23. ⭐ **Les CINQ cartouches du logiciel = les cinq rubriques des annexes V et
+    VI** du compte rendu (observation générale · points forts · points faibles ·
+    points à confirmer · proposition). Correspondance **exacte**. L'annexe I n'en
+    reprend que trois : c'est un **résumé**, pas une perte.
 
 ---
 
@@ -211,7 +251,7 @@ avec des gants.**
 | Moteur de fusion terrain | ✅ `src/lib/sync/fusion.ts` |
 | Calcul de notation + barèmes | ✅ `src/lib/domaine/notation.ts` |
 | Système visuel | ✅ `src/app/globals.css` |
-| Tests de logique métier | ✅ **120/120** |
+| Tests de logique métier | ✅ **214/214** |
 | ⭐ **Écran de notation terrain** | ✅ **écrit et validé** 2026-09-17 (`src/app/page.tsx`) — commit `aeceeb8` |
 | ⭐ **Persistance hors ligne** (IndexedDB + journal d'opérations) | ✅ 2026-09-17 — `src/lib/offline/` — commit `7c640d1` |
 | ⭐ **Écran de synchronisation** + revue des collisions | ✅ 2026-09-17 — `src/app/synchronisation/` |
@@ -224,13 +264,20 @@ avec des gants.**
 | ⭐ **Domaines transverses** (§ V.A.3) — pondération, observateurs, drapeau **par domaine** | ✅ 2026-09-17 — `src/lib/domaine/domaines.ts` — commit `eeb64ea` |
 | ⭐ **Compactage du journal** — une saisie annulée ne remonte pas | ✅ 2026-09-17 — `src/lib/sync/compactage.ts` + table `socle` — commit `675cfd3` |
 | ⭐⭐ **App de zone PLEIADE déployable** — Dockerfile, workflow `prod`, sondes, Keycloak | ✅ 2026-09-17 — commit `4eccf1f` + `catalog/leac.yml` · voir `docs/DEPLOIEMENT.md` |
+| ⭐⭐ **Notation par MENTIONS** — chiffres invisibles, le mot enregistré | ✅ 2026-09-17 — `domaine/echelle.ts` — commit `f0b69eb` |
+| ⭐ **Lecture des grilles Excel** du CECPC, deux formats + contrôle qualité | ✅ 2026-09-17 — `import/grille.ts` · `npm run grille:lire` — commit `aeb9773` |
+| ⭐⭐ **Les VRAIES grilles branchées** — 14 domaines, 1 352 critères, 5 niveaux | ✅ 2026-09-17 — commit `165009b` |
+| ⭐ **LABEL de l'exercice** — 10 exigences, A/B/C, plafond « sans appuis » | ✅ 2026-09-17 — `domaine/label.ts` — commit `95c7fcb` |
+| ⭐ **Compte rendu final (.docx)** — lettre + annexes I à VII | ✅ 2026-09-17 — `/compte-rendu` — commits `16627e3` et `02ca61d` |
+| ⭐ **3A (.pptx)** — une diapo par domaine, taux à côté du camembert | ✅ 2026-09-17 — commit `02ca61d` |
+| **Pondérations adaptables par le mandat du N+1** | ✅ 2026-09-17 — commit `e3079f8` |
 | ⭐ **Branches `main` et `prod` en place sur GitHub** | ✅ 2026-09-17 — `prod` créée depuis `main` au commit `f3e0555` |
 | **Note d'intégration pour la plateforme** | ✅ `docs/INTEGRATION-PLEIADE.md` — écrite pour qui devra comprendre sans avoir écrit |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |
 
-**Répartition de la couverture** : 🟢 **15 faites** · 🟡 52 modèle en place · ⚪ 21
+**Répartition de la couverture** : 🟢 **~25 faites** · 🟡 ~48 modèle en place · ⚪ ~18
 spécifiées · 🔵 **29 repensées** (le dispositif technique qui les imposait
 disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
 

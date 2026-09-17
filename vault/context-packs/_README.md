@@ -16,7 +16,7 @@
 | ili | 28 | [PACK-ili](PACK-ili.md) |
 | image | 2 | [PACK-image](PACK-image.md) |
 | injects | 2 | [PACK-injects](PACK-injects.md) |
-| leac | 6 | [PACK-leac](PACK-leac.md) |
+| leac | 8 | [PACK-leac](PACK-leac.md) |
 | mastaurige | 53 | [PACK-mastaurige](PACK-mastaurige.md) |
 | mastorion | 14 | [PACK-mastorion](PACK-mastorion.md) |
 | melmil | 4 | [PACK-melmil](PACK-melmil.md) |

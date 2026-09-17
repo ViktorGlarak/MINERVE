@@ -4,6 +4,103 @@
 
 ---
 
+## 2026-09-17 (suite 3) — La directive N4 2026 entre dans le logiciel
+
+**Documents reçus** : `D:\Nouveau dossier` — demande client, mémoire de
+passation LEAC NG, récapitulatif projet, **deux grilles Excel**, cours sur les
+critères (CBA Rubben), **modèle de compte rendu final**. Tous copiés dans
+`app-leac\docs\sources\`, avec leurs marquages de diffusion relevés.
+
+### ⭐⭐ Ce que ces documents ont changé, et ce qu'ils ont contredit
+
+**LEAC NG est plus vaste que ce que je construisais.** La mémoire de passation
+décrit un système métier complet, en phase de **cadrage**, avec ses marqueurs
+`[CONFIRMÉ]` / `[ENVISAGÉ]` / `[À ARBITRER]`. Ce qu'on a bâti correspond à une
+**partie de la BETA** décrite au § 17 — pas à tout LEAC NG.
+
+**Ce qu'ils confirment** : le journal d'opérations hors ligne (§ 11), « null n'est
+pas zéro », la moyenne qui remonte par niveau, les deux domaines transverses.
+
+**Ce qu'ils contredisent** — et c'est l'essentiel :
+
+1. ⭐⭐ **La notation se fait par des MOTS, chiffres cachés.** Mon écran affichait
+   une échelle chiffrée : il contredisait frontalement la méthode. → [[DECISION-025]]
+2. **Le barème que j'avais codé était le mauvais** : 4,5 / 4 / 3 (v2.5) contre
+   **4,65 / 4,4 / 4** (CFOT 2026). La directive 2026 prime.
+3. **La pondération porte sur le DOMAINE**, pas sur la fonction.
+4. **Il manquait les LABELS** — toute une dimension. → [[DECISION-026]]
+5. La hiérarchie a **5 niveaux**, pas 4.
+
+### Les défauts trouvés dans les documents du CECPC
+
+⭐ Le lecteur de grilles ne convertit pas seulement, il **rend compte**. Trois
+défauts réels dans la grille NG, vérifiés cellule par cellule :
+
+- *Fonctionnement général* L142-146 : sous « 1.8.3 RENFORTS AIR », les critères
+  sont numérotés **1.8.2.x** — ces cinq codes existent **deux fois** ;
+- *Travail collectif* L63-66 : sous « 2.3.2 », les critères sont numérotés
+  **1.3.2.x** ;
+- *S3-2D* L144 : « 7.7.2 » inséré au milieu du bloc 7.2.
+
+Plus deux formules fausses dans leur « Tableau de Bord » :
+`COUNTIF('Travail Collectif du CO'!J:J;…)` pour la ligne *Remarquable* de **S7**,
+et `COUNTIF(PMO!I:EI;"N/O")` au lieu de `I:I`.
+
+⭐ Et une **perte** : la grille de juin porte une colonne **« Description »** — le
+*but* de chaque critère — que la NG a abandonnée. 132 critères sur 133 pour le
+seul Fonctionnement général.
+
+### ⚠ Deux erreurs que j'ai commises, et ce qui les a rattrapées
+
+1. **3 415 fausses anomalies** sur la grille de juin : dans ce format le libellé
+   est **intercalé** entre les colonnes de code, et je le comptais comme un code.
+   Le code se reconnaît désormais à **sa forme** (`10.1.1.1`). ⭐ C'est
+   l'énormité du chiffre qui a rendu l'erreur évidente — un décalage produisant
+   *quelques* anomalies plausibles serait passé.
+2. **J'ai annoncé à tort** que les cartouches ne correspondaient pas aux
+   rubriques du compte rendu : je n'avais lu que l'annexe I. Les **annexes V et
+   VI portent les cinq rubriques**, exactement les cinq cartouches. Corrigé.
+
+### Ce qui a été écrit
+
+| | |
+|---|---|
+| Notation par mentions, le **mot** enregistré | `domaine/echelle.ts` · `f0b69eb` |
+| Lecture des grilles Excel, **deux formats** + contrôle | `import/grille.ts` · `aeb9773` |
+| **Les vraies grilles branchées** — 14 domaines, 1 352 critères | `165009b` |
+| **Label** de l'exercice, 10 exigences | `domaine/label.ts` · `95c7fcb` |
+| **Compte rendu final** `.docx`, annexes I à VII | `/compte-rendu` · `16627e3` + `02ca61d` |
+| **3A** `.pptx`, une diapo par domaine | `02ca61d` |
+| **Pondérations adaptées par le mandat** du N+1 | `e3079f8` |
+| Le **classeur NG fait foi** comme référentiel | `476d07f` |
+
+**214 tests** (contre 120 avant cette session).
+
+### ⚠ Deux points de forme qui ne sont pas cosmétiques
+
+- **3A** : le **taux de couverture à côté de chaque camembert**. Un camembert sur
+  12 % de critères et un sur 100 % se ressemblent exactement — c'est ainsi qu'une
+  salle tire une conclusion d'un domaine à peine observé.
+- **CRF** : le document sort marqué **PROJET** et porte **la liste de ce qui lui
+  manque**, avant son titre. Un brouillon qui a l'air fini est plus dangereux
+  qu'un brouillon vide.
+
+⭐ Et un bénéfice de côté : le CRF est **construit**, pas rempli depuis le modèle
+(Word a découpé `$$NUMDOC$$` et `$$SIGNATURE$$` entre plusieurs balises). Il
+**n'hérite donc pas** du filigrane « DIFFUSION RESTREINTE » que le modèle porte
+par erreur.
+
+### ⏭️ Prochaine étape
+1. ⏳ **À faire confirmer par le CECPC** : l'échelle de mentions (elle remonte les
+   moyennes), les trois défauts de numérotation, la colonne « Description »
+   perdue, le filigrane erroné du modèle de CRF.
+2. **Le stockage serveur** — tout vit aujourd'hui dans le navigateur, alors que
+   la concaténation entre contrôleurs suppose un serveur qui reçoive les
+   journaux. C'est le cœur de la finalité du projet.
+3. Bascule **NG ↔ ancienne grille** (le lecteur sait déjà lire les deux).
+
+---
+
 ## 2026-09-17 (suite 2) — Paramétrage persisté, tableau de bord de la réunion
 
 **Demande utilisateur** : « ok tu peux avancer » — poursuite du développement
