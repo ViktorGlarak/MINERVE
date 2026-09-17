@@ -14,6 +14,14 @@ updated: 2026-09-17
 
 # DECISION-022 — Une conséquence lourde ne peut pas dépendre de l'ordre dans lequel on a coché des cases
 
+## À quoi sert le drapeau (le memento ne le dit jamais)
+Un **domaine transverse** — fonctionnement général du PC, travail collectif —
+**n'appartient à aucune fonction** : plusieurs contrôleurs l'observent, chacun
+depuis son poste. Les **notes** se moyennent, pondérées par membre. Les
+**observations**, elles, sont du **texte libre** : on ne fait pas la moyenne de
+quatre paragraphes. **Il faut donc une voix**, et le drapeau la désigne — c'est
+son bilan que projette la réunion du soir (memento p. 27).
+
 ## Contexte / problème
 Memento utilisateur § V.A.3 : sur un domaine transverse, *« la première personne
 cochée aura un petit drapeau ; seuls ses commentaires seront vus dans le tableau
@@ -29,8 +37,15 @@ Deux défauts, et le second est le plus grave :
 - Le porteur du drapeau se **désigne explicitement** (un bouton « donner le
   drapeau »), et l'écran **nomme la conséquence** au lieu de la cacher.
 - Le tableau de bord **filtre réellement** sur l'**auteur** des observations.
-- Les remarques des autres sont **écartées du bilan, jamais supprimées** — et
-  l'écran l'écrit en clair.
+- ⚠ **Écart assumé** : la v2.5 écrit *« SEULS ses commentaires seront vus »* —
+  le travail écrit de trois contrôleurs disparaît de la réunion sans que
+  personne le sache. En v3 le bilan du porteur reste la **parole officielle,
+  seule affichée par défaut** (l'intention est tenue : une seule voix), mais les
+  autres observations sont **dépliables**, nommées, « hors bilan officiel ».
+  Le drapeau existe parce qu'on ne peut pas moyenner du texte ; ce problème est
+  réglé dès qu'une seule voix s'affiche par défaut. Effacer les autres n'y
+  ajoute rien et coûte une remarque juste de temps en temps.
+  **Réversible en une ligne** si le CECPC préfère la règle stricte.
 - Retirer le droit d'observer au porteur **déplace** le drapeau au lieu de le
   laisser orphelin.
 - Si personne ne le porte, l'écran le signale : sans cela, un tableau de bord

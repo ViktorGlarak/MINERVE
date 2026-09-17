@@ -68,15 +68,26 @@ Verrous portés par les statuts :
    noté.
 3. **Pondération à deux étages** : par **fonction** (note finale) et, sur les
    domaines **transverses**, par **membre**.
-4. **Le drapeau** *(§ V.A.3)* : sur un domaine transverse, **un seul membre**
-   porte le drapeau — **seuls ses commentaires remontent au tableau de bord**.
+4. **Le drapeau** *(§ V.A.3)* — ⭐ **à quoi il sert**, car le memento ne le dit
+   jamais : un **domaine transverse** (fonctionnement général du PC, travail
+   collectif) n'appartient à aucune fonction, **plusieurs contrôleurs
+   l'observent**. Les **notes** se moyennent (pondération par membre) ; les
+   **observations**, qui sont du **texte libre**, ne se moyennent pas. Le drapeau
+   désigne donc **la voix dont le bilan est projeté à la réunion du soir** —
+   sinon le tableau de bord afficherait quatre paragraphes concurrents et le chef
+   de contrôle arbitrerait en séance.
    ⚠ **Recadré en v3** : la v2.5 le donnait à *« la première personne cochée »*,
    c'est-à-dire à un **ordre de clic**. Une conséquence aussi lourde ne peut pas
    dépendre de l'ordre dans lequel on a coché des cases : en v3 le porteur se
    **désigne explicitement**, et le tableau de bord **filtre réellement** sur
    l'auteur des observations (`lireEtatDetaille` rend l'auteur de chaque valeur).
-   Les remarques des autres sont **écartées du bilan, jamais supprimées** — et
-   l'écran le dit.
+   ⚠ **Écart assumé avec le memento** *(voir `app-leac\docs\COUVERTURE.md`,
+   § « Écarts assumés »)* : la v2.5 dit *« SEULS ses commentaires seront vus »*.
+   Appliqué à la lettre, le travail écrit de trois contrôleurs **disparaît** de
+   la réunion. En v3 le bilan du porteur reste la **parole officielle, seule
+   affichée par défaut** — l'intention est tenue — mais les autres sont
+   **consultables d'un geste**, nommées, « hors bilan officiel ». **Réversible
+   en une ligne** si le CECPC préfère la règle stricte.
 5. **Barème** *(admin § VI.E.7)* : note finale → tranche, niveau, label.
    ⚠ **Convention de bornes : `min` incluse, `max` exclue.** Sans elle, une note
    pile sur une borne tombe dans deux tranches ou aucune, selon l'ordre des lignes.
@@ -100,6 +111,13 @@ Verrous portés par les statuts :
 14. **Une seule réserve empêche de figer** : l'absence de porteur du drapeau.
     Tout le reste **informe sans bloquer** — sinon un contrôleur absent bloque un
     cycle indéfiniment. Le chef de contrôle est l'autorité, on l'informe.
+15. ⭐ **Le cycle fait partie de la CIBLE d'une note**, pas d'un filtre :
+    `Note#<cycle>:<pointId>`. Chaque cycle **renote les mêmes critères**, et
+    c'est **l'écart entre cycles** qui dit si le PC progresse. Sans le cycle dans
+    la clé, la 2ᵉ journée écrase la 1ʳᵉ et le découpage perd sa raison d'être.
+16. **Chacun valide SA grille** *(§ III.D)* — jamais celle d'un autre. Une
+    validation est un engagement sur ce qu'on a noté ; elle ne se délègue pas
+    plus qu'une signature.
 
 ---
 
@@ -179,11 +197,12 @@ avec des gants.**
 | Règle de nommage de l'intitulé, **assistée et testée** | ✅ `src/lib/domaine/intitule.ts` — commit `8b51061` |
 | ⭐ **Tableau de bord de la réunion quotidienne** (§ V.B.9) | ✅ 2026-09-17 — `src/app/tableau-de-bord/` + `src/lib/domaine/bilan.ts` — commit `d352962` |
 | ⭐ **Écran de fin de cycle** (§ III.B / III.C) | ✅ 2026-09-17 — `src/app/fin-de-cycle/` + `src/lib/domaine/cycle.ts` — commit `edbf801` |
+| **Cycles réels** (§ V.B.7) + **validation de grille** (§ III.D) | ✅ 2026-09-17 — commit `7510830` · le cycle entre dans la clé des notes |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
 | Import/export Excel | ❌ spécifié |
 
-**Répartition de la couverture** : 🟢 **12 faites** · 🟡 55 modèle en place · ⚪ 21
+**Répartition de la couverture** : 🟢 **14 faites** · 🟡 53 modèle en place · ⚪ 21
 spécifiées · 🔵 **29 repensées** (le dispositif technique qui les imposait
 disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
 

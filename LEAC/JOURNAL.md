@@ -118,19 +118,76 @@ Le reste :
 l'horloge du figeage n'est **pas** tardive, et que le figeage ne se signale pas
 lui-même.
 
+### 5. Cycles réels, validation de grille, et le drapeau expliqué — commit `7510830`
+
+**Question de l'utilisateur** : *« à quoi sert le système de donner le drapeau
+dans LEAC, je ne comprends pas son utilité »*. Elle est justifiée : le memento
+dit ce que le drapeau **fait**, jamais **pourquoi** il existe.
+
+#### ⭐ Le drapeau — la réponse, à conserver
+Un **domaine transverse** (fonctionnement général du PC, travail collectif)
+**n'appartient à aucune fonction** : plusieurs contrôleurs l'observent, chacun
+depuis son poste. Pour les **notes**, aucun problème — elles se moyennent,
+pondérées par membre (c'est le rôle de `PonderationTransverse`). Pour les
+**observations**, qui sont du **texte libre**, on ne peut pas faire la moyenne
+de quatre paragraphes. **Il faut une voix.** Le drapeau désigne celle dont le
+bilan est projeté le soir *(memento p. 27 : « le bilan de cycle de la personne
+désignée par le drapeau »)*.
+
+Ce qui rend la v2.5 incompréhensible : désignation par **ordre de clic**,
+porteur **jamais nommé** ensuite, et conséquence annoncée comme un simple
+**avertissement dans un manuel**.
+
+⚠ **Écart assumé, documenté** dans `docs/COUVERTURE.md` § « Écarts assumés » :
+la v2.5 dit *« SEULS ses commentaires seront vus »* — le travail écrit de trois
+contrôleurs disparaît de la réunion sans que personne le sache. En v3, le bilan
+du porteur reste la **parole officielle seule affichée par défaut** (l'intention
+est tenue : une seule voix), mais les autres sont **dépliables**, nommées, sous
+la mention « hors bilan officiel ». **Réversible en une ligne** si le CECPC
+préfère la règle stricte — l'utilisateur a été prévenu.
+
+#### § V.B.7 — le cycle entre dans la CLÉ des notes
+Le numéro de cycle était une constante : « ouvrir le cycle suivant » ne pouvait
+rien vouloir dire. Il devient une valeur du journal (`Controle#…#cycleCourant`),
+et surtout les notes portent le cycle dans leur cible :
+`Note#<cycle>:<pointId>#valeur`.
+
+⭐ **Ce n'est pas un filtre, c'est la cible.** Chaque cycle **renote les mêmes
+critères**, et c'est **l'écart entre cycles** qui dit si le PC progresse. Sans le
+cycle dans la clé, la 2ᵉ journée écraserait la 1ʳᵉ.
+
+⚠ Les notes écrites **avant** ce changement sont rattachées au cycle d'origine,
+en trois lignes marquées à retirer. Une donnée qui s'évapore parce qu'on a changé
+un format de clé est exactement la perte silencieuse que cette application
+refuse — **y compris quand la victime est une base de démonstration**.
+
+#### § III.D — chacun valide SA grille
+L'état `grilleValidee` s'affichait mais rien ne permettait de le poser. Le bouton
+n'apparaît que sur **sa propre** ligne : une validation est un engagement (« ce
+que j'ai noté, je l'assume »), elle ne se délègue pas plus qu'une signature.
+
+#### Rôle joué, partagé entre les écrans
+Le sélecteur de démonstration passe dans `src/lib/demo/role.tsx` et remonte au
+`layout` : le cloisonnement se traverse d'un écran à l'autre, sinon on ne peut
+pas l'éprouver. ⚠ Il vit dans `sessionStorage`, **pas dans le journal** — ce
+n'est pas une donnée du contrôle, l'y écrire l'enverrait au serveur et le ferait
+apparaître dans la revue de synchronisation. Lu via `useSyncExternalStore` :
+l'outil prévu pour un magasin extérieur à React, qui traite aussi le rendu
+serveur, lequel n'a pas de stockage.
+
 ### 📝 Fichiers autoritaires modifiés
-- `app-leac` : commits **`86da06d`**, **`d352962`** et **`edbf801`** —
-  `docs/COUVERTURE.md` passe à 🟢 **12 faites** / 🟡 55 / ⚪ 21 / 🔵 29.
+- `app-leac` : commits **`86da06d`**, **`d352962`**, **`edbf801`** et
+  **`7510830`** — `docs/COUVERTURE.md` passe à 🟢 **14 faites** / 🟡 53 / ⚪ 21 /
+  🔵 29, et gagne une section **« Écarts assumés avec le memento v2.5 »**.
 - `LEAC\MEMOIRE.md` — tableau d'état, règle métier n°4 (drapeau) recadrée.
 
 ### ⚠ Rien n'est poussé
-`app-leac` est **en avance de 8 commits** sur `origin/main`. Dépôt partagé avec
+`app-leac` est **en avance de 9 commits** sur `origin/main`. Dépôt partagé avec
 Xavier : pas de poussée sans demande explicite.
 
 ### ⏭️ Prochaine étape
-1. **Validation de grille** (§ III.D) — le geste manque : l'état `grilleValidee`
-   est affiché mais rien ne permet de le poser. Et **ouvrir le cycle suivant**
-   (§ V.B.7).
+1. ⏳ **En attente de l'utilisateur** : confirmer l'**écart assumé sur le
+   drapeau** (dépliable) ou revenir à la règle stricte du memento.
 2. **Génération 3A (.pptx) / CR (.docx)** — ⏳ bloqué sur le **modèle de CR** du
    CECPC (§ X, « en cours de rédaction »), demandé par l'utilisateur.
 3. **Import/export Excel des grilles** — ⏳ bloqué de même (§ XII).
