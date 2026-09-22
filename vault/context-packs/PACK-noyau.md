@@ -2,13 +2,14 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « noyau ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-17 · 5 notes.
+> Généré le 2026-09-22 · 6 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
 | 1 | [ARCH-004](../architecture/ARCH-004.md) | Registre des agents (renvoi) | architecture |
+| 1 | [LESSON-037](../lessons/LESSON-037.md) | Un indicateur doit mesurer EXACTEMENT ce qu'il prétend rapporter — deux fois le même jour | lesson |
 | 1 | [PROJ-MINERVE](../projects/MINERVE-systeme.md) | MINERVE — système multi-agents | project |
 | 2 | [ARCH-002](../architecture/ARCH-002.md) | Routage par modèle Ollama / co-résidence VRAM | architecture |
 | 2 | [ARCH-005](../architecture/ARCH-005.md) | Boucle QC — NOYAU évalue chaque réponse agent | architecture |
@@ -17,6 +18,7 @@
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`CLAUDE.md`](../../CLAUDE.md)
+- [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`ROUTAGE.md`](../../SYSTEME/ROUTAGE.md)
 - [`QC.md`](../../SYSTEME/QC.md)
 - [`CONFIG.md`](../../SYSTEME/CONFIG.md)

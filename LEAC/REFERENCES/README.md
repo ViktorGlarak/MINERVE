@@ -18,6 +18,7 @@
 |---|---|---|---|
 | `20220519_LEAC_Memento_Utilisateur_V2.5.pdf` | 2026-09-17 | 44 p. — memento des 4 profils utilisateurs, v2.5 du 2022-05-19 | Le déroulé complet d'un contrôle : préparation, conduite, 3A, CR, clôture. Les 5 « erreurs récurrentes ». Le dispositif réseau v2. |
 | `20220519_LEAC_Memento_Administrateur_V2.5.pdf` | 2026-09-17 | 34 p. — memento administrateur, v2.5 | Référentiels globaux et d'entité, profils et 20 rôles, grilles de contrôle, rubriques physio, paramétrage des éditions, **balises du modèle 3A**. |
+| `2026-09-19_EVAL-PC_prompt-creation_client.md` | 2026-09-19 | Spécification « ÉVAL-PC » produite par un client avec une IA (Lovable/GPT) sur téléphone | Vision d'une app d'évaluation des PC toujours connectée : rôles, droits par domaine, évaluation rapide, tableau de bord analytique, comparaison, auto-évaluation, PWA. ⚠ Seuils de niveau et plafond de label **divergent de la N4** — ne pas copier. Comparé dans `../COMPARATIF_EVAL-PC_2026-09-19.md`. |
 
 > 📁 Source d'origine : `D:\CECPC\LEAC V3\`.
 

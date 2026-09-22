@@ -28,3 +28,11 @@ Connaissance consolidée de tous les agents. Mise à jour au fil des sessions.
 
 ## Insights transversaux
 <!-- Observations qui concernent plusieurs agents ou le système global -->
+
+- **2026-09-21 — un indicateur doit mesurer EXACTEMENT ce qu'il prétend rapporter.** Deux
+  occurrences le même jour sur PLEIADE : un voyant qui jugeait sur deux pièces quand la chose
+  rapportée n'en dépendait que d'une, et une sonde de déploiement qui lisait un effet de bord
+  (empreinte de fichiers) au lieu d'une marque posée par le code (version). ⚠ Dans les deux cas,
+  **des tests verts n'ont rien vu** : un simulacre écrit à partir d'une hypothèse ne peut pas la
+  contredire. Vaut pour tout outillage MINERVE (vérificateurs MASTAURIGE, validateur du vault,
+  sondes PLEIADE). Détail : `vault/lessons/LESSON-037.md`.

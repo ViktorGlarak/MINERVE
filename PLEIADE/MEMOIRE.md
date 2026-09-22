@@ -553,3 +553,127 @@ C'est la clé pour ne pas défaire ce réglage par mégarde :
 - ⏳ Le **package STARTEX**, les **452 personas** et les classeurs MINERVE (`MASTORION\BIBLIOTHEQUES\`) visent le schéma MASTORION ; vérifier leur import dans le **nouvel EHO** (format CSV attendu, `id` = UUID Keycloak).
 - ⏳ **Groupes de travail réels** : les sous-groupes `/GT/1re Division` et `/GT/27e Brigade` sont des **groupes d'essai** — à remplacer par les vrais GT de l'exercice.
 - ⏳ **Concurrence sur la planche relationnelle collective** (`eho_graphes` d'un GT) : aujourd'hui **dernière écriture gagnante**. Le verrou par carte ne s'y transpose pas — décider du modèle (verrou de planche, fusion, ou statu quo assumé).
+
+
+## ⭐⭐ Règle — Émetteur Keycloak : PUBLIC dans `issuer`, INTERNE pour token/userinfo/jwks *(2026-09-21)*
+
+Depuis le `frontendUrl` figé (2026-09-13), Keycloak annonce l'émetteur public
+quelle que soit l'URL appelée. Une app Auth.js qui déclare l'émetteur interne
+échoue à la découverte (« issuer mismatch ») → page « problem with the server
+configuration » au clic « se connecter ». Motif correct : `messagerie`,
+`press`, `admin`, `leac`, `eho` (corrigé `1e44e2c`). ⚠ `app-cockpit` porte
+encore l'erreur. Diagnostic sans logs : `/api/auth/csrf` OK + signin →
+`error=Configuration` = émetteur ; csrf KO = `trustHost`/`AUTH_SECRET`
+(image ancienne).
+
+## Règle — `pleiade-platform` : `package-lock.json` et `public/style.css` modifiés localement = artefacts de MON poste *(2026-09-21)*
+
+Pas du travail de Xavier (lock resynchronisé par npm, Tailwind non minifié
+écrit par `npm run dev`). Se jettent (`git checkout --`) avant un pull.
+
+## Règle — Créer/démarrer une instance ne télécharge PAS l'image *(2026-09-21)*
+
+`addInstance`/`deployInstance` = `up -d` sur le `latest` déjà dans le magasin
+podman du serveur (souvent ancien). Seul **« Déployer » la zone** (`deployZone`)
+fait `pull` puis `up -d`. La promotion épingle un tag de commit (force le pull)
+mais ne vise que les zones `zone_type = prod` (`orion26`, `cecpc-div-eval` ;
+pas `delattre-26`). Symptôme : instance neuve, pages récentes en 404.
+
+## Règle — Groupes de travail eho = groupes Pléiade de racine *(2026-09-21, `69260ef`)*
+
+Sauf `cecpc`, `masteradmin`, racine `GT` ; `/GT/…` toléré. Un groupe = un
+groupe de travail ; les droits restent ceux du bouclier Pléiade.
+
+## Règle — « Au nom de » : poster sur le social = rôle `animateur` + camp ouvert dans eho *(constaté 2026-09-21, livré par Xavier 17–19/09)*
+
+Un compte de zone ne poste **jamais en son nom** sur `app-social` : il choisit un
+avatar eho (« Au nom de », `X-Act-As`). Deux verrous, tous deux côté serveur :
+1. **rôle `animateur`** sur l'instance social (bouclier Pléiade, par groupe) — sans lui, lecture seule, panneau invisible ;
+2. **référentiel des camps dans eho** (écran Groupes → « Camps ») : groupe d'avatars → groupes Pléiade autorisés. Rien de coché = personne, sauf masteradmin.
+Chaîne : social → eho `/api/impersonation` → Pléiade `resoudre-identite` (groupes + masteradmin). Fail closed si un maillon manque. Les « camps » sont **les mêmes groupes Pléiade** que nos groupes de travail (`69260ef`). Détail : JOURNAL 2026-09-21 (suite 2).
+
+## Règle — Se déconnecter = fermer AUSSI la session Keycloak *(2026-09-21, toutes les apps Next.js)*
+
+`signOut` NextAuth nu laisse la session de royaume ouverte → « se connecter » rouvre le
+même compte en silence. Chaque app porte `src/lib/deconnexion.ts` : `signOut` local puis
+`end_session_endpoint` (`id_token_hint` gardé dans le jeton, `client_id`,
+`post_logout_redirect_uri`). ⚠ Pour « autre compte » : fermer d'abord, revenir sur `?changer=1`,
+relancer **sans `prompt=login`** — Keycloak transmet `prompt` au fournisseur « cecpc », qui
+ré-authentifierait l'organisateur (« Please re-authenticate ») au lieu de le laisser passer.
+Fermer le royaume de ZONE déconnecte de toutes les apps de la zone (voulu, poste partagé) ;
+la session d'organisateur (royaume `cecpc`), elle, survit (règle suivante).
+Test de référence : `e2e_deconnexion.cjs` (Playwright, Keycloak local, 10 contrôles).
+
+
+## Règle — Le bouton « cecpc » d'une zone vient du ROYAUME, pas des apps *(2026-09-21)*
+
+« cecpc Connect » (Xavier, 16/09) monte un fournisseur d'identité `cecpc` + un groupe
+maître dans le royaume de chaque zone : c'est lui qui fait apparaître le bouton « cecpc »
+sur l'**écran Keycloak**, par lequel un organisateur entre sans compte propre. Aucune app
+n'y touche (aucune n'utilise `kc_idp_hint`). Posé à la création d'une zone, mais en
+**best-effort** → une zone peut s'en passer sans que rien ne le dise. Rattrapage :
+**`POST /api/zones/:zone/cecpc-connect`** (route de Xavier, idempotente), à appeler depuis la
+console du navigateur sur le tableau de bord — **il n'y a pas de bouton**, et c'est voulu
+(cf. la leçon du 2026-09-21 : un indicateur d'état retiré parce qu'il annonçait faux).
+
+⚠⚠ **Le bouton « cecpc » de l'écran de connexion ne dépend que du FOURNISSEUR D'IDENTITÉ**,
+pas du groupe maître : exiger les deux pour juger l'état fait passer pour cassée une zone qui
+marche. Le groupe maître, lui, décide des DROITS de celui qui entre par là.
+
+
+## Règle — Un client Keycloak doit déclarer l'ALLER **et** le RETOUR *(2026-09-21, `b8853e7`)*
+
+Keycloak compare les adresses de redirection **à l'identique, sans joker** : `…/endpoint` ne
+couvre pas `…/endpoint/logout_response`. Le client broker `cecpc-connect` déclare donc les
+deux par zone, sinon toute déconnexion d'un compte entré par cecpc Connect finit sur
+**« Invalid redirect uri »** — le royaume de la zone propageant la déconnexion au royaume
+`cecpc`. ⚠ Défaut resté **dormant** du 16/09 au 21/09 : il ne s'est vu que le jour où les apps
+ont commencé à fermer la session amont pour de bon. ⭐ Depuis la suite 11, **l'orchestrateur pose
+ces adresses pour toutes les zones à chaque démarrage** (`reconcilierRetoursCecpcConnect`, un appel,
+fusion sans retrait) : plus aucun geste manuel. `retoursCecpcConnect(zone)` est la seule source.
+
+
+## Règle — La déconnexion d'une zone ne remonte PAS à l'organisateur *(décision utilisateur 2026-09-21)*
+
+Le fournisseur `cecpc` de chaque zone est posé **sans `logoutUrl`** : fermer une session de zone
+ne ferme pas la session du royaume `cecpc` (organisateur, Pléiade). Le bouton « cecpc » reste
+silencieux tant que l'organisateur est connecté à Pléiade. Réconcilié **à chaque démarrage** de
+l'orchestrateur (`reconcilierCecpcConnect` : adresses de retour + retrait du `logoutUrl`).
+⚠ « Voir comme » (incarner un compte de zone) a été **conçu puis annulé** le même jour : jugé
+plus risqué ; le garde-fou de l'outil l'avait d'ailleurs bloqué. Ne pas le relancer sans demande.
+
+
+## Règle — Modèles d'EHO : « intégrés » (dans l'image) vs « capturés » (volume de l'instance) *(2026-09-21)*
+
+Un modèle capturé depuis l'écran vit dans `EHO_DATA_DIR/templates/` — **le volume de l'instance**,
+donc invisible ailleurs. Ce qui doit exister sur **toute** zone se met dans `eho/modeles/<code>/`
+(`manifest.json`, `payload.json`, `portraits/`) : c'est copié dans l'image, listé `builtin`, non
+supprimable. ⭐ **« SKOLKAN PERSONA 21.09.26 »** (`SKOLKAN-PERSONA-21-09-26`) : 453 avatars, 58 groupes,
+STARTEX, planche officielle, 118 portraits. ⚠ Dans un payload, les `avatar_url` doivent être
+**relatives** (`/api/uploads/<nom>`) et les fichiers livrés : l'application les rend absolues pour
+l'instance. Un modèle capturé embarque des adresses absolues du poste d'origine → portraits cassés ailleurs.
+
+
+## Règle — Une image avec volume de données ne fixe pas `USER` : l'entrypoint rend le volume puis abandonne root *(2026-09-21)*
+
+Pléiade crée le dossier hôte `data/` d'une instance en **root** ; un `chown` fait dans l'image
+est recouvert par le montage. Une image en `USER nextjs` ne peut alors **rien écrire** dans son
+volume (eho : « EACCES mkdir /app/data/uploads » ; LEAC : pièces jointes). Schéma retenu (eho,
+LEAC) : entrypoint root → `mkdir -p` + `chown -R nextjs:nodejs /app/data` → `exec su-exec nextjs`.
+Tester une image sur un **volume pré-rempli par root**, pas sur un volume neuf (initialisé depuis
+l'image, donc déjà bien possédé — le cas du serveur ne s'y reproduit pas).
+
+
+## Règle — Toute adresse absolue rendue au navigateur se construit sur les en-têtes du proxy *(2026-09-21)*
+
+Derrière Traefik, `req.url` est ce que le conteneur reçoit (`http://`, réseau interne). Une
+adresse absolue bâtie dessus (portraits eho, retour de déconnexion…) donne du **contenu mixte**
+ou un mauvais hôte. Ordre : variable publique explicite (`EHO_PUBLIC_URL`, `NEXTAUTH_URL`) →
+`X-Forwarded-Proto`/`X-Forwarded-Host` → origine de la requête. eho : `originePublique(req)`.
+
+
+## Règle — Vérifier un déploiement d'app par sa MARQUE DE VERSION, jamais par une empreinte d'assets *(2026-09-21)*
+
+`GET /api/sante` → `{ version }` sur **LEAC** (`lib/version.ts`) et **eho** (idem depuis `2026-09-21.1`).
+Incrémenter la marque à chaque push sur `prod`. Une empreinte des chunks `/_next/static` ne bouge
+pas quand seule la partie serveur change → faux « pas déployé » (constaté sur trois builds de suite).

@@ -182,6 +182,115 @@ Verrous portés par les statuts :
     points à confirmer · proposition). Correspondance **exacte**. L'annexe I n'en
     reprend que trois : c'est un **résumé**, pas une perte.
 
+### ⭐⭐ Règle 24 — Qui décide quoi *(2026-09-18)*
+
+⚠⚠ **Keycloak dit QUI VOUS ÊTES. LEAC dit CE QUE VOUS AVEZ LE DROIT D'Y FAIRE.**
+*(corrigé le 2026-09-18 sur reprise de l'utilisateur — j'avais d'abord mis
+l'administration dans un rôle Keycloak, c'était faux)*
+
+| | Répond à | Où c'est enregistré |
+|---|---|---|
+| **Pléiade / Keycloak** | *qui êtes-vous ?* — compte de zone (mail, nom, prénom, mdp généré) | royaume |
+| **Administrateur de LEAC** | créer des contrôles, tout voir, paramétrer | **`administrateurs_entite`, base `leac`** |
+| **Fonction dans un contrôle** | **quelles grilles s'ouvrent** | `membres_equipe` |
+
+**⭐ Le bouclier Pléiade compte aussi** *(2026-09-21, demande utilisateur)* : le
+rôle `admin` du client `leac`, donné par groupe depuis Pléiade, **inscrit** la
+personne dans `administrateurs_entite` à sa connexion suivante (ligne
+`promuPar` = bouclier, journal `administrateur.bouclier`). La vérité reste dans
+LEAC ; le bouclier est une **source de plus** avec l'amorçage et la promotion.
+⚠ Une ligne du bouclier **se retire dans Pléiade**, LEAC refuse de la révoquer.
+⚠ Rôles lus **à la connexion** → se reconnecter après attribution.
+*(Le 18/09 on avait écarté la lecture nue du jeton — « deux vérités » ;
+l'inscription en base règle ce point.)* Module pur : `lib/zone/bouclier.ts`.
+
+**Amorçage** : `LEAC_ADMINISTRATEURS` (variable d'instance, réglée depuis
+Pléiade) **inscrit** des administrateurs en base au démarrage. Elle n'autorise
+rien par elle-même. ⚠ En retirer une adresse **ne révoque pas** · le **dernier**
+administrateur ne peut pas être révoqué.
+
+⚠ **Ne pas retirer le bloc `roles:` de `catalog/leac.yml`** sans le vouloir :
+`ensureClientRoles` **supprime de Keycloak** tout rôle absent du catalogue. Le
+rôle `admin` y est laissé, marqué obsolète et **inerte**.
+
+- **Fonction dans un contrôle** (`MembreEquipe`) → **quelles grilles s'ouvrent**.
+  **Change à chaque contrôle** : le même officier est chef d'équipe lundi et
+  contrôleur S2 jeudi.
+
+**Cloisonnement des grilles** — `domainesOuverts()` dans `domaine/domaines.ts` :
+transverses ouverts à tous · domaine de fonction réservé à son titulaire ·
+commandement voit tout. ⚠ Une fonction **inconnue** n'ouvre **que les
+transverses**, jamais tout : se tromper doit FERMER.
+
+**Affectation en CHOISISSANT un compte de la zone** *(depuis le 2026-09-18,
+suite 10)* : `lib/zone/comptes.ts` lit `GET /api/internal/zones/:zone/users`
+de Pléiade (clé de service, **sans mot de passe**, `LEAC_GROUPE_UTILISATEURS`
+pour restreindre à un groupe ; vide = tous) et le siège est lié à
+l'`identityId` **tout de suite**. Repli : affectation par ADRESSE
+(`MembreEquipe.email`), `identityId` renseigné à la première connexion. ⚠ Le
+compte choisi est **relu auprès de Pléiade** côté serveur — jamais de confiance
+au navigateur. ⚠ La route d'opérateur (`/api/zones/:zone/users`) reste
+interdite aux apps : elle rend `rawPassword`.
+
+**Suppression d'un contrôle** (§ V.A.7) : **seulement** en INITIALISATION ou
+EN_PREPARATION — un contrôle parti porte le travail d'une équipe, il se clôture
+puis s'archive. ODM ou administrateur, intitulé retapé et vérifié côté serveur,
+journalisé AVANT l'effacement (`depot.supprimerControle`).
+
+**Déconnexion** : `signOut` NextAuth **puis** `end_session_endpoint` Keycloak
+avec `id_token_hint` — sans le second, Keycloak reconnecte la même personne en
+silence et changer de compte est impossible.
+
+⚠⚠ **Le cloisonnement se rejoue côté serveur** : `/api/sync` revérifie
+l'habilitation. Un garde d'affichage ne protège rien. **404, jamais 403.**
+
+### ⭐⭐ Règle 26 — La grille est une DONNÉE, figée par contrôle *(2026-09-19)*
+
+`GrilleReferentiel` (import .xlsx/.json, rapport, activation = second geste) ;
+`Controle.grilleId` fige la grille active à la création — un contrôle en cours
+ne change jamais de grille. Écrans : `useDomaines()` (jamais `DOMAINES`) ;
+serveur : `grilleDuControle()`. Grille embarquée = défaut et forme de toute
+grille (`domaine/grille.ts`, réglage N4 par nom de feuille).
+⚠⚠ **Le classeur N4 du CECPC porte 9 codes en double** (2.3.2.x codés 1.3.2.x,
+1.8.3.x codés 1.8.2.x) : réparés (`~2`), affichés, **à corriger par le CECPC**.
+
+### ⭐⭐ Règle 27 — Le serveur JUGE chaque opération selon son auteur *(2026-09-19)*
+
+`sync/politique.ts` : note/observation ⇒ l'auteur ÉCRIT sur le domaine (droits
+par domaine `MembreEquipe.droits` par-dessus la fonction) ; demande ⇒
+commandement ; paramétrage ⇒ ODM ; chacun valide SA grille ; cycle suivant et
+synthèses ⇒ commandement ; entité inconnue ⇒ refus. Un refus est **conservé
+avec son motif, accusé, non redistribué, dit à la tablette**. Les verrous
+d'écran ne protègent rien — c'est ici que la règle compte.
+
+### ⭐ Règle 28 — Deux capacités ÉTEINTES par défaut, en attente du CECPC *(2026-09-19)*
+
+`LEAC_PIECES_JOINTES=1` (photos/PDF par critère — classification des photos ?)
+et `LEAC_AUTO_EVALUATION=1` (référents d'unité, `Controle.mode = AUTO`,
+étanchéité `peutEntrer` : l'administrateur n'entre jamais dans une
+auto-évaluation dont il n'est pas membre). Construites, testées, hypothèses
+écrites dans le code ; déclarées dans `catalog/leac.yml` (local, non commité).
+
+### ⭐⭐ Règle 25 — L'AUTEUR fait partie de la cible d'une note et d'une observation *(2026-09-18)*
+
+`Note#<cycle>:<pointId>|<auteurId>#valeur` · `Observation#<cycle>:<domaineId>|<auteurId>#<champ>`.
+⚠ Sans l'auteur, deux contrôleurs d'un **transverse** — noté par plusieurs,
+par définition — écrivaient la même clé et **s'écrasaient** ; la synchronisation
+le montrait comme une *collision* alors que c'était le cas nominal. *(Défaut
+réel, corrigé le 2026-09-18.)*
+
+**Calcul** (`domaine/apports.ts`) : domaine de **fonction** → valeur la plus
+récente tous auteurs (remplacement du titulaire) · domaine **transverse** →
+moyenne des moyennes de chaque observateur, **pondérée** par le paramétrage
+(`poidsDe`) ; si le domaine n'est pas paramétré, tout le monde pèse 1. La case
+« retenu dans la moyenne » décide qui **pèse**, jamais qui **voit**.
+
+**Label** : le calcul propose, **le chef de contrôle valide** (diapo 20) ;
+s'écarter du calcul sans justification = manque **bloquant** du CRF.
+
+**Critères retenus** : `Selection#<id>#retenu=false` ; un critère écarté sort
+des grilles et de la couverture, ses notes restent au journal.
+
 ---
 
 ## 5. ⭐⭐ Le défaut de la v2.5 que la v3 corrige
@@ -239,6 +348,13 @@ avec des gants.**
 - Système **PLEIADE** : graphite + craie, angles vifs, Archivo + JetBrains Mono,
   mention `EXERCICE · NON CLASSIFIÉ`.
 
+**Complété le 2026-09-18** (« tu peux partir sur les 4 », en production) :
+- **Polices embarquées** (`@fontsource-variable`, OFL) — aucun CDN, réseau fermé.
+- **Mode sombre** en option : `data-theme="sombre"`, posé par un script de tête
+  avant le premier rendu (pas de flash), bascule dans l'accueil.
+- **Bandeau** commun (`ui/bandeau.tsx`) : contrôle, unité + insigne, fonction.
+- **Mentions compactes** sous 480 px (`Mention.court`) — la tablette en portrait.
+
 ---
 
 ## 8. État d'avancement
@@ -273,7 +389,24 @@ avec des gants.**
 | **Pondérations adaptables par le mandat du N+1** | ✅ 2026-09-17 — commit `e3079f8` |
 | ⭐ **Branches `main` et `prod` en place sur GitHub** | ✅ 2026-09-17 |
 | ⭐⭐ **EN PRODUCTION** — `https://leac.cecpc-div-eval.pleiade.internal` | ✅ 2026-09-17 au commit `a747d4f` · image au registre, 30 tables créées, sonde à 200 |
-| ⚠ **Synchronisation SERVEUR** — le cœur de la finalité | ❌ **à écrire** · Prisma généré mais jamais instancié ; l'écran de synchronisation *simule* |
+| ⭐⭐ **Synchronisation SERVEUR** — le cœur de la finalité | ✅ 2026-09-17 — `api/sync` + `lib/sync/protocole.ts` + `lib/offline/echange.ts` |
+| ⭐⭐ **Habilitations** — accueil, admin vs contrôleur, cloisonnement des grilles | ✅ 2026-09-18 — `lib/zone/habilitation.ts` · règle pure testée dans `domaines.ts` |
+| ⭐⭐ **L'administration appartient à LEAC**, pas à Keycloak | ✅ 2026-09-18 — `lib/controle/administrateurs.ts` + écran · amorçage par `LEAC_ADMINISTRATEURS` |
+| ⭐⭐ **L'auteur dans la cible** — transverses sans écrasement, pondération par observateur calculée | ✅ 2026-09-18 — `offline/cibles.ts`, `apports.noteurDe`, `useNotesDuControle` |
+| ⭐ **Label validé par le CC** · **Annexe III complète** (Scorpion, recommandations, exercice structuré) | ✅ 2026-09-18 — `label.labelFinal`, `crf.AnnexeIII`, écran CRF |
+| ⭐ **Équipe réunie** (affecter / libérer depuis le paramétrage, fonctions non pourvues) · **journal d'audit** | ✅ 2026-09-18 — `parametrage/actions.ts`, `serveur/audit.ts` |
+| ⭐ **Critères retenus par le mandat** · **non couverts + demande de complément** | ✅ 2026-09-18 — onglet Critères, `useDemandes`, tableau de bord |
+| ⭐ **Restitutions hors ligne** (navigateur) · **unité + clôture + historique** · descriptions réinjectées (216) | ✅ 2026-09-18 |
+| ⭐ **Référentiel des unités** — sélection à la création, insigne téléversé (PNG/JPEG, octets vérifiés), historique par régiment, insigne sur CRF/3A | ✅ 2026-09-18 — `lib/controle/unites.ts`, `/administration/unites`, `/api/insignes/[id]` · ⚠ insignes à fournir par le CECPC, pas récupérés sur internet |
+| ⭐ **Déconnexion complète** (NextAuth + `end_session` Keycloak) · **bouton sur l'accueil** | ✅ 2026-09-18 — `lib/zone/deconnexion.ts` |
+| ⭐ **Axel administrateur par défaut de l'image** (`ENV LEAC_ADMINISTRATEURS`, l'instance peut surcharger) · **amorçage corrigé** (entité créée au premier passage) | ✅ 2026-09-18 — `Dockerfile`, `administrateurs.ts` |
+| ⭐ **Design complété** — polices embarquées, mode sombre, bandeau, mentions compactes | ✅ 2026-09-18 — `ui/bandeau.tsx`, `ui/bascule-theme.tsx` |
+| ⭐ **Équipe composée parmi les comptes de la zone** — route Pléiade `GET /api/internal/zones/:zone/users` (sans mot de passe) + sélecteurs | ✅ 2026-09-18 — `pleiade-platform` `069b48d` · `lib/zone/comptes.ts` |
+| ⭐ **Supprimer un contrôle** (INITIALISATION / EN_PREPARATION, intitulé retapé, journalisé) | ✅ 2026-09-18 — `depot.supprimerControle`, onglet Initialisation |
+| ⭐⭐ **EN PRODUCTION — version `2026-09-18.7`** (`/api/sante` la rend) | ✅ 2026-09-18 — commit `e2fe00e` sur `prod` |
+| ⭐⭐ **Six lots du comparatif ÉVAL-PC** (A saisie · B lecture · C droits fins + politique serveur · D comparaison · E hors ligne/démo/mobile · F grilles/pièces/auto-éval) | ✅ 2026-09-19 — 9 commits `28df915`→`1045719`, **EN PRODUCTION** version `2026-09-19.1`, 422 tests |
+| ⭐⭐ **Le bouclier Pléiade INSCRIT les administrateurs** (rôle `admin` du jeton → ligne créée, `promuPar` = bouclier ; révocation refusée côté LEAC) | ✅ 2026-09-21 — `lib/zone/bouclier.ts`, commit `dfae88f`, **EN PRODUCTION** version `2026-09-21.1`, 430 tests |
+| 🔴 **Volume de données rendu à `nextjs`** (défaut latent : `./data` créé root par l'orchestrateur → pièces jointes impossibles) | ✅ 2026-09-21 — `Dockerfile` sans `USER` + entrypoint `su-exec`, **EN PRODUCTION** version `2026-09-21.2` |
 | **Note d'intégration pour la plateforme** | ✅ `docs/INTEGRATION-PLEIADE.md` — écrite pour qui devra comprendre sans avoir écrit |
 | Glossaire, écrans d'administration | ❌ à écrire |
 | Génération 3A (.pptx) / CR (.docx) | ❌ balises inventoriées, génération à écrire |
@@ -295,8 +428,25 @@ disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
   utilisable sans revoir le serveur ? Arbitrage sécurité / terrain.
 - ⏳ **Reprise de l'existant** : importer les contrôles archivés de la v2.5, ou
   repartir à blanc ?
-- ⏳ **Ordre des écrans à construire** — proposition : notation terrain d'abord
-  (c'est le cœur et le plus utilisé), puis synchronisation, puis paramétrage.
+- ✅ ~~Ordre des écrans~~ — tous construits (notation, synchronisation,
+  paramétrage, CRF, administration).
+- ⏳ **P1 / P4 de l'analyse du 2026-09-18** (`ANALYSE_2026-09-18.md`) — arbitrage
+  CECPC attendu.
+- ⏳ **Insignes des unités** : à fournir par le CECPC (pas de récupération sur
+  internet — réseau fermé, droits MinArm) ; liste des régiments (CSV) si dispo.
+- ⏳ **Côté utilisateur** : créer les comptes de zone de test dans Pléiade ;
+  confirmer que la déconnexion retombe sur `/connexion` (non testable en local).
+- ✅ 2026-09-21 : `catalog/leac.yml` poussé (`pleiade-platform` `bbb3d4e`) —
+  `LEAC_PIECES_JOINTES` / `LEAC_AUTO_EVALUATION` réglables depuis Pléiade, vides.
+- ✅ 2026-09-21 : tous les dépôts Pléiade à jour sur Xavier. `package-lock.json`
+  et `public/style.css` de `pleiade-platform` étaient des artefacts de mon poste,
+  pas du travail de Xavier — plus rien à protéger là ; `--autostash` inutile.
+- ⏳ **CECPC** : corriger les 9 codes en double du classeur N4 ; trancher
+  pièces jointes (classification) et auto-évaluation (public, comptes).
+- ✅ 2026-09-21 : **le rôle Keycloak `admin` reprend du service** — il porte le
+  bouclier Pléiade (cf. Règle 24, « Le bouclier Pléiade compte aussi »). Il n'est
+  plus obsolète : **ne pas le retirer** de `catalog/leac.yml`, `ensureClientRoles`
+  le supprimerait de Keycloak avec ses attributions (leçon du 2026-09-18).
 
 ---
 

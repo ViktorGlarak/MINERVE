@@ -7,8 +7,8 @@ source: ../../SECRETAIRE/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-09-17
-updated: 2026-09-17
+created: 2026-09-22
+updated: 2026-09-22
 ---
 
 # 🤖 SECRÉTAIRE — Canvas agent

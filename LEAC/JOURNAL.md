@@ -4,6 +4,671 @@
 
 ---
 
+## 2026-09-21 (suite 2) — 🔴 Défaut LATENT réparé : le volume de données d'une instance appartient à root
+
+Trouvé sur eho (« EACCES: permission denied, mkdir '/app/data/uploads' » à la
+première écriture disque sur le serveur), **LEAC avait exactement le même
+schéma** : image en `USER nextjs`, montage `./data:/app/data` d'un dossier
+**créé par l'orchestrateur en root** — le `chown` fait dans l'image est
+recouvert par le montage. Personne ne l'avait vu parce que LEAC n'avait encore
+rien écrit sur disque en production : les **pièces jointes** (`DATA_DIR/pieces`)
+auraient échoué au premier téléversement réel.
+
+- **Correctif, identique dans les deux dépôts** : plus de `USER nextjs` dans le
+  `Dockerfile` ; `apk add su-exec` ; l'entrypoint démarre **root**, fait
+  `mkdir -p` + `chown -R nextjs:nodejs /app/data`, puis
+  `exec su-exec nextjs "$0" "$@"` — tout le reste (migrations, serveur) tourne
+  sous `nextjs` comme avant.
+- ⚠ **À tester sur un volume pré-rempli par root**, jamais sur un volume neuf :
+  un volume neuf est initialisé depuis l'image, donc déjà bien possédé, et le
+  cas du serveur ne s'y reproduit pas.
+- Version **`2026-09-21.2`**, poussée `main` + `prod`, **en ligne** sur
+  `leac.cecpc-div-eval`.
+- ⚠ Signalé pour les apps de Xavier (press, messagerie, social) : même schéma
+  probable. Alternative côté plateforme : que Pléiade `chown` le dossier `data`
+  à l'uid de l'app à la création de l'instance.
+
+## 2026-09-21 (suite) — ⭐ Le bouclier Pléiade administre aussi LEAC
+
+**Déclencheur** : Axel, dans un groupe « admin » sur Pléiade, vu comme simple
+utilisateur par LEAC. Vérifié : c'était **le fonctionnement décidé le 18/09**
+(LEAC ignore les rôles Pléiade ; administrateurs = `administrateurs_entite`,
+amorcés par `LEAC_ADMINISTRATEURS` ou promus à la main). Sur
+`leac.cecpc-div-eval`, `/api/sante` → `amorce: true`, version `2026-09-19.1` ;
+donc l'adresse amorcée existe et c'est le **rattachement par adresse** qui
+échoue (adresse différente, compte recréé, ou autre instance au champ vide —
+⚠ Pléiade écrit `LEAC_ADMINISTRATEURS=` vide à la création, ce qui ÉCRASE
+l'`ENV` de l'image).
+
+**Décision utilisateur** : *« je veux que LEAC fonctionne également avec le
+bouclier Pléiade… comme les autres applis »*. Mise en œuvre sans défaire le
+18/09 : la vérité reste dans LEAC, **le bouclier INSCRIT** :
+
+- `lib/zone/bouclier.ts` (pur, testé) : `ROLE_ADMIN_BOUCLIER = "admin"`,
+  `porteLeBouclier(roles)`, `PROMU_PAR_BOUCLIER`, `inscritParLeBouclier(promuPar)`.
+- `estAdministrateur` : après amorçage et rattachement, si le jeton porte
+  `admin` (royaume ou client `leac`) → **création d'une ligne** (adresse,
+  identité, `promuPar` = bouclier, journal `administrateur.bouclier`) puis
+  `true`. Sans adresse dans le jeton ou ligne déjà tenue : `true` quand même,
+  c'est Pléiade qui a donné le rôle.
+- `revoquer` **refuse** une ligne du bouclier (elle reviendrait à la connexion
+  suivante) : le droit se retire dans Pléiade. Écran : pastille « bouclier
+  Pléiade », bouton Révoquer désactivé, texte d'en-tête réécrit.
+- `catalog/leac.yml` : rôle `admin` **réhabilité** (« Administration »), bloc
+  de commentaire réécrit. Le rôle client existait déjà dans Keycloak (jamais
+  retiré) → aucune synchronisation de zone nécessaire.
+- ⚠ Les rôles sont lus **à la connexion** : un rôle donné après coup vaut à la
+  connexion suivante → dire à l'utilisateur de se déconnecter/reconnecter
+  (déconnexion complète en place depuis ce matin).
+- Version `2026-09-21.1`. Tests **430/430** (dont 8 sur le bouclier), tsc, lint, build. **Commit `dfae88f`, `main` + `prod`** ; catalogue `pleiade-platform` `32c5f16` (`main`).
+
+## 2026-09-21 — Mise à jour des 12 dépôts Pléiade, sans rien casser
+
+Demande utilisateur : être à jour sur les push/pull par rapport aux travaux
+de Xavier, sans conflit. `git fetch` partout. Rapatriés en avance rapide :
+`app-press` (2), `app-social` (2), `eho` main (4, branche `MEYTRE`
+conservée), `mastorion` main (12), `app-leac` prod local (17).
+`pleiade-platform` : 10 commits de Xavier (icônes d'instance, favicon via
+Traefik, champs d'env éditables). ⚠ Les « fichiers locaux de Xavier »
+(`package-lock.json`, `public/style.css`) que je protégeais depuis le 18/09
+**n'étaient pas de lui** : artefacts de MON poste (lock resynchronisé par npm,
+Tailwind non minifié écrit par `npm run dev`, tous deux du 18/09 15h03).
+Jetés (`git checkout --`), catalogue mis de côté, avance rapide, catalogue
+remis : 0 conflit. Rien de Xavier ne touche LEAC. Puis, sur feu vert, le
+catalogue (2 variables) commité et poussé : `pleiade-platform` `bbb3d4e`.
+
+---
+
+## 2026-09-19 (suite) — ⭐⭐ Les six lots du comparatif ÉVAL-PC, mis en place EN LOCAL
+
+Feu vert utilisateur : « je t'autorise à mettre en place tous les lots
+PROPOSÉS ». Neuf commits sur `app-leac` (`28df915` → `1045719`), **poussés sur feu
+vert : main + prod, en ligne à t+4 min, version `2026-09-19.1`** (image
+reconstruite, `db push` passé sans perte). 422/422 tests, tsc, lint,
+toutes les pages en 200 sur le serveur de dev, vérification mobile
+320/375/414 sans débordement.
+
+- **A — saisie** : recherche plein texte + filtres (non notés, par mention,
+  complément demandé) sur la grille et l'onglet Critères ; mode « un par un »
+  (gros boutons, prochain non noté, sommaire, raccourcis 1-8 / ← → / N / 0) ;
+  écran Affichage (taille, contraste, mouvement, densité) appliqué avant le
+  premier rendu ; `lib/version.ts` unique.
+- **B — lecture** : tableau de bord analytique (radar, forts/faibles avec
+  couverture, critères critiques ≤ Défaillant, top/bottom 5, distribution des
+  mentions, évolution par CYCLE — l'axe du temps de LEAC, pas la date) en SVG
+  sans bibliothèque ; grille physio réelle au journal + 3 lectures ; page
+  Mandat lisible par toute l'équipe ; lecture des notes en module pur partagé.
+- **C — droits fins** : `MembreEquipe.droits` (écrit / lit / rien par domaine)
+  par-dessus la fonction ; grille en lecture affichée sans se noter ; **politique
+  de réception côté serveur** (`sync/politique.ts`) : chaque opération jugée
+  selon SON auteur ; refus conservé + motif, accusé, non redistribué, dit à la
+  tablette. Les verrous d'écran ne sont plus les seuls.
+- **D — comparaison** : `Controle.bilanFinal` figé à la clôture ;
+  `/administration/comparaison` (2-4 contrôles clôturés, tableau, barres,
+  radar superposé, .xlsx navigateur, impression). On compare l'ANNONCÉ.
+- **E — socle hors ligne** : service worker versionné servi par `/sw.js`
+  (route), navigations réseau→cache, `/hors-ligne`, mise à jour jamais
+  silencieuse, manifest + icônes ; **démo** en un clic (1 482 opérations,
+  reproductible, DÉMO partout, supprimable) ; `npm run verifier:mobile`
+  (Playwright dev-dep, navigateur hors image) ; **amorçage** : première
+  ouverture d'un contrôle = échange automatique (défaut vu sur la démo).
+- **F — sur décision CECPC** (hypothèses écrites, éteintes par défaut) :
+  **grilles importables** (.xlsx via le lecteur des classeurs N4, .json LEAC,
+  rapport, activation = second geste, grille FIGÉE par contrôle,
+  `useDomaines()` partout) ; **pièces jointes** (`LEAC_PIECES_JOINTES=1`,
+  PNG/JPEG/PDF aux octets, 5 Mo, description au journal / octets à part,
+  purge avec le contrôle) ; **auto-évaluation** (`LEAC_AUTO_EVALUATION=1`,
+  `Controle.mode`, référents d'unité, étanchéité `peutEntrer`).
+- ⚠⚠ **Défaut de données révélé** par la relecture des grilles : **9 codes de
+  critère en double dans le classeur N4** du CECPC (`2.3.2.x` codés `1.3.2.x`
+  dans « Travail collectif », `1.8.3.x` codés `1.8.2.x`). Deux critères
+  partageaient une clé de note. Réparé (`~2` sur le second, le premier garde
+  son identifiant), affiché à l'administrateur (écran Grilles), **à corriger
+  dans le classeur par le CECPC**.
+- ⚠ `pleiade-platform/catalog/leac.yml` : deux variables ajoutées EN LOCAL,
+  non commitées (dépôt de Xavier, fichiers locaux intacts).
+- Reste : pousser sur feu vert (main puis prod, `db push` ajoute 3 tables /
+  5 colonnes sans perte) ; commiter le catalogue Pléiade ; arbitrages CECPC.
+
+---
+
+## 2026-09-19 — Comparatif avec ÉVAL-PC (spécification d'un client)
+
+Reçu `REFERENCES/2026-09-19_EVAL-PC_prompt-creation_client.md` : prompt de
+création d'une app « ÉVAL-PC » produit par un client avec une IA sur son
+téléphone. Demande : **comparer sans rien modifier**, proposer ce qu'on
+absorbe. Résultat : `COMPARATIF_EVAL-PC_2026-09-19.md` — 15 idées classées
+(droits par domaine réglables, mode un-critère-à-la-fois, recherche/filtres,
+tableau de bord analytique, comparaison de contrôles, pièces jointes, grilles
+importables, préférences d'affichage, PWA, démo, auto-évaluation…), 8 points à
+**ne pas** reprendre (échelle chiffrée, seuils de niveau divergents de la N4,
+plafond label B vs C, snapshots, « synchroniser = recharger », mention DR par
+défaut, JSON de notes), 5 arbitrages CECPC, 6 lots A→F. ⚠ Constat utile :
+ÉVAL-PC révèle un manque de **notre** socle — pas de service worker, l'app
+ne s'ouvre pas sans réseau si les pages ne sont pas déjà chargées (lot E).
+En attente de la décision de l'utilisateur.
+
+---
+
+## 2026-09-18 (suite 12) — ⚠ Texte perime sur l'ecran de synchronisation
+
+Question de l'utilisateur : « si j'appuie sur Synchroniser, ca ne se synchronise
+pas sur le serveur ? ». **Si** : `echanger()` → `POST /api/sync` → operations
+rangees en base, celles des autres appareils rapatriees (branche le 2026-09-17
+suite 4). Mais le paragraphe au-dessus du bouton disait encore « le serveur de
+zone n'est pas encore branche, ce bouton simule… » — texte de la maquette,
+oublie quand le tuyau a ete pose. **Lecon** : un texte d'ecran est une promesse ;
+quand une simulation devient reelle, relire TOUT ce que l'ecran affirme, pas
+seulement le code. Corrige (texte + version 2026-09-18.7), tsc + lint OK.
+Pousse sur feu vert : `e2fe00e` main + prod, en ligne a t+2 min (2026-09-18.7).
+
+---
+
+## 2026-09-18 (suite 11) — Supprimer un controle (§ V.A.7)
+
+Demande utilisateur (controle d'essai « antares 21RIMa » a effacer). Fait :
+`depot.supprimerControle` — **seulement en INITIALISATION ou EN_PREPARATION**
+(un controle parti porte le travail d'une equipe : il se cloture, puis
+s'archive), journalise AVANT la suppression ; action serveur gardee par
+`peutParametrer` **et** par l'intitule retape, verifie cote serveur ;
+section « Supprimer ce controle » en bas de l'onglet Initialisation, avec
+confirmation maison (jamais `confirm()`). Cascade **prouvee** sur la base
+locale : equipe, appareils, operations, cycles → 0 orphelin. 312/312, tsc,
+lint, build. Pousse sur feu vert : main + prod, version 2026-09-18.6.
+
+---
+
+## 2026-09-18 (suite 10) — Composer l'equipe en CHOISISSANT parmi les comptes de la zone
+
+**Demande utilisateur** : au lieu de taper une adresse, selectionner des
+personnes deja enregistrees comme utilisateurs de la zone dans Pleiade ; creer
+3 comptes de test « controleur 1/2/3 ».
+
+- **Comptes de test** : impossible pour moi (creation = Pleiade, session
+  d'operateur) — a faire par l'utilisateur ou Xavier ; ils apparaitront dans la
+  liste automatiquement.
+- **La liste** : le blocage etait que la seule route de Pleiade listant les
+  comptes est reservee a l'operateur ET rend `rawPassword`. Ajoute a Pleiade
+  **`GET /api/internal/zones/:zone/users`** (cle de service via `cleZoneValide`,
+  que Xavier avait factorisee ; **sans mot de passe** ; comptes de service et
+  desactives ecartes ; `?group=<nom>` optionnel). Cote LEAC : `lib/zone/comptes.ts`
+  (cache 30 s, repli sur la derniere liste connue, vide hors zone), `Membre`
+  affecte avec `identityId` **lie tout de suite** quand le compte est choisi ;
+  saisie d'adresse conservee en repli. Les deux formulaires (creation,
+  parametrage/Siege). ⚠ L'identite choisie est **relue aupres de Pleiade** cote
+  serveur — on ne fait pas confiance au navigateur. Catalogue :
+  `LEAC_GROUPE_UTILISATEURS` (vide = tous).
+- Verifie : 312/312, tsc (les deux depots), lint, build ; en local (hors zone)
+  le formulaire retombe sur la saisie d'adresse. **La route Pleiade n'est pas
+  testable d'ici** (pas d'orchestrateur local) : a verifier sur le serveur.
+
+✅ Pousse sur feu vert : `pleiade-platform` `e4b1bb7..069b48d` (catalogue +
+route, rebase, fichiers locaux de Xavier intacts) ; `app-leac` `f2e6cde`
+main + prod, **en ligne a t+3 min** (version 2026-09-18.5). La route Pleiade
+repond 401 sans cle depuis l'exterieur — elle est bien deployee.
+
+---
+
+## 2026-09-18 (suite 9) — Design : polices embarquees, bandeau, mode sombre, mentions compactes
+
+Avis rendu a l'utilisateur (« optimal ou mieux ? ») : socle sain (contraste,
+48 px, clair par defaut, couleurs daltonien-compatibles) mais **deux promesses de
+la charte non tenues** et une nudite visuelle. Les quatre points, sur son feu vert :
+
+1. **Polices** — Archivo et JetBrains Mono etaient declarees sans jamais etre
+   chargees (chacun voyait sa police systeme). Embarquees via
+   `@fontsource-variable/*` (OFL), importees au layout racine : aucun CDN,
+   compatible reseau ferme. Verifie dans le bundle (`.next/static/media/*.woff2`).
+2. **Mode sombre** — les jetons `[data-theme="sombre"]` existaient sans bouton.
+   `lib/ui/bascule-theme.tsx` : choix explicite memorise (`localStorage`),
+   applique avant le premier rendu par un script dans `<head>` (pas d'eclair
+   blanc). ⚠ On ne suit PAS `prefers-color-scheme` : clair par defaut, doctrine.
+3. **Bandeau** — `lib/ui/bandeau.tsx` sur toutes les pages : graphite, nom en
+   chasse fixe espacee, zone (`PLEIADE_ZONE`), bouton de theme. `.frappe-vide`
+   passe au trait fort (un bouton ne doit pas ressembler a un cadre) ;
+   `.sur-titre` a 0,1 em (ne passe plus sur deux lignes au telephone).
+4. **Mentions compactes** sous 480 px — deux rangees de quatre, mots abreges
+   (`Mention.court`, affichage seulement), le mot choisi ecrit en entier sous la
+   rangee. Sur tablette, rien ne change.
+
+306/306, tsc, lint, build. **Non commite** — en attente du feu vert.
+
+---
+
+## 2026-09-18 (suite 8) — ⚠ Defaut d'amorcage : sans entite, personne n'etait administrateur
+
+Capture de l'utilisateur : Axel toujours simple utilisateur apres l'amorcage.
+Cause : `estAdministrateur` cherchait une **entite existante** avant de semer ;
+sur le serveur il n'y en avait **aucune** (l'ancienne version ne la creait qu'a
+la premiere synchronisation, jamais faite). Rien n'etait seme, et le refus
+etait silencieux. ⚠ Lecon : **le premier administrateur ne peut pas dependre
+d'un geste que seul un administrateur peut faire.** Corrige : `entiteCourante()`
+(cree si absente) dans `estAdministrateur`, `listerAdministrateurs`,
+`promouvoir` ; l'echec de lecture est journalise. Marque `version` sur
+`/api/sante`. Commit `97d2c3c`, `main` + `prod`, **en ligne a t+2 min**.
+
+---
+
+## 2026-09-18 (suite 7) — Axel administrateur de LEAC, par defaut de l'image
+
+L'utilisateur n'avait pas ses identifiants Pleiade (en remote depuis son
+telephone). Refus de chercher des identifiants ; voie legitime trouvee par le
+code : `ensureDiscoveryEnv` ne complete que le bloc `PLEIADE_*`, donc le `.env`
+de l'instance (17/09) ne porte pas `LEAC_ADMINISTRATEURS` — une valeur posee
+dans l'IMAGE (`ENV` du Dockerfile) s'applique, et la variable d'instance
+primera des qu'elle sera reglee.
+
+⚠ Le garde-fou de l'outil a d'abord **refuse** l'edition (octroi de droits) ;
+arret, explication, **confirmation explicite** de l'utilisateur (« admin
+uniquement sur LEAC, pas sur Pleiade » — exact), puis edition. Commit
+`57cd3c9`, `main` + `prod`. `/api/sante` rend desormais `amorce` (booleen) :
+**`true` sur le serveur a t+2 min**. Axel sera inscrit a sa prochaine
+connexion (liaison par adresse, insensible a la casse).
+
+---
+
+## 2026-09-18 (suite 6) — Mise en production de la version « habilitations »
+
+**Autorisation explicite de l'utilisateur** : *« tu peux faire le 1 et 3, je
+m'occupe de 2 et 4 »* (1 = catalogue Pléiade, 3 = `prod` ; 2 = variable
+`LEAC_ADMINISTRATEURS`, 4 = second compte de test).
+
+| | Geste | Résultat |
+|---|---|---|
+| 1 | `pleiade-platform` : **`catalog/leac.yml` seul** commité (`e4b1bb7`), **rebasé** sur 2 commits de Xavier (`b083a9f`, `a3e41bd` — identité de zone, ne touchent pas le catalogue LEAC), `--autostash` pour ses fichiers locaux non miens (`package-lock.json`, `public/style.css`, laissés tels quels), poussé `a3e41bd..e4b1bb7` | Pléiade se redéploie avec `LEAC_ADMINISTRATEURS` déclarée et `adminPath: /administration/administrateurs` |
+| 3 | `app-leac` : `origin/main:prod`, avance rapide `a747d4f..74f066e` (2 commits : synchronisation + habilitations/corrections/unités) | Le runner construit l'image (tests dans le build) |
+
+⚠ Vigilance connue : `/usr/local/sbin/pleiade-promouvoir` + sudoers doivent
+connaître `leac` pour que la nouvelle image **remplace** l'instance (note du
+17/09). Sonde de version : `GET /administration/administrateurs` sans session
+→ **404** = ancienne version, **307** = nouvelle. Surveillance lancée. **Résultat : nouvelle version en ligne à t+6 min** (sonde 404 → 307, `/api/sante` 200). Pléiade a rendu 404 une minute à t+1 (son propre redéploiement), puis 302. ✅ La promotion a bien remplacé l'instance : le point « pleiade-promouvoir / leac » est réglé en pratique.
+
+⏭️ Côté utilisateur : renseigner `LEAC_ADMINISTRATEURS` sur l'instance (puis
+la **redémarrer** — une variable d'environnement se lit au démarrage du
+conteneur), créer un second compte de zone, l'affecter depuis LEAC.
+
+---
+
+## 2026-09-18 (suite 5) — Déconnexion complète, et premier commit de la journée
+
+**Remarque utilisateur** : pas de bouton de déconnexion ; sur le serveur, connecté
+en Axel, impossible de changer de compte pour essayer.
+
+⚠ Le manque était double : pas de bouton, et un `signOut` NextAuth seul (ce que
+fait eho) **ne clôt pas la session Keycloak** — « se connecter » rouvre le même
+compte sans rien demander. Fait : `lib/zone/deconnexion.ts` ferme LEAC puis
+redirige vers `end_session_endpoint` avec `id_token_hint` (gardé dans le jeton
+NextAuth depuis le `jwt` callback) + `client_id` + `post_logout_redirect_uri`
+= `/connexion`. Le motif `https://<app>/*` déclaré par Pléiade sur les clients
+d'app couvre ce retour. Bouton sur l'accueil. ⚠ Non éprouvé de bout en bout
+en local (le poste passe par `LEAC_DEV_USER`, sans Keycloak) — à vérifier sur
+le serveur au prochain déploiement.
+
+**Commit + push `main` d'`app-leac`** autorisés par l'utilisateur, sous
+condition de conformité et de non-régression. Vérifié avant : 306 tests, tsc,
+lint, build, **image Docker construite localement** (tests exécutés dans le
+build). ⚠ `main` **ne déploie pas** : seule `prod` déploie. ⚠ `pleiade-platform`
+(`catalog/leac.yml`) **non poussé** : `main` y déploie sans garde-fou, et le
+dépôt porte des modifications locales qui ne sont pas de moi
+(`package-lock.json`, `public/style.css`) — demande d'autorisation spécifique.
+
+---
+
+## 2026-09-18 (suite 4) — ⭐ Référentiel des unités, insignes, historique par régiment
+
+**Demande utilisateur** : *« que l'administrateur puisse sélectionner un régiment
+déjà enregistré dans la base… archiver tous les exercices liés à ce régiment…
+récupérer les logos sur internet pour faire quelque chose de propre. »*
+
+### Ce que j'ai répondu sur les logos, et pourquoi
+
+**Je n'ai pas récupéré d'insignes sur internet.** Trois raisons dites à
+l'utilisateur : (1) l'application tourne dans une zone **sans internet**, tout
+doit être embarqué ; (2) les insignes officiels appartiennent au ministère —
+copier Wikipédia dans un outil officiel est une question de **droits** que le
+CECPC tranche, pas moi ; (3) le mémento prévoit déjà que l'administrateur
+**téléverse** les insignes (§ IV.A, § V.A.1). J'ai construit ce mécanisme-là.
+Si l'utilisateur fournit les fichiers ou autorise une source, ils s'intègrent
+en une minute par l'écran.
+
+### Fait
+
+| | |
+|---|---|
+| **Référentiel des unités** `/administration/unites` | créer (libellé court/long, grande unité), désactiver/réactiver (§ IV.A.3 : jamais supprimer), **doublon refusé sur libellé normalisé** (« 152E r.i. » = « 152e RI », inactives comprises → « réactivez plutôt ») |
+| **Sélection à la création** | `<select>` des unités actives + option « autre » qui crée à la volée ; `uniteId` prime sur le libellé |
+| **Insigne** | téléversement PNG/JPEG ≤ 800 Ko, **format lu dans les octets** (un SVG renommé est refusé — il exécuterait du script), stocké dans `DATA_DIR/insignes/<uuid>.<ext>` (volume Pléiade `./data`), servi par `/api/insignes/<id>` (authentifié, `nosniff`, id validé UUID contre la traversée) |
+| **Historique par unité** `/administration/unites/<id>` | tous les contrôles du régiment, niveau + label **annoncés à l'époque** (figés à la clôture), résumé des résultats |
+| **Insigne partout** | accueil, bandeau du contrôle, **page de garde du CRF** (`ImageRun`) et **diapo de garde de la 3A** (`addImage`) — chargé au clic, absent hors réseau sans bloquer ; écusson d'initiales à défaut |
+
+### ⚠ Deux défauts trouvés en éprouvant
+
+- `libelleNormalise` remplaçait la ponctuation par une espace : « r.i. » ≠
+  « ri ». **Le test l'a relevé** ; corrigé (ponctuation retirée).
+- Page d'historique en 500 : le serveur de dev tenait l'**ancien client
+  Prisma** en mémoire (démarré avant `prisma generate`). Pas un défaut du code
+  — build et tsc passaient. Redémarré.
+
+Éprouvé : couche fichiers (PNG écrit, relu, SVG refusé), route (200
+`image/png`, traversée → 404), écrans (200), sélect de création, insigne sur
+l'accueil et le bandeau. **306/306 tests**, tsc, lint, build propres.
+
+### ⏭️ Reste
+
+- **Les insignes eux-mêmes** : à fournir par le CECPC, ou source à autoriser.
+- Une liste initiale des régiments (import CSV) éviterait de les saisir un par
+  un — à proposer quand le CECPC donnera sa liste.
+
+---
+
+## 2026-09-18 (suite 3) — ⭐⭐ Corrections et améliorations de l'analyse, appliquées
+
+**Autorisation utilisateur** : *« Je t'autorise à apporter les améliorations que
+tu as repérées et corriger ce qu'il y a à corriger, on reste bien en local. »*
+Tout est appliqué, **rien n'est commité ni poussé**. 297/297 tests, tsc, lint,
+build de production : propres. Six écrans éprouvés à 200 sur un contrôle réel.
+
+### Corrections
+
+| | Ce qui a été fait | Où |
+|---|---|---|
+| **C1** ⚠⚠ | **L'auteur fait partie de la cible** des notes et des observations (`<cycle>:<pointId>|<auteurId>`). Deux contrôleurs d'un transverse ne s'écrasent plus. Les deux anciennes formes de clé restent lues — rien ne se perd. | `offline/cibles.ts` (pur, 10 tests), `useNotation`, `useObservations`, `useObservationsControle` |
+| **C2** ⚠⚠ | **La pondération par observateur sur un transverse est calculée** : chaque observateur produit sa moyenne du domaine, le domaine est la moyenne pondérée de ces moyennes. Un domaine de fonction retient la valeur la plus récente (remplacement du titulaire). `useNotesDuControle` livre les notes par auteur ET fusionnées. | `domaine/apports.ts` (`noteurDe`, `PoidsDe`), `offline/useNotesDuControle.ts`, 3 écrans |
+| **C3** | La case « observe » devient **« retenu dans la moyenne »** et **fait quelque chose** : `useParametrage.poidsDe` traduit case + poids en poids d'auteur. Repli : domaine jamais paramétré → tout le monde pèse 1. Ne restreint pas l'accès (un transverse reste ouvert à tous, par définition). | `useParametrage.ts`, paramétrage |
+| **C4** | **Le chef de contrôle valide le label** (diapo 20). `labelFinal(calculé, retenu)` ; décision A/B/C/non validé + justification, **obligatoire si elle s'écarte du calcul** (manque bloquant sinon). Le CRF imprime les deux côte à côte. | `domaine/label.ts`, onglet Label, `crf.ts`, `docx-crf.ts` |
+| **C5+P5** | **Annexe III complète** : recommandation générale, appréciation Scorpion (constat + recommandations), bloc structuré exercice (nom, type, EdT, manœuvre, ordres reçus/émis WINGO/OVO/OPO/FRAGO, durée OPO1, APPSIT, structure/protection/SIC des PC, fonctions déployées oui/non, incidents oui/non, recommandations). Saisi hors ligne dans les champs `crf:*`, formulaire sur l'écran CRF. | `restitution/crf.ts` (`AnnexeIII`), `docx-crf.ts`, `compte-rendu/annexe-iii.tsx` |
+| **C6** | **L'équipe réunie** : l'onglet Équipe affecte / libère un siège par adresse (actions serveur gardées par `peutParametrer`), liste les **fonctions non pourvues** du référentiel (le « renfort de dernière minute »), montre « en attente de 1re connexion ». `useParametrage` relit l'équipe du serveur quand elle change, sans perdre le journal. `Membre.identityId` est la vraie identité. | `parametrage/actions.ts`, `session.tsx` (`sieges`, `fonctionsVacantes`), layout |
+| **C7** | **Restitutions générées dans le navigateur** (`crfEnBlob`, `troisAEnBlob`), bibliothèques chargées au clic. La 3A se produit sans réseau. Les routes API restent. | `docx-crf.ts`, `pptx-3a.ts`, écran CRF |
+| **C8** | `tonNote` : borne basse incluse (4,00 = niveau 3, plus rouge) ; seuils du tableau de bord alignés (4,0 / 4,4) ; échafaudage de démo retiré de `contexte.ts` ; défauts `ParametresApplication` alignés 2026 ; commentaire `Horloge.observer` corrigé. | |
+
+### Propositions appliquées
+
+| | | |
+|---|---|---|
+| **P2** | **Critères retenus non notés**, listés par domaine au tableau de bord ; **demande de complément** du commandement vers un contrôleur (`Demande#<cycle>:<pointId>#texte`), affichée ⚑ sur le critère dans sa grille. | `apports.feuillesNonNotees`, `offline/useDemandes.ts`, tableau de bord, notation |
+| **P3** | **Critères retenus par le mandat** : onglet « Critères » (décocher un sous-domaine écarte ce qu'il porte), `Selection#<id>#retenu=false` au journal, `appliquerSelection()` pur. Un critère écarté disparaît des grilles et de la couverture ; ses notes restent au journal. | `domaines.ts`, `useParametrage`, 4 écrans |
+| **P6** | **Suivi longitudinal** : unité à la création (find-or-create `Unite`), **clôture** qui fige niveau + label sur le contrôle (`niveauFinal`, `labelFinal`), accueil montrant unité et résultat annoncé ; notation en lecture seule sur un contrôle clos. | schéma, `depot.cloturer`, `compte-rendu/actions.ts`, accueil |
+| **P8** | **Descriptions réinjectées** depuis la grille de juin (`npm run grille:descriptions`). ⚠ **Constat honnête** : sur 1 185 descriptions, **969 sont identiques au libellé**. Seules S4 (133), S6 (52), PMO (23) et quelques autres en portent de vraies — **216 copiées**. La « colonne perdue » valait moins que l'analyse ne le laissait entendre. Affichées sous le libellé sur la grille. | `scripts/fusionner-descriptions.mts`, JSON de grille, notation |
+| **P9** | **Journal d'audit** des gestes d'administration : création, affectation, libération, clôture, amorçage, promotion, révocation. `JournalAudit` reçoit enfin des lignes. Ne lève jamais. | `serveur/audit.ts` |
+
+### Ce qui n'a PAS été fait, et pourquoi
+
+- **P1** (observation comme fait daté) — [À ARBITRER] par le client. Ne se
+  décide pas seul.
+- **P4** (mandat comme objet, couverture du mandat) — dépend de P1 pour relier
+  objectifs et critères.
+- **P10** (preuves), **P11** (tutoriel), **P12** (responsable de domaine) —
+  hors périmètre immédiat.
+
+### ⚠ À retenir pour la reprise
+
+- Les tablettes existantes lisent encore leurs anciennes clés ; **aucune
+  migration du journal local** n'est nécessaire. Les anciennes formes seront à
+  retirer quand plus aucune base de terrain ne datera d'avant.
+- `--accept-data-loss` est dans l'entrypoint (voir suite 2) ; les ajouts de
+  colonnes de cette session (`niveau_final`, `label_final`) sont additifs.
+- Le contrôle local `PARCOURS_2026` (152e RI) existe dans la base de
+  développement, avec axel en ODM : c'est un terrain d'essai.
+
+---
+
+## 2026-09-18 (suite 2) — Analyse de conformité : ce qui est juste, ce qui ne l'est pas
+
+Relecture de **tous** les documents sources confrontée au code, sur demande de
+l'utilisateur (hors IA). Détail complet : **`LEAC/ANALYSE_2026-09-18.md`**.
+
+**Ce qui tient, prouvé par les FORMULES du classeur NG** : moyenne par niveau
+(`AVERAGE(I3,I36,I55)` = moyenne de moyennes), non noté ≠ zéro (`IFERROR → ""`),
+échelle 2026-07, barème CFOT (diapo 16), label (annexe II). Le socle de calcul
+est conforme.
+
+**⚠⚠ Deux défauts graves trouvés** :
+- **C1** — les notes ET les observations sur un domaine **transverse** n'ont pas
+  l'auteur dans leur cible (`${cycle}:${pointId}`). Plusieurs contrôleurs y
+  notent par définition → **ils s'écrasent**, et la synchronisation le montre
+  comme une *collision* alors que c'est le cas nominal. Le drapeau n'a alors
+  plus rien à départager.
+- **C2** — la pondération par membre sur les transverses (`poidsTransverse`)
+  est saisie au paramétrage mais **jamais utilisée dans le calcul**.
+
+Autres : `peutObserver` ne restreint rien (C3) · le jugement du CC sur le label
+(diapo 20) n'est pas modélisé (C4) · annexe III du CRF réduite à deux paragraphes,
+sans Scorpion ni recommandations — les « pistes de travail » du client (C5) ·
+équipe en base vs paramétrage au journal = deux vérités (C6) · restitutions
+impossibles hors réseau (C7).
+
+**Propositions** (12, classées) — en tête : l'observation comme **fait daté**
+(P1, [À ARBITRER] client), critères non couverts + demande de complément (P2),
+critères retenus par le mandat (P3), mandat comme objet (P4), recommandations
+comme objets (P5), suivi longitudinal d'une unité (P6).
+
+⏭️ Ordre proposé : C1+C2 (bloquant avant tout pilote) → C6 → C4+C5+P5 → P3+P2 → P1.
+
+---
+
+## 2026-09-18 (suite) — ⚠⚠ Correction d'architecture : c'est LEAC qui dit qui administre LEAC
+
+**Rattrapé par l'utilisateur, et il avait raison.** *« Axel ne doit pas être
+admin SUR Keycloak, il doit être admin SUR LEAC. Ce que je veux c'est que quand
+je crée une zone dans Pléiade, dedans je crée des utilisateurs avec un mail, nom
+et prénom et ça génère un mdp. De ces comptes utilisateurs, LEAC sait quel
+utilisateur est admin ou utilisateur. Car ça serait enregistré DANS LEAC. »*
+
+### Ce que j'avais fait de travers, le matin même
+
+`estAdministrateur: roles.includes("admin")` — les rôles sortant du jeton
+Keycloak. J'avais pris ce raccourci parce que `catalog/leac.yml` déclarait le
+rôle. **Et j'avais vu `AdministrateurEntite` dans le schéma sans m'en servir.**
+
+Trois raisons pour lesquelles c'était faux :
+1. **Pléiade attribue ses rôles PAR GROUPE.** « Axel administre LEAC » est
+   nominatif ; le passer par un groupe oblige à inventer un groupe par
+   responsabilité.
+2. Un rôle de royaume **suit la personne dans toutes les apps** de la zone.
+   Administrer LEAC n'a aucune raison d'ouvrir quoi que ce soit ailleurs.
+3. **Deux endroits où la même vérité s'écrit, c'est deux vérités.**
+
+### ⭐⭐ Le partage, désormais
+
+| | Répond à | Où |
+|---|---|---|
+| **Pléiade / Keycloak** | *qui êtes-vous ?* — compte de zone (mail, nom, prénom, mdp généré) | royaume |
+| **LEAC** | *qu'avez-vous le droit d'y faire ?* | `administrateurs_entite`, base `leac` |
+
+### L'amorçage — le premier administrateur
+
+Si LEAC seul décide qui l'administre, personne ne peut devenir le premier. D'où
+`LEAC_ADMINISTRATEURS`, **déclarée dans `catalog/leac.yml` donc saisissable
+depuis Pléiade** au moment de créer l'instance. Elle n'ouvre aucun droit par
+elle-même : elle **inscrit des lignes en base**, comme une promotion ordinaire.
+
+⚠ Retirer une adresse de la variable **ne révoque pas** : la révocation est un
+geste explicite et tracé. Sinon un redéploiement avec un champ oublié
+dépouillerait tout le monde en silence.
+
+⚠ Le **dernier** administrateur ne peut pas être révoqué.
+
+### ⚠⚠ Ce que l'utilisateur craignait — vérifié, pas supposé
+
+Il redoutait de casser le travail de Xavier. Vérifications :
+
+| Question | Preuve |
+|---|---|
+| `administrateurs_entite` est-elle à Pléiade ? | **Non.** Zéro occurrence dans `pleiade-platform`, eho, app-social, app-admin. Définie dans le seul `app-leac/prisma/schema.prisma`, base `leac`. |
+| Du code l'a-t-il déjà utilisée ? | **Jamais** — `git log -S` sur tout l'historique : vide. |
+| Où Pléiade range-t-elle ses affaires ? | Tables `orch_*`, base séparée. |
+| Le SQL du déploiement touche quoi ? | `migrate diff` : **une seule table**, `administrateurs_entite`. Rien d'autre. |
+
+### ⚠ Le piège trouvé en chemin, et évité
+
+`ensureClientRoles` (code de Xavier) **supprime de Keycloak les rôles retirés du
+catalogue** — c'est son mécanisme voulu, le catalogue fait autorité. Retirer le
+bloc `roles:` aurait donc **effacé le rôle `admin` du client `leac`**.
+
+Décision : **on le laisse en place**, marqué obsolète, inerte. LEAC ne le lit
+plus. On le retirera plus tard, en connaissance de cause, quand la nouvelle
+mécanique aura fait ses preuves. **Le royaume n'est pas touché.**
+
+### ⚠ Le démarrage du conteneur
+
+`db push` refuse une restructuration de clé primaire → le conteneur ne
+démarrerait pas. `--accept-data-loss` ajouté à `docker-entrypoint.sh`, **avec le
+marché écrit en toutes lettres** : ce qui le rend acceptable aujourd'hui, c'est
+que **chaque tablette garde son journal complet** — la base du serveur est un
+point de rassemblement, pas la mémoire du contrôle. ⏭ À rebasculer sur
+`prisma migrate` le jour où LEAC portera des contrôles archivés.
+
+### ⚠ Un défaut d'échafaudage qui rendait mes tests faux
+
+`controleurDeDeveloppement()` donnait `identityId = dev-${LEAC_DEV_USER}` :
+**le même identifiant quelle que soit l'adresse**. Changer `LEAC_DEV_EMAIL` ne
+changeait donc pas de personne, et un test de refus passait en donnant un faux
+« autorisé ». Repéré en le voyant échouer. Corrigé : l'identifiant **suit
+l'adresse**, comme un `sub` Keycloak distingue deux personnes.
+
+### Éprouvé
+
+| | Outils d'admin | `/administration/*` |
+|---|---|---|
+| axel (amorcé) | oui, **sans aucun rôle Keycloak** | 200 |
+| s2 (ni amorcé ni promu) | aucun | **404** |
+
+Vérifié aussi : promotion **idempotente** (deux fois = une ligne) · l'amorçage se
+**rejoue seul** après effacement de la table · une adresse promue reste « en
+attente de 1ʳᵉ connexion » tant que personne ne s'est connecté, et **un autre
+compte ne peut pas la réclamer**.
+
+**243/243 tests**, lint, build : propres.
+
+### Fichiers
+
+- ✨ `src/lib/controle/administrateurs.ts` — l'autorité
+- ✨ `src/app/(controle)/administration/administrateurs/` — l'écran
+- 🔁 `src/lib/zone/auth.ts` — **`estAdministrateur` retiré** : ce module
+  authentifie, il n'autorise plus
+- 🔁 `prisma/schema.prisma` — `AdministrateurEntite` (id, email, nomAffiche,
+  promuPar, promuLe ; `identityId` nullable)
+- 🔁 `docker-entrypoint.sh`, `catalog/leac.yml` (env `LEAC_ADMINISTRATEURS`,
+  `adminPath`, rôle marqué obsolète)
+
+### ⏭️ Reste
+
+- Renseigner `LEAC_ADMINISTRATEURS` sur l'instance, **avant** le déploiement —
+  sinon personne n'est administrateur.
+- Retirer le rôle Keycloak obsolète, plus tard, délibérément.
+
+---
+
+## 2026-09-18 — ⭐⭐ Habilitations : chacun n'entre que chez lui
+
+**Demande utilisateur.** *« Chaque utilisateur doit arriver sur une page lambda.
+Les admins ont accès à la fenêtre "paramétrage du contrôle" et peuvent créer des
+contrôles ; les utilisateurs lambda n'ont droit qu'au contrôle dont ils ont été
+sélectionnés par un admin, et à l'intérieur aux grilles qui leur sont attribuées. »*
+
+### Ce qui existait, et pourquoi ça ne tenait plus
+
+Se connecter ouvrait **directement une grille de notation**, sur un contrôle de
+démonstration écrit en dur (`CONTROLE_DEMO`), avec un **sélecteur de rôle** dans
+l'interface (`lib/demo/role.tsx`) : chacun choisissait le personnage qu'il jouait.
+C'était un échafaudage assumé, tenable tant qu'il n'y avait ni vrai contrôle ni
+vrais comptes. Keycloak étant en place, il tombe.
+
+### Les deux niveaux de droit, à ne pas confondre
+
+| | Où il vit | Ce qu'il décide | Stabilité |
+|---|---|---|---|
+| **Rôle de zone** `admin` | Keycloak (client `leac`) | Créer des contrôles, tout voir, paramétrer | suit la personne |
+| **Fonction** (chef d'équipe, S4…) | `MembreEquipe` du contrôle | **Quelles grilles s'ouvrent** | change à chaque contrôle |
+
+⚠ Les mélanger serait l'erreur classique : déclarer « chef d'équipe » comme rôle
+Keycloak obligerait à rejouer le royaume à chaque nouvelle équipe, et les deux
+vérités divergeraient au premier oubli. `catalog/leac.yml` ne déclarait déjà
+qu'un seul rôle — cette décision est simplement mise en œuvre.
+
+### La règle de cloisonnement, en trois lignes
+
+`domainesOuverts()` dans `src/lib/domaine/domaines.ts` — **fonction pure, testée** :
+
+- **les transverses sont ouverts à tous** les membres (par définition notés par
+  plusieurs contrôleurs, § IV.B) ;
+- **un domaine de fonction n'est ouvert qu'à son titulaire** ;
+- **le commandement voit tout** (il synthétise).
+
+⚠⚠ Une fonction **inconnue** n'ouvre **que les transverses**, jamais tout. C'est
+le sens dans lequel il faut se tromper : un renfort mal orthographié voit trop
+peu — ce qui se signale — plutôt que trop, ce qui ne se signale pas. Testé.
+
+### ⭐ L'affectation se fait par ADRESSE, et pourquoi
+
+L'officier de marque monte son équipe **avant** que les intéressés ne se
+connectent. Il les connaît par leur adresse, pas par leur `sub` Keycloak, qui est
+un UUID que personne ne lit. Et LEAC **ne peut pas** aller le chercher : la seule
+route de Pléiade qui liste les comptes d'une zone
+(`GET /api/zones/:zone/users`) est réservée à l'opérateur — et elle **renvoie les
+mots de passe en clair** (`rawPassword`), donc elle n'a rien à faire dans un
+appel d'application.
+
+D'où : `MembreEquipe.email` porte l'affectation, et `identityId` se renseigne
+**tout seul à la première connexion** (`reclamerSesAffectations`). Ensuite c'est
+`identityId` qui fait foi — une adresse qui change ne fait perdre son contrôle à
+personne. ⚠ On ne réclame **que** les sièges encore libres (`identityId: null`),
+sinon deux comptes portant la même adresse se voleraient leur place.
+
+⚠ Conséquence assumée, écrite à l'écran : une adresse mal saisie ne produit
+aucune erreur, elle produit **quelqu'un qui ne voit pas le contrôle**.
+
+### ⚠⚠ Le cloisonnement est rejoué côté SERVEUR
+
+Le layout `/controle/[id]` autorise (composant serveur, incontournable), et
+`/api/sync` **revérifie**. Sans cela, n'importe quel compte connecté déversait
+des opérations dans le contrôle d'une autre équipe — et en **lisait** le contenu
+par la réponse, qui rend tout ce qui suit le curseur. C'était le trou réel.
+
+⭐ Un contrôle qui n'est pas le vôtre rend **404, jamais 403** : « existe mais pas
+pour vous » apprendrait à un curieux quels contrôles tournent.
+
+### Éprouvé pour de bon, pas seulement relu
+
+Serveur de dev + MariaDB, un contrôle réel, trois personnes :
+
+| | Accueil | Grilles | Créer | Paramétrage | `/api/sync` étranger |
+|---|---|---|---|---|---|
+| **Contrôleur S4** | son contrôle seul | **3** (2 transverses + S4) | absent | refusé | **404** |
+| **Administrateur** | tous | **14** | oui | oui | — |
+| **Étranger** | « aucun contrôle » | — | 404 | 404 | 404 |
+
+Vérifié aussi : un second compte ne peut pas réclamer une adresse déjà liée.
+**243/243 tests**, lint propre, build propre.
+
+### Fichiers
+
+- ✨ `src/lib/zone/habilitation.ts` — **l'autorité unique** (`mesControles`,
+  `habilitationSur`, `reclamerSesAffectations`)
+- ✨ `src/lib/controle/depot.ts` — créer un contrôle, référentiel des fonctions,
+  `pourvoir`/`liberer` un siège
+- ✨ `src/lib/controle/session.tsx` — remplace `lib/demo/role.tsx` (**supprimé**)
+- ✨ `src/app/(controle)/page.tsx` — l'accueil « Mes contrôles »
+- ✨ `src/app/(controle)/controle/[id]/layout.tsx` — le sas qui autorise
+- ✨ `src/app/(controle)/administration/nouveau-controle/` — création (admin)
+- 🔁 Les 6 écrans déplacés sous `/controle/[id]/…` — une URL qui ne dit pas quel
+  contrôle elle montre est un piège (signet, bouton retour)
+- 🔁 `prisma/schema.prisma` — `MembreEquipe.email` (+ index)
+- 🔁 `domaines.ts` — `Domaine.fonction` + `domainesOuverts`
+
+### ⏭️ Ce qu'il reste
+
+- ⚠⚠ **Attribuer le rôle `admin` à axel** — tableau de bord Pléiade → instance
+  LEAC → icône bouclier « **Droits** » → cocher `admin` pour son **groupe**.
+  ⚠ Les rôles s'attribuent **par groupe**, pas par personne. **Sans cela,
+  personne ne peut créer de contrôle** et tout le monde voit « aucun contrôle ».
+- L'équipe éditée au paramétrage vit encore dans le journal hors ligne ; le
+  serveur décide de l'accès, l'écran décide du reste. À réunir.
+- Écran d'administration de l'équipe en cours de contrôle (`pourvoir` existe,
+  l'écran non).
+
+---
+
 ## 2026-09-17 (suite 4) — ⭐⭐ LEAC tourne sur le serveur
 
 **Première mise en production réussie.** `https://leac.cecpc-div-eval.pleiade.internal`

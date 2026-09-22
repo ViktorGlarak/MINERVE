@@ -4,6 +4,293 @@
 
 ---
 
+## 2026-09-21 (suite 23) — Clôture de la journée : version `2026-09-21.1` en ligne sur les deux instances
+
+- ✅ **Déploiement confirmé par la marque de version** (et non plus par une empreinte) : `GET /api/sante` rend `{"ok":true,"app":"eho","version":"2026-09-21.1"}` sur **`eho-delattre26.delattre-26`** *et* **`annuaire.orion26`**. Cette image (`93dc2c8`) porte les trois correctifs du jour : modèle intégré (`f4fce4c`), volume rendu à nextjs (`289048e`), origine publique (`db9fb5c`).
+- 🧹 **Les deux guetteurs par empreinte d'assets sont arrêtés** (l'un expiré, l'autre coupé) : ils ne pouvaient rien voir de ces trois mises en production, qui ne touchaient que le serveur. La sonde de déploiement d'eho est désormais `/api/sante`, comme LEAC.
+- ⏭ **Une seule action reste à l'utilisateur** : **ré-appliquer « SKOLKAN PERSONA 21.09.26 » sur delattre-26**. Les adresses de portraits sont réécrites **à l'application** (`originePublique`) ; les 118 fichiers, eux, sont déjà déposés. Si les images manquent encore après cette application, la cause est ailleurs (forme de l'`avatarUrl` en base, `X-Forwarded-Host` avec port) — à chercher sur une base mesurée, pas supposée.
+- 📌 **Rappel de ce qui attend Xavier** (rien ne peut être poussé par moi) : les 4 patchs de déconnexion (`PLEIADE/PATCHS/2026-09-21_deconnexion/`), le **défaut de propriété du volume de données** qui frappe vraisemblablement press / messagerie / social, la divergence `main`/`prod` de messagerie, le lint cassé dans 4 dépôts.
+
+## 2026-09-21 (suite 22) — On ne voyait plus quelle image tournait : eho reçoit `/api/sante` + marque de version
+
+- **Constat** : l'utilisateur ré-applique le modèle, toujours pas d'images, « peut-être pas la bonne version ? ». Ma sonde par **empreinte des chunks de la page de connexion est AVEUGLE aux mises en production qui ne touchent que le serveur** : `f4fce4c` (modèle intégré), `289048e` (entrypoint), `db9fb5c` (origine publique) n'ont changé aucun fichier client → même empreinte `f9cfecdb` depuis `977db35`. Impossible de dire si `db9fb5c` était en ligne au moment de son essai (poussé 3 min avant). L'API GitHub Actions est fermée sans jeton (404).
+- **Correction durable** : eho reçoit **`/api/sante`** (publique, sans base) et **`lib/version.ts`** (`2026-09-21.1`), même contrat que LEAC — à **incrémenter à chaque mise en production**. Poussé `main` + `prod` ; surveillance sur cette route désormais.
+- ⭐ **Leçon** : une sonde de déploiement doit lire une **marque posée par le code** (version), pas un effet de bord (empreinte d'assets) qui peut ne pas bouger.
+
+## 2026-09-21 (suite 21) — « Pourquoi je ne vois pas les images des avatars ? » : contenu mixte
+
+- **Constat** : sur `eho-delattre26`, un portrait du modèle répond **200 `image/jpeg`** (donc modèle appliqué avec la version corrigée, portraits déposés) et pourtant rien à l'écran. Le catalogue Pléiade **n'injecte pas `EHO_PUBLIC_URL`** ; l'origine venait alors de `req.url`, c'est-à-dire ce que le **conteneur** reçoit derrière Traefik : `http://…` → image `http` dans une page `https` = **contenu mixte**, bloqué par le navigateur. Le même défaut guettait `urlPublique` (portraits téléversés depuis l'écran) sur toute instance sans `EHO_PUBLIC_URL`.
+- **Correction** (`originePublique(req)` dans `lib/uploads.ts`) : `EHO_PUBLIC_URL`, sinon **`X-Forwarded-Proto` / `X-Forwarded-Host`** (la lecture qui fait marcher la déconnexion sur le serveur), sinon l'origine de la requête. Utilisée par `urlPublique` et par l'application d'un modèle intégré. Vérifié en local avec des en-têtes de proxy simulés (5/5) : adresses stockées en `https://<hôte public>/api/uploads/…`.
+- ⏭ Après mise en ligne, **ré-appliquer le modèle** sur delattre-26 : les adresses sont réécrites à l'application (les fichiers, déjà déposés, restent).
+- LEAC `2026-09-21.2` (volume rendu à nextjs) : **en ligne** sur `cecpc-div-eval`.
+
+## 2026-09-21 (suite 20) — 🔴 « EACCES: permission denied, mkdir '/app/data/uploads' » : le volume de données des instances appartient à root
+
+- **Symptôme utilisateur** : première application du modèle intégré sur `eho-delattre26` → `Erreur serveur : EACCES: permission denied, mkdir '/app/data/uploads'`.
+- **Cause** : l'image tourne sous `USER nextjs` (uid 1001) ; Pléiade monte `./data:/app/data` depuis l'hôte, dossier **créé par l'orchestrateur** (`zone-manager.ts:941`, `fs.mkdirSync(path.join(dir, "data"))`) donc **root:root** ; le `chown` fait dans l'image sur `/app/data` est **recouvert par le montage**. ⚠ **Défaut LATENT de toutes les instances eho du serveur** : rien ne pouvait y écrire — ni portrait téléversé, ni modèle capturé, ni sauvegarde d'application (`mkdirSync(BAK_DIR)`), ni donc **aucune** application de modèle, VIERGE compris. Il ne s'est vu qu'aujourd'hui, à la première écriture disque sur le serveur. **LEAC a exactement le même schéma** (`USER nextjs`, `./data:/app/data`, pièces jointes dans `DATA_DIR/pieces`).
+- **Correction, dans l'image (nos deux dépôts)** : plus de `USER nextjs` ; `apk add su-exec` ; **l'entrypoint démarre root, `mkdir -p` + `chown -R nextjs:nodejs /app/data`, puis `exec su-exec nextjs "$0" "$@"`** — tout le reste (db push, serveur) tourne sous nextjs comme avant. Schéma standard des images à volume. Côté eho, `deposerPortraits` devient best-effort jusqu'au `mkdir` (un modèle s'applique même sans ses portraits, en le journalisant).
+- ⚠ **À signaler à Xavier** : press (médias), messagerie et social ont vraisemblablement le même défaut si leur image fixe `USER` et monte un volume de données créé par l'orchestrateur ; alternative côté Pléiade : `chown` du dossier `data` à l'uid de l'app à la création de l'instance.
+- ✅ **Vérifié en local** : image eho construite (`docker build`), démarrée sur un **volume pré-rempli par root** (`alpine … chown root:root`, le cas du serveur) → après démarrage `/app/data`, `uploads/`, `eho/`, `eho/templates/` sont **nextjs:nodejs**, `next-server` et `node` tournent **sous nextjs**, nextjs écrit dans `uploads/`, l'image porte `modeles/skolkan-persona-21-09-26` et ses 118 portraits. ⚠ Piège du script : sous Git Bash, `/app/data` est converti en chemin Windows → `MSYS_NO_PATHCONV=1`. Poussé : eho et app-leac, `main` + `prod`.
+
+## 2026-09-21 (suite 19) — eho : « SKOLKAN PERSONA 21.09.26 », modèle INTÉGRÉ à l'application
+
+- **Demande utilisateur** : sur delattre-26 il n'y avait que « VIERGE » ; le classeur `avatars-eho-2026-09-15 (1).xlsx` devait être un catalogue disponible **sur cette instance et sur toute instance future**. Nom imposé : **« SKOLKAN PERSONA 21.09.26 »**.
+- **Pourquoi il manquait** : les modèles vivent dans le **volume de données de l'instance** (`EHO_DATA_DIR/templates/<code>/manifest.json + payload.json`) ; seul VIERGE est codé dans l'app. Le modèle `SKOLKAN-2026` n'existait que sur le poste (capturé le 15/09 16:45). Le classeur (16:56) en est l'export : mêmes 453 avatars, 58 groupes, planche 43 nœuds / 56 liens (vérifié par comparaison des usernames : 0 écart).
+- ⚠ **Défaut du modèle d'origine, corrigé au passage** : les 118 `avatar_url` étaient **absolues vers le poste** (`http://localhost:3001/api/uploads/…`) — donc portraits cassés sur toute autre instance (y compris celle où l'utilisateur a importé le JSON). Le modèle intégré les porte en **relatif** et **livre les 118 fichiers** (`portraits/`, 2,4 Mo) ; à l'application, ils sont déposés dans `UPLOADS_DIR` et les adresses rendues absolues pour l'instance (`EHO_PUBLIC_URL` ou origine appelée — même règle qu'`urlPublique`).
+- **Mise en œuvre** : dossier `modeles/skolkan-persona-21-09-26/` dans le dépôt (copié dans l'image, `Dockerfile`) ; `MODELES_INTEGRES_DIR` ; `lireManifests` = intégrés (`builtin: true`) + disque (un code intégré masque un homonyme) ; `lireManifest`/`lirePayload` regardent l'intégré d'abord ; `supprimerModele` refuse un intégré, `creerModele` refuse son code ; `appliquer(…, base)` dépose les portraits. L'écran affiche le badge « intégré » et masque « Retirer » (déjà prévu pour VIERGE). 9 contrôles d'intégrité ajoutés à `npm test` (80/80).
+- Identifiants d'avatars **conservés** dans le modèle → le même avatar a le même `identityId` sur toutes les zones qui l'appliquent (utile pour la reprise de contenu inter-zones, cf. suite 3).
+
+## 2026-09-21 (suite 18) — « Se connecter avec un autre compte » retiré aussi ; la déconnexion redevient un geste unique
+
+- **Demande utilisateur** : retirer le lien de la page de connexion d'eho. Fait — avec la mécanique qui ne servait qu'à lui (`deconnexion(true)`, relance `?changer=1`) : `deconnexion()` ne fait plus qu'une chose, fermer eho puis la zone, et revenir sur `/login`.
+- **Reste donc** : « Se connecter via Keycloak » (page) · « Se déconnecter » (barre). Le cas « onglet fermé sans déconnexion, session de zone orpheline » n'a plus de rattrapage côté app : « Se connecter » rouvre alors le même compte (SSO). Accepté par l'utilisateur en connaissance de cause (argument : « Se déconnecter » fonctionne, on ne multiplie pas les boutons).
+- **Report dans les quatre patchs de Xavier** (press, admin, cockpit, messagerie) : boutons/composants « autre compte » retirés, `deconnexion()` simplifiée de même, commits locaux amendés, `.patch` réexportés.
+- Test navigateur : **10/10** (vérifie désormais l'absence des deux boutons).
+
+## 2026-09-21 (suite 17) — « Changer de compte » retiré de la barre d'eho
+
+- **Proposition utilisateur, partagée** : « Se déconnecter » fonctionnant vraiment (fermeture de la zone), « Changer de compte » n'était plus qu'un raccourci d'un clic ; deux boutons voisins pour presque la même chose troublaient plus qu'ils n'aidaient. **Retiré** (eho `main` + `prod`).
+- **Conservé, et pourquoi** : « Se connecter avec un autre compte » sur la page de connexion — lui seul rattrape le **poste partagé où l'onglet a été fermé sans déconnexion** (session de zone orpheline que « Se connecter » rouvrirait en silence). L'action `deconnexion(true)` et la relance `?changer=1` restent donc.
+- Test navigateur ajusté (l'étape « Changer de compte » vérifie désormais l'absence du bouton) : **11/11**.
+- ⚠ Sonde de déploiement d'eho : les pages ne portent pas de version ; **empreinte = liste des chunks `/_next/static/chunks/*.js`** (md5), comparée avant/après. (Le motif `app/login/page-<hash>.js` de la sonde précédente ne correspond à rien en Next 16.) ⚠⚠ **Piège vu ce soir** : pendant le redémarrage la page rend une liste **vide**, dont le md5 (`d41d8cd9…`) diffère de l'empreinte de départ → **faux « nouvelle version »**. Une sonde doit exiger une liste NON vide. Contrôlé ensuite à la main : `c37f9072` → `ff6d8120`, 9 chunks, sur **les deux** instances (delattre-26 suit désormais orion26 sans « Déployer »).
+
+## 2026-09-21 (suite 16) — « Changer de compte » puis « cecpc » → « Please re-authenticate » : le `prompt=login` de trop
+
+- **Symptôme utilisateur** (capture) : « Changer de compte » dans eho, puis clic « cecpc » sur le formulaire de zone → écran cecpc **« Please re-authenticate to continue »**, identifiant figé `THOMAS.MEYTRE`, mot de passe seul. Adresse : `…/realms/cecpc/…/auth?client_id=cecpc-connect&redirect_uri=…/delattre-26/broker/cecpc/endpoint&**prompt=login**`.
+- **Cause** : la relance `?changer=1` d'eho envoyait `prompt=login` au royaume de zone (« ceinture » posée ce matin). Vérifié par sonde : le formulaire de zone s'affiche bien (200, lien `broker/cecpc/login`, **aucune redirection automatique**, ni Pléiade ni thème) ; c'est donc au **clic « cecpc »** que Keycloak **transmet le `prompt=login` au fournisseur**. Et devant la session d'organisateur — que la suite 15 veut justement garder ouverte — le royaume `cecpc` ré-authentifie le MÊME utilisateur au lieu de le laisser passer. Les deux décisions se contredisaient.
+- **Correction** (eho poussé `main` + `prod`, test navigateur 10/10) : la relance se fait **sans `prompt=login`**. Elle n'a pas besoin de ceinture : « Changer de compte » vient de fermer la session de zone, le formulaire s'affiche de toute façon ; et « cecpc » y redevient silencieux. Appliqué à eho (`login/page.tsx`, commentaires de `deconnexion.ts`) **et aux quatre patchs de Xavier** (press, admin, cockpit, messagerie : commits locaux amendés, `.patch` réexportés dans `PLEIADE/PATCHS/2026-09-21_deconnexion/`).
+- ⭐ **Leçon** : un paramètre « par sécurité » n'est jamais gratuit — `prompt` traverse le brokering. Ne poser que ce dont on a démontré le besoin.
+
+## 2026-09-21 (suite 15) — « Voir comme » ANNULÉ ; décision : la déconnexion ferme la zone, pas l'organisateur
+
+- **Décision utilisateur** : *« on annule… on reste sur l'utilisation normale : on se connecte avec le bouton cecpc, et si on se déconnecte on se déconnecte de la zone sans se déconnecter de l'organisateur… moins risqué et plus propre »*. C'est l'**option B** de la suite 12.
+- **Nettoyage eho** : les deux fichiers inertes de « Voir comme » supprimés ; arbre revenu à `af91f31`, rien à committer.
+- **Mise en œuvre (pleiade-platform, commit `b79cd5f`, `main` → redéployé)** : `configurerCecpcConnect` pose désormais le fournisseur `cecpc` **sans `logoutUrl`** (Keycloak ne remonte alors pas la déconnexion à cecpc) ; `effacerLogoutUrlIdp(realm, alias, secret)` retire l'adresse sur un fournisseur existant en renvoyant le **vrai** secret (masqué à la lecture, on ne compte pas sur le masque) ; `reconcilierRetoursCecpcConnect` devient **`reconcilierCecpcConnect`** : au démarrage, adresses de retour du client broker **+** retrait de la déconnexion amont sur chaque zone, best-effort, journalisé.
+- **Effet attendu** : se déconnecter d'eho ferme la session de zone et revient sur `/login` ; le bouton « cecpc » rouvre l'organisateur **en silence** tant que sa session (Pléiade) est ouverte. Les adresses de retour de déconnexion restent déclarées (inoffensives, utiles si l'on remet la chaîne un jour).
+- ⚠ Pas de sonde publique possible sur la configuration d'un fournisseur d'identité : **la validation est le test utilisateur** (connexion via cecpc → déconnexion → clic cecpc → pas de formulaire).
+
+## 2026-09-21 (suite 14) — « Voir comme » dans eho : validé, conçu, ARRÊTÉ par le garde-fou de l'outil
+
+- **Validation utilisateur** : principe OK, **eho d'abord**, **réservé aux organisateurs**, **en ÉCRITURE** (« copier les droits liés au compte sélectionné… pour tout tester »), **sans journal** (phase de test).
+- **Conception retenue** : un cookie `eho.voir-comme` nomme la cible ; la substitution se fait en **UN point**, le callback `session` d'`auth.ts` — tout ce qui lit la session (layouts, routes API, barre latérale) voit le compte visé avec **ses rôles effectifs** (`role-mappings/…/composite`, héritage par groupe compris) et **ses groupes** ; l'autorité (organisateur = membre d'un groupe maître `masteradmin`/`cecpc`) est **revérifiée à chaque requête** via l'API admin Keycloak (eho a `KEYCLOAK_ADMIN_*`, injectés par Pléiade) ; le jeton d'identité reste celui de l'organisateur ; la déconnexion efface le cookie. Endpoints Keycloak 26 vérifiés en local (users, groups, composite realm/client).
+- 🛑 **Garde-fou de l'outil (classifier du mode auto)** : refus d'écrire `src/lib/voir-comme-actions.ts` (pose du cookie) **et** refus d'appliquer le patch serveur (substitution dans `auth.ts`, lectures Keycloak, Sidebar). Même famille de refus que le 18/09 (octroi de droits). **Règle mémoire appliquée : arrêt, explication, décision utilisateur.** État du dépôt : **rien de modifié**, deux fichiers nouveaux inertes (`src/lib/voir-comme.ts`, `src/components/VoirComme.tsx`), patch prêt dans le scratchpad (`patch_voir_comme.py`).
+- ⏭ Attend la décision : confirmation explicite pour réessayer, ou application du patch par l'utilisateur.
+
+## 2026-09-21 (suite 13) — Proposition « Voir comme » : l'organisateur regarde une app avec les yeux d'un compte de la zone
+
+- **Idée utilisateur** : entré par « cecpc », cliquer son nom dans une app et **choisir un compte de la zone** pour voir la page comme ce joueur/admin/animateur — et ne plus avoir à se déconnecter pour ça.
+- **Deux voies étudiées** :
+  - *Usurpation native Keycloak* (`POST /admin/realms/{realm}/users/{id}/impersonation`) : crée une vraie session navigateur comme la cible, valable dans toutes les apps. ⚠ Ne convient pas ici : les cookies ne se posent que si l'appel part de l'hôte Keycloak (console d'admin, droits `realm-management`), pas depuis Pléiade ; la variante *token exchange* est une fonctionnalité preview à activer sur le Keycloak de Xavier, et eho/social n'ont pas de porte « jeton ».
+  - ⭐ **« Voir comme » DANS l'app** (recommandé) : réservé aux **masteradmin** (Pléiade `resoudre-identite` → `isMasterAdmin`) ; liste des comptes = `GET /api/internal/zones/:zone/users` (clé de service) ; l'app substitue l'identité côté serveur, **lecture seule**, bandeau « Vous voyez comme X », journal d'audit, retour en un clic. Briques déjà là : eho `porteur.observateur` (lecture stricte), messagerie `x-act-as`, social `X-Act-As`. Ce que voit la cible dépend de ses rôles/groupes → à lire via Pléiade (à compléter : `resoudre-identite` ne rend plus `roles`).
+- Périmètre réaliste : eho + LEAC (nos dépôts, déployables) d'abord ; press/admin/cockpit/messagerie en patchs pour Xavier ; social (Angular) à part.
+- Rien fait : proposition soumise, décision utilisateur attendue. Indépendant de l'arbitrage A/B sur la déconnexion en chaîne (suite 12), qui reste à trancher pour les vraies déconnexions.
+
+## 2026-09-21 (suite 12) — « Le bouton cecpc me redemande de me connecter » : conséquence de la déconnexion réelle, à arbitrer
+
+- **Symptôme utilisateur** : après la déconnexion d'eho (désormais effective jusqu'au royaume `cecpc`), le bouton « cecpc » de l'écran de connexion de `delattre-26` envoie sur **« Sign in to account » du royaume `cecpc`** (`…/realms/cecpc/…/auth?client_id=cecpc-connect&redirect_uri=…/delattre-26/broker/cecpc/endpoint`). L'utilisateur y voit une contradiction avec la promesse du bouton (« entrer sans se connecter »).
+- **Lecture** : ce n'est ni un bug du bouton ni du correctif. Le bouton promet « pas de compte DE ZONE », pas « jamais de mot de passe » : il ouvre les zones **tant que la session du royaume `cecpc` est ouverte**. Or la déconnexion d'eho la **ferme désormais** (suite 10-11 : `logoutUrl` de l'IdP posé par `ensureIdentityProvider` → Keycloak propage la déconnexion en amont = *single logout*). Avant, la propagation **échouait** en silence (« Invalid redirect uri »), donc la session `cecpc` ne se fermait jamais — d'où l'impression d'un bouton « toujours silencieux ».
+- ⚠ **Effet collatéral, pas encore annoncé à l'utilisateur** : la propagation ferme aussi la session du **tableau de bord Pléiade** (même royaume `cecpc`). Se déconnecter d'une app de zone en tant qu'organisateur = être déconnecté de Pléiade.
+- Le commit `b80d79f` de Xavier ne dit **rien** de cette intention : le `logoutUrl` semble rempli par complétude, pas par décision.
+- **Deux options soumises à l'utilisateur** (rien fait) : (A) garder le *single logout* — le plus sûr sur un poste partagé, mais une saisie du mot de passe organisateur à chaque cycle ; (B) **ne plus propager** la déconnexion au royaume `cecpc` (vider `logoutUrl` de l'IdP dans `ensureIdentityProvider`, réconcilié au démarrage comme les retours) — la déconnexion d'une app ferme la zone seulement, la session organisateur et Pléiade survivent, le bouton « cecpc » reste silencieux tant qu'on est connecté à Pléiade. Les **joueurs** (comptes de zone, non brokerisés) ne sont concernés par aucune des deux. Recommandation : B, sous réserve de Xavier.
+
+## 2026-09-21 (suite 11) — Le retour de déconnexion posé au DÉMARRAGE de l'orchestrateur
+
+- **Rebond utilisateur** : « je viens de cliquer à nouveau… ça me fait cela encore », avec **la même adresse mot pour mot** (même `state`, même jeton : `iat` 13:20:20Z, avant la mise en ligne de `b8853e7` à 13:30:04Z). **Sonde décisive, sans session** : `GET …/realms/cecpc/…/logout?client_id=cecpc-connect&post_logout_redirect_uri=…/delattre-26/broker/cecpc/endpoint/logout_response` → **400 « Invalid redirect uri »** ; la même sonde sur l'aller `…/endpoint` → **302**. Donc : correctif en ligne, **rattrapage jamais joué**. Le geste manuel proposé (console) n'a pas été fait — et c'est normal, personne n'y pense.
+- **Décision** : l'orchestrateur pose lui-même, **à chaque démarrage**, les deux adresses (aller + retour) de **toutes** les zones sur le client broker `cecpc-connect`. Un seul appel Keycloak (`createClient` → 409 → fusion sans retrait), best-effort (journalisé, le démarrage continue). Cohérent avec la ligne de l'utilisateur : *« on part du principe que ça doit être présent constamment »* — et sans bouton. `retoursCecpcConnect(zone)` devient le **seul** endroit qui connaît ces adresses (création de zone et réconciliation ne peuvent plus diverger).
+- Commit `23f4f55` sur `main` → redéployé en ~40 s → la réconciliation a tourné au redémarrage. ✅ **Vérifié sans aucun geste de l'utilisateur** : la même sonde rend désormais **302 sur les trois zones** (`delattre-26`, `orion26`, `cecpc-div-eval`) là où `delattre-26` rendait 400 dix minutes plus tôt.
+
+## 2026-09-21 (suite 10) — 🔴 « Invalid redirect uri » à la déconnexion : le retour du brokering n'était pas déclaré
+
+- **Symptôme utilisateur** (capture) : connecté à eho sur `delattre-26`, « Se déconnecter » tombe sur la page d'erreur Keycloak **« Invalid redirect uri »**, sur `…/realms/**cecpc**/protocol/openid-connect/logout?…&post_logout_redirect_uri=…/realms/**delattre-26**/broker/cecpc/endpoint/**logout_response**`.
+- **Cause, lue dans l'adresse elle-même** : le compte était entré par **cecpc Connect** (jeton d'identité `aud: cecpc-connect`, émis par le royaume `cecpc`). Quand eho ferme la session, le royaume **de la zone** propage la déconnexion au royaume **`cecpc`** et lui demande de revenir sur `…/broker/cecpc/endpoint/logout_response`. Or le client broker `cecpc-connect` ne déclarait que `…/broker/cecpc/endpoint` — **Keycloak compare à l'identique, sans joker** : l'aller ne couvre pas le retour.
+- ⚠ **Défaut DORMANT, pas une régression de forme** : il existait depuis cecpc Connect (16/09), mais **rien ne fermait la session amont** avant que les apps ne se déconnectent vraiment (21/09). Il vaut pour **toutes les zones**, pas seulement `delattre-26`.
+- ✅ **Reproduit puis corrigé sur un vrai Keycloak 26** (local, client jetable `essai-logout`, supprimé après) : avec la seule adresse d'endpoint → **400 « Invalid redirect uri »**, identique à la capture ; l'adresse `…/logout_response` ajoutée → **302**. C'est cette fois la mesure qui portait sur la bonne chose (cf. la leçon de la suite 9).
+- **Corrigé** : `configurerCecpcConnect` déclare désormais **les deux** adresses (`b8853e7`, `main`, donc déployé). `tsc` 0 erreur, tests plateforme au niveau de référence.
+- ⏭ **À faire par l'utilisateur, une fois par zone** : rejouer `POST /api/zones/<zone>/cecpc-connect` depuis la console du tableau de bord — `createClient` **fusionne** les adresses et n'en retire jamais. Les zones créées après ce commit sont correctes d'emblée.
+
+## 2026-09-21 (suite 9) — 🔴 Le bouton « cecpc Connect » RETIRÉ : il annonçait faux
+
+- **Rejet utilisateur, argumenté et juste** : *« il ne sert à rien, on part du principe que le
+  bouton doit être présent constamment… en plus là par exemple il dit que c'était déconnecté
+  alors que le bouton était bien présent »*. Retiré : **revert `280b779`** (annule `32cacef`),
+  poussé sur `main` — donc redéployé.
+- ⚠⚠ **Le défaut, à retenir** : `etatCecpcConnect` exigeait **deux** pièces — le fournisseur
+  d'identité **ET** un groupe nommé `cecpc` — alors que le **bouton de l'écran de connexion ne
+  dépend que de la première**. Une zone dont le groupe maître porte un autre nom (ou a été
+  renommé) passait donc pour cassée **alors qu'elle marchait**. J'ai mesuré la mauvaise chose.
+- ⭐ **Leçon** : *un indicateur d'état doit mesurer EXACTEMENT ce qu'il prétend rapporter.* Ici,
+  la question était « le bouton est-il là ? » et j'ai répondu à « l'installation est-elle
+  complète ? ». Un indicateur qui se trompe coûte plus qu'il ne rapporte : on va vérifier à la
+  main ce qu'il affirme, puis on cesse de le croire. ⚠ Mes 11 contrôles navigateur sont passés
+  au vert **sans rien voir** : ils vérifiaient que l'affichage suit l'API, jamais que l'API dit
+  vrai — un simulacre ne peut pas contredire l'hypothèse qui l'a écrit.
+- ⭐ **Second point utilisateur, sur le fond** : le bouton « cecpc » **doit être là en
+  permanence**. Offrir en façade un bouton pour le rebrancher, c'est traiter l'exception comme
+  la règle. La route de rattrapage de Xavier reste disponible pour les zones d'avant le 16/09.
+- **Conservé** : `POST /api/zones/:zone/cecpc-connect` (Xavier), inchangé.
+
+## 2026-09-21 (suite 8) — Bouton « cecpc Connect » dans le tableau de bord Pléiade
+
+- **Demande utilisateur** : *« tu peux me placer le bouton directement… ça nous évitera de perdre du temps »*, avec la question « même pour les futures instances il sera d'office présent c'est bien ça ? ».
+- ⭐ **Réponse à la question : les futures zones étaient DÉJÀ couvertes.** `createZone` (`zone-manager.ts:707`) appelle `configurerCecpcConnect` depuis le 16/09 — mais **en best-effort** (`try/catch` + `console.warn`) : une zone se crée même si Keycloak bronche, et personne ne l'apprend. Le bouton sert donc à **rattraper** : zones d'avant le 16/09 (cas de `delattre-26`) et poses en échec.
+- **Livré (commit `32cacef`, `pleiade-platform` `main`)** :
+  - `identityProviderExists()` (keycloak-manager) et **`etatCecpcConnect()`** (zone-manager) : fournisseur d'identité + groupe maître. **Lève** si Keycloak ne répond pas, au lieu de rendre `false`.
+  - **`GET /api/zones/:zone/cecpc-connect`** — lecture seule, à côté du POST de backfill existant.
+  - **Tableau de bord** : un bouton par zone, à côté d'« Utilisateurs », dans les deux variantes de carte (zone vivante et zone arrêtée). **Neutre** quand c'est en place, **« ⚠ Brancher cecpc » en alerte** quand ça manque, infobulle qui dit la conséquence. Le clic rejoue le backfill (idempotent) et repeint sans recharger.
+- ⚠⚠ **Défaut trouvé PAR LE TEST, pas à la relecture** : la première version réinterrogeait Keycloak à chaque rendu pour une zone dont la lecture avait échoué — or le rendu se rejoue **à chaque frappe dans la recherche**. Corrigé : l'échec se retient (`null`), distinct de « jamais tenté » (absent de l'objet). Les deux se peignent en **neutre** — règle du 2026-09-14 : *un échec de lecture n'est jamais un résultat valide*.
+- **Vérifié** : `tsc` 0 erreur · tests plateforme **10/11, l'échec est antérieur** (chemin Windows dans `test-deploiement.mts`, constaté identique après `git stash`) · **test navigateur du VRAI `public/app.js`** avec `fetch` simulé (Playwright, `scratchpad/e2e_cecpc.cjs`) : **11/11**, dont le cas « lecture en échec → bouton neutre » et « deux rendus de plus = zéro appel ».
+- ✅ **DÉPLOYÉ automatiquement** : `main` de `pleiade-platform` *est* le geste de déploiement (règle §, `deployer.yml`). `GET https://pleiade.cecpc.internal/api/version` (route publique) rend **`{"commit":"32cacef","buildDate":"2026-09-21 13:14:43Z"}`** — la nouvelle version sert. Le reste (`/app.js`, `/api/zones/...`) est derrière la session : `302` et `401` en anonyme, comme attendu.
+- ⏭ **Reste à faire par l'utilisateur** : ouvrir le tableau de bord, vérifier que `delattre-26` porte bien « ⚠ Brancher cecpc », cliquer, puis rouvrir l'écran de connexion de la zone — le bouton « cecpc » doit être revenu.
+
+## 2026-09-21 (suite 7) — « Le bouton cecpc a disparu ? » — non : il manque au royaume `delattre-26`
+
+- **Question utilisateur** : le bouton « cecpc » (connexion directe avec un compte organisateur, mis en place par Xavier) n'apparaît plus depuis l'ajout de « Changer de compte ». **Vérifié : je n'y ai pas touché**, et il ne pouvait pas l'être depuis les apps — ce bouton est celui du **fournisseur d'identité `cecpc` sur le FORMULAIRE KEYCLOAK** de la zone (« cecpc Connect », Xavier, `b80d79f` du 16/09 : broker `cecpc-connect` dans le royaume `cecpc`, IdP alias `cecpc` + groupe maître + mappeur dans chaque zone). Les pages de connexion des apps n'ont jamais porté ce bouton (`git show af91f31^:src/app/login/page.tsx` d'eho : un seul bouton) et aucune app n'utilise `kc_idp_hint`.
+- **Constat par sondes sur les formulaires Keycloak réels** (`…/protocol/openid-connect/auth?client_id=…`) : `orion26` → `<a id="social-cecpc" href="/realms/orion26/broker/cecpc/login…">` **présent** · `cecpc-div-eval` → section `kc-social-providers` **présente** · **`delattre-26` → aucun fournisseur d'identité, formulaire nu.** Le royaume `delattre-26` n'a pas (ou plus) l'IdP `cecpc`.
+- **Remède prévu par Xavier** : route de rattrapage idempotente **`POST /api/zones/delattre-26/cecpc-connect`** (« Backfill cecpc Connect sur une zone existante : monte ou remet le broker, le groupe maître et le mappeur »), derrière `requireAuth` — **aucun bouton dans l'interface**. À lancer avec une session Pléiade (console du navigateur sur le tableau de bord) ; je n'ai pas de session et ne cherche pas d'identifiants.
+- Effet attendu après rattrapage : le bouton « cecpc » revient sur le formulaire de `delattre-26`, et les comptes organisateurs (dont thomas.meytre) y entrent en master admin.
+
+## 2026-09-21 (suite 6) — Déconnexion complète portée sur les cinq apps fautives, validée de bout en bout
+
+- **Autorisation utilisateur** : « Je te laisse appliquer ce qu'il y a de plus judicieux… fluide et opérationnel pour tous ». Fait sur **eho, app-press, app-admin, app-cockpit, app-messagerie** (le social et LEAC étaient déjà bons).
+- **Le même motif partout** (`src/lib/deconnexion.ts`, action serveur) : fermer la session de l'app (`signOut({ redirect: false })`), puis rediriger vers `PUBLIC_ISSUER/protocol/openid-connect/logout` avec `id_token_hint` + `client_id` + `post_logout_redirect_uri` = page de connexion. Le **jeton d'identité est désormais gardé** dans le `jwt` et exposé en `session.idToken` (rien de secret : il décrit l'opérateur lui-même). `PUBLIC_ISSUER` et `KC_CLIENT_ID` exportés d'`auth.ts`. L'origine publique vient des en-têtes `X-Forwarded-*` (pas de dépendance à `NEXTAUTH_URL`).
+- **Trois gestes** : « Se déconnecter » (complet) · « Se connecter avec un autre compte » sous le bouton de connexion (5 apps) · « Changer de compte » dans la barre d'eho (poste partagé, un seul geste).
+- ⚠⚠ **Découverte pendant le test — `prompt=login` seul NE CONVIENT PAS pour « autre compte »** : devant une session de royaume ouverte, Keycloak affiche son écran de **ré-authentification** (mot de passe du MÊME utilisateur, identifiant non modifiable), il ne propose pas d'en changer. D'où le choix : « autre compte » = **déconnexion Keycloak d'abord** (même sans session app, sans `id_token_hint` → Keycloak demande une confirmation, un clic), retour sur `?changer=1`, et la page relance la connexion (`prompt=login` en ceinture).
+- ✅ **Validé de bout en bout sur eho** — Playwright contre le Keycloak local (`joueur_test` / `anim_test`), script `scratchpad/e2e_deconnexion.cjs` : **10/10** — formulaire redemandé après déconnexion (LE bug), changement de compte effectif, « Changer de compte » en un geste, session orpheline (cookie eho supprimé, Keycloak gardé) : « Se connecter » reconnecte en silence (SSO attendu) et « autre compte » ferme bien la session via la confirmation Keycloak puis présente le formulaire. Sur le serveur, la sonde `GET …/logout?client_id=eho-eho-delattre26&post_logout_redirect_uri=…/login` → **302 vers /login** : le motif `https://<app>/*` des clients Pléiade couvre le retour.
+- **Vérifications sur les quatre autres apps** (pas de serveur de dev, pas de test navigateur) : `tsc --noEmit` → **compte d'erreurs identique à la référence** (press 48 · admin 20 · cockpit 0 · messagerie 48, toutes préexistantes, hors des fichiers touchés) ; `next build` (voir ci-dessous). ⚠ `npm run lint` est **cassé à la référence** dans ces quatre dépôts (aucun `eslint.config.*`, ESLint 9 renvoie le guide de migration) — pas de notre fait, à signaler à Xavier.
+- **Détail par app** : press — `SignInButton` (+ autre compte, relance), `SignOutButton` d'« accès refusé » devient une déconnexion complète, `RedactionShell` · admin — `Shell`, `SignOutButton`, page `login` · cockpit — `Header`, page `login` · messagerie — `ConversationList` (lien), `supervision/layout` (`<form action={deconnexion}>` — d'où la signature `changerDeCompte?: unknown`, un `FormData` n'est jamais pris pour `true`), nouveau `AutreCompte.tsx` sur `/connexion`.
+- ⚠ **Effet annoncé** : la déconnexion ferme la session de royaume → déconnecte de **toutes les apps de la zone**. Voulu sur un poste partagé, cohérent avec le social qui le faisait déjà.
+- **Poussé / non poussé (2026-09-21, fin de journée)** : **eho `af91f31` → `main` + `prod`**, nouvelle version constatée en ligne sur `annuaire.orion26` (« Se connecter avec un autre compte » servi). ⚠ `eho-delattre26` (zone non prod) attend un **« Déployer » sur la zone**. ❌ **`app-press`, `app-admin`, `app-cockpit`, `app-messagerie` : `git push` refusé — HTTP 403 « Write access to repository not granted »** (le compte du poste n'a pas l'écriture sur ces quatre dépôts ; `gh` absent). Les quatre commits existent **en local** (`c7bd5d4`, `0e98717`, `345ab92`, `62bee3c`) et sont exportés en patchs pour Xavier : **`PLEIADE/PATCHS/2026-09-21_deconnexion/`** (un `.patch` par dépôt + `README.md` d'application). ⚠ `app-messagerie` : **`origin/prod` porte `18b6648` absent de `origin/main`** (Xavier, 17/09) — à signaler.
+
+## 2026-09-21 (suite 5) — Déconnexion : la session Keycloak survit, reconnexion automatique sur le même compte (diagnostic, rien de codé)
+
+- **Symptôme utilisateur** : sur eho (et d'autres instances), « Déconnexion » déconnecte bien de l'app, mais « Se connecter via Keycloak » **rouvre le même compte sans rien demander**. Impossible d'essayer une autre place. ⚠ Cas à anticiper : **un seul ordinateur pour plusieurs joueurs**.
+- **Cause, établie par lecture du code** : il y a **deux sessions**, celle de l'app et celle du royaume Keycloak. `signOut({ callbackUrl })` ne ferme **que la première**. La session de royaume reste ouverte, donc l'autorisation suivante est accordée en silence. Ce n'est ni un bug de Keycloak ni un cache de navigateur.
+- ⭐ **La maison sait déjà faire — deux précédents dans le système** :
+  - **Pléiade**, tableau de bord : `GET /auth/logout` efface son cookie **puis redirige vers `…/protocol/openid-connect/logout`** avec `client_id` et `post_logout_redirect_uri` (`src/auth.ts:254`).
+  - **LEAC**, notre app : `src/lib/zone/deconnexion.ts` fait la même chose avec en plus `id_token_hint` — écrit précisément parce que l'utilisateur avait rencontré ce symptôme sur le serveur. **Le jeton d'identité y est conservé exprès** (`src/lib/zone/auth.ts:65`).
+- **État par app** (relevé le 2026-09-21) :
+  | App | Déconnexion | Ferme la session Keycloak ? |
+  |---|---|---|
+  | `pleiade-platform` | `/auth/logout` → `end_session` | ✅ |
+  | `app-leac` | `deconnexion.ts` → `end_session` + `id_token_hint` | ✅ |
+  | `app-social` | `keycloak.logout()` (keycloak-js le fait nativement) | ✅ |
+  | **`eho`** | `signOut({ callbackUrl: "/login" })` (`Sidebar.tsx:313` et `:345`) | ❌ |
+  | **`app-press`** · **`app-admin`** · **`app-cockpit`** | `signOut({ callbackUrl })` | ❌ |
+  | **`app-messagerie`** | lien nu `/api/auth/signout` | ❌ |
+- ⚠ **Obstacle technique pour eho** : le `jwt` d'eho garde `access_token` et `refresh_token` mais **PAS `account.id_token`** (`src/lib/auth.ts`). Sans lui, pas d'`id_token_hint` : Keycloak accepte alors la déconnexion avec `client_id` seul (voie Pléiade) mais peut afficher un écran de confirmation. **Garder le jeton d'identité, comme LEAC, est la voie propre.**
+- **Pistes proposées à l'utilisateur** (aucune engagée) : (1) **corriger la déconnexion** — la vraie cause, portage de ce que LEAC a déjà ; (2) **« Se connecter avec un autre compte »** sous le bouton, qui ajoute `prompt=login` à l'autorisation et force Keycloak à redemander les identifiants même si une session traîne — filet indispensable quand quelqu'un a fermé l'onglet sans se déconnecter ; (3) **« Changer de compte »** visible même connecté, pour le poste partagé ; (4) demander à Xavier de **raccourcir l'inactivité de session du royaume**.
+- ⚠ **Conséquence à annoncer** : fermer la session de royaume déconnecte de **toutes les apps de la zone** à la fois. Sur un poste partagé c'est l'effet voulu, mais il faut le dire. `app-social` le fait déjà aujourd'hui, donc l'incohérence existe déjà entre les apps.
+
+## 2026-09-21 (suite 4) — Faisabilité de la reprise ORION 26 → DELATTRE 26 (étude, rien de codé)
+
+- **Demande** : réalisable de récupérer les publications d'ORION et de les poser dans `social.delattre-26`, **sans doubler le volume**, **correctement datées**, pour montrer un passif aux joueurs, les statistiques ne comptant que les messages à venir. **Consigne : ne rien faire.**
+- **Verdict : réalisable, mais pas avec les routes existantes seules.** La lecture existe, l'écriture datée n'existe pas.
+  - **Lecture — déjà là** : `GET /api/service/retex` rend exactement ce qu'il faut (auteur `identity_id`, texte, **horodatage**, médias, parenté post/commentaire, métriques). Écrite pour le storybook, réutilisable telle quelle.
+  - **Écriture — manquante** : `POST /api/service/publish` **n'accepte aucune date** (ni `created_at` ni `scheduled_at`) et déclenche hashtags, aperçu de lien et notifications aux abonnés. Hors d'échelle et hors sujet pour un passif. Il faut soit une route de reprise qui écrive `createdAt` explicitement, soit un transfert au niveau de la base. **Les deux touchent le dépôt de Xavier.**
+- ⭐ **Les dates règlent la plupart des statistiques, mais PAS toutes** :
+  | Mesure | Comportement si le contenu est daté d'avril | 
+  |---|---|
+  | Rapport cockpit (`/api/cockpit/rapport`) | fenêtré `from`/`to`, défaut = aujourd'hui → **ignore le passif** ✅ |
+  | Veille cockpit (`/poll`) | curseur `since_id` sur l'identifiant → **ignore le passif** ✅ |
+  | Compteurs de profil (`posts_count`, abonnés) | totaux → **affichent le passif**, ce qui est voulu ✅ |
+  | ⚠ **Panneau « Tendances »** (`GET /api/social/hashtags`) | `groupBy` sur **tous** les `social_post_hashtags`, **aucune fenêtre temporelle** → resterait **figé sur les mots-dièse d'ORION** ❌ |
+  👉 **Seul point dur** : les tendances. Soit on leur ajoute une fenêtre, soit on n'importe pas les mots-dièse du passif.
+- **Où est réellement le volume** (échantillons du 5 au 16 avril) : ce ne sont pas les textes. C'est (1) **~100 000 publications**, (2) surtout les **lignes de « j'aime »** — 20 à 55 par post sur l'échantillon, donc potentiellement **des millions de lignes**, car `like_count` est **compté sur les lignes**, jamais stocké ; (3) les médias. Trois leviers pour ne pas doubler : **ne reprendre que le contenu curaté** (l'animation, pas le bruit d'ambiance généré par le `toolbox`, qui backdate déjà ses posts sur 14 jours) ; **retirer l'instance source** une fois ORION clos ; ou **stocker un compteur** au lieu de copier les « j'aime ».
+- ⚠⚠ **DÉCOUVERTE À CONFIRMER AVANT TOUTE DÉCISION — les médias d'ORION sont largement perdus.** Sur **38 médias tirés au hasard entre le 5 et le 16 avril, 14 sont servis et 24 répondent 404**. Ce ne sont pas des références fabriquées : le `toolbox` télécharge et écrit vraiment ses images (préfixe `post-`), or les manquants sont des **téléversements réels** (UUID nu, `.JPG` majuscule, un `.mp4`). Le volume `./data/uploads` de l'instance a donc **perdu une partie de son contenu**. Les sauvegardes de zone ne rattraperont rien (rétention 14 jours, l'exercice date d'avril). **À poser à Xavier.**
+- **Identités** : rappel de la suite 3 — l'`identityId` est propre à chaque eho. Deux voies : traduire les auteurs **par `username`** contre l'eho de DELATTRE, ou reprendre tels quels les comptes locaux du social source (ils deviennent des **comptes d'archive que personne ne peut incarner**, puisque la décision « au nom de » interroge l'eho de la zone — effet plutôt souhaitable pour un passif).
+- **Rien n'est engagé.** Arbitrage utilisateur attendu, et le sujet relève du dépôt `app-social` de Xavier.
+
+## 2026-09-21 (suite 3) — Reprendre le contenu d'ORION 26 dans DELATTRE 26 : ce qui existe, ce qui manque (vérification seule)
+
+- **Demande utilisateur** : `reseau.orion26` contient tout le contenu d'un exercice passé (publications + médias) ; DELATTRE 26 étant « dans la continuité » d'ORION, faire apparaître ce contenu dans `social.delattre-26`. **Consigne : ne rien coder, vérifier si Xavier l'a prévu.**
+- **Réponse : NON.** Aucune fonction de reprise de contenu d'une instance vers une autre, dans aucun des quatre dépôts, et **aucune branche en cours** (`app-social`, `pleiade-platform`, `app-admin`, `eho` : toutes les branches distantes relues, rien sur le sujet).
+- **Ce qui existe et s'en approche** :
+  | Brique | Ce qu'elle fait | Pourquoi ça ne suffit pas |
+  |---|---|---|
+  | **Storybook** (Pléiade, `storybook-manager.ts`) | Agrège `/api/service/retex` de toutes les instances d'une zone et **fige une page HTML autonome** du récit chronologique | Sortie de **lecture** pour le débriefing, **par zone**. Ne réinjecte rien. |
+  | `GET /api/service/retex` (social) | Rend **tout ce qui a paru** : posts + commentaires, auteur (`identity_id`), horodatage, médias, métriques, parenté | C'est la **bonne source de lecture** pour une reprise, mais il n'y a pas de route symétrique en écriture. |
+  | `POST /api/service/publish` (social, clé de service) | Publier au nom d'une identité, avec média, `reply_to_post_id`, likes et partages générés | ⚠ **Aucune date** : ni `created_at` ni `scheduled_at`. Tout arriverait **daté d'aujourd'hui**. |
+  | **Scénarios app-admin**, export/import XLSX | `id, app, persona, message, delta, reply_to, likes, boosts, like_groups, boost_groups` ; import par `username` ou UUID | Ne contient **que les scénarios programmés**, pas les publications faites à la main. `delta` est un **délai relatif**, pas une date. Découverte des apps **limitée à sa zone**. |
+  | **Sauvegardes de zone** (Pléiade) | Sauvegarde/restauration complète | **Verrouillée sur la même zone** : `if (sauv.zone !== zone) throw`. Interdit par construction. |
+- ⚠⚠ **Obstacle d'identité, le plus structurant** : dans eho, `User.id` est `@default(uuid())` et l'import **upserte par `username` UNIQUEMENT**. Deux zones qui importent le même classeur obtiennent donc des **identityId DIFFÉRENTS pour le même avatar**. Or `publish` prend un `identity_id`. **Le seul pont entre zones est le `username`** — toute reprise devra traduire auteur par auteur contre l'eho de la zone cible (`GET /api/service/users?search=`, comme le fait l'import de scénarios d'app-admin).
+- **État relevé sur le serveur (sondes publiques en lecture seule, 2026-09-21)** :
+  - `reseau.orion26` = instance `social` v0.3.0, realm `orion26`, client `social-reseau`, eho de zone = instance **`annuaire`**.
+  - `social.delattre-26` = instance `social` v0.3.0, realm `delattre-26`, client `social-social`, eho de zone = **`eho-delattre26`**. **Fil vide** (`[]`).
+  - **Corpus ORION 26 : du 2026-04-01 au 2026-04-16**, rien avant. Progression des identifiants : 9 971 (01/04) → 15 441 (09/04) → 66 384 (13/04) → **113 741 (16/04)**. ⚠ **Ordre de grandeur : ~100 000 publications**, l'essentiel généré en rafale entre le 11 et le 15 avril (probablement le bruit d'ambiance du `toolbox`), et non une centaine de posts curatés.
+- **Conséquence pour l'arbitrage** : republier à l'unité par `publish` est hors d'échelle (chaque appel déclenche hashtags, aperçu de lien, notifications aux abonnés) **et perdrait les dates**. Les pistes réalistes se situent plus bas : copie de la base de l'instance, ou route de reprise à écrire (lire `retex` de la source, traduire les auteurs par `username`, écrire en base avec les horodatages). **Rien n'est engagé : à arbitrer avec l'utilisateur, et le sujet touche le périmètre de Xavier.**
+
+## 2026-09-21 (suite 2) — « Au nom de » : joueur → réseau social → avatar eho — l'état de ce que Xavier a livré (lecture seule)
+
+- **Question utilisateur** : le joueur se connecte au social de la zone et poste **avec un avatar de l'eho de la même zone** — Xavier l'a-t-il mis en place ? **Réponse : oui, chaîne complète livrée et en production** (aucun code de notre part, analyse des dépôts seulement).
+- **Trois dépôts, une chaîne** (tous les commits sont sur `prod`) :
+  - `pleiade-platform` `b083a9f` + `a3e41bd` (17/09) : `POST /api/internal/zones/:zone/resoudre-identite` (par `identityId`, clé de service) → groupes du joueur **avec le drapeau `masteradmin`** ; `GET …/groupes-keycloak` pour le sélecteur de camps.
+  - `eho` `fee2e75` + `d98e801` (17/09) : modèle **`GroupeCamp`** (groupe d'avatars → nom de groupe Keycloak = « camp »), `POST /api/impersonation` (clé de service) → `{ master, avatarIds }`, **écran Groupes → bouton « Camps »** (cases à cocher, admin seul).
+  - `app-social` `f45ae29` (10/09, impersonation obligatoire + `audit_logs`), `c2b0c89` (12/09, API service), `2e8b553` (17/09, **bridage serveur au camp** : `X-Act-As` interdit → 403), `36bcb07` (19/09, picker visible pour `ANIMATEUR` — bug d'affichage corrigé).
+- **Comment ça marche** : l'utilisateur ouvre le social avec son compte Keycloak ; il ne poste **jamais en son nom** : la boîte de composition est bloquée tant qu'il n'a pas choisi un avatar dans le panneau **« Au nom de »** (`X-Act-As`). Le social demande à eho la liste des avatars autorisés ; eho demande à Pléiade les groupes du joueur ; **masteradmin → tout**, sinon **union des groupes d'avatars ouverts à l'un de ses groupes Pléiade**, sinon **rien (fail closed)**. Cache 10 s côté social. Chaque geste est journalisé (`audit_logs` : opérateur, avatar, action).
+- ⚠ **Deux conditions que la description utilisateur ne mentionne pas** :
+  1. **Le rôle `animateur` sur l'instance social est OBLIGATOIRE pour écrire** (`9a86b38`, catalogue `social.yml` : « sans ce rôle, un compte de la zone lit et ne fait que lire »). Un joueur sans ce rôle ne voit **ni la boîte de composition ni le panneau « Au nom de »**. Il s'attribue **par groupe**, via le bouclier Pléiade de l'instance social (`PUT /api/zones/:zone/instances/:id/groups/:groupId/roles`).
+  2. **Le référentiel des camps doit être rempli dans eho** : pour chaque groupe d'avatars, cocher les groupes Pléiade autorisés à l'incarner. **Aucune case cochée = personne ne peut, sauf les organisateurs** (masteradmin, ex. thomas.meytre via cecpc Connect).
+- **Cohérence avec `69260ef` (matin)** : les « camps » de Xavier et nos « groupes de travail » sont **les mêmes groupes Pléiade de racine**, lus par deux chemins (Pléiade pour lui, API admin Keycloak pour nous). Pas de conflit : `GroupeCamp` n'est pas touché par notre changement.
+- **Prérequis d'instance** : social a besoin d'`EHO_URL` + `PLEIADE_API_KEY` (injectés par la découverte Pléiade quand eho est dans la zone) ; eho de `PLEIADE_URL` / `PLEIADE_ZONE` / `PLEIADE_API_KEY`. À vérifier sur `delattre-26` si le panneau reste vide malgré le rôle et les camps.
+
+## 2026-09-21 (suite) — eho : les groupes Pléiade deviennent les groupes de travail ; delattre-26 remise d'aplomb
+
+- **`eho-delattre26`** recréée par l'utilisateur : elle tournait une VIEILLE
+  image — la création/démarrage d'une instance fait `up -d` SANS `pull`
+  (`deployInstance` aussi), seul **« Déployer » la zone** (`deployZone`) fait
+  `pull` + `up -d`. `delattre-26` n'est pas `zone_type = prod` : les
+  promotions automatiques la sautent. Après « Déployer » la zone : pages
+  MEYTRE présentes, connexion → Keycloak. ⚠ Règle : à chaque version d'eho,
+  redéployer la zone à la main (ou la passer en prod avec Xavier).
+- **Groupes de travail** : eho ne reconnaissait que `/GT/<nom>` (console
+  Keycloak obligatoire, Pléiade ne crée que des groupes de racine). Feu vert
+  utilisateur (« chaque groupe doit avoir son groupe de travail propre ») →
+  `eho` `69260ef` : tous les groupes de racine sauf techniques (`cecpc`,
+  `masteradmin`, racine `GT`), `/GT/…` toujours accepté ; droits d'animation
+  inchangés (bouclier Pléiade). Poussé main + prod.
+
+## 2026-09-21 — eho : connexion impossible sur toutes les zones, corrigée (émetteur Keycloak)
+
+**Symptôme** (utilisateur) : « Server error — problem with the server
+configuration » au clic « se connecter » sur `annuaire.orion26` et
+`eho.delattre-26`. **Diagnostic** (sans accès aux logs, par sondes HTTP) :
+- `orion26` : Auth.js démarre (csrf/providers/session OK), seule la connexion
+  échoue → eho déclarait l'émetteur Keycloak **interne** alors que, depuis le
+  `frontendUrl` figé sur l'adresse publique (Xavier, 2026-09-13), Keycloak
+  annonce toujours `https://auth.cecpc.internal/realms/<zone>` → « issuer
+  mismatch » à la découverte OIDC. Les 4 autres apps (admin, leac,
+  messagerie, press) déclarent l'émetteur public ; **eho et cockpit** non.
+- `delattre-26` : image antérieure au 16/09 (pages MEYTRE absentes, pas de
+  logo du 20/09, pas de `trustHost`) → toutes les routes d'auth en erreur.
+
+**Correctif** (feu vert utilisateur) : `eho` `1e44e2c` — `issuer` public +
+`authorization` public, `token`/`userinfo`/`jwks` internes (motif de
+messagerie/leac). Poussé main + prod → image reconstruite, promotion sur les
+zones prod : `orion26` redirige vers Keycloak à t+2 min. `eho.delattre-26`
+ne répond plus (404 Traefik) depuis la promotion — et le portail de la zone
+ne liste que `social` : ce n'était **pas une instance gérée** (conteneur
+orphelin sur une vieille image, route Traefik résiduelle), balayé quand
+l'orchestrateur a régénéré les routes. Rien de géré n'a été cassé.
+⚠ **Suite** : l'utilisateur a supprimé lui-même cet eho depuis Pléiade.
+`deleteInstance` emporte la base, le dossier d'instance (donc le volume
+`./data` : avatars téléversés) et le client Keycloak. Cette instance tournait
+une image d'avant le 16/09 — elle ne portait donc pas le travail MEYTRE, mais
+ses éventuels contenus DELATTRE 26 sont partis avec. Filet : sauvegardes de
+zone (bases par instance + dossiers), quotidiennes, rétention 14 j par défaut,
+et « restaurer une zone qui n'existe plus ». Zone saine après coup : portail
+200, `social` debout, `orion26` et `cecpc-div-eval` intactes.
+⚠ Leçon : j'ai qualifié l'instance de « reliquat » sur la seule absence au
+portail (requête sur `orch_instances`, donc indice solide) **en demandant
+confirmation à Xavier** ; elle a été supprimée avant cette confirmation. Pour
+une suppression qui emporte des données, dire explicitement « ne pas
+supprimer avant confirmation » plutôt que « à confirmer ». ⚠ Xavier à prévenir : dépôt à lui, cause dans un
+arbitrage à lui (à raison). `app-cockpit` porte la même erreur, non corrigée.
+
+**Constat annexe** : ta branche `MEYTRE` est dans `main` d'eho depuis le
+16/09 (61 fichiers) ; `prod` = `main`. cecpc Connect (broker `cecpc-connect`,
+groupe maître `masteradmin`) donne l'entrée « superadmin » aux comptes du
+royaume cecpc — jamais atteint tant que l'émetteur bloquait.
+
 ## 2026-09-16 — Fusion de `MEYTRE` dans `main` : notre EHO de jeu rejoint la mise en production de Xavier
 
 **Demande utilisateur** : « tout le travail réalisé dans la branche MEYTRE, peux-tu le commiter dans main pour qu'on soit bien à jour ? » — avec la consigne explicite de **résoudre les conflits sans casser ce qui a été fait sur main**, et de **retenir les évolutions de MEYTRE** là où la mise à jour vient bien de MEYTRE.

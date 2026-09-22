@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**444 notes** · généré le 2026-09-17
+**453 notes** · généré le 2026-09-22
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -24,6 +24,11 @@
 | [DECISION-024](decisions/DECISION-024.md) | LEAC — une saisie annulée ne remonte pas ; le compactage du journal est une question de justesse, pas de volume | decision | leac, pleiade |
 | [DECISION-025](decisions/DECISION-025.md) | LEAC — on pose une MENTION et on enregistre le MOT, jamais le chiffre | decision | leac |
 | [DECISION-026](decisions/DECISION-026.md) | LEAC — le LABEL qualifie l'exercice, et une exigence obligatoire manquante invalide le contrôle | decision | leac |
+| [DECISION-027](decisions/DECISION-027.md) | LEAC — Keycloak dit QUI VOUS ÊTES, LEAC dit CE QUE VOUS AVEZ LE DROIT D'Y FAIRE | decision | leac, pleiade |
+| [DECISION-028](decisions/DECISION-028.md) | LEAC — l'AUTEUR fait partie de la cible d'une note ; un transverse noté par plusieurs n'est pas une collision | decision | leac |
+| [DECISION-029](decisions/DECISION-029.md) | Se déconnecter d'une app ferme la ZONE, pas la session de l'organisateur | decision | pleiade, mastorion, leac |
+| [DECISION-030](decisions/DECISION-030.md) | Modèles d'EHO — ce qui doit exister sur TOUTE zone entre dans l'image, pas dans le volume | decision | pleiade, delattre, mastorion |
+| [DECISION-031](decisions/DECISION-031.md) | LEAC — le bouclier Pléiade INSCRIT un administrateur, il ne remplace pas le registre | decision | leac, pleiade |
 | [ENT-arnland](entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity | arnland, exercices, ili |
 | [ENT-bothnia](entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity | bothnia, exercices, ili |
 | [ENT-mercure](entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity | mercure, exercices, ili |
@@ -33,6 +38,9 @@
 | [LESSON-017](lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson | minautore, exercices, mastaurige, analystes |
 | [LESSON-032](lessons/LESSON-032.md) | Un échec de lecture ne doit jamais être présenté comme un résultat valide | lesson | pleiade, mastorion, outillage |
 | [LESSON-035](lessons/LESSON-035.md) | Un build applicatif qui passe ne prouve RIEN pour un déploiement conteneurisé — reproduire l'image en local | lesson | leac, pleiade, mastorion |
+| [LESSON-037](lessons/LESSON-037.md) | Un indicateur doit mesurer EXACTEMENT ce qu'il prétend rapporter — deux fois le même jour | lesson | pleiade, leac, mastorion, noyau |
+| [LESSON-038](lessons/LESSON-038.md) | Une image à volume de données ne fixe pas USER — le dossier monté appartient à root | lesson | pleiade, leac, mastorion |
+| [LESSON-039](lessons/LESSON-039.md) | Derrière un proxy, une adresse absolue se construit sur les en-têtes, jamais sur req.url | lesson | pleiade, mastorion, leac |
 | [PROJ-AURIGE-7BB](projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project | exercices, minautore |
 | [PROJ-MASTAURIGE](projects/MASTAURIGE.md) | MASTAURIGE — outillage production média | project | mastaurige |
 | [PROJ-MINERVE](projects/MINERVE-systeme.md) | MINERVE — système multi-agents | project | systeme, noyau |
@@ -68,6 +76,11 @@
 | [DECISION-024](decisions/DECISION-024.md) | LEAC — une saisie annulée ne remonte pas ; le compactage du journal est une question de justesse, pas de volume | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-023]] |
 | [DECISION-025](decisions/DECISION-025.md) | LEAC — on pose une MENTION et on enregistre le MOT, jamais le chiffre | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[DECISION-024]] [[DECISION-026]] [[LESSON-034]] [[ARCH-014]] |
 | [DECISION-026](decisions/DECISION-026.md) | LEAC — le LABEL qualifie l'exercice, et une exigence obligatoire manquante invalide le contrôle | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[DECISION-025]] [[LESSON-034]] |
+| [DECISION-027](decisions/DECISION-027.md) | LEAC — Keycloak dit QUI VOUS ÊTES, LEAC dit CE QUE VOUS AVEZ LE DROIT D'Y FAIRE | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[DECISION-026]] [[ARCH-014]] [[LESSON-036]] |
+| [DECISION-028](decisions/DECISION-028.md) | LEAC — l'AUTEUR fait partie de la cible d'une note ; un transverse noté par plusieurs n'est pas une collision | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[DECISION-021]] [[DECISION-024]] [[DECISION-027]] [[ARCH-014]] |
+| [DECISION-029](decisions/DECISION-029.md) | Se déconnecter d'une app ferme la ZONE, pas la session de l'organisateur | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-030]] [[LESSON-037]] [[LESSON-039]] |
+| [DECISION-030](decisions/DECISION-030.md) | Modèles d'EHO — ce qui doit exister sur TOUTE zone entre dans l'image, pas dans le volume | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-029]] [[LESSON-038]] [[LESSON-039]] |
+| [DECISION-031](decisions/DECISION-031.md) | LEAC — le bouclier Pléiade INSCRIT un administrateur, il ne remplace pas le registre | 1 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[DECISION-027]] [[LESSON-036]] [[DECISION-029]] |
 
 ## 🛠️ Outils
 
@@ -130,6 +143,10 @@
 | [LESSON-033](lessons/LESSON-033.md) | Ne jamais écrire un chemin Windows en littéral dans un script de substitution | 2 | [`JOURNAL.md`](../../PLEIADE/JOURNAL.md) | [[LESSON-032]] [[DECISION-019]] |
 | [LESSON-034](lessons/LESSON-034.md) | « Pas de note » n'est pas « zéro » — la confusion est invisible à l'œil et fait déclarer un PC inapte | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-022]] |
 | [LESSON-035](lessons/LESSON-035.md) | Un build applicatif qui passe ne prouve RIEN pour un déploiement conteneurisé — reproduire l'image en local | 1 | [`JOURNAL.md`](../../LEAC/JOURNAL.md) | [[LESSON-033]] [[ARCH-013]] |
+| [LESSON-036](lessons/LESSON-036.md) | Retirer un rôle du catalogue Pléiade le SUPPRIME de Keycloak — le déclaratif efface, il n'ignore pas | 2 | [`JOURNAL.md`](../../LEAC/JOURNAL.md) | [[DECISION-027]] [[LESSON-035]] |
+| [LESSON-037](lessons/LESSON-037.md) | Un indicateur doit mesurer EXACTEMENT ce qu'il prétend rapporter — deux fois le même jour | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-029]] [[LESSON-038]] [[LESSON-035]] |
+| [LESSON-038](lessons/LESSON-038.md) | Une image à volume de données ne fixe pas USER — le dossier monté appartient à root | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-030]] [[LESSON-037]] |
+| [LESSON-039](lessons/LESSON-039.md) | Derrière un proxy, une adresse absolue se construit sur les en-têtes, jamais sur req.url | 1 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[DECISION-030]] [[DECISION-029]] [[LESSON-037]] |
 
 ## 🏛️ Architecture
 
@@ -175,14 +192,14 @@
 | [AGENT-EXPERT-INFLUENCE](agents/AGENT-EXPERT-INFLUENCE.md) | EXPERT_INFLUENCE | 2 | [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md) | [[DECISION-010]] [[LESSON-022]] |
 | [AGENT-GUILLAUME](agents/AGENT-GUILLAUME.md) | GUILLAUME | 3 | [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md) | — |
 | [AGENT-IMAGIER](agents/AGENT-IMAGIER.md) | IMAGIER | 2 | [`MEMOIRE.md`](../../IMAGIER/MEMOIRE.md) | [[TOOL-010]] |
-| [AGENT-LEAC](agents/AGENT-LEAC.md) | LEAC | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[DECISION-023]] [[DECISION-024]] [[DECISION-025]] [[DECISION-026]] [[LESSON-034]] [[LESSON-035]] |
+| [AGENT-LEAC](agents/AGENT-LEAC.md) | LEAC | 2 | [`MEMOIRE.md`](../../LEAC/MEMOIRE.md) | [[ARCH-014]] [[DECISION-021]] [[DECISION-022]] [[DECISION-023]] [[DECISION-024]] [[DECISION-025]] [[DECISION-026]] [[DECISION-027]] [[DECISION-028]] [[DECISION-031]] [[LESSON-034]] [[LESSON-035]] [[LESSON-036]] |
 | [AGENT-MASTAURIGE](agents/AGENT-MASTAURIGE.md) | MASTAURIGE | 2 | [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md) | [[ARCH-008]] [[ARCH-009]] [[DECISION-001]] [[DECISION-002]] [[DECISION-003]] [[DECISION-004]] [[DECISION-005]] [[DECISION-006]] [[DECISION-007]] [[DECISION-008]] [[DECISION-009]] [[DECISION-012]] [[LESSON-002]] [[LESSON-006]] [[LESSON-007]] [[LESSON-008]] [[LESSON-013]] [[LESSON-015]] [[LESSON-016]] [[LESSON-019]] [[LESSON-020]] [[LESSON-021]] [[LESSON-023]] [[LESSON-024]] [[LESSON-025]] [[LESSON-026]] [[PROJ-MASTAURIGE]] [[TOOL-001]] [[TOOL-002]] [[TOOL-003]] [[TOOL-004]] [[TOOL-005]] [[TOOL-006]] [[TOOL-007]] [[TOOL-011]] [[TOOL-012]] [[TOOL-013]] [[TOOL-015]] [[TOOL-016]] |
 | [AGENT-MASTODONTE](agents/AGENT-MASTODONTE.md) | MASTODONTE | 3 | [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md) | — |
 | [AGENT-MASTORION](agents/AGENT-MASTORION.md) | MASTORION | 2 | [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md) | [[ARCH-011]] [[DECISION-013]] [[LESSON-027]] [[LESSON-028]] [[LESSON-029]] |
 | [AGENT-MINAUTORE](agents/AGENT-MINAUTORE.md) | MINAUTORE | 2 | [`MEMOIRE.md`](../../MINAUTORE/MEMOIRE.md) | [[PROJ-AURIGE-7BB]] [[TOOL-014]] |
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
-| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[ARCH-013]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[DECISION-017]] [[DECISION-018]] [[DECISION-019]] [[DECISION-020]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[LESSON-033]] [[TOOL-017]] |
+| [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[ARCH-013]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[DECISION-017]] [[DECISION-018]] [[DECISION-019]] [[DECISION-020]] [[DECISION-029]] [[DECISION-030]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[LESSON-033]] [[LESSON-037]] [[LESSON-038]] [[LESSON-039]] [[TOOL-017]] |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |
