@@ -287,6 +287,11 @@ MASTAURIGE peut être amené à produire des tweets mentionnant ou attribués à
 
 ## MODULE MELMIL ILI — Architecture et emplacement
 
+> ⭐ **2026-09-22 — successeur** : le MELMIL existe desormais aussi en **app de zone PLEIADE**, `app-melmil`
+> (`C:\CECPC\pleiade\app-melmil`, memoire chez **PLEIADE**). Import JEMM a l'ecran, calendrier et lignes
+> deduits des exports, fusion sans perte. L'outillage ci-dessous reste la reference pour les instances
+> MASTAURIGE existantes ; toute evolution de la PLANCHE se fait desormais dans l'app.
+
 > Mis à jour le 2026-05-28. Intégré dans l'arborescence MASTAURIGE.
 
 **Chemin :** `D:\CECPC\PRODUCTION\EXER\AURIGE 2BB\00_Boites à outils\MASTAURIGE\WEB\MELMIL\`
@@ -949,6 +954,10 @@ var MELMIL_SUBINJECT_DAYS = {
 **+ Vérifier que `data-camp` est bien présent**
 
 ---
+
+### [2026-09-23] 🔗 Les templates `Sites/` sont repris dans `app-press` (PLEIADE)
+
+> Les `_TEMPLATE.html` de `EXER\AURIGE 7BB\…\LOCALSTORAGE_WEB_VERSION\Sites\` deviennent des **« maquettes existantes »** du site de presse de zone (`app-press`, dossier `src/skins/`). **Les 10 sites sont repris** (2026-09-23) : TV4, Today Mercure, Bothnia Channel 1, Hexagone, TF1, Omerta, ONU, OTAN, ZubrRadio, EFS. Les classes de corps des templates (`figures-box`, `ops-box`, `decree-box`, `BodySubTitle`, `z-seg`, `dots`, `band`…) y sont reconnues. **Conséquence : toute évolution d'un template ici (blocs, couleurs, logo) est à reporter dans `app-press`** — détail et architecture : `PLEIADE\MEMOIRE.md` § « Chantier — Templates MASTAURIGE ».
 
 ### [2026-05-29] ⚠ Template HTML obligatoire — Sites fictifs TV4, BC1, TM
 

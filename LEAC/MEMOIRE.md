@@ -182,6 +182,29 @@ Verrous portés par les statuts :
     points à confirmer · proposition). Correspondance **exacte**. L'annexe I n'en
     reprend que trois : c'est un **résumé**, pas une perte.
 
+### ⭐⭐ Règle 30 — Quatre PROFILS permanents *(2026-09-25, demande client — DECISION-036)*
+
+Le PROFIL suit la **personne** ; la FONCTION (chef d'équipe, contrôleur S2…) suit le **contrôle**. Les deux se cumulent.
+
+| Profil | Ce qu'il ouvre | Où |
+|---|---|---|
+| **Utilisateur** *(défaut, pas de ligne)* | ses contrôles seulement, les grilles de sa fonction | — |
+| **Superviseur** | **tous** les contrôles officiels, toutes les grilles **en lecture**, tableaux de bord, comptes rendus, comparaisons | `AdministrateurEntite.profil` |
+| **Officier de marque** | + **crée** des contrôles (en devient l'ODM → paramètre) | idem |
+| **Administrateur** | + profils, unités, grilles, **rouvrir pour correction** un contrôle clos | idem |
+
+- Correspondance **unique** : `lib/controle/profils.ts` (`droitsDuProfil` : `voitTout`, `peutCreerControle`, `estAdministrateur`). L'accès aux grilles se calcule dans `accesDe(…, voitTout)`, dans `habilitation.ts`.
+- ⚠ Un superviseur hors de l'équipe = **auteur inconnu** pour `/api/sync` : le serveur refuse ses écritures.
+- ⚠ L'**auto-évaluation reste étanche** à tous les profils (`peutEntrer(mode, membre, voitTout)`).
+- **Rouvrir pour correction** (`depot.rouvrirPourCorrection`) :
+  - le contrôle passe de `CLOTURE`/`ARCHIVE` à `COMPTE_RENDU` ;
+  - le motif est obligatoire ;
+  - le journal `controle.reouverture` garde le motif et le résultat annoncé ;
+  - une nouvelle clôture fige le résultat corrigé.
+- Le **dernier administrateur** ne peut être ni retiré ni rétrogradé. Les lignes du **bouclier** restent administrateurs : elles se règlent dans Pléiade.
+- ✅ **Créer des comptes depuis LEAC : NON** *(tranché par l'utilisateur le 2026-09-25)*. Les comptes restent créés dans **Pléiade**, qui fonctionne très bien pour cela. L'administrateur LEAC attribue seulement les profils. Ne pas le reproposer.
+- Code : `2b8d539`, `2026-09-25.1` — ✅ **en ligne depuis le 2026-09-25, 08:08**.
+
 ### ⭐⭐ Règle 24 — Qui décide quoi *(2026-09-18)*
 
 ⚠⚠ **Keycloak dit QUI VOUS ÊTES. LEAC dit CE QUE VOUS AVEZ LE DROIT D'Y FAIRE.**
@@ -271,6 +294,35 @@ et `LEAC_AUTO_EVALUATION=1` (référents d'unité, `Controle.mode = AUTO`,
 auto-évaluation dont il n'est pas membre). Construites, testées, hypothèses
 écrites dans le code ; déclarées dans `catalog/leac.yml` (local, non commité).
 
+### ⭐⭐ Règle 29 — Le CARNET DE TERRAIN entre avant la grille, et RESTE SUR L'APPAREIL *(2026-09-22)*
+
+Retour du premier utilisateur sur le serveur : la grille arrivait trop tôt.
+`/controle/<id>` est désormais le **carnet** (notes texte + vocaux, plusieurs,
+à traiter / traitées) ; la grille est sous `/controle/<id>/grilles`, et une
+note s'y épingle (`?note=`) le temps de poser la mention, puis se marque
+traitée. **Décision utilisateur : les notes et les vocaux ne vont JAMAIS au
+serveur** — table IndexedDB `carnet` (v4), hors journal, hors `sync/`, hors
+`/api/pieces` ; c'est la seule écriture locale qui contourne `depot.ecrire`,
+et c'est voulu. L'écran le dit (perdre l'appareil = perdre le carnet ; les
+mentions, elles, se synchronisent). Vocal : `MediaRecorder` (webm/opus, mp4
+sur iOS), repli `<input capture>` sans MediaRecorder.
+⭐ **AUCUN plafond de durée ni de taille** *(levé le jour même, à la demande de
+l'utilisateur : « vu que les vocaux ne partent pas sur le serveur »)*. Les
+3 min venaient du plafond des pièces jointes, qui, elles, remontent. ⚠⚠ Et
+refuser un enregistrement APRÈS coup le détruirait — les octets n'existent
+qu'une fois le micro coupé ; un vocal n'est donc refusé que s'il est VIDE.
+La limite devient l'espace de l'appareil : elle s'AFFICHE (`espaceDuCarnet`),
+`navigator.storage.persist()` est demandé (le carnet est la seule copie, une
+éviction du navigateur l'effacerait), un refus de persistance est dit à
+l'écran, et `QuotaExceededError` rend un motif clair au lieu d'un silence.
+⚠⚠ **Mesuré : la persistance est REFUSÉE dans un navigateur ordinaire** —
+Chromium la réserve aux sites installés. ⭐ **Installer LEAC sur l'écran
+d'accueil de la tablette suffit à l'obtenir** (manifeste + service worker déjà
+là) ; la bannière le conseille en toutes lettres. **À dire aux contrôleurs.**
+Débit relevé : ~0,95 Mo/min en webm/opus (30 min ≈ 29 Mo).
+Code : `domaine/carnet.ts` (pur, testé), `offline/useCarnet.ts`,
+`controle/[id]/{page,enregistreur,lecteur-vocal}.tsx`, `grilles/notation.tsx`.
+
 ### ⭐⭐ Règle 25 — L'AUTEUR fait partie de la cible d'une note et d'une observation *(2026-09-18)*
 
 `Note#<cycle>:<pointId>|<auteurId>#valeur` · `Observation#<cycle>:<domaineId>|<auteurId>#<champ>`.
@@ -355,6 +407,31 @@ avec des gants.**
 - **Bandeau** commun (`ui/bandeau.tsx`) : contrôle, unité + insigne, fonction.
 - **Mentions compactes** sous 480 px (`Mention.court`) — la tablette en portrait.
 
+**Complété le 2026-09-24 — avis DESIGNER n°2** (`DESIGNER\AVIS\2026-09-24_LEAC\AVIS.md`, demande utilisateur : « compliqué à assimiler visuellement », responsive tablette / téléphone / ordinateur). Branche `refonte-design` (`b27b171`), **validée par l'utilisateur** et ✅ **EN PRODUCTION le 2026-09-24 à 15:56**, version `2026-09-24.1` (`6701831` sur `main` et `prod`) :
+- ⭐ **UNE navigation par contrôle** (`lib/ui/nav-controle.tsx`, montée dans `controle/[id]/layout.tsx`) : Carnet · Grilles · Bilan · Synchro · **Plus** (Fin de cycle, Mandat, Compte rendu, Paramétrage si `peutParametrer`). La destination courante est **enfoncée**. **< 1024 px : barre en BAS** (60 px, `env(safe-area-inset-bottom)`, sous le pouce) · **≥ 1024 px : barre LATÉRALE** de 224 px, groupée Terrain / Équipe / Production. La bascule se fait en CSS (`.avec-nav`, `.nav-bas`, `.nav-cote`), sans JavaScript de largeur. ⚠ Les rangées de boutons propres à chaque écran **sont retirées** (7 écrans) : ne pas en réintroduire, une nouvelle destination s'ajoute dans `DESTINATIONS`.
+- ⚠ **Piège CSS** : `.frappe { justify-content: center }` (hors couche) l'emporte sur les utilitaires Tailwind (`justify-between`), si bien que les intitulés de la grille et les tuiles de l'accueil étaient **centrés**. Correctif : `.frappe.justify-between`. Même famille : `.frappe` impose `inline-flex`, d'où `.carte.liseré.frappe { display:flex; width:100% }` pour les cartes de contrôle.
+- Téléphone : dans la grille, la recherche prend toute la largeur et les filtres (`.filtres-options`) tiennent sur **une ligne qui défile**. Sur grand écran, la colonne passe de `max-w-3xl` à **62rem**.
+- Mesuré : **plus aucun débordement horizontal** aux 4 tailles (téléphone, grilles : 83 px → 0) ; 452 tests.
+
+**⭐ LEAC v2 — 2026-09-24 (soir), proposition DESIGNER** (`DESIGNER\AVIS\2026-09-24_LEAC\PROPOSITION_V2.md`), branche `refonte-v2` (`576de5e`), ✅ **validée par l'utilisateur** (« c'est très bien ») et **EN PRODUCTION le 2026-09-24 à 16:54**, version `2026-09-24.2` (`ffc8b73` sur `main` et `prod`), **correctif de largeur téléphone compris**.
+- ⚠⚠ **Le parti pris « angles vifs, aucune ombre » est LEVÉ à la demande de l'utilisateur** (« beaucoup plus fluide, esthétique, pro »). **Restent** (ce sont des exigences terrain) : 48 px, contraste au soleil, clair par défaut, mention en un appui, synchronisation visible, carnet en premier écran.
+- **Système**, en couche finale de `globals.css` :
+  - rayons de 8 px (boutons, champs) et 12 px (cartes) ;
+  - ombres douces en deux couches ;
+  - boutons `frappe-pleine` (principal, un par écran) / `frappe-vide` (secondaire) / `frappe-discret` ;
+  - pastilles teintées, anneau de focus bleu ;
+  - mentions et rubriques à liseré intérieur (`box-shadow inset`) ;
+  - `.segmente` (+ `.segmente-defile`), `.progression`, `.encart` (`-alerte`, `-info` repliable), `.liste-admin`.
+- **Architecture** :
+  - en-tête de contrôle compact (`BandeauDeControle` : retour, insigne, intitulé, place, pastilles) ;
+  - accueil : contrôles d'abord, administration en liste en bas, démo compacte ;
+  - carnet : un seul bouton principal (« Garder la note »), notice repliable, alerte d'installation en encart ;
+  - grille : barre de progression, domaine en pastille, Liste / Un par un segmenté, titre sur une ligne ;
+  - bilan : trois indicateurs en colonnes ;
+  - paramétrage : onglets en sélecteur segmenté défilant ;
+  - **en-têtes non collés sous 640 px** (collés, ils mangeaient la moitié de l'écran).
+- Vérifié : 452 tests ; 22/22 et 33/33 sans débordement ; thème sombre contrôlé.
+
 ---
 
 ## 8. État d'avancement
@@ -377,6 +454,7 @@ avec des gants.**
 | ⭐ **Tableau de bord de la réunion quotidienne** (§ V.B.9) | ✅ 2026-09-17 — `src/app/tableau-de-bord/` + `src/lib/domaine/bilan.ts` — commit `d352962` |
 | ⭐ **Écran de fin de cycle** (§ III.B / III.C) | ✅ 2026-09-17 — `src/app/fin-de-cycle/` + `src/lib/domaine/cycle.ts` — commit `edbf801` |
 | **Cycles réels** (§ V.B.7) + **validation de grille** (§ III.D) | ✅ 2026-09-17 — commit `7510830` · le cycle entre dans la clé des notes |
+| ⭐ **Carnet de terrain** — première fenêtre d'un contrôle, notes + vocaux **locaux à l'appareil** | ✅ 2026-09-22 — `src/lib/domaine/carnet.ts`, `src/lib/offline/useCarnet.ts`, `controle/[id]/page.tsx` ; grille déplacée sous `/grilles` ; 452 tests + e2e 21/21 · **EN PRODUCTION `2026-09-22.1`** (vérifiée sur `/api/sante`) |
 | ⭐ **Domaines transverses** (§ V.A.3) — pondération, observateurs, drapeau **par domaine** | ✅ 2026-09-17 — `src/lib/domaine/domaines.ts` — commit `eeb64ea` |
 | ⭐ **Compactage du journal** — une saisie annulée ne remonte pas | ✅ 2026-09-17 — `src/lib/sync/compactage.ts` + table `socle` — commit `675cfd3` |
 | ⭐⭐ **App de zone PLEIADE déployable** — Dockerfile, workflow `prod`, sondes, Keycloak | ✅ 2026-09-17 — commit `4eccf1f` + `catalog/leac.yml` · voir `docs/DEPLOIEMENT.md` |
@@ -418,6 +496,39 @@ disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
 
 ---
 
+## 8 bis. ⭐ Préparer une tablette ou un téléphone *(vécu le 2026-09-25)*
+
+« **Sans réseau — Cette page n'est pas sur l'appareil** » sur un mobile, alors que le VPN est actif et que le PC marche, avec un **⊗** devant l'adresse : l'**autorité interne « Mastorion Internal CA »** n'est pas approuvée sur l'appareil. Le service worker n'hérite pas de l'exception « Consulter ce site web » de Safari, sa requête échoue, et il affiche `/hors-ligne`.
+
+**Correctif (iOS), une fois par appareil, AVANT le terrain** :
+1. installer `C:\CECPC\pleiade\pleiade-infra\pki\ca.crt` (certificat public) ;
+2. *Réglages → Général → Informations → Réglages de confiance des certificats* → activer « Mastorion Internal CA » ;
+3. *Réglages → Safari → Avancé → Données des sites web* → supprimer le site LEAC ;
+4. rouvrir avec le VPN : cadenas normal.
+
+### Incident du 2026-09-27 — « on ne change plus de page, comme déconnecté » (Axel)
+- **Symptôme** : seule la page déjà consultée s'affiche ; changer de page ne met rien à jour, comme sans connexion. L'utilisateur avait eu le même problème et l'avait réglé en **effaçant cookies et données du site** puis en rechargeant.
+- **Vérifié** : le serveur de production répond (`/api/sante` = `2026-09-25.1`, `/sw.js` 200). La session Auth.js est un JWT de 30 jours qui ne dépend pas de l'expiration Keycloak. Le problème est donc **local à l'appareil**.
+- ✅ **CAUSE CONFIRMÉE le même jour** sur le poste de l'utilisateur (Chrome sous Windows, même symptôme, **ancienne version affichée**) : « Mastorion Internal CA » **absente du magasin racine Windows** (CurrentUser et LocalMachine). Chrome lit ce magasin. `Invoke-WebRequest` échoue en « relation de confiance SSL/TLS », alors que `ca.crt` valide bien le certificat LEAC (`Verify return code: 0`).
+  - **Mécanisme** : on passe l'avertissement de Chrome pour la PAGE, mais le service worker ne bénéficie jamais de cette exception. Il ne peut ni se mettre à jour (l'**ancienne version** reste en place), ni joindre le serveur : chaque navigation tombe dans son `catch` et reçoit la page gardée ou `/hors-ligne`, d'où l'effet « comme déconnecté ». Effacer les données du site ne répare que jusqu'à la prochaine installation du worker.
+  - **Réparation durable** : installer `pleiade-infra\pki\ca.crt` dans « Autorités de certification racines de confiance » de **chaque poste** (Windows : double-clic → Installer → Utilisateur actuel → magasin « Autorités de certification racines de confiance »), redémarrer Chrome, puis recharger (bandeau « Nouvelle version ») ou désinscrire le worker (F12 → Application → Service workers).
+- *Hypothèses de départ (avant confirmation)* :
+  1. le certificat de la zone n'est pas approuvé (§ ci-dessus) ;
+  2. un état local périmé : un cookie de session illisible (un cookie Auth.js découpé en morceaux, car le JWT porte l'`idToken`), ou des pages gardées par le service worker. Effacer les données du site supprime les deux.
+- **Consigne donnée** : synchroniser AVANT tout effacement, car effacer les données du site **efface aussi le carnet IndexedDB**. Essai sans risque d'abord : fenêtre privée ou autre navigateur. Puis effacer les données **de ce seul site**.
+- ✅ **Décision utilisateur : on GARDE le service worker** (le hors-ligne du terrain) **et on AFFICHE l'état**. Livré sur la branche **`etat-reseau`** (commit `a4639f3`, version `2026-09-27.1`), ✅ **EN LIGNE le 2026-09-27** (`main` = `prod` = `a4639f3`, `/api/sante` = `2026-09-27.1`, vérifié sur le serveur : marque du worker, script de thème correct, pastille présente) :
+  - **pastille du bandeau** (`lib/ui/pastille-reseau.tsx`, logique pure `lib/ui/etat-reseau.ts`, testée) : **En direct** / **Hors ligne · copie de l'appareil** / **Serveur injoignable**. Mesure réelle : le worker **marque** la page servie depuis la copie (`<meta name="leac-source" content="appareil">`), et `/api/sante` est appelé au chargement, toutes les 30 s, à chaque page et au retour du réseau. « Copie + serveur qui répond » = **certificat suspect**, dit en clair. Avis DESIGNER n°8 ;
+  - **correctif** : la purge des pages à la connexion effaçait aussi `/hors-ligne`, et une coupure suivante affichait un texte brut « Hors ligne » ;
+  - **correctif** : `SCRIPT_THEME` / `SCRIPT_PREFERENCES` étaient exportés d'un module **client**, et le layout serveur recevait une **référence client**. Résultat : une erreur JS à chaque page, et le thème sombre ou la taille du texte appliqués trop tard. Ils sont déplacés dans `lib/ui/scripts-tete.ts` (module non client). ⚠ **Règle** : ne jamais exporter une constante destinée au serveur depuis un fichier `"use client"`.
+  - Vérifié en version de production locale (`next start`, Chrome, téléphone + ordinateur) : les 3 états, le cas certificat, 0 erreur de page, 0 débordement ; 468 tests.
+- ⏳ **À faire (code)** :
+  - ~~une bannière d'état~~ → fait (pastille, ci-dessus) ;
+  - un rechargement automatique sur `ChunkLoadError` (décalage de version) ;
+  - mesurer la taille du cookie de session et, si elle est découpée, ne plus y garder l'`idToken` complet.
+  - Diagnostic à obtenir de l'utilisateur : appareil, navigateur, cadenas, ce qui s'affiche.
+
+⏳ Proposé, pas encore fait : la page `/hors-ligne` pourrait dire « serveur injoignable : réseau, VPN ou certificat de la zone » plutôt que « la tablette n'a pas de réseau ».
+
 ## 9. Points ouverts / à trancher avec l'utilisateur
 
 - ⏳ **Format d'import Excel des grilles** — memento admin § XII : *« en cours de
@@ -443,6 +554,12 @@ disparaît — chacune justifiée dans `docs/COUVERTURE.md`).
   pas du travail de Xavier — plus rien à protéger là ; `--autostash` inutile.
 - ⏳ **CECPC** : corriger les 9 codes en double du classeur N4 ; trancher
   pièces jointes (classification) et auto-évaluation (public, comptes).
+- ✅ **2026-09-22 — Carnet de terrain AVANT la grille** : construit, plafond des
+  vocaux levé, et **mis en production** le jour même (`2026-09-22.1`, Règle 29).
+  L'utilisateur a tranché : **tout reste sur l'appareil**, ce qui règle la
+  classification des vocaux. Pas de transcription.
+  ⏳ Reste : **retour de terrain**, et ⭐ **dire aux contrôleurs d'installer LEAC
+  sur l'écran d'accueil** (sans quoi le carnet est évinçable).
 - ✅ 2026-09-21 : **le rôle Keycloak `admin` reprend du service** — il porte le
   bouclier Pléiade (cf. Règle 24, « Le bouclier Pléiade compte aussi »). Il n'est
   plus obsolète : **ne pas le retirer** de `catalog/leac.yml`, `ensureClientRoles`

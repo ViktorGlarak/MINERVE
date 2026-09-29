@@ -1,0 +1,3183 @@
+From 1a40aa19d3d04a7dadf0d616df52c93517ae6867 Mon Sep 17 00:00:00 2001
+From: ViktorGlarak <viktorglarak@gmail.com>
+Date: Wed, 23 Sep 2026 14:11:31 +0200
+Subject: [PATCH 2/3] Maquettes existantes : TV4, Today Mercure et Bothnia
+ Channel 1 (vague 1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Reglages > Maquette et theme propose, a droite des maquettes generiques,
+les sites d'exercice deja produits par MASTAURIGE (Sites/ d'AURIGE 7BB),
+repris comme habillages fideles : structure et feuille de style du
+template, zones autrefois ecrites en dur (rubriques, bandeau, articles
+lies, colonnes) alimentees par la base, une, rubrique, direct, recherche
+et page fixe ecrites dans chaque charte.
+
+- src/skins : registre (donnees, lu par le navigateur), contrat, pieces
+  communes, trois habillages et leurs feuilles confinees derriere .sk-<cle>
+- reactions, fil en direct et mention d'exercice poses en ilots .site aux
+  jetons de la charte : memes composants, meme comportement
+- charte verrouillee par defaut, « Retoucher les couleurs » avec des
+  libelles propres a chaque charte ; reprise optionnelle de l'identite
+- apercu des reglages : le vrai habillage, en miniature, articles factices
+- champs de maquette par article (Article.skinFields) : « Lieu de la
+  depeche » pour TV4 et BC1, dans l'editeur et la ligne de metadonnees
+- Site.skin ; polices PT Serif, PT Sans, Oswald, Source Sans 3 embarquees
+- EXERCISE_NOTICE deplacee dans lib/notice.ts (importable cote client)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ prisma/schema.prisma                          |   8 +
+ src/app/(site)/article/[slug]/page.tsx        |  20 +
+ src/app/(site)/direct/page.tsx                |  10 +
+ src/app/(site)/layout.tsx                     |  23 +-
+ src/app/(site)/page.tsx                       |  12 +
+ src/app/(site)/page/[slug]/page.tsx           |   6 +
+ src/app/(site)/recherche/page.tsx             |  11 +
+ src/app/(site)/rubrique/[slug]/page.tsx       |  14 +
+ src/app/api/bff/articles/[id]/route.ts        |   8 +
+ src/app/api/bff/site/theme/route.ts           |  14 +-
+ src/app/globals.css                           |   1 +
+ src/app/layout.tsx                            |  14 +-
+ src/app/redaction/articles/[id]/page.tsx      |   3 +
+ src/components/redaction/ArticleEditor.tsx    |  27 +-
+ src/components/redaction/acces.ts             |   3 +
+ .../redaction/reglages/ApercuSkin.tsx         |  91 +++++
+ .../redaction/reglages/OngletTheme.tsx        | 164 +++++++-
+ src/components/redaction/types.ts             |   3 +
+ src/components/site/ExerciseNotice.tsx        |   2 +-
+ src/components/site/data.ts                   |   7 +-
+ src/lib/notice.ts                             |   8 +
+ src/lib/site.ts                               |  10 +-
+ src/lib/theme.ts                              |   9 +-
+ src/skins/bc1/Bc1.tsx                         | 339 +++++++++++++++++
+ src/skins/bc1/bc1.css                         | 188 ++++++++++
+ src/skins/client.tsx                          |  38 ++
+ src/skins/registry.ts                         | 168 +++++++++
+ src/skins/shared.tsx                          |  82 ++++
+ src/skins/skins.css                           |  20 +
+ src/skins/todaymercure/TodayMercure.tsx       | 347 +++++++++++++++++
+ src/skins/todaymercure/todaymercure.css       | 197 ++++++++++
+ src/skins/tv4/Tv4.tsx                         | 349 ++++++++++++++++++
+ src/skins/tv4/tv4.css                         | 214 +++++++++++
+ src/skins/types.ts                            |  77 ++++
+ src/skins/views.ts                            |  14 +
+ 35 files changed, 2472 insertions(+), 29 deletions(-)
+ create mode 100644 src/components/redaction/reglages/ApercuSkin.tsx
+ create mode 100644 src/lib/notice.ts
+ create mode 100644 src/skins/bc1/Bc1.tsx
+ create mode 100644 src/skins/bc1/bc1.css
+ create mode 100644 src/skins/client.tsx
+ create mode 100644 src/skins/registry.ts
+ create mode 100644 src/skins/shared.tsx
+ create mode 100644 src/skins/skins.css
+ create mode 100644 src/skins/todaymercure/TodayMercure.tsx
+ create mode 100644 src/skins/todaymercure/todaymercure.css
+ create mode 100644 src/skins/tv4/Tv4.tsx
+ create mode 100644 src/skins/tv4/tv4.css
+ create mode 100644 src/skins/types.ts
+ create mode 100644 src/skins/views.ts
+
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+index f9f3094..95d7f6a 100644
+--- a/prisma/schema.prisma
++++ b/prisma/schema.prisma
+@@ -18,6 +18,9 @@ model Site {
+   logoUrl     String?  @map("logo_url")
+   /// maquette du site public : journal | magazine | pureplayer | chaine
+   layout      String   @default("journal")
++  /// habillage repris d'un site d'exercice existant (tv4, todaymercure…) ;
++  /// null = la maquette generique ci-dessus. Voir src/skins/registry.ts
++  skin        String?  @db.VarChar(40)
+   /// jetons du theme (couleurs, typographies, densite), JSON
+   themeJson   String?  @map("theme_json") @db.Text
+   /// composition de la une : blocs ordonnes, JSON
+@@ -92,6 +95,11 @@ model Article {
+   /// fil en direct : l'article recoit des entrees horodatees
+   live   Boolean @default(false)
+ 
++  /// champs propres a l'habillage du site (lieu de la depeche…), JSON
++  /// { cle: texte }. Ceux que l'habillage courant ne declare pas sont gardes
++  /// mais ignores : changer d'habillage ne perd rien.
++  skinFields String? @map("skin_fields") @db.Text
++
+   readingMinutes Int @default(1) @map("reading_minutes")
+   viewCount      Int @default(0) @map("view_count")
+ 
+diff --git a/src/app/(site)/article/[slug]/page.tsx b/src/app/(site)/article/[slug]/page.tsx
+index 47c9852..0b44558 100644
+--- a/src/app/(site)/article/[slug]/page.tsx
++++ b/src/app/(site)/article/[slug]/page.tsx
+@@ -8,6 +8,8 @@ import { Byline, CategoryTag, Figure } from "@/components/site/Bits";
+ import { LiveFeed } from "@/components/site/LiveFeed";
+ import { Reactions } from "@/components/site/Reactions";
+ import { articleBySlug, latestCards, liveEntries, reactions } from "@/components/site/data";
++import { skinOf } from "@/skins/views";
++import { Island } from "@/skins/shared";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -39,6 +41,24 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug:
+     latestCards({ categoryId: article.category?.id ?? null, take: 4, exclude: [article.id] }),
+   ]);
+ 
++  const skin = skinOf(site);
++  if (skin) {
++    // Le fil en direct et les reactions sont les memes composants que sur le
++    // site generique, poses dans un ilot aux couleurs de l'habillage : ils
++    // gardent leur comportement (rafraichissement, formulaire, moderation).
++    const liveNode = article.live ? (
++      <Island site={site}>
++        <LiveFeed articleId={article.id} startedAt={Date.now()} initial={entries.map((e) => ({ ...e, publishedAt: e.publishedAt.toISOString() }))} />
++      </Island>
++    ) : null;
++    const reactionsNode = (
++      <Island site={site}>
++        <Reactions articleId={article.id} items={items} enabled={site.commentsEnabled} moderated={site.commentsModerated} />
++      </Island>
++    );
++    return <skin.Article site={site} article={article} related={liens} liveNode={liveNode} reactionsNode={reactionsNode} entries={entries} />;
++  }
++
+   return (
+     <div className="wrap page-article">
+       <article className="article">
+diff --git a/src/app/(site)/direct/page.tsx b/src/app/(site)/direct/page.tsx
+index ca8488d..d92ab36 100644
+--- a/src/app/(site)/direct/page.tsx
++++ b/src/app/(site)/direct/page.tsx
+@@ -5,6 +5,7 @@ import { loadSite } from "@/lib/site";
+ import { Thumb } from "@/components/site/Bits";
+ import { LiveThread } from "@/components/site/LiveThread";
+ import { latestCards, liveEntries } from "@/components/site/data";
++import { skinOf } from "@/skins/views";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -18,6 +19,15 @@ export const metadata: Metadata = { title: "En direct" };
+ export default async function DirectPage() {
+   const site = await loadSite();
+   const cards = await latestCards({ live: true, take: 12 });
++  const skin = skinOf(site);
++  if (skin) {
++    // Chaque fil ouvre l'article, ou le direct se met a jour tout seul.
++    return (
++      <skin.List site={site} title="En direct" cards={cards}
++        subtitle={cards.length ? `${cards.length} fil${cards.length > 1 ? "s" : ""} suivi${cards.length > 1 ? "s" : ""}` : undefined}
++        emptyNote="Aucun fil n’est ouvert pour le moment. Quand la rédaction suit un événement, il apparaît ici." />
++    );
++  }
+   const fils = await Promise.all(cards.map(async (c) => ({ card: c, entries: await liveEntries(c.id, 3) })));
+ 
+   return (
+diff --git a/src/app/(site)/layout.tsx b/src/app/(site)/layout.tsx
+index cf29d3f..29236ae 100644
+--- a/src/app/(site)/layout.tsx
++++ b/src/app/(site)/layout.tsx
+@@ -1,11 +1,12 @@
+ import type { Metadata } from "next";
+ import { loadSite } from "@/lib/site";
+ import { themeVars } from "@/lib/theme";
+-import { alerts, menuPages, navigation } from "@/components/site/data";
++import { alerts, latestCards, liveBundle, menuPages, navigation } from "@/components/site/data";
+ import { isDarkPaper } from "@/components/site/format";
+ import { ExerciseNotice } from "@/components/site/ExerciseNotice";
+ import { SiteHeader } from "@/components/site/SiteHeader";
+ import { SiteFooter } from "@/components/site/SiteFooter";
++import { skinOf } from "@/skins/views";
+ 
+ /**
+  * L'enveloppe du site public.
+@@ -15,6 +16,10 @@ import { SiteFooter } from "@/components/site/SiteFooter";
+  * declare la maquette en attribut (c'est elle qui change la structure, pas les
+  * couleurs), et elle encadre chaque page par la mention d'exercice — en haut,
+  * et en pied. Le reste du site n'a plus a y penser.
++ *
++ * Quand la redaction a choisi une maquette existante (un site d'exercice deja
++ * connu des joueurs, voir src/skins), c'est son habillage qui encadre la page :
++ * il recoit les memes donnees, plus ce que ses colonnes laterales affichent.
+  */
+ 
+ export const dynamic = "force-dynamic";
+@@ -29,6 +34,22 @@ export async function generateMetadata(): Promise<Metadata> {
+ 
+ export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+   const site = await loadSite();
++  const skin = skinOf(site);
++
++  if (skin) {
++    const [nav, pages, urgent, latest, live] = await Promise.all([navigation(site), menuPages(), alerts(8), latestCards({ take: 8 }), liveBundle(null, 6)]);
++    // Le bandeau defilant montre les alertes ; sans alerte, les derniers titres :
++    // les sites d'origine ne l'ont jamais vide.
++    const ticker = urgent.length ? urgent : latest.slice(0, 6).map((c) => ({ id: c.id, slug: c.slug, title: c.title }));
++    // Chaque habillage pose deja son lien d'accueil, en tete de navigation.
++    const rubriques = nav.filter((m) => m.href !== "/");
++    return (
++      <skin.Shell site={site} nav={rubriques} pages={pages} ticker={ticker} live={live?.article ?? null} liveEntries={live?.entries ?? []} latest={latest}>
++        {children}
++      </skin.Shell>
++    );
++  }
++
+   const [nav, pages, urgent] = await Promise.all([navigation(site), menuPages(), alerts(6)]);
+   const dark = isDarkPaper(site.theme.colors.paper);
+ 
+diff --git a/src/app/(site)/page.tsx b/src/app/(site)/page.tsx
+index 002f539..63fd3ab 100644
+--- a/src/app/(site)/page.tsx
++++ b/src/app/(site)/page.tsx
+@@ -1,6 +1,8 @@
+ import { loadSite } from "@/lib/site";
+ import { Homepage } from "@/components/site/Homepage";
+ import { fullDate } from "@/components/site/format";
++import { headlineCard, latestCards, liveBundle } from "@/components/site/data";
++import { skinOf } from "@/skins/views";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -10,6 +12,16 @@ export const dynamic = "force-dynamic";
+  */
+ export default async function HomePage() {
+   const site = await loadSite();
++  const skin = skinOf(site);
++  if (skin) {
++    // Un habillage a sa propre une, a l'image du site d'origine : l'article
++    // designe par la redaction (premier bloc « une »), puis le fil de
++    // l'actualite. Les autres blocs de la une generique ne s'y appliquent pas.
++    const une = site.homepage.find((b) => b.kind === "une");
++    const lead = await headlineCard(une?.articleId);
++    const [cards, live] = await Promise.all([latestCards({ take: 12, exclude: lead ? [lead.id] : [] }), liveBundle(null, 4)]);
++    return <skin.Home site={site} lead={lead} cards={cards} live={live} />;
++  }
+   return (
+     <div className="wrap page-home">
+       {/* Le quotidien affiche sa date en tete de une, comme sur le papier. */}
+diff --git a/src/app/(site)/page/[slug]/page.tsx b/src/app/(site)/page/[slug]/page.tsx
+index cb62b67..bf9ac46 100644
+--- a/src/app/(site)/page/[slug]/page.tsx
++++ b/src/app/(site)/page/[slug]/page.tsx
+@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
+ import { cleanHtml } from "@/lib/sanitize";
+ import { pageBySlug } from "@/components/site/data";
+ import { longDate } from "@/components/site/format";
++import { loadSite } from "@/lib/site";
++import { skinOf } from "@/skins/views";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -22,6 +24,10 @@ export default async function PageFixe({ params }: { params: Promise<{ slug: str
+   const page = await pageBySlug(slug);
+   if (!page) notFound();
+ 
++  const site = await loadSite();
++  const skin = skinOf(site);
++  if (skin) return <skin.Page site={site} title={page.title} html={cleanHtml(page.body)} updatedAt={page.updatedAt} />;
++
+   return (
+     <div className="wrap page-fixe">
+       <article className="article">
+diff --git a/src/app/(site)/recherche/page.tsx b/src/app/(site)/recherche/page.tsx
+index 6f5e459..b52d6cb 100644
+--- a/src/app/(site)/recherche/page.tsx
++++ b/src/app/(site)/recherche/page.tsx
+@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
+ import { loadSite } from "@/lib/site";
+ import { ArticleCard } from "@/components/site/ArticleCard";
+ import { latestCards, searchCards } from "@/components/site/data";
++import { skinOf } from "@/skins/views";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -18,6 +19,16 @@ export default async function RecherchePage({ searchParams }: { searchParams: Pr
+   const cards = needle ? await searchCards(needle) : [];
+   const suggestions = needle ? [] : await latestCards({ take: 6 });
+ 
++  const skin = skinOf(site);
++  if (skin) {
++    return (
++      <skin.List site={site} title={needle ? `Recherche : « ${needle} »` : "Dernières infos"}
++        subtitle={needle ? `${cards.length} article${cards.length > 1 ? "s" : ""}` : undefined}
++        cards={needle ? cards : suggestions} search={{ q: needle }}
++        emptyNote={needle.length === 1 ? "Saisissez au moins deux caractères." : `Aucun article ne correspond à « ${needle} ».`} />
++    );
++  }
++
+   return (
+     <div className="wrap page-recherche">
+       <header className="page-head">
+diff --git a/src/app/(site)/rubrique/[slug]/page.tsx b/src/app/(site)/rubrique/[slug]/page.tsx
+index d9a30e2..7c476b1 100644
+--- a/src/app/(site)/rubrique/[slug]/page.tsx
++++ b/src/app/(site)/rubrique/[slug]/page.tsx
+@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
+ import { loadSite } from "@/lib/site";
+ import { ArticleCard } from "@/components/site/ArticleCard";
+ import { categoryBySlug, countCards, latestCards } from "@/components/site/data";
++import { skinOf } from "@/skins/views";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -38,6 +39,19 @@ export default async function RubriquePage({
+   const pages = Math.max(1, Math.ceil(total / PAR_PAGE));
+   const [lead, ...rest] = cards;
+ 
++  const skin = skinOf(site);
++  if (skin) {
++    return (
++      <skin.List site={site} title={cat.name} subtitle={`${total} article${total > 1 ? "s" : ""}`} cards={cards}
++        emptyNote="Cette rubrique n’a encore rien publié."
++        pager={pages > 1 ? {
++          prev: page > 1 ? `/rubrique/${cat.slug}?p=${page - 1}` : undefined,
++          next: page < pages ? `/rubrique/${cat.slug}?p=${page + 1}` : undefined,
++          label: `${page} / ${pages}`,
++        } : undefined} />
++    );
++  }
++
+   return (
+     <div className="wrap page-rubrique">
+       <header className="page-head" style={cat.color ? ({ "--tag-color": cat.color } as React.CSSProperties) : undefined}>
+diff --git a/src/app/api/bff/articles/[id]/route.ts b/src/app/api/bff/articles/[id]/route.ts
+index 127e877..c0f543c 100644
+--- a/src/app/api/bff/articles/[id]/route.ts
++++ b/src/app/api/bff/articles/[id]/route.ts
+@@ -1,4 +1,5 @@
+ import { NextResponse } from "next/server";
++import { parseSkinFields } from "@/skins/registry";
+ import { prisma } from "@/lib/db";
+ import { badRequest, notFound, requireEditor } from "@/lib/guard";
+ import { cleanHtml, readingMinutes } from "@/lib/sanitize";
+@@ -71,6 +72,13 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
+   if (has("live")) data.live = Boolean(b.live);
+   if (has("seoTitle")) data.seoTitle = String(b.seoTitle ?? "").slice(0, 200);
+   if (has("seoDescription")) data.seoDescription = String(b.seoDescription ?? "").slice(0, 500);
++  // Les champs de maquette arrivent en entier (l'editeur renvoie tous ceux
++  // qu'il connait, y compris ceux d'une maquette qui n'est plus en service) :
++  // parseSkinFields borne les cles et les longueurs, et un champ vide disparait.
++  if (has("skinFields")) {
++    const fields = parseSkinFields(b.skinFields);
++    data.skinFields = Object.keys(fields).length ? JSON.stringify(fields) : null;
++  }
+ 
+   if (has("authorIdentityId")) {
+     const signature = await resolveSignature(b.authorIdentityId as string, g.editor.id);
+diff --git a/src/app/api/bff/site/theme/route.ts b/src/app/api/bff/site/theme/route.ts
+index b619d7c..33e35dd 100644
+--- a/src/app/api/bff/site/theme/route.ts
++++ b/src/app/api/bff/site/theme/route.ts
+@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
+ import { requireDirector } from "@/lib/guard";
+ import { loadSite } from "@/lib/site";
+ import { LAYOUTS, parseTheme, type LayoutKey } from "@/lib/theme";
++import { SKINS, isSkinKey, type SkinKey } from "@/skins/registry";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -25,7 +26,16 @@ export async function PUT(req: Request) {
+   const raw = String(b.layout ?? "");
+   const layout: LayoutKey = (LAYOUT_KEYS as readonly string[]).includes(raw) ? (raw as LayoutKey) : "journal";
+ 
++  // Une maquette existante se choisit par sa cle ; toute autre valeur (null,
++  // cle inconnue) ramene a la maquette generique. Reprendre l'identite du site
++  // d'origine est un choix explicite : on n'ecrase jamais un nom en silence.
++  const skin: SkinKey | null = isSkinKey(b.skin) ? b.skin : null;
++  const identity = skin && b.identity === true ? SKINS[skin].identity : null;
++
+   await loadSite();
+-  await prisma.site.update({ where: { id: 1 }, data: { layout, themeJson: JSON.stringify(theme) } });
+-  return NextResponse.json({ layout, theme });
++  await prisma.site.update({
++    where: { id: 1 },
++    data: { layout, skin, themeJson: JSON.stringify(theme), ...(identity ?? {}) },
++  });
++  return NextResponse.json({ layout, skin, theme, identity: Boolean(identity) });
+ }
+diff --git a/src/app/globals.css b/src/app/globals.css
+index 2dcb88b..4dc707d 100644
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -2,6 +2,7 @@
+ @import "./pleiade-theme.css";
+ @import "./pleiade-theme-light.css";
+ @import "./site.css";
++@import "../skins/skins.css";
+ 
+ /*
+   Deux mondes dans une seule app, et il ne faut pas qu'ils deteignent l'un sur
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index 0992b06..da18ab2 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -1,5 +1,5 @@
+ import type { Metadata } from "next";
+-import { Archivo, Archivo_Narrow, Inter, JetBrains_Mono, Playfair_Display, Source_Serif_4 } from "next/font/google";
++import { Archivo, Archivo_Narrow, Inter, JetBrains_Mono, Oswald, PT_Sans, PT_Serif, Playfair_Display, Source_Sans_3, Source_Serif_4 } from "next/font/google";
+ import "./globals.css";
+ 
+ /**
+@@ -14,7 +14,17 @@ const etroit = Archivo_Narrow({ subsets: ["latin"], weight: ["400", "500", "600"
+ const grotesque = Archivo({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--f-grotesque", display: "swap" });
+ const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--f-mono", display: "swap" });
+ 
+-const FONTS = [serif, affiche, sans, etroit, grotesque, mono].map((f) => f.variable).join(" ");
++/*
++ * Les faces des maquettes existantes (src/skins). Les sites d'origine les
++ * chargeaient chez Google Fonts ; ici elles voyagent dans l'image, comme les
++ * autres, et seuls les habillages s'en servent.
++ */
++const ptSerif = PT_Serif({ subsets: ["latin"], weight: ["400", "700"], style: ["normal", "italic"], variable: "--f-ptserif", display: "swap" });
++const ptSans = PT_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--f-ptsans", display: "swap" });
++const oswald = Oswald({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--f-oswald", display: "swap" });
++const sourceSans = Source_Sans_3({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--f-sourcesans", display: "swap" });
++
++const FONTS = [serif, affiche, sans, etroit, grotesque, mono, ptSerif, ptSans, oswald, sourceSans].map((f) => f.variable).join(" ");
+ 
+ export const metadata: Metadata = {
+   title: { default: "Presse", template: "%s" },
+diff --git a/src/app/redaction/articles/[id]/page.tsx b/src/app/redaction/articles/[id]/page.tsx
+index 5a8991e..5e33cca 100644
+--- a/src/app/redaction/articles/[id]/page.tsx
++++ b/src/app/redaction/articles/[id]/page.tsx
+@@ -4,6 +4,7 @@ import { loadSite } from "@/lib/site";
+ import { editorOrRedirect } from "@/components/redaction/garde";
+ import { toArticleDTO, type ArticleRow, type MediaRow } from "@/components/redaction/acces";
+ import { ArticleEditor } from "@/components/redaction/ArticleEditor";
++import { SKINS } from "@/skins/registry";
+ 
+ export const dynamic = "force-dynamic";
+ 
+@@ -38,6 +39,8 @@ export default async function EditionArticlePage({ params }: { params: Promise<{
+       categories={categories.map((c) => ({ id: c.id, slug: c.slug, name: c.name, color: c.color }))}
+       tagSuggestions={tags.map((t) => t.name)}
+       siteName={site.name}
++      skinLabel={site.skin ? SKINS[site.skin].label : null}
++      skinFields={site.skin ? SKINS[site.skin].fields : []}
+       canConfigure={editor.canConfigure} />
+   );
+ }
+diff --git a/src/components/redaction/ArticleEditor.tsx b/src/components/redaction/ArticleEditor.tsx
+index e27d212..84b55e8 100644
+--- a/src/components/redaction/ArticleEditor.tsx
++++ b/src/components/redaction/ArticleEditor.tsx
+@@ -15,6 +15,7 @@ import { Avatar, Check, Notice, StatusTag, useNotice } from "./ui";
+ import { fromLocalInput, toLocalInput } from "./format";
+ import { useRaccourci } from "./clavier";
+ import { STATUS_TEXT, STATUSES, type ArticleDTO, type ArticlePatch, type ArticleStatus, type CategoryDTO, type MediaDTO } from "./types";
++import type { SkinField } from "@/skins/registry";
+ 
+ /** Toutes les 20 s : assez court pour ne rien perdre, assez long pour ne pas bavarder. */
+ const AUTOSAVE_MS = 20_000;
+@@ -37,6 +38,7 @@ interface Draft {
+   seoTitle: string;
+   seoDescription: string;
+   tags: string[];
++  skinFields: Record<string, string>;
+ }
+ 
+ const draftOf = (a: ArticleDTO): Draft => ({
+@@ -46,6 +48,7 @@ const draftOf = (a: ArticleDTO): Draft => ({
+   status: a.status, scheduledAt: a.scheduledAt,
+   pinned: a.pinned, urgent: a.urgent, live: a.live,
+   seoTitle: a.seoTitle, seoDescription: a.seoDescription, tags: a.tags,
++  skinFields: a.skinFields ?? {},
+ });
+ 
+ /**
+@@ -58,12 +61,15 @@ const draftOf = (a: ArticleDTO): Draft => ({
+  * conformer, et le meme refus se rejoue a chaque ecriture. Rien ne ment : ce
+  * qui part en base est du HTML assaini cote serveur, toujours.
+  */
+-export function ArticleEditor({ article, categories, tagSuggestions, siteName, canConfigure }: {
++export function ArticleEditor({ article, categories, tagSuggestions, siteName, canConfigure, skinLabel = null, skinFields = [] }: {
+   article: ArticleDTO;
+   categories: CategoryDTO[];
+   tagSuggestions: string[];
+   siteName: string;
+   canConfigure: boolean;
++  /** maquette existante du site, et les champs qu'elle ajoute a l'article */
++  skinLabel?: string | null;
++  skinFields?: SkinField[];
+ }) {
+   const router = useRouter();
+   const editable = article.canEdit;
+@@ -134,7 +140,7 @@ export function ArticleEditor({ article, categories, tagSuggestions, siteName, c
+       featuredMediaId: d.featuredMediaId, featuredCaption: d.featuredCaption, featuredCredit: d.featuredCredit,
+       authorIdentityId: d.authorIdentityId, categoryId: d.categoryId,
+       pinned: d.pinned, urgent: d.urgent, live: d.live,
+-      seoTitle: d.seoTitle, seoDescription: d.seoDescription, tags: d.tags,
++      seoTitle: d.seoTitle, seoDescription: d.seoDescription, tags: d.tags, skinFields: d.skinFields,
+     }, true);
+   }, [send]);
+ 
+@@ -152,7 +158,7 @@ export function ArticleEditor({ article, categories, tagSuggestions, siteName, c
+       authorIdentityId: d.authorIdentityId, categoryId: d.categoryId,
+       status: d.status, scheduledAt: d.scheduledAt,
+       pinned: d.pinned, urgent: d.urgent, live: d.live,
+-      seoTitle: d.seoTitle, seoDescription: d.seoDescription, tags: d.tags,
++      seoTitle: d.seoTitle, seoDescription: d.seoDescription, tags: d.tags, skinFields: d.skinFields,
+     }, false);
+   }, [send, setNotice]);
+ 
+@@ -380,6 +386,21 @@ export function ArticleEditor({ article, categories, tagSuggestions, siteName, c
+             </div>
+           </Panel>
+ 
++          {skinFields.length > 0 && (
++            <Panel title={`Maquette ${skinLabel ?? ""}`.trim()}>
++              <div className="flex flex-col gap-4 px-5 py-4">
++                {skinFields.map((f) => (
++                  <Field key={f.key} label={f.label}>
++                    <input className={inputCls} value={draft.skinFields[f.key] ?? ""} disabled={!editable}
++                      placeholder={f.placeholder} maxLength={300}
++                      onChange={(e) => set("skinFields", { ...draft.skinFields, [f.key]: e.target.value })} />
++                  </Field>
++                ))}
++                <p className="text-[11px] text-ink-faint leading-relaxed">{skinFields[0]?.hint}</p>
++              </div>
++            </Panel>
++          )}
++
+           <Panel title="Classement">
+             <div className="flex flex-col gap-4 px-5 py-4">
+               <Field label="Rubrique">
+diff --git a/src/components/redaction/acces.ts b/src/components/redaction/acces.ts
+index 618995b..a3a39b4 100644
+--- a/src/components/redaction/acces.ts
++++ b/src/components/redaction/acces.ts
+@@ -1,6 +1,7 @@
+ import type { Editor } from "@/lib/auth";
+ import { mediaUrl } from "@/lib/media";
+ import type { ArticleDTO, ArticleStatus, LiveEntryDTO, MediaDTO, ReactionDTO } from "./types";
++import { parseSkinFields } from "@/skins/registry";
+ 
+ /*
+  * Regle de droit de la redaction, ecrite une seule fois et appelee par toutes
+@@ -46,6 +47,7 @@ export interface ArticleRow {
+   categoryId: number | null; status: string; publishedAt: Date | null; scheduledAt: Date | null;
+   pinned: boolean; urgent: boolean; live: boolean; readingMinutes: number; viewCount: number;
+   seoTitle: string; seoDescription: string; source: string; sourceRef: string | null;
++  skinFields?: string | null;
+   createdAt: Date; updatedAt: Date;
+   tags?: Array<{ tag: { name: string } }>;
+   _count?: { comments?: number; entries?: number };
+@@ -95,6 +97,7 @@ export function toArticleDTO(a: ArticleRow, editor: Editor, media?: MediaRow | n
+     seoDescription: a.seoDescription,
+     source: a.source,
+     tags: (a.tags ?? []).map((t) => t.tag.name),
++    skinFields: parseSkinFields(a.skinFields ?? null),
+     commentCount: a._count?.comments,
+     entryCount: a._count?.entries,
+     createdAt: a.createdAt.toISOString(),
+diff --git a/src/components/redaction/reglages/ApercuSkin.tsx b/src/components/redaction/reglages/ApercuSkin.tsx
+new file mode 100644
+index 0000000..eb9864b
+--- /dev/null
++++ b/src/components/redaction/reglages/ApercuSkin.tsx
+@@ -0,0 +1,91 @@
++"use client";
++
++import { useEffect, useRef, useState } from "react";
++import type { Theme } from "@/lib/theme";
++import type { SiteConfig } from "@/lib/site";
++import type { Card } from "@/components/site/data";
++import { SKINS, type SkinKey } from "@/skins/registry";
++import { SKIN_VIEWS } from "@/skins/views";
++
++/**
++ * L'apercu d'une maquette existante.
++ *
++ * La fausse une generique (ApercuTheme) ne saurait pas imiter TV4 : un
++ * habillage, c'est une structure. On rend donc le vrai habillage — ses
++ * composants, sa feuille de style — a sa largeur de bureau, reduit a la
++ * taille du panneau. Ce qu'on voit ici est ce que verront les joueurs, aux
++ * articles pres (ceux-ci sont factices). Rien n'est cliquable : l'apercu ne
++ * doit pas emmener le directeur hors de ses reglages.
++ */
++
++const LARGEUR = 1240;
++const HAUTEUR = 1500;
++
++/** Une image factice aux couleurs de la charte, pour que les vignettes ne soient pas vides. */
++function faussePhoto(fond: string, trait: string, i: number) {
++  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675' viewBox='0 0 1200 675'>`
++    + `<rect width='1200' height='675' fill='${fond}'/>`
++    + `<circle cx='${300 + i * 170}' cy='250' r='120' fill='${trait}' opacity='.35'/>`
++    + `<rect x='0' y='470' width='1200' height='205' fill='${trait}' opacity='.18'/></svg>`;
++  return { url: `data:image/svg+xml,${encodeURIComponent(svg)}`, alt: "", credit: "", width: 1200, height: 675 };
++}
++
++function faussesCartes(lang: "fr" | "en", fond: string, trait: string): Card[] {
++  const fr = [
++    { t: "Des milliers de civils sur les routes à l’ouest de HNANCY", c: "Société", s: "Les préfectures ouvrent des centres d’accueil d’urgence alors que les combats s’intensifient." },
++    { t: "Les maires demandent des couloirs humanitaires au commandement", c: "Politique", s: "Une lettre commune signée par cinq élus." },
++    { t: "Les hôpitaux de la région signalent une saturation", c: "Santé", s: "" },
++    { t: "Engagement confirmé des forces alliées en Lorraine", c: "Défense", s: "" },
++    { t: "La Croix-Rouge appelle à la protection des civils", c: "Monde", s: "" },
++  ];
++  const en = [
++    { t: "Armed Forces secure the eastern corridor ahead of schedule", c: "Defence", s: "Field commanders report a decisive advance as allied positions fall back across the Moselle." },
++    { t: "Joint declaration signed at the Presidential Palace", c: "Politics", s: "" },
++    { t: "Humanitarian convoy reaches displaced families", c: "Society", s: "" },
++    { t: "Ministry denies western claims on casualties", c: "World", s: "" },
++    { t: "Energy prices stabilise after emergency measures", c: "Economy", s: "" },
++  ];
++  const base = Date.now();
++  return (lang === "fr" ? fr : en).map((x, i) => ({
++    id: -1 - i, slug: `apercu-${i}`, title: x.t, standfirst: x.s, publishedAt: new Date(base - i * 47 * 60_000),
++    readingMinutes: 3, urgent: i === 0, live: false, pinned: i === 0, authorName: lang === "fr" ? "Camille Ferrand" : "Anna Volkova",
++    authorAvatarUrl: null, category: { id: i, slug: `r${i}`, name: x.c, color: "" }, media: faussePhoto(fond, trait, i), caption: "", credit: "",
++  }));
++}
++
++export function ApercuSkin({ skin, theme, siteName, baseline, description }: {
++  skin: SkinKey; theme: Theme; siteName: string; baseline: string; description: string;
++}) {
++  const boite = useRef<HTMLDivElement>(null);
++  const [echelle, setEchelle] = useState(0.3);
++
++  useEffect(() => {
++    const el = boite.current;
++    if (!el) return;
++    const mesurer = () => setEchelle(el.clientWidth / LARGEUR);
++    mesurer();
++    const ro = new ResizeObserver(mesurer);
++    ro.observe(el);
++    return () => ro.disconnect();
++  }, []);
++
++  const def = SKINS[skin];
++  const Vue = SKIN_VIEWS[skin];
++  const site: SiteConfig = {
++    name: siteName, baseline, description, logoUrl: null, layout: "journal", skin, theme,
++    homepage: [], menu: null, footerText: def.identity.footerText, newsroomGroupIds: [], commentsEnabled: true, commentsModerated: false,
++  };
++  const cartes = faussesCartes(def.lang, def.swatch[0], def.swatch[1]);
++  const [lead, ...reste] = cartes;
++  const nav = cartes.map((c) => ({ label: c.category!.name, href: `/rubrique/${c.category!.slug}` }));
++
++  return (
++    <div ref={boite} style={{ height: HAUTEUR * echelle, overflow: "hidden", position: "relative", border: "1px solid var(--color-line-soft)" }} aria-hidden="true">
++      <div style={{ width: LARGEUR, height: HAUTEUR, transform: `scale(${echelle})`, transformOrigin: "top left", pointerEvents: "none", position: "absolute", top: 0, left: 0 }} inert>
++        <Vue.Shell site={site} nav={nav} pages={[{ slug: "contact", title: "Contact" }]} ticker={cartes.slice(0, 3)} live={null} liveEntries={[]} latest={cartes}>
++          <Vue.Home site={site} lead={lead} cards={reste} live={null} />
++        </Vue.Shell>
++      </div>
++    </div>
++  );
++}
+diff --git a/src/components/redaction/reglages/OngletTheme.tsx b/src/components/redaction/reglages/OngletTheme.tsx
+index bfc1a37..e3e09e2 100644
+--- a/src/components/redaction/reglages/OngletTheme.tsx
++++ b/src/components/redaction/reglages/OngletTheme.tsx
+@@ -10,6 +10,8 @@ import {
+ import { appeler, useAction } from "./api";
+ import { Bascule, ChampCouleur, Curseur, Flash, Ligne, SousTitre } from "./champs";
+ import { ApercuTheme } from "./ApercuTheme";
++import { ApercuSkin } from "./ApercuSkin";
++import { SKINS, SKINS_A_VENIR, type SkinKey } from "@/skins/registry";
+ import { SEUIL_AA, SEUIL_AA_GRAND, formatRatio, verdict } from "./contraste";
+ 
+ /**
+@@ -36,17 +38,52 @@ const ROLES: Array<{ cle: keyof Theme["fonts"]; label: string; hint: string }> =
+   { cle: "ui", label: "Interface", hint: "Rubriques, signatures, menus" },
+ ];
+ 
+-export function OngletTheme({ site }: { site: { name: string; baseline: string; layout: LayoutKey; theme: Theme } }) {
++export function OngletTheme({ site }: { site: { name: string; baseline: string; description: string; layout: LayoutKey; skin: SkinKey | null; theme: Theme } }) {
+   const [layout, setLayout] = useState<LayoutKey>(site.layout);
+   const [theme, setTheme] = useState<Theme>(site.theme);
++  const [skin, setSkin] = useState<SkinKey | null>(site.skin);
++  // Une maquette existante arrive avec sa charte verrouillee. Elle ne s'ouvre
++  // d'elle-meme que si elle a deja ete retouchee : on montre alors ce qui a
++  // ete change, plutot que de le cacher derriere un bouton.
++  const [retouche, setRetouche] = useState<boolean>(
++    Boolean(site.skin) && JSON.stringify(site.theme.colors) !== JSON.stringify(site.skin ? SKINS[site.skin].theme.colors : null),
++  );
++  const [reprendre, setReprendre] = useState(false);
+   const [echange, setEchange] = useState<"export" | "import" | null>(null);
+   const action = useAction();
+ 
+   const modifie = useMemo(
+-    () => JSON.stringify(theme) !== JSON.stringify(site.theme) || layout !== site.layout,
+-    [theme, layout, site.theme, site.layout],
++    () => JSON.stringify(theme) !== JSON.stringify(site.theme) || layout !== site.layout || skin !== site.skin || reprendre,
++    [theme, layout, skin, reprendre, site.theme, site.layout, site.skin],
+   );
+ 
++  const def = skin ? SKINS[skin] : null;
++
++  /** Choisir une maquette existante : sa charte d'origine, verrouillee. */
++  const choisirSkin = (cle: SkinKey) => {
++    setSkin(cle);
++    setTheme(SKINS[cle].theme);
++    setRetouche(false);
++    // Reprendre le nom du site d'origine est propose, coche d'office quand le
++    // journal porte encore un autre nom : un « TV4 » qui s'appelle « La
++    // Gazette » dans son propre bandeau trahit l'exercice.
++    setReprendre(site.name !== SKINS[cle].identity.name);
++  };
++
++  /** Revenir a une maquette generique : son theme de depart, pas la charte d'un autre. */
++  const choisirGenerique = (cle: LayoutKey) => {
++    if (skin) {
++      const depart = Object.values(PRESETS).find((p) => p.layout === cle);
++      if (depart) setTheme(depart.theme);
++    }
++    setSkin(null);
++    setReprendre(false);
++    setLayout(cle);
++  };
++
++  /** Le theme de depart d'une maquette generique, pour peindre sa vignette. */
++  const themeDe = (cle: LayoutKey) => Object.values(PRESETS).find((p) => p.layout === cle)?.theme ?? theme;
++
+   const set = <K extends keyof Theme>(k: K, v: Theme[K]) => setTheme((t) => ({ ...t, [k]: v }));
+   const setCouleur = (k: keyof Theme["colors"], v: string) => setTheme((t) => ({ ...t, colors: { ...t.colors, [k]: v } }));
+   const setPolice = (k: keyof Theme["fonts"], v: FontKey) => setTheme((t) => ({ ...t, fonts: { ...t.fonts, [k]: v } }));
+@@ -64,8 +101,10 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+     verdict("Texte sur les cartes", theme.colors.ink, theme.colors.surface),
+     verdict("Texte sur l’accent", theme.colors.accentInk, theme.colors.accent),
+     verdict("Texte secondaire sur le fond", theme.colors.muted, theme.colors.paper),
+-    verdict("Titres d’affiche sur le fond", theme.colors.accent, theme.colors.paper, SEUIL_AA_GRAND),
+-  ], [theme.colors]);
++    // Une maquette existante ne peint pas ses titres a l'accent (l'orange de
++    // TV4 est un bandeau, pas une encre) : ce controle y serait une fausse alerte.
++    ...(skin ? [] : [verdict("Titres d’affiche sur le fond", theme.colors.accent, theme.colors.paper, SEUIL_AA_GRAND)]),
++  ], [theme.colors, skin]);
+   const alertes = verdicts.filter((v) => !v.ok);
+ 
+   return (
+@@ -73,15 +112,66 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+       <div className="flex flex-col gap-5 min-w-0">
+         {/* ---- Maquette ------------------------------------------------ */}
+         <Panel title="Maquette du site">
+-          <div className="p-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+-            {LAYOUTS.map((l) => (
+-              <VignetteMaquette key={l.key} cle={l.key} label={l.label} hint={l.hint}
+-                actif={layout === l.key} theme={theme} onClick={() => setLayout(l.key)} />
+-            ))}
++          <div className="p-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
++            <div className="min-w-0">
++              <div className="flex items-baseline gap-2 mb-2.5">
++                <SousTitre>Maquettes génériques</SousTitre>
++                <span className="text-[11px] text-ink-faint">Réglables à volonté</span>
++              </div>
++              <div className="grid grid-cols-2 gap-3">
++                {LAYOUTS.map((l) => (
++                  <VignetteMaquette key={l.key} cle={l.key} label={l.label} hint={l.hint}
++                    actif={!skin && layout === l.key} theme={skin ? themeDe(l.key) : theme}
++                    onClick={() => choisirGenerique(l.key)} />
++                ))}
++              </div>
++            </div>
++            <div className="min-w-0 lg:border-l lg:border-line-soft lg:pl-5">
++              <div className="flex items-baseline gap-2 mb-2.5">
++                <SousTitre>Maquettes existantes</SousTitre>
++                <span className="text-[11px] text-ink-faint">Sites d’exercice déjà connus des joueurs</span>
++              </div>
++              <div className="grid grid-cols-2 gap-3">
++                {Object.values(SKINS).map((s) => (
++                  <VignetteSkin key={s.key} label={s.label} hint={s.hint} swatch={s.swatch}
++                    actif={skin === s.key} onClick={() => choisirSkin(s.key)} />
++                ))}
++              </div>
++              {/* Les sites pas encore repris : une ligne, pas des cases vides. */}
++              <p className="text-[11px] text-ink-faint leading-relaxed mt-3">
++                À venir : {SKINS_A_VENIR.map((s) => s.label).join(" · ")}.
++              </p>
++            </div>
+           </div>
+         </Panel>
+ 
++        {/* ---- Charte d'une maquette existante ------------------------- */}
++        {def && (
++          <Panel title={`Charte — ${def.label}`} aside={<span className="text-[11px] text-ink-faint">{retouche ? "Retouchée" : "Charte d’origine, verrouillée"}</span>}>
++            <div className="p-5 flex flex-col gap-4">
++              <p className="text-[12px] text-ink-muted leading-relaxed">
++                La structure, les polices et la mise en page sont celles du site d’origine : elles ne se règlent pas.
++                Seules les couleurs de marque peuvent être retouchées, pour une variante du média.
++                {def.fields.length > 0 && <> Cette maquette ajoute à l’éditeur d’article : {def.fields.map((f) => `« ${f.label} »`).join(", ")}.</>}
++              </p>
++              <Ligne label="Reprendre l’identité du site d’origine" hint={`Nom « ${def.identity.name} », signature, description et pied de page. Modifiables ensuite dans l’onglet Identité.`}>
++                <Bascule label="Reprendre l’identité du site d’origine" value={reprendre} onChange={setReprendre} />
++              </Ligne>
++              <div className="flex items-center gap-2.5 flex-wrap">
++                {!retouche ? (
++                  <Btn variant="secondary" onClick={() => setRetouche(true)}><Icon name="pencil" /> Retoucher les couleurs</Btn>
++                ) : (
++                  <Btn variant="secondary" onClick={() => { setTheme(def.theme); setRetouche(false); }}>
++                    <Icon name="rotate-ccw" /> Rétablir la charte d’origine
++                  </Btn>
++                )}
++              </div>
++            </div>
++          </Panel>
++        )}
++
+         {/* ---- Thème de départ ------------------------------------------ */}
++        {!skin && (
+         <Panel title="Thème de départ" aside={<span className="text-[11px] text-ink-faint">Remplit tous les réglages d’un coup</span>}>
+           <div className="p-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
+             {Object.entries(PRESETS).map(([cle, p]) => (
+@@ -98,12 +188,14 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+             ))}
+           </div>
+         </Panel>
++        )}
+ 
+         {/* ---- Couleurs -------------------------------------------------- */}
++        {(!skin || retouche) && (
+         <Panel title="Couleurs">
+           <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-x-6">
+             {COULEURS.map((c) => (
+-              <ChampCouleur key={c.cle} label={c.label} hint={c.hint}
++              <ChampCouleur key={c.cle} label={c.label} hint={def?.colorLabels[c.cle] ?? c.hint}
+                 value={theme.colors[c.cle]} onChange={(v) => setCouleur(c.cle, v)} />
+             ))}
+           </div>
+@@ -128,8 +220,10 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+             )}
+           </div>
+         </Panel>
++        )}
+ 
+         {/* ---- Typographie ------------------------------------------------ */}
++        {!skin && (<>
+         <Panel title="Typographie">
+           <div className="p-5 flex flex-col gap-5">
+             {ROLES.map((r) => (
+@@ -188,16 +282,22 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+             </Ligne>
+           </div>
+         </Panel>
++        </>)}
+ 
+         {/* ---- Actions ----------------------------------------------------- */}
+         <div className="flex items-center gap-2.5 flex-wrap">
+-          <Btn onClick={() => action.run(() => appeler("/api/bff/site/theme", "PUT", { layout, theme }), "Thème enregistré")}
++          <Btn onClick={() => action.run(async () => {
++              await appeler("/api/bff/site/theme", "PUT", { layout, theme, skin, identity: Boolean(skin) && reprendre });
++              setReprendre(false);
++            }, skin ? "Maquette enregistrée" : "Thème enregistré")}
+             disabled={action.busy || !modifie}>
+             {action.busy ? "Enregistrement…" : "Enregistrer"}
+           </Btn>
++          {!skin && (
+           <Btn variant="secondary" onClick={() => appliquerPreset(theme.preset)}>
+             <Icon name="rotate-ccw" /> Rétablir le thème de départ
+           </Btn>
++          )}
+           <Btn variant="text" onClick={() => setEchange("export")}><Icon name="download" /> Exporter</Btn>
+           <Btn variant="text" onClick={() => setEchange("import")}><Icon name="upload" /> Importer</Btn>
+           {modifie && !action.busy && <span className="text-[11.5px] text-dev">Modifications non enregistrées</span>}
+@@ -207,9 +307,16 @@ export function OngletTheme({ site }: { site: { name: string; baseline: string;
+ 
+       {/* ---- Aperçu ---------------------------------------------------- */}
+       <div className="xl:sticky xl:top-[75px] min-w-0">
+-        <Panel title="Aperçu en direct" aside={<span className="text-[10.5px] text-ink-faint">{LAYOUTS.find((l) => l.key === layout)?.label}</span>}>
++        <Panel title="Aperçu en direct" aside={<span className="text-[10.5px] text-ink-faint">{def ? def.label : LAYOUTS.find((l) => l.key === layout)?.label}</span>}>
+           <div className="p-4">
+-            <ApercuTheme theme={theme} layout={layout} siteName={site.name || "La Gazette"} baseline={site.baseline} />
++            {def && skin ? (
++              <ApercuSkin skin={skin} theme={theme}
++                siteName={reprendre ? def.identity.name : site.name || def.identity.name}
++                baseline={reprendre ? def.identity.baseline : site.baseline}
++                description={reprendre ? def.identity.description : site.description} />
++            ) : (
++              <ApercuTheme theme={theme} layout={layout} siteName={site.name || "La Gazette"} baseline={site.baseline} />
++            )}
+           </div>
+           <p className="px-4 pb-4 text-[11px] text-ink-faint leading-relaxed">
+             Une fausse une, repeinte à chaque réglage. Rien n’est enregistré tant que vous n’avez pas cliqué sur « Enregistrer ».
+@@ -291,6 +398,35 @@ function VignetteMaquette({ cle, label, hint, actif, theme, onClick }: {
+   );
+ }
+ 
++/**
++ * Une maquette existante se reconnait a ses couleurs : bandeau, accent, fond.
++ * La vignette les pose dans la meme silhouette que le site d'origine — un
++ * bandeau sombre, un filet de marque, une colonne — pour qu'on la retrouve
++ * d'un coup d'oeil parmi les autres.
++ */
++function VignetteSkin({ label, hint, swatch, actif, onClick }: {
++  label: string; hint: string; swatch: [string, string, string]; actif: boolean; onClick: () => void;
++}) {
++  const [bandeau, accent, fond] = swatch;
++  return (
++    <button type="button" onClick={onClick} aria-pressed={actif}
++      className={`text-left border p-2.5 transition-colors duration-[240ms] ${actif ? "border-craie bg-craie-soft" : "border-line-control hover:border-ink-muted"}`}>
++      <div className="mb-2.5 flex flex-col" style={{ background: fond, border: "1px solid rgba(0,0,0,.12)", height: 74 }} aria-hidden>
++        <span style={{ height: 14, background: bandeau, display: "block" }} />
++        <span style={{ height: 4, background: accent, display: "block" }} />
++        <div className="flex gap-[4px] flex-1 p-[5px]">
++          <span style={{ flex: 2, background: "#fff", display: "block" }} />
++          <span style={{ flex: 1, background: "#fff", display: "block", borderTop: `3px solid ${bandeau}` }} />
++        </div>
++      </div>
++      <div className="text-[12.5px] font-semibold text-ink flex items-center gap-1.5">
++        {actif && <Icon name="check" size={12} className="text-craie" />}{label}
++      </div>
++      <div className="text-[10.5px] text-ink-faint mt-0.5 leading-snug">{hint}</div>
++    </button>
++  );
++}
++
+ /**
+  * Export / import du theme en JSON, par un champ de texte : pas de
+  * telechargement de fichier. On copie-colle d'une instance a l'autre, ce qui
+diff --git a/src/components/redaction/types.ts b/src/components/redaction/types.ts
+index f88ef17..cc85787 100644
+--- a/src/components/redaction/types.ts
++++ b/src/components/redaction/types.ts
+@@ -85,6 +85,8 @@ export interface ArticleDTO {
+   seoDescription: string;
+   source: string;
+   tags: string[];
++  /** champs propres a la maquette existante du site (lieu de la depeche…) */
++  skinFields: Record<string, string>;
+   commentCount?: number;
+   entryCount?: number;
+   createdAt: string;
+@@ -108,6 +110,7 @@ export interface ReactionDTO {
+ 
+ /** Champs que l'editeur peut renvoyer. Tout est facultatif : l'enregistrement est partiel. */
+ export interface ArticlePatch {
++  skinFields?: Record<string, string>;
+   title?: string;
+   standfirst?: string;
+   slug?: string;
+diff --git a/src/components/site/ExerciseNotice.tsx b/src/components/site/ExerciseNotice.tsx
+index bde0ff4..bf309e8 100644
+--- a/src/components/site/ExerciseNotice.tsx
++++ b/src/components/site/ExerciseNotice.tsx
+@@ -1,4 +1,4 @@
+-import { EXERCISE_NOTICE } from "@/lib/site";
++import { EXERCISE_NOTICE } from "@/lib/notice";
+ 
+ /**
+  * La mention d'exercice. Elle est en haut de chaque page, collee au bord haut,
+diff --git a/src/components/site/data.ts b/src/components/site/data.ts
+index 38aa623..c9b885d 100644
+--- a/src/components/site/data.ts
++++ b/src/components/site/data.ts
+@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
+ import { mediaUrl } from "@/lib/media";
+ import type { SiteConfig } from "@/lib/site";
+ import type { MenuItem } from "@/lib/homepage";
++import { parseSkinFields } from "@/skins/registry";
+ 
+ /**
+  * Tout ce que le site public lit en base passe par ici.
+@@ -55,6 +56,8 @@ export interface ArticleFull extends Card {
+   body: string;
+   seoDescription: string;
+   tags: { slug: string; name: string }[];
++  /** champs propres a l'habillage (lieu de la depeche…) */
++  fields: Record<string, string>;
+ }
+ 
+ export interface Reaction {
+@@ -196,12 +199,12 @@ export async function liveEntries(articleId: number, take = 50): Promise<LiveIte
+ export async function articleBySlug(slug: string): Promise<ArticleFull | null> {
+   const row = await prisma.article.findFirst({
+     where: { ...publishedWhere(), slug },
+-    select: { ...CARD_FIELDS, body: true, seoDescription: true, tags: { select: { tag: { select: { slug: true, name: true } } } } },
++    select: { ...CARD_FIELDS, body: true, seoDescription: true, skinFields: true, tags: { select: { tag: { select: { slug: true, name: true } } } } },
+   });
+   if (!row) return null;
+   const [card] = await withMedia([row]);
+   if (!card) return null;
+-  return { ...card, body: row.body, seoDescription: row.seoDescription, tags: row.tags.map((t) => t.tag) };
++  return { ...card, body: row.body, seoDescription: row.seoDescription, tags: row.tags.map((t) => t.tag), fields: parseSkinFields(row.skinFields) };
+ }
+ 
+ /** Les reactions qu'un lecteur a le droit de voir : celles qui sont publiees. */
+diff --git a/src/lib/notice.ts b/src/lib/notice.ts
+new file mode 100644
+index 0000000..a2e79ec
+--- /dev/null
++++ b/src/lib/notice.ts
+@@ -0,0 +1,8 @@
++/**
++ * Mention obligatoire : on ne laisse jamais croire qu'un site d'exercice est reel.
++ *
++ * Elle vit seule dans ce module, sans rien importer : le navigateur en a besoin
++ * (apercu des maquettes existantes dans les reglages) et ne doit pas tirer au
++ * passage le client de base de donnees.
++ */
++export const EXERCISE_NOTICE = "EXERCICE · NON CLASSIFIÉ · Ce site est une simulation, son contenu est fictif.";
+diff --git a/src/lib/site.ts b/src/lib/site.ts
+index 521135a..1ffe5c7 100644
+--- a/src/lib/site.ts
++++ b/src/lib/site.ts
+@@ -1,6 +1,7 @@
+ import { prisma } from "./db";
+ import { parseTheme, type Theme, type LayoutKey, PRESETS } from "./theme";
+ import { parseHomepage, parseMenu, type Block, type MenuItem } from "./homepage";
++import { isSkinKey, type SkinKey } from "@/skins/registry";
+ 
+ /** Le site tel que les pages le consomment : deja relu, jamais du JSON brut. */
+ export interface SiteConfig {
+@@ -9,6 +10,8 @@ export interface SiteConfig {
+   description: string;
+   logoUrl: string | null;
+   layout: LayoutKey;
++  /** maquette existante (habillage d'un site d'exercice), ou null */
++  skin: SkinKey | null;
+   theme: Theme;
+   homepage: Block[];
+   menu: MenuItem[] | null;
+@@ -53,6 +56,9 @@ export async function loadSite(): Promise<SiteConfig> {
+     description: row.description,
+     logoUrl: row.logoUrl,
+     layout: (["journal", "magazine", "pureplayer", "chaine"] as const).includes(layout) ? layout : "journal",
++    // Un habillage retire du registre ne doit pas casser le site : on retombe
++    // sur la maquette generique enregistree a cote.
++    skin: isSkinKey(row.skin) ? row.skin : null,
+     theme: parseTheme(row.themeJson),
+     homepage: parseHomepage(row.homepageJson),
+     menu: parseMenu(row.menuJson),
+@@ -63,5 +69,5 @@ export async function loadSite(): Promise<SiteConfig> {
+   };
+ }
+ 
+-/** Mention obligatoire : on ne laisse jamais croire qu'un site d'exercice est reel. */
+-export const EXERCISE_NOTICE = "EXERCICE · NON CLASSIFIÉ · Ce site est une simulation, son contenu est fictif.";
++/** Mention obligatoire : definie dans ./notice, reexportee pour les appelants historiques. */
++export { EXERCISE_NOTICE } from "./notice";
+diff --git a/src/lib/theme.ts b/src/lib/theme.ts
+index 47a2b35..764a890 100644
+--- a/src/lib/theme.ts
++++ b/src/lib/theme.ts
+@@ -6,6 +6,8 @@
+  * tiers. Et tout le theme tient dans des variables CSS, pour qu'un reglage se
+  * voie immediatement, y compris dans l'apercu de la redaction.
+  */
++import { SKIN_THEMES } from "@/skins/registry";
++
+ export interface Theme {
+   preset: string;
+   colors: {
+@@ -172,8 +174,11 @@ export function parseTheme(raw: unknown): Theme {
+   else if (typeof raw === "object") o = raw as Record<string, unknown>;
+   else return base;
+ 
+-  const presetKey = typeof o.preset === "string" && PRESETS[o.preset] ? o.preset : base.preset;
+-  const from = PRESETS[presetKey]?.theme ?? base;
++  // Un preset est soit un theme de depart, soit la charte d'une maquette
++  // existante (« skin-tv4 »…) : les deux servent de repli champ par champ.
++  const known = (k: unknown): k is string => typeof k === "string" && (Boolean(PRESETS[k]) || Boolean(SKIN_THEMES[k]));
++  const presetKey = known(o.preset) ? o.preset : base.preset;
++  const from = PRESETS[presetKey]?.theme ?? SKIN_THEMES[presetKey] ?? base;
+   const c = (o.colors ?? {}) as Record<string, unknown>;
+   const f = (o.fonts ?? {}) as Record<string, unknown>;
+   const color = (k: keyof Theme["colors"]) => (typeof c[k] === "string" && HEX.test(c[k] as string) ? (c[k] as string) : from.colors[k]);
+diff --git a/src/skins/bc1/Bc1.tsx b/src/skins/bc1/Bc1.tsx
+new file mode 100644
+index 0000000..a2d2508
+--- /dev/null
++++ b/src/skins/bc1/Bc1.tsx
+@@ -0,0 +1,339 @@
++import Link from "next/link";
++import type { Card, LiveItem } from "@/components/site/data";
++import type { SiteConfig } from "@/lib/site";
++import { CopyLink, NavLink } from "../client";
++import { Img, Notice, captionOf, dates, domainOf, href, skinRoot } from "../shared";
++import type { ArticleProps, HomeProps, ListProps, PageProps, ShellProps, SkinViews } from "../types";
++
++/**
++ * Bothnia Channel 1 — television publique d'Etat.
++ *
++ * Reprise de Sites/Site Bella Channel 1/_TEMPLATE.html (le dossier garde son
++ * ancien nom, le media s'appelle desormais Bothnia Channel 1) : barre de date
++ * et de langues, en-tete marine au logo BC1 encadre de rouge, recherche et
++ * pastille « live », navigation, bandeau « Breaking » rouge, grille article +
++ * colonne de 310px (« Live Updates », « Related Articles »), pied marine.
++ */
++
++/** Le monogramme : les initiales du nom, le chiffre final en rouge (« BC1 »). */
++function Monogram({ name }: { name: string }) {
++  const words = name.trim().split(/\s+/).filter(Boolean);
++  const letters = words.map((w) => (/^\d+$/.test(w) ? w : w[0].toUpperCase())).join("").slice(0, 4) || "BC1";
++  const m = letters.match(/^(.*?)(\d+)$/);
++  return m ? <>{m[1]}<span className="one">{m[2]}</span></> : <>{letters}</>;
++}
++
++function strip(html: string): string {
++  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
++}
++
++function Related({ site, cards }: { site: SiteConfig; cards: Card[] }) {
++  const d = dates(site);
++  return (
++    <>
++      {cards.map((c) => (
++        <div key={c.id} className="related-item">
++          <Link className="related-thumb" href={href(c)} tabIndex={-1} aria-hidden="true">
++            {c.media ? <Img media={c.media} /> : (
++              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" fill="#A8A8A8" /><path d="M4 24C4 19 8.5 16 14 16C19.5 16 24 19 24 24" stroke="#A8A8A8" strokeWidth="2" strokeLinecap="round" /></svg>
++            )}
++          </Link>
++          <div>
++            {c.category && <div className="rel-cat">{c.category.name}</div>}
++            <Link className="rel-title" href={href(c)}>{c.title}</Link>
++            {c.publishedAt && <div className="rel-date">{d.long(c.publishedAt)}</div>}
++          </div>
++        </div>
++      ))}
++    </>
++  );
++}
++
++function LiveUpdates({ site, live, entries, latest }: { site: SiteConfig; live: Card | null; entries: LiveItem[]; latest: Card[] }) {
++  const d = dates(site);
++  return (
++    <div className="widget">
++      <div className="widget-title">Live Updates</div>
++      <div className="widget-body">
++        {live && entries.length > 0 ? (
++          <>
++            <Link className="bc1-widget-link" href={href(live)}>{live.title}</Link>
++            {entries.slice(0, 6).map((e) => (
++              <div key={e.id} className="feed-item">
++                <div className="feed-time">{d.time(e.publishedAt)}</div>
++                {e.title || strip(e.body).slice(0, 160)}
++              </div>
++            ))}
++          </>
++        ) : latest.length > 0 ? (
++          latest.slice(0, 6).map((c) => (
++            <div key={c.id} className="feed-item">
++              <div className="feed-time">{c.publishedAt ? d.time(c.publishedAt) : "—"}</div>
++              <Link href={href(c)}>{c.title}</Link>
++            </div>
++          ))
++        ) : (
++          <div className="feed-item">No update published yet.</div>
++        )}
++      </div>
++    </div>
++  );
++}
++
++function Shell({ site, nav, pages, ticker, live, liveEntries, latest, children }: ShellProps) {
++  const root = skinRoot(site, "bc1");
++  const d = dates(site);
++  const now = new Date();
++  const domaine = domainOf(site.baseline) || domainOf(site.footerText);
++  const pastille = live?.title ?? ticker[0]?.title ?? "";
++
++  return (
++    <div className={root.className} style={root.style}>
++      <Notice site={site} />
++
++      <div className="top-bar">
++        <div className="top-bar-inner">
++          <span className="top-bar-date">{d.full(now)} &nbsp;·&nbsp; {d.time(now)}</span>
++          <div className="lang-switch" aria-hidden="true">
++            <span className="active">EN</span><span>RU</span><span>BY</span>
++          </div>
++        </div>
++      </div>
++
++      <header className="site-header">
++        <div className="header-inner">
++          <Link className="bc1-logo" href="/">
++            {site.logoUrl
++              // eslint-disable-next-line @next/next/no-img-element
++              ? <img className="bc1-logo-img" src={site.logoUrl} alt={site.name} />
++              : <span className="bc1-logo-text"><Monogram name={site.name} /></span>}
++          </Link>
++          <div className="site-branding">
++            <div className="site-name-main">{site.name}</div>
++            {site.baseline && <div className="site-name-sub">{site.baseline}</div>}
++          </div>
++          <div className="header-right">
++            <form className="search-bar" action="/recherche" method="get" role="search">
++              <input type="search" name="q" placeholder="Search articles..." aria-label="Search articles" />
++              <button type="submit">Search</button>
++            </form>
++            {pastille && (
++              <Link className="live-badge" href={live ? href(live) : "/direct"}>
++                <span className="live-dot" />{pastille}
++              </Link>
++            )}
++          </div>
++        </div>
++      </header>
++
++      <nav className="main-nav" aria-label="Sections">
++        <div className="nav-inner">
++          <NavLink href="/">Home</NavLink>
++          {nav.map((m) => <NavLink key={`${m.href}-${m.label}`} href={m.href}>{m.label}</NavLink>)}
++          <NavLink href="/direct">Live</NavLink>
++        </div>
++      </nav>
++
++      {ticker.length > 0 && (
++        <div className="ticker-bar">
++          <div className="ticker-label"><span className="ticker-dot" />Breaking</div>
++          <div className="ticker-scroll">
++            <span className="ticker-content">
++              {ticker.map((t, i) => (
++                <span key={t.slug}>
++                  {i > 0 && <>&nbsp;<span className="tick-sep">|</span>&nbsp;</>}
++                  <Link href={`/article/${t.slug}`}>{t.title}</Link>
++                </span>
++              ))}
++            </span>
++          </div>
++        </div>
++      )}
++
++      <div className="page-wrap">
++        <main className="bc1-main" id="contenu">{children}</main>
++        <aside className="sidebar">
++          <LiveUpdates site={site} live={live} entries={liveEntries} latest={latest} />
++          {latest.length > 0 && (
++            <div className="widget">
++              <div className="widget-title">Latest Articles</div>
++              <div className="widget-body"><Related site={site} cards={latest.slice(0, 5)} /></div>
++            </div>
++          )}
++        </aside>
++      </div>
++
++      <footer className="site-footer">
++        <div className="footer-inner">
++          <div className="footer-top">
++            <div className="footer-brand">
++              <div className="footer-bc1"><span className="footer-bc1-text"><Monogram name={site.name} /></span></div>
++              <div>
++                <div className="footer-name-main">{site.name}</div>
++                <div className="footer-name-sub">{site.description || domaine}</div>
++              </div>
++            </div>
++            <div className="footer-links">
++              {pages.map((p) => <Link key={p.slug} href={`/page/${p.slug}`}>{p.title}</Link>)}
++              <Link href="/direct">Live Stream</Link>
++            </div>
++          </div>
++          <div className="footer-bottom">{site.footerText || `© ${now.getFullYear()} ${site.name}`}</div>
++        </div>
++      </footer>
++    </div>
++  );
++}
++
++function Kicker({ card }: { card: Card }) {
++  return (
++    <div className="article-kicker">
++      {card.urgent && <span className="bc1-badge">Breaking</span>}
++      {card.live && <span className="bc1-badge">Live</span>}
++      {card.category ? <Link href={`/rubrique/${card.category.slug}`}>{card.category.name}</Link> : "News"}
++    </div>
++  );
++}
++
++function Meta({ site, card, lieu, share }: { site: SiteConfig; card: Card; lieu?: string; share?: boolean }) {
++  const d = dates(site);
++  return (
++    <div className="article-meta">
++      <span className="meta-source">{card.authorName || `${site.name} Desk`}</span>
++      {lieu && <><span className="meta-sep">/</span><span>{lieu}</span></>}
++      {card.publishedAt && <><span className="meta-sep">/</span><span>{d.long(card.publishedAt)}, {d.time(card.publishedAt)}</span></>}
++      {share && (
++        <div className="meta-social">
++          <CopyLink className="social-btn" label="Share" done="Link copied" />
++          <span className="social-btn" aria-hidden="true">VK</span>
++          <span className="social-btn" aria-hidden="true">Telegram</span>
++        </div>
++      )}
++    </div>
++  );
++}
++
++function Row({ site, card }: { site: SiteConfig; card: Card }) {
++  const d = dates(site);
++  return (
++    <div className="bc1-row">
++      <Link className="bc1-row-thumb" href={href(card)} tabIndex={-1} aria-hidden="true"><Img media={card.media} /></Link>
++      <div>
++        <Kicker card={card} />
++        <Link className="bc1-row-title" href={href(card)}>{card.title}</Link>
++        {card.standfirst && <p className="bc1-row-deck">{card.standfirst}</p>}
++        {card.publishedAt && <div className="rel-date">{d.long(card.publishedAt)}</div>}
++      </div>
++    </div>
++  );
++}
++
++function Home({ site, lead, cards }: HomeProps) {
++  if (!lead) {
++    return <div className="article-card"><div className="article-body"><div className="article-kicker">{site.name}</div><p className="article-deck">No article has been published yet.</p></div></div>;
++  }
++  return (
++    <>
++      <article className="article-card">
++        {lead.media && <Link className="article-hero" href={href(lead)} tabIndex={-1} aria-hidden="true"><Img media={lead.media} eager /></Link>}
++        {lead.media && captionOf(lead) && <div className="hero-caption">{captionOf(lead)}</div>}
++        <div className="article-body">
++          <Kicker card={lead} />
++          <h1 className="article-headline"><Link href={href(lead)}>{lead.title}</Link></h1>
++          {lead.standfirst && <p className="article-deck">{lead.standfirst}</p>}
++          <Meta site={site} card={lead} />
++          <Link className="bc1-readmore" href={href(lead)}>Read more</Link>
++        </div>
++      </article>
++      {cards.length > 0 && (
++        <section className="bc1-section">
++          <div className="widget-title">Top Stories</div>
++          <div className="bc1-rows">{cards.map((c) => <Row key={c.id} site={site} card={c} />)}</div>
++        </section>
++      )}
++    </>
++  );
++}
++
++function Article({ site, article, related, liveNode, reactionsNode }: ArticleProps) {
++  return (
++    <>
++      <article className="article-card">
++        {article.media && <div className="article-hero"><Img media={article.media} eager /></div>}
++        {article.media && captionOf(article) && <div className="hero-caption">{captionOf(article)}</div>}
++        <div className="article-body">
++          <Kicker card={article} />
++          <h1 className="article-headline">{article.title}</h1>
++          {article.standfirst && <p className="article-deck">{article.standfirst}</p>}
++          <Meta site={site} card={article} lieu={article.fields.lieu} share />
++          {liveNode && <div className="bc1-live">{liveNode}</div>}
++          <div className="article-text">
++            <div dangerouslySetInnerHTML={{ __html: article.body }} />
++            {article.tags.length > 0 && (
++              <div className="article-tags">
++                {article.tags.map((t) => <Link key={t.slug} className="tag" href={`/recherche?q=${encodeURIComponent(t.name)}`}>{t.name}</Link>)}
++              </div>
++            )}
++          </div>
++        </div>
++      </article>
++
++      {related.length > 0 && (
++        <section className="bc1-section">
++          <div className="widget-title">Related Articles</div>
++          <div className="widget-body"><Related site={site} cards={related.slice(0, 4)} /></div>
++        </section>
++      )}
++
++      <div className="bc1-reactions">{reactionsNode}</div>
++    </>
++  );
++}
++
++function List({ site, title, subtitle, cards, emptyNote, pager, search }: ListProps) {
++  return (
++    <>
++      <div className="article-card">
++        <div className="article-body bc1-list-head">
++          <div className="article-kicker">{site.name}</div>
++          <h1 className="article-headline">{title}</h1>
++          {subtitle && <div className="bc1-count">{subtitle}</div>}
++          {search && (
++            <form className="bc1-search" action="/recherche" method="get" role="search">
++              <input type="search" name="q" defaultValue={search.q} placeholder="Search articles…" aria-label="Search" />
++              <button type="submit">Search</button>
++            </form>
++          )}
++        </div>
++      </div>
++      <section className="bc1-section">
++        {cards.length === 0
++          ? <div className="bc1-note">{emptyNote}</div>
++          : <div className="bc1-rows">{cards.map((c) => <Row key={c.id} site={site} card={c} />)}</div>}
++      </section>
++      {pager && (
++        <nav className="bc1-pager" aria-label="Pagination">
++          {pager.prev ? <Link href={pager.prev}>‹ Previous</Link> : <span />}
++          <span>{pager.label}</span>
++          {pager.next ? <Link href={pager.next}>Next ›</Link> : <span />}
++        </nav>
++      )}
++    </>
++  );
++}
++
++function Page({ site, title, html, updatedAt }: PageProps) {
++  const d = dates(site);
++  return (
++    <div className="article-card">
++      <div className="article-body">
++        <div className="article-kicker">{site.name}</div>
++        <h1 className="article-headline">{title}</h1>
++        <div className="article-meta"><span>Updated {d.long(updatedAt)}</span></div>
++        <div className="article-text" dangerouslySetInnerHTML={{ __html: html }} />
++      </div>
++    </div>
++  );
++}
++
++export const bc1: SkinViews = { Shell, Home, Article, List, Page };
+diff --git a/src/skins/bc1/bc1.css b/src/skins/bc1/bc1.css
+new file mode 100644
+index 0000000..0dcf75b
+--- /dev/null
++++ b/src/skins/bc1/bc1.css
+@@ -0,0 +1,188 @@
++/*
++  Bothnia Channel 1 — reprise de Sites/Site Bella Channel 1/_TEMPLATE.html.
++  Memes principes que tv4.css. Le rouge passe par --accent, le marine de
++  marque par --urgent (c'est lui que « Retoucher » deplace pour une variante
++  d'une autre couleur) ; les nuances de marine en sont derivees.
++  Classes ajoutees pour la une et les listes : prefixe bc1-.
++*/
++
++.sk-bc1 {
++  --navy: var(--urgent);
++  --navy-mid: color-mix(in srgb, var(--urgent) 84%, #fff);
++  --navy-light: color-mix(in srgb, var(--urgent) 70%, #fff);
++  --red: var(--accent);
++  --red-dark: color-mix(in srgb, var(--accent) 75%, #000);
++  --white: #ffffff;
++  --off-white: var(--paper);
++  --light-grey: var(--rule);
++  --mid-grey: #b8b8b4;
++  --text: var(--ink);
++  --text-soft: var(--muted);
++  --ticker-bg: color-mix(in srgb, var(--urgent) 70%, #000);
++  --bc1-serif: var(--f-serif), "Source Serif 4", Georgia, serif;
++  --bc1-sans: var(--f-sourcesans), "Source Sans 3", Arial, sans-serif;
++
++  font-family: var(--bc1-sans);
++  background: var(--off-white);
++  color: var(--text);
++  font-size: 15px;
++  line-height: normal;
++  -webkit-font-smoothing: antialiased;
++  min-height: 100vh;
++}
++.sk-bc1 a { color: var(--navy-mid); text-decoration: none; }
++.sk-bc1 a:hover { color: var(--red); }
++
++.sk-bc1 .top-bar { background: var(--ticker-bg); border-bottom: 1px solid color-mix(in srgb, var(--red) 40%, transparent); }
++.sk-bc1 .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 5px 20px; display: flex; justify-content: space-between; align-items: center; }
++.sk-bc1 .top-bar-date { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
++.sk-bc1 .lang-switch { display: flex; gap: 6px; }
++.sk-bc1 .lang-switch span { border: 1px solid rgba(255,255,255,0.25); padding: 1px 7px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.55); }
++.sk-bc1 .lang-switch span.active { background: var(--red); border-color: var(--red); color: white; }
++
++.sk-bc1 .site-header { background: var(--navy); padding: 0; }
++.sk-bc1 .header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 20px; }
++.sk-bc1 .bc1-logo { display: flex; align-items: center; justify-content: center; width: 62px; height: 50px; background: white; border: 3px solid var(--red); flex-shrink: 0; text-decoration: none; overflow: hidden; }
++.sk-bc1 .bc1-logo-img { max-width: 100%; max-height: 100%; display: block; }
++.sk-bc1 .bc1-logo-text { font-family: 'Arial Black', Impact, Arial, sans-serif; font-weight: 900; font-size: 21px; line-height: 1; letter-spacing: -0.03em; color: var(--navy); }
++.sk-bc1 .bc1-logo-text .one { color: var(--red); }
++.sk-bc1 .site-branding { flex: 1; min-width: 0; }
++.sk-bc1 .site-name-main { font-family: var(--bc1-serif); font-size: 24px; font-weight: 700; color: white; letter-spacing: 0.01em; line-height: 1; }
++.sk-bc1 .site-name-sub { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.42); margin-top: 4px; }
++.sk-bc1 .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; max-width: 46%; }
++.sk-bc1 .search-bar { display: flex; }
++.sk-bc1 .search-bar input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); border-right: none; color: white; padding: 5px 10px; font-size: 12px; width: 190px; outline: none; font-family: var(--bc1-sans); }
++.sk-bc1 .search-bar input::placeholder { color: rgba(255,255,255,0.35); }
++.sk-bc1 .search-bar button { background: var(--red); border: none; color: white; padding: 5px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; font-family: var(--bc1-sans); }
++.sk-bc1 .live-badge { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
++.sk-bc1 a.live-badge:hover { color: white; }
++.sk-bc1 .live-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: sk-bc1-blink 1.4s infinite; flex-shrink: 0; }
++@keyframes sk-bc1-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
++
++.sk-bc1 .main-nav { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.06); }
++.sk-bc1 .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: stretch; overflow-x: auto; }
++.sk-bc1 .nav-inner a { color: rgba(255,255,255,0.78); font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 15px; display: flex; align-items: center; border-bottom: 3px solid transparent; white-space: nowrap; }
++.sk-bc1 .nav-inner a:hover { color: white; border-bottom-color: color-mix(in srgb, var(--red) 60%, transparent); }
++.sk-bc1 .nav-inner a.active { color: white; border-bottom-color: var(--red); }
++
++.sk-bc1 .ticker-bar { background: var(--red); display: flex; align-items: stretch; overflow: hidden; }
++.sk-bc1 .ticker-label { background: var(--red-dark); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 16px; flex-shrink: 0; display: flex; align-items: center; gap: 7px; border-right: 1px solid rgba(255,255,255,0.2); }
++.sk-bc1 .ticker-dot { width: 6px; height: 6px; background: white; border-radius: 50%; flex-shrink: 0; animation: sk-bc1-blink 1s infinite; }
++.sk-bc1 .ticker-scroll { overflow: hidden; flex: 1; display: flex; align-items: center; }
++.sk-bc1 .ticker-content { white-space: nowrap; color: white; font-size: 12px; font-weight: 600; display: inline-block; padding-left: 100%; animation: sk-bc1-marquee 60s linear infinite; }
++.sk-bc1 .ticker-content a { color: white; }
++.sk-bc1 .ticker-bar:hover .ticker-content { animation-play-state: paused; }
++@keyframes sk-bc1-marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
++.sk-bc1 .tick-sep { margin: 0 18px; opacity: 0.45; }
++
++.sk-bc1 .page-wrap { max-width: 1200px; margin: 26px auto 0; padding: 0 20px; display: grid; grid-template-columns: minmax(0, 1fr) 310px; gap: 26px; }
++.sk-bc1 .bc1-main { min-width: 0; }
++
++.sk-bc1 .article-card { background: white; }
++.sk-bc1 .article-hero { width: 100%; background: #1e1e38; overflow: hidden; line-height: 0; min-height: 280px; display: flex; align-items: center; justify-content: center; }
++.sk-bc1 .article-hero img { width: 100%; height: auto; display: block; max-height: 540px; object-fit: cover; }
++.sk-bc1 .hero-caption { padding: 7px 18px; background: #eeeeea; border-bottom: 1px solid var(--light-grey); font-size: 11px; color: var(--text-soft); font-style: italic; font-family: var(--bc1-serif); }
++
++.sk-bc1 .article-body { padding: 22px 26px 30px; }
++.sk-bc1 .article-kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
++.sk-bc1 .article-kicker a { color: var(--red); }
++.sk-bc1 .bc1-badge { background: var(--red); color: white; padding: 2px 6px; font-size: 9px; letter-spacing: 0.14em; }
++.sk-bc1 .article-headline { font-family: var(--bc1-serif); font-size: 29px; font-weight: 700; line-height: 1.18; color: var(--navy); margin: 0 0 12px; }
++.sk-bc1 .article-headline a { color: var(--navy); }
++.sk-bc1 .article-headline a:hover { color: var(--red); }
++.sk-bc1 .article-deck { font-family: var(--bc1-serif); font-size: 16px; font-style: italic; color: var(--text-soft); line-height: 1.55; border-left: 3px solid var(--red); padding-left: 14px; margin: 0 0 16px; }
++.sk-bc1 .article-meta { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-top: 1px solid var(--light-grey); border-bottom: 1px solid var(--light-grey); margin-bottom: 20px; font-size: 11px; color: var(--text-soft); flex-wrap: wrap; }
++.sk-bc1 .meta-source { font-weight: 700; color: var(--navy); }
++.sk-bc1 .meta-sep { color: var(--mid-grey); }
++.sk-bc1 .meta-social { margin-left: auto; display: flex; gap: 7px; }
++.sk-bc1 .social-btn { background: var(--navy); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; padding: 3px 9px; font-family: var(--bc1-sans); border: 0; cursor: pointer; }
++
++.sk-bc1 .article-text { font-family: var(--bc1-serif); font-size: 15px; line-height: 1.78; color: var(--text); }
++.sk-bc1 .article-text p { margin: 0 0 14px; }
++.sk-bc1 .article-text h2, .sk-bc1 .article-text h3 { font-family: var(--bc1-serif); font-weight: 700; color: var(--navy); line-height: 1.25; margin: 24px 0 10px; }
++.sk-bc1 .article-text h2 { font-size: 21px; }
++.sk-bc1 .article-text h3 { font-size: 17px; }
++.sk-bc1 .article-text ul, .sk-bc1 .article-text ol { margin: 0 0 14px 22px; }
++.sk-bc1 .article-text ul { list-style: disc; }
++.sk-bc1 .article-text ol { list-style: decimal; }
++.sk-bc1 .article-text img { max-width: 100%; height: auto; margin: 10px 0; }
++.sk-bc1 .article-text a { text-decoration: underline; }
++.sk-bc1 .article-text blockquote { margin: 22px 0; padding: 14px 20px; background: #f6f6f2; border-left: 4px solid var(--red); font-style: italic; font-size: 16.5px; color: var(--navy); line-height: 1.65; }
++.sk-bc1 .article-text blockquote p:last-child { margin-bottom: 0; }
++.sk-bc1 .article-text blockquote cite { display: block; margin-top: 10px; font-style: normal; font-family: var(--bc1-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
++
++.sk-bc1 .decree-box { background: #f0f0f8; border: 1px solid color-mix(in srgb, var(--navy) 20%, transparent); border-left: 4px solid var(--navy); padding: 14px 18px; margin: 20px 0; }
++.sk-bc1 .decree-label { font-family: var(--bc1-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
++.sk-bc1 .decree-text { font-family: var(--bc1-sans); font-size: 13px; color: var(--text); line-height: 1.65; }
++.sk-bc1 .decree-text li { margin-left: 16px; margin-bottom: 6px; }
++.sk-bc1 .decree-text strong { color: var(--navy); }
++
++.sk-bc1 .article-tags { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--light-grey); display: flex; gap: 6px; flex-wrap: wrap; }
++.sk-bc1 .tag { background: var(--off-white); border: 1px solid var(--mid-grey); color: var(--text-soft); font-family: var(--bc1-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; }
++.sk-bc1 .tag:hover { border-color: var(--red); color: var(--red); }
++
++.sk-bc1 .sidebar { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
++.sk-bc1 .widget { background: white; }
++.sk-bc1 .widget-title { background: var(--navy); color: white; font-family: var(--bc1-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 14px; }
++.sk-bc1 .widget-body { padding: 12px 14px; }
++.sk-bc1 .bc1-widget-link { display: block; font-family: var(--bc1-serif); font-weight: 700; font-size: 14px; line-height: 1.3; color: var(--navy); padding-bottom: 8px; border-bottom: 1px solid var(--light-grey); }
++.sk-bc1 .feed-item { padding: 9px 0; border-bottom: 1px solid var(--light-grey); font-size: 12px; line-height: 1.5; color: var(--text); }
++.sk-bc1 .feed-item:last-child { border-bottom: none; padding-bottom: 0; }
++.sk-bc1 .feed-item a { color: var(--text); }
++.sk-bc1 .feed-time { font-family: var(--bc1-sans); font-weight: 700; color: var(--red); font-size: 11px; margin-bottom: 2px; }
++.sk-bc1 .related-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--light-grey); }
++.sk-bc1 .related-item:last-child { border-bottom: none; padding-bottom: 0; }
++.sk-bc1 .related-thumb { width: 68px; height: 50px; flex-shrink: 0; background: #d8d8d4; display: flex; align-items: center; justify-content: center; overflow: hidden; }
++.sk-bc1 .related-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
++.sk-bc1 .related-thumb svg { opacity: 0.35; }
++.sk-bc1 .rel-cat { font-family: var(--bc1-sans); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 3px; }
++.sk-bc1 .rel-title { font-family: var(--bc1-serif); font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--navy); display: block; }
++.sk-bc1 .rel-title:hover { color: var(--red); }
++.sk-bc1 .rel-date { font-size: 10px; color: var(--text-soft); margin-top: 4px; font-family: var(--bc1-sans); }
++
++.sk-bc1 .site-footer { background: var(--navy); margin-top: 44px; padding: 28px 0 16px; }
++.sk-bc1 .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
++.sk-bc1 .footer-top { display: flex; align-items: flex-start; gap: 28px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
++.sk-bc1 .footer-brand { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
++.sk-bc1 .footer-bc1 { width: 50px; height: 40px; background: white; border: 2.5px solid var(--red); display: flex; align-items: center; justify-content: center; }
++.sk-bc1 .footer-bc1-text { font-family: 'Arial Black', Impact, Arial, sans-serif; font-weight: 900; font-size: 17px; color: var(--navy); letter-spacing: -0.03em; }
++.sk-bc1 .footer-bc1-text .one { color: var(--red); }
++.sk-bc1 .footer-name-main { font-size: 14px; font-weight: 700; color: white; font-family: var(--bc1-serif); }
++.sk-bc1 .footer-name-sub { font-size: 10px; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; }
++.sk-bc1 .footer-links { display: flex; gap: 20px; flex-wrap: wrap; margin-left: auto; align-items: center; }
++.sk-bc1 .footer-links a { color: rgba(255,255,255,0.48); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--bc1-sans); }
++.sk-bc1 .footer-links a:hover { color: white; }
++.sk-bc1 .footer-bottom { padding-top: 14px; font-size: 10px; letter-spacing: 0.03em; text-align: center; color: rgba(255,255,255,0.28); font-family: var(--bc1-sans); }
++
++/* ---- Pages que le template n'avait pas -------------------------------- */
++
++.sk-bc1 .bc1-readmore { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: white; background: var(--navy); padding: 6px 12px; }
++.sk-bc1 .bc1-readmore:hover { background: var(--red); color: white; }
++.sk-bc1 .bc1-section { margin-top: 24px; background: white; }
++.sk-bc1 .bc1-rows { padding: 0 18px; }
++.sk-bc1 .bc1-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--light-grey); }
++.sk-bc1 .bc1-row:last-child { border-bottom: 0; }
++.sk-bc1 .bc1-row-thumb { display: block; background: #1e1e38; aspect-ratio: 16 / 10; overflow: hidden; }
++.sk-bc1 .bc1-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
++.sk-bc1 .bc1-row .article-kicker { margin-bottom: 6px; }
++.sk-bc1 .bc1-row-title { font-family: var(--bc1-serif); font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--navy); display: block; }
++.sk-bc1 .bc1-row-deck { font-family: var(--bc1-serif); font-size: 14px; color: var(--text-soft); line-height: 1.5; margin: 6px 0 4px; }
++.sk-bc1 .bc1-live { margin-bottom: 18px; }
++.sk-bc1 .bc1-list-head .article-headline { margin-bottom: 4px; }
++.sk-bc1 .bc1-count { font-size: 12px; color: var(--text-soft); }
++.sk-bc1 .bc1-note { padding: 18px; font-size: 13px; color: var(--text-soft); }
++.sk-bc1 .bc1-search { display: flex; margin-top: 16px; }
++.sk-bc1 .bc1-search input { flex: 1; border: 1px solid var(--light-grey); border-right: 0; padding: 10px 12px; font-size: 14px; font-family: var(--bc1-sans); outline: none; }
++.sk-bc1 .bc1-search input:focus { border-color: var(--navy); }
++.sk-bc1 .bc1-search button { background: var(--red); color: white; border: 0; padding: 0 18px; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: var(--bc1-sans); }
++.sk-bc1 .bc1-pager { display: flex; justify-content: space-between; margin-top: 18px; font-size: 12px; font-weight: 700; color: var(--text-soft); }
++.sk-bc1 .bc1-reactions .sk-island { margin-top: 24px; background: white; padding: 22px 26px; }
++
++@media (max-width: 900px) {
++  .sk-bc1 .page-wrap { grid-template-columns: minmax(0, 1fr); }
++  .sk-bc1 .header-right { display: none; }
++  .sk-bc1 .article-body { padding: 18px 16px 24px; }
++  .sk-bc1 .article-headline { font-size: 24px; }
++  .sk-bc1 .bc1-row { grid-template-columns: 110px minmax(0, 1fr); }
++  .sk-bc1 .meta-social { margin-left: 0; }
++}
+diff --git a/src/skins/client.tsx b/src/skins/client.tsx
+new file mode 100644
+index 0000000..43286a9
+--- /dev/null
++++ b/src/skins/client.tsx
+@@ -0,0 +1,38 @@
++"use client";
++
++import Link from "next/link";
++import { usePathname } from "next/navigation";
++import { useState } from "react";
++
++/**
++ * Les deux seules pieces d'habillage qui ont besoin du navigateur : le lien de
++ * navigation qui sait s'il est la page courante, et le bouton qui copie
++ * l'adresse de l'article. Le reste des habillages est rendu cote serveur.
++ */
++
++export function NavLink({ href, className, activeClass = "active", children }: {
++  href: string; className?: string; activeClass?: string; children: React.ReactNode;
++}) {
++  const path = usePathname();
++  const actif = href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
++  const cls = [className, actif ? activeClass : ""].filter(Boolean).join(" ");
++  return (
++    <Link href={href} className={cls || undefined} aria-current={actif ? "page" : undefined}>
++      {children}
++    </Link>
++  );
++}
++
++export function CopyLink({ className, label, done }: { className?: string; label: string; done: string }) {
++  const [ok, setOk] = useState(false);
++  return (
++    <button type="button" className={className} onClick={() => {
++      navigator.clipboard?.writeText(window.location.href).then(() => {
++        setOk(true);
++        window.setTimeout(() => setOk(false), 2000);
++      }).catch(() => setOk(false));
++    }}>
++      {ok ? done : label}
++    </button>
++  );
++}
+diff --git a/src/skins/registry.ts b/src/skins/registry.ts
+new file mode 100644
+index 0000000..7868ef1
+--- /dev/null
++++ b/src/skins/registry.ts
+@@ -0,0 +1,168 @@
++import type { Theme } from "@/lib/theme";
++
++/**
++ * Les maquettes existantes : les sites d'exercice deja produits par la cellule
++ * (MASTAURIGE, dossier Sites/ d'AURIGE 7BB), repris ici comme habillages.
++ *
++ * Une maquette generique (quotidien, magazine…) est un jeu de reglages : on la
++ * tord a volonte. Un habillage est l'inverse — c'est la charte d'un media que
++ * les joueurs ont deja vu, et il doit rester reconnaissable au premier coup
++ * d'oeil. Sa structure (bandeaux, colonnes, pied) est donc ecrite une fois,
++ * dans ses composants et sa feuille de style ; seules ses couleurs de marque
++ * passent par les jetons du theme, pour qu'on puisse la « retoucher » sans la
++ * casser (une variante de TV4 a l'accent rouge, par exemple).
++ *
++ * Ce fichier est lu par le navigateur (reglages, editeur) comme par le
++ * serveur : il ne contient que des donnees, aucun composant.
++ */
++
++export type SkinKey = "tv4" | "todaymercure" | "bc1";
++
++/** Un champ propre a l'habillage, saisi dans l'editeur d'article. */
++export interface SkinField {
++  key: string;
++  label: string;
++  hint: string;
++  placeholder?: string;
++}
++
++export interface SkinDef {
++  key: SkinKey;
++  label: string;
++  /** ce qu'est le media, en une ligne, pour la vignette des reglages */
++  hint: string;
++  /** langue de l'habillage : ses libelles fixes et ses dates */
++  lang: "fr" | "en";
++  /** identite reprise quand on adopte l'habillage (modifiable ensuite) */
++  identity: { name: string; baseline: string; description: string; footerText: string };
++  /** la charte d'origine, en jetons : c'est ce que « Retoucher » modifie */
++  theme: Theme;
++  /** champs d'article propres a l'habillage */
++  fields: SkinField[];
++  /** trois couleurs pour la vignette : bandeau, accent, fond */
++  swatch: [string, string, string];
++  /**
++   * Ce que chaque jeton de couleur peint dans cet habillage. Les libelles
++   * generiques (« Accent », « Alerte ») ne disent rien d'une charte precise ;
++   * ceux-ci s'affichent quand on retouche.
++   */
++  colorLabels: Partial<Record<keyof Theme["colors"], string>>;
++}
++
++const LIEU: SkinField = {
++  key: "lieu",
++  label: "Lieu de la dépêche",
++  hint: "Affiché dans la ligne de métadonnées, entre la source et la date.",
++  placeholder: "HNANCY",
++};
++
++export const SKINS: Record<SkinKey, SkinDef> = {
++  tv4: {
++    key: "tv4",
++    label: "TV4 International",
++    hint: "Chaîne d’info internationale, nav gauche, bandeau orange",
++    lang: "fr",
++    identity: {
++      name: "TV4 International",
++      baseline: "Édition française · tv4international.dr",
++      description: "Information indépendante",
++      footerText: "© 2026 TV4 International. Tous droits réservés. · tv4international.dr · Rédaction : HPARIS, Dacie Romanie",
++    },
++    theme: {
++      preset: "skin-tv4",
++      colors: { ink: "#1c1c1a", paper: "#f0efed", surface: "#ffffff", accent: "#f5a800", accentInk: "#1c1c1e", muted: "#6a6a66", rule: "#e0e0dc", urgent: "#4a8fc2" },
++      fonts: { display: "serif", body: "serif", ui: "sans" },
++      scale: 1, radius: 0, density: "normale", header: "classique", caps: false, rules: true, measure: 760,
++    },
++    fields: [LIEU],
++    swatch: ["#1c1c1e", "#f5a800", "#f0efed"],
++    colorLabels: { accent: "Orange de marque (logo, bandeau, filets)", accentInk: "Noir des bandeaux et du pied", urgent: "Bleu du logo et des citations", paper: "Fond de page", surface: "Fond des cartes" },
++  },
++  todaymercure: {
++    key: "todaymercure",
++    label: "Today Mercure",
++    hint: "Agence de presse d’État, fond noir, bandeau rouge",
++    lang: "en",
++    identity: {
++      name: "Today Mercure",
++      baseline: "The Voice of Mercure",
++      description: "Today Mercure is the state news service of the Republic of Mercure, covering national defence, politics and the Grand East Territory.",
++      footerText: "© 2026 Today Mercure — The Voice of Mercure · todaymercure.mr · All rights reserved",
++    },
++    theme: {
++      preset: "skin-todaymercure",
++      colors: { ink: "#1a1a1a", paper: "#f5f5f3", surface: "#ffffff", accent: "#cc0000", accentInk: "#ffffff", muted: "#555555", rule: "#e0e0dc", urgent: "#c8a020" },
++      fonts: { display: "serif", body: "serif", ui: "sans" },
++      scale: 1, radius: 0, density: "normale", header: "classique", caps: false, rules: true, measure: 760,
++    },
++    fields: [],
++    swatch: ["#0d0d0d", "#cc0000", "#f5f5f3"],
++    colorLabels: { accent: "Rouge de marque (logo, bandeau, surtitres)", urgent: "Or (étoile, titres de colonne)", paper: "Fond de page", surface: "Fond des articles", accentInk: "Inutilisé par cette maquette" },
++  },
++  bc1: {
++    key: "bc1",
++    label: "Bothnia Channel 1",
++    hint: "Télévision publique d’État, bleu marine et rouge",
++    lang: "en",
++    identity: {
++      name: "Bothnia Channel 1",
++      baseline: "National Public Broadcasting · bothniachannel1.by",
++      description: "State broadcaster of the Republic of Bothnia",
++      footerText: "© 2026 Bothnia Channel 1 · bothniachannel1.by · State broadcaster of the Republic of Bothnia",
++    },
++    theme: {
++      preset: "skin-bc1",
++      colors: { ink: "#1a1a18", paper: "#f2f2f0", surface: "#ffffff", accent: "#cc0000", accentInk: "#ffffff", muted: "#555550", rule: "#e4e4e0", urgent: "#12125a" },
++      fonts: { display: "serif", body: "serif", ui: "sans" },
++      scale: 1, radius: 0, density: "normale", header: "classique", caps: false, rules: true, measure: 760,
++    },
++    fields: [LIEU],
++    swatch: ["#12125a", "#cc0000", "#f2f2f0"],
++    colorLabels: { accent: "Rouge de marque (bandeau, surtitres)", urgent: "Bleu marine (en-tête, titres, pied)", paper: "Fond de page", surface: "Fond des articles", accentInk: "Inutilisé par cette maquette" },
++  },
++};
++
++/**
++ * Les sites du dossier Sites/ qui ne sont pas encore repris. Ils apparaissent
++ * dans les reglages, grises, pour que la redaction sache ce qui arrive.
++ */
++export const SKINS_A_VENIR: Array<{ label: string; vague: number }> = [
++  { label: "Hexagone", vague: 2 },
++  { label: "TF1 Info", vague: 2 },
++  { label: "Omerta Média", vague: 2 },
++  { label: "Nations Unies", vague: 3 },
++  { label: "OTAN", vague: 3 },
++  { label: "ZubrRadio.FM", vague: 3 },
++  { label: "EFS — Don de sang", vague: 3 },
++];
++
++export const SKIN_KEYS = Object.keys(SKINS) as SkinKey[];
++
++export function isSkinKey(v: unknown): v is SkinKey {
++  return typeof v === "string" && (SKIN_KEYS as string[]).includes(v);
++}
++
++/** Les themes d'origine, indexes par leur cle de preset (« skin-tv4 »…). */
++export const SKIN_THEMES: Record<string, Theme> = Object.fromEntries(
++  Object.values(SKINS).map((s) => [s.theme.preset, s.theme]),
++);
++
++/**
++ * Les champs propres a l'habillage, relus depuis la base ou un formulaire. On
++ * garde toutes les cles texte (un article peut changer d'habillage sans rien
++ * perdre), bornees en taille : ce sont des lignes de metadonnees, pas des corps.
++ */
++export function parseSkinFields(raw: unknown): Record<string, string> {
++  let o: unknown = raw;
++  if (typeof raw === "string") {
++    try { o = JSON.parse(raw); } catch { return {}; }
++  }
++  if (!o || typeof o !== "object" || Array.isArray(o)) return {};
++  const out: Record<string, string> = {};
++  for (const [k, v] of Object.entries(o as Record<string, unknown>)) {
++    if (!/^[a-z][a-z0-9_]{0,30}$/.test(k) || typeof v !== "string") continue;
++    const t = v.trim().slice(0, 300);
++    if (t) out[k] = t;
++  }
++  return out;
++}
+diff --git a/src/skins/shared.tsx b/src/skins/shared.tsx
+new file mode 100644
+index 0000000..453ea1d
+--- /dev/null
++++ b/src/skins/shared.tsx
+@@ -0,0 +1,82 @@
++import type { CSSProperties, ReactNode } from "react";
++import { themeVars } from "@/lib/theme";
++import type { SiteConfig } from "@/lib/site";
++import type { Card, CardMedia } from "@/components/site/data";
++import { ExerciseNotice } from "@/components/site/ExerciseNotice";
++import { SKINS } from "./registry";
++
++/**
++ * Les pieces que tous les habillages partagent.
++ *
++ * La plus importante est l'ilot : les reactions de lecteurs, le fil en direct
++ * et la mention d'exercice existent deja, gardes par la feuille du site public
++ * (derriere .site). Plutot que de les reecrire dix fois, chaque habillage les
++ * pose dans un ilot .site qui recoit les jetons de sa charte : ils prennent ses
++ * couleurs sans qu'on touche a leur code.
++ */
++
++export function Island({ site, className, children }: { site: SiteConfig; className?: string; children: ReactNode }) {
++  return (
++    <div className={`site sk-island${className ? ` ${className}` : ""}`} data-dark="false" style={themeVars(site.theme) as unknown as CSSProperties}>
++      {children}
++    </div>
++  );
++}
++
++/** La mention d'exercice, obligatoire sur toute page du site public, habillage ou non. */
++export function Notice({ site }: { site: SiteConfig }) {
++  return (
++    <Island site={site} className="sk-notice">
++      <ExerciseNotice />
++    </Island>
++  );
++}
++
++/** L'enveloppe d'un habillage : la classe de sa charte, et ses jetons. */
++export function skinRoot(site: SiteConfig, key: string): { className: string; style: CSSProperties } {
++  return { className: `sk sk-${key}`, style: themeVars(site.theme) as unknown as CSSProperties };
++}
++
++/* ---- Dates, dans la langue de l'habillage ------------------------------ */
++
++const TZ = process.env.SITE_TIMEZONE || "Europe/Paris";
++
++export function dates(site: SiteConfig) {
++  const lang = site.skin ? SKINS[site.skin].lang : "fr";
++  const loc = lang === "fr" ? "fr-FR" : "en-GB";
++  const d = (x: Date | string | number) => (x instanceof Date ? x : new Date(x));
++  return {
++    lang,
++    /** « 27 mai 2026 » / « 27 May 2026 » */
++    long: (x: Date | string | number) => d(x).toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric", timeZone: TZ }),
++    /** « mercredi 27 mai 2026 » / « Wednesday, 27 May 2026 » */
++    full: (x: Date | string | number) => d(x).toLocaleDateString(loc, { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: TZ }),
++    /** « 14:32 » */
++    time: (x: Date | string | number) => d(x).toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit", timeZone: TZ }),
++  };
++}
++
++/* ---- Images ---------------------------------------------------------- */
++
++/** Une photo d'article. Sans photo, rien : un cadre vide fait maquette inachevee. */
++export function Img({ media, className, eager }: { media: CardMedia | null; className?: string; eager?: boolean }) {
++  if (!media) return null;
++  return (
++    // eslint-disable-next-line @next/next/no-img-element
++    <img className={className} src={media.url} alt={media.alt} width={media.width || undefined} height={media.height || undefined}
++      loading={eager ? "eager" : "lazy"} decoding="async" />
++  );
++}
++
++export const href = (c: Pick<Card, "slug">) => `/article/${c.slug}`;
++
++/** Legende et credit, sur une ligne, comme sous toutes les photos de presse. */
++export function captionOf(c: Pick<Card, "caption" | "credit">): string {
++  return [c.caption, c.credit ? `© ${c.credit}` : ""].filter(Boolean).join(" — ");
++}
++
++/** Le texte d'un domaine a partir de la signature du site (« … · tv4international.dr »). */
++export function domainOf(baseline: string): string {
++  const m = baseline.match(/[a-z0-9-]+(\.[a-z0-9-]+)+/i);
++  return m ? m[0] : "";
++}
+diff --git a/src/skins/skins.css b/src/skins/skins.css
+new file mode 100644
+index 0000000..a2e861a
+--- /dev/null
++++ b/src/skins/skins.css
+@@ -0,0 +1,20 @@
++/*
++  Les maquettes existantes (habillages de sites d'exercice).
++
++  Chaque habillage a sa feuille, confinee derriere .sk-<cle>. Ce fichier ne
++  tient que ce qu'ils partagent : les ilots, ces morceaux du site public
++  generique (mention d'exercice, reactions, fil en direct) poses tels quels
++  dans un habillage et repeints par ses jetons.
++*/
++
++@import "./tv4/tv4.css";
++@import "./todaymercure/todaymercure.css";
++@import "./bc1/bc1.css";
++
++/* Un ilot n'est pas une page : pas de hauteur d'ecran, pas de fond impose. */
++.sk .site.sk-island { min-height: 0; background: transparent; display: block; line-height: 1.55; }
++.sk .site.sk-island a { color: var(--accent); }
++.sk .sk-island .section-title { margin-top: 0; }
++
++/* La mention d'exercice garde exactement l'allure du site generique. */
++.sk .site.sk-notice { background: transparent; }
+diff --git a/src/skins/todaymercure/TodayMercure.tsx b/src/skins/todaymercure/TodayMercure.tsx
+new file mode 100644
+index 0000000..3aad19d
+--- /dev/null
++++ b/src/skins/todaymercure/TodayMercure.tsx
+@@ -0,0 +1,347 @@
++import Link from "next/link";
++import type { Card, LiveItem } from "@/components/site/data";
++import type { SiteConfig } from "@/lib/site";
++import { CopyLink, NavLink } from "../client";
++import { Img, Notice, captionOf, dates, domainOf, href, skinRoot } from "../shared";
++import type { ArticleProps, HomeProps, ListProps, PageProps, ShellProps, SkinViews } from "../types";
++
++/**
++ * Today Mercure — agence de presse d'Etat de la Republique de Mercure.
++ *
++ * Reprise de Sites/Site Today Mercure/_TEMPLATE.html : barre noire (date,
++ * liens, VK/TG), en-tete noir au logo TODAY ★ MERCURE, navigation, bandeau
++ * « Breaking » rouge et sa sous-ligne or, grille article + colonne de 300px,
++ * pied noir. Le site d'origine est en anglais : ses libelles fixes aussi.
++ */
++
++function Logo({ site, footer }: { site: SiteConfig; footer?: boolean }) {
++  if (site.logoUrl) {
++    // eslint-disable-next-line @next/next/no-img-element
++    return <img className={footer ? "tm-logo-img-sm" : "tm-logo-img"} src={site.logoUrl} alt={site.name} />;
++  }
++  // Le logo d'origine coupe le nom en deux : « TODAY » en noir d'affiche, le
++  // reste en serif rouge. Un autre nom garde la meme construction.
++  const [first, ...rest] = site.name.trim().split(/\s+/);
++  return (
++    <>
++      <span className="logo-today">{(first || "TODAY").toUpperCase()}</span>
++      <span className="logo-star">★</span>
++      <span className="logo-mercure">{(rest.join(" ") || "MERCURE").toUpperCase()}</span>
++    </>
++  );
++}
++
++function strip(html: string): string {
++  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
++}
++
++function LiveWidget({ site, live, entries, latest }: { site: SiteConfig; live: Card | null; entries: LiveItem[]; latest: Card[] }) {
++  const d = dates(site);
++  return (
++    <div className="widget">
++      <div className="widget-title">{live ? `${site.name} — Live` : "Latest dispatches"}</div>
++      <div className="widget-body">
++        {live && entries.length > 0 ? (
++          <>
++            <Link className="tm-widget-link" href={href(live)}>{live.title}</Link>
++            {entries.slice(0, 6).map((e) => (
++              <div key={e.id} className="feed-item">
++                <div className="feed-time">{d.time(e.publishedAt)}</div>
++                {e.title || strip(e.body).slice(0, 160)}
++              </div>
++            ))}
++          </>
++        ) : latest.length > 0 ? (
++          latest.slice(0, 5).map((c) => (
++            <div key={c.id} className="feed-item">
++              <div className="feed-time">{c.publishedAt ? d.time(c.publishedAt) : "—"}</div>
++              <Link href={href(c)}>{c.title}</Link>
++            </div>
++          ))
++        ) : (
++          <div className="feed-item"><div className="feed-time">&mdash;</div>No dispatch published yet.</div>
++        )}
++      </div>
++    </div>
++  );
++}
++
++export function RelatedList({ site, cards }: { site: SiteConfig; cards: Card[] }) {
++  const d = dates(site);
++  return (
++    <>
++      {cards.map((c) => (
++        <div key={c.id} className="related-item">
++          <Link className="related-thumb" href={href(c)} tabIndex={-1} aria-hidden="true"><Img media={c.media} /></Link>
++          <div>
++            {c.category && <div className="rel-cat">{c.category.name}</div>}
++            <Link className="rel-title" href={href(c)}>{c.title}</Link>
++            {c.publishedAt && <div className="rel-date">{d.long(c.publishedAt)}</div>}
++          </div>
++        </div>
++      ))}
++    </>
++  );
++}
++
++function Shell({ site, nav, pages, ticker, live, liveEntries, latest, children }: ShellProps) {
++  const root = skinRoot(site, "todaymercure");
++  const d = dates(site);
++  const now = new Date();
++  const domaine = domainOf(site.baseline) || domainOf(site.footerText);
++
++  return (
++    <div className={root.className} style={root.style}>
++      <Notice site={site} />
++
++      <div className="top-bar">
++        <div className="top-bar-inner">
++          <span className="top-bar-date">{d.full(now)} &nbsp;·&nbsp; {site.name}</span>
++          <div className="top-bar-links">
++            {nav.slice(0, 3).map((m) => <Link key={`${m.href}-${m.label}`} href={m.href}>{m.label}</Link>)}
++            <div className="top-bar-soc" aria-hidden="true">
++              <span className="soc-btn">VK</span>
++              <span className="soc-btn">TG</span>
++            </div>
++          </div>
++        </div>
++      </div>
++
++      <header className="site-header">
++        <div className="header-inner">
++          <Link href="/" className="logo-wrap"><Logo site={site} /></Link>
++          <div className="header-meta">
++            <div className="site-name-main">{site.baseline || site.name}</div>
++            {domaine && <div className="site-name-sub">{domaine} &nbsp;·&nbsp; English Edition</div>}
++          </div>
++          <div className="header-right">
++            <Link className="live-badge" href="/direct">● Live</Link>
++            <div className="header-lang" aria-hidden="true">
++              <span className="lang-btn active">EN</span>
++              <span className="lang-btn">MR</span>
++              <span className="lang-btn">RU</span>
++            </div>
++          </div>
++        </div>
++      </header>
++
++      <nav className="main-nav" aria-label="Sections">
++        <div className="nav-inner">
++          <NavLink href="/">Home</NavLink>
++          {nav.map((m) => <NavLink key={`${m.href}-${m.label}`} href={m.href}>{m.label}</NavLink>)}
++          <NavLink href="/direct">Live</NavLink>
++        </div>
++      </nav>
++
++      {ticker.length > 0 && (
++        <div className="ticker-bar">
++          <div className="ticker-label"><span className="ticker-dot" />BREAKING</div>
++          <div className="ticker-scroll">
++            <div className="ticker-content">
++              {ticker.map((t, i) => (
++                <span key={t.slug}>
++                  {i > 0 && <span className="tsep">&middot;</span>}
++                  <Link href={`/article/${t.slug}`}>{t.title}</Link>
++                </span>
++              ))}
++              <span className="tsep">&middot;</span>{site.name.toUpperCase()} &mdash; STATE NEWS SERVICE
++            </div>
++          </div>
++        </div>
++      )}
++      <div className="sub-ticker">{site.baseline || site.name}</div>
++
++      <div className="page-wrap">
++        <main className="tm-main" id="contenu">{children}</main>
++
++        <aside className="sidebar">
++          <LiveWidget site={site} live={live} entries={liveEntries} latest={latest} />
++          {site.description && (
++            <div className="widget">
++              <div className="widget-title">About {site.name}</div>
++              <div className="widget-body"><div className="feed-item">{site.description}</div></div>
++            </div>
++          )}
++          {latest.length > 0 && (
++            <div className="widget">
++              <div className="widget-title">Latest</div>
++              <div className="widget-body"><RelatedList site={site} cards={latest.slice(0, 5)} /></div>
++            </div>
++          )}
++        </aside>
++      </div>
++
++      <footer className="site-footer">
++        <div className="footer-inner">
++          <div className="footer-top">
++            <Link href="/" className="footer-logo logo-wrap"><Logo site={site} footer /></Link>
++            <div className="footer-links">
++              {pages.map((p) => <Link key={p.slug} href={`/page/${p.slug}`}>{p.title}</Link>)}
++              <Link href="/recherche">Archive</Link>
++            </div>
++          </div>
++          <div className="footer-bottom">{site.footerText || `© ${now.getFullYear()} ${site.name} · All rights reserved`}</div>
++        </div>
++      </footer>
++    </div>
++  );
++}
++
++function Meta({ site, card, lieu, share }: { site: SiteConfig; card: Card; lieu?: string; share?: boolean }) {
++  const d = dates(site);
++  return (
++    <div className="article-meta">
++      <span className="meta-source">{card.authorName ? `${site.name} — ${card.authorName}` : `${site.name} — Field Dispatch`}</span>
++      {lieu && <><span className="meta-sep">|</span><span>{lieu}</span></>}
++      {card.publishedAt && <><span className="meta-sep">|</span><span className="meta-date">{d.long(card.publishedAt)}, {d.time(card.publishedAt)}</span></>}
++      {share && (
++        <div className="meta-share">
++          <span className="share-btn vk" aria-hidden="true">VK</span>
++          <span className="share-btn tg" aria-hidden="true">Telegram</span>
++          <CopyLink className="share-btn tm-copy" label="Copy link" done="Copied" />
++        </div>
++      )}
++    </div>
++  );
++}
++
++function Kicker({ card }: { card: Card }) {
++  return (
++    <div className="article-kicker">
++      {card.urgent && <span className="tm-badge">Breaking</span>}
++      {card.live && <span className="tm-badge">Live</span>}
++      {card.category ? <Link href={`/rubrique/${card.category.slug}`}>{card.category.name}</Link> : "Dispatch"}
++    </div>
++  );
++}
++
++function Row({ site, card }: { site: SiteConfig; card: Card }) {
++  const d = dates(site);
++  return (
++    <div className="tm-row">
++      <Link className="tm-row-thumb" href={href(card)} tabIndex={-1} aria-hidden="true"><Img media={card.media} /></Link>
++      <div className="tm-row-body">
++        <Kicker card={card} />
++        <Link className="tm-row-title" href={href(card)}>{card.title}</Link>
++        {card.standfirst && <p className="tm-row-deck">{card.standfirst}</p>}
++        {card.publishedAt && <div className="rel-date">{d.long(card.publishedAt)}{card.authorName ? ` · ${card.authorName}` : ""}</div>}
++      </div>
++    </div>
++  );
++}
++
++function Home({ site, lead, cards }: HomeProps) {
++  if (!lead) {
++    return <div className="article-body tm-empty"><div className="article-kicker">{site.name}</div><p className="article-deck">No dispatch has been published yet.</p></div>;
++  }
++  return (
++    <>
++      <article>
++        {lead.media && <Link className="article-hero" href={href(lead)} tabIndex={-1} aria-hidden="true"><Img media={lead.media} eager /></Link>}
++        {lead.media && captionOf(lead) && <div className="article-hero-caption">{captionOf(lead)}</div>}
++        <div className="article-body">
++          <div className="article-header">
++            <Kicker card={lead} />
++            <h1 className="article-headline"><Link href={href(lead)}>{lead.title}</Link></h1>
++            {lead.standfirst && <p className="article-deck">{lead.standfirst}</p>}
++            <Meta site={site} card={lead} />
++          </div>
++          <Link className="tm-readmore" href={href(lead)}>Read the full dispatch →</Link>
++        </div>
++      </article>
++
++      {cards.length > 0 && (
++        <section className="tm-section">
++          <div className="widget-title">Latest dispatches</div>
++          <div className="tm-rows">{cards.map((c) => <Row key={c.id} site={site} card={c} />)}</div>
++        </section>
++      )}
++    </>
++  );
++}
++
++function Article({ site, article, related, liveNode, reactionsNode }: ArticleProps) {
++  return (
++    <>
++      <article>
++        {article.media && <div className="article-hero"><Img media={article.media} eager /></div>}
++        {article.media && captionOf(article) && <div className="article-hero-caption">{captionOf(article)}</div>}
++
++        <div className="article-body">
++          <div className="article-header">
++            <Kicker card={article} />
++            <h1 className="article-headline">{article.title}</h1>
++            {article.standfirst && <p className="article-deck">{article.standfirst}</p>}
++            <Meta site={site} card={article} lieu={article.fields.lieu} share />
++          </div>
++
++          {liveNode && <div className="tm-live">{liveNode}</div>}
++
++          <div className="article-content">
++            <div dangerouslySetInnerHTML={{ __html: article.body }} />
++            {article.tags.length > 0 && (
++              <div className="article-tags">
++                {article.tags.map((t) => <Link key={t.slug} className="tag" href={`/recherche?q=${encodeURIComponent(t.name)}`}>{t.name}</Link>)}
++              </div>
++            )}
++          </div>
++        </div>
++      </article>
++
++      {related.length > 0 && (
++        <section className="tm-section">
++          <div className="widget-title">Related dispatches</div>
++          <div className="widget-body tm-related"><RelatedList site={site} cards={related.slice(0, 4)} /></div>
++        </section>
++      )}
++
++      <div className="tm-reactions">{reactionsNode}</div>
++    </>
++  );
++}
++
++function List({ site, title, subtitle, cards, emptyNote, pager, search }: ListProps) {
++  return (
++    <>
++      <div className="article-body tm-list-head">
++        <div className="article-kicker">{site.name}</div>
++        <h1 className="article-headline">{title}</h1>
++        {subtitle && <div className="tm-count">{subtitle}</div>}
++        {search && (
++          <form className="tm-search" action="/recherche" method="get" role="search">
++            <input type="search" name="q" defaultValue={search.q} placeholder="Search dispatches…" aria-label="Search" />
++            <button type="submit">Search</button>
++          </form>
++        )}
++      </div>
++      <section className="tm-section">
++        {cards.length === 0
++          ? <div className="tm-note">{emptyNote}</div>
++          : <div className="tm-rows">{cards.map((c) => <Row key={c.id} site={site} card={c} />)}</div>}
++      </section>
++      {pager && (
++        <nav className="tm-pager" aria-label="Pagination">
++          {pager.prev ? <Link href={pager.prev}>‹ Previous</Link> : <span />}
++          <span>{pager.label}</span>
++          {pager.next ? <Link href={pager.next}>Next ›</Link> : <span />}
++        </nav>
++      )}
++    </>
++  );
++}
++
++function Page({ site, title, html, updatedAt }: PageProps) {
++  const d = dates(site);
++  return (
++    <div className="article-body">
++      <div className="article-header">
++        <div className="article-kicker">{site.name}</div>
++        <h1 className="article-headline">{title}</h1>
++        <div className="article-meta"><span className="meta-date">Updated {d.long(updatedAt)}</span></div>
++      </div>
++      <div className="article-content" dangerouslySetInnerHTML={{ __html: html }} />
++    </div>
++  );
++}
++
++export const todaymercure: SkinViews = { Shell, Home, Article, List, Page };
+diff --git a/src/skins/todaymercure/todaymercure.css b/src/skins/todaymercure/todaymercure.css
+new file mode 100644
+index 0000000..5e8e37e
+--- /dev/null
++++ b/src/skins/todaymercure/todaymercure.css
+@@ -0,0 +1,197 @@
++/*
++  Today Mercure — reprise de Sites/Site Today Mercure/_TEMPLATE.html.
++  Memes principes que tv4.css : regles du template confinees derriere
++  .sk-todaymercure, rouge de marque et fonds branches sur les jetons, l'or et
++  les noirs d'en-tete gardes tels quels (ils font la signature du site).
++  Classes ajoutees pour la une et les listes : prefixe tm-.
++*/
++
++.sk-todaymercure {
++  --red: var(--accent);
++  --red-dark: color-mix(in srgb, var(--accent) 75%, #000);
++  --red-pale: color-mix(in srgb, var(--accent) 5%, #fff);
++  --gold: var(--urgent);
++  --dark: #0d0d0d;
++  --dark-mid: #1a1a1a;
++  --dark-panel: #141414;
++  --white: #ffffff;
++  --off-white: var(--paper);
++  --light-grey: var(--rule);
++  --mid-grey: #999999;
++  --text: var(--ink);
++  --text-soft: var(--muted);
++  --tm-serif: var(--f-serif), "Source Serif 4", Georgia, serif;
++  --tm-sans: var(--f-sourcesans), "Source Sans 3", Arial, sans-serif;
++
++  font-family: var(--tm-sans);
++  background: var(--off-white);
++  color: var(--text);
++  font-size: 16px;
++  line-height: normal;
++  min-height: 100vh;
++}
++.sk-todaymercure a { color: var(--red-dark); text-decoration: none; }
++.sk-todaymercure a:hover { color: var(--red); text-decoration: underline; }
++
++.sk-todaymercure .top-bar { background: var(--dark); border-bottom: 3px solid var(--red); }
++.sk-todaymercure .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 6px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
++.sk-todaymercure .top-bar-date { color: rgba(255,255,255,0.5); letter-spacing: 0.05em; }
++.sk-todaymercure .top-bar-links { display: flex; gap: 14px; align-items: center; }
++.sk-todaymercure .top-bar-links a { color: rgba(255,255,255,0.55); font-size: 11px; letter-spacing: 0.05em; }
++.sk-todaymercure .top-bar-links a:hover { color: white; text-decoration: none; }
++.sk-todaymercure .top-bar-soc { display: flex; gap: 6px; margin-left: 8px; }
++.sk-todaymercure .soc-btn { background: var(--red-dark); color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; padding: 2px 7px; }
++
++.sk-todaymercure .site-header { background: var(--dark); padding: 16px 0 14px; }
++.sk-todaymercure .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 20px; }
++.sk-todaymercure .logo-wrap { display: flex; align-items: baseline; gap: 0; text-decoration: none; }
++.sk-todaymercure .logo-wrap:hover { text-decoration: none; }
++.sk-todaymercure .logo-today { font-family: 'Arial Black', Impact, sans-serif; font-size: 32px; font-weight: 900; color: white; letter-spacing: -0.02em; }
++.sk-todaymercure .logo-star { color: var(--gold); font-size: 26px; margin: 0 5px; line-height: 1; }
++.sk-todaymercure .logo-mercure { font-family: var(--tm-serif); font-size: 26px; font-weight: 700; color: var(--red); letter-spacing: 0.04em; }
++.sk-todaymercure .tm-logo-img { max-height: 48px; width: auto; display: block; }
++.sk-todaymercure .tm-logo-img-sm { max-height: 30px; width: auto; display: block; }
++.sk-todaymercure .header-meta { flex: 1; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.1); }
++.sk-todaymercure .site-name-main { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; text-transform: uppercase; }
++.sk-todaymercure .site-name-sub { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; margin-top: 3px; }
++.sk-todaymercure .header-right { display: flex; align-items: center; gap: 14px; }
++.sk-todaymercure .live-badge { background: var(--red); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; animation: sk-tm-pulse 2s infinite; }
++.sk-todaymercure a.live-badge:hover { color: white; text-decoration: none; }
++@keyframes sk-tm-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
++.sk-todaymercure .header-lang { display: flex; gap: 4px; }
++.sk-todaymercure .lang-btn { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.45); font-size: 10px; font-weight: 700; padding: 2px 8px; letter-spacing: 0.07em; }
++.sk-todaymercure .lang-btn.active { background: var(--red); border-color: var(--red); color: white; }
++
++.sk-todaymercure .main-nav { background: var(--dark-mid); border-bottom: 1px solid rgba(255,255,255,0.06); }
++.sk-todaymercure .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; overflow-x: auto; }
++.sk-todaymercure .nav-inner a { color: rgba(255,255,255,0.65); font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; padding: 10px 16px; border-bottom: 3px solid transparent; text-decoration: none; white-space: nowrap; }
++.sk-todaymercure .nav-inner a:hover { color: white; border-bottom-color: color-mix(in srgb, var(--red) 50%, transparent); text-decoration: none; }
++.sk-todaymercure .nav-inner a.active { color: white; border-bottom-color: var(--red); }
++
++.sk-todaymercure .ticker-bar { background: var(--red); display: flex; align-items: stretch; overflow: hidden; }
++.sk-todaymercure .ticker-label { background: var(--red-dark); color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 14px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
++.sk-todaymercure .ticker-dot { width: 5px; height: 5px; background: white; border-radius: 50%; animation: sk-tm-blink 1s infinite; }
++@keyframes sk-tm-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.1; } }
++.sk-todaymercure .ticker-scroll { overflow: hidden; flex: 1; display: flex; align-items: center; }
++.sk-todaymercure .ticker-content { white-space: nowrap; color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; display: inline-block; padding-left: 100%; animation: sk-tm-marquee 55s linear infinite; }
++.sk-todaymercure .ticker-content a { color: white; }
++.sk-todaymercure .ticker-bar:hover .ticker-content { animation-play-state: paused; }
++@keyframes sk-tm-marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
++.sk-todaymercure .tsep { margin: 0 16px; opacity: 0.4; }
++.sk-todaymercure .sub-ticker { background: var(--dark-panel); color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; padding: 6px 0; }
++
++.sk-todaymercure .page-wrap { max-width: 1200px; margin: 28px auto 0; padding: 0 20px; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; }
++.sk-todaymercure .tm-main { min-width: 0; }
++
++.sk-todaymercure .article-hero { width: 100%; background: var(--dark-panel); min-height: 200px; display: flex; align-items: center; justify-content: center; }
++.sk-todaymercure .article-hero img { width: 100%; height: auto; display: block; max-height: 540px; object-fit: cover; }
++.sk-todaymercure .article-hero-caption { background: #ebebea; border-bottom: 1px solid var(--light-grey); font-size: 11px; font-style: italic; color: var(--text-soft); padding: 7px 20px; font-family: var(--tm-serif); }
++
++.sk-todaymercure .article-body { background: white; padding: 26px 28px 32px; }
++.sk-todaymercure .article-header { margin-bottom: 22px; }
++.sk-todaymercure .article-kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
++.sk-todaymercure .article-kicker a { color: var(--red); }
++.sk-todaymercure .tm-badge { background: var(--red); color: white; padding: 2px 6px; font-size: 9px; letter-spacing: 0.14em; }
++.sk-todaymercure .article-headline { font-family: var(--tm-serif); font-size: 32px; font-weight: 700; line-height: 1.16; color: var(--dark); margin: 0 0 12px; }
++.sk-todaymercure .article-headline a { color: var(--dark); }
++.sk-todaymercure .article-deck { font-family: var(--tm-serif); font-size: 17px; font-style: italic; color: var(--text-soft); line-height: 1.55; border-left: 3px solid var(--red); padding-left: 14px; margin: 0 0 16px; }
++.sk-todaymercure .article-meta { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-top: 1px solid var(--light-grey); border-bottom: 1px solid var(--light-grey); font-size: 11px; color: var(--text-soft); flex-wrap: wrap; }
++.sk-todaymercure .meta-source { font-weight: 700; color: var(--dark); }
++.sk-todaymercure .meta-sep { color: var(--mid-grey); }
++.sk-todaymercure .meta-share { margin-left: auto; display: flex; gap: 6px; }
++.sk-todaymercure .share-btn { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; padding: 3px 10px; font-family: var(--tm-sans); border: 0; }
++.sk-todaymercure .share-btn.vk { background: #4c75a3; color: white; }
++.sk-todaymercure .share-btn.tg { background: #2ca5e0; color: white; }
++.sk-todaymercure .share-btn.tm-copy { background: var(--dark); color: white; cursor: pointer; }
++
++.sk-todaymercure .article-content { font-family: var(--tm-serif); font-size: 16px; line-height: 1.78; color: var(--text); margin-top: 20px; }
++.sk-todaymercure .article-content p { margin: 0 0 16px; }
++.sk-todaymercure .article-content h2, .sk-todaymercure .article-content h3 { font-family: var(--tm-serif); font-weight: 700; color: var(--dark); line-height: 1.25; margin: 26px 0 10px; }
++.sk-todaymercure .article-content h2 { font-size: 22px; }
++.sk-todaymercure .article-content h3 { font-size: 18px; }
++.sk-todaymercure .article-content ul, .sk-todaymercure .article-content ol { margin: 0 0 16px 22px; }
++.sk-todaymercure .article-content ul { list-style: disc; }
++.sk-todaymercure .article-content ol { list-style: decimal; }
++.sk-todaymercure .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
++.sk-todaymercure .article-content a { text-decoration: underline; }
++/* Le template nomme sa citation .article-blockquote ; l'editeur produit un
++   <blockquote> nu : les deux recoivent la meme allure. */
++.sk-todaymercure .article-content blockquote,
++.sk-todaymercure .article-blockquote { margin: 24px 0; padding: 16px 22px; background: var(--red-pale); border-left: 5px solid var(--red); font-style: italic; font-size: 18px; color: var(--dark); line-height: 1.6; }
++.sk-todaymercure .article-content blockquote p:last-child { margin-bottom: 0; }
++.sk-todaymercure .blockquote-attr, .sk-todaymercure .article-content blockquote cite { display: block; margin-top: 10px; font-style: normal; font-family: var(--tm-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-dark); }
++
++.sk-todaymercure .ops-box { background: var(--dark); color: white; padding: 18px 22px; margin: 24px 0; }
++.sk-todaymercure .ops-label { font-family: var(--tm-sans); font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
++.sk-todaymercure .ops-row { display: flex; justify-content: space-between; font-family: var(--tm-sans); font-size: 12px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
++.sk-todaymercure .ops-row:last-child { border-bottom: none; }
++.sk-todaymercure .ops-row .ops-key { color: rgba(255,255,255,0.5); }
++.sk-todaymercure .ops-row .ops-val { color: white; font-weight: 600; }
++
++.sk-todaymercure .article-tags { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--light-grey); display: flex; gap: 6px; flex-wrap: wrap; }
++.sk-todaymercure .tag { background: var(--off-white); border: 1px solid var(--light-grey); color: var(--text-soft); font-family: var(--tm-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; }
++.sk-todaymercure .tag:hover { border-color: var(--red); color: var(--red); text-decoration: none; }
++
++.sk-todaymercure .sidebar { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
++.sk-todaymercure .widget { background: white; }
++.sk-todaymercure .widget-title { background: var(--dark); color: var(--gold); font-family: var(--tm-sans); font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 8px 14px; }
++.sk-todaymercure .widget-body { padding: 12px 14px; }
++.sk-todaymercure .tm-widget-link { display: block; font-family: var(--tm-serif); font-weight: 700; font-size: 14px; line-height: 1.3; color: var(--dark); padding-bottom: 8px; border-bottom: 1px solid var(--light-grey); }
++.sk-todaymercure .feed-item { padding: 9px 0; border-bottom: 1px solid var(--light-grey); font-size: 12px; line-height: 1.5; }
++.sk-todaymercure .feed-item:last-child { border-bottom: none; }
++.sk-todaymercure .feed-item a { color: var(--text); }
++.sk-todaymercure .feed-time { font-family: var(--tm-sans); font-weight: 700; color: var(--red); font-size: 11px; margin-bottom: 2px; }
++
++.sk-todaymercure .related-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--light-grey); }
++.sk-todaymercure .related-item:last-child { border-bottom: none; }
++.sk-todaymercure .related-thumb { width: 64px; height: 48px; flex-shrink: 0; background: var(--dark-panel); overflow: hidden; display: block; }
++.sk-todaymercure .related-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
++.sk-todaymercure .rel-cat { font-family: var(--tm-sans); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 3px; }
++.sk-todaymercure .rel-title { font-family: var(--tm-serif); font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--dark); display: block; }
++.sk-todaymercure .rel-date { font-size: 10px; color: var(--mid-grey); margin-top: 3px; font-family: var(--tm-sans); }
++
++.sk-todaymercure .site-footer { background: var(--dark); margin-top: 44px; padding: 24px 0 14px; border-top: 3px solid var(--red); }
++.sk-todaymercure .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
++.sk-todaymercure .footer-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 20px; flex-wrap: wrap; }
++.sk-todaymercure .footer-logo { display: flex; align-items: baseline; gap: 0; }
++.sk-todaymercure .footer-logo .logo-today { font-size: 22px; }
++.sk-todaymercure .footer-logo .logo-star { font-size: 18px; }
++.sk-todaymercure .footer-logo .logo-mercure { font-size: 18px; }
++.sk-todaymercure .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
++.sk-todaymercure .footer-links a { color: rgba(255,255,255,0.38); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--tm-sans); }
++.sk-todaymercure .footer-links a:hover { color: rgba(255,255,255,0.75); text-decoration: none; }
++.sk-todaymercure .footer-bottom { padding-top: 14px; font-size: 10px; text-align: center; color: rgba(255,255,255,0.22); font-family: var(--tm-sans); letter-spacing: 0.04em; }
++
++/* ---- Pages que le template n'avait pas -------------------------------- */
++
++.sk-todaymercure .tm-readmore { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); }
++.sk-todaymercure .tm-section { margin-top: 24px; background: white; }
++.sk-todaymercure .tm-rows { padding: 0 18px; }
++.sk-todaymercure .tm-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--light-grey); }
++.sk-todaymercure .tm-row:last-child { border-bottom: 0; }
++.sk-todaymercure .tm-row-thumb { display: block; background: var(--dark-panel); aspect-ratio: 16 / 10; overflow: hidden; }
++.sk-todaymercure .tm-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
++.sk-todaymercure .tm-row .article-kicker { margin-bottom: 6px; }
++.sk-todaymercure .tm-row-title { font-family: var(--tm-serif); font-size: 19px; font-weight: 700; line-height: 1.25; color: var(--dark); display: block; }
++.sk-todaymercure .tm-row-deck { font-family: var(--tm-serif); font-size: 14px; color: var(--text-soft); line-height: 1.5; margin: 6px 0 4px; }
++.sk-todaymercure .tm-related { padding-top: 4px; }
++.sk-todaymercure .tm-live { margin-bottom: 8px; }
++.sk-todaymercure .tm-empty { margin-bottom: 0; }
++.sk-todaymercure .tm-list-head .article-headline { margin-bottom: 4px; }
++.sk-todaymercure .tm-count { font-size: 12px; color: var(--text-soft); }
++.sk-todaymercure .tm-note { padding: 18px; font-size: 13px; color: var(--text-soft); }
++.sk-todaymercure .tm-search { display: flex; margin-top: 16px; }
++.sk-todaymercure .tm-search input { flex: 1; border: 1px solid var(--light-grey); border-right: 0; padding: 10px 12px; font-size: 14px; font-family: var(--tm-sans); outline: none; }
++.sk-todaymercure .tm-search input:focus { border-color: var(--red); }
++.sk-todaymercure .tm-search button { background: var(--red); color: white; border: 0; padding: 0 18px; font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: var(--tm-sans); }
++.sk-todaymercure .tm-pager { display: flex; justify-content: space-between; margin-top: 18px; font-size: 12px; font-weight: 700; color: var(--text-soft); }
++.sk-todaymercure .tm-reactions .sk-island { margin-top: 24px; background: white; padding: 22px 28px; }
++
++@media (max-width: 900px) {
++  .sk-todaymercure .page-wrap { grid-template-columns: minmax(0, 1fr); }
++  .sk-todaymercure .header-meta, .sk-todaymercure .header-lang, .sk-todaymercure .top-bar-links { display: none; }
++  .sk-todaymercure .article-body { padding: 20px 16px 26px; }
++  .sk-todaymercure .article-headline { font-size: 25px; }
++  .sk-todaymercure .tm-row { grid-template-columns: 110px minmax(0, 1fr); }
++  .sk-todaymercure .meta-share { margin-left: 0; }
++}
+diff --git a/src/skins/tv4/Tv4.tsx b/src/skins/tv4/Tv4.tsx
+new file mode 100644
+index 0000000..26c47ae
+--- /dev/null
++++ b/src/skins/tv4/Tv4.tsx
+@@ -0,0 +1,349 @@
++import Link from "next/link";
++import type { Card } from "@/components/site/data";
++import { CopyLink, NavLink } from "../client";
++import { Img, Notice, captionOf, dates, domainOf, href, skinRoot } from "../shared";
++import type { ArticleProps, HomeProps, ListProps, PageProps, ShellProps, SkinViews } from "../types";
++
++/**
++ * TV4 International — chaine d'info internationale.
++ *
++ * Reprise de Sites/Site TV4/_TEMPLATE.html, dans l'ordre des blocs que
++ * MASTAURIGE impose pour ce site : barre noire (recherche, nav, reseaux,
++ * langue), bandeau du logo, bandeau defilant orange, grille 210px + contenu
++ * avec la nav gauche et l'encart « a l'antenne », fil d'Ariane, carte
++ * d'article, « A lire egalement », pied complet. Ce qui etait ecrit en dur
++ * dans le template (rubriques, titres du bandeau, articles lies) vient
++ * maintenant de la base.
++ */
++
++function Logo({ name, logoUrl, small }: { name: string; logoUrl: string | null; small?: boolean }) {
++  if (logoUrl) {
++    // eslint-disable-next-line @next/next/no-img-element
++    return <img className={small ? "tv4-logo-img-sm" : "tv4-logo-img"} src={logoUrl} alt={name} />;
++  }
++  return small
++    ? <div className="footer-logo"><span className="ftl">TV</span><span className="ftr">4</span></div>
++    : <div><span className="tv4-lft">TV</span><span className="tv4-rgt">4</span></div>;
++}
++
++function Shell({ site, nav, pages, ticker, live, children }: ShellProps) {
++  const root = skinRoot(site, "tv4");
++  const d = dates(site);
++  const now = new Date();
++  const prochain = new Date(now.getTime() + 3600_000);
++  const domaine = domainOf(site.baseline);
++
++  return (
++    <div className={root.className} style={root.style}>
++      <Notice site={site} />
++
++      <div className="top-bar">
++        <div className="tb-inner">
++          <form className="tb-search" action="/recherche" method="get" role="search">
++            <input type="search" name="q" placeholder="Rechercher..." aria-label="Rechercher un article" />
++            <button type="submit" aria-label="Lancer la recherche">&#128269;</button>
++          </form>
++          <nav className="tb-nav" aria-label="Accès rapide">
++            <Link href="/recherche">Dernières infos</Link>
++            <Link href="/direct">En direct</Link>
++            {pages.slice(0, 2).map((p) => <Link key={p.slug} href={`/page/${p.slug}`}>{p.title}</Link>)}
++          </nav>
++          <div className="tb-right" aria-hidden="true">
++            <span className="tb-soc">X</span>
++            <span className="tb-soc">f</span>
++            <span className="tb-soc">YT</span>
++            <span className="tb-soc">TG</span>
++            <div className="tb-lang"><span className="tb-lang-btn">FR <em>&#9660;</em></span></div>
++          </div>
++        </div>
++      </div>
++
++      <div className="logo-band">
++        <div className="lb-inner">
++          <Link className="tv4-logo-wrap" href="/">
++            <Logo name={site.name} logoUrl={site.logoUrl} />
++            <div className="lb-text">
++              <span className="lb-name">{site.name}</span>
++              {site.baseline && <span className="lb-sub">{site.baseline}</span>}
++            </div>
++          </Link>
++          <span className="lb-date">{d.full(now)} &nbsp;&middot;&nbsp; CET</span>
++        </div>
++      </div>
++
++      {ticker.length > 0 && (
++        <div className="ticker-bar">
++          <div className="ticker-label"><span className="ticker-dot" />&nbsp;Alerte</div>
++          <div className="ticker-scroll">
++            <span className="ticker-content">
++              {ticker.map((t, i) => (
++                <span key={t.slug}>
++                  {i > 0 && <span className="tsep">|</span>}
++                  <Link href={`/article/${t.slug}`}>{t.title}</Link>
++                </span>
++              ))}
++            </span>
++          </div>
++        </div>
++      )}
++
++      <div className="page-wrap">
++        <nav className="left-nav" aria-label="Rubriques">
++          <ul>
++            <li><NavLink href="/">Accueil</NavLink></li>
++            {nav.map((m) => <li key={`${m.href}-${m.label}`}><NavLink href={m.href}>{m.label}</NavLink></li>)}
++          </ul>
++          <div className="ln-sep" />
++          <div className="ln-secondary">
++            <Link className="ln-live" href="/direct"><span className="live-dot" />&nbsp;Direct</Link>
++            {pages.map((p) => <Link key={p.slug} href={`/page/${p.slug}`}>{p.title}</Link>)}
++          </div>
++          {live ? (
++            <Link className="ln-onair" href={href(live)}>
++              <div className="ln-onair-title">Édition spéciale</div>
++              <div className="ln-onair-sub">{live.title}</div>
++              <div className="ln-onair-next">&#9679; Suivre le direct</div>
++            </Link>
++          ) : (
++            <div className="ln-onair">
++              <div className="ln-onair-title">À l’antenne</div>
++              <div className="ln-onair-sub">{site.description || site.name}</div>
++              <div className="ln-onair-next">&#9679; Prochain bulletin : {prochain.getHours().toString().padStart(2, "0")}h00 CET</div>
++            </div>
++          )}
++        </nav>
++
++        <div className="article-area">{children}</div>
++      </div>
++
++      <footer className="site-footer">
++        <div className="footer-inner">
++          <div className="footer-top">
++            <Logo name={site.name} logoUrl={site.logoUrl} small />
++            <span className="footer-tagline">
++              {[site.name, site.description, domaine].filter(Boolean).join("  ·  ")}
++            </span>
++            <div className="footer-social" aria-hidden="true">
++              <span className="fsoc">X</span><span className="fsoc">f</span><span className="fsoc">YT</span><span className="fsoc">TG</span>
++            </div>
++            <div className="footer-links">
++              {pages.map((p) => <Link key={p.slug} href={`/page/${p.slug}`}>{p.title}</Link>)}
++              <Link href="/recherche">Rechercher</Link>
++            </div>
++          </div>
++          <div className="footer-bottom">{site.footerText || `© ${now.getFullYear()} ${site.name}. Tous droits réservés.`}</div>
++        </div>
++      </footer>
++    </div>
++  );
++}
++
++function Breadcrumb({ items }: { items: Array<{ label: string; href?: string }> }) {
++  return (
++    <div className="breadcrumb">
++      {items.map((it, i) => (
++        <span key={i} className="bc-item">
++          {i > 0 && <span className="bc-sep">&#8250;</span>}
++          {it.href ? <Link href={it.href}>{it.label}</Link> : <span>{it.label}</span>}
++        </span>
++      ))}
++    </div>
++  );
++}
++
++function MoreCard({ card, site }: { card: Card; site: ShellProps["site"] }) {
++  const d = dates(site);
++  return (
++    <div className="more-card">
++      <Link className="more-card-img" href={href(card)} tabIndex={-1} aria-hidden="true">
++        <Img media={card.media} />
++      </Link>
++      <div className="more-card-body">
++        <div className="more-card-cat">
++          {card.live && <span className="tv4-badge">Direct</span>}
++          {card.urgent && <span className="tv4-badge">Alerte</span>}
++          {card.category?.name}
++        </div>
++        <Link href={href(card)} className="more-card-title">{card.title}</Link>
++        <div className="more-card-date">{card.publishedAt ? d.long(card.publishedAt) : ""} &nbsp;&middot;&nbsp; {site.name}</div>
++      </div>
++    </div>
++  );
++}
++
++function More({ title, cards, site }: { title: string; cards: Card[]; site: ShellProps["site"] }) {
++  if (!cards.length) return null;
++  return (
++    <div className="more-section">
++      <div className="more-header">
++        <span className="more-title">{title}</span>
++        <div className="more-rule" />
++      </div>
++      <div className="more-grid">
++        {cards.map((c) => <MoreCard key={c.id} card={c} site={site} />)}
++      </div>
++    </div>
++  );
++}
++
++function Home({ site, lead, cards, live }: HomeProps) {
++  const d = dates(site);
++  if (!lead) {
++    return (
++      <>
++        <Breadcrumb items={[{ label: "Accueil" }]} />
++        <div className="article-card tv4-empty">
++          <p className="article-kicker">{site.name}</p>
++          <p className="article-deck">Aucun article publié pour l’instant. La rédaction n’a encore rien mis en ligne.</p>
++        </div>
++      </>
++    );
++  }
++  return (
++    <>
++      <Breadcrumb items={[{ label: "Accueil" }, { label: "À la une" }]} />
++      <article className="article-card tv4-lead">
++        {lead.media && (
++          <Link className="hero-wrap has-img" href={href(lead)} tabIndex={-1} aria-hidden="true"><Img media={lead.media} eager /></Link>
++        )}
++        {lead.media && captionOf(lead) && <p className="hero-caption">{captionOf(lead)}</p>}
++        <div className="article-head">
++          <p className="article-kicker">
++            {lead.urgent && <span className="tv4-badge">Alerte</span>}
++            {lead.live && <span className="tv4-badge">Direct</span>}
++            {lead.category?.name ?? "À la une"}
++          </p>
++          <h1 className="article-headline"><Link href={href(lead)}>{lead.title}</Link></h1>
++          {lead.standfirst && <p className="article-deck">{lead.standfirst}</p>}
++          <div className="article-meta">
++            <span className="meta-source">{site.name}</span>
++            {lead.authorName && <><span className="meta-dot" /><span>{lead.authorName}</span></>}
++            {lead.publishedAt && <><span className="meta-dot" /><span>{d.long(lead.publishedAt)}</span></>}
++            <div className="share-row"><Link className="share-btn" href={href(lead)}>Lire l’article</Link></div>
++          </div>
++        </div>
++      </article>
++
++      {live && live.article.id !== lead.id && (
++        <div className="tv4-home-live">
++          <div className="more-header">
++            <span className="more-title"><span className="live-dot" /> En direct</span>
++            <div className="more-rule" />
++          </div>
++          <Link className="tv4-home-live-title" href={href(live.article)}>{live.article.title}</Link>
++          <ul className="tv4-home-live-list">
++            {live.entries.slice(0, 4).map((e) => (
++              <li key={e.id}><span className="tv4-time">{d.time(e.publishedAt)}</span> {e.title || e.body.replace(/<[^>]+>/g, "").slice(0, 140)}</li>
++            ))}
++          </ul>
++        </div>
++      )}
++
++      <More title="Dernières infos" cards={cards} site={site} />
++    </>
++  );
++}
++
++function Article({ site, article, related, liveNode, reactionsNode }: ArticleProps) {
++  const d = dates(site);
++  const lieu = article.fields.lieu;
++  const crumbs = [{ label: "Accueil", href: "/" }];
++  if (article.category) crumbs.push({ label: article.category.name, href: `/rubrique/${article.category.slug}` });
++
++  return (
++    <>
++      <Breadcrumb items={[...crumbs, { label: `${article.title.slice(0, 60)}${article.title.length > 60 ? "…" : ""}${article.publishedAt ? ` — ${d.long(article.publishedAt)}` : ""}` }]} />
++
++      <article className="article-card">
++        {article.media && <div className="hero-wrap has-img"><Img media={article.media} eager /></div>}
++        {article.media && captionOf(article) && <p className="hero-caption">{captionOf(article)}</p>}
++
++        <div className="article-head">
++          <p className="article-kicker">
++            {article.urgent && <span className="tv4-badge">Alerte</span>}
++            {article.live && <span className="tv4-badge">Direct</span>}
++            {article.category ? <Link href={`/rubrique/${article.category.slug}`}>{article.category.name}</Link> : site.name}
++          </p>
++          <h1 className="article-headline">{article.title}</h1>
++          {article.standfirst && <p className="article-deck">{article.standfirst}</p>}
++          <div className="article-meta">
++            <span className="meta-source">{site.name}</span>
++            {article.authorName && <><span className="meta-dot" /><span>{article.authorName}</span></>}
++            {lieu && <><span className="meta-dot" /><span>{lieu}</span></>}
++            {article.publishedAt && <><span className="meta-dot" /><span>{d.long(article.publishedAt)}, {d.time(article.publishedAt)}</span></>}
++            <div className="share-row">
++              <span className="share-btn" aria-hidden="true">X</span>
++              <span className="share-btn" aria-hidden="true">Facebook</span>
++              <CopyLink className="share-btn" label="Copier le lien" done="Lien copié" />
++            </div>
++          </div>
++        </div>
++
++        {liveNode && <div className="tv4-live">{liveNode}</div>}
++
++        <div className="article-body" dangerouslySetInnerHTML={{ __html: article.body }} />
++
++        {article.tags.length > 0 && (
++          <div className="article-tags">
++            <span className="tags-label">Tags:</span>
++            {article.tags.map((t) => <Link key={t.slug} className="tag" href={`/recherche?q=${encodeURIComponent(t.name)}`}>{t.name}</Link>)}
++          </div>
++        )}
++      </article>
++
++      <More title="À lire également" cards={related.slice(0, 3)} site={site} />
++
++      <div className="tv4-reactions">{reactionsNode}</div>
++    </>
++  );
++}
++
++function List({ site, title, subtitle, cards, emptyNote, pager, search }: ListProps) {
++  return (
++    <>
++      <Breadcrumb items={[{ label: "Accueil", href: "/" }, { label: title }]} />
++      {search && (
++        <form className="tv4-search-big" action="/recherche" method="get" role="search">
++          <input type="search" name="q" defaultValue={search.q} placeholder="Un mot, un nom, un lieu…" aria-label="Rechercher un article" />
++          <button type="submit">Rechercher</button>
++        </form>
++      )}
++      <div className="more-section tv4-list">
++        <div className="more-header">
++          <span className="more-title">{title}</span>
++          <div className="more-rule" />
++          {subtitle && <span className="tv4-count">{subtitle}</span>}
++        </div>
++        {cards.length === 0
++          ? <p className="tv4-note">{emptyNote}</p>
++          : <div className="more-grid">{cards.map((c) => <MoreCard key={c.id} card={c} site={site} />)}</div>}
++      </div>
++      {pager && (
++        <nav className="tv4-pager" aria-label="Pagination">
++          {pager.prev ? <Link href={pager.prev}>&#8249; Page précédente</Link> : <span />}
++          <span>{pager.label}</span>
++          {pager.next ? <Link href={pager.next}>Page suivante &#8250;</Link> : <span />}
++        </nav>
++      )}
++    </>
++  );
++}
++
++function Page({ site, title, html, updatedAt }: PageProps) {
++  const d = dates(site);
++  return (
++    <>
++      <Breadcrumb items={[{ label: "Accueil", href: "/" }, { label: title }]} />
++      <article className="article-card">
++        <div className="article-head">
++          <p className="article-kicker">{site.name}</p>
++          <h1 className="article-headline">{title}</h1>
++          <div className="article-meta"><span>Mise à jour le {d.long(updatedAt)}</span></div>
++        </div>
++        <div className="article-body" dangerouslySetInnerHTML={{ __html: html }} />
++      </article>
++    </>
++  );
++}
++
++export const tv4: SkinViews = { Shell, Home, Article, List, Page };
+diff --git a/src/skins/tv4/tv4.css b/src/skins/tv4/tv4.css
+new file mode 100644
+index 0000000..8fec7fb
+--- /dev/null
++++ b/src/skins/tv4/tv4.css
+@@ -0,0 +1,214 @@
++/*
++  TV4 International — reprise de Sites/Site TV4/_TEMPLATE.html.
++
++  Les regles sont celles du template, a deux changements pres :
++  - tout est confine derriere .sk-tv4, pour ne jamais deteindre sur la
++    redaction ni sur les autres habillages ;
++  - les couleurs de marque passent par les jetons du theme (--accent,
++    --paper…) : la charte d'origine est la valeur par defaut, « Retoucher »
++    la deplace. Les nuances (orange fonce, orange pale) en sont derivees.
++  Les classes ajoutees pour les pages que le template n'avait pas (une,
++  listes, pagination, recherche) sont prefixees tv4-.
++*/
++
++.sk-tv4 {
++  --orange: var(--accent);
++  --orange-dk: color-mix(in srgb, var(--accent) 82%, #000);
++  --orange-pale: color-mix(in srgb, var(--accent) 10%, #fff);
++  --blue: var(--urgent);
++  --blue-dk: color-mix(in srgb, var(--urgent) 64%, #000);
++  --blue-pale: color-mix(in srgb, var(--urgent) 11%, #fff);
++  --dark: var(--accent-ink);
++  --white: #ffffff;
++  --bg: var(--paper);
++  --nav-bg: color-mix(in srgb, var(--paper) 45%, #fff);
++  --text: var(--ink);
++  --tv4-serif: var(--f-ptserif), "PT Serif", Georgia, serif;
++  --tv4-sans: var(--f-ptsans), "PT Sans", Arial, sans-serif;
++  --tv4-cond: var(--f-oswald), Oswald, "Arial Narrow", sans-serif;
++
++  font-family: var(--tv4-sans);
++  background: var(--bg);
++  color: var(--text);
++  font-size: 16px;
++  line-height: normal;
++  min-height: 100vh;
++}
++.sk-tv4 a { color: var(--blue-dk); text-decoration: none; }
++.sk-tv4 a:hover { color: var(--orange-dk); text-decoration: underline; }
++
++.sk-tv4 .top-bar { background: var(--dark); border-bottom: 1px solid rgba(255,255,255,0.06); }
++.sk-tv4 .tb-inner { max-width: 1240px; margin: 0 auto; padding: 7px 22px; display: flex; align-items: center; gap: 24px; }
++.sk-tv4 .tb-search { display: flex; flex-shrink: 0; }
++.sk-tv4 .tb-search input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-right: none; color: white; padding: 5px 10px; font-size: 12px; width: 150px; outline: none; font-family: var(--tv4-sans); }
++.sk-tv4 .tb-search input::placeholder { color: rgba(255,255,255,0.32); }
++.sk-tv4 .tb-search button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.5); padding: 5px 10px; cursor: pointer; font-size: 13px; }
++.sk-tv4 .tb-nav { flex: 1; display: flex; justify-content: center; align-items: center; gap: 28px; }
++.sk-tv4 .tb-nav a { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.72); letter-spacing: 0.02em; }
++.sk-tv4 .tb-nav a:hover { color: var(--orange); text-decoration: none; }
++.sk-tv4 .tb-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
++.sk-tv4 .tb-soc { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); width: 22px; height: 22px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; border-radius: 2px; }
++.sk-tv4 .tb-lang { position: relative; margin-left: 6px; }
++.sk-tv4 .tb-lang-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.72); padding: 4px 9px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; font-family: var(--tv4-sans); display: flex; align-items: center; gap: 4px; }
++.sk-tv4 .tb-lang-btn em { font-style: normal; font-size: 9px; color: rgba(255,255,255,0.4); }
++
++.sk-tv4 .logo-band { background: white; border-bottom: 1px solid var(--rule); }
++.sk-tv4 .lb-inner { max-width: 1240px; margin: 0 auto; padding: 16px 22px; display: flex; align-items: center; }
++.sk-tv4 .tv4-logo-wrap { display: flex; align-items: center; gap: 13px; text-decoration: none; }
++.sk-tv4 .tv4-logo-wrap:hover { text-decoration: none; }
++.sk-tv4 .tv4-lft { background: var(--orange); color: var(--blue); font-family: var(--tv4-cond); font-weight: 700; font-style: italic; font-size: 36px; line-height: 1; padding: 8px 11px 8px 16px; }
++.sk-tv4 .tv4-rgt { background: white; color: var(--blue); border: 3px solid var(--orange); border-left: none; font-family: var(--tv4-cond); font-weight: 700; font-style: italic; font-size: 36px; line-height: 1; padding: 8px 14px; }
++.sk-tv4 .tv4-logo-img { max-height: 58px; width: auto; display: block; }
++.sk-tv4 .tv4-logo-img-sm { max-height: 32px; width: auto; display: block; }
++.sk-tv4 .lb-text { display: flex; flex-direction: column; gap: 2px; }
++.sk-tv4 .lb-name { font-size: 18px; font-weight: 700; color: var(--dark); font-family: var(--tv4-sans); }
++.sk-tv4 .lb-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; }
++.sk-tv4 .lb-date { margin-left: auto; font-size: 12px; color: var(--muted); white-space: nowrap; }
++.sk-tv4 .lb-date::first-letter { text-transform: uppercase; }
++
++.sk-tv4 .ticker-bar { background: var(--orange); display: flex; overflow: hidden; }
++.sk-tv4 .ticker-label { background: var(--dark); color: var(--orange); font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; padding: 7px 16px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
++.sk-tv4 .ticker-dot { width: 5px; height: 5px; background: var(--orange); border-radius: 50%; animation: sk-tv4-blink 1s infinite; }
++.sk-tv4 .ticker-scroll { overflow: hidden; flex: 1; display: flex; align-items: center; }
++.sk-tv4 .ticker-content { white-space: nowrap; color: var(--dark); font-size: 11px; font-weight: 700; display: inline-block; padding-left: 100%; animation: sk-tv4-marquee 60s linear infinite; }
++.sk-tv4 .ticker-content a { color: var(--dark); }
++.sk-tv4 .ticker-content a:hover { color: var(--dark); text-decoration: underline; }
++.sk-tv4 .ticker-bar:hover .ticker-content { animation-play-state: paused; }
++@keyframes sk-tv4-marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
++@keyframes sk-tv4-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
++.sk-tv4 .tsep { margin: 0 16px; opacity: 0.3; }
++
++.sk-tv4 .page-wrap { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 210px 1fr; min-height: 600px; }
++
++.sk-tv4 .left-nav { background: white; border-right: 1px solid var(--rule); padding: 22px 0 32px; }
++.sk-tv4 .left-nav ul { list-style: none; margin: 0; padding: 0; }
++.sk-tv4 .left-nav ul li a { display: block; padding: 9px 22px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); border-left: 3px solid transparent; }
++.sk-tv4 .left-nav ul li a:hover { color: var(--orange-dk); background: var(--orange-pale); text-decoration: none; }
++.sk-tv4 .left-nav ul li a.active { color: var(--orange-dk); border-left-color: var(--orange); background: var(--orange-pale); }
++.sk-tv4 .ln-sep { border-top: 1px solid var(--rule); margin: 14px 22px; }
++.sk-tv4 .ln-secondary a { display: block; padding: 7px 22px; font-size: 12px; color: var(--muted); }
++.sk-tv4 .ln-secondary a:hover { color: var(--blue-dk); text-decoration: none; }
++.sk-tv4 .ln-secondary a.ln-live { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange-dk); }
++.sk-tv4 .live-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: sk-tv4-blink 1.2s infinite; flex-shrink: 0; display: inline-block; }
++.sk-tv4 .ln-onair { display: block; margin: 18px 16px 0; padding: 12px 13px; border: 1px solid var(--rule); border-left: 3px solid var(--orange); background: var(--nav-bg); color: inherit; }
++.sk-tv4 a.ln-onair:hover { text-decoration: none; border-color: var(--orange); }
++.sk-tv4 .ln-onair-title { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
++.sk-tv4 .ln-onair-sub { font-size: 10px; color: var(--muted); margin-bottom: 7px; line-height: 1.4; }
++.sk-tv4 .ln-onair-next { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange-dk); }
++
++.sk-tv4 .article-area { background: var(--bg); padding: 0 26px 32px; min-width: 0; }
++.sk-tv4 .breadcrumb { padding: 10px 0; font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--rule); margin-bottom: 18px; flex-wrap: wrap; }
++.sk-tv4 .bc-item { display: inline-flex; align-items: center; gap: 6px; }
++.sk-tv4 .breadcrumb a { color: var(--muted); }
++.sk-tv4 .breadcrumb a:hover { color: var(--blue-dk); text-decoration: underline; }
++.sk-tv4 .bc-sep { color: #ccc; }
++.sk-tv4 .article-card { background: white; }
++.sk-tv4 .hero-wrap { width: 100%; background: var(--nav-bg); height: 300px; border-bottom: 3px solid var(--orange); display: flex; align-items: center; justify-content: center; }
++.sk-tv4 .hero-wrap.has-img { height: auto; display: block; overflow: hidden; }
++.sk-tv4 .hero-wrap.has-img img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; }
++.sk-tv4 .hero-caption { padding: 8px 18px; background: var(--orange-pale); font-size: 11px; font-style: italic; color: var(--muted); font-family: var(--tv4-serif); border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, #fff); margin: 0; }
++.sk-tv4 .article-head { padding: 20px 22px 0; }
++.sk-tv4 .article-kicker { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--orange-dk); margin: 0 0 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
++.sk-tv4 .article-kicker a { color: var(--orange-dk); }
++.sk-tv4 .tv4-badge { background: var(--orange); color: var(--dark); padding: 2px 6px; letter-spacing: 0.14em; font-size: 9px; margin-right: 6px; }
++.sk-tv4 .article-headline { font-family: var(--tv4-serif); font-size: 30px; font-weight: 700; line-height: 1.2; color: var(--dark); margin: 0 0 12px; }
++.sk-tv4 .article-headline a { color: var(--dark); }
++.sk-tv4 .article-headline a:hover { color: var(--blue-dk); }
++.sk-tv4 .article-deck { font-family: var(--tv4-serif); font-size: 16px; font-style: italic; color: var(--muted); line-height: 1.55; padding-left: 14px; border-left: 3px solid var(--orange); margin: 0 0 14px; }
++.sk-tv4 .article-meta { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: 11px; color: var(--muted); flex-wrap: wrap; }
++.sk-tv4 .meta-source { font-weight: 700; color: var(--blue-dk); font-size: 12px; }
++.sk-tv4 .meta-dot { width: 3px; height: 3px; background: var(--rule); border-radius: 50%; display: inline-block; }
++.sk-tv4 .share-row { margin-left: auto; display: flex; gap: 5px; }
++.sk-tv4 .share-btn { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; padding: 3px 9px; border: 1px solid var(--rule); color: var(--muted); background: var(--nav-bg); cursor: pointer; font-family: var(--tv4-sans); }
++.sk-tv4 .share-btn:hover { background: var(--orange); border-color: var(--orange); color: var(--dark); text-decoration: none; }
++.sk-tv4 .article-body { padding: 20px 22px 24px; font-family: var(--tv4-serif); font-size: 15.5px; line-height: 1.82; color: var(--text); }
++.sk-tv4 .article-body p { margin: 0 0 16px; }
++.sk-tv4 .article-body h2, .sk-tv4 .article-body h3 { font-family: var(--tv4-serif); font-weight: 700; color: var(--dark); line-height: 1.3; margin: 26px 0 10px; }
++.sk-tv4 .article-body h2 { font-size: 21px; }
++.sk-tv4 .article-body h3 { font-size: 18px; }
++.sk-tv4 .article-body ul, .sk-tv4 .article-body ol { margin: 0 0 16px 22px; }
++.sk-tv4 .article-body ul { list-style: disc; }
++.sk-tv4 .article-body ol { list-style: decimal; }
++.sk-tv4 .article-body img { max-width: 100%; height: auto; margin: 10px 0; }
++.sk-tv4 .article-body a { text-decoration: underline; }
++.sk-tv4 .article-body blockquote { margin: 22px 0; padding: 14px 18px; background: var(--blue-pale); border-left: 4px solid var(--blue); font-style: italic; font-size: 16.5px; color: var(--blue-dk); line-height: 1.6; }
++.sk-tv4 .article-body blockquote p:last-child { margin-bottom: 0; }
++.sk-tv4 .article-body blockquote cite { display: block; margin-top: 8px; font-style: normal; font-family: var(--tv4-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
++
++.sk-tv4 .figures-box { background: var(--nav-bg); border: 1px solid var(--rule); border-left: 4px solid var(--orange); padding: 18px 20px; margin: 24px 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
++.sk-tv4 .fig-item { text-align: center; }
++.sk-tv4 .fig-num { font-family: var(--tv4-cond); font-size: 32px; font-weight: 700; color: var(--orange-dk); line-height: 1; }
++.sk-tv4 .fig-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 5px; line-height: 1.4; }
++
++.sk-tv4 .article-tags { padding: 14px 22px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
++.sk-tv4 .tags-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
++.sk-tv4 .tag { background: var(--orange-pale); border: 1px solid color-mix(in srgb, var(--accent) 55%, #fff); color: var(--orange-dk); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 3px 10px; }
++.sk-tv4 .tag:hover { background: var(--orange); color: var(--dark); text-decoration: none; }
++
++.sk-tv4 .more-section { margin-top: 28px; }
++.sk-tv4 .more-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--orange); }
++.sk-tv4 .more-title { font-family: var(--tv4-cond); font-size: 15px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark); white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
++.sk-tv4 .more-rule { flex: 1; height: 1px; background: var(--rule); }
++.sk-tv4 .more-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
++.sk-tv4 .more-card { background: white; }
++.sk-tv4 .more-card-img { display: block; width: 100%; height: 100px; background: var(--nav-bg); border-bottom: 3px solid var(--orange); overflow: hidden; }
++.sk-tv4 .more-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
++.sk-tv4 .more-card-body { padding: 12px 14px 14px; }
++.sk-tv4 .more-card-cat { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange-dk); margin-bottom: 5px; min-height: 1em; }
++.sk-tv4 .more-card-title { font-family: var(--tv4-serif); font-size: 13px; font-weight: 700; line-height: 1.3; color: var(--dark); display: block; margin-bottom: 6px; }
++.sk-tv4 .more-card-title:hover { color: var(--blue-dk); text-decoration: underline; }
++.sk-tv4 .more-card-date { font-size: 10px; color: var(--muted); }
++
++.sk-tv4 .site-footer { background: var(--dark); border-top: 3px solid var(--orange); padding: 26px 0 14px; }
++.sk-tv4 .footer-inner { max-width: 1240px; margin: 0 auto; padding: 0 22px; }
++.sk-tv4 .footer-top { display: flex; align-items: center; gap: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
++.sk-tv4 .footer-logo { display: flex; align-items: stretch; }
++.sk-tv4 .ftl { background: var(--orange); color: var(--blue); font-family: var(--tv4-cond); font-weight: 700; font-style: italic; font-size: 20px; line-height: 1; padding: 5px 7px 5px 9px; }
++.sk-tv4 .ftr { background: white; color: var(--blue); border: 2.5px solid var(--orange); border-left: none; font-family: var(--tv4-cond); font-weight: 700; font-style: italic; font-size: 20px; line-height: 1; padding: 5px 7px; }
++.sk-tv4 .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.35); }
++.sk-tv4 .footer-links { display: flex; gap: 18px; flex-wrap: wrap; margin-left: auto; }
++.sk-tv4 .footer-links a { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
++.sk-tv4 .footer-links a:hover { color: var(--orange); text-decoration: none; }
++.sk-tv4 .footer-social { display: flex; gap: 8px; }
++.sk-tv4 .fsoc { width: 28px; height: 28px; border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); }
++.sk-tv4 .footer-bottom { padding-top: 12px; font-size: 10px; color: rgba(255,255,255,0.22); text-align: center; }
++
++/* ---- Pages que le template n'avait pas -------------------------------- */
++
++.sk-tv4 .tv4-lead .article-headline { font-size: 34px; }
++.sk-tv4 .tv4-lead .article-head { padding-bottom: 16px; }
++.sk-tv4 .tv4-empty { padding: 26px 22px; }
++.sk-tv4 .tv4-live { padding: 18px 22px 0; }
++.sk-tv4 .tv4-home-live { margin-top: 28px; background: white; border-left: 3px solid var(--orange); padding: 16px 20px 18px; }
++.sk-tv4 .tv4-home-live .more-header { margin-bottom: 12px; }
++.sk-tv4 .tv4-home-live-title { font-family: var(--tv4-serif); font-size: 19px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 10px; line-height: 1.3; }
++.sk-tv4 .tv4-home-live-list { list-style: none; margin: 0; padding: 0; }
++.sk-tv4 .tv4-home-live-list li { font-size: 13px; line-height: 1.5; padding: 7px 0; border-top: 1px solid var(--rule); }
++.sk-tv4 .tv4-time { font-weight: 700; color: var(--orange-dk); margin-right: 6px; font-variant-numeric: tabular-nums; }
++.sk-tv4 .tv4-count { font-size: 11px; color: var(--muted); white-space: nowrap; }
++.sk-tv4 .tv4-note { background: white; padding: 18px 20px; font-size: 13px; color: var(--muted); margin: 0; }
++.sk-tv4 .tv4-pager { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; font-size: 12px; font-weight: 700; color: var(--muted); }
++.sk-tv4 .tv4-search-big { display: flex; margin-bottom: 8px; }
++.sk-tv4 .tv4-search-big input { flex: 1; border: 1px solid var(--rule); border-right: 0; background: white; padding: 10px 12px; font-size: 14px; font-family: var(--tv4-sans); color: var(--text); outline: none; }
++.sk-tv4 .tv4-search-big input:focus { border-color: var(--orange); }
++.sk-tv4 .tv4-search-big button { background: var(--orange); color: var(--dark); border: 0; padding: 0 18px; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; font-family: var(--tv4-sans); }
++.sk-tv4 .tv4-reactions .sk-island { margin-top: 28px; background: white; padding: 20px 22px; }
++
++/* ---- Petits ecrans : le template n'en prevoyait pas ------------------- */
++
++@media (max-width: 860px) {
++  .sk-tv4 .tb-nav, .sk-tv4 .tb-right { display: none; }
++  .sk-tv4 .tb-search { flex: 1; }
++  .sk-tv4 .tb-search input { width: 100%; }
++  .sk-tv4 .lb-date { display: none; }
++  .sk-tv4 .page-wrap { grid-template-columns: minmax(0, 1fr); }
++  .sk-tv4 .left-nav { border-right: 0; border-bottom: 1px solid var(--rule); padding: 0; overflow-x: auto; }
++  .sk-tv4 .left-nav ul { display: flex; }
++  .sk-tv4 .left-nav ul li a { white-space: nowrap; padding: 11px 14px; border-left: 0; border-bottom: 3px solid transparent; }
++  .sk-tv4 .left-nav ul li a.active { border-bottom-color: var(--orange); }
++  .sk-tv4 .ln-sep, .sk-tv4 .ln-secondary, .sk-tv4 .ln-onair { display: none; }
++  .sk-tv4 .article-area { padding: 0 14px 28px; }
++  .sk-tv4 .article-headline, .sk-tv4 .tv4-lead .article-headline { font-size: 24px; }
++  .sk-tv4 .more-grid { grid-template-columns: minmax(0, 1fr); }
++  .sk-tv4 .share-row { margin-left: 0; }
++}
+diff --git a/src/skins/types.ts b/src/skins/types.ts
+new file mode 100644
+index 0000000..d8f0731
+--- /dev/null
++++ b/src/skins/types.ts
+@@ -0,0 +1,77 @@
++import type { ReactNode } from "react";
++import type { MenuItem } from "@/lib/homepage";
++import type { SiteConfig } from "@/lib/site";
++import type { ArticleFull, Card, LiveItem } from "@/components/site/data";
++
++/**
++ * Le contrat d'un habillage. Les pages du site public vont chercher les donnees
++ * (elles savent parler a la base), puis passent la main a l'habillage, qui ne
++ * fait que les mettre en page. Un habillage ne lit donc jamais la base : c'est
++ * ce qui permet aussi de le rendre dans l'apercu des reglages, cote navigateur,
++ * avec de faux articles.
++ */
++
++export interface TickerItem {
++  slug: string;
++  title: string;
++}
++
++export interface ShellProps {
++  site: SiteConfig;
++  nav: MenuItem[];
++  pages: Array<{ slug: string; title: string }>;
++  /** le bandeau defilant : les alertes, sinon les derniers titres */
++  ticker: TickerItem[];
++  /** l'article suivi en direct, s'il y en a un, et ses dernieres entrees */
++  live: Card | null;
++  liveEntries: LiveItem[];
++  /** les derniers articles, pour les colonnes laterales */
++  latest: Card[];
++  children: ReactNode;
++}
++
++export interface HomeProps {
++  site: SiteConfig;
++  lead: Card | null;
++  cards: Card[];
++  live: { article: Card; entries: LiveItem[] } | null;
++}
++
++export interface ArticleProps {
++  site: SiteConfig;
++  article: ArticleFull;
++  /** meme rubrique, sinon la suite de l'actualite */
++  related: Card[];
++  /** le fil en direct, deja monte (il se rafraichit seul) */
++  liveNode: ReactNode | null;
++  /** les reactions et leur formulaire, deja montes */
++  reactionsNode: ReactNode;
++  /** les dernieres entrees de fil, pour les colonnes laterales */
++  entries: LiveItem[];
++}
++
++export interface ListProps {
++  site: SiteConfig;
++  title: string;
++  subtitle?: string;
++  cards: Card[];
++  emptyNote: string;
++  pager?: { prev?: string; next?: string; label: string };
++  /** la page de recherche montre son champ */
++  search?: { q: string };
++}
++
++export interface PageProps {
++  site: SiteConfig;
++  title: string;
++  html: string;
++  updatedAt: Date;
++}
++
++export interface SkinViews {
++  Shell: (p: ShellProps) => ReactNode;
++  Home: (p: HomeProps) => ReactNode;
++  Article: (p: ArticleProps) => ReactNode;
++  List: (p: ListProps) => ReactNode;
++  Page: (p: PageProps) => ReactNode;
++}
+diff --git a/src/skins/views.ts b/src/skins/views.ts
+new file mode 100644
+index 0000000..0c91030
+--- /dev/null
++++ b/src/skins/views.ts
+@@ -0,0 +1,14 @@
++import type { SiteConfig } from "@/lib/site";
++import type { SkinKey } from "./registry";
++import type { SkinViews } from "./types";
++import { bc1 } from "./bc1/Bc1";
++import { todaymercure } from "./todaymercure/TodayMercure";
++import { tv4 } from "./tv4/Tv4";
++
++/** Les composants de chaque habillage. Le registre (registry.ts) tient les donnees. */
++export const SKIN_VIEWS: Record<SkinKey, SkinViews> = { tv4, todaymercure, bc1 };
++
++/** L'habillage du site, ou null quand il garde une maquette generique. */
++export function skinOf(site: SiteConfig): SkinViews | null {
++  return site.skin ? SKIN_VIEWS[site.skin] ?? null : null;
++}
+-- 
+2.53.0.windows.1
+

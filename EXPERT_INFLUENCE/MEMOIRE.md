@@ -81,6 +81,37 @@ Le découpage **1 traitant par LO** a bien fonctionné (clarté, anti-doublon), 
 
 ---
 
+## 📤 PRODUCTIONS SORTIES DU CADRE D'EXERCICE
+
+### [2026-09-22] Synthèse « Influence russe — grille de lecture et cartographie des relais »
+
+Premier livrable **hors exercice** tiré du dépôt doctrinal. Destinataire : un chargé de
+recherche devant identifier les **pressions et les relais** dans le paysage médiatique
+**lituanien**, puis **polonais** et **biélorusse**, en appui d'une action alliée contre
+l'influence russe.
+
+- **Fichiers** : `EXPERT_INFLUENCE/PRODUCTIONS/2026-09-22_Influence_russe_cartographie_relais.docx`
+  (copie de travail sur le Bureau). ~5 350 mots, 23 tableaux, 8 parties + 3 annexes.
+- **Contenu** : 5 principes opératoires + 9 procédés avec leur signal observable · la chaîne de
+  fabrication en 5 temps et les dispositifs documentés · les 10 principes (Morelli/Ponsonby) ·
+  une **méthode de cartographie en 5 passes** (carte normale → fractures → typologie d'acteurs →
+  leviers de pression → coordination) · 3 terrains · 8 pièges méthodologiques · fiche acteur,
+  checklist de qualification, glossaire.
+- ⭐ **Apports propres à ce livrable** (à réutiliser) : les **4 statuts de relais** (rémunéré /
+  idéologique / opportuniste / involontaire), la **grille des 8 leviers de pression** sur un
+  média (capital, publicité, distribution, contrats, famille, judiciaire, sécurité, kompromat),
+  et le **seuil de qualification** : sans clandestinité ET coordination, on dit « acteur aligné »,
+  jamais « opération ».
+- ⚠ **Règles de production appliquées, à reconduire** : (1) **aucune importation de l'univers
+  fictif** (Skolkan/Mercure/Arnland) dans un document destiné à une recherche réelle — c'est dit
+  en tête du document ; (2) **sources ouvertes uniquement** (VIGINUM TLP:CLEAR, littérature
+  publique) — la doctrine L2I, dont l'exemplaire du poste porte une mention de protection, n'est
+  **pas** exploitée ; (3) aucun état des lieux national affirmé : des **questions d'entrée** et des
+  faits structurels stables, à revérifier à la date de la recherche ; (4) précaution explicite
+  « une minorité linguistique n'est pas un relais » et sécurité des personnes en Biélorussie.
+
+---
+
 ## Format d'entrée
 ```
 ### [YYYY-MM-DD] Catégorie : Titre

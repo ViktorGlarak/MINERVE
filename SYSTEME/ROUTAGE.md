@@ -127,6 +127,13 @@ La demande concerne...
 │       ⚠ ÉTAT : identité du système ENTIÈREMENT à renseigner (objet, nature, périmètre, acteurs, échéances) — documentation attendue ; NE RIEN SUPPOSER tant qu'un champ porte ⚠️
 │       Collabore : ⚠ à préciser une fois le périmètre connu — a priori ARCHITECTE (code), PENSEUR (arbitrage), SECRÉTAIRE (rédaction), PLEIADE si rattachement plateforme
 │
+├── un avis de DESIGN sur un site ou un applicatif, ou un document de design à ingérer ?  ⭐ créé 2026-09-24
+│   └── DESIGNER (claude-opus-4-7) → Conseiller en design (UI / UX)
+│       Cas : "c'est lisible ?", "comment rendre cet écran plus clair ?", "quelle couleur / quel espacement ?", "cette fenêtre est-elle accessible ?", "ingère ce design system / cet article"
+│       Fichiers : DESIGNER\MEMOIRE.md (terrain + doctrine sourcée) · DESIGNER\JOURNAL.md · DESIGNER\REFERENCES\REF-NN_*.md
+│       ⚠ RÈGLE : il CONTRIBUE, il ne tranche pas — besoin utilisateur, chartes des médias fictifs, modèles officiels (CR, ordres) et choix PLEIADE/ARCHITECTE priment ; il ne code pas
+│       Collabore : PLEIADE, MASTORION, LEAC (apps), MASTAURIGE (chartes d'exercice), ARCHITECTE (mise en œuvre), IMAGIER (visuels)
+│
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
         Cas : "comment structurer une synchromatrice ?", "quel effet ILI pour cet inject ?", "la séquence est-elle cohérente ?", "calibrage réalisme opération d'influence"

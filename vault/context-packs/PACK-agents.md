@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-22 · 23 notes.
+> Généré le 2026-09-24 · 24 notes.
 
 ## Notes (par tier)
 
@@ -25,6 +25,7 @@
 | 3 | [AGENT-ARCHIVISTE](../agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | agent |
 | 3 | [AGENT-BROUILLON](../agents/AGENT-BROUILLON.md) | BROUILLON | agent |
 | 3 | [AGENT-DELATTRE](../agents/AGENT-DELATTRE.md) | DELATTRE | agent |
+| 3 | [AGENT-DESIGNER](../agents/AGENT-DESIGNER.md) | DESIGNER | agent |
 | 3 | [AGENT-ECLAIREUR](../agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | agent |
 | 3 | [AGENT-GUILLAUME](../agents/AGENT-GUILLAUME.md) | GUILLAUME | agent |
 | 3 | [AGENT-MASTODONTE](../agents/AGENT-MASTODONTE.md) | MASTODONTE | agent |
@@ -51,6 +52,7 @@
 - [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md)
 - [`MEMOIRE.md`](../../DELATTRE/MEMOIRE.md)
+- [`MEMOIRE.md`](../../DESIGNER/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md)
 - [`MEMOIRE.md`](../../GUILLAUME/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md)

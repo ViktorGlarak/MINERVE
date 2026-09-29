@@ -101,7 +101,8 @@
       "Bash(cp admin/.gitignore eho/.gitignore)",
       "Bash(cp admin/.editorconfig eho/.editorconfig)",
       "Bash(grep -v \"^\\\\.$\\\\|^\\\\.\\\\.$\")",
-      "Bash(cd \"C:/CECPC/MASTORION/mastorion-v0/apps/admin\" && grep -rhoE \"from 'primeng/[a-z]+'\" src/ | sort -u | head -25)"
+      "Bash(cd \"C:/CECPC/MASTORION/mastorion-v0/apps/admin\" && grep -rhoE \"from 'primeng/[a-z]+'\" src/ | sort -u | head -25)",
+      "Bash(git push:*)"
     ],
     "ask": [
       "Read(//d/CECPC/DOC REF/MERCURE/RENS/01_Fiches bio/**)",

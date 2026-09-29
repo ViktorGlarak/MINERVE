@@ -4,6 +4,719 @@
 
 ---
 
+## 2026-09-29 (suite) — app-press : revue DESIGNER de 4 maquettes (`48b1072`, ✅ en ligne le 2026-09-29, poussé sur main + prod à la demande de l'utilisateur)
+
+- **Vérifié en ligne** vers 08:35 :
+  - `today-mercure` et `hexagone` servent le nouveau CSS (`sk-vide`, `sk-boucle`) ;
+  - leurs maquettes sont bien `sk-todaymercure` et `sk-hexagone`, choisies à la main par l'utilisateur ;
+  - le nouveau pied de Today Mercure est servi (`tm-age`, `tm-registre`, « Official state news service »).
+- ⚠ **Les instances ont été renommées** : `mercure-today` n'existe plus (404 Traefik), elle s'appelle désormais **`today-mercure`**. L'instance `hexagone` est nouvelle.
+- ⚠ **Aucun article publié** sur ces deux instances : la une hiérarchisée, les vignettes et les grilles n'apparaîtront qu'avec des articles. Cela explique l'impression d'« ancienne version » chez l'utilisateur, avec en plus le cache du navigateur.
+- La maquette ne peut se changer que depuis les réglages, par un directeur connecté : il n'existe **pas de route de service** pour le faire.
+
+- Today Mercure, HEXAGONE, TV4 et Bothnia Channel 1 : une hiérarchisée, vignettes à la marque, rangées complètes, doublons retirés, bandeaux en boucle, contrastes, téléphone. « 18+ » et mention d'enregistrement pour Today Mercure. **Chartes inchangées.** Détail : `DESIGNER\AVIS\2026-09-29_PRESSE_MAQUETTES\AVIS.md`.
+- Nouveaux éléments partagés dans `src/skins/` : `Visuel` et `rangees()` (`shared.tsx`), `HorsAccueil` (`client.tsx`), `.sk-vide` et `.sk-boucle` (`skins.css`).
+- Banc d'essai local : base `presse_design` sur le MySQL du port 3307 (l'utilisateur `presse` du 3320 n'a pas le droit de créer une base) ; `scripts/essai-skin.mts <cle>` (non versionné) change de maquette.
+
+## 2026-09-29 — app-press : les « maquettes existantes » (TV4, Today Mercure, TF1…) n'ont jamais été mises en ligne
+
+- **Symptôme** : sur la nouvelle instance `mercure-today` (zone DE LATTRE 26), « Réglages du site → Maquette et thème » ne propose pas les maquettes existantes.
+- **Constat** :
+  - le code est sur `origin/prod` (`1a40aa1`, `5c43ffe`, `aeda6d5`, du 23 au 24/09) ;
+  - une image reconstruite à l'identique (`git archive origin/prod | docker build`, `npm test` compris) compile et contient les styles `.sk-tv4` (184 occurrences) ;
+  - **le CSS servi par `mercure-today` n'en contient aucun** : le serveur tourne sur une version d'avant le 23/09. La mise en production du 24/09 ne s'est donc jamais faite, sans qu'on puisse dire si le workflow ne s'est pas déclenché ou s'il a échoué après le build.
+  - Le dépôt n'a **aucun tag** de mise en production : l'étape de tag du workflow n'a jamais abouti, et ne permet donc pas de dater les déploiements.
+- **Correctif** : pousser sur `main` + `prod` l'unique commit en attente, `cea3ac9` (« Update CLAUDE.md », de l'utilisateur, le 24/09), pour relancer `deployer-prod.yml`. Le premier essai a été bloqué par le classificateur. ✅ **Poussé le 2026-09-29 sur demande explicite** (« pousse app-press en prod »).
+- ✅ **Vérifié en ligne** : 07:56:55, `sk-tv4` est présent (184 occurrences) dans le CSS servi par `mercure-today`. Les maquettes existantes sont en ligne pour toutes les instances de presse.
+- ⭐ **Leçon** : un push sur `prod` d'`app-press` peut ne rien déployer, sans que rien ne le signale. Après chaque mise en production, **contrôler la présence d'un marqueur de la nouvelle version dans ce que sert le site** (ici une classe CSS), et non la seule branche `origin/prod`.
+- `gazette.delattre-26` : instance **supprimée par l'utilisateur** (confirmé).
+
+## 2026-09-28 (suite 12) — app-social : 🔴 toute écriture depuis l'écran du réseau social était refusée (403) → ✅ corrigé (`27869bd`, en ligne sur delattre-26 à 17:00:54)
+
+- **Correctif** (autorisé par l'utilisateur, poussé sur main + prod) :
+  - `apps/api/src/garde-ecriture.ts` : le garde authentifie lui-même les écritures, puis contrôle le rôle. La règle ne change pas : écrire demande le rôle ANIMATEUR, la lecture reste libre. Testé dans `garde-ecriture.test.ts` : animateur 200, sans rôle 403, sans jeton 401, GET libre.
+  - Front : un message d'erreur s'affiche quand une suppression (post ou commentaire) est refusée ; le profil et la page hashtag retirent la carte supprimée.
+  - Build API (tsc) et build web (ng) OK.
+- **Vérification en ligne** : un `DELETE` anonyme est passé de 403 (ancien garde) à 401 (« Token manquant »), la preuve que l'authentification passe désormais avant le rôle.
+- **Précision de l'utilisateur** : on écrit « in the name of » un avatar, mais un animateur doit pouvoir supprimer sans avatar. La route `DELETE /posts/:id` le permettait déjà (`isAdmin`), seul le garde bloquait.
+
+### Diagnostic initial
+
+- **Symptôme** : l'utilisateur, animateur, ne peut pas supprimer le post #114101 (@arn_krauss) sur `social.delattre-26`. La console affiche `DELETE /api/social/posts/114101 403`, et l'écran ne dit rien, car `deletePost()` n'a aucun traitement d'erreur.
+- **Cause** (`apps/api/src/index.ts`, commit `9a86b38` du 2026-09-14, Xavier, en prod) :
+  - le garde « écrire demande le rôle animateur » est monté sur `/api/social` et lit `req.userRoles` ;
+  - or l'authentification ne passe **avant** lui que si `REQUIRE_AUTH=true`. Sinon, chaque route l'applique elle-même, mais **après** le garde ;
+  - avec `REQUIRE_AUTH=false`, la valeur par défaut du catalogue, vérifiée sur `delattre-26` via `/api/config`, `userRoles` est donc toujours vide au moment du garde. **Toutes les écritures de l'écran sont refusées**, animateurs compris : publier, supprimer, liker, modifier.
+  - L'admin n'est pas touchée : elle passe par `/api/service` avec la clé de zone.
+- **Correctif proposé (pas fait, dépôt en lecture seule sans autorisation)** : dans le garde, authentifier d'abord (`authMiddleware`) pour les méthodes d'écriture, puis contrôler le rôle. Côté écran, afficher les erreurs de suppression, et retirer la carte après suppression sur le profil et sur la page hashtag.
+
+## 2026-09-28 (suite 11) — app-admin : supprimer aussi les publications (branche `suppression-publications`, `e827ab5`, ✅ en ligne le 2026-09-28 : les deux instances ont redémarré à 16:36, puis sont revenues en 401)
+
+- **Retour utilisateur** : après la suppression de scénarios, leurs articles et leurs messages restaient sur les apps.
+- ⚠ **Les numéros de ces publications sont perdus** : ils disparaissent avec le scénario, journal compris. Ces publications-là ne peuvent donc pas être retirées par l'admin : il faut les enlever à la main dans chaque app.
+- **Suppression d'un scénario** :
+  - la case « Supprimer aussi les publications déjà parties » est cochée par défaut (`?publications=retirer`) ;
+  - si un seul retrait échoue, le scénario n'est **pas** supprimé (502), puisque c'est lui qui garde les numéros.
+- **Suppression d'un inject publié** :
+  - la poubelle est désormais visible sur un inject publié, avec la même case ;
+  - l'inject part avec son fil, car ses réponses n'ont plus de support sur l'app ;
+  - rien n'est supprimé si un retrait échoue.
+- `retirerPublications()` est commun avec la remise à zéro. `fil()` et `estEnLigne()` sont purs (`src/lib/suppression.ts`) et testés.
+- **Vérifié en local contre une fausse app** :
+  - la fausse app a reçu les `DELETE /posts/<n>` : pour l'inject seul, pour la racine et sa réponse, et pour le scénario ;
+  - avec l'app arrêtée, la suppression répond 502 et le scénario est gardé ;
+  - 16 tests et le build sont OK.
+- **Piège** : `next build` pendant qu'un `next dev` tourne casse ce dernier (« Jest worker… »). Libérer le port et supprimer `.next` avant de relancer.
+
+## 2026-09-28 (suite 10) — app-admin : les horaires d'un scénario respectés (branche `horaires-lancement`, `9416628`, ✅ en ligne le 2026-09-28 : poussé sur main + prod ; les deux instances ont redémarré, en 404 de 16:22:30 à 16:23:03, puis sont revenues en 401)
+
+- **Retour utilisateur** : tous les items d'un scénario sont publiés d'un coup, sans respecter les horaires.
+- **Cause 1** : lancé alors que son début était passé, un scénario partait **sans fenêtre** et gardait l'ancien début. Au premier tick, le temps écoulé était énorme et tout ce qui était échu partait d'un coup : c'est le rattrapage du planificateur.
+- **Cause 2** : Pause → Reprendre produisait le même effet, car la durée de la pause comptait comme du temps écoulé.
+- **Correctifs** :
+  1. La fenêtre de lancement s'ouvre toujours. Quand le début est passé, elle propose « Maintenant (décaler) » par défaut, ou « Rattraper » avec le nombre d'items qui partiront d'un coup.
+  2. Le serveur refuse (409) un lancement à début passé sans choix explicite (`now` / `rattraper`).
+  3. Nouvelle colonne `paused_at` (ajout, `db push` au démarrage). À la reprise, début et fin sont décalés de la durée de la pause. Le journal indique « décalé de N min ».
+- **Vérifié en local contre une fausse app** :
+  - les items à 0, 1 et 2 min sont publiés à 14:11:12, 14:12:12 et 14:13:12 ;
+  - après une pause de 70 s, le début est décalé de 70 s ;
+  - la fenêtre compte juste : 3 items échus pour un début passé de 30 min.
+  - `tsc`, 13 tests et le build sont OK.
+- ⚠ **Scénarios déjà partis** : les remettre à zéro, puis les relancer avec « Maintenant ».
+
+## 2026-09-28 (suite 9) — app-admin : les liens des anciennes publications de la Gazette (`1775cca`, ✅ en ligne le 2026-09-28 : la route `/api/bff/lien` répond 401 aux anonymes sur les deux instances)
+
+- **Retour utilisateur** : les liens fonctionnent sur le réseau social, pas sur la Gazette.
+- **Cause** : les publications de la Gazette avaient été faites AVANT la mise en ligne des liens, donc sans adresse gardée. Le réseau social se reconstituait d'après le numéro du post, la presse non. Les pages d'articles du serveur répondent bien : la route `/article/<slug>` est vérifiée en 200 sur `gazette.delattre-26`.
+- **Correctif** : `/api/bff/lien?instance=&post=` redemande l'adresse à l'app au clic (`/api/service/posts/:id`, présent dans la presse en production) et redirige. Le journal et l'arbre passent par cette route quand l'adresse manque. Vérifié en local.
+
+## 2026-09-28 (suite 8) — app-admin : le lien vers chaque publication (`5a9de73`, en ligne)
+
+- **Demande** : en Supervision, rendre « Gazette publication #1 » cliquable, vers l'article ou le post.
+- **Principe** : l'app renvoie déjà l'adresse de ce qu'elle publie (presse : `/article/<slug>`, messagerie : `/c/<fil>#m<id>`), mais l'admin la jetait. Le réseau social ne la renvoie pas ; elle se déduit : `/social/post/<id>`.
+- **Livré** :
+  - `ScenarioItem.remoteUrl` (nouvelle colonne, `db push` au démarrage) et `meta.lien` du journal ;
+  - `MessageJournal` rend cliquable, en Supervision, au tableau de bord et dans le journal du scénario, ce qui suit « → » ;
+  - « voir ↗ » sur chaque item publié de l'arbre ;
+  - `lib/liens.ts` pur et testé (13 tests).
+- ⚠ Les publications **antérieures** : le réseau social se reconstitue par le numéro du post, la presse non (pas de faux lien).
+- **Vérifié en local** : article publié sur TV4, lien ouvert (« Coupure d'eau dans le secteur — TV4 International »). **En ligne** : redémarrage du conteneur observé, puis retour en 401 sur `admin.delattre-26` et `conduite.exercice`.
+
+## 2026-09-28 (suite 7) — app-admin : « Vérifier » ne crie plus au loup (`78d7141`, en ligne)
+
+- **Retour utilisateur** : « 8 points à corriger », tous du type « persona @x inconnu (sera provisionné depuis eho…) » sur la Gazette et le réseau social.
+- **Diagnostic** : ces messages n'étaient **pas bloquants** (le code les classait déjà comme avertissements), mais l'écran les annonçait tous comme « à corriger ». Or :
+  - le réseau social crée le compte depuis eho à la première publication ;
+  - pour la presse, « inconnu » voulait seulement dire « hors de la rédaction du site », et l'article paraît quand même.
+- **Correctif** :
+  - pré-vol exact : un avatar absent d'eho est **bloquant**, un avatar présent ne produit plus de message sur le réseau social ; sur un site de presse, seul l'auteur d'un article hors rédaction reçoit un avertissement ;
+  - l'écran sépare « à corriger avant de lancer » et « à savoir » ;
+  - `lib/verification.ts` est la règle partagée.
+- ⚠ **Défaut ancien corrigé** : le motif « cycle de reponses » (sans accent) ne bloquait jamais un cycle.
+- **En ligne** : `main` = `prod` = `78d7141`. Le redémarrage du conteneur a été observé environ 100 s après le push, et la route du kit est revenue en 401. ⚠ app-admin n'a **pas de `/api/sante`** : la version servie ne peut pas être lue directement (à ajouter).
+
+## 2026-09-28 (suite 6) — app-admin : le Kit IA et l'import fiabilisé, branche `kit-ia`
+
+- **Demande** : un seul bouton pour les fichiers de préparation par IA ; examiner l'import pour que tout fonctionne entre les sites.
+- **Examen de l'import** : titre, rubrique et champs de maquette n'y passaient pas ; une rubrique presse inconnue est créée sur le site ; les réponses entre apps et les articles sans titre n'étaient vus qu'à la publication ; seul le `.xlsx` était accepté.
+- **Livré** : `3d396fd` (voir MEMOIRE, section Kit IA). ✅ **En ligne** sur demande. La route du kit répond 401 aux anonymes sur les deux instances : `admin.delattre-26.pleiade.internal` et `conduite.exercice.pleiade.internal`. Les 2 commits de septembre en attente sont partis avec (`5a5fbd1`, `5b6bf9f`).
+
+## 2026-09-28 (suite 5) — MELMIL : la « Cellule » d'un event devient la sélection des groupes, branche `cellule-groupes`
+
+- **Question de l'utilisateur** : à quoi sert « Cellule » ? Réponse : c'est l'héritage du `CoordinatingCell` de JEMM, un texte libre qui n'était plus qu'un affichage, et qui créait des groupes fantômes dans l'Équipe.
+- **Décision de l'utilisateur** : fusionner les deux, la sélection des groupes vivant dans « Cellule ».
+- **Livré** : `1e2adf8`, `2026-09-28.6`, 220 tests ; vérifié à l'écran ; ✅ en ligne sur demande (`/api/sante` vérifié).
+
+## 2026-09-28 (suite 4) — MELMIL : « Confié à » par groupes, branche `confie-par-groupes`
+
+- **Demande** : pour « confié à », l'event prend un groupe de premier niveau (GREYCELL, FORAD, le troisième), la storyline un sous-groupe de ce groupe, l'incident une personne du sous-groupe, ou tout le sous-groupe si personne n'est coché.
+- **Livré** : `a65d6f2`, `2026-09-28.5`, ✅ en ligne sur demande (`/api/sante` vérifié). Essai local sur des données fictives : event 08 → GREYCELL, 08.01 → DEV / PROD ; incident « tout le sous-groupe », puis une personne ; la fiche d'une autre personne du sous-groupe ne voit plus l'incident. 0 erreur, 0 débordement.
+
+## 2026-09-28 (suite 3) — MELMIL : placer les groupes reliés côte à côte, branche `equipe-placement`
+
+- **Demande** : retirer « Aucune personne » ; que les groupes reliés changent de place pour un dessin harmonieux. L'utilisateur voulait que je regarde le serveur : **impossible** (session requise, et ses données sont confidentielles). Le cas a été reproduit sur une structure fictive, et une capture masquée lui a été proposée.
+- **Livré** : `04b3a15`, `2026-09-28.4`, ✅ en ligne sur demande (`/api/sante` vérifié). 205 tests. Essai local : FORAD à côté de GREYCELL, HN BOTHNIA du côté d'ILI, pointillés courts.
+
+## 2026-09-28 (suite 2) — MELMIL : Équipe v2, l'organigramme, branche `equipe-organigramme-v2`
+
+- **Remarques utilisateur** (après saisie de ses vraies données, **que je n'ai pas lues à sa demande**) : HOSTNATION ne montrait que des noms de sous-groupes ; DEV / PROD (dans GREYCELL) doit aussi être relié à FORAD ; l'exercice au centre n'aide pas à comprendre.
+- **Réponse** (avec DESIGNER, avis n°11) : organigramme à toute profondeur dans le cadre de l'exercice + liens « travaille aussi avec ». `84294f7`, `2026-09-28.3`, ✅ en ligne sur demande (`/api/sante` vérifié). 201 tests. Essai sur une structure fictive du même genre : 0 erreur, 0 débordement (1440, 1024, téléphone).
+
+## 2026-09-28 (suite) — MELMIL : l'onglet Équipe refait (araignée), branche `equipe-organigramme`
+
+- **Demande** : l'onglet Équipe ne servait pas (« mal pensé ») ; on veut créer des groupes (GREY CELL…), y mettre des personnes avec leur grade, rattacher au besoin un compte Pléiade de la zone, et voir l'architecture de l'exercice « comme une araignée ». Avec l'avis de DESIGNER. « On commence comme ça et on peaufine. »
+- **Livré** : `f9f72b6`, `2026-09-28.1`, ✅ **en ligne** sur demande (`melmil.delattre-26` `/api/sante` vérifié ; `/api/zone/comptes` renvoie 401 aux anonymes). L'utilisateur fait ses essais sur le serveur. Détail : MEMOIRE § MELMIL atelier.
+- **Corrigé en essayant** : les sous-groupes n'étaient que des étiquettes, sans leurs personnes → passage à une araignée à 2 couronnes ; un grand vide en haut → hauteur calculée sur le contenu ; les grades saisis dans le nom → séparés à la relecture.
+
+## 2026-09-28 — eho : ranger les groupes (235 → 6 visibles), branche `groupes-archives`
+
+- **Demande** : 235 groupes sur le modèle DE LATTRE 26, incompréhensible. Les diminuer au maximum **sans rien casser dans les autres applicatifs**.
+- **Analyse** : 49 groupes de classement pays × catégorie, doublons des champs `pays` et `label` ; 180 groupes d'autres exercices (ORION 26 phases 2 et 4 : `O2…`, `O4…`, `02…`, `001-tweeter…`) ; seuls ≈ 6 servent à DE LATTRE.
+- **Qui consomme les groupes d'eho** (vérifié dans le code) :
+  - l'**incarnation** (camps de joueurs ↔ groupes, `lib/impersonation.ts`) ;
+  - **app-admin** (groupes de likes et partages, stockés par **id** dans les items) ;
+  - **app-press** (la « rédaction » d'un journal, par id) ;
+  - **app-messagerie**.
+
+  app-social, cockpit, MELMIL et LEAC ne les lisent pas ; `pleiade-platform` gère ses propres groupes Keycloak. ⇒ **Règle : ne jamais supprimer ni renommer un groupe, seulement le masquer.**
+- **Livré** (`8bb7084`, `2026-09-28.1`, ✅ **en ligne le 2026-09-28** : `main` = `prod`, `/api/sante` vérifié ; l'assistant reste à lancer sur le serveur par l'utilisateur) : champ `Group.archive` (masqué dans eho, toujours renvoyé par `/api/groups`), assistant « Ranger les groupes » (admin), archives repliées, pickers filtrés, drapeau transporté par les modèles, `PATCH /api/groups/[id]` restreint aux champs d'un groupe. Avis DESIGNER n°9.
+- **Vérifié en local** (base DE LATTRE fusionnée) : 235 → 6 visibles ; 235 groupes et 5 297 appartenances intacts ; `/api/groups` renvoie 235 groupes (229 marqués archivés) ; un joueur reçoit 403 sur l'assistant ; 0 débordement au téléphone ; 108 tests.
+- ⚠ **Erreur corrigée en essayant** : l'exercice en cours était deviné au « groupe EXERCICE le plus récent ». Or la fusion recrée tous les groupes à la même date, et ce critère a désigné ORION 26. Désormais, on ne devine que par le nom de la zone, et le choix est obligatoire sinon.
+- ⚠ **Point de vigilance, préexistant** : **appliquer un modèle d'EHO recrée les groupes avec de NOUVEAUX identifiants** (`eho-templates.ts`, `tx.group.create`). Les liens par id d'app-admin et d'app-press ne survivent donc pas à l'application d'un modèle. Ranger, lui, ne change aucun id.
+
+## 2026-09-25 (suite 5) — MELMIL : les ETIM d'un incident, dans la planification
+
+- **Demande** : pouvoir choisir les ETIM liées à un incident (« ETIM 27 », « ETIM 9 » pour les régiments ou les brigades) à sa création, et voir leurs noms sur l'incident dans le tableau de planification.
+- **Constat préalable** : dans les JEMM fictifs de DE LATTRE 26, 36 incidents sur 46 citent une ETIM comme acteur, mais avec des libellés qui varient (« ETIM 27 », « ETIM 27 BIM ou 9 BIMa »). D'où **une liste par exercice** plutôt qu'une saisie libre.
+- **Livré en local** : `app-melmil` `5b4d76a` (branche `etim-incidents`), version `2026-09-25.1`. 178/178 tests, tsc, lint et build OK. Essai à l'écran au téléphone et sur ordinateur : 0 débordement, 0 erreur de page. Détail : MEMOIRE § MELMIL atelier.
+- ✅ **En ligne** sur demande : `main` et `prod` = `5b4d76a`, `melmil.delattre-26` `/api/sante` = `2026-09-25.1`.
+- ⏳ **Suite demandée** : dès les premiers exports JEMM réels de l'exercice, récupérer les ETIM pour les afficher sur la planche JEMM (voir MEMOIRE).
+
+## 2026-09-25 (suite 4) — eho : l'onglet Groupes montre les membres d'un groupe
+
+- Un clic sur un groupe ouvre une fenêtre : portrait, Prénom Nom, @compte, recherche, « Copier les @ », lien vers la fiche (avis DESIGNER n°6).
+- ⚠ **Sécurité** : `/api/groups/[id]/members` passe de `exigerLecture` à `exigerEcriture`. Les joueurs reçoivent 403. La clé de service d'`app-admin` fonctionne toujours. La liste est triée par nom, avec les portraits sur l'origine publique.
+- **Testé en local** sur `eho_delattre` (groupe de 396 membres : ouverture en 0,2 s, 0 débordement au téléphone). **En ligne** : `124679a`, `/api/sante` = `2026-09-25.4`, et un anonyme reçoit 401 sur la route.
+
+## 2026-09-25 (suite 3) — eho : fusionner SKOLKAN PERSONA dans la base DE LATTRE (≈ 3 750)
+
+- **Contexte** : Xavier a mis à jour le réseau social de DE LATTRE en important une base, ce qui a remplacé l'eho de la zone par ≈ 3 750 avatars. SKOLKAN PERSONA a disparu de la base. L'utilisateur garde les 3 750 et veut y ajouter SKOLKAN PERSONA 21.09.26. En cas de doublon, la fiche SKOLKAN est gardée, sans casser le lien avec le réseau social. Le résultat devient un nouveau modèle.
+- ⭐ **Le lien social ↔ eho** : `app-social` relie chaque compte par `identityId` = **id eho de l'avatar** (`provisionFromEho`), puis recopie les champs d'eho (username compris). L'export Excel d'eho n'a **pas** d'id. Un modèle bâti depuis le classeur aurait donc donné de nouveaux ids et coupé TOUS les comptes → la fusion se fait **dans eho**, sur la base en place.
+- **Réalisé** : `eho` `fda2a17`, `2026-09-25.3` — ✅ **en ligne le 2026-09-25 à 10:36** (vérifié sur `eho.exercice`). La fusion elle-même reste à lancer par l'utilisateur, depuis l'écran.
+  - Le bouton « **Fusionner dans la base…** » (Modèles d'EHO) montre un aperçu, puis demande la confirmation `FUSION-<code>`.
+  - **Doublon** : même @, sinon même email, sinon même nom normalisé (signalé à part).
+  - La fiche du modèle est **gardée avec l'id de la base**. Les groupes des deux fiches sont réunis, car ceux de la base portent les camps du social.
+  - La planche officielle est reprise et ses ids sont renommés. Une sauvegarde est prise dans la transaction, et le travail des joueurs est remis.
+  - Le résultat peut être enregistré comme modèle ; nom proposé : **SKOLKAN FULL PERSONA 25.09.26**.
+- ⚠⚠ **Défaut de fond trouvé en testant** : MariaDB plafonne une requête à **65 535 paramètres**. Avec 3 983 avatars × 26 colonnes (≈ 103 000), `createMany` ne partait jamais. La promesse restait pendante, la transaction SERIALIZABLE restait **ouverte avec ses verrous** et le drapeau « application en cours » restait levé jusqu'au redémarrage. Sur le serveur, cela aurait figé eho pour tous.
+  - ✅ Corrigé par des écritures **par lots** (1 000 avatars, 5 000 appartenances, 2 000 lectures). Le correctif vaut aussi pour « Appliquer » et « Restaurer ».
+- **Vérifié en local**, sur une base `eho_delattre` remplie par l'import du vrai export du serveur (`avatars-eho-2026-09-25.xlsx`, 3 750 avatars, 177 groupes) :
+
+  | Contrôle | Résultat |
+  |---|---|
+  | Total | 3 983 = 3 750 + 453 − 220 doublons (212 par @, 8 par email, 0 par nom) |
+  | Ids de la base | les **3 750 conservés** |
+  | @ changés | 8 (accents perdus côté social, ex. `LaVrit_de_lIntrieure` → `LaVerite_de_lInterieure`) |
+  | STARTEX | 62 |
+  | Planche officielle | 30 cartes, aucune orpheline, 56 liens |
+  | Modèle créé | 3 983 avatars · 235 groupes |
+  | Durée | 23 s |
+
+  Tests 95/95, `next build` OK.
+- **Vue joueur vérifiée** sur la base fusionnée (ordinateur et iPhone) :
+  - Mon EHO et EHO GT : 3 921 avatars à classer + 62 STARTEX, 2,5 à 3,3 s ;
+  - planche relationnelle OK ;
+  - aucune erreur JS, aucun débordement ;
+  - **0 donnée officielle** hors STARTEX ; trombinoscope et planche officielle refusés au joueur.
+- **Travail des joueurs conservé** à travers une fusion : deux rangements avec notes, dont un sur un doublon, sont intacts.
+- ⭐ **Fusion idempotente** : la relancer donne toujours 3 983 avatars (453 doublons, 0 ajout). Un double clic ne fait pas de dégât.
+- ⚠ Observé : l'**import Excel** d'eho est lent, ≈ 5 lignes/s, soit ~12 min pour 3 750, car il traite ligne à ligne. Non traité.
+
+## 2026-09-25 (suite 2) — eho : les portraits ne s'affichaient pas sur le serveur
+
+- **Signalement** : pas de photos sur « Avatars » ni sur la « Planche officielle », seulement des initiales.
+- **Cause** : les avatars portent des adresses ABSOLUES vers le poste de préparation, `http://localhost:3001/api/uploads/…`. C'est le cas des 118 portraits du modèle intégré, et de même pour un classeur exporté d'un poste local. Sur le serveur, le navigateur cherchait l'image sur **son propre ordinateur**. Les fichiers sont pourtant bien sur le serveur : `/api/uploads/<nom>` répond 200 sur `eho.exercice`.
+- **Correctif** (`eho` `2b7a563`, `2026-09-25.2` — ✅ **en ligne à 09:19**) : `lib/portraits.ts` introduit deux fonctions.
+  - `cheminPortrait` (écrans d'eho) : rend le chemin relatif `/api/uploads/<nom>`, quel que soit l'hôte écrit.
+  - `portraitPourOrigine` (`/api/users`, consommé par mastorion) : rend l'adresse complète sur l'origine publique de l'instance.
+  - L'import et l'export Excel et l'application d'un modèle écrivent désormais une adresse portable.
+- **Vérifié** : en local, avec des adresses réécrites vers un autre hôte, les portraits s'affichent (Avatars 10/10, planche officielle 32/32, EHO joueurs 16/18, dont 2 hors écran en chargement paresseux) et `/api/users` rend l'origine de l'instance. Tests 86/86, `next build` OK.
+- ⭐ **Leçon** : une adresse de fichier servi par l'app ne doit **jamais** dépendre de l'hôte où elle a été écrite. On stocke le chemin, et l'on compose l'adresse complète à la sortie seulement.
+
+## 2026-09-25 (suite) — eho : écran Avatars en rails (avis DESIGNER n°5), en local
+
+- Branche `avatars-rail` (`a3bf90a`, `2026-09-25.1`) — ✅ **en ligne le 2026-09-25 à 08:59** (poussée sur `main` et `prod`, avance rapide).
+- `GET /api/avatars/planche?section=…` rend désormais les cartes d'un bloc **complètes** : toute la ligne `User` moins `rawPassword`, plus `groups`, `aBio` et `complet`. C'est toujours réservé à l'animation (`exigerEcriture`). La recherche reste légère.
+- Écran :
+  - rail borné qui défile ;
+  - préchargement de la tranche suivante ;
+  - « Revenir au début » ;
+  - fiche instantanée ;
+  - correctif de la fiche bloquée sur « Chargement… ».
+- Vérifié : tests 80/80, lint et `next build` OK. Le serveur de dev tourne de nouveau sur `eho_charge` (:3001).
+
+## 2026-09-25 — MELMIL v2, eho v2 et LEAC profils : EN LIGNE
+
+- L'utilisateur avait poussé depuis GitHub Desktop, mais seulement **`main`** (MELMIL, eho) et la branche **`profils`** (LEAC). **Aucune `prod`** n'avait bougé, et rien n'était donc déployé. Dans GitHub Desktop, il ne voyait « rien à pousser » sur `prod`.
+- ⭐ **Leçon** : pour lui, « pousser » ne suffit pas. Il faut **fusionner `main` dans `prod`** (et, pour LEAC, `profils` dans `main`). Contrôler chaque fois `origin/prod` et `/api/sante`, jamais le seul `main`.
+- En mode « Edit automatically », j'ai poussé moi-même, en avance rapide contrôlée (`merge-base --is-ancestor`) :
+
+  | Dépôt | Poussé | Commits |
+  |---|---|---|
+  | app-melmil | `main → prod` | `4ef018b..03e3363` |
+  | eho | `main → prod` | `aa791a4..f67be82` |
+  | app-leac | `profils → main` et `prod` | `f13d167..2b8d539` |
+
+- ✅ **Vérifié sur le serveur** à 08:08 :
+  - MELMIL `2026-09-24.5` ;
+  - eho `2026-09-24.2` ;
+  - LEAC `2026-09-25.1`, base remise à niveau et administrateurs conservés (`amorce: true`) ;
+  - `/api/avatars/planche` d'eho → 401 pour un anonyme.
+- Copies locales remises sur `main` à jour dans les trois dépôts.
+
+## 2026-09-24 (suite 9) — eho : charge à 3 500 avatars + refonte DESIGNER, en local
+
+- **Demande** : appliquer l'avis n°4 en local et faire charger les avatars par groupe. Dans DE LATTRE, avec ≈ 3 500 avatars, la plupart des pages buguaient.
+- **Branche locale `refonte-v2`** d'eho (partie de `main` `aa791a4`), version `2026-09-24.2`, trois commits :
+  - `7263464` : la charge ;
+  - `f3bece5` : les recommandations R1 à R11 ;
+  - `f67be82` : la garde de `/api/avatars/planche`, réservée à l'animation.
+  - ⏸ **Rien n'est poussé.**
+- **Banc local** : base **`eho_charge`**, copie de `eho` enrichie de 3 050 avatars `charge_XXXX`, sur le même conteneur `eho-eho-db-1`. Le serveur de dev sur **:3001 tourne sur cette copie** (`DATABASE_URL=…/eho_charge`). La base `eho` habituelle n'est pas touchée. Pour revenir à la normale : relancer `npm run dev -- -p 3001` sans la variable.
+- **Mesures** (CPU ×4, réseau type VPN) :
+
+  | Écran | Avant | Après |
+  |---|---|---|
+  | Trombinoscope | 9,1 s · 8,4 Mo · saisie 3,4 s | 2,2 s · 44 Ko · saisie 0,37 s |
+  | Mon EHO | gel 2,0 s | gel 0,2 s |
+  | Planche relationnelle | tâches longues 291 ms par frappe | 50 ms |
+
+- **Sécurité vérifiée** :
+  - aucune donnée officielle ne part vers un joueur, ni dans la liste, ni dans la nouvelle fiche ;
+  - `/api/avatars/planche` renvoie 403 à un joueur et 401 à un anonyme.
+- **Non fait** : le test d'intégration `test-modeles-integration.mjs`, qui applique des modèles et aurait écrasé le banc. Le `next build` non plus, pour ne pas perturber le serveur de dev. **À faire avant la mise en production.**
+
+## 2026-09-24 (suite 8) — eho : avis DESIGNER n°4 (propositions, aucun code)
+
+- Analyse d'eho (`aa791a4`) demandée par l'utilisateur, **sans modification du dépôt**. Avis : `DESIGNER\AVIS\2026-09-24_EHO\AVIS.md`.
+- ⚠ **Défaut à signaler en priorité** : sur un poste en **mode sombre**, eho devient illisible (texte blanc sur cartes blanches). La cause est dans `src/app/globals.css`, où le bloc `prefers-color-scheme: dark` ne redéfinit que `--background` et `--foreground`. Correctif de quelques minutes, pas encore fait.
+- 🟡 **MELMIL v2** : `main` local de `app-melmil` = `03e3363`, en avance d'un commit ; l'utilisateur le pousse lui-même depuis le travail (main + prod).
+
+## 2026-09-24 (suite 7) — MELMIL v2 : refonte responsive en local (non poussée)
+
+- **app-melmil**, branche locale `refonte-v2` (`03e3363`, version `2026-09-24.5`), partie de `prod` `4ef018b`. Avis DESIGNER n°3 appliqué : système visuel v2, bandeau à espace toujours visible, menu « Plus ▾ », **vue Liste par jour** (nouveau composant `src/components/planche-liste.tsx`, style `liste` ajouté à `style-planche.tsx`, par défaut < 768 px), onglets et incidents adaptés au téléphone, fiches plein écran, menus en feuille basse.
+- **Données** : aucune modification du modèle ni de l'API — affichage seul. Le choix Liste / Clair / Classique reste par poste (`localStorage`).
+- **Vérifié** : `tsc`, eslint, 166/166 tests, 0 débordement sur 6 appareils. ⏸ **Pas de push** avant validation par l'utilisateur sur http://localhost:3800.
+
+## 2026-09-24 (suite 6) — eho : amélioration des liens en ligne · LEAC : refonte locale
+
+- **eho** : l'utilisateur a demandé de pousser l'amélioration en attendant son diagnostic. `aa791a4` (version `2026-09-24.1`) a été poussé sur `main` et `prod` par moi. **En ligne sur `eho.exercice` à 15:39.**
+- **LEAC** : avis DESIGNER n°2 appliqué, validé, puis ✅ **en production** à 15:56 (`6701831`, `2026-09-24.1`). Aucune donnée perdue : l'affichage seul est touché. Détail dans `LEAC\JOURNAL.md` et `LEAC\MEMOIRE.md` §7.
+
+## 2026-09-24 (suite 5) — eho : liens invisibles sur la planche relationnelle (signalement, non reproduit)
+
+- **Symptôme** : pendant une démonstration en vue joueur et en vue admin, les cartes étaient bien placées, mais **aucun trait de lien** n'apparaissait.
+- **Non reproduit en local**, avec la même version que le serveur (`eho.exercice` → `2026-09-22.1`, `prod` = `main` = `ee15253`). Les liens s'affichent :
+  - en **dev** comme en **build de production** (essai dans un worktree, `next start` sur 3001) ;
+  - dans la vue joueur `/graphe`, dans l'admin qui observe `joueur_test` (6/6 liens) et sur la planche officielle (56/56).
+  - ⇒ Ni le code ni la construction : **les données du serveur ou les conditions d'affichage** sont en cause.
+- **Pistes écartées** :
+  - `.lecture-seule .accroche { display:none }` : les liens restent dessinés, parce que React Flow est en `ConnectionMode.Loose` ;
+  - l'hypothèse du trait trop fin au zoom 0,23 : Chrome dessine déjà un trait d'environ 1 px (écart de pixels mesuré : 1 960 contre 2 019).
+- **Fait quand même** (commit `1037433`, ✅ **poussé et en ligne le 2026-09-24 à 15:39**, version `2026-09-24.1`) : `vector-effect="non-scaling-stroke"` et 2 px au repos. Le trait et la zone de préhension gardent leur taille à l'écran, quel que soit le zoom. C'est une amélioration, **pas le correctif démontré**.
+- **Informations demandées à l'utilisateur** : quelle planche, sur quelle instance ; les traits reviennent-ils en zoomant ; quel navigateur ; y a-t-il des erreurs dans la console F12. Piste restante : des identifiants d'accroche (`depuis`/`vers`) incompatibles avec le type du nœud, auquel cas React Flow abandonne le lien (erreur 008).
+
+## 2026-09-24 (suite 4) — MELMIL : « Planification » et étape « Exercice en cours »
+
+- **Demande de l'utilisateur** : « Création d'exercice » décrivait mal l'outil. On s'en sert pour planifier la MELMIL **avant ET pendant** l'exercice, jusqu'à la fin, pour créer et modifier des incidents. Il fallait aussi retirer « brouillon de la cellule » : ce n'est pas un brouillon, c'est l'outil de **conception de la partie ILI**. Enfin, le mot « Préparation » doit devenir « en cours » une fois l'exercice lancé.
+- **Fait** (commit `4ef018b`, version `2026-09-24.4`) ✅ **poussé et en ligne sur `melmil.delattre-26` à 15:15** :
+  - le bouton du bandeau devient **« Planification »** ;
+  - une **4ᵉ étape « Exercice »** s'ajoute après le GT3 (`NumeroGt` 1 à 4, relue par `normaliserAtelier`) ;
+  - l'étiquette passe de **« Préparation »** à **« Exercice en cours »**, avec un point, dès l'étape 4 ;
+  - à l'étape 4, on arrive sur l'onglet Incidents ;
+  - le menu devient « Changer d'étape » (Passer / Revenir, Déclarer l'exercice en cours) ;
+  - le journal écrit « déclare l'exercice en cours ».
+  - 166 tests passent.
+
+## 2026-09-24 (suite 3) — MELMIL : refonte visuelle (avis DESIGNER n°1), en local
+
+- Avis du nouvel agent **DESIGNER** sur MELMIL (`DESIGNER\AVIS\2026-09-24_MELMIL\AVIS.md`). L'utilisateur a demandé d'appliquer les 8 recommandations en localhost pour les voir.
+- **Branche `refonte-design`** d'app-melmil, commit `aeaa796`. ✅ **Validée par l'utilisateur** (« j'aime beaucoup les modifs »), fusionnée par avance rapide et **poussée sur `main` et `prod`** (`ea43edc`, version `2026-09-24.3`). **En ligne sur `melmil.delattre-26` à 15:04.** (Cette fois, mon push est passé.)
+- **Contenu** : sélecteur d'espace et bande de couleur (préparation ambre, JEMM bleu) ; en-tête d'une ligne ; onglets groupés et navigables au clavier ; échelle de texte ; planche « Clair » (par défaut) ou « Classique » au choix, mémorisé par poste ; incidents en tableau avec fiche en panneau latéral ; focus conforme WAI-ARIA. La palette des storylines ne contient plus de rouge (Bordeaux → Cuivre, Rouge → Olive), et les couleurs choisies dans les réglages restent prioritaires.
+- ⚠ Un sélecteur d'e2e a changé : les onglets sont désormais `role="tab"` dans un `role="tablist"` (avec la même `aria-label`), et les incidents sont des `tr` de `table.table-incidents`, plus des `details.carte-ui`.
+
+## 2026-09-24 (suite 2) — Pushes de l'utilisateur (GitHub Desktop)
+
+- ✅ **pleiade-platform `2ffa941`** (œil « Masquée aux joueurs » réservé à la Presse) : en ligne à 13:46 (`/api/version` commit `2ffa941`). ⭐ L'orchestrateur répond sur `https://pleiade.pleiade.internal/api/version` (aussi `orchestrateur.`, `admin.`…).
+- ✅ **app-press `aeda6d5`** poussé sur `main` + `prod` (item_fields, chapô, eho). Déploiement **non vérifiable de l'extérieur** (press n'expose pas sa version en public).
+- ⏳ En attente de Xavier (403) : **app-admin** (2 commits, **rebasés le 24/09 sur son `84009f4`** « type social publiable », patchs régénérés dans `PATCHS\2026-09-24_admin-champs-maquette\`), **app-cockpit** et **app-messagerie** (déconnexion, `PATCHS\2026-09-21_deconnexion\`).
+
+## 2026-09-24 (suite) — MELMIL : comptes rendus PSYREP / CIMICREP
+
+- Demande : les deux modèles de `DELATTRE 26\00_Boites à outils` dans l'atelier, à l'identique, complétables, exportables à l'identique ; accès en bas de chaque incident (GT3), cumulables ; + (message en cours de route) **import** d'un modèle rempli dans Word. Marquages : aucun sur les modèles (le CIMICREP a une case « Classification » à remplir).
+- Livré : `app-melmil` `6f77eb6` (`2026-09-24.2`) — détail dans MEMOIRE (§ atelier). ✅ **Poussé par l'utilisateur via GitHub Desktop** (mon push bloqué en mode auto) → **en ligne sur `melmil.delattre-26` à 13:14** ; les deux modèles `.docx` y sont servis (200). ⭐ Nouvelle façon de faire retenue : je prépare les branches, l'utilisateur pousse dans GitHub Desktop, je vérifie `/api/sante`.
+- Piège évité : « Location CP » du CIMICREP est dans un **tableau imbriqué** dans la cellule → le générateur lit `tc.iter(p)` et non les seuls enfants directs.
+
+## 2026-09-24 — MELMIL atelier : versement JEMM expliqué + grille EXCON cliquable
+
+- L'utilisateur trouvait « Création d'exercice » vide : la fonction existait (Réglages ▸ calendrier ▸ « Verser un export JEMM »), elle était simplement cachée derrière le calendrier. Marche à suivre donnée. L'atelier vide s'affichait sans l'alerte « pas de base de données » → **la base de `melmil.delattre-26` existe**, pas de recréation à faire.
+- Demande : le tableau « EXCON COORDINATION REQUIRED » du PPT, cliquable dans les storylines (blanc → jaune → vert → blanc). Livré en local, commit `d55688d` (`2026-09-24.1`) ; détail dans MEMOIRE. Couleurs relevées dans le PPT (python-pptx) : jaune `FFFF00`, vert `92D050`. **Non poussé : en attente de l'accord de l'utilisateur.** Accord donné ; mon `git push` a été **bloqué par le classificateur de permissions** → commande laissée à l'utilisateur. Ensuite `origin/main` contenait `d55688d`, mais **`origin/prod` restait sur `cc6d5b2`** (donc pas encore déployé).
+- **Point des 12 dépôts (fetch)** : **rien à tirer**, tous les `main` locaux contiennent déjà les travaux de Xavier (derniers en date : press 20/09, trois thèmes Le Monde/Figaro/20 Minutes ; social 19/09 ; messagerie 17/09). En attente de push : 1 commit « Se déconnecter ferme aussi la session Keycloak » sur **admin, cockpit, messagerie, press** (403, patchs `PATCHS\2026-09-21_deconnexion`) + la branche `maquettes-existantes` d'app-press (patchs `2026-09-23_…`, elle contient bien le `main` de Xavier). ⚠ **app-messagerie : `origin/prod` a un commit de Xavier (`18b6648`, « brider au nom de au camp du joueur ») absent de `origin/main`** — à lui de le reporter sur main. Branches locales `atelier-preparation`, `catalogue-melmil`, `libelle-masquee-aux-joueurs` : déjà fusionnées. `app-press\CLAUDE.md` modifié = bloc réécrit par `next dev`, sans importance.
+- **Push app-press FAIT** (Xavier a ouvert les droits) : `main` e8e22ee..99b649f (déconnexion Keycloak) + nouvelle branche distante **`maquettes-existantes`** (pas sur prod → pas en ligne, à fusionner). Passé une fois hors mode auto ; le push suivant (`app-melmil main:prod`) a de nouveau été refusé dès le retour du mode auto → **grille EXCON toujours pas en ligne**.
+- ✅ **Mode « Edit automatically » (hors auto) → push passés** : `app-melmil main:prod` (cc6d5b2..d55688d) → **`melmil.delattre-26` sert `2026-09-24.1` depuis 08:44** ; **`app-press` `maquettes-existantes` → `main` ET `prod`** (avance rapide, 5c43ffe) sur demande « tout à jour et sur le serveur » → les 10 maquettes partent en production. ⚠ press n'expose pas sa version (`/api/sante` = `{ok, app}` seulement) : vérification à faire dans une instance press (Réglages ▸ Maquette ▸ onglet « Maquettes existantes »). **Prévenir Xavier** : son `main` d'app-press contient désormais nos 3 commits.
+- Orchestrateur : le bouton œil « Masquée aux joueurs » **n'apparaît plus que sur les instances `presse`** (demande utilisateur : les autres ne se cachent jamais). Exception : une instance d'une autre app déjà masquée garde le bouton, pour pouvoir la réafficher. Commit `2ffa941` sur `pleiade-platform`, **local, en attente de push**.
+- **Vérif admin → press sur les 10 maquettes** (press local + clé de service d'essai + eho simulé, requêtes = exactement celles de `app-admin/src/lib/mastorion.ts publish`) : pour chaque habillage, article texte brut, article avec photo (multipart) et réaction de lecteur → **201, accueil et page 200, habillage `sk-<clé>` appliqué, corps en paragraphes, réaction affichée, photo servie**. 10/10. Données d'essai supprimées, site remis sur `tv4`.
+  - ⚠ Limites du contrat admin : l'admin n'envoie que `title`, `content`, `category`, `functional_id`, média → **pas de chapô, pas de champs de maquette** (lieu TV4/BC1…, « L'essentiel » TF1, référence/signataire ONU, émission ZubrRadio, bouton EFS : tous retombent sur leur valeur par défaut), **ni urgent/à la une/direct** (le fil en direct n'est pas alimentable depuis l'admin).
+  - 🐛 `autoStandfirst`/`plainText` (lib/sanitize.ts) collent les paragraphes (« jour.Les Etats ») et, sur un article court, le chapô **répète tout le corps**. Visible sur chaque article publié par l'admin. Correctif simple proposé, non appliqué.
+  - ⚠ press rend une **500** si eho est injoignable (`fetch` non rattrapé dans `lib/eho.ts`) : une publication de scénario échoue au lieu de signer « Rédaction ».
+- ✅ **Corrigé + champs de maquette dans l'admin** (demande utilisateur) :
+  - **press `aeda6d5`** (local, à pousser) : `plainText` espace les blocs ; chapô par défaut vide sous 220 car. ; eho injoignable → `null` ; `/api/service/health` annonce **`item_fields`** (chapô, urgent, à la une + champs de la maquette active, groupés) ; `/api/service/publish` accepte **`fields`** (standfirst/urgent/pinned, le reste → `skinFields`).
+  - **admin `69728f5`** (local, **403 → patch** `PATCHS\2026-09-24_admin-champs-maquette\`, avec 0001 déconnexion) : `DescribedApp.itemFields`, colonne `scenario_items.fields` (JSON, db push additif), formulaire dynamique sous la rubrique, envoi `fields` au publish. Aucune maquette connue côté admin (contrat générique, style `needs_title`).
+  - Essai bout en bout local (admin 3400 + press 3500 + eho simulé 3599) : formulaire ONU → item → publication → page ONU avec référence, signataire, fonction ; chapô non dupliqué ; TF1 `fields` → chapô, urgent, `skinFields`. Données d'essai et base `admin_essai` supprimées.
+
+## 2026-09-23 (suite 9) — MELMIL : l'atelier de préparation (création d'exercice GT1 → GT3)
+
+- Concept validé avec l'utilisateur (deux planches jamais mélangées ; GT = étapes ; tout le monde modifie, trace visible ; écarts plutôt qu'export ; annuaire d'équipe).
+- Développé sur `app-melmil` branche `atelier-preparation`, commit `cc6d5b2`, version `2026-09-23.3` : modèle pur + gestes + planche dérivée + écarts + versement JEMM ; table `atelier` + migration additive ; `/api/atelier` ; canal SSE par document ; écran `/preparation` et bascule dans le bandeau.
+- Vérifié : 139 tests, essai deux navigateurs 16/16, montée de base simulée, image de production lancée (healthy, 401 sans session).
+- En route : un ancien `next dev` d'`app-melmil` (session précédente, sans base) occupait le port 3800 → arrêté ; piège CRLF de l'essai d'image local noté en MEMOIRE.
+- ✅ **Déployé** avec l'accord explicite de l'utilisateur : `main` et `prod` d'`app-melmil` avancés en avance rapide `aa141a6..cc6d5b2`. `melmil.delattre-26` sert `2026-09-23.3` à 17:41 (≈ 2 min, dont 40 s de Bad Gateway/404 pendant le redémarrage) ; `/api/atelier` = 401 sans session, `/preparation` → `/connexion`.
+- ⚠ L'utilisateur indique que l'instance `melmil.delattre-26` **n'a pas été recréée** depuis le constat « sans base » du 23/09 : si l'écran affiche « Cette instance n'a pas de base de données », la supprimer/recréer dans Pléiade reste nécessaire (puis recocher les groupes d'animation sur le bouclier).
+
+## 2026-09-23 (suite 8) — Orchestrateur : « Masquée aux joueurs » en production
+
+- Demande utilisateur : garder la case de visibilité du portail mais la nommer clairement. Comportement vérifié dans le code avant de renommer (seul `getPortalData` filtre ; tableau de bord et découverte voient tout ; adresse joignable ; portail identique pour tous → masque aussi aux animateurs qui passent par lui).
+- `public/app.js` : étiquette « Masquée aux joueurs » sur la ligne, infobulle et message réécrits. Commit `839d389`, intégré à `main` en avance rapide et **poussé avec l'accord explicite de l'utilisateur** (déploiement immédiat de l'orchestrateur).
+- ✅ Vérifié sur le serveur par la marque de version : `https://pleiade.cecpc.internal/api/version` → `commit 839d389`, construit à 14:03:23Z.
+- 💡 Pour vérifier un déploiement de l'orchestrateur : `/api/version` est public ; `/app.js` est derrière la connexion (302).
+
+## 2026-09-23 (suite 7) — Mise sur serveur des maquettes : bloquée, livraison préparée
+
+- L'utilisateur autorise la mise sur le serveur. Deux blocages constatés : `git push` sur `app-press` renvoie toujours **403**, et l'accès SSH au serveur de production est **refusé par la protection de l'environnement Claude** (lecture de production), que je n'ai pas contournée.
+- Livraison préparée pour Xavier : `PLEIADE\PATCHS\2026-09-23_maquettes-existantes\` (3 patchs, paquet git, README).
+- Voie isolée repérée dans le code (`promoteVersion(version, { zones, appType })`) : publier l'image sous une étiquette dédiée (pas `latest`) et ne la promouvoir que sur une zone de test, sans toucher aux instances `presse` des zones de production.
+
+## 2026-09-23 (suite 6) — `app-press` : onglets de maquettes + vagues 2 et 3 (les 10 sites)
+
+- Demande utilisateur : deux onglets dans « Maquette du site » (génériques / existantes), un seul visible à la fois — fait.
+- Habillages ajoutés : Hexagone, TF1 Info, Omerta Média, Nations Unies, OTAN, ZubrRadio.FM, EFS. Commit `5c43ffe` (local, non poussé).
+- Vérifié : captures des 7 nouveaux sites (articles avec photo de démonstration et champs de maquette renseignés), 40 pages (une, rubrique, recherche, direct × 10) en 200 sans erreur navigateur, onglets des réglages, `tsc` OK, 5 tests OK.
+- Corrigé en route : collision `.wrap` EFS / mention d'exercice ; `h2` EFS qui touchait le titre des réactions.
+- Détail : MEMOIRE § « Chantier — Templates MASTAURIGE ».
+
+## 2026-09-23 (suite 5) — `app-press` : vague 1 des maquettes existantes réalisée (local)
+
+- Branche locale `maquettes-existantes`, commit `1a40aa1` (non poussé) : habillages **TV4**, **Today Mercure**, **Bothnia Channel 1** — une, article, rubrique, direct, recherche, page fixe ; réglages (groupe « Maquettes existantes », charte verrouillée, « Retoucher les couleurs », reprise d'identité, aperçu réel en miniature) ; champ « Lieu de la dépêche » (TV4, BC1).
+- Vérifié : captures Chrome des 3 chartes comparées au template d'origine (logo TV4 identique) ; parcours Playwright réglages → Retoucher → éditeur ; lieu affiché sur le site ; `tsc` OK, 5 tests OK ; site générique inchangé.
+- Constat : sauvegarde d'article impossible en local sans eho (contrôle de signature par camp, préexistant).
+- Détail et architecture : MEMOIRE § « Chantier — Templates MASTAURIGE ».
+
+## 2026-09-23 (suite 4) — `app-press` : templates MASTAURIGE en « maquettes existantes » — cadrage
+
+- Lu `app-wordpress` (WordPress officiel + OIDC, hors contrat de zone) et `app-webserver` (fichiers statiques publics + explorateur `/_admin`) pour situer `press` ; rôles des deux apps corrigés dans MEMOIRE.
+- Analysé les 10 `_TEMPLATE.html` de `Sites\` 7BB et le système de maquettes d'`app-press` (`theme.ts`, `(site)/layout.tsx`, `SiteHeader`, modèles `Site`/`Article`).
+- ⚠ `git push --dry-run` sur `app-press` → **403** (confirmé) ; commit local `99b649f` toujours non remonté.
+- Décisions utilisateur consignées dans MEMOIRE § « Chantier — Templates MASTAURIGE » : habillages fidèles par vagues, 10 sites dont EFS, branche locale seulement, charte verrouillée + « Retoucher ». Rien codé.
+
+## 2026-09-23 (suite 3) — Portail de zone : cartes regroupées, pastille « nouveau », case de visibilité
+
+**Point de départ** : l'utilisateur, en découvrant le fonctionnement de la presse (1 instance = 1 titre), objecte que **vingt titres feraient vingt cartes** sur `delattre-26.pleiade.internal`, à côté du social et de MELMIL. Il imaginait d'abord un **kiosque** : une seule instance presse gérant tous les titres.
+
+### Ce que j'ai conseillé, et pourquoi (discussion sans code, à sa demande)
+- **Ne pas fusionner les instances de presse.** Le kiosque perdrait les **adresses propres** de chaque titre (crédibilité d'un média fictif pour l'influence), mettrait **vingt titres dans un seul conteneur** (une panne = toute la presse), et exigerait de refondre la presse — **dépôt de Xavier, sans droits d'écriture**. Surtout, les droits par titre y deviendraient un problème : un rôle du bouclier vaut pour l'instance entière.
+- **Regrouper dans le portail à la place** : petit, dans la plateforme (où j'écris), et utile à **tous** les types d'apps.
+- Sur sa question « peut-on demander de se connecter sur le portail, avec un bouton *invité* ? » : **déconseillé**. (1) Le SSO de royaume existe déjà : connecté à une app, on ne retape pas son mot de passe dans la suivante — **à mesurer avant de construire** ; (2) un « invité » sur le portail serait **décoratif** : c'est chaque app qui décide ce qu'un anonyme peut faire, et la presse le fait déjà ; (3) une connexion devant le kiosque **coûte du réalisme** (un vrai site ne demande pas de s'identifier pour lire) et crée une panne nouvelle ; (4) coût réel : l'orchestrateur n'authentifie que les **opérateurs**, contre un client unique — authentifier les **joueurs de zone** est un chemin d'authentification **par zone** à construire. **Chantier séparé, décidé séparément** ; l'utilisateur a accepté.
+- ⭐ **Trois niveaux d'identité dans la presse**, clarifiés pour lui : le **lecteur** (aucun compte) · le **rédacteur** (session Keycloak + rôle du client du titre) · la **signature** (un **avatar eho**, parmi les groupes cochés par le directeur, et parmi ceux qu'eho autorise **selon le camp** — fermé si eho ne répond pas).
+
+### Fait — `pleiade-platform` `4b1ddea`, poussé sur `main` (déploie)
+1. **Regroupement** : les instances d'un même type se replient en **une carte** (compte affiché) qui ouvre **`/<type>`**, page de choix listant chaque instance avec **le site** et, si le catalogue déclare un `adminPath`, **son espace d'administration** (la presse déclare `/redaction`). Un type à une seule instance garde sa carte directe.
+2. **Pastille « nouveau »** : la page de choix lit, par le **contrat de service que le storybook utilise déjà** (`health` → `supports: retex`, puis `retex?depuis=`), la **dernière parution** de chaque instance — le retex ne rend **que le publié**, à la date de **parution**. Le navigateur retient ce qu'il a vu et allume la pastille quand c'est plus récent ; la carte groupée de l'accueil s'allume si **un** de ses membres est neuf. ⚠ **Par appareil** (les lecteurs n'ont pas de compte). Les **commentaires n'allument rien**. Fenêtre 30 j, cache 60 s, délai 4 s, échec silencieux : une app éteinte ne retarde ni ne casse le portail.
+3. **Case « visible sur le portail »** par instance (`portail_visible`, œil / œil barré dans l'interface opérateur, `PATCH /api/zones/:z/instances/:id/portail`). ⚠ **Pas une protection** — le portail est public et l'adresse se devine ; le rôle protège. L'infobulle le dit. La **découverte entre apps** continue de tout voir.
+- Le rendu sort d'`index.ts` pour vivre dans **`src/portail.ts` (pur)** et `src/portail-fraicheur.ts` (les appels) : **10 tests Node** (regroupement sans perte, ordre, **échappement d'un libellé hostile**, liens, règle du neuf, commentaires ignorés). Les deux pages **rendues et éprouvées dans un navigateur, 15/15** : carte groupée et compte, pastille qui **s'éteint à l'ouverture** et **reste allumée** pour un autre titre, **autre appareil** qui revoit tout neuf.
+- ⚠ Relevé en passant : sur l'hôte d'une zone, **seul le middleware placé avant le garde de session est public** (`portailDeZone` n'exempte que `/img` et `/icones`). La page de choix devait donc vivre dans ce même middleware, sinon elle aurait renvoyé vers la connexion.
+- 🐛 Attrapé par la relecture d'un test, pas par le produit : j'assertais `!html.includes("lien-admin")` alors que la **feuille de style embarquée** contient toujours cette chaîne — le test aurait passé à côté du défaut. Corrigé sur le balisage.
+
+## 2026-09-23 (suite 2) — MELMIL v1 : la planche devient PARTAGÉE et vivante
+
+**Demande utilisateur**, après avoir vérifié avec moi que la v0 ne partageait rien : *« je veux que melmil soit interactif avec tous les utilisateurs qui y ont accès… que lorsque quelqu'un apporte une modification la modification s'effectue en live sur les autres ordis »*, **« en respectant la documentation de Pléiade »**.
+
+⚠ **Lecture de la demande, à confirmer** : « tous les joueurs » est compris comme **tous les utilisateurs AYANT ACCÈS**, c'est-à-dire les groupes cochés sur le bouclier. L'interdit du matin **tient** : un entraîné n'entre pas dans MELMIL.
+
+### Ce que « respecter la documentation Pléiade » a voulu dire concrètement
+Rien n'a été inventé — chaque pièce copie un modèle existant :
+| Besoin | Modèle suivi |
+|---|---|
+| Base de l'instance | `requires: mariadb` + `DATABASE_URL`, **comme `leac` et `eho`** |
+| Client Prisma | `src/lib/serveur/prisma.ts`, **copie de celui de LEAC** (pool sur `globalThis`, message clair si l'URL manque) |
+| Temps réel | **SSE**, `GET /api/flux` + bus en mémoire — **exactement le montage d'`app-messagerie`** (`api/flux/route.ts`, `lib/bus.ts`, `useFlux.ts`) : `retry`, battement de cœur, `X-Accel-Buffering: no`, reconnexion à attente croissante |
+
+### Les trois décisions qui portent la v1
+1. **Une instance = UNE planche** (`Planche.id = 1`). L'instance est déployée pour un exercice : rien à choisir, rien à nommer, et un seul objet à suivre.
+2. ⭐⭐ **La concurrence se tient par un NUMÉRO DE VERSION, pas par un verrou.** Toute écriture dit sur quelle version elle s'appuie ; le serveur n'accepte que si c'est encore la courante (`updateMany where version = …`, donc **atomique en base**). Sinon **409 + l'état frais**, et l'écran **rejoue son geste dessus**.
+   ⚠ **C'est pour cela que `modifier` prend une FONCTION et non un état.** Envoyer un état calculé d'avance aurait effacé le travail de l'autre **sans que personne ne le voie** — la perte silencieuse que ce projet refuse partout. L'import JEMM a dû être réécrit pour fusionner **dans** la transformation, pour la même raison.
+3. ⭐ **Le flux ne transporte JAMAIS la planche**, seulement son numéro de version. Un écran en retard **relit**. Événement perdu, reconnexion, redémarrage : on retombe juste, parce que la vérité est en base.
+
+### ⚠ Un point où je m'écarte de LEAC, délibérément
+LEAC démarre sur `prisma db push --accept-data-loss`, et son propre commentaire dit pourquoi c'est acceptable : *« chaque tablette garde son journal complet, la base du serveur est un point de rassemblement, pas la mémoire du contrôle »*. **MELMIL est l'inverse** — la base est la **seule** mémoire de la planche. MELMIL utilise donc des **migrations versionnées** (`prisma/migrations/`, `migrate deploy`).
+⚠ Conséquence technique : `migrate deploy` **n'accepte pas `--url`** (contrairement à `db push`) et exige un fichier de configuration. D'où un **`prisma.config.mjs`** — en JavaScript, l'image n'embarquant ni TypeScript ni `dotenv` ; LEAC, lui, supprime sa configuration TypeScript de l'image.
+
+### Vérifié — le seul contrôle qui prouve un partage : DEUX navigateurs
+`e2e_melmil_partage.cjs`, **9/9**, deux contextes indépendants (donc deux `localStorage` distincts), base MariaDB réelle :
+- les deux écrans sont **« en direct »** ;
+- A importe un export JEMM → ⭐ **B voit les cartes sans rien faire** ;
+- B renomme l'exercice → ⭐ **A le voit en direct** ;
+- **écritures simultanées** (A clique une carte pendant que B renomme) → les deux convergent, **et aucune carte ne disparaît** ;
+- la planche **survit au rechargement** (elle est en base) ;
+- **un troisième navigateur, jamais venu, la trouve déjà remplie**.
+96 tests unitaires (dont 9 nouveaux sur la relecture d'un état enregistré, désormais partagée entre serveur et navigateur), lint et `tsc` propres.
+
+### Ce que l'écran dit maintenant
+Un **voyant permanent** : *en direct* · *enregistrement…* · *hors direct* (le flux est coupé, la planche est relue toutes les 10 s, **les modifications partent quand même**). ⚠ « Vider » et « Restaurer » préviennent désormais que cela vaut **pour tout le monde**.
+
+### L'IMAGE éprouvée, pas seulement le code
+⭐ Leçon appliquée ([[LESSON-035]] : *« un build applicatif qui passe ne prouve RIEN pour un déploiement conteneurisé »*) — l'image a été **construite et exécutée** sur une **base neuve** :
+- l'entrypoint applique la migration (`1 migration found` → `successfully applied`) ;
+- conteneur **`healthy`** ; `/api/sante` rend `2026-09-23.2` ;
+- ⭐ `/api/planche` et `/api/flux` rendent **401 sans session** — en `NODE_ENV=production` l'échappatoire de développement n'existe pas, et le cloisonnement tient **aussi sur les routes d'API**, pas seulement sur l'écran ;
+- table `planche` conforme (`longtext`, `version`, `majPar`).
+Conteneur et base d'essai **supprimés** après contrôle.
+
+⚠ Le client Prisma **généré** n'est pas versionné (`.gitignore`, comme LEAC) : le `Dockerfile` le régénère à la construction.
+
+### 🔴 Un défaut que la bascule aurait créé — réparé AVANT de pousser
+L'utilisateur signale qu'il a **déjà créé l'instance** sur `delattre-26`. Deux conséquences, vérifiées dans le code :
+
+1. ⚠⚠ **Cette instance n'a PAS de base.** `createInstance` provisionne la base **à la création**, d'après `tpl.requires` (`zone-manager.ts` ~911) ; elle a donc été créée quand le catalogue disait `requires: []`. **Aucun chemin de réparation n'existe** dans l'orchestrateur : ajouter `requires` au catalogue ne lui en donnera pas. ⇒ **Il faut la supprimer et la recréer.**
+2. 🔴 **La bascule aurait orpheliné la planche déjà faite dans le navigateur.** L'état v0 vit dans `localStorage` ; après la mise à jour, l'application lit le serveur — la planche locale **existe toujours**, mais **plus rien ne la montre et aucun bouton ne l'atteint**. C'est exactement la perte silencieuse que ce projet refuse partout, et je m'apprêtais à la créer.
+   ⇒ **`components/reprise-locale.tsx`** : l'écran **signale** la planche locale, **dit ce qu'elle contient** (events / storylines / incidents), et propose les trois seules issues — *publier pour tout le monde*, *télécharger d'abord*, *ne plus proposer*. ⚠ Proposé **uniquement quand la planche partagée est encore vide** : publier par-dessus le travail d'une équipe serait pire que le défaut réparé.
+   Vérifié en navigateur, **7/7** : signalement avec le compte exact, publication effective **sur le serveur**, bandeau qui disparaît, **un autre poste la voit**, et lui n'a **aucune** proposition puisque la planche n'est plus vide.
+
+### Poussé, et mesuré sur le serveur
+1. **`pleiade-platform` `main` `bca926f`** — catalogue avec `requires: mariadb`. ⚠ **En premier**, délibérément. ✅ `/api/version` rend `bca926f` **60 s** après.
+2. **`app-melmil` `prod` `aa141a6`** — version `2026-09-23.2`. ✅ **7 étapes sur 7**, promotion et tag compris. `melmil.delattre-26` rend `{"ok":true,"app":"melmil","version":"2026-09-23.2"}`.
+
+⚠⚠ **L'instance sert la nouvelle version, mais elle n'a toujours PAS de base.** Vérifié en lisant `promoteVersion` : elle ne fait que mettre à jour `image_version` et redéployer — **elle n'appelle jamais `createInstanceDb`**, qui n'existe que dans `createInstance`. Une promotion ne rattrape donc pas un `requires` ajouté après coup. ⇒ **la suppression/recréation reste obligatoire**, et l'application le dira franchement à la connexion (« cette instance n'a pas de base de données : la planche ne peut pas être partagée ») au lieu de rendre une page blanche.
+
+### ⏭️ Reste — geste d'OPÉRATEUR
+1. ⚠⚠ **SUPPRIMER puis RECRÉER l'instance melmil de `delattre-26`** — sans cela, pas de base, et MELMIL dira « cette instance n'a pas de base de données : la planche ne peut pas être partagée ».
+2. **Recocher les groupes d'animation** sur le bouclier de la nouvelle instance.
+3. Si une planche a été construite dans un navigateur, l'écran proposera de **la publier** à la première ouverture.
+- ⏳ Un rôle de **lecture seule** n'existe pas : qui entre peut modifier (`peutEcrire` est le point unique à changer).
+- ⏳ Une planche déjà faite dans un navigateur ne remonte pas toute seule : « Exporter l'état » puis « Restaurer » sur l'instance partagée.
+- ⏳ Un rôle de **lecture seule** n'existe pas : qui entre peut modifier (`peutEcrire` est le point unique à changer).
+- ⏳ Les planches déjà faites dans un navigateur ne remontent pas toutes seules : « Exporter l'état » puis « Restaurer » sur l'instance partagée.
+
+## 2026-09-23 (suite) — 🔴 « Failed to create client role "admin" : 500 » — une description de 295 caractères
+
+**Signalement utilisateur**, en créant l'instance melmil dans `delattre-26` :
+
+```
+Failed to create client role "admin": 500 {"error":"unknown_error",
+"error_description":"For more on this error consult the server log."
+```
+
+### Cause — mesurée, pas devinée
+`KEYCLOAK_ROLE.DESCRIPTION` est un **VARCHAR(255)**. La description que j'avais
+écrite pour le rôle de melmil faisait **295 caractères** : l'insertion échoue en
+base et Keycloak rend **500 `unknown_error`**, un message qui ne dit rien.
+Mesure des 15 rôles du catalogue — **melmil était le seul à dépasser** :
+
+| app | rôle | longueur |
+|---|---|---|
+| leac | admin | 221 |
+| messagerie | animateur | 125 |
+| social | animateur | 105 |
+| **melmil** | **admin** | **295** ⛔ |
+| *(les 11 autres)* | | ≤ 94 |
+
+⚠ **C'est mon défaut**, introduit le matin même en écrivant une description
+trop bavarde. Le catalogue avait été validé sur sa **syntaxe** (le « : » non
+quoté), jamais sur les **limites du système qui le consomme**.
+
+### Corrigé — deux fois, pour ne pas laisser le piège
+1. La description de melmil passe à **195 caractères**, sans rien perdre de
+   l'essentiel (« ne cocher QUE des groupes d'animation »).
+2. ⭐ `descriptionDeRole()` (`keycloak-manager.ts`) **tronque au-delà de 255
+   AVANT l'appel**, et **le dit dans le journal**. Une description est de la
+   **documentation** : en perdre la fin est sans gravité, un 500 bloque un
+   déploiement. ⚠ Et une troncature silencieuse ferait croire le catalogue
+   servi tel qu'il est écrit — d'où l'avertissement.
+
+### Et des tests, sur les DEUX défauts du jour
+Nouveau `scripts/test-catalogue.mts` (4 contrôles, verts) : toute description
+de rôle **sous 255**, la **troncature** effective, chaque fichier du catalogue
+**YAML-lisible** *(le « : » non quoté du matin, qui aurait fait tomber **tout**
+le catalogue)*, et tout rôle portant clé et libellé.
+⇒ Les deux fautes de la journée sont désormais **impossibles à refaire en
+silence**. Commit `b76870a`, poussé sur `main`.
+
+### État après l'échec, et ce qu'il faut faire
+- `createClient` s'exécute **avant** `ensureClientRoles` : le client Keycloak
+  `melmil-delattre26` **existe** probablement déjà, sans son rôle. L'instance,
+  elle, **n'a pas été créée** (l'erreur coupe avant l'écriture du dossier et de
+  la ligne en base).
+- ⭐ **Rien à nettoyer à la main** : `createClient` gère le 409 (il reprend le
+  client existant et récupère son secret). **Refaire simplement la création**
+  une fois l'orchestrateur redéployé.
+
+### ⚠ Relevé en passant, sans rapport et NON corrigé
+`scripts/test-deploiement.mts` — « un volume relatif devient un chemin absolu
+d'hôte » **échoue sur Windows** : `config.hostDataDir` y vaut
+`C:\CECPC\pleiade\pleiade-platform\data`, qui ne commence pas par `/`.
+Le test est **juste sur le serveur** (Linux) et faux seulement sur ce poste ;
+antérieur à mes changements, laissé tel quel.
+
+## 2026-09-23 — MELMIL mis à disposition sur le serveur, derrière le rôle du bouclier
+
+**Demande utilisateur** : *« tu peux pousser l'application sur le serveur »*, avec une consigne explicite — MELMIL ne doit être accessible **qu'aux groupes cochés « admin » sur le bouclier de l'instance**, *« car si les joueurs ont accès à cette application ils peuvent voir le déroulé et le montage de l'exercice pour la partie Influence »*.
+
+### ⚠⚠ Ce que j'ai trouvé avant de pousser — la consigne ne pouvait pas être tenue telle quelle
+
+1. **Le catalogue de MELMIL ne déclarait AUCUN rôle** (`roles: []`, hérité du premier essai « rien n'est partagé, donc rien à protéger »). Sans rôle déclaré, **il n'y a rien à cocher sur le bouclier** : Pléiade ne crée aucun rôle Keycloak, et **tout compte du royaume** — donc tout joueur — entrait dans la planche.
+2. **Le portail d'une zone est PUBLIC.** Relevé dans `pleiade-platform/src/index.ts` : le middleware du portail est placé **avant** `requireAuth`, et il affiche `getPortalData(zone)`, un `SELECT` de **toutes** les instances. Aucune authentification, aucun filtrage. ⭐ **Ne pas cocher un groupe ne cache donc pas la carte** — cela retire l'accès à l'app. La carte reste visible et l'adresse devinable. *(Vérifié aussi que la branche `durcissement-acces-et-portail` est déjà fusionnée dans `main` et ne traite pas ce point : elle exige un rôle sur l'**orchestrateur**, pas sur le portail de zone.)*
+
+**Conséquence assumée et dite à l'utilisateur** : la barrière qui protège réellement le montage de l'exercice, c'est **l'application elle-même**, pas la visibilité de la carte.
+
+### Fait
+- **`app-melmil`** — `src/lib/zone/habilitation.ts` : `ROLE_ACCES = "admin"`, `peutEntrer(roles)`, comparaison **exacte** (Keycloak distingue la casse). Le sas `(planche)/layout.tsx` pose **deux** questions : qui êtes-vous (Keycloak) puis avez-vous le rôle. Sans lui, la planche **n'est jamais rendue** (composant serveur) et un **refus expliqué** dit où le rôle se donne et qu'il est **lu à la connexion**.
+- Les rôles du compte de développement se règlent (`MELMIL_DEV_ROLES`) — ⭐ un chemin de test qui ne sait qu'**ouvrir** ne prouve rien sur la **fermeture**, et c'est la fermeture qui protège l'exercice.
+- **`catalog/melmil.yml`** — rôle `admin` (libellé « Animation ») avec une description qui dit en toutes lettres de **ne cocher que les groupes d'animation**.
+- ⚠ **Défaut attrapé par la validation, pas par la relecture** : ma description de l'app contenait `ANIMATION : reserve…` — un `:` suivi d'une espace dans un scalaire **non quoté** casse le YAML. `js-yaml` refusait le fichier ; sur le serveur, c'est **tout le catalogue** qui n'aurait plus chargé. Corrigé (guillemets) et **les 10 entrées revalidées une par une**.
+- **Poussé** : `app-melmil` `main` puis `prod` (`bbf72f5`, version `2026-09-23.1`) ; `pleiade-platform` `main` (`67ad82b`, fusion de `catalogue-melmil`) — ⚠ `main` **déploie sans sas**.
+
+### Vérifié
+- 87 tests (dont 6 sur l'habilitation : porteur, non-porteur, liste vide, casse).
+- **Dans un navigateur, les deux côtés** : `MELMIL_DEV_ROLES=` (sans rôle) → page de refus, et le HTML servi **ne contient aucune donnée de planche** ; avec le rôle → la planche s'ouvre.
+
+### Mise en service — mesurée, pas supposée
+- **Orchestrateur à jour en 80 s** : `/api/version` rend `67ad82b` (il servait `b79cd5f` du 21/09). Le catalogue est donc sur le serveur.
+- **Déploiement de l'app du 06:05, examiné pas à pas** (API GitHub, jeton jamais affiché) : `Construire l'image (tests + compilation)` ✅ · `Pousser au registre interne` ✅ · `Promouvoir` ❌ · tag sauté. ⭐ **L'image `localhost:5000/melmil:latest` et `:bbf72f5` sont donc bien au registre** — l'app EST sur le serveur.
+- ⭐⭐ **Le motif exact du refus, lu dans le journal du runner, corrige une hypothèse de la mémoire** :
+
+  ```
+  app inconnue : « melmil »
+  connues : admin, cockpit, eho, leac, messagerie, presse, social, webserver, wordpress
+  ```
+
+  Ce message vient de **`src/promouvoir.ts` lui-même**, pas de `sudo` ni du script `/usr/local/sbin/pleiade-promouvoir` : l'appel **a bien été autorisé** et a atteint le programme Node, qui a refusé parce que **son catalogue embarqué** ignorait melmil. La liste « connues » est `getCatalog()`, pas une liste en dur.
+  ⇒ **Il n'y a jamais eu de préalable `sudoers` à faire pour melmil.** Le seul manquant était le catalogue. *(La note du `README`/workflow qui annonce ce préalable est à corriger.)*
+  ⚠ La promotion tournait à **06:06:42**, l'orchestrateur n'a été reconstruit qu'à **06:07:08** : c'est une question d'**ordre**, pas de droits.
+- **Déploiement relancé** (`workflow_dispatch` sur `prod`, HTTP 204) une fois l'orchestrateur à jour → ✅ **les 7 étapes en succès**, promotion comprise, et la version marquée d'un tag. Sortie de la promotion :
+
+  ```
+  melmil → bbf72f5 : 0 zone(s) redeployee(s) sur 4 visitee(s)
+  ```
+
+  **4 zones visitées** : la chaîne fonctionne de bout en bout. **0 redéployée** parce qu'**aucune instance melmil n'existe encore** — c'est le comportement attendu, la promotion ne met à jour que l'existant.
+- **Corrigé dans la foulée, parce que la doc mentait** : `docs/DEPLOIEMENT.md` et l'en-tête du workflow annonçaient un préalable `sudoers`. La mesure prouve le contraire ; les deux portent désormais le message d'erreur et son explication. Le `README` dit en tête ce qu'est MELMIL du point de vue de la confidentialité (document d'animation, rôle obligatoire, portail de zone public). Commit `a3482f1`.
+
+### ⏭️ Reste — un geste d'OPÉRATEUR, dans Pléiade
+1. **Créer l'instance** `melmil` dans la zone voulue (ex. `delattre-26`) : l'app est au catalogue, son image est au registre.
+2. Sur le **bouclier de l'instance**, **cocher UNIQUEMENT les groupes d'animation** pour le rôle « Animation » (`admin`). ⚠ Un groupe d'entraînés qu'on coche voit tout le montage.
+3. Prévenir les personnes concernées : le rôle est **lu à la connexion** — cocher un groupe ne vaut qu'à la connexion suivante de ses membres.
+
+*(Je n'ai pas de session d'opérateur sur l'orchestrateur et n'en fabrique pas ; SSH au serveur — port 2222 — n'est pas joignable depuis ce poste, seuls les services derrière Traefik le sont.)*
+- ⏳ **À décider avec l'utilisateur et Xavier** : faut-il **authentifier et filtrer le portail de zone** ? Cela change le comportement de **toutes** les zones et **toutes** les apps — pas à glisser dans une livraison.
+
+## 2026-09-22 (suite 11) — MELMIL : un chevauchement de phases se RAYE
+
+- **Constat utilisateur, sur un cas réel** : 3A INTER jusqu'au 30/06 et CAX 2 dès le 25/06 — la première phase prenait le dessus et **la seconde disparaissait de la planche**, alors qu'elle était bien saisie. Demande : une zone rayée, automatique, esthétique.
+- ⭐ **Revirement assumé d'une décision de ce matin.** La suite 5 disait : « on tranche par l'ordre de la liste ». C'était le mauvais arbitrage — il **cache une information** au lieu de la montrer. Un jour peut appartenir à deux périodes ; la planche doit le dire, et laisser l'animateur juger si c'est voulu ou si c'est une faute de saisie.
+- **Mise en œuvre** : `phasesCouvrant` rend **toutes** les phases d'un jour ; les bandes se regroupent sur le **jeu** de phases (« WU TEC + 3A INTER » fait sa bande, « 3A INTER + CAX 2 » la sienne, « CAX 2 » seule reprend après) — on voit où le chevauchement commence **et où il s'arrête**. `fondDePhases` rend un aplat à une couleur, des **rayures à 135°** au-delà.
+- **Pourquoi des rayures et pas un mélange** : mélanger deux teintes en donnerait une troisième, qui ne veut rien dire ; en choisir une ment. Les rayures montrent les deux, et se lisent d'un coup d'œil. ⚠ 135° pour les phases, −45° pour la hachure d'un jour gelé : **deux trames distinctes pour deux notions distinctes**.
+- L'en-tête nomme les deux (chasse réduite, ombre de texte pour rester lisible sur les rayures), l'infobulle dit « Chevauchement : … ». La colonne reçoit la même trame, en discret.
+- **Vérifié** : **81** tests de logique pure, **5** contrôles navigateur sur le cas exact de l'utilisateur (bande `— CONVEX | WU TEC + 3A INTER | 3A INTER + CAX 2 | CAX 2`, fond rayé mesuré, aplat conservé pour une phase seule). Commit `5f9ed76`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 10) — MELMIL : un nom de couleur porte sa teinte
+
+- **Demande utilisateur** : voir la couleur à côté de son nom, en cas de doute.
+- **Fait** : chaque `<option>` du menu porte sa teinte en fond — dans la liste déroulée, le nom et la couleur se lisent ensemble.
+- ⚠⚠ **Ce fond n'est rendu que par certains navigateurs** (Chromium le fait, d'autres l'ignorent). **L'information ne repose donc pas sur lui** : le `<select>` fermé porte un **liseré de 6 px** de la couleur effective, qui s'affiche partout ; la pastille de gauche la montre aussi, et son infobulle la nomme. Le confort d'un côté, la garantie de l'autre — on ne fait pas dépendre une information d'un rendu optionnel.
+- Bénéfice de bord : même en mode « auto », le liseré et la pastille montrent la teinte **réellement appliquée** par la palette, ce que l'écran ne disait pas.
+- **Vérifié** : 75 tests de logique pure, **13** contrôles navigateur (12 options colorées ; liseré mesuré à `rgb(0,105,92)` après un choix « Sarcelle »). Commit `8410456`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 9) — MELMIL : storylines repliables par Event, couleurs nommées
+
+- **Demande utilisateur** : une flèche qui ouvre le sous-menu d'un Event (droite → bas), appliquée à tous les events ; et des **noms de couleurs** au lieu de « teinte 1 ».
+- ⭐ **`<details>` natif plutôt qu'un état à tenir** : la flèche, l'ouverture au clic, le clavier et l'accessibilité viennent avec, sans une ligne d'état. **Replié par défaut** — c'est le but : les 14 storylines du 7BB occupaient tout le panneau, il ne reste que deux lignes. Chaque groupe s'ouvre indépendamment.
+- **Palette nommée** (Bordeaux, Bleu roi, Violet, Vert forêt, Rouge, Sarcelle, Framboise, Indigo, Orange, Brun, Ardoise, Pourpre) : un menu « teinte 1, teinte 2… » oblige à essayer chaque option pour savoir de quoi on parle. `PALETTE_NOMMEE` est la source, `PALETTE` en dérive pour la logique. La pastille de gauche montre toujours la couleur effective.
+- **Vérifié** : 75 tests de logique pure, **11** contrôles navigateur (replié par défaut, la flèche pivote, un groupe s'ouvre sans l'autre, plus aucune « teinte N », et choisir « Sarcelle » applique bien `#00695C`). Commit `bec9fd7`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 8) — MELMIL : une phase tient sur UNE ligne
+
+- **Demande utilisateur** : couleur, nom et plage sur la même ligne, champs de date rétrécis, « plage à poser » supprimé — *« quelque chose d'épuré et fluide, pas surchargé »*.
+- **Fait** : le cadre autour de chaque phase disparaît, le bouton de retrait est réduit à sa croix, le panneau passe de 440 à 500 px pour que la ligne tienne.
+- ⭐ **Ce qui va bien ne se dit plus** : la couverture réelle (« 2 jours · D+31 → D+32 ») part dans l'**infobulle** de la ligne. Seul ce qui ne va pas reste visible, réduit à un **⚠ rouge** qui porte l'explication — une plage à l'envers ou hors de la planche continue donc de se signaler, sans encombrer. C'est le bon compromis entre « épuré » et « ne jamais taire une erreur ».
+- ⚠ **128 px et non 112** pour un champ de date : plus étroit, le navigateur **rogne l'année** et la date se lit « 21/06/202 ». Un champ qui ment sur son contenu est pire qu'un champ large. Constaté sur capture, puis **vérifié par la mesure** (`scrollWidth` contre `clientWidth`) et non à l'œil.
+- **Vérifié** : 75 tests de logique pure, **18** contrôles navigateur dont « couleur, nom et dates tiennent sur une ligne », mesure des positions à l'appui. Commit `58bd5cb`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 7) — MELMIL : le GELEX se DÉSIGNE, comme une phase
+
+- **Demande utilisateur** : même traitement que les phases — au lieu de la liste de tous les jours, on **désigne** le jour du GELEX (« on part du principe qu'il y en aura qu'un »), avec un bouton **« + Ajouter un autre jour »** au besoin. Objectif : des réglages moins surchargés.
+- **Fait** : `joursHorsCompte` (une table date → libellé) devient **`joursGeles`** (une liste), comme les phases. Une ligne = un champ de date + un libellé + un bouton de retrait ; ouvrir l'interrupteur **pose la première ligne d'office**. Un jour non encore choisi (`jour: null`) ne gèle rien. Chaque ligne dit ce qu'elle vaut (« LUN 29 JUN », « hors de la planche »).
+- ⭐ **Récupération** (troisième fois aujourd'hui, et c'est devenu un réflexe) : un état enregistré quand c'était une table est repris dans l'ordre du calendrier — sinon les jours **disparaîtraient de l'écran tout en continuant à décaler la numérotation**.
+- **Vérifié** : **75** tests de logique pure (jour sans date, deux jours gelés avec chacun son libellé), **17** contrôles navigateur. Commit `c24c5dd`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 6) — MELMIL : les jours GELEX derrière un interrupteur
+
+- **Demande utilisateur** : « Appliquer des jours GELEX », case devant le titre ; cochée, la liste des jours apparaît ; décochée, elle disparaît — un menu plus clair quand aucun GELEX n'est joué.
+- ⭐ **Un interrupteur, et non une case d'affichage** : fermé, les jours cochés sont **ignorés** et ne décalent plus la numérotation D+. Cacher une liste dont le contenu continue d'agir serait un **état invisible**, la pire espèce — la planche aurait sauté un jour sans que rien ne le dise. Les coches sont **conservées** : rouvrir l'interrupteur les retrouve intactes, on ne perd pas son travail sur un clic malheureux.
+- ⭐ **Récupération** : un état enregistré avant l'interrupteur avait des jours cochés sans rien pour les commander — on l'ouvre donc, sinon la planche changerait toute seule au rechargement. (Même principe que pour les plages de phases.)
+- Fermé par défaut sur une planche neuve : la plupart des exercices n'ont pas de GELEX.
+- **Vérifié** : **73** tests de logique pure (dont « interrupteur fermé : un jour coché ne décale rien »), **15** contrôles navigateur. Commit `52c019d`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 5) — MELMIL : une phase se règle par PLAGE, plus jour par jour
+
+- **Retour utilisateur, fondé** : marquer la phase de chaque jour ne tient pas à l'échelle — *« si on a un exercice sur 200 jours ça nous fait régler 200 lignes une par une »*. Une phase porte désormais **sa plage** (« du 23 au 26 juin »), qui est aussi la forme sous laquelle un montage d'exercice la donne. **Six lignes, quelle que soit la durée.**
+- ⚠ **Deux plages peuvent se chevaucher, et on ne l'interdit pas** : pendant la saisie, l'état intermédiaire est forcément bancal. On tranche par l'**ordre de la liste**, qui est visible à l'écran — plutôt que de refuser une saisie ou d'inventer une priorité invisible. Une plage dont la fin précède le début ne couvre rien, **et le dit**.
+- Chaque ligne annonce ce qu'elle couvre réellement (« 2 jours · D+31 → D+32 », « hors de la planche ») : une plage de travers ne se verrait pas autrement qu'en cherchant sa bande manquante.
+- ⭐ **Récupération de l'existant** : un état enregistré avant ce changement avait ses phases marquées jour par jour ; on en déduit la plage (premier et dernier jour marqués). Sans cela, un animateur qui avait déjà réglé ses phases les aurait vues disparaître sans explication — et il aurait eu raison de ne plus faire confiance à l'enregistrement.
+- **Vérifié** : **72** tests de logique pure (chevauchement, plage à l'envers), **10** contrôles navigateur — le découpage de MINOTAURE 26 se saisit en six plages et redonne exactement la même bande. Commit `b6e8803`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 4) — MELMIL : les PHASES d'exercice, que JEMM ne connaît pas
+
+- **Demande utilisateur** : récupérer, de la synthèse de montage de MINOTAURE 26, les périodes qui structurent la lecture d'un exercice — **CONVEX, WU TEC, WU TAC, CAX 1, 3A INTER, CAX 2** — les afficher en ligne au-dessus des jours, pouvoir dire à quelle phase appartient chaque jour, et donner à toute la colonne la couleur de sa phase.
+- **Source relevée** (`01_Montage exercice/20260313 - GT2 MINOTAURE 26 … SYNTHESE FINALE.pdf`, bande identique sur les 4 pages) : `CONVEX D+31→32 · WU TEC D+33→34 · WU TAC D+35→36 · CAX 1 D+37→38 · 3A INTER (GELEX, 29/06) · CAX 2 D+39→41`. ⭐ **Ces mots n'existent dans AUCUN export JEMM** — ils viennent du montage. C'est la première chose que la planche porte sans que JEMM la lui dise.
+- **Mise en œuvre** : une ligne PHASE au-dessus des jours ; les jours d'une même phase forment **une bande** (`colSpan`) ; une phase interrompue puis reprise donne **deux bandes**, parce que c'est ce qui est vrai. Les six phases sont proposées d'emblée, **renommables, colorables, supprimables**, et on peut en ajouter — un autre exercice aura d'autres mots.
+- ⭐ **Le lavis** : la colonne prend la couleur de sa phase, mais *posée légèrement* (7 % sur le corps, 40 % sur les en-têtes). Une colonne à pleine saturation avalerait les cartes qu'elle porte. Rendu en `linear-gradient` et non en `background` : la couche se pose **par-dessus** le fond existant (cellule claire ou en-tête sombre) sans effacer les bordures ni les ombres qui dessinent la grille.
+- **Couleurs par famille** (demande explicite) : bleus pour les mises en main, rouges pour les deux CAX, vert pour le point d'arrêt, aubergine pour la mise en place.
+- ⚠ **Un jour hors compte ne prend plus de couleur propre** : la couleur appartient désormais aux phases. Il se signale par son libellé (GELEX) et par une **hachure**, posée en couche superposée (`::after`) pour ne pas entrer en conflit avec le lavis — deux notions distinctes, deux signaux distincts.
+- **Vérifié** : **69** tests de logique pure ; **8** contrôles navigateur — le découpage complet de MINOTAURE 26 saisi à l'écran redonne exactement `CONVEX:2 WU TEC:2 WU TAC:2 CAX 1:2 3A INTER:1 CAX 2:3`, et il survit au rechargement. Commit `a46ca17`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 3) — MELMIL : une carte couvre les jours CONSÉCUTIFS d'une storyline
+
+- **Demande utilisateur** : « si 07.01 se joue sur deux jours consécutifs, j'aimerais que les deux cartes n'en forment visuellement qu'une, à cheval sur les deux jours ; mais si 07.01 revient deux jours plus tard, on a bien une nouvelle carte à part. »
+- **Mise en œuvre** : un **segment** = une storyline sur une suite de colonnes consécutives, rendu par une **cellule de tableau avec `colSpan`** — donc alignée sur les colonnes sans artifice de positionnement. Un seul en-tête, un seul cadre ; le **corps reste découpé par jour** (un filet pointillé, une colonne par jour couvert) : on fusionne le cadre, jamais le temps. Badge « N j » sur l'en-tête.
+- ⚠ **La continuité se juge en COLONNES, pas en dates** : une seule colonne d'écart, **GELEX compris**, ouvre une nouvelle carte. Une carte qui enjamberait un jour où la storyline ne joue pas dirait le contraire de la vérité.
+- ⭐ **Effet de bord utile : les BANDES.** Deux storylines qui se chevauchent ne peuvent pas tenir sur la même ligne — la rangée de l'événement se dédouble (`rowSpan` sur l'étiquette et sur « À placer »), comme un tableau de service. La planche se lit désormais en bandes horizontales continues, ce qui est exactement ce qu'on attend d'un tableau de programmation.
+- **Dépôt** : sur une carte qui couvre plusieurs jours, le jour visé est celui **sous le pointeur** (calcul par abscisse dans la cellule). Sans cela, déposer sur le jeudi d'une carte mardi→jeudi renverrait au mardi.
+- **Vérifié** : **60** tests de logique pure (fusion, trou qui sépare, trois jours de suite, bandes qui ne se coupent jamais) ; **9** contrôles navigateur sur les exports réels du 7BB — **9 cartes étendues**, chacune occupant exactement autant de colonnes que de jours, et deux fois plus large à l'écran pour deux jours ; **4** contrôles du dépôt par abscisse.
+- ⚠⚠ **Deux pièges de mesure, tous deux du même genre** : (1) un **vrai glisser à la souris** déclenche le défilement horizontal de la planche et déplace la cible sous le pointeur — on mesurait le défilement, pas le calcul du jour ; il a fallu envoyer les événements de glissement directement, **dragstart compris** (sans lui le dépôt est refusé, et c'est le comportement voulu) ; (2) **reposer un incident sur sa date JEMM EFFACE son déplacement** — lire `deplacements[code]` seul faisait conclure à un échec alors que la carte était au bon endroit. On mesure le **jour effectif**. Même famille que la leçon du 21/09 sur les indicateurs.
+- Commit `9ac4a1e`, poussé sur **`main` seulement**.
+
+## 2026-09-22 (suite 2) — MELMIL : la planche suit les TROIS niveaux de JEMM
+
+- **Demande utilisateur** : « la colonne *lignes opératoires* doit devenir **EVENT** et correspond aux Events de JEMM ; ensuite les **Storylines**, représentées par les cartes colorées ; ensuite les **incidents**, qui sont dans les cartes. Ces trois notions existent dans JEMM. »
+- **Fait**, et c'est une SIMPLIFICATION de fond : la planche ne déduit plus rien. Rangée = `Event`, carte colorée = `Storyline`, lignes dans la carte = `Injection` (l'incident du CECPC). Les trois niveaux sont lus tels quels dans l'export.
+- **Ce qui disparaît** : la déduction de ligne opératoire à partir du nom des storylines, et le réglage ligne/sphère. Il ne reste en réglage que ce qui **n'est pas dans l'export** — D+ du premier jour, jours hors compte, couleur des storylines (palette, forçable).
+- ⭐ **Décision de conception** : une storyline s'étale sur plusieurs jours → elle donne **une carte PAR JOUR** où elle a des incidents. Une carte n'est pas « la storyline » mais « ce qu'elle joue ce jour-là » ; sinon il faudrait choisir un jour arbitraire pour un arc qui en couvre cinq. C'est la reprise, propre, du « split card multi-jours » de MASTAURIGE.
+- **Deux gestes de déplacement** : l'en-tête d'une carte déplace tout ce que la storyline joue ce jour-là, une ligne d'incident ne déplace que celui-là. ⚠ Un incident ne peut pas changer d'Event : la cellule d'une autre rangée ne s'allume pas — on ne promet pas un geste impossible.
+- **Deux fiches** : la storyline (récit, bornes, tous ses incidents) et l'incident (tous les champs JEMM), l'une menant à l'autre.
+- **Lisibilité** : colonnes à 118 px minimum et défilement horizontal — comprimées à 80 px, les cartes ne montraient plus que « … ». Incidents sur deux lignes (repères, puis sujet). Pastille de couleur par moyen (courriel, chat, média, téléphone, en personne).
+- ⚠ **État localStorage en version 2** : un état v1 est **ignoré** plutôt que relu de travers — il faut réimporter les exports. Sur un prototype, une planche à moitié juste est pire qu'une planche vide.
+- **Vérifié** : **52** tests de logique pure, **15** contrôles navigateur sur les exports JEMM réels du 7BB (2 events, 14 storylines, 44 incidents, 31 cartes), tsc, lint, build. Commit `fba08dc`, poussé sur **`main` seulement** — `prod` déploie, et ce n'était pas demandé.
+
+## 2026-09-22 (suite) — ⭐ Nouvelle app de zone : `app-melmil`, la planche des injects alimentée par JEMM
+
+- **Demande utilisateur** : créer `app-melmil` dans l'organisation `cecpc-pleiade`, reprendre l'architecture du MELMIL de MASTAURIGE, et surtout : **à partir d'un export JEMM, le tableau vierge se remplit tout seul**. « Plus fluide et bien fonctionnel », premier essai **en localStorage**, avec les branches qui vont bien pour Pléiade (`prod` indispensable).
+- **Ce que j'ai lu avant d'écrire** : les deux exports JEMM réels du 7BB (`EVENT_07` ILI, 35 injects, 12 storylines ; `EVENT_08` HOST NATION, 9 injects), `generer_melmil.py`, `melmil.js` / `melmil.css` / `melmil_ili.html`, `exercice_config.json` → `lo_config.js`, la mémoire MASTAURIGE (§ MODULE MELMIL, règle canonique, tables), le gabarit LEAC (Dockerfile, entrypoint, workflow, auth de zone, sonde), le catalogue Pléiade (`catalog.ts` : découverte automatique des `.yml`).
+- **Ce que JEMM exporte** : `Data.Events[0]` (code « 07 », nom, début/fin), `Data.Storylines` (`Literal` « 07.01 », `Name`, `Story`), `Data.Injections` (`Literal` « 07.01.I01 », `Name`, `Description`, `ExpectedOutcome`, `CoordinationRemarks`, `DisplayDateTime`, `InjectionMeans.Name`, `Sender`, `CoordinatingCell`, `ReceiverList[].Name`, `ScenarioRoleList[].Name`, `InjectionType.Name`, `ActivityLevel.Name`, `InformationMarking.Classification` = UNCLASSIFIED). `MetaData` : `ExportDateTime`, `ExerciseName` (« MINOTAURE 7BB »).
+- **Trois partis pris qui font la « fluidité »** :
+  1. **Le calendrier se déduit des exports** (début/fin des événements, étendu aux dates d'injects) — plus d'`exercice_config.json` ni de HTML écrit à la main. Le D+ du premier jour et les **jours hors compte** (GELEX) se règlent à l'écran ; le compteur les saute (29/06 = GELEX → 30/06 = D+39, le piège du 7BB, testé).
+  2. **La ligne se déduit du nom de la storyline** : le CECPC nomme « Volonté de combattre - 01 - … », « Guerre des pertes - 02 - … » → LO2, LO3… ; un événement « HOST NATION » → HN ; sinon « hors lignes opératoires ». Un réglage par storyline force la ligne et la sphère. Plus de `lo_config.js`.
+  3. **La fusion ne perd rien** : par code ; un inject **absent** du nouvel export de son événement est **signalé et conservé** (badge, purge explicite) — la perte silencieuse des 21 injects curés (TODO du 23/06 sur `generer_melmil.py`) ne peut plus se produire ; un export **plus ancien** que le dernier importé est **refusé** ; les **déplacements** faits à la main **survivent** et le rapport dit quand ils masquent une nouvelle date JEMM.
+- **Architecture** : `src/lib/melmil/` = logique **pure** (`jemm.ts` lecture, `calendrier.ts`, `lignes.ts`, `fusion.ts`, `etat.ts`) testée en Node ; `stockage.ts` = magasin externe React sur **une seule clé** localStorage (`melmil.etat`), exportable/restaurable en un fichier ; écran : planche (glisser-déposer natif), fiche d'inject (tous les champs JEMM, « revenir à la date JEMM », « mettre à placer »), rapport d'import, réglages. Auth de zone Keycloak identique à LEAC/eho ; `/api/sante` + `lib/version.ts` (`2026-09-22.1`) ; Dockerfile (tests avant build, `USER nextjs` sans volume) ; workflow `prod`.
+- **Vérifié** : `npm test` **49/49** ; **23/23** contrôles navigateur, dont l'import des **deux exports JEMM réels du 7BB → 44 cartes**, titre « MINOTAURE 7BB », lignes LO1..LO5 + HN déduites (LO2 = 13 : 07.01×2, 07.02×9, 07.03×2), glisser-déposer, persistance au rechargement, réglages D+/GELEX, re-import identique sans changement et déplacement conservé. tsc, lint, build. ⚠ Mon premier test comptait 12 en LO2 : le produit avait raison, pas mon décompte.
+- **Dépôt** : `cecpc-pleiade/app-melmil` créé (privé, API GitHub avec les identifiants du poste, jamais affichés), commit `cc9d3c8` poussé sur **`main` et `prod`**. Le push sur `prod` a lancé le workflow sur le runner (`run 35724547517`) : attendu = image construite et poussée au registre, **échec à la promotion** faute de « melmil » dans `pleiade-promouvoir` — sans conséquence, aucune instance n'existe.
+- **Orchestrateur** : `catalog/melmil.yml` + `public/img/apps/melmil.png` commités sur la branche locale **`catalogue-melmil`** de `pleiade-platform` (`fc5099f`), **NON poussés** : `main` y déploie sans sas, décision utilisateur requise.
+- ⏭ **Reste** : (1) décision de pousser le catalogue ; (2) côté serveur, `pleiade-promouvoir` + sudoers pour « melmil » ; (3) créer l'instance dans une zone ; (4) v1 : état partagé serveur (base), rôle animateur, cartes MASTAURIGE accrochées aux injects, impression A0/A2.
+
+## 2026-09-22 — eho : la fiche complète s'ouvre depuis la PLANCHE RELATIONNELLE
+
+- **Demande utilisateur** : sur la planche relationnelle, joueurs comme animateurs, cliquer une carte posée doit ouvrir **la fiche biographique complète** — et cette fiche doit être **identique** à celle des onglets EHO, avec **la portée de la planche affichée** : sur « La mienne » celle de **Mon EHO**, sur « GT … » celle de l'**EHO GT** du groupe.
+- **Ce qui existait déjà, et qui a tout simplifié** : la planche relationnelle charge **déjà** ses cartes par `GET /api/eho/mon-eho` **avec la portée de la planche** (`?gt=…`, `?officiel=1`, observation). La bonne fiche était donc déjà dans la page — elle n'était ni ouvrable, ni affichée. Le travail n'était pas d'aller chercher des données, mais de **cesser d'avoir deux fiches**.
+- **Mise en œuvre — deux briques extraites, donc AUCUNE copie** :
+  - `components/fiche-avatar.tsx` : **LA** fiche d'un avatar (`FicheAvatar`, `CarteFiche`, `couleurCarte`), sortie telle quelle de `planche.tsx`. Deux ajouts : `lectureSeule` (planche observée, planche de l'animation) et `officiel` (sur la planche de l'animation, **toutes** les cartes portent leur identité officielle, pas seulement les STARTEX). L'action « verser vers un GT » devient un emplacement optionnel : elle n'a de sens que là où la carte est rangée dans une rubrique.
+  - `lib/verrou-fiche.ts` : `useVerrouFiche` — prise, prolongation et relâchement du verrou de fiche, déplacés depuis `planche.tsx`. Les deux écrans partagent donc **le même garde-fou** sur une planche de groupe.
+- **Côté plan** : `CarteDispo` devient la carte complète (`CarteFiche`) ; un clic sur une carte ouvre sa fiche (`onNodeClick`, un glissement ne déclenche pas de clic) ; un bouton **« i »** apparaît au survol, **en bas à droite DANS la carte**, et rend le geste accessible au clavier, qu'un nœud React Flow n'offre pas (⚠ au milieu du bord bas, il se posait sur le point d'accroche des liens : les accroches étant centrées sur chaque côté, **les coins sont les seules zones libres**) ; l'enregistrement passe par la **même route** que la planche de rangement, et repose la carte à jour dans la réserve **et** dans le nœud (la couleur suit l'alignement observé). La couleur d'une carte se calcule désormais d'un seul endroit : sur une autorité connue, la **dérive observée** se voit enfin sur le plan aussi.
+- **Vérifié dans un vrai navigateur, contre l'instance locale — 13/13** : la fiche s'ouvre au clic ; elle porte la biographie complète (12 mots distinctifs sur 12) ; **le texte de la fiche du plan est identique, mot pour mot, à celui de « Mon EHO »** et à celui de l'« **EHO GT** » ; ce qu'on écrit depuis le plan personnel atterrit dans l'EHO **personnel**, ce qu'on écrit depuis le plan d'un GT atterrit dans l'EHO **de ce GT** sans toucher au personnel ; la planche de l'animation et la planche observée s'ouvrent en **consultation**, sans bouton d'enregistrement. Plus `npm test` 80/80, `tsc`, `lint`, `build`.
+- **Complément demandé dans la foulée** : dans la **réserve** (colonne de gauche), un petit bouton **« i »** en bas à droite de chaque carte ouvre la fiche **sans poser la carte** — on consulte souvent avant de décider si quelqu'un a sa place sur le plan. Le clic sur la carte elle-même continue de la poser. ⚠ Deux boutons **voisins**, jamais imbriqués : un bouton dans un bouton n'est pas du HTML valide et le clic y devient imprévisible. Sur le plan, le même **« i »** remplace l'ancienne pastille « Fiche ». Réserve et plan parlent donc la même langue : une carte, un « i », la fiche. Contrôles portés à **15/15** (le « i » ouvre la fiche · il ne pose pas la carte).
+- **Transfert d'un encadré d'une planche à l'autre — il EXISTAIT déjà**, et il fait exactement ce qui était demandé (`POST /api/eho/graphe/transferer`, composant `TransfererEncadre`) : l'encadré part avec **les cartes qu'il contient et les liens dont les deux bouts sont dedans**, dans les deux sens (ma planche → GT, GT → ma planche). ⚠ Il n'était pas trouvable : le bouton n'apparaît que lorsque l'encadré est **sélectionné**, dans la barre du bas. Corrigé sans rien dupliquer — l'étiquette de l'encadré devient visiblement cliquable (curseur + infobulle qui nomme les quatre actions), et l'aide de la réserve le dit.
+- ⭐ **Vérifié, car c'était la vraie question de l'utilisateur : les fiches ne voyagent PAS.** Le transfert n'écrit que dans `ehoGraphe` (la géométrie) et ne touche jamais `ehoLecture` (le contenu des fiches). Contrôlé avec deux analyses différentes sur le **même avatar** — l'une personnelle, l'autre du GT — puis transfert : chaque planche a gardé la sienne, et la fiche ouverte depuis la planche du GT affiche bien celle du GT. **9/9**. Le seul chemin pour porter une fiche d'un EHO à l'autre reste le versement depuis « Mon EHO ».
+- ⚠ **Piège de mesure rencontré** : le contenu d'un `<textarea>` n'est pas dans `innerText` — c'est une **valeur**, pas du texte. Le premier contrôle concluait donc à l'absence d'un texte pourtant affiché. Lire `inputValue()`. Même famille que la leçon du 21/09 sur les indicateurs.
+- **Bilan de code** : +203 / −455 lignes — la fonctionnalité est ajoutée **en retirant** du code, puisque la fiche et le verrou n'existent plus qu'en un exemplaire.
+- Marque de version portée à **`2026-09-22.1`**. ⏸ **Rien n'est commité ni poussé** : les dépôts sont partagés avec Xavier, et `prod` déploie devant les participants.
+
 ## 2026-09-21 (suite 23) — Clôture de la journée : version `2026-09-21.1` en ligne sur les deux instances
 
 - ✅ **Déploiement confirmé par la marque de version** (et non plus par une empreinte) : `GET /api/sante` rend `{"ok":true,"app":"eho","version":"2026-09-21.1"}` sur **`eho-delattre26.delattre-26`** *et* **`annuaire.orion26`**. Cette image (`93dc2c8`) porte les trois correctifs du jour : modèle intégré (`f4fce4c`), volume rendu à nextjs (`289048e`), origine publique (`db9fb5c`).

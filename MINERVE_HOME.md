@@ -133,6 +133,7 @@ graph LR
 | MASTORION | [prompt](SYSTEME/PROMPTS/mastorion.md) | [mémoire](MASTORION/MEMOIRE.md) |
 | PLEIADE | [prompt](SYSTEME/PROMPTS/pleiade.md) | [mémoire](PLEIADE/MEMOIRE.md) |
 | LEAC | [prompt](SYSTEME/PROMPTS/leac.md) | [mémoire](LEAC/MEMOIRE.md) |
+| DESIGNER | [prompt](SYSTEME/PROMPTS/designer.md) | [mémoire](DESIGNER/MEMOIRE.md) |
 
 ---
 

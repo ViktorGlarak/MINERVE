@@ -4,6 +4,149 @@
 
 ---
 
+## 2026-09-27 (suite) — Pastille réseau dans le bandeau, branche `etat-reseau`
+
+- **Cause des blocages confirmée** : l'autorité de la zone est absente du magasin Windows du poste principal. Le service worker ne peut ni se mettre à jour ni joindre le serveur, d'où l'ancienne version et l'effet « comme déconnecté ».
+- **Décision utilisateur** : garder le service worker, ajouter une pastille d'état. Supprimer le worker a été écarté, car on perdrait l'ouverture hors ligne du terrain.
+- **Livré** : `a4639f3` sur `etat-reseau`, puis **mis en ligne** sur demande (`main` et `prod` = `a4639f3`, `/api/sante` = `2026-09-27.1`). Deux défauts anciens corrigés au passage (purge de `/hors-ligne`, scripts de tête exportés d'un module client). Détail : MEMOIRE § 8 bis.
+
+## 2026-09-27 — Un utilisateur (Axel) ne change plus de page, « comme déconnecté »
+
+- Le serveur de production est sain (`2026-09-25.1`) ; le problème est local à l'appareil. L'utilisateur l'avait déjà réglé chez lui en effaçant les cookies et les données du site.
+- **Consigne** transmise pour Axel : synchroniser d'abord, tester en fenêtre privée, puis effacer les données de ce seul site. Aucun code modifié, l'utilisateur n'étant pas devant son poste.
+- Analyse, causes probables et correctifs de code proposés : MEMOIRE § 8 bis, « Incident du 2026-09-27 ».
+
+## 2026-09-25 (matin) — Profils EN LIGNE
+
+- `profils` fusionnée dans `main` et `prod` (`2b8d539`). ✅ Le serveur annonce `2026-09-25.1` depuis 08:08, avec `amorce: true` : la base a pris la colonne `profil` et les administrateurs existants sont conservés.
+- À faire côté client : attribuer les profils superviseur et officier de marque depuis **Administration → Profils**. Chaque personne doit se reconnecter pour que son profil prenne effet.
+
+## 2026-09-25 (nuit) — Les quatre profils demandés par le client
+
+- **Demande** : vérifier que LEAC répond à quatre profils (superviseur, utilisateur, officier de marque, administrateur), et sinon le faire.
+- **Constat avant travaux** :
+
+  | Profil | État |
+  |---|---|
+  | Utilisateur | ✅ déjà |
+  | Superviseur | ❌ n'existait pas |
+  | Officier de marque | ⚠ n'existait que comme fonction dans un contrôle ; créer un contrôle était réservé à l'administrateur |
+  | Administrateur | ✅ paramétrage (grilles, unités) et profils ; ❌ correction après clôture (tout était verrouillé) ; ❌ création de comptes (Pléiade) |
+
+- **Fait**, sur la branche `profils` (`2b8d539`, version `2026-09-25.1`) : voir la règle 30 et DECISION-036.
+  - Schéma : ajout d'une colonne (valeur par défaut `ADMINISTRATEUR`). `db push` au démarrage ne perd rien.
+  - Écran « Profils LEAC » ;
+  - pastilles et libellés selon le profil ;
+  - « Rouvrir pour correction ».
+- **Vérifié** : les 4 profils ont été testés en local, sur 4 serveurs successifs (`LEAC_DEV_EMAIL`). Profils attribués par l'écran ; un contrôle créé par l'ODM ; une correction après clôture tracée au journal. Tests : 459/459. `next build` réussi.
+- **Données locales** : les profils `sup.test` et `odm.test` sont conservés. Le siège S2 de la démo est rétabli et le contrôle de test supprimé.
+- ✅ **Tranché** : pas de création de comptes depuis LEAC. Les comptes restent dans Pléiade (décision de l'utilisateur).
+- ⏳ **Reste** : le push (main et prod), par l'utilisateur.
+
+## 2026-09-24 (soir, suite) — Encore un débordement sur iPhone : le NOM DE ZONE du bandeau
+
+- **Capture de l'utilisateur** (iPhone, 16:56, version 2026-09-24.2) : il faut encore glisser à droite. Le bouton de thème du bandeau est **hors de l'écran**.
+- **Cause** : sur le serveur, le bandeau affiche le nom de zone (`PLEIADE_ZONE` = « cecpc-div-eval »), **absent en local**. L'élément flex (`min-width: auto`, `nowrap`) ne rétrécit pas, il élargit la page. En plus, `overflow-x: clip` n'est pas compris par tous les navigateurs d'iPhone.
+- **Correctif** : nom tronqué, puis masqué sous 420 px ; bandeau borné à l'écran ; `overflow-x: hidden` avant `clip`. Mesuré avec le nom de zone injecté après l'hydratation : **0 débordement sur 48 cas** (iPhone SE, 13, 13 Pro Max, Pixel 7 ; texte à 100 et 150 % ; 6 écrans). ✅ **En ligne à 17:04** (`f13d167`, `2026-09-24.3`).
+- ⭐ **Leçon** : l'environnement local **diffère du serveur** par ses variables d'instance (`PLEIADE_ZONE`, …) qui ajoutent du contenu. Tester l'affichage **avec les valeurs du serveur**.
+
+## 2026-09-24 (soir) — Débordement sur vrai téléphone + LEAC v2 (DESIGNER, locale)
+
+- **Signalement** : sur un vrai téléphone, la page est plus large que l'écran et il faut glisser pour finir les phrases.
+- **Cause** (non vue par mes mesures de l'après-midi, faites sans émulation mobile ni texte agrandi) : reproduite en émulant un **Pixel 7 avec le texte système à 150 %**. Six sources :
+  - des mots sans espace ;
+  - un `<select>` qui prend la largeur de sa plus longue option (son `maxWidth` est en rem et grandit avec le texte) ;
+  - `fieldset` et éléments de grille bloqués à leur largeur de contenu ;
+  - la barre du bas et le menu « Plus » ;
+  - la case `sr-only` (position absolue) des filtres, qui échappait à sa ligne défilante.
+- **Correctif** : `67689fb` sur `main`, **local, non poussé**, avec un filet `overflow-x: clip` sous 640 px. Résultat : 22/22 en taille normale et 33/33 avec le texte agrandi, iPhone 13, Pixel 7 et iPhone SE confondus.
+- ⭐ **Leçon** : mesurer un rendu mobile **avec `devices[…]` de Playwright** (viewport méta, zoom) **et avec le texte agrandi**. Un simple viewport étroit ne voit pas ces débordements.
+- **Demande** : que DESIGNER conseille « sur la totalité de ses capacités, même l'architecture », pour une interface plus fluide, plus esthétique, plus pro. **En local d'abord.** Proposition : `DESIGNER\AVIS\2026-09-24_LEAC\PROPOSITION_V2.md`. Réalisé sur la branche `refonte-v2` (`576de5e`) : détail en MEMOIRE §7.
+- ✅ **Validé et mis en production** (« c'est parfait, tu peux publier ») : `ffc8b73`, version `2026-09-24.2`, **en ligne à 16:54** (`/api/sante`, `/connexion` 200, `/controle/x/grilles` 307). Le diff ne touche que l'affichage : aucune donnée, synchronisation ni API.
+
+## 2026-09-24 — Refonte visuelle et responsive avec l'agent DESIGNER (locale, non poussée)
+
+- **Demande** : *« optimiser l'application LEAC qui est vraiment compliquée à assimiler visuellement ; travailler le responsive design : une version tablette, une version téléphone et une version ordinateur »* — en travaillant avec le nouvel agent **DESIGNER**.
+- **Audit** (`DESIGNER\AVIS\2026-09-24_LEAC\AVIS.md`, captures `avant\` et `apres\`) : 8 écrans × 4 tailles (1440 × 900, 820 × 1180, 1180 × 820, 390 × 844), mesures relevées dans la page. Le parti pris §7 **validé le 17/09 reste la référence**. Problèmes relevés :
+  - D1 : pas de navigation commune (rangées de 3 à 6 boutons dans un ordre différent par écran, sans indication de l'emplacement) — gravité 4 ;
+  - D2 : sur téléphone, le contenu commence à 540 px sur 844 et la grille **déborde de 83 px** — gravité 4 ;
+  - D3 : aucune adaptation à la taille d'écran (une colonne de 768 px partout) ;
+  - D4 : grille **centrée** (piège `.frappe`) ;
+  - D5 : boutons de navigation petits ;
+  - D6 : vocabulaire incohérent (Bilan / Réunion quotidienne, CRF / Compte rendu) ;
+  - D7 : accueil.
+- **Réalisé** : R1 à R6 (détail en MEMOIRE §7), commit `b27b171` sur `refonte-design`. Vérifié :
+  - tsc et lint propres, 452/452 ;
+  - essai au téléphone : « Plus » s'ouvre, se referme au choix et prend le nom de la page ; la destination active suit la page ;
+  - 0 px de débordement aux 4 tailles.
+- Vu en passant, **déjà connu** : l'erreur de page en dev `Function statements require a function name` (notée le 22/09), sans lien avec la refonte.
+- ✅ **Mise en production** (autorisation : « tu peux tout envoyer sur le serveur ») : `6701831`, version `2026-09-24.1`, **en ligne à 15:56** (`/api/sante`, `/connexion` 200, `/controle/x/grilles` 307). **Question posée par l'utilisateur : les données en cours sont-elles perdues ? Non, vérifié avant l'envoi.** Le diff ne touche que 11 fichiers d'écran et de style : ni `prisma`, ni `offline/`, ni `sync/`, ni les API. La base IndexedDB reste en v4. Le service worker ne purge que les caches `leac-*` d'autres versions, jamais IndexedDB. La base serveur est conservée.
+- ~~Prochaine étape~~ (faite) : l'utilisateur regarde en local (`http://localhost:3700`, contrôle de démonstration), puis décide de fusionner dans `main` et de pousser `prod`. Idée non réalisée : une grille en **deux colonnes** sur ordinateur (arbre à gauche, critères à droite).
+
+## 2026-09-22 (suite) — Retour du premier utilisateur sur le serveur : « la grille arrive trop tôt »
+
+- **Nouveau besoin, remonté du terrain** (utilisateur ayant testé LEAC déployé) : quand un contrôleur entre dans un exercice, il tombe **directement sur la grille d'évaluation**. Or, sur le terrain, il ne sait pas retrouver *la bonne* grille parmi tout ce qui existe (14 domaines, jusqu'à 1 352 critères). Ce dont il a besoin **d'abord**, c'est d'un **carnet de terrain** : plusieurs **notes texte** et **mémos vocaux** (tablette/téléphone) pris au fil de la journée, comme pense-bêtes ; **le soir**, contrôle terminé, il relit/réécoute ses notes et va noter dans les grilles.
+- **Demande exacte** : *« la première fenêtre qui apparaît lorsqu'on entre dans un exercice ne soit pas la grille mais plutôt une fenêtre qui nous permette d'enregistrer plusieurs textes/vocaux — est-ce réalisable ? »*
+- **Réponse donnée : OUI, réalisable avec l'existant**, sans nouvelle brique d'infrastructure :
+  - une note texte = une **opération de journal** comme une observation (`Carnet#<cycle>|<auteur>#<noteId>`), donc **hors ligne, fusionnée, compactée** par la même mécanique ;
+  - un vocal = **`MediaRecorder`** du navigateur (fonctionne sur Android/Chrome et iOS/Safari ≥ 14.5, en HTTPS — ce que Pléiade impose déjà), octets en **IndexedDB** puis remontés **exactement comme les pièces jointes** (table `pieces` + `/api/pieces`, description au journal, octets à part) ;
+  - le lien note → grille : la **recherche existante** (`domaine/recherche.ts`) ; depuis une note, un bouton « aller à la grille » ouvre la notation avec la note affichée en bandeau, et une note peut être **rattachée à un critère** une fois la mention posée ;
+  - l'écran d'entrée devient le carnet ; la grille devient un onglet/bouton « Grilles ».
+- ⚠ **Deux points à faire trancher par le CECPC, dits à l'utilisateur** : (1) **classification** d'un enregistrement audio pris dans un PC en exercice — même question que pour les photos (règle 28, `LEAC_PIECES_JOINTES`) ; le carnet **texte** ne pose pas cette question et peut être livré d'emblée, le **vocal** derrière le même interrupteur ou un `LEAC_VOCAUX` ; (2) **transcription** automatique des vocaux : rien n'existe sur le serveur (Whisper hors ligne serait un chantier à part) — dans un premier temps, la note vocale se **réécoute**, elle ne se lit pas.
+- **Volume** : 1 minute d'audio Opus ≈ 0,5 à 1 Mo ; plafond proposé **3 minutes** par mémo (< 5 Mo, sous le plafond actuel des pièces).
+- **Décision utilisateur, dans la foulée** : *« les notes textuelles et vocales restent dans l'appareil utilisé et ne vont pas sur le serveur »*. Cela retire le journal et la route des pièces du dessin, et règle la classification : rien ne quitte la tablette.
+- **Construit le jour même** (Règle 29 de la mémoire) :
+  - `domaine/carnet.ts` (pur : formats, durée, tri « à traiter d'abord », validation, dates) — **17 tests**, 448/448 au total ;
+  - base locale **v4** : table `carnet` (`id, [controleId+auteurId], controleId`), octets du vocal dedans, **jamais lue par `sync/`** ; `offline/useCarnet.ts` = la seule écriture locale qui contourne `depot.ecrire`, documentée comme telle ;
+  - `controle/[id]/page.tsx` = **le carnet** (nouvelle note, enregistreur, liste à traiter / traitées, « Noter dans la grille », légende d'un vocal, suppression en deux gestes, avertissement « ces notes restent sur cet appareil ») ; `enregistreur.tsx` (`MediaRecorder`, compteur, arrêt à 3 min, repli `<input capture>`, `useSyncExternalStore` pour ne pas rendre différemment serveur/client) ; `lecteur-vocal.tsx` (URL `blob:` locale) ;
+  - la grille déplacée sous **`/controle/[id]/grilles`** (`notation.tsx` dans un `Suspense`, `?note=` épingle la note en tête, bouton « Traitée » ferme et marque) ; lien « Carnet » ajouté ; les six écrans qui renvoyaient « Grilles » vers la racine pointent vers `/grilles`.
+- **Vérifié dans un navigateur** (Chromium, micro simulé) — **21/21** : entrée = carnet, note texte gardée et brouillon vidé, vocal de 2 s → 28 Ko `audio/webm;codecs=opus` dans la table `carnet`, lecteur sur URL `blob:`, **aucune requête** `/api/pieces` ni `/api/echange` pendant le parcours, survie au rechargement, grille ouverte avec la note épinglée, « Traitée » la fait passer sous les notes à traiter, tableau de bord → `/grilles`.
+- ⚠ **Deux choses vues en passant, pas corrigées** : (1) à la **première ouverture** d'un contrôle sur un appareil, `amorcage.tsx` échange puis **recharge la page** — une note tapée ou un vocal lancé dans cette seconde-là serait perdu (comportement existant, le même pour la grille) ; (2) une erreur de page `Function statements require a function name` apparaît en dev dès `/`, avant tout code du carnet — à regarder à part.
+- Lint et `tsc` propres. Commit `89122f2` sur `main` ; **`prod` n'est pas poussée** (autorisation par geste).
+
+### Mise en PRODUCTION — `2026-09-22.1` en ligne
+
+- **Autorisation utilisateur** : *« je veux que tu push cette maj sur le serveur de sorte à ce que les utilisateurs puissent y avoir accès »*.
+- Version marquée **`2026-09-22.1`** (`src/lib/version.ts`, la même que `/api/sante` et le service worker), commit `71df2fc` ; `prod` avancée **en avance rapide** depuis `main` (elle reprend au passage le bouclier Pléiade et les écrans d'administration restés sur `main`).
+- **Mesuré sur le serveur**, ⭐ par la marque de version et non par une empreinte d'assets (leçon du 21) : `/api/sante` rend `{"ok":true,"app":"LEAC","amorce":true,"version":"2026-09-22.1"}` **140 s** après la poussée ; `/connexion` → 200 ; `/controle/<id>` **et** `/controle/<id>/grilles` → 307 vers `/connexion` — la **nouvelle route des grilles existe** (une route inconnue rendrait 404) et le sas fonctionne toujours.
+- ⏭️ **À dire aux contrôleurs avant le prochain contrôle** : **installer LEAC sur l'écran d'accueil de la tablette**, faute de quoi le navigateur peut effacer le carnet s'il manque de place — et le carnet est la seule copie.
+
+### Dans la foulée — le plafond de 3 minutes des vocaux est LEVÉ
+
+- **Demande utilisateur** : *« vu que les vocaux ne partent pas sur le serveur, est-ce qu'on peut enlever la limite des 3 min ? »* — fondée : les 3 min et les 5 Mo étaient repris du plafond des **pièces jointes**, qui, elles, remontent au serveur (bande passante, disque, classification). Un vocal du carnet ne remonte nulle part.
+- **Fait** : plus aucun plafond, ni de durée, ni de taille. Plus d'arrêt automatique de l'enregistreur.
+- ⚠⚠ **Le point qui comptait vraiment** : l'ancien code refusait un vocal trop long/lourd **après** l'enregistrement. Les octets n'existent qu'une fois le micro coupé — ce refus **détruisait** ce que la personne venait de dire. Un vocal n'est désormais refusé que s'il est **vide** (rien capté), le seul cas où il n'y a rien à perdre.
+- **Ce qui remplace la limite, puisqu'il en reste une, réelle : la place de l'appareil.**
+  - l'écran **affiche** ce que le carnet occupe (« 34 Mo sur l'appareil ») ;
+  - `navigator.storage.persist()` est demandé à l'ouverture — sans cela, IndexedDB est « best-effort » et le navigateur peut **évincer** le stockage quand l'appareil manque de place. Pour le reste de LEAC ce serait réparable (le serveur a tout) ; **le carnet n'existe que là** ;
+  - un refus de persistance est **dit à l'écran** ; un `QuotaExceededError` rend un motif clair (« supprimez des vocaux déjà traités ») au lieu d'un écran qui n'affiche rien de nouveau ;
+  - le compteur de l'enregistreur montre la **durée et la place prise en direct**, et `formatDuree` passe en `h:mm:ss` au-delà de l'heure.
+- **Vérifié** : 452 tests (dont 40 min / 2 h acceptés, formats de durée et de taille) ; **parcours navigateur dédié**, mené en temps réel — ⚠ c'était le seul contrôle probant, un essai de 10 s aurait passé avec l'ancien code aussi :
+
+  | à | état | compteur | capté |
+  |---|---|---|---|
+  | 60 s | enregistre | 1:00 | 940 Ko |
+  | 120 s | enregistre | 2:01 | 1,8 Mo |
+  | **181 s** | **enregistre** *(l'ancien code coupait ici)* | **3:03** | 2,8 Mo |
+  | 200 s | enregistre | 3:21 | 3,1 Mo |
+
+  En base : `dureeS: 201`, 3 228 701 octets, cohérents avec la durée. Soit ~0,95 Mo par minute en webm/opus — une demi-heure de dictée ≈ 29 Mo.
+- 🔴 **Ce que la mesure a appris, et que je croyais acquis** : `navigator.storage.persist()` est **REFUSÉ** par un navigateur ordinaire (Chromium le réserve aux sites installés ou très fréquentés). Mon contrôle affirmait l'inverse — **c'est le test qui avait tort, pas le produit** : LEAC ne décide pas, il demande. Corrigé : le test vérifie désormais ce que LEAC **contrôle** (il demande, et il DIT le refus), et un contrôle dédié éprouve la bannière d'alerte.
+- ⭐ **Conséquence pratique à faire remonter au terrain** : LEAC a un manifeste et un service worker, donc **installer LEAC sur l'écran d'accueil de la tablette suffit à obtenir la persistance**. C'est ce que la bannière conseille désormais, en toutes lettres. Sans installation, le navigateur peut effacer le carnet s'il manque de place — et le carnet est la seule copie.
+
+## 2026-09-22 — « Je n'arrive pas à me connecter à LEAC » : la chaîne est SAINE de bout en bout (vu du dehors)
+
+- **Signalement utilisateur** (en passant, avant de reprendre MELMIL) : impossible de se connecter à LEAC sur le serveur.
+- **Mesuré, sans rien toucher** — tout répond, et correctement :
+  - `GET /api/sante` → `{"ok":true,"app":"LEAC","amorce":true,"version":"2026-09-21.2"}` ;
+  - `/` → **307** vers `/connexion` ; `/connexion` → **200**, écran « LEAC · Se connecter · compte de la zone » ; `/administration/administrateurs` → **307** vers `/connexion` (le sas fonctionne) ;
+  - **certificat** servi : `CN=*.cecpc-div-eval.pleiade.internal`, SAN couvrant l'hôte — valide jusqu'en 2036, même forme que les zones qui marchent ;
+  - royaume **`cecpc-div-eval`** présent (découverte OIDC 200, émetteur `https://auth.cecpc.internal/realms/cecpc-div-eval`) ;
+  - ⭐ **le client Keycloak de l'instance existe et est le bon** : en faisant parler LEAC lui-même (POST de connexion avec jeton CSRF), il part sur `client_id=**leac-leac**` — c'est le nommage `<type>-<instance>` de `clientDeInstance`, et ce client **accepte** l'adresse de retour `…/api/auth/callback/keycloak` (page de connexion Keycloak rendue, 200) ;
+  - **cecpc Connect** est déclaré pour cette zone (`cecpc-connect` accepte `…/realms/cecpc-div-eval/broker/cecpc/endpoint` → 200), et la page de connexion du royaume porte bien le bouton `broker/cecpc/login`.
+- ⚠ **Piège de mesure écarté** : `GET /api/auth/signin/keycloak` rend `error=Configuration` sur LEAC… **et sur les deux instances d'eho qui marchent**. C'est Auth.js qui exige un POST avec jeton CSRF, pas un défaut. Sans la comparaison, j'aurais conclu à une mauvaise configuration.
+- **Ce que je ne peux pas voir du dehors, et qui reste à vérifier avec l'utilisateur** : (1) ce que l'écran affiche exactement au moment de l'échec (page Keycloak ? erreur LEAC ? boucle vers `/connexion` ?) ; (2) s'il a un **compte dans le royaume `cecpc-div-eval`** ou s'il entre par « cecpc » ; (3) le cas échéant, les journaux du conteneur (`AUTH_SECRET`, `KEYCLOAK_CLIENT_SECRET`) — une boucle de retour à `/connexion` après une connexion réussie pointerait vers le secret de session.
+
 ## 2026-09-21 (suite 2) — 🔴 Défaut LATENT réparé : le volume de données d'une instance appartient à root
 
 Trouvé sur eho (« EACCES: permission denied, mkdir '/app/data/uploads' » à la

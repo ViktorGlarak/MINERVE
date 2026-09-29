@@ -88,7 +88,7 @@ Mot pour mot, l'en-tête du workflow d'`eho` :
 
 | Dépôt | Branche qui déploie |
 |---|---|
-| `eho` · `app-social` · `app-admin` · `app-cockpit` · `app-press` · `app-messagerie` · ⭐ `app-leac` | **`prod`** |
+| `eho` · `app-social` · `app-admin` · `app-cockpit` · `app-press` · `app-messagerie` · ⭐ `app-leac` · ⭐ `app-melmil` | **`prod`** |
 | ⚠ `pleiade-platform` | **`main`** *(pas de sas !)* |
 | `pleiade-infra` · `app-webserver` · `app-wordpress` | aucune (déploiement manuel) |
 
@@ -178,6 +178,14 @@ requête avec le mauvais en-tête `Accept` rend 404 sur un manifeste qui existe.
 `~/mastorion/pleiade/` (orchestrateur) · `~/mastorion/mastorion-v0/` · `~/mastorion/infra/` · `~/mastorion/pleiade/data/zones/` (instances déployées)
 
 ⚠ **PKI** : certificat wildcard `*.mastorion.internal` + `*.cecpc.mastorion.internal` géré dans `pleiade-infra`. Les clients VPN doivent installer `pki/ca.crt`.
+- ⭐ **Vécu le 2026-09-25 sur iPhone** : les zones (`*.cecpc-div-eval.pleiade.internal`…) sont signées par **« Mastorion Internal CA »**.
+  - **Symptômes** si l'autorité n'est pas approuvée sur l'appareil : un **⊗** « non sécurisé » dans Safari, puis, dans LEAC, la page « **Sans réseau — Cette page n'est pas sur l'appareil** ». Le service worker n'hérite pas de l'exception acceptée dans Safari. Pourtant le VPN est actif et le PC marche.
+  - **Correctif iOS** :
+    1. installer `pleiade-infra\pki\ca.crt` (profil) ;
+    2. ⚠ *Réglages → Général → Informations → Réglages de confiance des certificats* → activer l'autorité ;
+    3. supprimer les données du site dans Safari ;
+    4. rouvrir.
+  - **À faire sur chaque tablette de terrain AVANT l'exercice.**
 
 ---
 
@@ -219,21 +227,22 @@ Chaque instance reçoit automatiquement :
 
 ## 6. Catalogue d'applications déployables
 
-`pleiade-platform/catalog/*.yml` — **9 apps** *(`leac` ajouté le 2026-09-17)* :
+`pleiade-platform/catalog/*.yml` — **10 apps** *(`leac` ajouté le 2026-09-17, `melmil` le 2026-09-22, **poussé sur `main` le 2026-09-23** avec son rôle d'accès)* :
 
 ⭐ **Chaque entrée du catalogue a SON dépôt** (correspondance 1:1 vérifiée le 2026-09-16) :
 
 | App (YAML) | Dépôt | Ce qu'elle fait | Rôles Keycloak |
 |---|---|---|---|
 | `social` | **`app-social`** | Réseau social d'exercice — **remplace `mastorion`** | `animateur` (seul ; lecture seule sans lui) |
-| `presse` | **`app-press`** | Site de presse — 1 instance = 1 titre | `journaliste` · `redacteurchef` · `directeur` |
+| `presse` | **`app-press`** | Site de presse — 1 instance = 1 titre ; **site public ANONYME** + rédaction | ⚠ **2 rôles** : `journaliste` (écrire et publier) · `directeur` (+ réglages). *« Rédacteur en chef » a été **fusionné** dans `journaliste` le 2026-09-14 (`e985eda`) — « distinguer qui écrit de qui publie ajoutait un réglage à tenir sans rien protéger ». ⚠ Le `README`/`CLAUDE` d'`app-press` le mentionnent encore : **eux** sont périmés, le catalogue fait foi.* |
 | `messagerie` | **`app-messagerie`** | Messagerie instantanée — canaux, groupes, privés, programmés | `admin` · `moderateur` *(outil de JOUEUR : tout compte du royaume entre ; les rôles ne servent qu'à la supervision)* |
 | ⭐ `admin` | **`app-admin`** | **Administration de la zone** : scénarios multi-apps, publication orchestrée | Administration · Conduite d'exercice |
 | ⭐ `cockpit` | **`app-cockpit`** | **Veille multi-réseaux** de la zone | Veille · Environnement |
 | `eho` | **`eho`** | Identités de la zone — **notre chantier**, et **source d'identité de toutes les autres** | Administration · Environnement |
-| `wordpress` | **`app-wordpress`** | CMS (OIDC Keycloak pré-configuré) | Administrateur · Éditeur |
-| `webserver` | **`app-webserver`** | Fichiers statiques avec explorateur admin | Administration · Environnement |
+| `wordpress` | **`app-wordpress`** | CMS (OIDC Keycloak pré-configuré) — ⚠ **app générique, HORS contrat de zone** *(vérifié 2026-09-23)* : WordPress officiel + plugin OIDC + 1 `mu-plugin` (1 commit, 11/09) ; comptes WP **locaux** créés au 1er login (clé `sub`), **pas** d'identités eho, **pas** d'`/api/service/*` → ni l'admin de zone ni le cockpit ne le pilotent/lisent. Rôle probable : le « site quelconque » (blog, ONG, mairie, parti) que `app-press` ne sait pas faire. Absent de la présentation de Xavier. | `admin` Administrateur · `editor` Éditeur · `author` Auteur *(le mu-plugin mappe aussi `contributor`, non déclaré au catalogue ; sans rôle → `subscriber`)* |
+| `webserver` | **`app-webserver`** | Fichiers statiques avec explorateur admin — *(lu 2026-09-23)* Express + 292 lignes, 1 commit (11/09). **Public anonyme** : tout fichier du volume `data/files` est servi tel quel (`/Site TV4/article.html`). **`/_admin`** (rôle KC `admin`) : parcourir, téléverser, créer dossier, renommer, supprimer, télécharger. ⚠ `index:false` → pas d'`index.html` auto (la racine `/` renvoie 404, il faut l'URL exacte du fichier) · ⚠ cookie admin = durée du jeton KC (~5 min) · hors contrat de zone (pas d'`/api/service`, pas d'eho). 👉 **Hôte naturel des `Sites/` HTML de MASTAURIGE, déposés tels quels.** | `admin` Administration *(seul rôle au catalogue)* |
 | ⭐ `leac` | **`app-leac`** | **Contrôle des PC** — notation terrain hors ligne, concaténation au retour | `admin` *(référentiel seulement — voir ci-dessous)* |
+| ⭐ `melmil` | **`app-melmil`** | **Planche des injects** (EVENT × jours de jeu) alimentée par les **exports JEMM** — reprise du MELMIL de MASTAURIGE ; v0 : état dans le navigateur | ⭐⭐ **`admin`** *(« Animation ») — **obligatoire pour entrer** : la planche révèle le montage de l'exercice, un entraîné qui l'ouvre sait tout d'avance. Ne cocher QUE les groupes d'animation.* |
 
 ⚠ **`admin` et `cockpit` sont nouveaux et recoupent directement le savoir MINERVE** — l'un
 orchestre des déroulés heure par heure avec import XLSX (cf. MELMIL / synchromatrice), l'autre
@@ -241,10 +250,61 @@ fait de la veille et du reporting comparatif. Voir `REFERENCES/README.md`.
 
 Un template déclare : `image`, `port`, `healthcheck`, `icon` · `keycloak` (clientId + clientType) · `requires` (DB + mapping d'env) · `env` (variables typées : select, couleur, nombre, `secret`, `editable`, défauts avec substitution `{instance}` / `{domain}` / `{auto}`) · `volumes`.
 
+> ⚠⚠ **`requires` est lu À LA CRÉATION d'une instance, et une seule fois.**
+> `createInstance` provisionne la base d'après `tpl.requires` au moment où
+> l'instance naît (`zone-manager.ts`). **Aucun chemin de réparation n'existe** :
+> ajouter `requires: mariadb` au catalogue **ne donne pas** de base aux
+> instances déjà créées, qui démarrent alors sans `DATABASE_URL`.
+> ⇒ **Ordre obligatoire** : pousser le catalogue **d'abord**, créer l'instance
+> **ensuite**. Une instance créée trop tôt se **supprime et se recrée**.
+> *(Vécu le 2026-09-23 sur l'instance melmil de `delattre-26`.)*
+
+> ⚠⚠ **Deux pièges d'écriture d'un YAML de catalogue, tous deux vécus le 2026-09-23 — et tous deux désormais tenus par `scripts/test-catalogue.mts`** :
+> 1. **Un `:` suivi d'une espace dans un scalaire NON quoté** rend le fichier illisible. Le catalogue étant chargé **en bloc**, c'est **tout le catalogue** qui cesse de fonctionner sur le serveur, pas seulement l'app fautive. ⇒ **Quoter** toute description contenant `:`.
+> 2. **Une description de rôle de plus de 255 caractères** fait échouer la **création d'instance** : `KEYCLOAK_ROLE.DESCRIPTION` est un VARCHAR(255), Keycloak rend **500 `unknown_error`** et l'interface affiche `Failed to create client role "<role>": 500`. ⇒ Rester **sous 255** ; `descriptionDeRole()` tronque désormais en dernier recours, avec un avertissement au journal.
+
 > **Ajouter une app au catalogue = déposer un YAML** — c'est une opération de contenu, pas de code.
 > ⚠ **Mais le catalogue est copié DANS l'image de l'orchestrateur** (`COPY catalog/ catalog/`) : il faut donc **redéployer `pleiade-platform`** pour qu'un nouveau YAML atteigne le serveur — donc pousser sur son `main`, **qui déploie sans sas**.
 
 > ⭐ **Leçon de `leac` sur les rôles Keycloak** *(2026-09-17)* : ne déclarer au royaume que ce qui est **stable**. « Chef de contrôle », « chef d'équipe », « officier de marque » sont des **fonctions tenues dans une équipe**, qui changent d'un contrôle à l'autre — le même officier est chef d'équipe lundi et contrôleur S4 jeudi. Les mettre dans Keycloak obligerait à le rejouer à chaque nouvelle équipe, et **les deux vérités divergeraient au premier oubli**. Elles restent donc dans l'app. Le royaume ne tranche que l'accès au **référentiel**.
+
+### ⚠⚠ Le PORTAIL d'une zone est PUBLIC — relevé dans le code le 2026-09-23
+
+`<zone>.<domaine>` (ex. `delattre-26.pleiade.internal`) est servi par un
+middleware d'`index.ts` placé **avant** le garde de session (`requireAuth`,
+plus bas dans le même fichier), et il affiche `getPortalData(zone)` — un
+`SELECT` de **toutes** les instances de la zone. Donc :
+
+- **aucune authentification** n'est demandée pour voir la page ;
+- **aucun filtrage** par utilisateur, groupe ou rôle : toutes les cartes sont
+  rendues pour tout le monde, avec le nom et l'adresse de chaque instance.
+
+⭐ **Conséquence à connaître avant de promettre une confidentialité** : ne pas
+cocher un groupe sur le **bouclier d'une instance** ne **cache pas** sa carte
+du portail — cela lui **retire l'accès à l'application**. La carte reste
+visible et l'adresse devinable ; c'est donc **l'app elle-même** qui doit
+refuser, côté serveur (c'est ce que fait MELMIL, cf. son `habilitation.ts`).
+
+⏳ Filtrer le portail supposerait de l'authentifier : changement de
+comportement pour **toutes** les zones et **toutes** les apps — à décider avec
+l'utilisateur et Xavier, pas à glisser dans une livraison.
+⭐ **Depuis le 2026-09-23 (`4b1ddea`)**, le portail **regroupe** les instances
+d'un même type en une carte → page de choix **`/<type>`** (site + espace
+d'administration via `adminPath`), porte une pastille **« nouveau »** (dernière
+parution lue sur `retex`, mémoire **par appareil**) et respecte une case
+**« visible sur le portail »** par instance (`portail_visible`). ⚠ Cette case
+n'est **pas** une protection. Rendu dans `src/portail.ts` (pur, testé).
+⭐ **Renommée « Masquée aux joueurs » le 2026-09-23** (demande utilisateur, branche
+`libelle-masquee-aux-joueurs`, commit `839d389`, **non poussé**). Comportement
+**vérifié dans le code** : seule la requête du portail (`getPortalData`) filtre
+`portail_visible = 1` ; le **tableau de bord opérateur** et la **découverte
+entre apps** voient toujours l'instance ; son **adresse reste joignable**. ⚠
+Nuance : le portail est **le même pour tout le monde** (pas de connexion) —
+masquer retire la carte à **quiconque passe par le portail**, animateurs
+compris ; ils y accèdent par l'adresse ou par le tableau de bord Pléiade.
+⚠ **Décidé avec l'utilisateur** : pas de connexion obligatoire sur le portail,
+pas de bouton « invité » (décoratif : c'est chaque app qui décide). Le SSO de
+royaume évite déjà de retaper un mot de passe d'une app à l'autre.
 
 ### ⭐ Liaison inter-instances (cross-instance linking)
 Quand **eho et mastorion coexistent dans une zone**, `EHO_URL` est **automatiquement injecté** dans le `.env` de mastorion. Mastorion s'en sert pour **résoudre un compte par username auprès de l'EHO** quand il ne le trouve pas chez lui (`apps/api/src/admin/scenario-items.ts` → `GET {EHO_URL}/api/users?search=…`). **L'EHO devient donc la source d'identité des personas, mastorion le consommateur.**
@@ -272,9 +332,15 @@ Aucune app ne connaît ses voisines par configuration. Chacune interroge l'orche
 C'est **la clé de la zone**, injectée par Pléiade dans toutes ses apps.
 - ⭐ **Pourquoi pas le jeton de l'opérateur** : le scheduler de `app-admin` publie un inject à **T+37 min**, quand plus personne n'est devant l'écran. La session Keycloak de l'opérateur ne sert alors qu'à **signer le journal**.
 - **Cloisonnement** : une app compromise ne voit que **sa** zone.
+- ⭐ **Horloge du scheduler (règle du 2026-09-28)** :
+  - un item part quand `somme des deltas de sa chaîne ≤ (maintenant − startAt)` ;
+  - un **début passé** fait donc partir d'un coup tout ce qui est échu. C'est pourquoi le lancement à début passé exige un choix : « Maintenant » décale le scénario, « Rattraper » est assumé ;
+  - la **pause décale** début et fin (`paused_at`).
 
 ### 4. Le contrat `/api/service/*` est le MÊME partout
 `app-social`, `app-press` et `app-messagerie` exposent le même contrat (`health`, `accounts?identity=`, `users?search=`, `groups`, `publish`, `posts/[id]`…).
+- ⭐ **`GET /health` s'annonce** (`kind`, `needs_title`, `supports`) : c'est ainsi que l'admin de zone **adapte son formulaire** sans coder en dur le nom d'une app.
+- ⭐ **Un `publish` sans `reply_to_post_id` est un article ; avec, c'est une réaction de lecteur** — ou une entrée de fil si l'article est suivi en direct. Le même verbe sert donc à greffer un emballement sur un article existant.
 - 👉 **`app-admin` vise n'importe quelle app sans rien savoir d'elle.** C'est ce qui rend les scénarios multi-apps possibles.
 - ⚠ Un item de scénario cible **une INSTANCE (`instanceId`), jamais un type de réseau** : *« s'il y a trois YouTube, ce sont trois cibles »*.
 - ⚠ **Un message publié par le scénario doit être strictement indiscernable d'un message tapé par un joueur** : `source = "scenario"` n'apparaît **jamais** côté joueur, seulement en supervision.
@@ -329,6 +395,13 @@ Détail exhaustif de la plateforme : `MASTORION\MEMOIRE.md` (agent dédié) et l
 - Écrans : `(admin)` → `dashboard`, `users`, `users/[id]`, `groups`, `import` · `(player)` → `avatars` · `login`.
 - API : `/api/users`, `/api/groups`, `/api/groups/[id]/members`, `/api/import`, `/api/activity`, `/api/auth/[...nextauth]`.
 - `src/lib/` : `auth.ts`, `api-auth.ts`, `db.ts`, `keycloak-admin.ts`.
+- ⭐ **Charge à grande échelle — règle depuis le 2026-09-24** *(DE LATTRE 26 ≈ 3 500 avatars ; branche `refonte-v2`, non poussée)* :
+  - **Ne plus jamais charger TOUS les avatars complets côté client.** Le trombinoscope passe par **`GET /api/avatars/planche`**. Sans paramètre, il reçoit le **sommaire** (pays → blocs, effectifs). Avec `?section=&fonction=&offset=&limit=`, il reçoit les cartes d'un bloc. Avec `?q=`, il lance une recherche serveur plafonnée à 400. La route est ⚠ **réservée à l'animation** (`exigerEcriture`) : elle porte pays et fonction officiels.
+  - La liste **`GET /api/eho/mon-eho`** est **allégée** :
+    - elle ne porte plus de bio (drapeau `bioACharger`), et le texte est lu à l'ouverture par le nouveau **`GET /api/eho/mon-eho/[id]`**, avec la même portée `?gt=` et le même dépouillement ;
+    - ses **champs vides sont omis** (`compacte`), et le client les remet avec `completerCarte`.
+  - **Aucun autre dépôt** ne consomme ces routes (vérifié). Le contrat `/api/users` consommé par MASTORION est **inchangé**.
+  - À l'affichage : **60 cartes par bloc** + « Afficher plus », cartes **mémoïsées**, recherche **différée**.
 - **Modèle de données** : `User.id = UUID Keycloak (String)` — l'identité vient de Keycloak, plus d'auto-incrément. Groupes avec `keycloakId`. Table `activity_logs` (traçabilité).
 - ⭐ **Les champs de persona sont EXACTEMENT ceux de MASTORION** : `age, genre, pays, label, origine, religion, situation, caractere, langage, activite, observations, qualifications, aime, deteste` (+ `bio`, `avatarUrl`, `bannerUrl`, `rawPassword`, `enabled`). **Les bibliothèques MINERVE restent donc directement exploitables.**
 - Import : dépendance **`csv-parse`** → format **CSV**, pas XLSX (l'export Excel vit côté orchestrateur).
@@ -677,3 +750,155 @@ ou un mauvais hôte. Ordre : variable publique explicite (`EHO_PUBLIC_URL`, `NEX
 `GET /api/sante` → `{ version }` sur **LEAC** (`lib/version.ts`) et **eho** (idem depuis `2026-09-21.1`).
 Incrémenter la marque à chaque push sur `prod`. Une empreinte des chunks `/_next/static` ne bouge
 pas quand seule la partie serveur change → faux « pas déployé » (constaté sur trois builds de suite).
+
+
+## Règle — eho : UNE fiche d'avatar, UN verrou, partagés par tous les écrans *(2026-09-22)*
+
+La fiche d'un avatar vit dans **`components/fiche-avatar.tsx`** (`FicheAvatar`, `CarteFiche`,
+`couleurCarte`) et son verrou dans **`lib/verrou-fiche.ts`** (`useVerrouFiche`). La planche de
+rangement (« Mon EHO », « EHO GT ») **et** la planche relationnelle les utilisent : c'est le même
+avatar, ce doit être la même fiche, jusqu'au mot près. ⭐ **La PORTÉE ne vient jamais de la
+fiche** : chaque écran interroge `GET /api/eho/mon-eho` avec la sienne (`?gt=…`, `?officiel=1`,
+observation), et la fiche affiche la carte qu'on lui donne — donc celle du bon porteur, par
+construction. Deux réglages seulement : `lectureSeule` (planche observée, planche de l'animation)
+et `officiel` (toutes les cartes portent alors leur identité officielle, pas seulement les
+STARTEX). Une action propre à un écran (« verser vers un GT ») se passe en emplacement, elle
+n'entre pas dans la fiche.
+
+## ⭐ Chantier — Templates MASTAURIGE en « maquettes existantes » d'`app-press` *(décidé 2026-09-23)*
+
+**Demande utilisateur** : dans *Réglages ▸ Maquette et thème*, à droite des 4 maquettes génériques, un groupe **« Maquettes existantes »** qui reprend les sites de `EXER\AURIGE 7BB\…\LOCALSTORAGE_WEB_VERSION\Sites\` (hors Trombinoscope, TRACTS, images, COURRIERS, Communiqués officiels) ; toute la rédaction (écrire, médiathèque, réactions…) doit fonctionner avec chacun.
+
+**Constat** : les `_TEMPLATE.html` sont des **pages d'article** à balises `{{…}}`, pas des sites (ni une, ni rubrique, ni direct, ni recherche) ; nav / sidebar / « related » / ticker **en dur** ; polices **Google Fonts** (→ à embarquer, réseau fermé) ; logos base64. La rédaction `/redaction` a son propre thème → **indépendante de la maquette** ; le travail est côté site public.
+
+**Décisions utilisateur (2026-09-23)** :
+1. **Habillages FIDÈLES, par vagues** — CSS du template repris quasi tel quel, **confiné** à l'habillage ; structure réécrite en composants React (en-tête, pied, article, une, rubrique, direct, recherche) branchés sur les données ; réactions + fil en direct **greffés**. Vagues : ① TV4 · Today Mercure · BC1 ② Hexagone · TF1 · Omerta ③ ONU · OTAN · ZubrRadio · **EFS**.
+2. **Les 10 sites, EFS compris** (EFS = site de campagne, champ « appel à l'action »).
+3. ⚠ **Branche LOCALE seulement** sur `app-press` — rien livré, rien poussé (pas de droit d'écriture, cf. mémoire auto `pleiade_droits_github`) ; livraison à décider plus tard.
+4. **Charte verrouillée par défaut + bouton « Retoucher »** pour la modifier.
+
+**Champs propres à certaines maquettes** (optionnels, visibles dans l'éditeur seulement si la maquette les emploie) : lieu/dateline (TV4, BC1), « l'essentiel » (TF1), signataire/fonction/référence (ONU, OTAN), audio/durée/transcription (ZubrRadio), appel à l'action (EFS). Correspondances directes : TITLE/HEADLINE→`title`, DECK/CHAPO→`standfirst`, BODY→`body`, HERO/HERO_CAPTION→média à la une + légende, KICKER/CATEGORY→rubrique, TAGS, DATE, AUTHOR→avatar eho.
+
+**Source des templates** : propriété MASTAURIGE (règle « template obligatoire par site », `MASTAURIGE\MEMOIRE.md`) — l'habillage doit reproduire le template complet, jamais une version simplifiée.
+
+**✅ Vague 1 LIVRÉE en local le 2026-09-23** — branche **`maquettes-existantes`** d'`app-press` (commit `1a40aa1`, **NON poussée**, base = `99b649f` lui aussi non poussé) : **TV4, Today Mercure, Bothnia Channel 1**. Architecture à réutiliser pour les vagues 2-3 :
+- `src/skins/registry.ts` = **données** (clé, identité reprise, charte en jetons, `fields`, `colorLabels`, `swatch`) — importable côté navigateur ; `SKINS_A_VENIR` liste les 7 restants.
+- `src/skins/<cle>/<Cle>.tsx` = 5 vues (`Shell`, `Home`, `Article`, `List`, `Page`, contrat `types.ts`) **sans accès base** (les pages chargent, l'habillage met en page → rendu aussi dans l'aperçu des réglages) ; `<cle>.css` = CSS du template **confiné** `.sk-<cle>`, couleurs de marque sur les jetons (`--accent`, `--urgent`…), nuances en `color-mix`.
+- Réactions / fil en direct / mention d'exercice = composants génériques posés en **îlots** `.site.sk-island` (`shared.tsx`) aux jetons de la charte.
+- Base : `Site.skin` (VarChar 40, null = générique) + `Article.skinFields` (JSON `{cle: texte}`, bornée par `parseSkinFields`). Polices embarquées via `next/font` (PT Serif/Sans, Oswald, Source Sans 3).
+- ⚠ Piège rencontré : un composant rendu côté navigateur ne doit rien importer de `lib/site.ts` (tire Prisma/mariadb → « Can't resolve 'fs' ») → `EXERCISE_NOTICE` déplacée dans `lib/notice.ts`.
+- ⚠ **Test local** : sans eho, **enregistrer un article échoue** (« Signature inconnue » — contrôle par camp **préexistant**, non modifié) ; les champs de maquette seuls s'enregistrent. Environnement : base `presse-db` (Docker, port 3320), `.env` avec `PRESSE_DEV_USER`, `next dev -p 3500`.
+- Limites connues : libellés des îlots (réactions, direct) restent en **français** sur TM/BC1/ONU (sites anglais) ; la une d'un habillage n'applique que le bloc « une » de l'onglet La une (pas les autres blocs).
+
+**✅ LES 10 SITES LIVRÉS en local le 2026-09-23** — commit `5c43ffe` (branche `maquettes-existantes`, non poussée) : vague 2 **Hexagone, TF1 Info, Omerta** + vague 3 **ONU, OTAN, ZubrRadio, EFS**. `SKINS_A_VENIR` est vide.
+- **Réglages** : « Maquette du site » a **deux onglets** (demande utilisateur) — *Maquettes génériques (4)* / *Maquettes existantes (10)* ; seul l'onglet actif montre ses vignettes ; il s'ouvre sur la famille en service.
+- **Champs par maquette** : `lieu` (TV4, BC1) · `bandeau` (Hexagone) · `essentiel1-3`, `source` (TF1) · `ref`, `signataire`, `fonction`, `signature` (ONU) · `emission`, `duree`, `timecode` (ZubrRadio) · `visuel`, `cta`, `cta_lien` (EFS, lien borné à `/…` ou `http(s)`).
+- **Logos** des templates (base64) extraits dans `public/skins/` (hexagone, tf1, omerta, otan) ; ONU/EFS/ZubrRadio/TV4/TM/BC1 = logos en CSS/texte.
+- **Corps d'article** : classe commune `.sk-prose` (encadrés, figures de l'éditeur dans toutes les chartes) ; `lib/sanitize.ts` accepte désormais les **classes des templates** (`figures-box`, `ops-box`, `decree-box`, `BodySubTitle`, `z-seg`, `dots`, `band`…) et `class` sur `ul`, `h2`, `blockquote`.
+- ⚠ **Piège vérifié** : une classe d'habillage qui porte le nom d'une classe d'îlot (`wrap`, `section-title`, `reaction*`…) déborde sur la mention d'exercice ou les réactions (cas EFS `.wrap` corrigé en `efs-wrap`) ; toute règle sur balise nue (`.sk-x h2`) touche aussi les îlots → toujours préfixer.
+- ⚠ **Marques réelles** : TF1 Info et Omerta Média reprennent des médias existants (logo compris) — c'est le choix des templates MASTAURIGE d'origine, reproduit tel quel ; signalé à l'utilisateur.
+
+## ⭐ eho — RANGER LES GROUPES : procédure pour CHAQUE nouvel exercice (validée le 2026-09-28)
+
+**Capacité** : `Group.archive` = masqué dans eho, **jamais supprimé ni renommé** ; `/api/groups` renvoie toujours tout aux autres apps (incarnation, app-admin, app-press, app-messagerie). Assistant « Ranger les groupes… » (admin) : `lib/rangement-groupes.ts` + `/api/groups/rangement`. En ligne depuis `2026-09-28.1`.
+
+**À chaque nouvel exercice** :
+1. Appliquer ou fusionner le modèle.
+2. Créer le groupe **`EXERCICE <NOM>`** de l'exercice.
+3. « Ranger les groupes… » → choisir l'exercice en cours → vérifier → appliquer.
+4. « Ressortir » au besoin les groupes d'animation de l'exercice.
+5. **Enregistrer en nouveau modèle** : le drapeau archivé voyage avec les groupes, et l'exercice suivant démarre rangé.
+
+**Limites à connaître** :
+- un nouveau pays fictif (préfixe autre que ARN / MER / FR / FRA / BOT) doit être ajouté à `PREFIXES_PAYS` (`lib/rangement-groupes.ts`) et à `FAMILLES` (page Groupes) ;
+- un groupe d'animation nommé « PAYS - … » sera proposé comme classement : le décocher ;
+- l'exercice en cours n'est deviné que si le nom de la zone le contient ;
+- ⚠ **appliquer un modèle recrée les groupes avec de nouveaux ids** : les liens par id d'app-admin et d'app-press ne survivent pas (préexistant, à corriger).
+
+## ⭐ app-admin — le KIT IA et l'import fiabilisé (commit `3d396fd`, ✅ EN LIGNE le 2026-09-28 soir : `main` = `prod`)
+
+- **Un bouton « Kit IA »** dans l'éditeur de scénario. Il télécharge un `.zip` fabriqué à l'instant (`GET /api/bff/scenarios/:id/kit-ia`) :
+  - `1_AVATARS.md` : par pays puis catégorie, avec @compte, nom, camp, activité, langue, groupes visibles et biographie courte, complète ou absente. Le périmètre est au choix : groupes visibles (défaut), groupes choisis, ou tous ;
+  - `2_MODE_EMPLOI.md` : colonnes, apps publiables avec leurs champs annoncés, groupes visibles, règles MINERVE (langue, GET, camp…) et un exemple CSV avec de vrais @comptes ;
+  - `3_GUIDE.md` : l'espace permanent, les consignes à coller, la fiche de contexte, la méthode trame → lignes → auto-vérification, la vérification avant import ;
+  - `4_MODELE_VIDE.xlsx`.
+- ⭐ **`lib/format-scenario.ts` = LA définition du fichier**, partagée par l'import, l'export, la fenêtre d'import et le kit. Ne jamais recopier la liste des colonnes ailleurs.
+- **Import** :
+  - il lit `title`, `target` et `champ:<clé>` (case à cocher : oui/non) et accepte le **CSV** (séparateur deviné) ;
+  - il **contrôle tout le fichier avant d'écrire** et REFUSE : un article sans titre (app `needsTitle`), une réponse vers une autre app, une réponse vers une ligne absente ou refusée (en cascade) ;
+  - il signale un champ inconnu de l'app.
+- **Export** : `title`, `target` et les colonnes `champ:*`. Aller-retour export → import **identique** (vérifié).
+- **Vérifié en local** : app-admin, eho (base DE LATTRE), presse TV4, clé d'essai.
+  - Le kit s'obtient en 2 s, avec 653 avatars (groupes visibles) en bio courte, soit 110 Ko ;
+  - import d'un CSV « façon IA » avec erreurs volontaires ; 11 tests ; `tsc` et build OK.
+  - ⚠ **app-admin n'a PAS de configuration ESLint** : le lint n'y vérifie rien.
+- ⚠ Pousser `kit-ia` poussera aussi 2 commits anciens en attente (`5a5fbd1` déconnexion Keycloak, `5b6bf9f` champs d'item).
+
+## 🔄 app-admin — préparer un scénario avec une IA : NOUVELLE ORIENTATION (2026-09-28, soir)
+
+⭐ **Décision de l'utilisateur, après discussion avec Xavier** : on abandonne le « tout en un import / commande de génération ».
+- Le traitant reçoit **deux fichiers .md** :
+  1. la **cartographie des avatars** de l'EHO ;
+  2. le **mode d'emploi du fichier xls d'import** (colonnes, médias présents, champs, règles) ;
+- il donne lui-même le **contexte** à l'IA, puis importe le xls produit.
+- **Proposition, non codée** : deux boutons dans app-admin (encart « Préparer avec une IA », page scénario), fichiers **générés au clic** depuis eho et la zone, donc toujours à jour.
+- **À régler avant de coder** :
+  - la taille de la cartographie (3 983 avatars avec bio = plusieurs Mo) → filtres « groupes visibles seulement » (les archivés tombent), groupes cochés, bio oui / courte / non ;
+  - l'import ne lit pas encore `title`, `target` ni `fields` ;
+  - le mode d'emploi et l'import doivent partager **une seule définition des colonnes** ;
+  - une option « sans camp » pour d'autres exercices.
+- **Précisions de l'utilisateur (même soir)** :
+  - le traitant ne fait ce dépôt **qu'une fois**. Condition à expliquer : déposer les fichiers dans un espace permanent (Projet ChatGPT ou Claude, Gem Gemini, Agent Le Chat) ; les régénérer quand l'EHO change (date de génération en tête de fichier) ;
+  - ⭐ **3ᵉ fichier retenu (proposé)** : « Guide de rédaction d'un scénario », qui contient :
+    - les consignes à coller dans l'espace de l'IA ;
+    - une fiche de contexte à remplir ;
+    - une méthode en 3 temps : trame → lignes → auto-vérification ;
+    - un exemple complet ;
+    - une vérification avant import.
+
+    Il est en grande partie fixe (nom de l'exercice et apps insérés au clic).
+  - Dans app-admin : un encart « Kit IA » (3 fichiers, ou un .zip).
+- **Xavier a donné les droits d'écriture sur app-admin** (à vérifier au premier push). ⏳ Offert : fabriquer à la main un exemple de chacun des deux .md (base DE LATTRE) pour un essai dans l'IA.
+
+## ⏸️ app-admin — l'export de scénario pour une IA (EN PAUSE le 2026-09-28, en attente des droits d'écriture sur app-admin ; garder le contexte)
+
+**Besoin utilisateur** : générer du contenu en masse (réseau social, presse…) en confiant l'export du scénario à une **IA gratuite en ligne**, avec la liste eho **et les biographies** (l'utilisateur l'accepte, test en .xlsx).
+- **Constat du code** (`app-admin` `src/app/api/bff/scenarios/[id]/export|import`) : 10 colonnes seulement (`id, app, persona, message, delta, reply_to, likes, boosts, like_groups, boost_groups`). ⚠ `title`, `target` (rubrique) et `fields` (chapô, champs de maquette, annoncés par l'app dans `item_fields`) **ne passent ni à l'export ni à l'import**, alors que l'éditeur les gère. `delta` = minutes depuis le parent ou le début.
+- **Solution retenue avec l'utilisateur** : un **export auto-documenté**, généré depuis l'état réel de la zone. Feuilles : `LISEZ-MOI (IA)` (mode d'emploi, règles MINERVE, prompt), `scenario` (+ titre, rubrique, champs de maquette, menus déroulants), `apps`, `avatars` (+ bios), `groupes`, `exemples`.
+- ⭐ **Idée de l'utilisateur** : une **« commande de génération »** remplie DANS l'app avant d'exporter (effet recherché, camp, public, apps cochées, groupes d'avatars, volume et rythme, trame, langue, ton, contraintes). Elle s'écrit dans le fichier, le **filtre** (apps et avatars utiles) et **reste enregistrée** sur le scénario. L'utilisateur n'ouvre plus le fichier.
+- Pistes : un import qui accepte aussi un **CSV ou un tableau collé**, avec un aperçu avant d'importer ; plus tard, pré-remplir la commande depuis un **incident MELMIL**.
+- **Étape suivante proposée** : fabriquer un `.xlsx` d'exemple (zone DE LATTRE) pour le tester dans l'IA, avant de coder. ⚠ `app-admin` : pas de droits d'écriture (403), et 2 commits locaux non poussés.
+
+## ⭐ MELMIL — l'ATELIER DE PRÉPARATION (« création d'exercice »), 2026-09-23
+
+**Demande utilisateur** : que les traitants se servent de MELMIL pour **créer l'exercice**, GT après GT (GT1 events, GT2 storylines, GT3 incidents), en direct et en parallèle, avec un tableau type MELMIL qui se remplit tout seul — ⚠⚠ **distinct** de la planche JEMM (la vérité des joueurs), et resservant pendant l'exercice pour anticiper ce qu'il faudra ajouter dans JEMM.
+
+**Décisions utilisateur** : tout le monde peut tout modifier, on voit **qui a touché à quoi** ; events (et parfois storylines) **confiés** à des traitants (l'exclusivité par utilisateur n'est pas exclue plus tard) · GT1 = création d'events seulement (pas de référentiel « ordres des chefs ») · **pas d'export JEMM** depuis l'atelier, mais une **vue des écarts** · accès = mêmes groupes d'animation · un **annuaire d'équipe** par cellule (chef, second, traitants).
+
+**Livré** — `app-melmil`, branche `atelier-preparation`, commit `cc6d5b2`, version **`2026-09-23.3`** — ✅ **déployé le 2026-09-23 à 17:41** (`prod` = `cc6d5b2`) :
+- Route **`/preparation`** (même sas de rôle que la planche) ; bandeau : bascule **« Création d'exercice » / « Planche JEMM »**.
+- `src/lib/atelier/` **pur et testé** : `modele.ts` (Atelier v1 : events, storylines, incidents en **D+ + heure**, membres, journal 300 gestes, calendrier = jour de référence + D+ + **période de jeu**), `gestes.ts` (créer/modifier/supprimer/**recoder en cascade**/dupliquer, chacun pose la **trace** et journalise), `versPlanche.ts` (atelier → `Etat` : **le composant `Planche` existant dessine la planche de préparation**, phases/GELEX/couleurs empruntées à la planche JEMM), `ecarts.ts` (par **code** : prévu absent de JEMM / différent (date, sujet, storyline) / dans JEMM seulement), `importer.ts` (**verser** un export JEMM : **ajoute, ne remplace jamais**, exige le calendrier, pose la période de jeu).
+- Serveur : **table `atelier` à part** (migration additive `20260923120000_atelier_preparation`, `planche` intacte), **même concurrence** que la planche (version attendue → 409 → rejeu), `/api/atelier` GET/PUT. **SSE : un canal par document** (`canal: "planche" | "atelier"`) — la planche JEMM ne se relit plus quand l'atelier change.
+- Écran : parcours GT (repère, pas verrou ; « passer l'exercice ici » confirmé), onglets Events · Storylines · Incidents · Planche de préparation (**glisser = changer le D+**) · Écarts · Équipe (« C'est moi » rattache la fiche au compte) · Journal · Réglages. ⭐ **Les champs n'enregistrent qu'à la sortie** (pas à chaque frappe : sinon un conflit par lettre et par traitant), brouillon local préservé pendant la frappe.
+- **Vérifié** : 139 tests (43 nouveaux) · essai **à deux navigateurs 16/16** (versement des 2 JEMM fictifs DELATTRE → 2/7/46 vus par l'autre poste, écritures simultanées qui survivent toutes deux, équipe, journal, passage GT, planche D+27→D+41, écarts = 1 seul incident retouché, planche JEMM intacte, rechargement) · **montée de base simulée** (planche v5 existante + nouvelle migration → intacte) · **image de production construite et lancée** : migrations appliquées, `healthy`, `/api/sante` = `2026-09-23.3`, **401 sans session** sur `/api/atelier`.
+- ⚠ **Piège d'essai d'image sous Windows** : la copie de travail est en **CRLF** (`core.autocrlf=true`) → `exec ./docker-entrypoint.sh: no such file or directory`. Le dépôt est en LF, **le runner Linux n'est pas concerné**. Pour un essai local fidèle : `git -c core.autocrlf=false archive --format=tar HEAD | docker build -t … -` (⚠ `git archive` seul convertit AUSSI).
+- ✅ **2026-09-24 — Grille EXCON cliquable** (commit `d55688d`, version `2026-09-24.1`, **local, non poussé**) : dans chaque storyline, le tableau « EXCON COORDINATION REQUIRED » du PPT GREY CELL (légende TO BE COORDINATED / COORDINATED à gauche, cases **OPFOR · LOG · NSE · HN · CAX · ILI**). Un clic fait tourner la case **blanc → jaune `#FFFF00` → vert `#92D050` → blanc** (couleurs relevées dans le PPT). Modèle : `coordination: Record<CelluleExcon, "" | "a-coordonner" | "coordonne">` ; l'ancien texte libre est relu (cellule citée → à coordonner) ; `versPlanche` en tire un texte (« OPFOR (à coordonner), HN (coordonnée) »). Geste pur `basculerCoordination` (tracé, journalisé, rejoué sur l'état frais en cas de conflit). 147 tests + essai à deux navigateurs OK. ⚠ Le PPT a quelques tableaux à cellules différentes (JLSG, LOCON, HICON, LOG / D2) : **la grille reste fixe aux 6 cellules demandées**. JEMM ne porte pas les couleurs → après versement, les cases sont blanches.
+- ✅ **2026-09-24 — Comptes rendus PSYREP / CIMICREP sur les incidents** (commit `6f77eb6`, version `2026-09-24.2`, ✅ **en ligne le 2026-09-24 à 13:14**). Modèles = `EXER\DELATTRE 26\00_Boites à outils\APPENDICE 7_ PSYREP.FR.docx` et `APPENDICE 8_ CIMICREP.FR.docx`, copiés dans `app-melmil/public/modeles-cr/`. Décisions utilisateur : export **.docx** (le modèle d'origine rempli), **TLS cliquable** (vide→G→A→R→?, couleurs du modèle `00FF00/FFC000/FF0000`), **pré-remplissage** (GDH `DDHHMM{A|B}MMMYY` heure de Paris, nom d'exercice, n° msg = code incident), bouton **« Importer un CR (.docx) »** (modèle vierge rempli dans Word → nouveau CR ; type reconnu au titre du tableau ; rangées retrouvées par intitulé si le tableau a été retouché).
+  - Architecture : `scripts/gabarits-cr.py` **génère** `src/lib/comptes-rendus/gabarits.ts` (cellules, fusions, fonds, hauteurs, runs, numérotation ; cases `r{rangée}c{rang}` genres `texte` / `sous` (on écrit sous l'intitulé, PSYREP) / `tls`) → **à relancer si un modèle change**. `docx.ts` (navigateur, `fflate` + DOMParser) remplit/relit le `word/document.xml` d'origine sans toucher au reste. `Atelier.comptesRendus[]` rattachés par **ID d'incident** (recoder ne détache pas), cascade à la suppression incident/storyline/event, gestes purs une-case-une-écriture.
+  - PSYREP 21 cases, CIMICREP 167 (dont « Location CP », dans un tableau imbriqué ; pas de TLS sur DE/A/INFO/REF ; intertitres jaunes non remplissables sauf HNS QUESTIONS). 165 tests + essai navigateur 12/12 (création, cumul 1 CIMICREP + 2 PSYREP, export relu par python-docx et rendu LibreOffice identique au modèle, import de modèles remplis « à la Word », vu par un 2ᵉ poste).
+- ✅ **2026-09-25 — ETIM des incidents** (commit `5b4d76a`, branche `etim-incidents`, version `2026-09-25.1`, ✅ **en ligne le 2026-09-25**) : `Atelier.etims` = la liste des ETIM de l'exercice (Réglages : ajouter / renommer / retirer, qui suivent sur les incidents) ; `IncidentAtelier.etims` = celles cochées dans la fiche (pastilles, avis DESIGNER n°7). Affichées sur la carte de la planche de préparation, dans la liste par jour, dans le tableau des incidents et sur la fiche. `Inject.etims?` est posé par `versPlanche` seulement, **jamais enregistré sur la planche JEMM**. Verser un JEMM reprend les acteurs `^ETIM` (`etimsDesRoles`). Relecture rétro-compatible (listes vides). 178 tests.
+  - ⏳ **À FAIRE dès les premiers exports JEMM réels de DE LATTRE 26 (demande utilisateur)** : faire apparaître les ETIM sur la **planche JEMM** aussi. Piste : la planche JEMM garde déjà les acteurs JEMM dans `Inject.roles` (`ScenarioRoleList`, lu par `jemm.ts`) ; il suffirait d'en tirer les ETIM (`etimsDesRoles`) à l'affichage de la carte. ⚠ **Vérifier d'abord dans le vrai export** où JEMM porte l'ETIM (acteur, destinataire, émetteur, étiquette `TagList` ?) et sous quels libellés. Les fichiers actuels sont **fictifs**, faits par nous depuis le PPT.
+- ✅ **2026-09-28 — Onglet ÉQUIPE refait** (commit `f9f72b6`, branche `equipe-organigramme`, version `2026-09-28.1`, ✅ **en ligne le 2026-09-28**, `main` = `prod`, `/api/sante` vérifié) :
+  - modèle : `Atelier.groupes` (`GroupeEquipe` : nom, couleur, parent, rôle), `Membre.grade` et `Membre.compteId`. ⚠ Les personnes et les events citent leur groupe **par son NOM** (`cellule`), comme avant : une cellule citée sans fiche est un **groupe implicite** (id `nom:<NOM>`). Le modifier le rend explicite ;
+  - `lib/atelier/equipe.ts` (pur, testé) : renommer suit sur les personnes et les events, un parent circulaire est refusé, supprimer fait remonter les sous-groupes et garde les personnes sans groupe ;
+  - écran `components/atelier/equipe.tsx` : vue **Araignée** (2 couronnes, hauteur ajustée au contenu) et vue **Liste** (d'office au téléphone), fiches groupe et personne dans le panneau de droite. Avis DESIGNER n°10 ;
+  - **comptes Pléiade de la zone** : `/api/zone/comptes` → route de service de Pléiade `/api/internal/zones/:zone/users` (sans mot de passe, même source que LEAC) ;
+  - relecture : un grade saisi dans le nom (« CNE Julie MARTIN ») est séparé (`separerGrade`) ;
+  - ⚠ **Abréviations de grade (correction utilisateur)** : sergent-chef = **SCH**, jamais « SGC ». `gradeReglementaire` relit les anciens « SGC » en SCH (commit `018f5dc`, `2026-09-28.2`, ✅ en ligne le 2026-09-28).
+  - 192 tests ; essai local ordinateur et téléphone, 0 erreur, 0 débordement.
+  - ⚠ Tout utilisateur de MELMIL a le rôle `admin` : « seul un admin crée des groupes » est donc vrai d'office. Un rôle plus fin reste à créer si besoin.
+- ✅ **2026-09-28 (après-midi) — Équipe v2 : ORGANIGRAMME + liens transverses** (commit `84294f7`, branche `equipe-organigramme-v2`, `2026-09-28.3`, ✅ **en ligne le 2026-09-28**) : l'araignée est **remplacée**, car elle ne montrait que 2 niveaux et l'exercice au centre trompait. L'exercice devient le **cadre**. Les groupes sont en colonnes et les sous-groupes emboîtés à toute profondeur ; les traits sont tracés d'après la position réelle des cartes (calque SVG). Nouveau champ **`GroupeEquipe.liens`** (« travaille aussi avec ») : stocké d'un côté, lu des deux (`reliesA`, `liensTransverses`, `relierGroupes`), dessiné en pointillé ET écrit « ↔ X » dans les cartes. Avis DESIGNER n°11. ⚠ **Les noms réels saisis par l'utilisateur sont confidentiels : ne pas les lire** ; essais sur des données fictives uniquement.
+- ✅ **2026-09-28 (soir) — Organigramme : placement selon les liens** (commit `04b3a15`, branche `equipe-placement`, `2026-09-28.4`, ✅ **en ligne le 2026-09-28**) : `ordonnerOrganigramme` (pur, testé, déterministe) forme une chaîne de colonnes par famille de groupes reliés ; dans un groupe, le sous-groupe relié est placé du côté de son partenaire. Les cartes n'écrivent plus « Aucune personne ». Avis DESIGNER n°12. Piste : un ordre manuel qui primerait.
+- ✅ **2026-09-28 (soir) — « Confié à » par GROUPES** (commit `a65d6f2`, branche `confie-par-groupes`, `2026-09-28.5`, ✅ **en ligne le 2026-09-28**) — ⭐ **règle de l'utilisateur** : l'**event** est confié à un groupe de premier niveau (`EventAtelier.groupes`), la **storyline** à un sous-groupe du groupe de son event (`StorylineAtelier.groupes`), l'**incident** à des personnes de ce sous-groupe (`IncidentAtelier.confieA`). **Liste vide = tout le sous-groupe gère l'incident.** Logique pure dans `equipe.ts` (`choixPour*`, `gestionnairesDeLIncident`, `confieA`). L'ancien `responsables` (par personnes) est gardé et affiché avec « Effacer ». Avis DESIGNER n°13. 216 tests.
+- ✅ **2026-09-28 (soir) — Event : « Cellule » = la sélection des groupes** (commit `1e2adf8`, branche `cellule-groupes`, `2026-09-28.6`, ✅ **en ligne le 2026-09-28**) — ⭐ **décision utilisateur** : fusion de la « Cellule » (texte libre) et du « Confié à (groupe) », une seule rubrique « Cellule » à pastilles, parce que c'est plus parlant. `celluleDeLEvent` affiche les groupes cochés, sinon l'ancien texte (planche, en-têtes) ; le texte libre ne crée plus de groupe fantôme ; à l'import JEMM, le groupe du même nom que l'event est coché d'office. Storylines et incidents inchangés. 220 tests.
+- ⏳ Limites connues : pas de rôle lecture seule ; pas d'exclusivité d'écriture par traitant ; le journal ne garde que 300 gestes ; les storylines versées depuis JEMM n'ont ni effets attendus ni coordination séparés (JEMM les mêle au récit).

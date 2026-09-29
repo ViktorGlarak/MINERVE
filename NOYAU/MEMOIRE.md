@@ -321,12 +321,14 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-09-17] 23 agents au total
+### [2026-05-25 — mis à jour 2026-09-24] 24 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-15 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**) +
+16 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**, **DESIGNER**) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 15 + 1 = **23 agents** (vérifié contre le registre CLAUDE.md le 2026-09-17)
+= 4 + 3 + 16 + 1 = **24 agents** (vérifié contre le registre CLAUDE.md le 2026-09-24)
+
+> ⭐ **DESIGNER ajouté le 2026-09-24** — **conseiller en design** des sites et applicatifs (PLÉIADE, sites d'exercice). Ingère au fil de l'eau les documents de design fournis par l'utilisateur (9 premières sources : shadcn/ui, Radix, HyperUI, 2 listes de design systems, Laws of UX, Refactoring UI, Lucide, Motion) → doctrine de 20 règles sourcées. claude-opus-4-7. Dossier `DESIGNER\` (mémoire + journal + `REFERENCES\`). ⚠ **Contribue, ne tranche pas** (décision utilisateur) : chartes des médias fictifs et modèles officiels priment. Pattern de routage : tout avis « design / lisibilité / accessibilité » d'un écran → DESIGNER, mise en œuvre → ARCHITECTE / PLEIADE.
 
 > ⭐ **LEAC ajouté le 2026-09-17** — référent unique du **système LEAC** (nouveau projet) : documentation, décisions et **suivi du projet**. claude-opus-4-7. Dossier `LEAC\` (mémoire + journal séparés dès le départ). ⚠ **Identité du système entièrement à renseigner** — documentation attendue de l'utilisateur, **ne rien supposer**. **Réflexe imposé : le consulter dès que LEAC est évoqué, le mettre à jour à chaque avancée et à chaque ouverture/fermeture de session.**
 

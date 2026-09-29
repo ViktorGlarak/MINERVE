@@ -48,6 +48,12 @@ La branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe tou
    - Analyses, specs et propositions se consignent **côté MINERVE** (ici), pas dans le repo.
 2. Clone Git : avant toute intervention future autorisée → `git status` / branche / remote d'abord ; jamais de commit/push sans demande explicite.
    **Convention de branches (utilisateur, 2026-07-27)** : dans `mastorion-v0`, tout le travail se fait sur la branche **`MEYTRE`** (créée par l'utilisateur via GitHub Desktop) — **jamais directement sur `main`** ; `main` reste le miroir du dépôt d'origine (XTalandier). Le repo MINERVE, lui, continue sur `main` (dépôt personnel de l'utilisateur). ⚠ Vérifier la branche active (`git branch --show-current`) avant toute édition future dans le repo.
+   - ⭐ **`C:\CECPC\pleiade\app-social` (2026-09-28)** : première modification de code, **autorisée par l'utilisateur** pour ce correctif précis, travaillée sur une branche puis poussée sur main + prod. Le déploiement se fait en poussant sur **`prod`** (workflow `deployer-prod.yml`, environ 6 min). L'autorisation reste **au cas par cas**.
+   - ⭐ **Règle d'écriture du réseau social** (précisée par l'utilisateur le 2026-09-28) :
+     - on publie et on réagit uniquement « in the name of » un avatar ;
+     - un **animateur** peut **supprimer** n'importe quel post sans avatar ;
+     - un compte sans le rôle ANIMATEUR est en lecture seule.
+     - Le garde vit dans `apps/api/src/garde-ecriture.ts` et doit **authentifier avant de lire le rôle**.
 3. Distinction stricte MASTAURIGE (HTML statique, brigade) / MASTORION (plateforme applicative, division-corps).
 4. Règles transverses MINERVE applicables aux contenus : camp d'un persona = registre MASTAURIGE fait foi ; GET ; numéros fictifs ; langue de l'avatar ; pas de détails opérationnels réels.
 

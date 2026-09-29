@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-22 · 83 notes.
+> Généré le 2026-09-24 · 86 notes.
 
 ## Notes (par tier)
 
@@ -13,11 +13,14 @@
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
 | 1 | [DECISION-014](../decisions/DECISION-014.md) | PLEIADE = le système global · MASTORION = seulement le réseau social (qui sera renommé) | decision |
 | 1 | [DECISION-015](../decisions/DECISION-015.md) | L'EHO devient un dépôt autonome — STARTEX et comparaison portés, cellules écartées | decision |
+| 1 | [DECISION-033](../decisions/DECISION-033.md) | app-melmil — la planche des injects suit les trois niveaux de JEMM, et rien d'autre | decision |
+| 1 | [DECISION-035](../decisions/DECISION-035.md) | MELMIL est un document d'animation — le rôle du bouclier conditionne l'accès, pas la discrétion de la carte | decision |
 | 1 | [ENT-arnland](../entities/pays/ENT-arnland.md) | Arnland (Dacie Romanie — DAC/DR) | entity |
 | 1 | [ENT-bothnia](../entities/pays/ENT-bothnia.md) | Bothnia (Republic of Bothnia — BOT) | entity |
 | 1 | [ENT-mercure](../entities/pays/ENT-mercure.md) | République de Mercure (MER) | entity |
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [LESSON-017](../lessons/LESSON-017.md) | Le chef d'orchestre de l'exercice est LE référent — le consulter en premier, jamais grep aveugle | lesson |
+| 1 | [LESSON-042](../lessons/LESSON-042.md) | Le portail d'une zone est PUBLIC — cocher un groupe donne l'accès, décocher ne cache pas la carte | lesson |
 | 1 | [PROJ-AURIGE-7BB](../projects/AURIGE-7BB.md) | AURIGE 7BB / MINOTAURE 26 | project |
 | 2 | [ARCH-003](../architecture/ARCH-003.md) | Structure des exercices AURIGE | architecture |
 | 2 | [ARCH-008](../architecture/ARCH-008.md) | MASTAURIGE collaboratif temps réel (serveur central + collab.js) | architecture |
@@ -96,6 +99,7 @@
 
 - [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
+- [`JOURNAL.md`](../../PLEIADE/JOURNAL.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`MEMOIRE.md`](../../../ANALYSTE/MERCURE/MEMOIRE.md)

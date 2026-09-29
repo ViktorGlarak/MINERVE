@@ -1,0 +1,358 @@
+From 5b6bf9f48487bbce3787b0926dee5e405b691d4f Mon Sep 17 00:00:00 2001
+From: ViktorGlarak <viktorglarak@gmail.com>
+Date: Thu, 24 Sep 2026 09:50:15 +0200
+Subject: [PATCH 2/2] Items : les champs que l'app annonce (chapo, champs de
+ maquette presse)
+
+L'app decrit dans /api/service/health (item_fields) les champs qu'elle
+accepte en plus du titre et du corps ; l'admin les affiche sous la
+rubrique, groupes par intertitre, les garde sur l'item (colonne fields,
+JSON) et les renvoie dans fields a la publication. Aucune maquette n'est
+connue ici : un journal passe de TV4 a l'ONU, le formulaire suit.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ prisma/schema.prisma                          |  4 ++
+ src/app/api/_lib/bff.ts                       | 41 +++++++++++++++++--
+ .../scenarios/[id]/items/[itemId]/route.ts    |  1 +
+ src/app/api/bff/scenarios/[id]/items/route.ts |  1 +
+ src/components/editor/ItemDialog.tsx          | 33 +++++++++++++++
+ src/components/editor/api.ts                  |  2 +
+ src/lib/mastorion.ts                          |  5 +++
+ src/lib/scenario-logic.ts                     | 14 ++++++-
+ src/lib/scheduler.ts                          |  4 +-
+ src/types.ts                                  | 19 +++++++++
+ 10 files changed, 116 insertions(+), 8 deletions(-)
+
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+index 31cff79..9783701 100644
+--- a/prisma/schema.prisma
++++ b/prisma/schema.prisma
+@@ -60,6 +60,10 @@ model ScenarioItem {
+   /// Ou publier a l'interieur de l'app : la rubrique d'un journal, le canal
+   /// d'une messagerie. Vide, l'app decide.
+   target       String  @default("") @map("target")
++  /// Champs supplementaires annonces par l'app visee (item_fields de son
++  /// /api/service/health) : chapo, alerte, champs de la maquette d'un
++  /// journal… Objet JSON { cle: valeur }, vide pour la plupart des apps.
++  fields       String  @default("") @db.Text
+   delta        Int     @default(1)
+   /// functional_id du parent : commentaire sur le post du parent (meme app obligatoirement)
+   replyTo      String? @map("reply_to")
+diff --git a/src/app/api/_lib/bff.ts b/src/app/api/_lib/bff.ts
+index 60fbee6..7b047c3 100644
+--- a/src/app/api/_lib/bff.ts
++++ b/src/app/api/_lib/bff.ts
+@@ -4,7 +4,7 @@ import { discoverApps, PUBLISHABLE_APP_TYPES } from "@/lib/discovery";
+ import { health } from "@/lib/mastorion";
+ import { getPersona } from "@/lib/eho";
+ import { absoluteMinutes, toItemDto, toScenarioDto, type ItemRow, type ScenarioRow } from "@/lib/scenario-logic";
+-import type { DescribedApp, ItemDto, Layout, LogDto, ScenarioDto } from "@/types";
++import type { DescribedApp, ItemDto, ItemField, Layout, LogDto, ScenarioDto } from "@/types";
+ 
+ /* Helpers partages par les route handlers du BFF (dossier prive `_lib`, hors routage). */
+ 
+@@ -73,20 +73,42 @@ export async function describeApps(): Promise<DescribedApp[]> {
+           kind: h.kind || a.appType,
+           needsTitle: Boolean(h.needs_title),
+           supports: Array.isArray(h.supports) ? h.supports : [],
++          itemFields: readItemFields(h.item_fields),
+         };
+       } catch (e) {
+-        return { ...a, appName: null, layout: null, reachable: false, publishable: true, kind: a.appType, needsTitle: a.appType === "presse", supports: [], error: (e as Error).message };
++        return { ...a, appName: null, layout: null, reachable: false, publishable: true, kind: a.appType, needsTitle: a.appType === "presse", supports: [], itemFields: [], error: (e as Error).message };
+       }
+     }
+     try {
+       const res = await fetch(a.url, { method: "GET", signal: AbortSignal.timeout(3000), cache: "no-store", redirect: "manual" });
+-      return { ...a, appName: null, layout: null, reachable: res.status < 500, publishable: false, kind: a.appType, needsTitle: false, supports: [] };
++      return { ...a, appName: null, layout: null, reachable: res.status < 500, publishable: false, kind: a.appType, needsTitle: false, supports: [], itemFields: [] };
+     } catch (e) {
+-      return { ...a, appName: null, layout: null, reachable: false, publishable: false, kind: a.appType, needsTitle: false, supports: [], error: (e as Error).message };
++      return { ...a, appName: null, layout: null, reachable: false, publishable: false, kind: a.appType, needsTitle: false, supports: [], itemFields: [], error: (e as Error).message };
+     }
+   }));
+ }
+ 
++/** Relit les champs annonces par une app ; une entree mal formee est ignoree, jamais devinee. */
++function readItemFields(raw: unknown): ItemField[] {
++  if (!Array.isArray(raw)) return [];
++  const out: ItemField[] = [];
++  for (const f of raw) {
++    if (!f || typeof f !== "object") continue;
++    const o = f as Record<string, unknown>;
++    const key = typeof o.key === "string" ? o.key : "";
++    if (!/^[a-z][a-z0-9_]{0,30}$/.test(key) || out.some((x) => x.key === key)) continue;
++    const type = o.type === "textarea" || o.type === "checkbox" ? o.type : "text";
++    out.push({
++      key, type,
++      label: typeof o.label === "string" && o.label ? o.label : key,
++      hint: typeof o.hint === "string" ? o.hint : "",
++      placeholder: typeof o.placeholder === "string" ? o.placeholder : undefined,
++      group: typeof o.group === "string" ? o.group : "",
++    });
++  }
++  return out;
++}
++
+ /** Champs d'un item acceptes en entree (creation ou modification partielle). */
+ export interface ItemInput {
+   functionalId?: string;
+@@ -95,6 +117,7 @@ export interface ItemInput {
+   message?: string;
+   title?: string;
+   target?: string;
++  fields?: Record<string, string>;
+   delta?: number;
+   replyTo?: string | null;
+   nbLikes?: number;
+@@ -112,6 +135,16 @@ export function parseItemInput(body: unknown): { input: ItemInput; error: null }
+   const int = (k: keyof ItemInput, min: number) => { if (b[k] !== undefined && b[k] !== null) { const n = Number(b[k]); if (!Number.isInteger(n) || n < min) return `${k} doit etre un entier >= ${min}`; (input as Record<string, unknown>)[k] = n; } return null; };
+   const list = (k: keyof ItemInput) => { if (b[k] !== undefined && b[k] !== null) { if (!Array.isArray(b[k])) return `${k} doit etre un tableau`; (input as Record<string, unknown>)[k] = (b[k] as unknown[]).map(String).map((s) => s.trim()).filter(Boolean); } return null; };
+   for (const e of [str("functionalId"), str("instanceId"), str("identityId"), str("message"), str("title"), str("target"), int("delta", 0), int("nbLikes", 0), int("nbBoosts", 0), list("likeGroupIds"), list("boostGroupIds")]) if (e) return { input: null, error: e };
++  if (b.fields !== undefined && b.fields !== null) {
++    if (typeof b.fields !== "object" || Array.isArray(b.fields)) return { input: null, error: "fields doit etre un objet" };
++    const f: Record<string, string> = {};
++    for (const [k, v] of Object.entries(b.fields as Record<string, unknown>)) {
++      if (!/^[a-z][a-z0-9_]{0,30}$/.test(k)) return { input: null, error: `fields : cle « ${k} » invalide` };
++      if (typeof v !== "string") return { input: null, error: `fields.${k} doit etre une chaine` };
++      if (v.trim()) f[k] = v.trim().slice(0, 2000);
++    }
++    input.fields = f;
++  }
+   if ("replyTo" in b) {
+     if (b.replyTo === null || b.replyTo === "") input.replyTo = null;
+     else if (typeof b.replyTo === "string") input.replyTo = b.replyTo.trim();
+diff --git a/src/app/api/bff/scenarios/[id]/items/[itemId]/route.ts b/src/app/api/bff/scenarios/[id]/items/[itemId]/route.ts
+index 7f4c082..e60a5cf 100644
+--- a/src/app/api/bff/scenarios/[id]/items/[itemId]/route.ts
++++ b/src/app/api/bff/scenarios/[id]/items/[itemId]/route.ts
+@@ -42,6 +42,7 @@ export async function PATCH(req: NextRequest, { params }: Ctx) {
+   if (input.message !== undefined) data.message = input.message;
+   if (input.title !== undefined) data.title = input.title;
+   if (input.target !== undefined) data.target = input.target;
++  if (input.fields !== undefined) data.fields = Object.keys(input.fields).length ? JSON.stringify(input.fields) : "";
+   if (input.delta !== undefined) data.delta = input.delta;
+   if (input.replyTo !== undefined) data.replyTo = input.replyTo;
+   if (input.nbLikes !== undefined) data.nbLikes = input.nbLikes;
+diff --git a/src/app/api/bff/scenarios/[id]/items/route.ts b/src/app/api/bff/scenarios/[id]/items/route.ts
+index ec6b93c..e5dbcc3 100644
+--- a/src/app/api/bff/scenarios/[id]/items/route.ts
++++ b/src/app/api/bff/scenarios/[id]/items/route.ts
+@@ -33,6 +33,7 @@ export async function POST(req: NextRequest, { params }: Ctx) {
+     data: {
+       scenarioId, functionalId, instanceId: input.instanceId, identityId: input.identityId, ...persona,
+       message: input.message ?? "", title: input.title ?? "", target: input.target ?? "",
++      fields: input.fields && Object.keys(input.fields).length ? JSON.stringify(input.fields) : "",
+       delta: input.delta ?? 1, replyTo: input.replyTo ?? null,
+       nbLikes: input.nbLikes ?? 0, nbBoosts: input.nbBoosts ?? 0,
+       likeGroupIds: (input.likeGroupIds ?? []).join(","), boostGroupIds: (input.boostGroupIds ?? []).join(","),
+diff --git a/src/components/editor/ItemDialog.tsx b/src/components/editor/ItemDialog.tsx
+index 849b8b5..4024179 100644
+--- a/src/components/editor/ItemDialog.tsx
++++ b/src/components/editor/ItemDialog.tsx
+@@ -46,6 +46,7 @@ export function ItemDialog({ scenarioId, state, items, apps, groups, canEdit = t
+   const [message, setMessage] = useState(editing?.message ?? "");
+   const [title, setTitle] = useState(editing?.title ?? "");
+   const [target, setTarget] = useState(editing?.target ?? "");
++  const [fields, setFields] = useState<Record<string, string>>(editing?.fields ?? {});
+   const [delta, setDelta] = useState<number>(editing?.delta ?? (state.mode === "create" ? state.defaults?.delta ?? 1 : 1));
+   const [replyTo, setReplyTo] = useState<string>(editing?.replyTo ?? (state.mode === "create" ? state.defaults?.replyTo ?? "" : "") ?? "");
+   const [nbLikes, setNbLikes] = useState(editing?.nbLikes ?? 0);
+@@ -75,6 +76,11 @@ export function ItemDialog({ scenarioId, state, items, apps, groups, canEdit = t
+   const wantsTitle = !!targetApp?.needsTitle && !readerReaction;
+   const targetLabel = readerReaction ? null : TARGET_LABEL[kind] ?? null;
+   const titleMissing = wantsTitle && !title.trim();
++  // Les champs en plus du titre et du corps, tels que l'app les annonce : pour
++  // un journal, le chapo et les champs de SA maquette (TV4, ONU, EFS…). Une
++  // reaction de lecteur n'en a aucun.
++  const extraFields = readerReaction ? [] : targetApp?.itemFields ?? [];
++  const extraGroups = [...new Set(extraFields.map((f) => f.group))];
+   const messageLabel = kind === "presse" ? (readerReaction ? "Réaction du lecteur" : "Corps de l’article") : "Message";
+ 
+   const pendingPreview = useMemo(() => (pendingFile ? URL.createObjectURL(pendingFile) : null), [pendingFile]);
+@@ -91,6 +97,9 @@ export function ItemDialog({ scenarioId, state, items, apps, groups, canEdit = t
+         // Champs vides quand l'app ne les demande pas : un titre saisi pour un
+         // journal ne doit pas rester accroche a l'item passe sur un reseau.
+         title: wantsTitle ? title.trim() : "", target: targetLabel ? target.trim() : "",
++        // Seuls les champs que l'app cible annonce partent : changer d'app ou
++        // de maquette ne laisse pas trainer ceux de la precedente.
++        fields: Object.fromEntries(extraFields.map((f) => [f.key, (fields[f.key] ?? "").trim()]).filter(([, v]) => v && v !== "false")),
+         replyTo: replyTo || null, nbLikes: Math.max(0, nbLikes), nbBoosts: Math.max(0, nbBoosts),
+         likeGroupIds: likeGroups, boostGroupIds: boostGroups,
+       };
+@@ -209,6 +218,30 @@ export function ItemDialog({ scenarioId, state, items, apps, groups, canEdit = t
+           </Field>
+         )}
+ 
++        {extraGroups.map((g) => (
++          <fieldset key={g} className="flex flex-col gap-3 border border-line-soft px-3 pb-3 pt-1">
++            <legend className="px-1 text-[11px] font-semibold uppercase tracking-wide text-ink-muted">{g || "Champs de l’app"}</legend>
++            {extraFields.filter((f) => f.group === g).map((f) => (
++              f.type === "checkbox" ? (
++                <label key={f.key} className="flex items-start gap-2 text-[12.5px] text-ink" title={f.hint}>
++                  <input type="checkbox" className="mt-0.5" checked={fields[f.key] === "true"} disabled={locked}
++                    onChange={(e) => setFields({ ...fields, [f.key]: e.target.checked ? "true" : "" })} />
++                  <span>{f.label}{f.hint && <span className="block text-[11px] text-ink-faint">{f.hint}</span>}</span>
++                </label>
++              ) : (
++                <Field key={f.key} label={f.label}>
++                  {f.type === "textarea"
++                    ? <textarea className={`${inputCls} min-h-[64px] resize-y`} value={fields[f.key] ?? ""} disabled={locked} placeholder={f.placeholder}
++                        onChange={(e) => setFields({ ...fields, [f.key]: e.target.value })} />
++                    : <input className={inputCls} value={fields[f.key] ?? ""} disabled={locked} placeholder={f.placeholder}
++                        onChange={(e) => setFields({ ...fields, [f.key]: e.target.value })} />}
++                  {f.hint && <span className="text-[11px] text-ink-faint">{f.hint}</span>}
++                </Field>
++              )
++            ))}
++          </fieldset>
++        ))}
++
+         <div className="grid grid-cols-[140px_1fr] gap-4">
+           <Field label="Délai (minutes)">
+             <input type="number" min={0} className={inputCls} value={delta} onChange={(e) => setDelta(Number(e.target.value))} disabled={locked} />
+diff --git a/src/components/editor/api.ts b/src/components/editor/api.ts
+index 631f07e..17fdef3 100644
+--- a/src/components/editor/api.ts
++++ b/src/components/editor/api.ts
+@@ -22,6 +22,8 @@ export interface ItemInput {
+   functionalId?: string; instanceId: string; identityId: string; message: string; delta: number;
+   /** titre et cible : renseignes seulement quand l'app visee les reclame */
+   title?: string; target?: string;
++  /** champs supplementaires annonces par l'app visee (chapo, champs de maquette…) */
++  fields?: Record<string, string>;
+   replyTo?: string | null; nbLikes: number; nbBoosts: number; likeGroupIds: string[]; boostGroupIds: string[];
+ }
+ export type ScenarioAction = "start" | "pause" | "resume" | "reset" | "validate" | "publish";
+diff --git a/src/lib/mastorion.ts b/src/lib/mastorion.ts
+index 0959f98..33f29f7 100644
+--- a/src/lib/mastorion.ts
++++ b/src/lib/mastorion.ts
+@@ -46,6 +46,8 @@ export interface AppHealth {
+   kind?: string;
+   needs_title?: boolean;
+   supports?: string[];
++  /** champs d'item supplementaires (presse : chapo, champs de la maquette) */
++  item_fields?: unknown;
+ }
+ export function health(app: ZoneApp) { return call<AppHealth>(app, "GET", "/health"); }
+ 
+@@ -63,6 +65,8 @@ export interface PublishInput {
+   target?: string;
+   /** functional_id de l'item, pour qu'une app puisse retrouver ce qu'elle a publie */
+   functionalId?: string;
++  /** champs supplementaires annonces par l'app (item_fields), envoyes tels quels */
++  fields?: Record<string, string>;
+   replyToPostId?: number | null;
+   likes?: { count: number; identityIds: string[] };
+   boosts?: { count: number; identityIds: string[] };
+@@ -93,6 +97,7 @@ export async function publish(app: ZoneApp, input: PublishInput): Promise<Publis
+   if (input.title) fields.title = input.title;
+   if (input.target) { fields.category = input.target; fields.conversation = input.target; }
+   if (input.functionalId) fields.functional_id = input.functionalId;
++  if (input.fields && Object.keys(input.fields).length) fields.fields = JSON.stringify(input.fields);
+ 
+   if (input.mediaPath) {
+     const abs = mediaAbsolutePath(input.mediaPath);
+diff --git a/src/lib/scenario-logic.ts b/src/lib/scenario-logic.ts
+index 3232983..3832390 100644
+--- a/src/lib/scenario-logic.ts
++++ b/src/lib/scenario-logic.ts
+@@ -5,7 +5,7 @@ import { mediaUrl } from "./media";
+ export interface ItemRow {
+   id: number; scenarioId: number; functionalId: string; instanceId: string; identityId: string;
+   username: string; displayName: string; avatarUrl: string | null; message: string;
+-  title: string; target: string; delta: number;
++  title: string; target: string; fields: string; delta: number;
+   replyTo: string | null; nbLikes: number; nbBoosts: number; likeGroupIds: string; boostGroupIds: string;
+   mediaPath: string | null; mediaType: string | null; status: string; error: string | null;
+   remotePostId: number | null; remoteCommentId: number | null; publishedAt: Date | null; sortOrder: number;
+@@ -44,7 +44,7 @@ export function toItemDto(row: ItemRow, absMin: Map<string, number>): ItemDto {
+   return {
+     id: row.id, scenarioId: row.scenarioId, functionalId: row.functionalId, instanceId: row.instanceId,
+     identityId: row.identityId, username: row.username, displayName: row.displayName, avatarUrl: row.avatarUrl,
+-    message: row.message, title: row.title, target: row.target,
++    message: row.message, title: row.title, target: row.target, fields: parseFields(row.fields),
+     delta: row.delta, absoluteMin: absMin.get(row.functionalId) ?? row.delta,
+     replyTo: row.replyTo, nbLikes: row.nbLikes, nbBoosts: row.nbBoosts,
+     likeGroupIds: csv(row.likeGroupIds), boostGroupIds: csv(row.boostGroupIds),
+@@ -55,6 +55,16 @@ export function toItemDto(row: ItemRow, absMin: Map<string, number>): ItemDto {
+   };
+ }
+ 
++/** Les champs supplementaires d'un item, relus depuis la base (JSON). Illisibles : aucun. */
++export function parseFields(raw: string | null | undefined): Record<string, string> {
++  if (!raw) return {};
++  try {
++    const o = JSON.parse(raw);
++    if (!o || typeof o !== "object" || Array.isArray(o)) return {};
++    return Object.fromEntries(Object.entries(o).filter(([, v]) => typeof v === "string")) as Record<string, string>;
++  } catch { return {}; }
++}
++
+ export function toScenarioDto(row: ScenarioRow, items: Pick<ItemRow, "status">[]): ScenarioDto {
+   let errors: string[] = [];
+   try { errors = row.errors ? JSON.parse(row.errors) : []; } catch { errors = []; }
+diff --git a/src/lib/scheduler.ts b/src/lib/scheduler.ts
+index 728d644..8d43708 100644
+--- a/src/lib/scheduler.ts
++++ b/src/lib/scheduler.ts
+@@ -2,7 +2,7 @@ import { prisma } from "./db";
+ import { discoverApps, getApp, PUBLISHABLE_APP_TYPES } from "./discovery";
+ import { publish, deletePost, deleteComment, checkAccounts, health, postExists, UpstreamError } from "./mastorion";
+ import { groupMemberIdentities } from "./eho";
+-import { absoluteMinutes, validateStructure, type ItemRow } from "./scenario-logic";
++import { absoluteMinutes, parseFields, validateStructure, type ItemRow } from "./scenario-logic";
+ 
+ /**
+  * Scheduler central (option A) : l'admin est le seul a publier. Chaque minute,
+@@ -107,7 +107,7 @@ export async function publishItem(scenarioId: number, it: ItemRow, byFid: Map<st
+ 
+     const r = await publish(app, {
+       identityId: it.identityId, content: it.message, replyToPostId, mediaPath: it.mediaPath,
+-      title: it.title, target: it.target, functionalId: it.functionalId,
++      title: it.title, target: it.target, functionalId: it.functionalId, fields: parseFields(it.fields),
+       likes: { count: it.nbLikes, identityIds: likeIds }, boosts: { count: it.nbBoosts, identityIds: boostIds },
+     });
+ 
+diff --git a/src/types.ts b/src/types.ts
+index 3cd3028..1413a5d 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -25,6 +25,23 @@ export interface DescribedApp extends ZoneApp {
+   needsTitle: boolean;
+   /** capacites annoncees par l'app : article, comment, direct, media, schedule… */
+   supports: string[];
++  /** champs d'item supplementaires que l'app annonce (presse : chapo, champs de maquette) */
++  itemFields: ItemField[];
++}
++
++/**
++ * Un champ d'item decrit par l'app elle-meme. L'admin l'affiche tel quel, sans
++ * savoir ce qu'il veut dire : c'est l'app (et, pour la presse, la maquette
++ * choisie par la redaction) qui decide lesquels existent.
++ */
++export interface ItemField {
++  key: string;
++  label: string;
++  hint: string;
++  placeholder?: string;
++  type: "text" | "textarea" | "checkbox";
++  /** intertitre sous lequel ranger le champ (« Article », « Maquette « TV4 » ») */
++  group: string;
+ }
+ 
+ export interface Persona {
+@@ -73,6 +90,8 @@ export interface ItemDto {
+   title: string;
+   /** rubrique, canal… selon l'app visee */
+   target: string;
++  /** champs supplementaires annonces par l'app (voir ItemField) */
++  fields: Record<string, string>;
+   delta: number;
+   /** minutes depuis le debut du scenario, parents inclus */
+   absoluteMin: number;
+-- 
+2.53.0.windows.1
+

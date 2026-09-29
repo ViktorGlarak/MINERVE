@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-09-28 — 1ʳᵉ modification de code dans `app-social`, autorisée par l'utilisateur : écriture des animateurs débloquée (`27869bd`, en ligne)
+
+- **Symptôme** : l'animateur ne pouvait pas supprimer le post #114101 sur `social.delattre-26`. La réponse était `403`, et l'écran restait muet.
+- **Cause** : le garde d'écriture de `index.ts` (commit `9a86b38`, Xavier, 14/09) lisait le rôle **avant** toute authentification. Sans `REQUIRE_AUTH` (le défaut), toutes les écritures de l'écran étaient refusées.
+- **Correctif** : `garde-ecriture.ts` authentifie d'abord, puis contrôle le rôle ; il est testé. Le front affiche les erreurs de suppression, et le profil et la page hashtag retirent la carte supprimée.
+- **Vérification en ligne** : un `DELETE` anonyme répond maintenant 401 au lieu de 403. Détail complet : `PLEIADE\JOURNAL.md` (28/09, suite 12).
+
 ## 2026-09-11 — ⚠ RECADRAGE DE PÉRIMÈTRE : MASTORION n'est plus le système, mais le réseau social
 
 - **Décision utilisateur** : « le programme devait s'appeler MASTORION ; maintenant MASTORION devient simplement un réseau social et à terme on lui changera de nom ». Un agent **PLEIADE** est créé pour le **système global** (22ᵉ agent MINERVE).

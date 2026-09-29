@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastorion ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-22 · 21 notes.
+> Généré le 2026-09-24 · 25 notes.
 
 ## Notes (par tier)
 
@@ -20,9 +20,13 @@
 | 1 | [LESSON-037](../lessons/LESSON-037.md) | Un indicateur doit mesurer EXACTEMENT ce qu'il prétend rapporter — deux fois le même jour | lesson |
 | 1 | [LESSON-038](../lessons/LESSON-038.md) | Une image à volume de données ne fixe pas USER — le dossier monté appartient à root | lesson |
 | 1 | [LESSON-039](../lessons/LESSON-039.md) | Derrière un proxy, une adresse absolue se construit sur les en-têtes, jamais sur req.url | lesson |
+| 1 | [LESSON-040](../lessons/LESSON-040.md) | Un contrôle qui arrive APRÈS coup ne protège rien — il détruit ce qu'il refuse | lesson |
+| 1 | [LESSON-041](../lessons/LESSON-041.md) | Une donnée qui n'existe que sur l'appareil doit demander la persistance — et c'est l'installation qui l'obtient | lesson |
+| 1 | [LESSON-042](../lessons/LESSON-042.md) | Le portail d'une zone est PUBLIC — cocher un groupe donne l'accès, décocher ne cache pas la carte | lesson |
 | 2 | [ARCH-011](../architecture/ARCH-011.md) | EHO v2 (MASTORION) — modèles d'EHO, double vue anim/joueurs, tables additives | architecture |
 | 2 | [DECISION-013](../decisions/DECISION-013.md) | L'app EHO est propriétaire des personas — l'Admin MASTORION ne gère que les comptes humains | decision |
 | 2 | [DECISION-018](../decisions/DECISION-018.md) | Le curseur d'alignement est ouvert sur les STARTEX — il y mesure une ATTITUDE, pas une identité | decision |
+| 2 | [DECISION-034](../decisions/DECISION-034.md) | eho — UNE fiche d'avatar, UN verrou : la planche relationnelle ouvre la même fiche que l'onglet | decision |
 | 2 | [LESSON-027](../lessons/LESSON-027.md) | Import MASTORION — deux fiches partageant email ou masto_id fusionnent EN SILENCE | lesson |
 | 2 | [LESSON-028](../lessons/LESSON-028.md) | La bio MASTORION est PUBLIQUE côté réseau social — le renseignement animateur va dans observations | lesson |
 | 2 | [LESSON-029](../lessons/LESSON-029.md) | Clé dupliquée dans un literal dict Python — la dernière écrase les autres EN SILENCE | lesson |
@@ -34,6 +38,7 @@
 
 - [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md)
 - [`JOURNAL.md`](../../LEAC/JOURNAL.md)
+- [`MEMOIRE.md`](../../LEAC/MEMOIRE.md)
 - [`MEMOIRE.md`](../../MASTORION/MEMOIRE.md)
 - [`JOURNAL.md`](../../MASTORION/JOURNAL.md)
 - [`generer_bibliotheque.py`](../../MASTORION/OUTILS/generer_bibliotheque.py)

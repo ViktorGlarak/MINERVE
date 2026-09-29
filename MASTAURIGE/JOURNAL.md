@@ -6,6 +6,36 @@
 
 ---
 
+## [2026-09-23 suite] Les 10 sites `Sites/` sont repris dans `app-press`
+
+Vagues 2 et 3 faites (commit `5c43ffe`, branche locale) : Hexagone, TF1, Omerta, ONU, OTAN, ZubrRadio, EFS s'ajoutent
+à TV4 / Today Mercure / BC1. Logos base64 d'Hexagone, TF1, Omerta et OTAN extraits vers `app-press/public/skins/`.
+Aucun fichier MASTAURIGE modifié. Détail : `PLEIADE\MEMOIRE.md` § « Chantier — Templates MASTAURIGE ».
+
+## [2026-09-23] Les sites `Sites/` repris comme « maquettes existantes » d'`app-press` (PLEIADE)
+
+Les templates TV4, Today Mercure et Bella/Bothnia Channel 1 (`LOCALSTORAGE_WEB_VERSION\Sites\`, AURIGE 7BB) sont
+portés en habillages du site de presse de zone : structure et CSS du template conservés, zones en dur
+(rubriques, bandeau, articles liés) branchées sur la base. Branche locale `maquettes-existantes` d'`app-press`
+(commit `1a40aa1`, non poussée). Aucun fichier MASTAURIGE modifié. Vagues 2-3 : Hexagone, TF1, Omerta, ONU,
+OTAN, ZubrRadio, EFS. Détail : `PLEIADE\MEMOIRE.md` § « Chantier — Templates MASTAURIGE ».
+
+## [2026-09-22] MELMIL a un successeur : l'app de zone `app-melmil` (PLEIADE)
+
+Le tableau MELMIL de la boite a outils (melmil.js / melmil_data.js / generer_melmil.py /
+exercice_config.json → lo_config.js) est repris en **application de zone PLEIADE** :
+`cecpc-pleiade/app-melmil` (clone `C:\CECPC\pleiade\app-melmil`, memoire chez PLEIADE).
+Ce qu'elle reprend : lignes = LO1..LO5 + HN, colonnes = jours en D+, cartes = injects, couleur
+= sphere, glisser-deposer, colonne « A placer », code inject = `Literal` JEMM tel quel.
+Ce qu'elle supprime : le .bat, le script Python, le HTML par exercice, `lo_config.js` —
+l'import se fait a l'ecran, le calendrier se deduit des exports, la ligne du nom de la
+storyline. Ce qu'elle durcit : un inject absent d'un nouvel export est **signale, jamais
+efface** (le TODO du 23/06 sur `lire_existant()` est reste a l'etat de TODO ici, il est
+regle la-bas par construction) ; un export plus ancien est refuse ; les deplacements manuels
+survivent au re-import. ⚠ L'outillage MASTAURIGE **reste en place et inchange** pour les
+instances existantes (7BB) : la vierge et le collab ne bougent pas. Detail :
+`PLEIADE/JOURNAL.md` 2026-09-22.
+
 ## Journal d'activité (récupérations, portages, outils, bakes)
 
 **[2026-06-20] AUDIT COHÉRENCE 7BB — 100% des injects bakés + STARTEX (`index_master`).** Contrôle systématique noms pays/personnes/médias/dates sur 27 tweets + 24 articles/tracts/courriers + 4 STARTEX. **(a) Résidus PAYS corrigés** : `Ruthnia`/`Ruthnia Bella → Bothnia`, `Dacie/Dacien → Arnland` (5 champs data + 8 .html) — STARTEX déjà propres, 0 résidu restant. **(b) Avatars DAC renommés (collab uniquement, camp 🔴 inchangé)** : `@VoixDACia → @VoixArnland` (« Voix Arnland »), `@TemoignageDAC → @TemoignageArn` (« Témoignage Arnland ») dans `avatars.js` + `tweets_data.js` (07.10.I04, 07.12.I03/I04) + trombino `ACTEURS_A3_model.html` ; **le registre 2BB (`MASTAURIGE/MEMOIRE.md` l.94-95) garde DAC** (correct pour 2BB). **(c) Dates 2BB→7BB** : règle **7BB = 2BB + 1 mois (même quantième)** → `mai→juin`, `2026-05→2026-06` (word-boundary, « jamais/mais/demain » non touchés) sur 4 champs data + 8 .html (courriers 08.01.I01/.R1/.R2, articles 07.06.I01/08.02.I01/07.11.I03, tracts step2/3) ; vérifie que la date du contenu = date du jour D+ de l'inject. **(d) NON traité (choix user « plus tard »)** : `Djobović` + « 8e division » (story corruption 07.11) — recibler sur BFA/unité ARN à décider. Backups `_cbtmp\*_coher_*` / `*_avrename_*` / `*_dates_*`.

@@ -7,8 +7,8 @@ source: ../../PENSEUR/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-09-22
-updated: 2026-09-22
+created: 2026-09-24
+updated: 2026-09-24
 ---
 
 # 🤖 PENSEUR — Canvas agent

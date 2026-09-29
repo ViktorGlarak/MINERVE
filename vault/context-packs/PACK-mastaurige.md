@@ -2,13 +2,14 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-22 · 53 notes.
+> Généré le 2026-09-24 · 54 notes.
 
 ## Notes (par tier)
 
 | Tier | ID | Titre | Type |
 |---|---|---|---|
 | 1 | [DECISION-001](../decisions/DECISION-001.md) | Architecture 3 dossiers MASTAURIGE | decision |
+| 1 | [DECISION-033](../decisions/DECISION-033.md) | app-melmil — la planche des injects suit les trois niveaux de JEMM, et rien d'autre | decision |
 | 1 | [LESSON-001](../lessons/LESSON-001.md) | Anti-divergence camp — propriétaire unique | lesson |
 | 1 | [LESSON-008](../lessons/LESSON-008.md) | Lancer VERIFIER en fin de session | lesson |
 | 1 | [LESSON-016](../lessons/LESSON-016.md) | Instance de travail 7BB = le serveur collaboratif (pas LOCALSTORAGE) — confirmer l'instance + consulter les agents avant d'écrire | lesson |
@@ -65,12 +66,12 @@
 ## 📄 Fichiers autoritaires à ouvrir (sources)
 
 - [`MEMOIRE.md`](../../MASTAURIGE/MEMOIRE.md)
+- [`JOURNAL.md`](../../PLEIADE/JOURNAL.md)
 - [`CLAUDE.md`](../../CLAUDE.md)
 - [`MEMOIRE.md`](../../AURIGE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ANALYSTE/ARNLAND/MEMOIRE.md)
 - [`MEMOIRE.md`](../../EXPERT_INFLUENCE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md)
-- [`JOURNAL.md`](../../PLEIADE/JOURNAL.md)
 - [`MEMOIRE.md`](../../ANALYSTE/BOTHNIA/MEMOIRE.md)
 - [`melmil.js`](../../../../EXER/AURIGE 7BB/00_Boites à outils/MASTAURIGE/LOCALSTORAGE_WEB_VERSION/MELMIL/melmil.js)
 - [`MEMOIRE.md`](../../ANALYSTE/MERCURE/MEMOIRE.md)

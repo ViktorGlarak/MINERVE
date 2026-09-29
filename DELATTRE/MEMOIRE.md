@@ -16,15 +16,15 @@
 |---|---|---|
 | Nom complet / cadre OTAN | **DELATTRE 26** (usage courant : « DELATTRE ») | — |
 | Organisateur | ⚠️ *à renseigner* | — |
-| **Unité(s) entraînée(s)** | ⚠️ *à renseigner* | Destinataires des injects |
-| **Niveau** (brigade / division / CA) | ⚠️ *à renseigner* | **⭐ Détermine la calibration — le point n°1 du RETEX** |
+| **Unité(s) entraînée(s)** | **1re DIV** (1 DIV), avec **27e BIM** et **9e BIMa** *(PPT GREY CELL v4, 2026-09-23 — cohérent avec le diagramme RZO)* | Destinataires des injects |
+| **Niveau** (brigade / division / CA) | **Division** (1 DIV), puis brigades 27 BIM / 9 BIMa en phase AURIGE ; échelon sup. = **1CA** *(déduit du PPT : « amener la 1DIV puis les brigades… », FRAGO du 1CA)* | **⭐ Détermine la calibration — le point n°1 du RETEX** |
 | Lieu + dates réelles | ⚠️ *à renseigner* | Calendrier |
-| Temps de jeu (D+ → dates) | ⚠️ *à renseigner* | `DAY_MAP` MELMIL + `dayorder` |
+| Temps de jeu (D+ → dates) | ✅ **D+27 = mar 06/10/2026 → D+41 = mar 20/10/2026** (page 2 du PPT ; D0 = 09/09/2026). Phases : **Warm up tactique** D+27-28 · **BST DE LATTRE 26** D+29-31 · **3A** D+32 · **AURIGE 27e BIM** D+33-36 · **3A** D+37 · **AURIGE 9e BIMa** D+38-41 | `DAY_MAP` MELMIL + `dayorder` |
 | Zone d'opérations + H-codes | ⚠️ *à renseigner* | Cohérence géographique |
 | **Camps** (qui attaque / défend) | ⚠️ *à renseigner* | ⚠ **Vérifier le sens : le 7BB était INVERSÉ vs le 2BB** |
 | Pays fictifs impliqués | ⚠️ *à renseigner* | Quels ANALYSTES mobiliser |
-| Sources de montage | ⚠️ *à renseigner* (JEMM ? Event List ? synchromatrice ? OPORD ?) | Pipeline d'ingestion |
-| Storylines → LO | ⚠️ *à renseigner* | `lo_config.js` |
+| Sources de montage | ✅ **`EXER\DELATTRE 26\01_Montage exercice\20260909 - GREY CELL_MAIN v4.pptx`** (events, storylines, incidents — voir §1ter) + diagramme RZO (§1bis) ; **JEMM** en cible | Pipeline d'ingestion |
+| Storylines → LO | ⚠️ *à renseigner* (7 storylines connues, §1ter) | `lo_config.js` |
 
 ---
 
@@ -55,6 +55,41 @@
 - **7 portraits récupérés du PPTX même** (les sources 7BB avaient des placeholders `rzo-x*`) : Хэдок, Аксёненко, Светличная, The flying fly, Le Padupe, Kimberley, Mordidchev.
 - ⚠ **Divergence d'orthographe À TRANCHER par l'utilisateur** : le diagramme écrit « Serge **MORDVIDCHEV** », l'EHO 7BB « Serge **Mordidchev** » (maire HNancy). Même personne (alias posé dans le générateur) — quelle graphie fait foi pour DELATTRE ?
 - ⚠ Trio cyrillique : usernames hérités de placeholders source (`@rzo_x`, `@rzo_x_2`, `@rzo_x_3`) — fonctionnels mais laids ; renommage possible si demandé.
+
+## 1ter. ⭐ EVENTS, STORYLINES, INCIDENTS — PPT « GREY CELL MAIN v4 » (ingéré 2026-09-23)
+
+> **Source** : `EXER\DELATTRE 26\01_Montage exercice\20260909 - GREY CELL_MAIN v4.pptx` (21 diapositives, daté 10/09/2026, **aucun marquage de diffusion réel** — seul un modèle inutilisé porte « NATO CLASSIFICATION »).
+> ⚠ **Décision utilisateur** : font foi les **pages 3 à 10** (numérotation du tableau des pages 1-2). Les **pages 11 à 21** sont des **brouillons** (ancienne numérotation 08.06 rumeurs, 08.07 mouvements, 08.08 IDPs, 08.10 sabotage HFM, + saturation santé, exactions, manifestations, communications) — **non importées**. ⚠ Piège : dans le fichier, les pages 3-10 sont **masquées** et les pages 11-13 **visibles** (l'export PDF ne sort que 1, 2, 11, 12, 13).
+
+**2 events, 7 storylines** (page 2 = chronologie D+27 → D+41) :
+| Event | Storyline | Période (page 2) | Coordination (page 1) | Incidents |
+|---|---|---|---|---|
+| **06 — ILI** | **06.01** Signaux faibles captés par les ETIM (FZO 9 BIMa) | D+33 → D+40 | OPFOR + RENS | 11 (06.01.01-11), la plupart sur plusieurs jours |
+| | **06.02** Rumeurs contre la FORCE | 3 temps : D+27-28 · D+33-34 · D+38-39 | OPFOR | 3 narratifs (BST / 27 BIM / 9 BIMa), CRQ_01 09h + CRQ_02 15h |
+| **08 — GREY CELL** | **08.01** Dégradation des services essentiels de la HN — **STARTEX package** | D+27 | LOG | 1 (starting package) |
+| | **08.02** Risques sur les sites sensibles | D+27-28 · D+31-32 | 2D/3D/ciblage | 3 (mail G39/1CA BSL-3 HNANCY, site essence, coopérative nitrate) |
+| | **08.03** Actions perfides | D+27-28 · D+34-35 · D+39-40 | — | 3 narratifs (CICR détourné / charnier NSL / bouclier humain) |
+| | **08.04** Mouvements de populations (IDPs) | D+27-30 · D+33-35 · D+38-40 | LOG/2D | 5 (FRAGO 1CA, flux HNANCY→HTOUL, UN OCHA couloirs, HSARREBOURG, HHAGUENEAU) |
+| | **08.05** Sécurisation des IDPs et appui à la HN | D+29-31 · D+32-34 · D+38-40 | — | 5 (camps HST-DIZIER, HCHAUMONT, HJOINVILLE, HNEUFCHÂTEAU ; eau/vivres HLUNEVILLE) |
+
+Objectif d'entraînement principal : **8.1** — « Étudier les données d'environnement multidomaines de la nation hôte pouvant avoir des conséquences sur la manœuvre ». Acteurs d'injection : **ETIM** / ETEC, HN, autorités ARN, UN OCHA, 1CA.
+
+### ⭐ Export JEMM FICTIF (fait le 2026-09-23)
+- **Générateur** : `DELATTRE\OUTILS\generer_jemm_greycell.py` (lit le PPT, **relançable** si le PPT évolue ; Id stables).
+- **Sortie** : `EXER\DELATTRE 26\01_Montage exercice\JEMM\FICTIF_<horodatage>_JEMM_DLT26_EVENT_06.json` (**27 injects**) et `…_EVENT_08.json` (**19 injects**) — **46 au total**, 1 fichier par Event (format JEMM réel : `Data.Events/Storylines/Injections`, `MetaData`, `EncodedData`).
+- **Vérifié** avec l'importateur d'`app-melmil` (`src/lib/melmil/jemm.ts`) : 0 échec, codes uniques, 0 sans date, 0 orphelin.
+- **Règles validées par l'utilisateur** : un inject **par jour** d'occurrence · **09h00** par défaut · 08.02 réparti sur **D+27, D+28, D+31** · chaque **CRQ = un inject** · codes JEMM `EE.SS.Inn` numérotés **par ordre chronologique** dans la storyline, le code PPT d'origine rappelé en fin de description `[PPT 06.01.04 — D+36 — occurrence 1/2]`.
+- Champs non fournis par le PPT, posés par défaut : moyen d'injection « À PRÉCISER » (sauf mail / RS / FRAGO / startex), destinataire « 1 DIV » (ou 27 BIM / 9 BIMa pour les narratifs), cellule = ILI / GREY CELL, marquage UNCLASSIFIED.
+- ⚠ **Points ouverts** : **06.01.08** (carte Mercure abandonnée) n'a **aucun jour** dans le PPT → placé à D+33, à confirmer · le PPT numérote **deux fois 08.04.04** (D+33 et D+38) → le second est devenu **08.04.I05** · les narratifs 06.02 sont codés **08.06.Ixx** dans le PPT (reliquat de l'ancienne numérotation) → recodés **06.02.Ixx**.
+- ⏭ **Suite annoncée par l'utilisateur** : modifications de **MELMIL** (`app-melmil`) pour optimiser le travail.
+- ✅ **Fait le 2026-09-23 — l'ATELIER DE PRÉPARATION de MELMIL** (`/preparation`, « Création d'exercice ») : les traitants y créent events (GT1), storylines (GT2) et incidents (GT3) en direct, avec équipe par cellule, journal, planche de préparation et **écarts avec la planche JEMM**. Les deux JEMM fictifs ci-dessus s'y **versent** pour démarrer (réglages : D+27 = 06/10/2026 ; période D+27 → D+41). Détail technique : `PLEIADE\MEMOIRE.md` § « MELMIL — l'ATELIER DE PRÉPARATION ». ✅ Déployé sur `melmil.delattre-26` le 2026-09-23 (17:41, version 2026-09-23.3).
+- ✅ **2026-09-24** : grille EXCON cliquable sur les storylines (déployée, `2026-09-24.1`) ; **comptes rendus PSYREP / CIMICREP** sur chaque incident (créer, cumuler, remplir à l'identique du modèle, télécharger en .docx, **importer** un modèle rempli dans Word) — modèles de référence : `EXER\DELATTRE 26\00_Boites à outils\APPENDICE 7_ PSYREP.FR.docx` et `APPENDICE 8_ CIMICREP.FR.docx`. ✅ En ligne sur `melmil.delattre-26` depuis le 2026-09-24 13:14 (`2026-09-24.2`).
+- 🟡 **2026-09-24 (soir) — MELMIL v2 responsive** (avis DESIGNER n°3) prêt **en local** (`refonte-v2`, `2026-09-24.5`) : lisible au téléphone (vue **Liste par jour**, fiches plein écran), à la tablette et à l'ordinateur. En attente de validation avant mise en ligne. Détail : `PLEIADE\JOURNAL.md`.
+- 🟡 **2026-09-24 (nuit) — eho tient les ~3 500 avatars de DE LATTRE** *(en local, branche `refonte-v2`, non poussé)*. Les pages chargent désormais les avatars **par groupe** : le trombinoscope reçoit d'abord un sommaire par pays, puis les cartes de chaque bloc. S'y ajoute la refonte DESIGNER n°4 : téléphone et tablette, rangement de plusieurs cartes d'un coup, confirmations lisibles. Détail : `PLEIADE\JOURNAL.md` (suite 9). ✅ En ligne le 2026-09-25.
+- 🟡 **2026-09-25 — eho de la zone : ≈ 3 750 avatars (import du réseau social par Xavier) + SKOLKAN PERSONA 21.09.26** :
+  - Fusion prête **en local** (bouton « Fusionner dans la base… ») : **3 983 avatars** après retrait de **220 doublons**, au profit de la fiche SKOLKAN, **ids conservés** pour ne pas casser le réseau social. Nouveau modèle : **SKOLKAN FULL PERSONA 25.09.26**.
+  - Export de référence : `C:\Users\MTR\Downloads\avatars-eho-2026-09-25.xlsx`.
+  - Code en ligne le 2026-09-25 à 10:36 ; la fusion reste à lancer depuis l'écran. Détail : `PLEIADE\JOURNAL.md` (2026-09-25, suite 3).
 
 ## 2. Socle hérité — acquis valables dès maintenant
 
@@ -127,6 +162,19 @@ droits traitants bloquants en l'absence du chef/adjoint. → MASTAURIGE reste l'
 ## 6. Journal de l'exercice
 
 > *(À alimenter à chaque avancée : décisions, injects produits, validations d'agents, corrections.)*
+
+### [2026-09-25] ETIM dans les JEMM fictifs
+Vérification demandée par l'utilisateur : dans les deux JEMM FICTIF, les ETIM sont portées comme **acteurs** (`ScenarioRoleList`, repris de la colonne « QUI » du PPT). Aucune n'est dans l'émetteur ni dans les destinataires.
+- **36 incidents sur 46** citent une ETIM :
+  - Event 06 : les 27 incidents (22 « Signaux faibles » avec ETIM + ETEC, 5 « Rumeurs contre la FORCE ») ;
+  - Event 08 : 4 incidents avec « ETIM » (Dégradation services essentiels, Risques sites sensibles) et 5 « Actions perfides » avec un libellé **non normalisé** (« ETIM 27 », « ETIM 9 », « ETIM 27 BIM ou 9 BIMa »).
+- Les 10 incidents restants (Mouvements de populations, Sécurisation des IDPs) n'ont pas d'ETIM.
+- ⚠ Ce sont des fichiers générés depuis le PPT, **pas un export JEMM réel**.
+- Dans `app-melmil`, ces acteurs sont importés dans `roles` et affichés sur la fiche (« Rôles du scénario »). Il n'existe aucun filtre ETIM, et un incident créé dans l'atelier n'a pas de rôles (`versPlanche` → `roles: []`).
+- ✅ **Suite le même jour, à la demande de l'utilisateur** : la Planification de MELMIL permet de **cocher les ETIM de chaque incident**, dans une liste propre à l'exercice (Réglages). Leur nom s'affiche sur la carte de l'incident. ✅ En ligne le 2026-09-25 (`app-melmil` `5b4d76a`, `2026-09-25.1`). ⏳ **Suite demandée** : quand les premiers exports JEMM réels de l'exercice arriveront, récupérer leurs ETIM pour les afficher sur la **planche JEMM** (piste et vérifications : `PLEIADE\MEMOIRE.md` § MELMIL atelier). ⚠ Sur le serveur, l'atelier DE LATTRE 26 a été versé **avant** cette fonction : sa liste d'ETIM sera **vide**, et il faudra la remplir dans Réglages (ETIM 27 BIM, ETIM 9 BIMa… — noms exacts à confirmer par l'utilisateur).
+
+### [2026-09-23] PPT GREY CELL v4 ingéré — premier export JEMM fictif
+PPT analysé (21 diapositives, pages 1-2 = tableau de synthèse et chronologie, 3-10 = incidents retenus, 11-21 = brouillons écartés). Identité enrichie : **1 DIV + 27 BIM + 9 BIMa**, calendrier **D+27 = 06/10/2026 → D+41 = 20/10/2026** et ses phases. Deux fichiers JEMM fictifs générés (Event 06 ILI : 27 injects ; Event 08 GREY CELL : 19 injects), validés par l'importateur d'`app-melmil`. Détail et points ouverts : §1ter.
 
 ### [2026-07-22] Création de l'agent
 Agent **DELATTRE** créé (20ᵉ du système MINERVE) à la demande de l'utilisateur, en préparation de l'exercice **DELATTRE 26**.
