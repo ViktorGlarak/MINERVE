@@ -4,7 +4,9 @@
 
 ---
 
-## 2026-10-02 (suite 14) — admin + MELMIL : un scénario peut cibler toute une STORYLINE (avis DESIGNER n°31) (admin branche `scenario-storyline`, MELMIL `2026-10-02.8`) — VÉRIFIÉ EN LOCAL, en attente de push
+## 2026-10-02 (suite 14) — admin + MELMIL : un scénario peut cibler toute une STORYLINE (avis DESIGNER n°31) (admin `913b992`, MELMIL `f3ee5c0` / `2026-10-02.8`) — POUSSÉ sur main et prod
+
+> ✅ **Mise en ligne** : MELMIL confirmé `2026-10-02.8` sur `melmil.delattre-26.pleiade.internal`. Admin (pas de `/api/sante`) : app up (401 sur service sans clé, 307 sur `/scenarios`), déployée par le même runner et la **même image dont l'entrypoint `db push` crée `storyline_code` + `incident_ids`** (prouvé en local sur base vide ET sur base peuplée). **Compat de l'ancien scénario `08.01`** (créé avant la feature, sans storylineCode/incidentIds) : colonnes nullables ajoutées sans perte ; `incidentIds` retombe sur `[incidentId]` ou `[]`, `codeAffiche`/`scenariosDe` gèrent le null → aucune régression. Vérif end-to-end authentifiée du picto en prod = à faire côté utilisateur (session requise).
 
 - **Constat de l'utilisateur** : un animateur a nommé un scénario `08.01` (toute une storyline, pas un incident). Non anticipé : sur la planche de préparation, l'icône de scénario ne s'affichait alors sur aucun incident. Besoin : **forcer la sélection de l'ensemble d'injects** couverts pour que le picto ▶ apparaisse sur **chacun**. **Ne rien casser.**
 - **Avis DESIGNER n°31** (`DESIGNER\AVIS\2026-10-02_ADMIN_SCENARIO_STORYLINE\`) : R1 segment « Cet incident / Toute une storyline » ; R2 storyline → ses incidents en cases à cocher, **tous cochés** par défaut, ≥1 requis ; R3 même picto ▶, sur chaque incident couvert ; R4 fiche « Storyline 08.01 — N incidents », badge « storyline · N » dans la liste ; R5 mode incident unique inchangé.
