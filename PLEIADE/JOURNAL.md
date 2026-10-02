@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-02 (suite 17) — MELMIL : onglet « Synthèse » de la planification (avis DESIGNER n°34) (`app-melmil` `e743ed5`, `2026-10-02.11`, branche `synthese-planification`) — VÉRIFIÉ EN LOCAL, en attente de validation
+## 2026-10-02 (suite 17) — MELMIL : onglet « Synthèse » de la planification (avis DESIGNER n°34) (`app-melmil` `e743ed5`, `2026-10-02.11`) — POUSSÉ sur main et prod, EN LIGNE
 
 - **Demande de l'utilisateur** : voir en un coup d'œil où en est la planification (nombre d'incidents, en préparation, sans pièce jointe et sans scénario, etc.), nouvel onglet si nécessaire, ergonomie soignée, montré en local.
 - **Avis DESIGNER n°34** : onglet **« Synthèse »** en tête de la famille **Visualiser** (l'arrivée reste la planche, décision n°25) ; titre « Où en est la planification ? » ; 4 blocs **Avancement → À traiter → Par storyline → Charge par jour** ; chaque chiffre mène à l'endroit où l'on agit ; jamais un 0 inconnu ; ni jauge, ni camembert, ni score.
