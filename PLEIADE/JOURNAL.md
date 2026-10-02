@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-03 — Réseau social : rôles « Joueurs » et « Modération » dans le bouclier, joueurs autorisés à suivre et à publier avec les avatars de leur camp (social `9350ddc`, eho `afa4766`, pleiade-platform `9714719`) — VÉRIFIÉ EN LOCAL, en attente de push
+
+- **Bouclier de Pléiade (social)** : colonnes **Animation · Joueurs · Modération** + une **légende** sous le tableau (le survol ne suffisait pas), dont « Aucune case » (champ `sansRole` du catalogue). Maquette validée par l'utilisateur.
+- **eho** : la décision « au nom de » renvoie aussi `avatarIdsCamp` (groupes du camp seuls), rétrocompatible (messagerie inchangée).
+- **Réseau social** : 4 niveaux + Modération, garde-fous CYBERSECU — détail dans `MASTORION\JOURNAL.md` ; 46/46 tests de bout en bout.
+- **Ordre de mise en ligne** : eho → Pléiade → social. **Après** : (1) bouclier social : DIV1 → décocher Animation, cocher **Joueurs** ; (2) eho : cocher le camp **DIV1** sur le groupe « CAMP DIV1 » ; (3) les joueurs se reconnectent (rôles relus dans le jeton).
+
 ## 2026-10-02 (suite 18) — Cockpit joueur : étude + fuite des messages programmés corrigée dans `app-social` (`cf0f5ee`, `13f1776`) — POUSSÉ, EN LIGNE le 2026-10-02 à 22:26
 
 - **Demande** : un cockpit pour les joueurs (sans la partie admin), pour suivre comptes et hashtags. **Étude** : le cockpit est fermé aux joueurs (rôle analyste) car l'API de veille expose `identity_id` (lien eho entre les comptes d'un même avatar), les groupes (camps) et les **messages programmés**. Sur le réseau social, **suivre est une écriture → réservé à l'animation** (règle de lecture seule du 2026-09-28) : pas de doublon pour les joueurs.

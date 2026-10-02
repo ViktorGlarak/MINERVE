@@ -52,7 +52,14 @@ La branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe tou
    - ⭐ **Règle d'écriture du réseau social** (précisée par l'utilisateur le 2026-09-28) :
      - on publie et on réagit uniquement « in the name of » un avatar ;
      - un **animateur** peut **supprimer** n'importe quel post sans avatar ;
-     - un compte sans le rôle ANIMATEUR est en lecture seule.
+     - ~~un compte sans le rôle ANIMATEUR est en lecture seule~~ → ⭐ **REMPLACÉ le 2026-10-03** (décision utilisateur, avis CYBERSECU) par **4 niveaux**, réglés dans le **bouclier de Pléiade** (catalogue `social.yml`) :
+       - **sans compte** : lecture seule ;
+       - **compte sans case** : lire + **suivre** comptes et hashtags + notifications ;
+       - **Joueurs** (`joueur`) : en plus, **au nom des seuls avatars de son camp** (eho `avatarIdsCamp` : groupes liés au camp, **sans** les « autres comptes ») : publier, réagir, programmer, modifier/supprimer **ce qu'un joueur a posé** (`parAnimation` faux) — jamais un inject ;
+       - **Animation** (`animateur`, pour les animateurs) : publier, réagir, programmer, modifier/supprimer **au nom des avatars de son camp ET des avatars sans groupe** (ex. FORAD : camp rouge + sans groupe) ;
+       - **Modération** (`moderateur`, se cumule) : modifier/supprimer **tout**, sans publier.
+       - Animation + Joueurs cochés ensemble → **Joueurs l'emporte**.
+     - Pour qu'un camp ait des avatars : dans eho, cocher le camp (groupe Keycloak) sur le groupe d'avatars (ex. « CAMP DIV1 » ↔ DIV1).
      - Le garde vit dans `apps/api/src/garde-ecriture.ts` et doit **authentifier avant de lire le rôle**.
      - ⚠ Conséquence (constatée le 2026-10-02) : **suivre un compte ou un hashtag est une écriture** → un joueur ne peut pas s'abonner ; le fil « Abonnements » ne sert qu'à l'animation.
    - ⭐ **Messages programmés (2026-10-02, autorisé)** : un message à `scheduledAt` non nul n'est visible **que de son auteur et de l'ANIMATEUR** (profil, message par numéro) et **jamais** dans les fils, la page d'un hashtag, l'API cockpit ni le compteur « Publications ». Toute nouvelle requête de lecture de posts doit poser `scheduledAt: null` (cf. CYBERSECU E8).

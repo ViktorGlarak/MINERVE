@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-10-03 (suite) — 3ᵉ modification de `app-social` (autorisée) : rôles Joueurs / Animation / Modération, abonnements ouverts, durcissements CYBERSECU (`6c70d99`→`9350ddc`, branche `droits-joueurs`) — vérifié en local, en attente de push
+
+- **Décisions utilisateur** (2026-10-03) : les joueurs suivent avatars et hashtags (leur métier : repérer les bonnes sources) et publient avec les avatars de leur camp ; rôle « Joueurs » dans le bouclier de Pléiade ; joueurs : modifier/supprimer/programmer leurs propres messages ; rôle « Modération » (tout modifier/supprimer) ; l'Animation bornée aux avatars de son camp + sans groupe. Règles : voir MEMOIRE « Règles en vigueur ».
+- **Avis CYBERSECU** (`CYBERSECU\AVIS\2026-10-03_SOCIAL_DROITS_JOUEURS\`) appliqué : garde en liste blanche + quota, X-Act-As strict, `master` réservé à l'animation, `impersonateMiddleware` retiré, profil réservé à l'animation, comptes d'opérateurs (`users.operateur`) hors des listes/compteurs publics d'abonnés, jetons locaux refusés en mode Keycloak (E2), aperçu de lien borné (SSRF M13 : sites `*.<zone>.pleiade.internal` autorisés, interne refusé, redirections revérifiées), téléversement (M14 : types fermés, signature vérifiée, extension tirée du type, en-têtes `nosniff` + CSP sandbox, type refusé = 415).
+- **Modèle** : `SocialPost.parAnimation` / `SocialComment.parAnimation` (défaut **vrai**), `User.operateur` — ajoutés par `db push` au démarrage ; montée de version testée sur une base de l'ancienne version (tout l'existant marqué animation).
+- **Écran** : « Au nom de » affiché aux joueurs (liste = leur camp), formulaire remplacé par une explication pour un compte sans rôle, pas de champ « Répondre » sans rôle, modifier/supprimer selon le rôle, refus de « Suivre » affiché, « Abonnements » corrigé (message programmé en direct), abonnés notifiés pour un message publié depuis l'écran.
+- **Tests** : 7 tests du garde ; **46/46 de bout en bout** (Keycloak local : anim GREYCELL, anim FORAD, joueur DIV1, lecteur sans rôle, joueur+anim, modérateur ; eho de dev ; faux Pléiade) ; interface vérifiée (Playwright, vraie connexion Keycloak).
+- Dépend de **eho** (`avatarIdsCamp`, `237a21e`) et de **pleiade-platform** (rôles au catalogue, légende du bouclier) → ordre de mise en ligne : eho, Pléiade, social.
+
 ## 2026-10-03 — Test complet des ABONNEMENTS (comptes + hashtags) demandé par l'utilisateur — état réel, rien de modifié
 
 L'utilisateur pensait que les joueurs pouvaient suivre comptes et hashtags via l'onglet « Abonnements ». Test local sur l'image `13f1776` (= prod), API + interface (Playwright).
