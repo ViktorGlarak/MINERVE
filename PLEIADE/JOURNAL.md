@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-10-03 — MELMIL : rôle « Lecture et demandes » pour la FORAD (app-melmil `c3a1446` branche `role-lecture-demandes`, pleiade-platform `da09694` branche `role-lecture-melmil`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin (utilisateur)** : seule GREY CELL crée storylines et incidents ; la FORAD lit la planche et fait des demandes de produit → colonne dédiée dans le bouclier, à cocher **à la place** d'« Animation ».
+- **Catalogue** : `catalog/melmil.yml` + rôle `lecteur` « Lecture et demandes ».
+- **Serveur** : `peutEcrire` = Animation seule ; `estLecteur` = lecteur sans Animation. PUT `/api/atelier` d'un lecteur : version obligatoirement à jour (sinon 409), puis `modificationsInterditesAuLecteur` (`src/lib/atelier/lecture-demandes.ts`) → 403 si autre chose que les demandes **de sa cellule** encore « envoyées », leurs fichiers fournis, sa ligne `cellulesDesComptes` et le journal. `/api/medias` : lecteur limité aux fichiers fournis à une demande de sa cellule.
+- **Écran** (avis DESIGNER n°35) : pastille « Lecture et demandes », champs en texte, boutons de modification masqués, Écarts/Journal/Réglages masqués, planche non déplaçable, « Demander un produit » en tête de fiche, cellule fixée.
+- **Vérifié** : 363/363 tests, tsc OK, Playwright en `for01`/lecteur (tout OK, 403 serveur sur incident et fichier d'incident, 0 erreur JS), image Docker sur base vide + redémarrage → `/api/sante` 200 `2026-10-03.1`, 0 erreur. Tests plateforme 24/25 (l'échec `test-deploiement` existe déjà sur la base : chemin Windows).
+- **Après mise en ligne** : bouclier MELMIL → FORAD : décocher Animation, cocher **Lecture et demandes** ; les comptes FORAD se reconnectent.
+
 ## 2026-10-03 — Diagnostic plateforme (demande utilisateur) → `PLEIADE\DIAGNOSTIC_2026-10-03.md`
 
 - Contrôle des 12 dépôts + relevé des besoins (RETEX, DELATTRE, journal depuis le 20/09, CYBERSECU, DESIGNER, LEAC, MASTAURIGE) + sondage de la zone `delattre-26` (6 instances au portail + 4 titres de presse ; webserver/wordpress non déployés). 9 constats, 8 axes (A fiabilité de mise en ligne → H hygiène), ordre proposé : A, puis TF1 Info + E1/E4, puis onglet « Conduite » MELMIL (boucle d'entraînement), puis multi-réseaux + cockpit joueur + socle partagé.
