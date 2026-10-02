@@ -624,6 +624,9 @@ C'est la clé pour ne pas défaire ce réglage par mégarde :
 
 ## 10. Points ouverts / à trancher avec l'utilisateur
 
+> ⭐ **Diagnostic complet du 2026-10-03** — `PLEIADE\DIAGNOSTIC_2026-10-03.md` : contrôle des 12 dépôts (tests, CI, version, dette), carte besoins → outils (RETEX, DE LATTRE, vision Xavier), 9 constats, 8 axes A–H priorisés. **À relire avant tout nouveau chantier.** Points saillants : mise en ligne non prouvable (admin/social/cockpit/platform sans version), tests jamais lancés en CI pour eho et social, 4 outils pour planifier et 4 pour la presse, le besoin n°1 du RETEX (retour sur le traitement des injects) sans outil, « TF1 Info » (média réel) en production.
+
+
 - ✅ **Sort du travail EHO Angular — TRANCHÉ (2026-09-11)** : porté vers le nouvel EHO (trombinoscope, modèles, STARTEX, planche joueur, comparaison) ; **les cellules/équipes sont écartées**. La branche `origin/feat/eho` de mastorion n'a plus vocation à être fusionnée.
 - ✅ **Faille d'autorisation des 10 routes API — FERMÉE** le 2026-09-16 par la fusion (cf. § 8bis). ⏳ **Reste à trancher** : la charge utile réduite de `GET /api/users` pour les non-admins — un joueur connecté lit encore ce que sa planche lui cache.
 - ✅ **`main` poussé** le 2026-09-16 (`e3e2acc..ff1c63a`) — Xavier voit la fusion. `prod` non touchée, aucun déploiement déclenché.

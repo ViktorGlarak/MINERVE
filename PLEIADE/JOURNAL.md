@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-10-03 — Diagnostic plateforme (demande utilisateur) → `PLEIADE\DIAGNOSTIC_2026-10-03.md`
+
+- Contrôle des 12 dépôts + relevé des besoins (RETEX, DELATTRE, journal depuis le 20/09, CYBERSECU, DESIGNER, LEAC, MASTAURIGE) + sondage de la zone `delattre-26` (6 instances au portail + 4 titres de presse ; webserver/wordpress non déployés). 9 constats, 8 axes (A fiabilité de mise en ligne → H hygiène), ordre proposé : A, puis TF1 Info + E1/E4, puis onglet « Conduite » MELMIL (boucle d'entraînement), puis multi-réseaux + cockpit joueur + socle partagé.
+- Vérifié : toutes les branches sont fusionnées dans `origin/main` (sauf `feat/eho-data-volume` dans platform) ; les « non fusionnées » du relevé étaient des `main` locaux périmés.
+
 ## 2026-10-03 — Réseau social : rôles « Joueurs » et « Modération » dans le bouclier, joueurs autorisés à suivre et à publier avec les avatars de leur camp (social `9350ddc`, eho `afa4766`, pleiade-platform `9714719`) — POUSSÉ, EN LIGNE (eho 23:27, social 23:32)
 
 - **Bouclier de Pléiade (social)** : colonnes **Animation · Joueurs · Modération** + une **légende** sous le tableau (le survol ne suffisait pas), dont « Aucune case » (champ `sansRole` du catalogue). Maquette validée par l'utilisateur.
