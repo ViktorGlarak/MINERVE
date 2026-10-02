@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-10-02 (suite 14) — admin + MELMIL : un scénario peut cibler toute une STORYLINE (avis DESIGNER n°31) (admin branche `scenario-storyline`, MELMIL `2026-10-02.8`) — VÉRIFIÉ EN LOCAL, en attente de push
+
+- **Constat de l'utilisateur** : un animateur a nommé un scénario `08.01` (toute une storyline, pas un incident). Non anticipé : sur la planche de préparation, l'icône de scénario ne s'affichait alors sur aucun incident. Besoin : **forcer la sélection de l'ensemble d'injects** couverts pour que le picto ▶ apparaisse sur **chacun**. **Ne rien casser.**
+- **Avis DESIGNER n°31** (`DESIGNER\AVIS\2026-10-02_ADMIN_SCENARIO_STORYLINE\`) : R1 segment « Cet incident / Toute une storyline » ; R2 storyline → ses incidents en cases à cocher, **tous cochés** par défaut, ≥1 requis ; R3 même picto ▶, sur chaque incident couvert ; R4 fiche « Storyline 08.01 — N incidents », badge « storyline · N » dans la liste ; R5 mode incident unique inchangé.
+- **Modèle** (admin, `schema.prisma`) : ajout `storylineCode` + `incidentIds` (Text, liste d'ids internes) au `Scenario`, à côté de `incidentId`/`incidentCode`. Appliqué par **`db push` au démarrage** (admin, comme eho). L'**incident primaire** (= 1er coché) reste dans `incidentId`/`incidentCode` pour toute la compat existante.
+- **Admin back** : `lib/melmil.ts` → `incidentsDeStoryline()` + `resoudreCible()` (mode incident OU storyline : filtre les incidentIds sur la storyline, ≥1, primaire = retenus[0]) ; POST et PATCH `bff/scenarios` passent par `resoudreCible` ; `service/scenarios` expose `storylineCode` + `incidentIds`. DTO (`scenario-logic.ts`, `types.ts`) étendus.
+- **Admin UI** : `NewScenarioDialog` → segment + sélecteur de storyline + liste à cocher (tous cochés, « Tout cocher/décocher ») ; `ScenarioEditor` montre un bandeau storyline ; `ScenariosList` range sous le code de storyline + badge.
+- **MELMIL** : `zone/scenarios/route.ts` calcule l'ensemble `codes` (codes ACTUELS des incidentIds) ; `ui/scenarios-admin.ts` → `scenariosDe` affiche le scénario sur **chaque** code de l'ensemble (sinon le code unique). Picto et bloc inchangés. Version `2026-10-02.8`.
+- **Testé en local** (admin+MELMIL+fake Pléiade, Playwright) : storyline 08.01 → **5 incidents, 5 cochés par défaut** ; décoche I12 → 4 ; nom pré-rempli ; créé ; service `storylineCode=08.01`, `incidentIds=4` ; API zone MELMIL `codes=[I03,I04,I07,I15]` ; **planche : picto ▶ 1 sur I03/I04/I07/I15, ABSENT sur I12 décoché** ; badge « storyline · 4 » dans la liste admin ; `tsc` OK les deux ; **0 erreur JS**.
+
 ## 2026-10-02 (suite 13) — MELMIL : ergonomie des fichiers fournis (avis DESIGNER n°30) (`app-melmil` `3e0da58`, `2026-10-02.7`) — POUSSÉ sur main et prod
 
 - **Constat de l'utilisateur** : les fichiers fournis d'une demande (ajoutés en suite 12) s'affichaient en **lignes pleine largeur** avec des **liens bleus** — bizarre face à la grille de cartes des médias.
