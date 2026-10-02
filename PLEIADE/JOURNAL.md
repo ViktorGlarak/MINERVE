@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-02 (suite 15) — MELMIL : comptes rendus — télécharger l'exemplaire ouvert, garder « Importer… » (avis DESIGNER n°32) (`app-melmil` `eb8dc4f`, `2026-10-02.9`, branche `cr-telechargement-import`) — VÉRIFIÉ EN LOCAL, en attente de push
+## 2026-10-02 (suite 15) — MELMIL : comptes rendus — télécharger l'exemplaire ouvert, garder « Importer… » (avis DESIGNER n°32) (`app-melmil` `eb8dc4f`, `2026-10-02.9`) — POUSSÉ sur main et prod, EN LIGNE
 
 - **Constat de l'utilisateur** : avec plusieurs CR d'un même type pour une ETIM (ex. CIMICREP n°1, n°2), ouvrir n°2 puis « Télécharger » sortait le **n°1**. Et le bouton « Importer » **disparaissait** dès le premier CR de la colonne.
 - **Causes** (`compte-rendu.tsx`) : (1) le `onTelecharger` de la fiche ré-étendait à `crsPartages(...)` = **tout le lot**, nommé et commencé par n°1 ; (2) « Importer » n'existait que dans l'état « aucun CR », et `importer()` n'passait pas `exemplaireSuivant` → un 2ᵉ import aurait été **ignoré** (il rendait le CR existant).
