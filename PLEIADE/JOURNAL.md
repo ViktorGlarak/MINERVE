@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-10-03 (suite) — MELMIL : rôle « Admin » et Animation recentrée (app-melmil `955cf8c`, pleiade-platform `4844ee0`, mêmes branches) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Décision utilisateur** : un groupe « Admin » a accès à tout ; l'**Animation** crée events, storylines, incidents et demandes ; **toute la gestion technique** passe à l'Admin.
+- **Catalogue** : rôle `gestion` libellé **« Admin »** (⚠ la clé `admin` reste celle d'« Animation », historique — ne pas la renommer, les cases cochées seraient perdues). Se suffit à lui-même (entrer, écrire, droits Prod).
+- **Réservé à l'Admin** : onglet **Réglages** (nom, ETIM de l'exercice, calendrier, verser un export JEMM, aligner, sauvegarde/restauration), **« Changer d'étape »**, et **toute écriture de la planche JEMM** (import, réglages, remplacer, restaurer, déplacer, purger, vider). L'Animation garde Journal, Écarts, Équipe, l'export PPT et peut encore **ajouter** une ETIM depuis une fiche d'incident (pas la renommer ni la retirer).
+- **Serveur** : `reglagesModifiesSansDroit` (`src/lib/atelier/gestion.ts` : nom, calendrier, GT, ETIM perdues) → 403 « Réservé au rôle « Admin » » ; PUT `/api/planche` → Admin seul. Même règle côté écran (geste annulé + message).
+- **Vérifié** : 371/371, tsc, Playwright Animation et Admin (onglets, Changer d'étape, création d'event, 403/200 serveur, planche JEMM, 0 erreur JS), image Docker base vide + redémarrage → `2026-10-03.2`, 0 erreur ; plateforme 24/25 (échec Windows connu).
+- **Après mise en ligne** : bouclier MELMIL → cocher **Admin** sur le groupe des gestionnaires (⚠ sinon plus personne n'a les Réglages) ; GREY CELL garde Animation ; FORAD → Lecture et demandes ; reconnexion.
+
 ## 2026-10-03 — MELMIL : rôle « Lecture et demandes » pour la FORAD (app-melmil `c3a1446` branche `role-lecture-demandes`, pleiade-platform `da09694` branche `role-lecture-melmil`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Besoin (utilisateur)** : seule GREY CELL crée storylines et incidents ; la FORAD lit la planche et fait des demandes de produit → colonne dédiée dans le bouclier, à cocher **à la place** d'« Animation ».
