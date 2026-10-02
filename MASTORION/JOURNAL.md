@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-10-02 — 2ᵉ modification de `app-social`, autorisée par l'utilisateur : les messages PROGRAMMÉS ne fuient plus (`cf0f5ee`, `13f1776`, branche `messages-programmes-caches`) — vérifié en local, en attente de push
+
+- **Constat** (étude « cockpit joueur », consigné CYBERSECU E8/M12) : un message programmé (`scheduledAt` non nul) se lisait avant son heure sur la **page profil** (publique, même anonyme), le fil **« Abonnements »**, le **message par numéro**, la page d'un hashtag et l'**API cockpit** ; seul le fil public l'excluait. Le compteur « Publications » le comptait aussi.
+- **Correctif** : profil → programmés visibles par l'auteur et l'ANIMATEUR seuls ; `/posts/following` → jamais ; `/posts/:id` → 404 hors auteur/animation ; `/hashtags/:tag/posts` et API cockpit (`feed`, `statuses`, `hashtags`, `search`, `poll`) → publiés seulement ; `_count.socialPosts` filtré sur `scheduledAt: null`.
+- **Testé** sur image (MariaDB, auth locale, jeu d'essai `_seed-essai.mjs` : @arn_gouv, @unocha_off, @mercure_info, animateur, joueur @cellule_ri) : 14 cas conformes (`_verif-fuite.mjs`), message programmé à +40 s visible du joueur ~100 s après (planificateur), redémarrage 200, 0 erreur.
+- **Constats annexes** : (1) le joueur voit le bouton « Suivre » mais le serveur répond **403 sans message à l'écran** (règle de lecture seule du 2026-09-28) — l'interface devrait le masquer ou l'expliquer ; (2) en mode d'authentification local, le mot de passe du compte admin créé automatiquement est écrit **en clair dans les journaux** (local seulement).
+- **Comparaison suivi social ↔ cockpit** faite en captures pour l'utilisateur : sur le social, suivre = écriture → réservé à l'animation ; le cockpit offre une carte par source, multi-réseaux, priorités, non-lus.
+
 ## 2026-09-28 — 1ʳᵉ modification de code dans `app-social`, autorisée par l'utilisateur : écriture des animateurs débloquée (`27869bd`, en ligne)
 
 - **Symptôme** : l'animateur ne pouvait pas supprimer le post #114101 sur `social.delattre-26`. La réponse était `403`, et l'écran restait muet.

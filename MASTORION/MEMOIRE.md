@@ -54,6 +54,8 @@ La branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe tou
      - un **animateur** peut **supprimer** n'importe quel post sans avatar ;
      - un compte sans le rôle ANIMATEUR est en lecture seule.
      - Le garde vit dans `apps/api/src/garde-ecriture.ts` et doit **authentifier avant de lire le rôle**.
+     - ⚠ Conséquence (constatée le 2026-10-02) : **suivre un compte ou un hashtag est une écriture** → un joueur ne peut pas s'abonner ; le fil « Abonnements » ne sert qu'à l'animation.
+   - ⭐ **Messages programmés (2026-10-02, autorisé)** : un message à `scheduledAt` non nul n'est visible **que de son auteur et de l'ANIMATEUR** (profil, message par numéro) et **jamais** dans les fils, la page d'un hashtag, l'API cockpit ni le compteur « Publications ». Toute nouvelle requête de lecture de posts doit poser `scheduledAt: null` (cf. CYBERSECU E8).
 3. Distinction stricte MASTAURIGE (HTML statique, brigade) / MASTORION (plateforme applicative, division-corps).
 4. Règles transverses MINERVE applicables aux contenus : camp d'un persona = registre MASTAURIGE fait foi ; GET ; numéros fictifs ; langue de l'avatar ; pas de détails opérationnels réels.
 
