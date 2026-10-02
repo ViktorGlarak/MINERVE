@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-02 (suite 15) — MELMIL : comptes rendus — télécharger l'exemplaire ouvert, garder « Importer… » (avis DESIGNER n°32) (`app-melmil` `eb8dc4f`, `2026-10-02.9`, branche `cr-telechargement-import`) — VÉRIFIÉ EN LOCAL, en attente de push
+
+- **Constat de l'utilisateur** : avec plusieurs CR d'un même type pour une ETIM (ex. CIMICREP n°1, n°2), ouvrir n°2 puis « Télécharger » sortait le **n°1**. Et le bouton « Importer » **disparaissait** dès le premier CR de la colonne.
+- **Causes** (`compte-rendu.tsx`) : (1) le `onTelecharger` de la fiche ré-étendait à `crsPartages(...)` = **tout le lot**, nommé et commencé par n°1 ; (2) « Importer » n'existait que dans l'état « aucun CR », et `importer()` n'passait pas `exemplaireSuivant` → un 2ᵉ import aurait été **ignoré** (il rendait le CR existant).
+- **Correctifs** : la fiche télécharge `[courant]` (l'exemplaire ouvert) ; « .docx (n) » du tableau reste l'export du lot. « Importer… » ajouté après « +1 » dans la cellule quand un CR existe ; `importer()` passe `exemplaireSuivant: true` (crée toujours un exemplaire ; garde d'idempotence par id inchangée). Nom de fichier proposé avec le rang (« CIMICREP n°2 ») pour ne pas écraser n°1. aria-labels avec l'ETIM, « +1 » dit « vide », « Importer… » (points de suspension) dans les deux états. Pas de bouton de téléchargement par exemplaire dans le tableau (R3 : cellule déjà dense).
+- **Testé en local** (Playwright, ETIM-7 posée sur 08.01.I04 puis atelier restauré) : créer n°1 (« CONTENU-UN ») → la cellule garde « Importer… » ; +1 → n°2 (« CONTENU-DEUX ») ; fiche n°2 → dialogue « Télécharger le CIMICREP n°2 · ETIM-7 · D+31 », fichier `…-CIMICREP-n°2.docx` qui **contient CONTENU-DEUX et pas CONTENU-UN** ; import de ce fichier avec 2 CR → **n°3** créé. 0 erreur JS. `tsc` OK ; image (base vide) démarrage/redémarrage 200, 0 erreur.
+
 ## 2026-10-02 (suite 14) — admin + MELMIL : un scénario peut cibler toute une STORYLINE (avis DESIGNER n°31) (admin `913b992`, MELMIL `f3ee5c0` / `2026-10-02.8`) — POUSSÉ sur main et prod
 
 > ✅ **Mise en ligne** : MELMIL confirmé `2026-10-02.8` sur `melmil.delattre-26.pleiade.internal`. Admin (pas de `/api/sante`) : app up (401 sur service sans clé, 307 sur `/scenarios`), déployée par le même runner et la **même image dont l'entrypoint `db push` crée `storyline_code` + `incident_ids`** (prouvé en local sur base vide ET sur base peuplée). **Compat de l'ancien scénario `08.01`** (créé avant la feature, sans storylineCode/incidentIds) : colonnes nullables ajoutées sans perte ; `incidentIds` retombe sur `[incidentId]` ou `[]`, `codeAffiche`/`scenariosDe` gèrent le null → aucune régression. Vérif end-to-end authentifiée du picto en prod = à faire côté utilisateur (session requise).
