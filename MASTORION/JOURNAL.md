@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-10-03 — Test complet des ABONNEMENTS (comptes + hashtags) demandé par l'utilisateur — état réel, rien de modifié
+
+L'utilisateur pensait que les joueurs pouvaient suivre comptes et hashtags via l'onglet « Abonnements ». Test local sur l'image `13f1776` (= prod), API + interface (Playwright).
+- ✅ **Animateur** : s'abonner / se désabonner à un compte et à un hashtag (casse normalisée), bouton « Suivre » → « Ne plus suivre », liste `hashtags/following/me`, fil « Abonnements » (comptes suivis + hashtag suivi d'un compte non suivi), message retiré après désabonnement, nouveau message affiché en direct (< 30 s, rafraîchissement toutes les 15 s), message programmé caché avant l'heure.
+- ❌ **Joueur : rien ne fonctionne.** S'abonner / se désabonner = écriture → **403 « lecture seule »** (règle du 2026-09-28) ; le bouton « Suivre » est affiché, le refus est **silencieux** (`toggleFollow` sans gestion d'erreur) ; le fil « Abonnements » reste vide.
+- ❌ **Notification « nouveau message »** : créée seulement par `post-service.createPost` (admin/scénarios) et par le planificateur (programmés) ; **pas** par `POST /api/social/posts` (publication depuis l'interface). Aucune notification pour les hashtags suivis.
+- ❌ **Rafraîchissement en direct** (`pages/following/following.ts`, `checkNew`) : ne garde que `id > dernier affiché` ; un message programmé **créé avant** d'autres messages (numéro plus petit) n'apparaît **qu'après rechargement** (constaté : n° 14 < n° 15, absent après 150 s, visible au rechargement). Le fil est trié par `updatedAt`.
+- ℹ️ Pas de page pour gérer ses abonnements (il faut retourner sur chaque profil / hashtag).
+
 ## 2026-10-02 — 2ᵉ modification de `app-social`, autorisée par l'utilisateur : les messages PROGRAMMÉS ne fuient plus (`cf0f5ee`, `13f1776`, ) — POUSSÉ sur main + prod, EN LIGNE le 2026-10-02 à 22:26 (redémarrage observé ; le social n'expose pas de version)
 
 - **Constat** (étude « cockpit joueur », consigné CYBERSECU E8/M12) : un message programmé (`scheduledAt` non nul) se lisait avant son heure sur la **page profil** (publique, même anonyme), le fil **« Abonnements »**, le **message par numéro**, la page d'un hashtag et l'**API cockpit** ; seul le fil public l'excluait. Le compteur « Publications » le comptait aussi.
