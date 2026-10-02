@@ -1,5 +1,13 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-02 — Avis n°34 : MELMIL, synthèse de planification
+
+- **Demande** : voir d'un coup d'œil où en est la planification (incidents, en prépa, sans pièce jointe ni scénario…), nouvel onglet possible, ergonomie soignée ; à voir en local d'abord.
+- **Constat** : tout est déjà calculable (statuts, `piecesDeLIncident`, `scenariosDe`, `ecarts`, demandes) mais éparpillé sur 4 onglets.
+- **Avis** : `AVIS\2026-10-02_MELMIL_SYNTHESE_PLANIFICATION\AVIS.md`, R1 à R9 + maquette textuelle. Points clés : onglet « Synthèse » en tête de *Visualiser* sans changer l'arrivée ; phrase + barre empilée (Validé hachuré / Dans JEMM plein, car même vert) ; chaque manque = un lien vers Incidents filtré par un nouveau paramètre `manque` (non mémorisé), calculé par une seule fonction pure ; jamais de 0 quand les scénarios ou JEMM sont indisponibles.
+- **Limite signalée** : pas encore de source dédiée aux tableaux de bord (Few, NN/g) dans nos fiches.
+- **Statut** : à appliquer par PLEIADE / ARCHITECTE, en local d'abord.
+
 ## 2026-10-02 — Avis n°27 : admin, retrouver ses scénarios dans la masse
 
 - Demande de l'utilisateur : on ne retrouve plus ses scénarios dans l'app-admin. On cherche par incident MELMIL, et les noms commencent en général par le code.
