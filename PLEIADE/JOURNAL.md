@@ -4,12 +4,13 @@
 
 ---
 
-## 2026-10-02 (suite 18) — Cockpit joueur : étude + fuite des messages programmés corrigée dans `app-social` (`cf0f5ee`, `13f1776`) — VÉRIFIÉ EN LOCAL, en attente de push
+## 2026-10-02 (suite 18) — Cockpit joueur : étude + fuite des messages programmés corrigée dans `app-social` (`cf0f5ee`, `13f1776`) — POUSSÉ, EN LIGNE le 2026-10-02 à 22:26
 
 - **Demande** : un cockpit pour les joueurs (sans la partie admin), pour suivre comptes et hashtags. **Étude** : le cockpit est fermé aux joueurs (rôle analyste) car l'API de veille expose `identity_id` (lien eho entre les comptes d'un même avatar), les groupes (camps) et les **messages programmés**. Sur le réseau social, **suivre est une écriture → réservé à l'animation** (règle de lecture seule du 2026-09-28) : pas de doublon pour les joueurs.
 - **Fuite (CYBERSECU E8)** corrigée avec l'autorisation de l'utilisateur — détail dans `MASTORION\JOURNAL.md`. Vérifié sur image : 14 cas conformes, publication à l'heure OK.
 - **Captures comparatives** social ↔ cockpit remises à l'utilisateur (`scratchpad\suivi-*.png`).
-- ❓ En attente : push du correctif ; décision sur le mode joueur du cockpit (rôle « joueur » attribué ou automatique ; lire les abonnements du joueur avec son propre compte).
+- 💡 Le réseau social n'expose aucun numéro de version (`/api/config` dit toujours `0.3.0`) : impossible de lire la version en service — à ajouter comme dans MELMIL.
+- ❓ En attente : décision sur le mode joueur du cockpit (rôle « joueur » attribué ou automatique ; lire les abonnements du joueur avec son propre compte).
 
 ## 2026-10-02 (suite 17) — MELMIL : onglet « Synthèse » de la planification (avis DESIGNER n°34) (`app-melmil` `e743ed5`, `2026-10-02.11`) — POUSSÉ sur main et prod, EN LIGNE
 

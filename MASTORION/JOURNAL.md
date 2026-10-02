@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-02 — 2ᵉ modification de `app-social`, autorisée par l'utilisateur : les messages PROGRAMMÉS ne fuient plus (`cf0f5ee`, `13f1776`, branche `messages-programmes-caches`) — vérifié en local, en attente de push
+## 2026-10-02 — 2ᵉ modification de `app-social`, autorisée par l'utilisateur : les messages PROGRAMMÉS ne fuient plus (`cf0f5ee`, `13f1776`, ) — POUSSÉ sur main + prod, EN LIGNE le 2026-10-02 à 22:26 (redémarrage observé ; le social n'expose pas de version)
 
 - **Constat** (étude « cockpit joueur », consigné CYBERSECU E8/M12) : un message programmé (`scheduledAt` non nul) se lisait avant son heure sur la **page profil** (publique, même anonyme), le fil **« Abonnements »**, le **message par numéro**, la page d'un hashtag et l'**API cockpit** ; seul le fil public l'excluait. Le compteur « Publications » le comptait aussi.
 - **Correctif** : profil → programmés visibles par l'auteur et l'ANIMATEUR seuls ; `/posts/following` → jamais ; `/posts/:id` → 404 hors auteur/animation ; `/hashtags/:tag/posts` et API cockpit (`feed`, `statuses`, `hashtags`, `search`, `poll`) → publiés seulement ; `_count.socialPosts` filtré sur `scheduledAt: null`.
