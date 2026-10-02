@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-02 (suite 16) — MELMIL : statut d'incident en 4 étapes, repère visuel (avis DESIGNER n°33) (`app-melmil` `ae0304d`, `2026-10-02.10`, branche `statut-incident`) — VÉRIFIÉ EN LOCAL, en attente de validation
+## 2026-10-02 (suite 16) — MELMIL : statut d'incident en 4 étapes, repère visuel (avis DESIGNER n°33) (`app-melmil` `ae0304d` + `444dcf4`, `2026-10-02.10`) — POUSSÉ sur main et prod, EN LIGNE
 
 - **Demande de l'utilisateur** : la colonne « Statut » devient un repère visuel de l'avancement : 🟠 **En préparation** (à la création) → 🟡 **En validation** (le rédacteur) → 🟢 **Validé** (chef greycell) → 🟢 « J » **Dans JEMM** (validé et saisi dans JEMM). Modifiable dans la fiche ; **ouvert à tous** (pas de rôle chef/rédacteur dans l'app). Exigence forte : **ne pas alourdir la fiche**.
 - **Modèle** (`modele.ts`) : `StatutIncident` = `preparation | validation | valide | jemm`, `lireStatut()` relit les anciens (idée → préparation, à coordonner → validation, coordonné → validé), `ORDRE_STATUT`. Nouveaux champs facultatifs `statutPar` / `statutLe`, posés **seulement** quand le statut change (et à la création) — la `trace` bouge à chaque champ, elle ne dit pas qui a validé. Imports et alignement JEMM créent en « Dans JEMM ».
