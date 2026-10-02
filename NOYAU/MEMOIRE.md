@@ -321,12 +321,14 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-09-24] 24 agents au total
+### [2026-05-25 — mis à jour 2026-10-01] 25 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-16 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**, **DESIGNER**) +
+17 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**, **DESIGNER**, **CYBERSECU**) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 16 + 1 = **24 agents** (vérifié contre le registre CLAUDE.md le 2026-09-24)
+= 4 + 3 + 17 + 1 = **25 agents** (vérifié contre le registre CLAUDE.md le 2026-10-01)
+
+> ⭐ **CYBERSECU ajouté le 2026-10-01** — **référent cybersécurité de PLÉIADE**. A ingéré 11 guides **ANSSI** publics fournis par l'utilisateur (`D:\CECPC\PLEIADE\DOC\CYBER SECU\`) et l'inventaire de la sécurité déjà connue de la plateforme (règles décidées, incidents, posture dans le code). claude-opus-4-7. Dossier `CYBERSECU\` (mémoire + journal + `REFERENCES\`). **Réflexe imposé : le consulter dès qu'un sujet touche la sécurité, le mettre à jour à chaque décision ou correction.** Il conseille et vérifie ; la mise en œuvre passe par PLEIADE / ARCHITECTE. Pattern de routage : « est-ce sûr ? / comment protéger ? / TLS, secrets, VPN, en-têtes, droits, anonymat » → CYBERSECU.
 
 > ⭐ **DESIGNER ajouté le 2026-09-24** — **conseiller en design** des sites et applicatifs (PLÉIADE, sites d'exercice). Ingère au fil de l'eau les documents de design fournis par l'utilisateur (9 premières sources : shadcn/ui, Radix, HyperUI, 2 listes de design systems, Laws of UX, Refactoring UI, Lucide, Motion) → doctrine de 20 règles sourcées. claude-opus-4-7. Dossier `DESIGNER\` (mémoire + journal + `REFERENCES\`). ⚠ **Contribue, ne tranche pas** (décision utilisateur) : chartes des médias fictifs et modèles officiels priment. Pattern de routage : tout avis « design / lisibilité / accessibilité » d'un écran → DESIGNER, mise en œuvre → ARCHITECTE / PLEIADE.
 

@@ -134,6 +134,7 @@ graph LR
 | PLEIADE | [prompt](SYSTEME/PROMPTS/pleiade.md) | [mémoire](PLEIADE/MEMOIRE.md) |
 | LEAC | [prompt](SYSTEME/PROMPTS/leac.md) | [mémoire](LEAC/MEMOIRE.md) |
 | DESIGNER | [prompt](SYSTEME/PROMPTS/designer.md) | [mémoire](DESIGNER/MEMOIRE.md) |
+| CYBERSECU | [prompt](SYSTEME/PROMPTS/cybersecu.md) | [mémoire](CYBERSECU/MEMOIRE.md) |
 
 ---
 

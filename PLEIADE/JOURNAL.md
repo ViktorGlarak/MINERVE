@@ -4,6 +4,909 @@
 
 ---
 
+## 2026-10-02 (suite 13) — MELMIL : ergonomie des fichiers fournis (avis DESIGNER n°30) (`app-melmil` `3e0da58`, `2026-10-02.7`) — POUSSÉ sur main et prod
+
+- **Constat de l'utilisateur** : les fichiers fournis d'une demande (ajoutés en suite 12) s'affichaient en **lignes pleine largeur** avec des **liens bleus** — bizarre face à la grille de cartes des médias.
+- **Avis DESIGNER n°30** : deux écarts (le bleu `--anneau` banalisé ; la pleine largeur). Corrigé : **grille de cartes compactes** (`minmax(240px,1fr)`, comme `.media-grille`), **boutons neutres** `frappe frappe-mini`, nom en couleur de texte, l'**accent réservé à la sélection** « sert de base » (bordure + coche pleine).
+- Version `2026-10-02.7`. Testé en local (3 fichiers → 3 cartes, Ouvrir/Télécharger OK) ; image démarrage/redémarrage 200, 0 erreur.
+
+## 2026-10-02 (suite 12) — MELMIL : les fichiers « fournis » d'une demande se récupèrent (`app-melmil` `482b762`, `2026-10-02.6`, branche `lien-admin`) — POUSSÉ sur main et prod
+
+- **Constat de l'utilisateur** : dans une demande de produit, on peut déposer des fichiers « fournis » (fichiers de base), mais pas les **récupérer**.
+- **Cause** : le champ « Fichiers fournis » (genre `fichiers`) ne s'affichait qu'en **pastilles de nom** (sélection), **désactivées en lecture** — aucun lien pour ouvrir/télécharger. La cellule Prod ne pouvait donc pas récupérer les fichiers de base.
+- **Correctif** (`produits.tsx`, composant `Champ`) : le champ `fichiers` est séparé de `multi`. Chaque fichier a un lien **« Ouvrir »** (aperçu `inline`) et **« Télécharger »** (pièce jointe), via la route existante `/api/medias/[id]`. En lecture, on montre les fichiers fournis en **liste de liens** (plus de pastilles mortes) ; en édition, la pastille de sélection reste, plus Ouvrir/Télécharger. Styles `.liste-fournis` / `.fourni-*`.
+- Version `2026-10-02.6`.
+- **Testé en local** : fichier déposé (nom conforme) puis rattaché en « fourni » à une demande directe → la demande montre « Ouvrir » + « Télécharger » ; le téléchargement renvoie le fichier (HTTP 200, `Content-Disposition: attachment`). `tsc` OK ; image (base vide → migrate deploy) démarrage/redémarrage 200, 0 erreur.
+
+## 2026-10-02 (suite 11) — EHO : la fiche de la planche se relit à l'ouverture (`eho` `059a001`, `2026-10-02.3`, branche `fiche-planche-live`) — POUSSÉ sur main et prod
+
+- **Constat de l'utilisateur** : après avoir modifié une bio (ex. @UNOCHA_off) via « Modifier la fiche », la **fenêtre de la fiche dans la planche** (trombinoscope) montrait encore l'ancien texte ; un **rafraîchissement du navigateur** corrigeait. Diagnostic prouvé : la bio ÉTAIT bien enregistrée (écran d'édition + base OK) ; la base et le kit IA étaient à jour. Seule la fiche en lecture de la planche affichait les données du bloc chargées à l'ouverture de la page.
+- **Correctif** : `FicheChargee` (trombinoscope) relit **toujours** `/api/users/[id]` à l'ouverture (vide d'abord `fichesEnCache` pour ne pas resservir une copie périmée). La carte du bloc s'affiche aussitôt (ouverture instantanée), la version fraîche la remplace. Plus besoin de recharger la page.
+- Version `2026-10-02.3`.
+- **Testé en local** : planche chargée, bio modifiée en arrière-plan (sans reload), réouverture de la fiche → nouveau texte affiché (avant le correctif : ancien). `tsc` OK ; image démarrage/redémarrage 200, 0 erreur.
+- ⭐ Pour mémoire (réponse à l'animateur) : la **modification d'une bio est bien prise en compte instantanément** par le kit IA (lecture live d'eho). Les cas « pas pris en compte » = kit non re-téléchargé/redéposé dans l'IA, ou cette fiche de planche non rafraîchie (corrigé ici).
+
+## 2026-10-02 (suite 10) — EHO : création d'avatar — email facultatif, fenêtre qui tient avec les groupes archivés (`eho` `79f52d9`, `2026-10-02.2`, branche `creation-avatar`) — POUSSÉ sur main et prod
+
+- **Constats de l'utilisateur** (écran « Nouvel avatar ») : (1) l'email était obligatoire, sans raison — un avatar est une fiche, pas un compte ; (2) « Afficher aussi les groupes archivés » cassait l'affichage de la fenêtre.
+- **Corrections** :
+  - **Email facultatif**. L'API `POST /api/users` n'exige plus que `username` + `displayName` ; si l'email est vide, repli `username@exercise.local`, exactement comme l'import. Le champ du formulaire perd `required`, placeholder « Email (facultatif — identifiant technique, généré sinon) ».
+  - **Plantage de l'affichage** : c'était un débordement. Avec les ~235 groupes de DE LATTRE 26, afficher les archivés faisait sortir la fenêtre de l'écran et rendait « Créer » inatteignable. La fenêtre est désormais à **hauteur bornée** (`max-h-90vh`), **corps défilant**, **liste des groupes** en `max-h-30vh`, et **pied (Annuler / Créer) fixe**.
+  - Version `2026-10-02.2`.
+- **Testé en local** : création sans email → 201, email `username@exercise.local` (API et via le formulaire) ; avec Playwright (session admin, groupes archivés présents) : email non requis, « Créer » reste visible et dans l'écran après affichage des archivés, 0 erreur ; image sur copie de base → démarrage/redémarrage 200, création sans email 201.
+
+## 2026-10-02 (suite 9) — MELMIL : tableau des incidents triable par colonne (`app-melmil` `b14fa08`, `2026-10-02.5`) — POUSSÉ sur main et prod ; image testée (base vide → migrate deploy OK, redémarrage OK)
+
+- **Demande de l'utilisateur** : dans l'onglet « Incidents », pouvoir ranger le tableau en cliquant sur un en-tête de colonne (Code, Quand, Destinataire, Pièces jointes), avec croissant/décroissant, en gardant « Quand » croissant par défaut.
+- **Livré** :
+  - `lib/atelier/tri-incidents.ts` : `trierIncidents(incidents, atelier, colonne, sens)`, pur ; défaut `quand`/`asc` (= l'ordre actuel, D+ puis heure) ; « Destinataire » trie sur les ETIM, les incidents sans ETIM toujours en fin ; « Pièces jointes » trie sur le nombre (fichiers + comptes rendus).
+  - `onglets-gt.tsx` : composant `ThTri` (en-tête bouton, `aria-sort`, flèche ▲/▼ sur la colonne active) ; état de tri mémorisé par poste (`localStorage` `melmil-incidents-tri`) ; le tri s'applique à chaque storyline. Colonnes Sujet et Statut non triables.
+  - Style `.th-tri` / `.th-fleche` dans `globals.css`.
+  - Version `2026-10-02.5`.
+- **Testé en local** (base jetable, atelier fictif) : 328/328 ; avec Playwright, défaut = Quand croissant (D+27→D+32), clic Code = I03→I15, re-clic = I15→I03, `aria-sort` correct, choix conservé après rechargement, 0 erreur.
+- ⚠ Le tri s'applique **à l'intérieur de chaque storyline** (le tableau est groupé par storyline) : c'est le cadre où l'utilisateur lit ses incidents.
+
+## 2026-10-02 (suite 8) — MESSAGERIE : gc01 encore en double dans l’annuaire en ligne (`app-messagerie` `d767342`, branche `doublons-annuaire` partie de `f9a9a45`) — POUSSÉ sur main et prod à la demande de l’utilisateur
+
+- **Constat de l'utilisateur** : sur DE LATTRE 26, gc01 apparaît toujours deux fois dans la liste des comptes, à la création d'une conversation.
+- **Cause** : la fusion des fantômes (`f9a9a45`) ne se déclenche qu'à la **connexion** du compte concerné (`noterCompte`). Tant que gc01 ne revient pas sur la messagerie, ses entrées fantômes (identifiants aléatoires d'avant la correction) restent visibles pour tout le monde.
+- **Correctif** (`lib/comptes.ts`) :
+  - `nettoyerDoublons` : pour chaque nom en double, Pléiade (`resoudre-identite`) indique lequel est un **vrai** compte. Pléiade répond « aucun groupe » pour un identifiant inconnu, et un compte de zone a toujours au moins un groupe. S'il n'y a qu'un vrai compte, les fantômes lui sont rattachés, conversations comprises (`fusionnerDoublons`). Au plus toutes les 5 minutes, depuis la recherche de l'annuaire ; si Pléiade est injoignable, rien n'est touché.
+  - `dedoublonner` : l'annuaire n'affiche qu'**une entrée par nom** (la plus récemment vue), et jamais ses propres anciens fantômes (`personas/route.ts`).
+  - On n'utilise **pas** `/api/internal/zones/{zone}/users`, qui renvoie les mots de passe en clair.
+- **Testé en local** (base jetable, faux Pléiade) :
+  - un vrai gc01 et deux fantômes : la liste n'affiche qu'un gc01 ; en base, les fantômes sont fusionnés, et le groupe et le message du fantôme passent au vrai compte ;
+  - gc02 avec seulement deux fantômes (jamais revenu) : la liste n'en affiche qu'un, les deux lignes restent en base jusqu'à son retour ;
+  - tests 9/9 ; image : `/api/sante` 200, déclarée saine, redémarrage 200, 0 erreur ; avance rapide possible sur main et prod.
+
+## 2026-10-02 (suite 7) — S’approprier des avatars, « Qui utilise quoi », vérification obligatoire (avis DESIGNER n°29) — POUSSÉS : `eho` `e344a19` (`2026-10-02.1`), `app-admin` `d656148`, sur `main` et `prod` — ✅ **EN LIGNE vérifié** : eho `2026-10-02.1` à 13h03 (`/api/appropriations` 401 sans clé, page « Qui utilise quoi » derrière la connexion) ; admin à 13h05 (`/api/bff/appropriations` 401 sans session, `/login` 200, `/avatars` 404 comme voulu)
+
+- **Besoin** : à l'intérieur d'un camp (GREYCELL, FORAD, DIV1…), un compte de zone (gc05, div1…) s'approprie un ou plusieurs avatars que son camp peut déjà utiliser. L'appropriation est facultative. Les animateurs doivent voir qui tient quoi.
+- **Existant** : la réservation se fait par **groupe d'avatars** coché pour un camp (`GroupeCamp` dans eho ; « comptes libres » via `CampComptesLibres`). Le kit IA choisit le périmètre par groupes (`KitIaDialog`) et ignore toute notion de titulaire.
+- **Décisions de l'utilisateur** :
+  - **bloquer** : seul le titulaire, et les animateurs, utilise un avatar réservé ;
+  - libération par le titulaire ou par les **animateurs** (rôle admin), avec « Tout libérer » ;
+  - **eho et kit IA d'abord**, les sélecteurs du réseau social, de la presse et de la messagerie ensuite.
+- **Proposition** :
+  - stockage dans eho (un titulaire au plus par avatar : compte de zone, camp, date) ;
+  - API lue par les apps ;
+  - bouton ☆/★ et filtre « Mes avatars » dans eho ;
+  - vue animateur par camp, avec Libérer et Tout libérer ;
+  - kit IA : les avatars réservés par d'autres sont écartés et annoncés, ceux du compte en tête ;
+  - blocage vérifié par le serveur.
+- ⚠ **Le blocage ne sera réel qu'à l'étape 2.** C'est au moment de l'incarnation, dans le social, la presse et la messagerie, qu'on utilise un avatar. L'étape 1 ne bloque que dans le kit IA.
+- 🔒 Le lien est compte ↔ avatar, jamais personne réelle ↔ avatar.
+- **Préalable** : faire valider par Xavier le stockage dans eho (et, plus tard, le contrôle dans le réseau social).
+- **Réalisé en local le même jour** (branches `appropriation-avatars` dans `eho`, partie de `2209b45`, et dans `app-admin`, partie de `7d6d96f` ; ⏳ non commité, non poussé). L'utilisateur a demandé de tester en local, et rappelé que **les joueurs ne doivent rien voir**.
+  - ⭐ **Recadrage par DESIGNER** : la donnée vit dans eho, l'**écran est dans l'admin**.
+    - L'admin est réservée à l'animation : l'invisibilité pour les joueurs est garantie par construction.
+    - C'est là que travaillent les comptes gc. Ils n'ont peut-être pas accès aux écrans d'administration d'eho.
+    - Le blocage devient réel dès l'étape 1, puisque l'admin publie au nom des avatars.
+  - **eho** :
+    - modèle `Appropriation` (avatarId en clé primaire : un seul titulaire ; compteId = `sub`, compte, camp, depuis) ;
+    - `lib/appropriation.ts` (`approprier` : 404 si l'avatar n'existe pas, 409 s'il est déjà réservé, 403 hors camp via `avatarsImpersonables`, 503 si Pléiade est injoignable ; `liberer`, `libererTout`, journal `ActivityLog`) ;
+    - `resoudreAupresDePleiade` exporté ;
+    - routes `/api/appropriations` (GET : clé ou administrateur d'eho ; POST et DELETE : clé seulement) et `/api/appropriations/[avatarId]` ;
+    - ⛔ **rien dans `/api/users`**, lisible de toute session (vérifié).
+  - **admin** :
+    - `lib/appropriations.ts` (`refusDUtilisation` = le blocage : l'avatar d'un autre est refusé sauf animateur ; `avatarsOuverts` pour prévenir l'erreur) ;
+    - BFF `/api/bff/appropriations` (GET, `?ouverts` ; POST ; DELETE `?camp=` ou `?tout=1`, animateurs) et `/[avatarId]` (le titulaire ou un animateur) ;
+    - **blocage serveur** à l'ajout ou au changement d'avatar d'un item et à l'import (ligne refusée) ;
+    - **kit IA** : `appliquerReservations` (avatars des autres retirés, « ★ Tes avatars » en tête, nombre de retirés annoncé) et résumé avant le téléchargement ;
+    - nouvel onglet **Avatars** (`/avatars`) : « Mes avatars », « S'approprier un avatar » (chaque résultat dit son état : ☆ à prendre, ★ à moi, 🔒 réservé par un autre et grisé, « Hors de votre camp »), « Qui utilise quoi » par camp et par compte, avec recherche dans les deux sens, Libérer et Tout libérer avec confirmation ;
+    - sélecteur d'avatar des scénarios : les miens en tête, ceux des autres grisés et non cliquables ;
+    - mode local : `ADMIN_DEV_ROLES` et `ADMIN_DEV_ID`.
+  - **Testé en local** : MariaDB jetable, eho (3913) avec un faux Pléiade (3990) pour les camps, admin (3400) en gc05 opérateur puis en anim01 animateur ; 12 avatars et 3 camps fictifs.
+    - Tests : admin 30/30, eho 112/112 ; `tsc` sans erreur dans les deux apps.
+    - API : 401 sans clé, 409 si déjà réservé, 403 hors camp, rien dans `/api/users`.
+    - Avec Playwright :
+      - gc05 : appropriation, avatar de gc03 grisé et sans bouton, hors camp annoncé d'emblée, item avec l'avatar de gc03 refusé (403), résumé du kit (« 2 retirés, vos 2 en tête ») ;
+      - animateur : Libérer un avatar, Tout libérer un camp avec confirmation ;
+      - aucun débordement au téléphone (corrigé).
+  - ⭐ **Même jour, demande de l'utilisateur : s'approprier DEPUIS eho.** Les animateurs consultent la planche « Avatars » d'eho : devoir changer d'application pour s'approprier un avatar était dommage. Réalisé, l'admin gardant sa section ; une seule donnée, visible des deux côtés.
+    - **Planche** (`trombinoscope`) : un **marque-page** (l'étoile ★ appartient déjà au package STARTEX) en **languette centrée sous la carte**, posé à côté du bouton de la carte et non dedans. Libre : visible au survol ou au clavier (toujours sur écran tactile) ; « À moi » plein ; « gc03 » en pointillé pour l'avatar d'un autre ; rien hors du camp ; masqué pendant la sélection STARTEX. La grille des cartes a été retouchée (`flex`, `gap-y-4`).
+    - **Fiche** : ligne d'état (« Libre pour votre camp » et « Me l'approprier », « À moi depuis… » et « Libérer », « Réservé par gc03… — demandez à un organisateur », « Hors de votre camp »).
+    - **Liste** : l'étiquette après le @compte.
+    - **Menu Animation** : « **Qui utilise quoi** » (`/appropriations`), par camp et par compte, avec recherche dans les deux sens, Libérer et Tout libérer pour les organisateurs.
+    - **Routes eho** :
+      - POST par un animateur connecté (pour lui-même) ou par la clé ;
+      - DELETE d'un avatar par son titulaire, par un **organisateur** (masteradmin via Pléiade, `estOrganisateur`) ou par la clé ;
+      - Tout libérer par un organisateur ou par la clé ;
+      - GET renvoie aussi `moi` et `ouverts` (avatars du camp) pour une session.
+    - Composant partagé `components/appropriation.tsx` : une seule interrogation pour la page ; messages par `role=alert`, jamais `alert()`.
+    - ⚠ **Différence assumée** : dans eho, libérer l'avatar d'un autre est réservé aux **organisateurs** (masteradmin). eho ne distingue pas un compte gc d'un chef d'animation : tous ont le rôle admin d'eho. Dans l'admin de zone, c'est le **rôle admin** de l'admin.
+    - **Testé en local**, avec des sessions d'essai signées par la clé locale (gc05 animateur, org01 organisateur, div1 joueur) :
+      - gc05 : 12 cartes ; marque-page au survol, un clic donne « À moi » ; aucun marque-page sur une carte hors camp ; la fiche affiche l'état ; la liste montre les étiquettes ; libérer l'avatar de gc03 est refusé (403) ;
+      - org01 : « Tout libérer » visible ; libérer l'avatar de gc03 fonctionne ;
+      - **div1, joueur** : `/api/appropriations` en 403, renvoyé hors des pages Animation, aucun marque-page ni le mot « Réservé » dans « Mon EHO » ;
+      - eho 112/112 ; `tsc` sans erreur ; 0 erreur dans le navigateur.
+  - ⭐ **Même jour : l'onglet « Avatars » de l'admin est RETIRÉ** (décision de l'utilisateur, après confirmation que **tous** les comptes qui préparent des scénarios ont accès à la planche d'eho). Un seul écran pour un même geste, une seule règle de libération (celle d'eho).
+    - **Restent dans l'admin, en lecture** : le **kit IA** (avatars des autres retirés, les miens en tête, résumé avant le téléchargement), le **sélecteur d'avatar** des scénarios (étiquettes, avatars des autres grisés, lien « Gérer mes avatars dans eho ↗ » vers `/trombinoscope`) et le **blocage serveur** (items et import).
+    - **Supprimés** : `src/app/avatars`, `AvatarsAppropriation.tsx`, les routes BFF d'écriture (POST, DELETE et `/[avatarId]` ; un POST répond maintenant 405), `approprier`, `liberer`, `libererTout` et `avatarsOuverts` côté admin, et les styles `.pa-av-*`.
+    - **Ajout** : `ehoPublicUrl()` (discovery) ; le GET BFF renvoie `ehoUrl`.
+    - Admin 30/30, `tsc` sans erreur ; `/avatars` répond 404 et l'onglet a disparu.
+  - ⭐ **Même jour : le blocage dur est remplacé par une consigne et un avertissement** (décision de l'utilisateur).
+    - **Kit IA** : les avatars réservés par d'autres comptes **restent**, marqués « 🔒 RÉSERVÉ (gc03) — seulement si la demande le nomme ». La consigne `CONSIGNE_RESERVES` figure dans `1_AVATARS.md`, dans `2_MODE_EMPLOI.md` et dans `5_MODELE_DE_PROMPT.txt` (« n'en utilise AUCUN, sauf ceux que je nomme ici : [@compte… ou « aucun »] »). Les miens restent en tête (★). Le résumé du dialogue : « n avatars signalés 🔒 : l'IA ne les utilisera que si vous les nommez ». `appliquerReservations(appropriations, moiId)` renvoie `{ aMoi, autres }`.
+    - **« Vérifier »** : `avertissementsReserves` (lib/appropriations) ajoute un message par avatar réservé par un **autre** compte que l'opérateur, animateurs compris, avec les items concernés. Il n'est **pas bloquant** et s'affiche dans un **encadré orange à part** (« n avatars réservés par un autre compte — vérifiez que c'est voulu », `estAvatarReserve` dans `verification.ts`). `validateScenario(id, op)`.
+    - **Plus de refus** à l'ajout, au changement d'avatar ou à l'import : `refusDUtilisation` est supprimée. **Sélecteur** : l'avatar d'un autre compte demande une confirmation sur place (« réservé par gc03. L'utiliser quand même ? »).
+    - Tests admin 31/31 (kit : avatar gardé et signalé, consigne présente dans les trois documents) ; `tsc` sans erreur. Kit téléchargé et vérifié ; encadré de « Vérifier » vérifié avec Playwright (Brenz/gc03 pour les items #1 et #3, Mira/gc05 pour le #2 ; un avatar libre ne donne aucun message).
+  - ⭐ **Même jour : « Vérifier » devient OBLIGATOIRE avant « Lancer »** (décision de l'utilisateur). Constat : on pouvait lancer sans vérifier. Au lancement, le serveur relançait bien la vérification, mais ne refusait que les erreurs bloquantes ; les avertissements n'étaient jamais montrés.
+    - Base : `Scenario.verifieLe` et `verifieEmpreinte` (facultatifs). `lib/empreinte.ts` calcule `empreinteScenario` = SHA-256 des items (qui, où, quoi, délai, réponse, likes et boosts, média) et de la greffe ; le **début n'en fait pas partie** (« Maintenant » le décale). `validateScenario` enregistre l'empreinte vérifiée.
+    - **Serveur** : `start` répond **409 `aVerifier`** si le scénario n'a jamais été vérifié, ou si son contenu a changé depuis (« Le scénario a changé depuis la dernière vérification… »). Le DTO de la fiche expose `verifie` et `verifieLe`.
+    - **Écran** :
+      - tant que ce n'est pas fait, « Vérifier » devient l'action principale et « Lancer » est **grisé** ;
+      - un message orange au-dessus des boutons (« Vérifiez le scénario avant de le lancer » ou « Modifié depuis la vérification : vérifiez à nouveau ») ;
+      - la **fenêtre « Lancer » rappelle les avertissements** (avatars réservés 🔒 compris), et la case « J'ai pris connaissance de ces avertissements » est **obligatoire** pour lancer.
+    - **Testé** : API sans vérification → 409 ; avec Playwright, Lancer est grisé, puis actif après vérification, puis de nouveau grisé après une modification d'item ; dans la fenêtre, Lancer reste grisé tant que la case n'est pas cochée. Admin 31/31, `tsc` sans erreur.
+  - ⚠ **À trancher à l'étape 2** : si un **joueur** s'approprie un compte « libre », il bloque l'animation dans l'admin. Il faudra sans doute limiter le blocage au camp du titulaire. Aujourd'hui, les joueurs n'ont aucun accès à l'admin.
+
+## 2026-10-02 (suite 6) — ADMIN ↔ MELMIL : un scénario est lié à un incident MELMIL (avis DESIGNER n°27 et n°28) — POUSSÉS : `app-admin` `7d6d96f`, `app-melmil` `c27d368` (`2026-10-02.4`) sur `main` et `prod`
+
+- **Demande de l'utilisateur** : l'admin récupère les incidents de MELMIL, on choisit l'incident à la création, et MELMIL a un bouton vers les scénarios.
+- **Décisions** :
+  - incident **obligatoire** (sauf dans une zone sans MELMIL) ;
+  - bouton MELMIL **avec le nombre et l'état** ;
+  - **rattachement automatique** des anciens scénarios dont le nom porte un code connu.
+- **MELMIL** :
+  - `lib/atelier/service-incidents.ts` (`incidentsPourService`, **anonyme** : code, sujet, storyline, event, D+, heure, jour ; testé) ;
+  - `GET /api/service/incidents`, protégée par la clé de la zone (`lib/zone/cle-service.ts`, comparaison à temps constant) ;
+  - `lib/zone/scenarios-admin.ts` : découverte de l'admin auprès de Pléiade, appel serveur à serveur ; en local, `MELMIL_DEV_ADMIN_URL` ;
+  - `GET /api/zone/scenarios`, réservée aux sessions MELMIL, qui ajoute le **code actuel** retrouvé par l'identifiant ;
+  - `lib/ui/scenarios-admin.ts` : une seule interrogation toutes les 30 s pour toute la page ;
+  - `components/scenarios-incident.tsx` : `PictoScenarios` (« ▶ n » au pied de la carte, vert si un scénario est en lecture) et `BlocScenarios` (fiche d'incident et détail d'une carte : état, nom, créneau, « Ouvrir ↗ », « + Créer un scénario pour cet incident ↗ ») ;
+  - jeton CSS `--direct`.
+- **Admin** :
+  - base : `Scenario.incidentId` et `incidentCode` (facultatifs, avec index) ;
+  - `lib/melmil.ts` : `incidentsMelmil` (cache de 20 s, dernière liste gardée), `trouverIncident` (par identifiant ou par code normalisé), `rattacherAuxIncidents` (rattachement automatique et mise à jour du code recodé, seulement si MELMIL a répondu) ;
+  - `GET /api/bff/incidents`, qui donne aussi le nombre de scénarios par incident ;
+  - POST `/api/bff/scenarios` : incident obligatoire, 503 si MELMIL est injoignable ; PATCH : on peut changer d'incident, pas le retirer ;
+  - `GET /api/service/scenarios` (clé de la zone, `lib/service-auth.ts`) : ni auteur, ni contenu ;
+  - `components/IncidentPicker.tsx` : `IncidentPicker` (combobox avec recherche « 08.01.04 », groupes par storyline titrée, « n scénarios », clavier), `EtiquetteIncident`, `BandeauIncident` (fiche du scénario : MELMIL ↗, Changer, rattacher un ancien) ;
+  - formulaire de création : l'incident d'abord ; nom (« code — sujet ») et début (jour et heure de l'incident) pré-remplis ; `?nouveau=<id|code>` ouvre le formulaire pré-rempli ;
+  - liste : rangée par l'incident lié ; titres MELMIL dans les en-têtes ; une relance garde son code sous son incident ; un code seulement deviné est en pointillés.
+- **Testé en local** : MariaDB jetable, MELMIL (port 3801) et admin (3400) reliés par une clé de zone d'essai, 17 incidents et 27 scénarios fictifs.
+  - Tests : MELMIL 322/322, admin 27/27 ; `tsc` sans erreur dans les deux apps.
+  - Sécurité : la route de service MELMIL répond 401 sans clé ou avec une mauvaise clé, celle de l'admin 401 sans clé.
+  - Rattachement automatique : 22 scénarios rattachés.
+  - Avec Playwright :
+    - « Créer » est désactivé sans incident ; « 08.01.15 » trouve I15, « pont » trouve I07 ;
+    - le choix se fait au clavier, nom et début sont pré-remplis, la création aboutit, la fiche affiche le bandeau ;
+    - l'API refuse un scénario sans incident (400) ;
+    - un ancien scénario se rattache depuis sa fiche ;
+    - MELMIL : 16 cartes portent « ▶ », dont 3 en direct, avec l'infobulle « 3 scénarios · 1 en lecture » ; le bloc de la fiche s'affiche ; « Créer un scénario pour cet incident » ouvre l'admin pré-remplie ;
+    - aucun débordement au téléphone.
+- **Test d'image avant le push** :
+  - admin, sur une base à l'**ancien format** contenant des données : démarrage 200, les colonnes `incident_id` et `incident_code` sont ajoutées par le `db push` de démarrage (sans `--accept-data-loss`), les données sont conservées ; redémarrage 200 ; 0 erreur ;
+  - MELMIL : `/api/sante` = `2026-10-02.4` au démarrage et au redémarrage ; les routes de service répondent 401 sans clé et 200 avec la clé ; 0 erreur.
+- ⚠ **À vérifier en zone** : l'admin découvre MELMIL et MELMIL découvre l'admin auprès de Pléiade, par les `appType` « melmil » et « admin » du catalogue. Cette découverte n'a pas pu être rejouée hors zone : en local, le lien a été testé avec `ADMIN_DEV_INSTANCES` et `MELMIL_DEV_ADMIN_URL`.
+
+## 2026-10-02 (suite 5) — ADMIN : scénarios rangés par code MELMIL (avis DESIGNER n°27) — POUSSÉ avec la suite 6 (`app-admin` `7d6d96f`)
+
+- **Besoin** : on ne retrouve plus ses scénarios dans la masse ; on les cherche par incident MELMIL, et les noms commencent par le code.
+- **Livré en local** :
+  - `src/lib/codes-melmil.ts` : `lireCode`, `ranger`, `comparerCodes`, `estRelance`, avec 7 tests (`scripts/test-codes-melmil.mts`) ;
+  - `ScenariosList.tsx` réécrit : groupes Event › Storyline repliables, avec effectif, nombre en lecture et en erreur ; une ligne par scénario (code, nom, statut, créneau, publiés, auteur, corbeille) ; lien étiré, toute la ligne ouvre ; relances décalées sous leur incident ; « Non classés » à la fin, avec la consigne ;
+  - recherche « Code (08.01, I04…) ou nom », qui cherche aussi l'auteur ; effectifs sur les filtres ; « Tout déplier / Tout replier » ;
+  - affichage mémorisé par poste (`localStorage` `admin.scenarios.affichage`) ;
+  - dialogue de création : modèle « 08.01.I04 — … » et remarque « Rangé sous 08.01.I15 » ou « ira dans Non classés » ;
+  - styles `.pa-scn-*` dans `globals.css`.
+- **Testé en local** :
+  - MariaDB jetable et 25 scénarios fictifs ; `tsc` sans erreur ; 25 tests sur 25 ;
+  - avec Playwright : la recherche « 07.02 » donne 5 lignes ; un groupe replié le reste après rechargement ; un clic sur la ligne ouvre `/scenarios/14` ; aucun débordement horizontal au téléphone ; 0 erreur dans la console.
+- Aucun changement de base de données.
+- **Demande de l'utilisateur (même session)** : « 08.01.04 », « 08.01.i04 » et « 08.01.I04 » doivent se ranger au même endroit, pour qu'un « I » oublié ne crée pas de doublon.
+  - `lireCode` rajoute le `I` et redresse la minuscule ; le code affiché est toujours la forme normalisée.
+  - À code égal, le tri se fait par titre.
+  - `normaliserRecherche` : taper « 08.01.04 » trouve aussi « 08.01.I04 ».
+  - ⚠ Effet de bord accepté : l'ancien format « 07.05.02i » se lit désormais « 07.05.I02i », toujours rangé sous son incident.
+  - 27 tests sur 27 ; vérifié à l'écran : « 08.01.04 — … » se range sous 08.01.I04, et « 08.01.i07 — … » sous 08.01.I07.
+
+## 2026-10-02 (suite 4) — Identité aléatoire : messagerie, admin, LEAC, MELMIL et press POUSSÉS sur `main` et `prod` (branches `identite-sub`) — ✅ MELMIL `2026-10-02.3` et LEAC `2026-10-02.1` vérifiés EN LIGNE vers 09h50 ; admin `/login` 200 ; press non vérifiable (pas de marque de version)
+
+- **Messagerie** : `f9a9a45` poussé sur `main` et `prod` à la demande de l'utilisateur.
+- **Correction des 4 autres apps** : même correctif du callback `jwt` (sub Keycloak, sessions d'avant closes une fois, fournisseur de type credentials inchangé).
+  - `app-admin` `e3c24f8`, sur `origin/main` ;
+  - `app-melmil` `deb7ff3` + `282836a` (version `2026-10-02.3`) ;
+  - `app-press` `42dbb9a`, sur `origin/main` ;
+  - `app-leac` `db7738c` + `da5c4f6` (`2026-10-02.1`), avec en plus le **recollage** des affectations, administrations, références, appareils et opérations (voir `LEAC\JOURNAL.md`).
+- ⚠ Pour admin et press, `origin/main` a **1 commit de Xavier pas encore sur `prod`** (« Épingler le CLI Prisma du build ») : pousser sur `prod` le mettra aussi en ligne.
+- **Tests locaux** :
+  - `tsc` sans erreur ; tests : admin 18/18, press 8/8, MELMIL 320/320, LEAC 468/468 ;
+  - callback `jwt` simulé, par un module bouchon de `next-auth` : 5/5 dans chaque app. Contre-épreuve : l'ancien code de press échoue à 4 sur 5 ;
+  - recollage LEAC sur la base locale avec des données fictives : 6/6 ;
+  - images lancées avec une MariaDB jetable : `/api/sante` 200 au démarrage et au redémarrage pour LEAC, MELMIL et press ; admin n'a pas de `/api/sante`, mais `/login` et `/api/auth/*` répondent 200 avant et après redémarrage ; 0 erreur dans les journaux.
+- **Non testé** : la vraie connexion Keycloak de bout en bout dans ces 4 apps. La messagerie l'a validée pour le même motif. Pour ces 4 apps, le garde-fou refuse de manipuler les identifiants d'administration du Keycloak local.
+- Constat sans lien avec la correction : `/app/src` (admin, LEAC, press) et des `*.config.*` (MELMIL) sont présents dans le standalone ; ils l'étaient déjà avant, et les images démarrent.
+
+## 2026-10-02 (suite 3) — MESSAGERIE : le même compte (gc01) apparaît deux fois, ouvert sur Chrome et sur Edge (`app-messagerie` `f9a9a45`, branche `compte-double` partie de `origin/main` `cedbb47`, ⏳ non poussé)
+
+- **Cause** : `auth.ts` prenait pour identité `user.id`. Or Auth.js v5, sans base de comptes, donne à `user.id` un **UUID aléatoire à chaque connexion OAuth**. Résultat : chaque connexion créait une nouvelle identité. Les conversations ne suivaient pas d'un navigateur à l'autre, et l'annuaire montrait des doublons.
+- **Correctif** :
+  - `jwt` prend `profile.sub` ou `account.providerAccountId`, c'est-à-dire le `sub` Keycloak. Le fournisseur « token » garde `user.id`, qui porte déjà le sub.
+  - Marqueur `idv: 2` : une session antérieure est close une fois, puis l'authentification unique de Keycloak reconnecte sans mot de passe.
+  - `comptes.ts` : `fusionnerDoublons` rattache au vrai compte, en une transaction par fantôme, les identités fantômes de même nom (membres en gardant la lecture la plus avancée, messages, réactions, médias, invitations). La ligne fantôme est ensuite supprimée.
+- **Test local** :
+  - avec le vrai Keycloak local (client et compte d'essai, supprimés ensuite) : l'ancien code donne 2 entrées aléatoires ;
+  - avec le nouveau : 1 seule entrée au vrai sub, et le groupe comme le message du fantôme sont rattachés et visibles des deux navigateurs ;
+  - 9 tests sur 9 ; image : démarrage 200, redémarrage 200.
+- ⚠ **Même défaut dans 4 autres apps** (`token.sub = user.id` après `profile.sub`) : `app-admin/src/lib/auth.ts:62-63`, `app-leac/src/lib/zone/auth.ts:55-56`, `app-melmil/src/lib/zone/auth.ts:43-44`, `app-press/src/lib/auth.ts:57-58`. Aucune n'est corrigée pour l'instant ; c'est signalé à l'utilisateur et consigné chez CYBERSECU.
+
+## 2026-10-02 (suite 2) — MESSAGERIE : le bouton « Activer » des notifications paraissait figé (`app-messagerie` `cedbb47`, branche `notifications-bouton` partie de `origin/main`, ⏳ non poussé)
+
+- **Constat des utilisateurs** : on ne peut pas cliquer sur « Activer », le bouton semble figé.
+- **Diagnostic, reproduit en local** avec Chromium, Chrome et Edge en vrai :
+  - le bouton est **cliquable** (`elementFromPoint` atteint le bouton) et le clic lance bien `Notification.requestPermission()` ;
+  - **le défaut est ce qui suit** : l'écran n'affichait aucune réaction. La fenêtre « Autoriser » s'ouvre en haut à gauche, loin du bouton. Si on la ferme sans répondre, le résultat est `default` et le bandeau reste inchangé. Chrome et Edge peuvent aussi **masquer** la demande (cloche barrée dans la barre d'adresse), et la promesse reste alors en suspens.
+  - Hypothèse supplémentaire, non vérifiable d'ici : un poste sans le certificat de la zone peut se voir refuser les notifications.
+- **Correctif** (avis DESIGNER n°26) dans `useAlertes.ts` et `ConversationList.tsx` :
+  - nouveaux états `en-cours` et `ignoree` ;
+  - un message dit où cliquer ; **après 4 s**, il ajoute la piste de la demande masquée (cloche barrée ou cadenas, puis Autoriser) ;
+  - « fermée sans réponse » est annoncé, et le bouton reste disponible ;
+  - en cas de refus, la marche à suivre pour réautoriser s'affiche ;
+  - l'état réel est relu au focus, au retour sur l'onglet et à chaque changement signalé par `navigator.permissions` : autoriser depuis la barre d'adresse suffit ;
+  - l'ancienne forme à rappel de `requestPermission` (Safari) est prise en charge.
+- **Testé** :
+  - Playwright, avec 4 cas simulés : masquée (message, puis piste à 4 s), fermée (message et bouton), autorisée (le bandeau disparaît), refusée (marche à suivre) ;
+  - 9 sur 9 ;
+  - image : démarrage et redémarrage OK.
+- ⚠ La branche `main` locale de la messagerie porte toujours `b322f54` (déconnexion), jamais poussé : le travail repart d'`origin/main`.
+- ✅ **En ligne le 2026-10-02 à 08h58** : push en avance rapide (`main` et `prod` `9fd56cf..cedbb47`).
+  - Le redémarrage a été observé, l'application est stable. Le nouveau texte est présent dans un chunk servi (`2wluclildhlzg.js`).
+  - L'environnement local est arrêté (dev, faux EHO) et la base `msg_essai` supprimée.
+  - **L'utilisateur teste lui-même sur les comptes qui n'avaient pas réussi** : résultat à consigner.
+
+## 2026-10-02 (suite) — MELMIL : l'accueil ouvre la planification, sur la planche de préparation (`app-melmil` `b3b74af`, branche `accueil-planification`, `2026-10-02.2`, ⏳ non poussé)
+
+- **Constat de l'utilisateur** : la vue de travail principale est la **planche de préparation**, mais MELMIL s'ouvrait sur la **planche JEMM**. Vérifié dans le code : la planification ouvrait ensuite l'onglet du GT courant, c'est-à-dire Incidents pendant l'exercice. Cela faisait **deux clics à chaque arrivée**.
+- **Décisions de l'utilisateur** : la planification ouvre **toujours** la planche, et l'accueil devient la planification.
+- **Code** :
+  - `(planche)/page.tsx` est déplacé en `(planche)/jemm/page.tsx` ;
+  - le nouveau `(planche)/page.tsx` redirige vers `/preparation` **en conservant les paramètres**, pour que le lien `?onglet=demandes` du bandeau marche toujours ;
+  - `nav-app.tsx` : JEMM pointe vers `/jemm`, et `espaceDe` repère `/jemm` ;
+  - `ecran-atelier.tsx` : l'onglet par défaut est `"planche"`, et `?onglet=` accepte tous les onglets (`ONGLETS_VALIDES`). L'ordre et la place des onglets ne changent pas.
+- **Testé** :
+  - redirections : `/` donne 307 vers `/preparation` ; `/?onglet=demandes&demande=abc` est redirigé avec ses paramètres ;
+  - Playwright : arrivée sur la planche ; « Planche JEMM » mène à `/jemm` ; « Planification » ramène sur la planche ; lien demandes ; `?onglet=gt3` ouvre Incidents ; le logo ramène sur la planche ;
+  - 320 sur 320 ;
+  - image : démarrage et redémarrage OK ; sans session, `/` et `/jemm` envoient vers `/connexion`, ce qui est attendu.
+- Démonstration ouverte pour l'utilisateur sur `localhost:3801` (base `melmil_demo_accueil`), validée par l'utilisateur.
+- ✅ **En ligne le 2026-10-02 à 08h45** : push en avance rapide (`main` et `prod` `189f4a3..b3b74af`), `/api/sante` renvoie `2026-10-02.2`, stable. Sans session, `/` envoie vers `/connexion`, puis la connexion ramène vers `/`, donc vers la planification. La démonstration locale est arrêtée et la base supprimée.
+
+## 2026-10-02 — MELMIL : agrafe des pièces jointes dans la liste des incidents (`app-melmil` `01f5bd4`, branche `agrafe-pieces-jointes`, `2026-10-02.1`, ⏳ non poussé)
+
+- **Demande** : dans le tableau des incidents, afficher une agrafe sur l'incident qui a une pièce jointe, avec le nombre à partir de 2.
+- **Code** : `onglets-gt.tsx`. Le composant `Agrafe` (SVG dessiné, sans dépendance) se place **après le sujet**, ce qui le garde visible sur tablette et sur téléphone, où les dernières colonnes se masquent.
+  - Le compte porte sur les `medias` dont l'incident est celui de la ligne.
+  - Le texte « n pièces jointes » est fourni en `aria-label` et au survol : l'icône n'est jamais seule (doctrine DESIGNER n°10).
+  - CSS : `.agrafe` et `.agrafe-nombre`.
+- **Testé** :
+  - 317 sur 317 ;
+  - Playwright sur un atelier fictif « EXERCICE DEMO AGRAFE » : 1 pièce jointe donne l'agrafe seule, 2 donnent « 2 », 3 donnent « 3 », 0 ne montre rien ;
+  - image : démarrage et redémarrage OK, aucune erreur.
+  - ⚠ Au premier essai, mes identifiants de démonstration faisaient moins de 8 caractères et MELMIL écartait les pièces jointes (comportement voulu) ; c'est corrigé dans le jeu d'essai.
+- Démonstration ouverte pour l'utilisateur sur `localhost:3801` (base `melmil_demo_pj`).
+- **Précision de l'utilisateur** : il voulait l'agrafe **sur la planche de préparation, en bas à droite de la carte de l'incident**, mais garde aussi celle du tableau. Il demande de consulter DESIGNER (avis n°23).
+- **Ajout** (`9e377a6`) :
+  - `Inject.pieces` est posé par `versPlanche`, comme `etims` : planification seulement, jamais enregistré sur la planche JEMM ;
+  - composant commun `components/agrafe.tsx` (SVG, nombre à partir de 2, texte `sr-only`) ;
+  - carte : dernière ligne `i-pied`, avec les ETIM à gauche et l'agrafe calée à droite ; infobulle complétée ;
+  - même agrafe dans la liste par jour du téléphone ; le tableau utilise le composant commun.
+  - ⚠ La couleur du nombre définie pour le tableau s'appliquait aux cartes colorées : corrigé en `color: inherit`.
+- **Testé** :
+  - Playwright, styles Clair et Classique et téléphone : agrafes sur 08.01.I01, I02 (« 2 ») et I03 (« 3 »), rien sur I04 ;
+  - 317 sur 317 ;
+  - image : démarrage et redémarrage OK.
+- **Suite, même journée** (`189f4a3`, avis DESIGNER n°24) :
+  - **Constat de l'utilisateur** : un compte rendu créé n'apparaissait pas dans la colonne « CR ». **Défaut réel** : elle ne comptait que les anciens comptes rendus (`incident` = id), pas les comptes rendus partagés par jour et par ETIM.
+  - **Décision de l'utilisateur** : un compte rendu est une pièce jointe. La colonne devient **« Pièces jointes »**, avec l'agrafe en en-tête. Elle compte les fichiers et les comptes rendus (`lib/atelier/pieces-jointes.ts` : `piecesDeLIncident`, `detailPieces`, testé). Le détail s'affiche au survol, et la colonne reste visible sur téléphone.
+  - L'agrafe placée après le sujet **quitte le tableau** : une seule indication par ligne. La carte de la planche compte de la même façon.
+  - Testé : 320 sur 320. Avec Playwright, la création d'un PSYREP sur 08.01.I04 fait aussitôt apparaître l'agrafe (« 1 pièce jointe : 1 compte rendu »), et la planche suit. Image : démarrage et redémarrage OK.
+- ✅ **En ligne le 2026-10-02 à 08h30** : push en avance rapide (`main` et `prod` `d9d5187..189f4a3`, qui emporte `01f5bd4`, `9e377a6` et `189f4a3`). `/api/sante` renvoie `2026-10-02.1`, stable. La démonstration locale est arrêtée et la base supprimée.
+
+## 2026-10-01 (suite 21) — MELMIL : alignement JEMM sans perte (sauvegarde, dates, pièces jointes de l'export) (`app-melmil` `d9d5187`, branche `alignement-sur-et-pieces`, `2026-10-01.13`, ⏳ non poussé)
+
+- **Demande** : un nouvel export JEMM (`EXER\DELATTRE 26\01_Montage exercice\JEMM\01.10.26`, events 07 et 08, 66 injects, 4 PDF sur l'event 08) doit mettre à jour la planification **sans perdre** les déplacements, les ETIM, les pièces jointes et les comptes rendus. Les pièces jointes JEMM doivent être ajoutées aux bons incidents si MELMIL ne les a pas.
+- **Analyse** :
+  - l'alignement garde déjà ETIM, comptes rendus, pièces jointes et demandes (renumérotation, même identifiant) ;
+  - **il écrase en revanche le jour et l'heure**. L'utilisateur confirme que les déplacements sont **aussi dans JEMM**, donc JEMM fait foi ;
+  - il supprime les events absents des fichiers choisis ;
+  - il n'importait pas les pièces jointes.
+- **Ajouts** :
+  1. **Sauvegarde et restauration** de l'atelier dans Réglages (`SauvegardeAtelier`, JSON `melmil-sauvegarde-atelier`, confirmation qui dit ce qui revient ; les pièces jointes restent sur le serveur ; le fichier contient les noms de l'Équipe, à garder en lieu sûr).
+  2. `alignerSurJemm` : option `garderDates` (défaut JEMM) et `bilan.datesChangees` ; les suppressions s'affichent en alerte rouge.
+  3. **Pièces jointes JEMM** (`lib/melmil/pieces-jemm.ts`) :
+     - `piecesJointesJemm` lit `Injections[].Attachments` ;
+     - `repartirPieces` place chaque pièce sur l'incident du même code, sauf si elle y est déjà (même nom, une fois mis en règle ou non, ou même taille et même type) ;
+     - `nomConforme` insère le NMR, parce que le serveur **impose la règle de nommage** (refus en 400 constaté au premier essai) ; une cellule inconnue donne une pièce « à nommer à la main » ;
+     - `fichierDeLaPiece` va chercher le fichier dans `attachments/<Id>/` ;
+     - le dépôt se fait après l'application (`envoyerFichier`, désormais exporté), suivi d'un `ajouterMedia`.
+  4. On choisit le **dossier** de l'export (`webkitdirectory`), ou des fichiers.
+- **Tests** : 317 sur 317, dont 13 nouveaux (dates, pièces jointes, noms conformes).
+- **Essai complet sur l'export RÉEL du 01.10.26**, avec un atelier **fictif** construit depuis cet export (ETIM, un compte rendu, 1 PDF déjà présent, un ancien event 05 fictif) :
+  - bilan : 66 incidents inchangés, event 05 supprimé (en alerte), « 3 à ajouter, 1 déjà dans MELMIL » ;
+  - après « Appliquer » : **3 PDF déposés sur 08.01.I02, I03 et I07** sous un nom conforme (`…-GYC-0801I02-UNOCHA-LETTER-(08-01-01).pdf`), avec les bonnes tailles ; le PDF déjà présent n'est pas dupliqué ; ETIM et comptes rendus intacts ;
+  - **restauration** de la sauvegarde : on revient exactement à 3 events et 68 incidents ;
+  - image : démarrage et redémarrage OK, aucune erreur.
+  - ⚠ Incident de test sans conséquence : le chargement SQL de mon atelier de démonstration cassait le JSON, car MariaDB interprète les barres obliques inverses ; c'est corrigé dans le script de chargement.
+- Démonstration ouverte pour l'utilisateur sur `localhost:3801` (base `melmil_demo_align`).
+- Questions de l'utilisateur, réponses vérifiées :
+  - les textes viennent bien de JEMM : sujet, description, effet attendu, émetteur, moyen et destinataires (66 sur 66) ; récit (8 sur 8) ; description d'event (2 sur 2). Les effets attendus, QUI / OÙ et la coordination des storylines restent ceux de MELMIL. Seule exception : l'objectif principal d'une storyline, gardé si JEMM est vide ;
+  - le retour en arrière passe par la sauvegarde, à télécharger **avant**. La restauration remplace tout pour tous les postes ; les PDF ne sont pas dans le fichier ; la Planche JEMM est hors champ.
+- ✅ **En ligne à 18h55** : push en avance rapide (`main` et `prod` `507164c..d9d5187`), `/api/sante` renvoie `2026-10-01.13`, stable. La démonstration locale est arrêtée, la base et les fichiers de test supprimés.
+
+## 2026-10-01 (suite 20) — MELMIL : supprimer un compte rendu, et plusieurs exemplaires par jour et par ETIM (`app-melmil` `507164c`, branche `cr-plusieurs-et-suppression`, `2026-10-01.12`, ⏳ non poussé)
+
+- **Demande** :
+  - pouvoir **supprimer** un compte rendu créé par erreur (un PSYREP au lieu d'un CIMICREP) ;
+  - pouvoir faire **plusieurs** comptes rendus dans la journée pour une même ETIM (« +1 »), téléchargés dans **un seul fichier**.
+- **Décisions de l'utilisateur** : un **seul fichier Word** (un exemplaire par page, sans LibreOffice) ; le « +1 » vaut pour les **trois types**.
+- **Code** :
+  - `gestes.ts` : `crsPartages` (les exemplaires dans l'ordre de création), option `exemplaireSuivant` de `creerCompteRenduPartage`, et `nomCompteRendu` numérote « n°k » dès qu'il y a deux exemplaires ;
+  - `docx.ts` : `exporterDocxPlusieurs` remplit le modèle par exemplaire, recopie les corps avant le `w:sectPr` avec un saut de page, et retire les signets des copies ; `exporterDocx` le délègue ;
+  - `compte-rendu.tsx` : la case affiche « Ouvrir », ou « n°1 n°2… » ; boutons « +1 » et « .docx (n) » ; un bouton **Supprimer** dans la fiche, avec une confirmation qui cite les incidents qui partagent le compte rendu ; le téléchargement depuis la fiche emporte tous les exemplaires du jour.
+- **Testé** :
+  - 304 sur 304, dont 6 nouveaux : « +1 », numérotation, exemplaire vierge, pas de doublon sans « +1 », suppression, trace au journal ;
+  - Playwright sur un atelier fictif « EXERCICE DEMO CR », avec 2 CIMICREP pour ETIM 9 BIMa à D+33 :
+    - « .docx (2) » produit `20261012_MR_DL26_SITCEN-GYC-0801I01-CIMICREP.docx` ;
+    - **ouvert dans Word (COM)** : 4 pages (le modèle vierge en fait 2), 2 tableaux, les deux contenus distincts présents, export PDF propre ;
+    - « +1 » sur le PSYREP ouvre « PSYREP n°3 », puis Supprimer, confirmation et retour à 2 ;
+  - image : démarrage et redémarrage OK, aucune erreur.
+- Démonstration ouverte pour l'utilisateur sur `localhost:3801` (base `melmil_demo_cr`, fictive), validée par l'utilisateur.
+- ✅ **En ligne à 18h26** : push en avance rapide (`main` et `prod` `d6c1fe3..507164c`), `/api/sante` renvoie `2026-10-01.12`, stable. La démonstration locale est arrêtée et la base supprimée.
+
+## 2026-10-01 (suite 19) — MELMIL : colonne « Destinataire » dans la liste des incidents (`app-melmil` `d6c1fe3`, branche `colonne-destinataire`, `2026-10-01.11`, ⏳ non poussé)
+
+- **Demande** : ajouter une colonne « DESTINATAIRE » aux colonnes Code, Quand et Sujet, qui reçoit les ETIM cochées, lesquelles quittent la colonne « Sujet ».
+- **Code** :
+  - `onglets-gt.tsx` : un `<th>` Destinataire et une cellule `col-destinataire` avec `EtiquettesEtims`, ou « — » quand il n'y a pas d'ETIM ; le sujet est seul dans sa cellule ;
+  - CSS `.col-destinataire` de 13rem.
+- **Testé** :
+  - 298 sur 298 ;
+  - Playwright sur un atelier fictif « EXERCICE DEMO DESTINATAIRE » : les en-têtes sont Code · Quand · Sujet · Destinataire · Statut · CR, et les étiquettes ETIM sont bien dans la colonne ;
+  - image : démarrage et redémarrage OK, aucune erreur.
+- Démonstration ouverte pour l'utilisateur sur `localhost:3801` (base `melmil_demo_dest`, fictive), validée par l'utilisateur.
+- ✅ **En ligne à 18h09** : push en avance rapide (`main` et `prod` `be43962..d6c1fe3`), `/api/sante` renvoie `2026-10-01.11`, stable. La démonstration locale est arrêtée et la base supprimée.
+
+## 2026-10-01 (suite 18) — MELMIL : anonymat des comptes, option A (`app-melmil` `be43962`, branche `anonymat-comptes`, `2026-10-01.10`, ⏳ non poussé)
+
+- **Demande (sécurité)** : MELMIL reliait les comptes anonymes (gc01) à « CNE X » dans l'Équipe, et les demandes stockaient le compte à côté du nom. L'utilisateur a choisi l'**option A** : couper le lien. Le signal se fait par **cellule**, comme je l'avais recommandé.
+- **Code** :
+  - `modele.ts` : `Membre` sans `compte` ni `compteId` ; ajout de `cellulesDesComptes` et de `contientLiensComptes` ; suppression de `membreDuCompte` ;
+  - `produits/modele.ts` : `Demandeur` sans `compteId`, et `demandeurChoisi(nom, cellule)` remplace `demandeurDe` ;
+  - `creerDemande` retient la cellule du compte ;
+  - `nommage.ts` : `celluleDuCompte` remplace `celluleDuMembre` ;
+  - `signaux.ts` : `miennes` est calculé par cellule ;
+  - `lireAtelier` purge la base ;
+  - Équipe : la section « Compte Pléiade » et l'appel à `/api/zone/comptes` sont retirés ;
+  - formulaire de demande : champ « Demandeur » avec une `datalist` alimentée par l'Équipe ;
+  - le nommage et l'export de compte rendu retiennent la cellule (`retenirCelluleDuCompte`).
+- **Tests** : 298 sur 298, dont 9 nouveaux « anonymat » : détection, effacement, conservation du reste, demande sans compte, cellule retenue sans nom, signal par cellule.
+- **Test local complet** :
+  - **purge sur une vraie base** avec un atelier **fictif** (« gc99 ↔ CNE FICTIF Alpha ») : la base passe de la version 5 à la 6, `gc99` et `compteId` disparaissent, et les noms, grades, notes et demandes restent intacts ;
+  - Playwright : la fiche Équipe n'a plus de section compte ; le champ « Demandeur » propose les noms de l'Équipe ; une demande envoyée est enregistrée sous la forme `{"nom":"LTN FICTIF Bravo","cellule":"GREY CELL"}`, **sans `compteId` en base**, avec `cellulesDesComptes` = `{dev → GREYCELL}` ; le nom n'est retenu que dans le navigateur ;
+  - image : démarrage en 2 s, migrations appliquées, redémarrage OK, aucune erreur.
+- ⚠ **Aucune donnée réelle lue.** La purge des données réelles se fera **sur le serveur, à la première lecture après la mise en ligne**.
+- L'utilisateur a vu la démonstration locale (atelier fictif « EXERCICE DEMO ANONYMAT ») et l'a validée.
+- ✅ **En ligne à 18h00** : push autorisé, en avance rapide (`main` et `prod` `4a1af66..be43962`). `/api/sante` renvoie `2026-10-01.10` avec `medias: ok`, stable.
+  - La purge des liens réels se fait **sur le serveur, à la première lecture de l'atelier**. Je ne l'ai pas vérifiée moi-même : il aurait fallu lire des données réelles et confidentielles.
+  - L'environnement de démonstration local est arrêté et la base `melmil_demo_anon` supprimée.
+
+## 2026-10-01 (suite 17) — MESSAGERIE : liste en direct, « on me parle » en orange, titre des conversations privées, alertes hors de l'onglet (`app-messagerie` `d69df60` + `c47a3bf` + `9fd56cf`, branche `liste-en-direct` partie de `origin/main` `90207e2`) — ✅ **EN LIGNE à 17h19**
+
+- ✅ **Push autorisé par l'utilisateur** : avance rapide, `main` `90207e2..9fd56cf` et `prod` `412dbae..9fd56cf`.
+  - Redémarrage observé sur `messagerie.delattre-26` : 404 de 17h19 à 17h19m33, puis 200, stable.
+  - La messagerie n'expose pas de version. La mise en ligne est confirmée par le **contenu servi** : le texte des alertes est présent dans un chunk public (`/_next/static/chunks/22kj73uwczou7.js`).
+  - L'environnement de démonstration local est arrêté (dev, faux EHO, robot) et la base `msg_essai` supprimée.
+  - Le commit de déconnexion `b322f54` **n'est pas inclus** : il n'a pas été demandé.
+
+- **Cause** : `/api/flux` abonne le flux aux conversations qui existent **à son ouverture**. Une nouvelle conversation, celle du premier message de quelqu'un, n'y figurait pas, et rien n'arrivait avant de recharger la page.
+- **Correctif** :
+  - `lib/bus.ts` : un **canal personnel** par identité (`prevenirIdentite`, `abonnerIdentite`) ;
+  - `ensureMember` envoie `added` à la personne ajoutée, et `/api/flux` abonne aussi ce canal ;
+  - côté client, sur `added` ou sur `hello` (chaque reconnexion), la liste est relue ; `useFlux` prend une clé `abonnement` (les ids de la liste), et le flux se rouvre abonné au nouveau fil ;
+  - un filet de sécurité relit la liste toutes les 30 s, même quand le flux est vivant.
+- **Orange (avis DESIGNER n°22)** :
+  - `ms-conv-nouveau` : voile orange et liseré pulsé, pastille orange à texte sombre ;
+  - point orange sur l'onglet Canaux ou Discussions ;
+  - « (n) » dans le titre du navigateur ;
+  - « réduire les animations » respecté.
+- **Bug trouvé pendant le test** : le titre d'un direct, choisi par le créateur, est **le nom du destinataire**. Le destinataire voyait donc son propre nom. `titresDesDirects` donne maintenant le nom de l'autre membre, dans la liste et dans la fiche.
+- **Tests** :
+  - 9 sur 9, dont 3 nouveaux dans `scripts/test-bus.mts` ;
+  - `tsc` sans erreur ; eslint est sans configuration dans ce dépôt, c'était déjà le cas avant.
+- **Test local complet** :
+  - image sans `*.config.*` ; démarrage en 2 s ; `docker restart` OK ; aucune erreur dans les journaux ;
+  - Playwright sur un dev local, avec un **faux EHO** (deux personas, « au nom de » autorisé) : Paul ouvre une conversation privée et écrit. Chez moi, sans rechargement, le fil apparaît en moins d'une seconde, en orange, avec la pastille 1, puis 2, et « (1) Messagerie ». À l'ouverture, l'orange disparaît. En mouvement réduit, l'animation est à `none`. Le titre affiché est « Paul ESSAI ».
+- **Ajout dans la même session : alertes hors de l'onglet** (`9fd56cf`, `components/chat/useAlertes.ts`) :
+  - **notification du système** quand un fil (ni muet, ni archivé) gagne des non-lus et que l'onglet est caché ou sans focus ; un clic ramène sur l'onglet et ouvre le fil ;
+  - bandeau « **Activer** » tant que l'autorisation n'est pas donnée (elle ne s'obtient que sur un clic), et une ligne d'aide si elle a été refusée ;
+  - **clignotement de l'onglet** : le titre alterne entre « 💬 X vous écrit » et « (n) Messagerie », et l'icône SVG prend un point orange, chaque seconde, jusqu'au retour. Hors clignotement, l'onglet garde « (n) » et le point orange tant qu'il reste des non-lus ;
+  - ⚠ **un fil ouvert dans un onglet caché ne se marque plus lu tout seul** (`useVisible`). Sinon aucune alerte ne partait ; le fil se marque lu au retour.
+  - Tests :
+    - Playwright invisible : le titre alterne bien, l'icône a son point orange, et au retour le fil est marqué lu, le titre redevient « Messagerie » et le point disparaît ;
+    - ⚠ le **Chromium invisible refuse toujours les notifications** (`permission: denied`). La notification a donc été testée avec un **navigateur visible** hors écran : la notification « Paul ESSAI : … » part bien, et le bandeau disparaît une fois l'autorisation donnée ;
+    - image : démarrage, redémarrage, aucune erreur.
+  - **Démonstration locale** pour l'utilisateur : dev sur `localhost:3930`, faux EHO sur 3913, et un robot (`scratchpad/robot-messages.mjs`) où Paul écrit en privé toutes les 45 s et Julie dans le groupe « Cellule ILI (essai) » tous les 3 messages, 20 envois en tout.
+- **À noter** :
+  - les résultats de recherche affichent encore le titre enregistré pour un direct (`recherche/route.ts`) ;
+  - le commit local de déconnexion `b322f54` (branche `main` locale) n'est toujours pas poussé.
+
+## 2026-10-01 (suite 16) — EHO : « Erreur lors de la sauvegarde » sur une fiche d'avatar (`eho` `a64c565`, `2026-10-01.2`, branche `import-portraits-integres`, ⏳ non poussé)
+
+- **Reproduit en local** : la page `users/[id]` renvoie la fiche ENTIÈRE servie par GET, dont `groups`, qui est un tableau d'objets groupe. `prisma.user.update` refuse alors l'argument (`Argument groups: Invalid value… UserGroupUpdateManyWithoutUserNestedInput`), d'où une erreur 500. **Toute sauvegarde échouait.**
+- **Correctif** dans `api/users/[id]/route.ts` :
+  - liste blanche `CHAMPS_MODIFIABLES` (les colonnes de `User`), les groupes passant par `groupIds` ;
+  - `avatarUrl` rangé en chemin avec `cheminPortrait` (GET le sert en adresse absolue) ;
+  - erreur P2000 : réponse 400 « Texte trop long… (191 caractères au plus) » ;
+  - la page affiche le message du serveur.
+- **Test local complet** :
+  - 112 tests, `tsc` et `eslint` sans erreur ;
+  - l'image construite depuis la branche (qui contient aussi `243b72e`) ne contient ni `*.config.*` ni `src/` complet ;
+  - démarrage en 2 s ;
+  - avec 24 commandants importés, les PATCH reproduisent exactement la page : sauvegarde 200 et vérifiée en base (bio, caractère, portrait en chemin, 3 groupes), retrait d'un groupe 200, texte trop long 400.
+- **Push à valider** par l'utilisateur ou Xavier. Il emportera `243b72e` et `a64c565`.
+- ✅ **Feu vert de l'utilisateur, mis en ligne à 16h47.**
+  - Au `fetch`, Xavier avait poussé **sur `prod` seulement** deux commits : `303fefd`, qui ajoute `NODE_PATH=/app/prisma-cli/node_modules` au `db push`, et `9f177b6`, qui épingle `prisma@7.10.0` et `dotenv@18.0.3`. **C'était la vraie correction de la boucle de redémarrage** (dérive de dotenv 17 vers 18 au rebuild).
+  - J'ai remis mes deux commits par-dessus (rebase) : ils deviennent `eb633b3` et `2209b45`.
+  - L'image combinée a été retestée en local : démarrage en 2 s, **`docker restart`** OK, aucune erreur dans les journaux, imports OK, sauvegarde 200.
+  - Push en avance rapide : `main` `6451f97..2209b45`, `prod` `9f177b6..2209b45`.
+  - Sur le serveur, `2026-10-01.2` répond à 16h47, et l'EHO, le réseau social et MELMIL restent à 200 au fil des contrôles.
+
+## 2026-10-01 (suite 15) — MELMIL : retrait du « confié à » (`app-melmil` `c44ffbc` + `4a1af66`, branche `retrait-confie-a`, `2026-10-01.9`, ⏳ non poussé)
+
+- **Demande** : supprimer le fonctionnement « confié à » : la cellule de l'event, le « confié à » de la storyline et celui de l'incident. **Garder les ETIM concernées et le système de comptes rendus.**
+- **Écrans** :
+  - `onglets-gt.tsx` : le bloc Cellule de l'event, le « Confiée à » de la storyline, le « non confiée » du résumé (ce résumé est réécrit avec des séparateurs « · »), la colonne et la section « Confié à » de l'incident, et le texte d'aide de GT1 ;
+  - `equipe.tsx` : les rubriques « Confié » et « Events portés » ;
+  - `champs.tsx` : `ChoixGroupes`, `ChoixPersonnes` et `AncienConfie` sont supprimés ;
+  - le CSS `col-confie`.
+- **Logique** :
+  - `equipe.ts` : `choixPourEvent/Storyline/Incident`, `gestionnairesDeLIncident`, `confieA`, `celluleDeLEvent`, `groupesDeLEvent/LaStoryline` sont supprimés ;
+  - `nommage.ts` : `celluleDeLIncident` est supprimé (et retiré de `celluleExport` dans `produits.tsx`) ;
+  - `versPlanche` : `cellule: ""` ;
+  - `aligner.ts` et `importer.ts` : `groupes: []`.
+- **Modèle inchangé**, pour relire les anciens ateliers sans perte.
+- **Tests** : 290 sur 290. Le bloc « confié » est remplacé par 4 tests de retrait : planche sans cellule, ETIM conservées, JEMM sans coche, ancien atelier relu.
+- **Test local complet (règle du jour)** :
+  - `tsc` et `eslint` sans erreur ;
+  - image construite, de même contenu que la version en ligne `c67edc6` (MELMIL charge `prisma.config.mjs` explicitement, donc il n'est pas exposé au défaut de l'EHO) ;
+  - démarrage réel avec base et volume de médias : `/api/sante` répond 200 en 3 s, et le conteneur est « healthy » ;
+  - **Playwright** sur le MELMIL local, avec des données fictives :
+    - Events sans « Cellule » ;
+    - Storylines et tableau des incidents sans « Confié à » ;
+    - fiche d'incident avec les **ETIM concernées** et le tableau « **Comptes rendus du jour** » (PSYREP, CIMICREP, SCAMR) intacts.
+- ✅ **En ligne à 16h31** : push autorisé (`c67edc6..4a1af66` sur `main` et `prod`), et `/api/sante` renvoie `2026-10-01.9` avec `medias: ok`.
+
+## 2026-10-01 (suite 14) — EHO : 26 commandants de Mercure à ajouter (Profils HVI), import avec portraits intégrés (`eho` `6451f97`, `2026-10-01.1`, branche `import-portraits-integres`, ⏳ non poussé)
+
+- **Demande** : ajouter à l'EHO de PLÉIADE les chefs militaires de Mercure du PDF `CREATION\02 - MERCURE\Portraits\20260303_NP_GLM26_SITCEN_RENS_Profils-HVI-MER.pdf` (UNCLASSIFIED, 30 profils) qui n'y sont pas encore. L'utilisateur capturera ensuite la base courante.
+- **Comparaison** avec la copie locale du modèle SKOLKAN FULL PERSONA du 25/09 (3 983 avatars) : 4 présents (PRUNIERE, ZHUKOV, KALEVA, MILANOV) et **26 absents**. Détail chez l'Analyste Mercure (§ 1.5.ter).
+- **Décisions de l'utilisateur** : portraits **repris tels quels**, bien que ce soient probablement de vraies photos et des noms proches de vrais généraux (risque signalé) ; portraits **intégrés au fichier d'import**.
+- **`eho`** : `lib/portrait-integre.ts`. Une cellule `avatar_url` en `data:image/png|jpeg|webp;base64` est enregistrée comme un dépôt (uuid, `UPLOADS_DIR`, 5 Mo au plus). Le SVG est refusé, et une image refusée fait échouer la ligne. L'appel est branché dans `api/import` avant `versPrisma`.
+- **Fichier** : `IMPORT_EHO_26_commandants_MER_HVI.xlsx`, avec une planche de contrôle `…_planche.png`, rangé à côté du PDF.
+  - Portraits réduits à 240 px en JPEG, environ 8 à 16 Ko par cellule.
+  - Le portrait est choisi par sa **position** sous le cartouche du nom : sur certaines pages, la plus grande image est l'**emblème au griffon**, et le premier essai l'avait prise pour 9 pages. La correction a été vérifiée : 26 portraits distincts.
+- **Vérifié** : la cellule relue par ExcelJS est enregistrée (`/api/uploads/….jpg`), une adresse ordinaire reste une adresse, le SVG est refusé ; 112 tests ; `tsc` ; build Docker.
+- **Suite** : push de l'eho (à valider), puis l'utilisateur fait **EHO → Importer** du fichier, puis capture la base.
+- ⛔ **INCIDENT (15h00)** : push sur `main` et `prod` autorisé (`c0a3ea2..6451f97`). Ensuite, l'EHO de DE LATTRE répond **404 pendant plus de 20 minutes** ; MELMIL et le réseau social fonctionnent.
+  - La cause n'est pas établie : je n'ai pas accès aux journaux du serveur.
+  - **Xavier a pris l'incident en main.** Consigne de l'utilisateur : **ne plus toucher à l'eho**.
+  - **Faute de méthode reconnue** : l'image avait été construite mais **jamais démarrée** en local, ni avec une base, ni avec un volume, et aucun import n'avait été rejoué. J'avais écrit à tort « elle démarre ».
+  - **Nouvelle règle** : tout est testé en local avant un push (mémoire auto `feedback_tester_en_local_avant_push.md`).
+  - Le fichier d'import des 26 commandants reste prêt, **en attente**.
+  - ✅ **Résolu** par Xavier : c'était un **problème de cache**, pas le changement de code. L'EHO répond de nouveau ; `/api/sante` renvoie `2026-10-01.1`, donc les portraits intégrés sont en ligne. La règle « tester en local avant de pousser » reste en vigueur.
+- **Import sur le serveur (utilisateur)** : 24 créés, **2 refusés** (`coldimitrimikhailovic`, `bgkristianmikhelev`). Motif : `caractere` dépasse 191 caractères (VarChar par défaut).
+  - Cause : l'extraction du PDF avait aspiré du texte de mise en page (« 410 TANK BN ASSESSMENT PRO: 70 % … COMBATIVENESS … ») dans les vulnérabilités, et dans 4 autres fiches.
+  - Correctif de données : `IMPORT_EHO_HVI_2a_CORRECTIF_24.xlsx` est une mise à jour des 24 **sans la colonne `avatar_url`** (la photo reste intacte, puisque `versPrisma` ignore une colonne absente). `IMPORT_EHO_HVI_2b_COMPLEMENT_2.xlsx` contient les 2 refusés, complets.
+  - Il reste 2 fichiers photo orphelins sur le serveur : le portrait est enregistré avant l'échec de la ligne. C'est sans gravité.
+- ⭐ **TEST LOCAL (première application de la nouvelle règle)** : l'image `6451f97` **NE DÉMARRE PAS** en local. Message : `Failed to load config file "/app/prisma7.config.ts" … Cannot find module 'dotenv/config'`.
+  - Cause : l'accès disque à chemin dynamique de `lib/portrait-integre.ts`, **sans `turbopackIgnore`**, fait embarquer **tout le projet** dans la sortie standalone, dont `prisma7.config.ts` et `src/`. Le `db push` de démarrage charge alors ce fichier, échoue, et le conteneur s'arrête.
+  - L'image de `c0a3ea2` n'a pas ce défaut.
+  - ⇒ C'est **très probablement la vraie cause du 404 de 15h**. Le « cache » a pu masquer le problème.
+  - **Correctif local `243b72e`** (branche `import-portraits-integres`, **NON poussé** : consigne de ne plus toucher à l'eho) : annotation `turbopackIgnore` sur le `mkdir` et le `writeFile`.
+  - Validé en local :
+    - l'image ne contient plus de `*.config.*` ;
+    - `/api/sante` répond 200 en 2 s ;
+    - les 3 imports rejoués donnent 24 créés + 2 refusés (reproduction exacte), puis 24 mis à jour, puis 2 créés ;
+    - en base : 26 avatars, 26 portraits servis en `image/jpeg`, aucun résidu de mise en page, les 3 groupes × 26.
+  - **Risque** : si l'image qui tourne en prod contient `/app/prisma7.config.ts`, le prochain redémarrage de l'EHO échouera. À vérifier par Xavier (`ls /app/prisma7.config.ts` dans le conteneur).
+  - **Décision de l'utilisateur** : garder `243b72e` en réserve et **l'intégrer à la prochaine mise à jour de l'EHO**. C'est noté dans la mémoire auto `project_eho_correctif_en_attente.md`.
+
+## 2026-10-01 (suite 13) — MELMIL : les comptes rendus téléchargés suivent le nommage des pièces jointes (`c67edc6`, `2026-10-01.8`, ✅ en ligne à 14:26)
+
+- **Décision de l'utilisateur** : `AAAAMMJJ_MR_DL26_SITCEN-GYC|FOR-<code incident>-<Titre>.docx`.
+  - **Date** : celle de l'incident, modifiable.
+  - **NMR** : code de l'incident. Pour un compte rendu partagé, c'est **l'incident de la fiche ouverte**.
+  - **Titre** : le nom du compte rendu (« PSYREP », « CIMICREP », « SCAMR »), modifiable.
+- **Écran** : `DialogueExportCr` (date, cellule « nom (code) », titre, nom final en direct) s'ouvre sur **tous** les téléchargements : tableau du jour, fiche ouverte, anciens comptes rendus. `useQui` est maintenant exporté par `produits.tsx`.
+- **Vérifié** : Playwright (06.01.I01 à D+33 donne `20261012_MR_DL26_SITCEN-FOR-0601I01-PSYREP.docx` ; titre modifié repris ; fichier téléchargé sous ce nom) ; 302 tests ; build Docker.
+- Mise en ligne autorisée dans le même message que celle du SCAMR.
+
+## 2026-10-01 (suite 12) — MELMIL : PROTOTYPE du compte rendu SCAMR (CRI propagande) (`1feb372` + `736f544`, `2026-10-01.7`, ✅ validé par l utilisateur et en ligne à 14:21 ; le modèle `/modeles-cr/scamr.docx` est servi)
+
+- **Demande** : intégrer `EXER\DELATTRE 26\01_Montage exercice\SCAMR.png` comme nouveau compte rendu « SCAMR » pour les ETIM, **au format exactement identique**, avec un prototype à tester d'abord.
+- **Fait** :
+  - le **modèle Word est reconstruit à l'identique** par `scripts/modele-scamr.py` (`public/modeles-cr/scamr.docx`, un seul tableau, police Arial). Il n'existait pas de `.docx` ;
+  - `scripts/gabarits-cr.py` lit désormais les cellules **sans bordure** (`nb`) et le **centrage vertical** (`va`). PSYREP et CIMICREP gagnent ainsi le centrage de leurs modèles, avec le même nombre de cases (21 et 167) ;
+  - type `scamr` (8 cases) ajouté dans `TYPES_CR`, la relecture, l'import (reconnu par « PROPAGANDE ») et `CelluleFiche` ;
+  - comme PSYREP et CIMICREP : un SCAMR **par jour et par ETIM**, l'unité pré-remplie avec le nom de l'ETIM, le GDH de la découverte à saisir.
+- **Vérifié en local** :
+  - rendu Word du modèle, comparé à l'image ;
+  - fiche MELMIL à l'écran ;
+  - export `.docx` rempli puis rendu par Word, avec les valeurs aux bonnes cases ;
+  - 302 tests.
+- ⚠ **`Modèle SCAMR.pptx`** contient en diapo 3 le même formulaire que l'image, mais **en diapo 1 un AUTRE modèle** (« SUJET OBSERVATION » : source, métriques, contenu, analyse, liste d'adressage CRINF). **Consigne de l'utilisateur : ne prendre en compte QUE l'image SCAMR.png, pas le PPT.** Le prototype en est tiré uniquement.
+- Copie de test : `EXER\DELATTRE 26\01_Montage exercice\SCAMR_prototype_vierge.docx`.
+
+## 2026-10-01 (suite 11) — Cockpit vide : il ne trouvait aucun réseau social (`app-cockpit` `58a11c7` + `a5e8cce`, `app-social` `b7851c0`, ✅ en ligne : social redémarré à 13:33, cockpit à 13:35)
+
+- **Choix de l'utilisateur** : un **filtre « À partir du »**.
+- **Fait dans `app-cockpit`, `a5e8cce`** : réglage dans le pied de page, mémorisé dans le navigateur (`ck_depuis`, comme les autres réglages du cockpit) ; `debutDepuis()`.
+  - Les posts antérieurs n'entrent ni dans les sources ni dans les non-lus (`addToots`), et ceux déjà stockés sont retirés à la saisie de la date ;
+  - le fil en direct les écarte ;
+  - les **totaux** transmettent `?since=` au réseau ;
+  - le rapport part par défaut de cette date ;
+  - les tendances portent déjà sur les 3 dernières heures, sans changement.
+- **Fait dans `app-social`, `b7851c0`** : `GET /api/cockpit/stats?since=` compte les posts et commentaires postérieurs ; sans paramètre, rien ne change.
+- `tsc` et builds Docker OK pour les deux.
+
+- **Question de l'utilisateur** : le cockpit est-il relié à admin ou aux apps ? Il ne voit rien, alors que le réseau social contient les anciennes publications d'ORION : est-ce un bug ?
+- **Réponse** :
+  - le cockpit n'est relié **ni à admin ni à la presse**. Il lit **les réseaux sociaux** de la zone (API `/api/cockpit/*` du social, clé de service de la zone), découverts auprès de PLÉIADE (`/api/internal/zones/:zone/instances`) ;
+  - le vide était un **BUG** : la découverte ne gardait que `appType === "mastorion"`, alors que le catalogue nomme le réseau `social` depuis le renommage du 16/09. Aucune instance n'était trouvée et aucune erreur ne s'affichait.
+- **Correctif** : les types `social` et `mastorion` sont acceptés. `tsc` et build Docker OK.
+- ⚠ **Conséquence à annoncer** : une fois corrigé, le fil en direct et les statistiques afficheront les publications **les plus récentes** du réseau, donc les anciennes d'ORION tant que DE LATTRE n'a rien publié. L'utilisateur préfère ne voir que DE LATTRE : un filtre « à partir du » lui est proposé.
+
+## 2026-10-01 (suite 10) — Cockpit : « There is a problem with the server configuration » (`app-cockpit` `ddc73b7`, ✅ poussé sur main + prod ; l instance a redémarré entre 13:05:03 et 13:05:34)
+
+- **Constat** : instance cockpit ajoutée à DE LATTRE 26, page d'erreur Auth.js « Server error / problem with the server configuration ».
+- **Diagnostic sans compte** :
+  - `/api/auth/csrf` répond 200 ;
+  - la connexion simulée redirige bien vers Keycloak (`client_id=cockpit-cockpit`) ;
+  - c'est donc le **retour** qui échoue : **défaut connu, noté dans la règle du 21/09 mais jamais corrigé sur cockpit**. `auth.ts` déclarait `issuer: ISSUER` (adresse interne), alors que Keycloak signe avec l'émetteur public.
+- **Correctif** : `issuer: PUBLIC_ISSUER`. Token, userinfo et JWKS restent sur l'adresse interne, comme la presse. `tsc` et build Docker OK.
+- Parti de **`origin/main`** : ma copie locale de `main` porte `9dab9da` (« Se déconnecter ferme aussi la session Keycloak »), jamais publié et non inclus ici.
+- **Après mise en ligne** : il faut le rôle **`analyste`** (« Veille ») sur l'instance cockpit, à cocher dans PLÉIADE. Sans lui, la connexion aboutit mais l'accès est refusé.
+- **Droits GitHub** sur `app-cockpit` : push réel **accepté** le 01/10. Tous les dépôts testés sont ouverts.
+
+## 2026-10-01 (suite 9) — MELMIL : le NMR du nommage devient le code de l'incident (`dea3dd6`, `2026-10-01.6`, ✅ en ligne à 12:54 — `/api/sante` vérifié)
+
+- **Décision de l'utilisateur**, qui remplace le NNN par incident du matin :
+  - NMR = **code de l'incident sans points** (`08.01.I01` donne `0801I01`) ;
+  - **code seul**, sans numéro de pièce, choix assumé : deux fichiers de même titre sur un incident ont le même nom ;
+  - pour une demande **sans incident**, le numéro de pièce (`001`…).
+- **`nommage.ts`** : `MOTIF` accepte un NMR alphanumérique ; ajout de `nmrIncident`, `nmrPiece`, `nmrDepuisNom`, `nmrAttendu` ; `nomDeFichier({…, nmr})`. **`nomExport` corrige le NMR** d'un nom conforme mais faux (par exemple « -001- » sur un incident) en gardant la date, la cellule et le titre. `contexteNommage` renvoie `nmrIncident`.
+- **Écran** : aperçu `…-FOR-0602I01-…` ; l'étiquette « Pièce n° » ne reste que pour les demandes sans incident.
+- **Vérifié** : 302 tests ; `tsc`, eslint et build Docker ; Playwright (incident 06.02.I01 donne `20261013_MR_DL26_SITCEN-FOR-0602I01-…`).
+
+## 2026-10-01 (suite 8) — MELMIL : comptes rendus PARTAGÉS par jour et par ETIM, en direct (`db46d4b`, `2026-10-01.5`, ✅ en ligne à 11:33 — `/api/sante` vérifié)
+
+- **Demande** : PSYREP et CIMICREP communs à tous les incidents d'un même jour qui ont la même ETIM, chaque autre ETIM ayant les siens ; modifiables à plusieurs en temps réel. Avis DESIGNER n°21.
+- **Décisions de l'utilisateur** : un seul compte rendu par type, jour et ETIM ; conversion automatique des anciens quand il n'y a pas d'ambiguïté.
+- **Modèle** :
+  - `CompteRendu` reçoit `jour` (D+) et `etim`, avec `incident = ""` pour un compte rendu partagé ;
+  - `convertirAnciensComptesRendus()`, appelé par `normaliserAtelier` (pur, idempotent) : un compte rendu d'un incident placé sur un jour, à une seule ETIM et sans compte rendu du jour déjà existant, devient partagé ;
+  - `sansOrphelins` garde les comptes rendus partagés.
+- **Gestes** : `crPartage`, `incidentsDuCr`, `creerCompteRenduPartage` (unique, rejouable ; GDH à l'heure du premier incident ; CIMICREP n° de message = codes couverts) ; journal « de ETIM x à D+y ».
+- **Écran** :
+  - rubrique « Comptes rendus du jour » placée sous « ETIM concernées », en tableau ETIM × type (Ouvrir / + Créer / Importer, « Commun avec … ») ;
+  - « Anciens comptes rendus de cet incident » pour ce qui n'a pas été converti ;
+  - **`CaseTexte` enregistre après 1 s sans frappe**, en plus de l'enregistrement en quittant la case.
+- **Vérifié** :
+  - 301 tests, dont 12 nouveaux ; `tsc`, eslint et build Docker ;
+  - **Playwright avec deux navigateurs séparés** : le compte rendu créé par A apparaît chez B sans recharger, et la frappe de A, faite sans quitter la case, s'affiche chez B.
+- ⚠ **En ligne**, la conversion des anciens comptes rendus se fera à la première écriture de l'atelier après la mise en ligne. Le nom de fichier `.docx` d'un compte rendu partagé est `PSYREP_ETIM-7_D+27.docx`.
+
+## 2026-10-01 (suite 7) — MELMIL : un PDF accepté mais jamais enregistré, même pour le déposant (`app-melmil` `f42ceb1` `2026-10-01.4`, `pleiade-platform` `b946897`, ✅ en ligne : plateforme à 11:11, MELMIL à 11:14)
+
+- ✅ **Cause CONFIRMÉE** par le message reçu par l'utilisateur : « Dépôt impossible : EACCES: permission denied, open '/data/medias/…' ».
+- Après la mise en ligne, la sonde renvoie **`medias: "ok"`**, **sans redéploiement manuel** : la promotion de MELMIL, arrivée après la plateforme, est passée par `deployZone`, donc par `preparerVolumes`.
+- ⚠ **À retenir** : toute app qui écrit dans un volume « ./… » sous un utilisateur restreint avait le même défaut. La presse (`./data/media`) est couverte au prochain redéploiement de ses instances.
+
+- **Constat** : avec `2026-10-01.3`, un PDF renommé puis déposé n'apparaît **ni chez le déposant ni ailleurs**. Le problème est donc en amont du rattachement : c'est l'**écriture du fichier sur le disque** qui échoue.
+- **Hypothèse principale, non vérifiable d'ici** : le volume `./data/medias:/data/medias` est un **montage de dossier du serveur**, qui masque `/data/medias` préparé dans l'image. Si le moteur de conteneurs crée lui-même ce dossier au premier démarrage, il appartient à l'utilisateur du serveur, et `nextjs` (le conteneur MELMIL, `USER nextjs`) ne peut pas y écrire (`EACCES`). La route répond alors 500 « Dépôt impossible ». `addInstance` ne crée que `data/`, jamais ses sous-dossiers.
+- **Fait** :
+  - `pleiade-platform` : **`preparerVolumes()`** crée les dossiers des volumes « ./… » et les passe en **0777** avant `up -d`, dans `deployInstance` et dans `deployZone` ;
+  - `app-melmil` : **`/api/sante`** renvoie aussi `medias: "ok"` ou `"ecriture impossible (CODE)"`, lisible sans compte, sans rien écrire.
+- **Vérifié en local** : sonde à `medias: "ok"` ; 289 tests ; build Docker ; plateforme `tsc` et 24 tests sur 25, avec le même échec Windows préexistant.
+- **À faire après le push** : lire `https://melmil.delattre-26.pleiade.internal/api/sante`. Si on y lit `ecriture impossible`, l'hypothèse est confirmée : **« Déployer » l'instance melmil** (elle passe par `preparerVolumes`), puis relire la sonde.
+
+## 2026-10-01 (suite 6) — MELMIL : nommage `AAAAMMJJ_MR_DL26_SITCEN-GYC|FOR-NNN-Titre` (`4ca8bdf`, `2026-10-01.3`, ✅ en ligne à 10:53 — `/api/sante` vérifié)
+
+- **Décisions de l'utilisateur** (questions posées avant de coder) : GYC est le code court de la cellule, avec **GYC = GREY CELL** et **FOR = FORAD** ; **NNN se compte par incident** ; la date est **celle de l'incident**, modifiable ; le titre est saisi, proposé d'après celui de l'incident. Avis DESIGNER n°20.
+- **`nommage.ts`** :
+  - `CODE_CELLULE` ; `MOTIF` = nouvelle règle, `ANCIEN` = règle du 30/09, seulement relue pour en tirer le titre ;
+  - `numeroDepuisNom`, `prochainNumeroPiece` (après le plus grand, jamais sous le nombre de fichiers), `dateDepuisJour` et `jourDepuisDate` ;
+  - `contexteNommage` (date de l'incident, sinon échéance de la demande, sinon aujourd'hui ; numéro suivant ; titre de l'incident ou du produit), `lotDeFichiers`, `rangDansLot` ;
+  - `nomDeFichier({…, numero})`, `nomExport(nom, cellule, {date, numero})`.
+- **Écran** : la fenêtre de nommage a un champ **Date**, la cellule affichée « nom (code) », « Pièce n°NNN — titre » et l'aperçu en direct. L'export renomme les noms libres ou anciens.
+- **Serveur** : `PUT /api/medias` n'accepte plus que la nouvelle règle ; le message d'erreur la cite.
+- **Vérifié** : 289 tests, dont 11 sur le nommage ; `tsc`, eslint et build Docker ; Playwright (D+34 donne 20261013, puis 003 et 004 à la suite de 2 fichiers déjà présents).
+- ⚠ Les fichiers déjà déposés gardent leur nom stocké. Ils sont renommés au **téléchargement**.
+
+## 2026-10-01 (suite 5) — MELMIL : un fichier d'incident visible du seul poste qui l'a déposé (`d1c0f89`, `2026-10-01.2`, ✅ en ligne à 10:34 — `/api/sante` vérifié, `/api/medias/orphelins` répond 401 sans compte)
+
+- **Constat de l'utilisateur** : un PDF importé sur **08.01.I01** n'est pas visible depuis un autre compte, même dans Planification → Incidents.
+- **Cause**, l'architecture et non les droits : la route `PUT /api/medias` écrivait seulement le fichier sur le disque. C'était au **poste** de l'ajouter à l'atelier partagé (`ajouterMedia` + `PUT /api/atelier`). Si cet enregistrement échoue :
+  - en cas de coupure, l'état local garde le fichier, qui reste visible sur ce seul poste ;
+  - en cas de refus ou de conflits répétés, l'écran recharge l'état et le fichier disparaît.
+  - Le fichier reste sur le disque, mais n'est **rattaché à rien**.
+  - Reproduit à l'identique en local en bloquant le `PUT /api/atelier` du poste.
+- **Correctif** :
+  - le dépôt envoie sa **destination** (`incident`, `demande`, `fourniPour`) ;
+  - **le serveur rattache lui-même** le fichier (`lib/serveur/rattacher.ts`, relecture et rejeu en cas de conflit, 6 essais) ; le geste du poste n'est plus qu'un écho, ignoré s'il est déjà rattaché ;
+  - la **fiche disque** garde l'incident, le déposant et la date ;
+  - si le serveur n'a pas pu rattacher, le poste le **dit** ;
+  - **Réglages → « Fichiers non rattachés »** (`GET` et `POST /api/medias/orphelins`) liste les fichiers du disque rattachés à rien et permet de les rattacher. Rien n'est effacé automatiquement.
+- **Récupération du PDF de 08.01.I01** : après la mise en ligne, il apparaîtra dans « Fichiers non rattachés ». Il n'aura **ni incident ni déposant connus**, car il a été écrit avant ce correctif : il faudra choisir 08.01.I01 à la main puis cliquer « Rattacher ».
+- **Vérifié en local** :
+  - poste bloqué, le fichier arrive quand même dans l'atelier sur le bon incident ;
+  - un fichier orphelin est listé (avec son déposant), puis rattaché ;
+  - un orphelin ancien, de la veille, est aussi retrouvé ;
+  - 281 tests, `tsc`, eslint et build Docker OK.
+
+## 2026-10-01 (suite 4) — Messagerie : écrire à un collègue sans passer par un avatar (`app-messagerie` `412dbae`, poussé sur `main` + `prod`)
+
+- **Question** : un animateur (gc04) peut-il discuter avec un autre compte (gc05) sans choisir d'avatar ? Il écrit bien en son nom par défaut, mais **l'annuaire des participants ne listait que les avatars d'eho**. Les comptes Keycloak n'y figurent pas : pas de privé possible, et pas moyen de cocher un collègue dans un groupe. Le serveur, lui, l'acceptait.
+- **Autorisation de l'utilisateur** : « je t'autorise à corriger cela directement sur le serveur ».
+- **Fait** :
+  - table **`comptes_zone`** (`CompteZone`, créée par `db push` au démarrage) et `lib/comptes.ts` ;
+  - chaque compte **réel** connecté est noté, au plus une écriture toutes les 10 min, jamais un avatar endossé ni le compte de développement ;
+  - `/api/bff/personas` renvoie **les comptes ET les avatars** pour la composition, chacun avec sa `nature` ; jamais de comptes dans le sélecteur « au nom de » ;
+  - `ensureMember` et le titre du privé prennent le nom du compte ;
+  - à l'écran, la mention « Compte de la zone » ou « @x · avatar », et l'aide « les comptes apparaissent après leur première connexion ».
+- ⚠ **Ma copie locale de `main` était en retard sur `prod`** (le bridage « au nom de » par camp, `18b6648`, n'y était pas). Je suis reparti de `origin/prod`. Le correctif « Se déconnecter ferme aussi la session Keycloak » (`b322f54`, local) **n'est toujours pas en ligne** : il n'a pas été inclus, faute d'accord explicite.
+- ⚠ **Piège du Dockerfile** : `npm test` y tourne **avant** `prisma generate`. Un import de `db.ts` dans `auth.ts` cassait donc l'image (« Cannot find module @/generated/prisma/client »). Le correctif est un import **différé** de `comptes.ts`. Toujours construire l'image avant de pousser.
+- **Vérifié** :
+  - `tsc` ; 6 tests sur 6 ; build Docker OK ;
+  - sur une base jetable (`messagerie_essai`, supprimée ensuite) : la table est créée ; « gc05 » est noté, trouvé par « gc0 » et ajouté comme membre sous son nom ; le compte de développement est ignoré.
+- **Droits GitHub** : le push sur `app-messagerie` est **accepté**.
+- **Mise en ligne** : `delattre-26` n'est pas une zone `prod`. Il faut **« Déployer » l'instance `messagerie`** dans PLÉIADE une fois le CI terminé, ce qui tire la nouvelle image depuis `f020b4e`.
+
+## 2026-10-01 (suite 3) — MELMIL : demande de produit SANS incident (FORAD) et cellule demandeuse (`533e548`, `2026-10-01.1`, ✅ en ligne à 09:12 — `/api/sante` vérifié)
+
+- **Demande** : la FORAD ne crée pas d'incident. Il faut un bouton dans l'onglet « Demandes de produit », et chaque demande doit dire GREY CELL ou FORAD. Fait avec DESIGNER (avis n°19).
+- **Modèle** :
+  - `DemandeProduit.incident` peut être `""` (demande directe) ;
+  - nouveau champ de formulaire **`cellule`** (genre `segment`, `CELLULES_DEMANDE` FORAD / GREYCELL), **obligatoire** ;
+  - `MediaIncident.fourniPour` : fichier de base joint à une demande directe ; `fichiersDeLaDemande()`.
+- **Gestes** :
+  - `creerDemande("")` crée une demande directe ;
+  - `ajouterMedia` accepte une demande directe, pour une livraison (`demande`) ou un fichier de base (`fourniPour`) ;
+  - `sansOrphelinsProduits` garde les demandes directes et leurs fichiers ;
+  - `supprimerDemande` emporte les fichiers d'une demande directe ;
+  - `demandesModifieesSansDroit` : retirer une demande directe prise en charge reste réservé à Prod (corrige un trou : le test sur l'incident aurait laissé passer).
+- **Nommage** : `celluleProposee` prend d'abord la cellule déclarée de la demande.
+- **Écran** (`produits.tsx`) :
+  - bouton « + Nouvelle demande sans incident » ;
+  - cellule pré-choisie (Équipe, sinon event) ;
+  - « Aucun — demande directe » ;
+  - « Joindre des fichiers » ;
+  - colonne et filtre Cellule.
+- **Vérifié** :
+  - 281 tests, dont 9 nouveaux, et une ancienne attente mise à jour (la cellule est désormais obligatoire) ; `tsc`, eslint et build Docker OK ;
+  - Playwright sur le MELMIL local (données fictives) : formulaire, envoi (DP-03 « sans incident », FORAD), bouton « Joindre », liste, téléphone, aucune erreur.
+- ⚠ Les demandes déjà en ligne n'ont pas de cellule déclarée : la file montre celle de la fiche Équipe du demandeur. Les compléter si besoin, en ouvrant la demande.
+
+## 2026-10-01 (suite 2) — Le logo de chaque titre de presse sur le portail (`app-press` `8c7f400`, `pleiade-platform` `139098a`, ✅ en ligne le 2026-10-01 à 08:47 — les 4 titres de DE LATTRE servent leur logo : Today Mercure et TV4 en SVG, Hexagone et TF1 Info par redirection vers le fichier de la maquette)
+
+- **Demande** : récupérer le logo des médias (site ou thème) et l'afficher sur `delattre-26.pleiade.internal/presse`.
+- **app-press** : `lib/logo.ts` (`logoDuSite`) et la route **publique** `GET /api/public/logo`.
+  - **Ordre de choix**, le même que les en-têtes des maquettes :
+    1. le logo téléversé (« Identité ») ;
+    2. le fichier de la maquette (`/skins/hexagone|omerta|otan|tf1-…`) ;
+    3. le logo **dessiné en CSS**, redessiné en SVG carré avec les mêmes lettres et les couleurs du thème : TV4 (« TV » sur orange, « 4 » cerclé), Today Mercure (T blanc ★ or M rouge sur noir), BC1 (lettres marine, chiffre rouge, cadre rouge) ;
+    4. un monogramme.
+  - Une image renvoie une redirection 302 vers le fichier ; un dessin renvoie un SVG sans script (CSP fermée). Cache de 5 min.
+  - Tests : 3 nouveaux (noms injectés, couleurs douteuses), 8 sur 8 ; build OK.
+- **pleiade-platform** : champ de catalogue **`logoPath`** (`presse.yml` : `/api/public/logo`). `logoOuIcone()` dans `portail.ts` sert la page d'accueil (carte d'instance) et la page de choix.
+  - En cas d'erreur, l'image retombe sur `/api/icone/…` via `data-repli` : une instance muette ou ancienne, sans la route, ne montre jamais d'image cassée.
+- **Vérifié** avec Playwright : rendu de la page avec les SVG générés (TV4, TM, BC1, monogramme), le PNG Hexagone et un site absent (repli) ; tout est affiché, rien de cassé.
+- ⚠ **Mise en ligne** : `delattre-26` n'est **pas** une zone `prod`, donc la promotion ne met pas à jour ses instances de presse. Après le push d'app-press, il faut **« Déployer »** chaque instance de presse de DE LATTRE, ou la zone limitée à la presse. Depuis `f020b4e`, cela tire la nouvelle image. Tant que ce n'est pas fait, la carte garde l'icone habituelle.
+
+## 2026-10-01 (suite) — Une instance neuve naît à jour : démarrer TIRE l'image (`pleiade-platform` `f020b4e`, ✅ en ligne le 2026-10-01 à 08:21 — `/api/version` renvoie `f020b4e`)
+
+- **Constat de l'utilisateur** : la nouvelle instance de presse `tv4-international` (DE LATTRE) n'a pas les « maquettes existantes » dans Réglages → Maquette et thème. Il pensait le problème réglé.
+- **Cause**, déjà décrite le 2026-09-21 mais **jamais corrigée** : `deployInstance` (« démarrer », appelé après la création) faisait `up -d` sur l'image `presse:latest` déjà présente sur le serveur. Le CI pousse bien `latest` au registre, mais rien ne le retirait pour une instance neuve. La promotion ne vise que les zones `prod`, et `delattre-26` n'en est pas une.
+- **Correctif** : `pull` (délai de 5 min, `dockerCompose` reçoit un délai) puis `up -d`. Si le pull échoue, l'instance démarre quand même sur l'image locale et la sortie le signale.
+- **Pour l'instance déjà créée** : après la mise en ligne, la **redémarrer** (« Déployer » sur l'instance) suffit, puisqu'elle tirera la dernière image. « Déployer » la zone pour l'app presse le faisait déjà.
+- `tsc` OK ; tests 24 sur 25, avec le même échec Windows préexistant.
+
+## 2026-10-01 — Portail de zone : sur la page « Presse », toute la carte ouvre le site (`pleiade-platform` `4995efc`, ✅ en ligne le 2026-10-01 à 08:15 — la page `/presse` sert 8 cartes cliquables, 0 bouton « Ouvrir »)
+
+- **Demande** : sur `delattre-26.pleiade.internal/presse`, supprimer le bouton « Ouvrir », faire ouvrir le site par un clic sur la carte et garder « Espace de rédaction ». DESIGNER a été consulté (avis n°18).
+- **Fait** dans `src/portail.ts`, `pageChoix` (la page de choix de tout type d'app à plusieurs instances, pas seulement la presse) :
+  - le titre devient un **lien étiré** sur toute la carte (`::after`) ;
+  - le bouton de rédaction passe au-dessus (`z-index`), et le survoler n'anime pas la carte (`:has(.titre-liens:hover)`) ;
+  - ajouts : chevron « › », focus visible sur la carte, réduction des animations respectée.
+- **Vérifié** avec Playwright sur une page rendue avec des données fictives : clic au centre ou dans un coin, le site ; clic sur le bouton, l'espace de rédaction ; aucun « Ouvrir » restant ; pas de débordement au téléphone.
+- ⚠ **Tests de la plateforme** : 24 sur 25. Le test « un volume relatif devient un chemin absolu d'hôte » échoue **aussi sur `main` non modifié** : c'est un problème de chemin Windows, préexistant.
+- ⚠ Sous Windows, `npm test` échoue à cause du préfixe `REGISTRY_HOST=…` (syntaxe Unix) : lancer `REGISTRY_HOST=registry.cecpc.internal npx tsx --test scripts/test-*.mts` depuis bash.
+- Rappel : `pleiade-platform` se déploie **dès le push sur `main`**.
+
+## 2026-09-30 (suite 9) — app-admin : Kit IA, un modèle de prompt à copier-coller (`b66c8dd`, `fd7cd89`, `1b6cdda`, ✅ en ligne le 2026-09-30 à 18:43 : les deux instances ont redémarré — 404 de 18:42:51 à 18:43:12 — puis sont revenues en 401)
+
+- ⭐ **Correction de l'utilisateur, intégrée dans `fd7cd89`** : « le prompt doit être court, le KIT IA contient déjà du contexte ; il doit dire à l'IA de consulter les pièces jointes ». La première version (8 sections, environ 170 lignes, ci-dessous) est **remplacée**.
+  - Le prompt tient maintenant en **environ 30 lignes** : lire D'ABORD les pièces jointes, puis Excel · SCÉNARIO · TEMPS (pré-rempli, heure de Paris) · RYTHME · AVATARS / apps · PRESSE (règle absolue) · trame à valider.
+  - La **rédaction de chaque média** passe dans **`2_MODE_EMPLOI.md`**, section de chaque site de presse, avec la règle du journaliste ; la règle 6 est complétée.
+  - **Règle retenue** : un prompt de kit **renvoie** au contexte des pièces jointes, il ne le recopie pas.
+- ⭐ **Deuxième correction de l'utilisateur, intégrée dans le commit « recruté parmi les avatars sans biographie »** : un journaliste manquant n'est plus « à créer ». On le **recrute parmi les avatars SKOLKAN sans fiche bio**.
+  - Nouveau fichier du kit : **`6_AVATARS_SANS_BIO.md`**, tiré de **tous** les avatars de l'EHO et non du périmètre de la cartographie ; les membres d'une rédaction en sont exclus.
+  - L'onglet demandé à l'IA devient **`JOURNALISTES_A_AJOUTER`** (username, media, fonction, biographie_proposee) ; le prompt, le mode d'emploi (règle 6, section de chaque site) et le guide sont alignés.
+  - 18 tests et le build OK.
+  - ⚠ La taille du fichier dépend du nombre d'avatars sans bio : environ 70 caractères par avatar, donc au pire environ 270 Ko pour 3 900.
+- *Première version (`b66c8dd`), remplacée :*
+
+- **Demande** : ajouter au « Kit IA » un `.txt` que l'utilisateur copie dans son IA et adapte. Il doit contenir :
+  - la création d'un **fichier Excel** ;
+  - le choix des avatars d'après les pièces jointes ;
+  - la **règle absolue de la presse** : un journaliste **du média**, sinon un nouveau journaliste, jamais celui d'un autre titre ;
+  - le **temps** : début et fin, date et heure ;
+  - le **rythme** des posts et des articles ;
+  - le **scénario, le thème et le contexte**.
+- **Livré** : `5_MODELE_DE_PROMPT.txt` dans le zip (`txtModelePrompt`, `lib/kit-ia.ts`), en UTF-8 avec BOM et fins de ligne CRLF, pour le Bloc-notes.
+  - **Structure** : un mode d'emploi, puis le texte à coller entre « ✂ DÉBUT » et « ✂ FIN », avec des champs `[À COMPLÉTER]`, en 8 sections : scénario · temps · rythme · avatars · presse · apps · livrable · méthode avec liste de vérification.
+  - **Pré-rempli** avec les dates du scénario (heure de Paris), les apps et la **rédaction actuelle de chaque site de presse**.
+  - **La rédaction est demandée au site** : `checkAccounts` sur tous les avatars, **par paquets de 150**, car 500 identifiants dépassent les 16 Ko d'en-têtes de Node. Si le site est injoignable, le modèle écrit « rédaction non lue ».
+  - **Journaliste manquant** : l'IA le décrit dans un onglet `JOURNALISTES_A_CREER` (username, nom affiché, média, pays, langue, camp, biographie). **Le traitant le crée dans l'EHO et dans la rédaction du média AVANT l'import**, sinon l'import signale un persona introuvable.
+- **Vérifié** : 17 tests (dont le nouveau : heure de Paris, rythme, rédaction citée, média sans journaliste), `tsc` et `next build` OK ; aperçu généré avec des données fictives.
+- ⚠ Non éprouvé contre un vrai site de presse en local : le repli « rédaction non lue » couvre l'échec.
+
+## 2026-09-30 (suite 8) — MELMIL : aligner la planification et la planche sur les exports JEMM réels (`50255e7`, `2026-09-30.7`, ✅ en ligne à 18:12 — `/api/sante` vérifié)
+
+- **Demande** : la saisie JEMM de DE LATTRE 26 est terminée (exports 07 ILI et 08 HN, 62 incidents). La planche JEMM **et** la planification doivent être « à 100 % identiques » aux fichiers, sans un incident de plus. Les manques (effets attendus…) sont pris dans les diapos. Plan validé par l'utilisateur avant le code. Données : `DELATTRE\MEMOIRE.md` § « JEMM RÉEL ».
+- **Planification** : `lib/atelier/aligner.ts` (`alignerSurJemm`) et l'écran `components/atelier/aligner-jemm.tsx` (Réglages → « Aligner l'atelier sur JEMM »). On voit d'abord un bilan, puis on clique sur « Appliquer » ; l'alignement est **recalculé au moment d'appliquer**, sur l'atelier du moment.
+  - **Renuméroter plutôt que recréer** : médias, demandes, comptes rendus, ETIM et traitants restent attachés par identifiant.
+  - **Appariement** :
+    - events : même code et même nom, puis même nom, puis même code ;
+    - storylines et incidents : ressemblance du titre **ou** de la description (seuil 0,5), à égalité le même jour puis le même numéro ;
+    - par numéro, seulement si les textes se ressemblent un peu (≥ 0,3) ;
+    - en dessous de 0,5, l'appariement est « douteux » et signalé dans le bilan.
+  - **Remplacé par JEMM** : code, nom / sujet, description, période ou D+ et heure, objectif principal (`PrimaryTrainingObjective`, désormais lu par `jemm.ts`), moyen, émetteur, destinataires, résultat attendu.
+  - **Gardé** : effets attendus, QUI / OÙ, EXCON, objectifs secondaires, groupes, **cellule de l'event** (elle nomme les pièces jointes), ETIM, statut.
+  - **Compléments** : fichier `{"type":"melmil-complements"}` ; il ne remplit que le vide.
+  - **Absent de JEMM** : supprimé, sauf un incident qui porte des pièces jointes. Celui-ci est gardé et listé, tant que la case « les supprimer aussi » n'est pas cochée.
+- **Planche** : `remplacerParExports` dans `fusion.ts`, menu **Plus → « Remplacer par des exports JEMM… »**. Un import ordinaire ne touche qu'à ses propres events, donc l'ancien 06 serait resté. Ici les réglages sont gardés et les déplacements annulés.
+- ⚠ **Leçon, trouvée par l'essai** : apparier **au numéro** est faux dès que JEMM découpe un fait en occurrences datées ou réordonne les numéros. Le premier essai rattachait un média au mauvais incident (l'ancien I02 « Carte Mercure » tombait sur le nouvel I02 « Pylône HS D+35 »). Il faut apparier sur le **texte**, puis sur la date.
+- **Vérifié** : `scripts/essai-aligner.mts`, sur un atelier « comme sur le serveur » (les 2 JEMM fictifs du 23/09 versés, 46 incidents) aligné sur les 2 exports réels.
+  - **Résultat** : 07 ILI et 08 HN ; 8 storylines ; **62 incidents** identiques champ à champ aux injects ; aucun sans D+.
+  - **Ce qui a survécu** : le média, ses ETIM, les effets attendus saisis à la main ; le vide est rempli depuis les diapos ; la 07.03 reste vide.
+  - **Rejouer** l'alignement ne change plus rien ; une pièce jointe hors JEMM est gardée, ou supprimée si la case est cochée ; la planche est une copie exacte (aucun 06).
+  - **Bilan de l'essai** : 23 incidents renumérotés, 15 mis à jour, 24 créés, 8 supprimés, 1 douteux (08.04.I01 « FRAGO… » devient « Création d'un couloir humanitaire »).
+  - 273 tests, `tsc`, eslint et build Docker OK.
+
+## 2026-09-30 (suite 7) — eho : les « autres comptes » pour l'incarnation (`c0a3ea2`, `2026-09-30.2`, ✅ en ligne à 17:09 — `/api/sante` vérifié, nouvelle route en 401 sans compte)
+
+- **Premier constat** : gc05 ne pouvait choisir aucun compte, parce que son groupe n'était coché dans aucun « Camps ». L'utilisateur l'a réglé.
+- **Deuxième constat** : même avec les camps réglés, les animateurs n'ont accès qu'à ≈ 500 des 3 900 comptes d'eho. Seuls les avatars d'un groupe visible et coché sont incarnables ; les autres sont dans les 229 groupes archivés le 28/09, ou dans aucun groupe.
+- **Règle retenue**, avec l'accord de l'utilisateur (« je te laisse voir ce qu'il y a de mieux ») :
+  - un groupe d'avatars avec des camps cochés est **réservé** ;
+  - tous les autres avatars forment les **« autres comptes »**, un ensemble calculé ;
+  - y ont droit **d'office** les camps d'au moins un groupe réservé, et **en plus** ceux cochés dans le nouvel encart « Autres comptes » (écran Groupes, en tête de page, avec le nombre d'avatars et la liste des camps).
+- **Technique** :
+  - table `camps_comptes_libres` (créée par `db push` au démarrage) ;
+  - `comptesLibres()` et `avatarsImpersonables()` dans `lib/impersonation.ts` ;
+  - route `GET`/`PUT /api/camps/comptes-libres` ;
+  - `CampsModal` rendue générique : les camps attribués d'office y sont cochés et grisés.
+  - **Aucun changement** dans le social ni dans la messagerie : eho leur renvoie simplement la liste d'identifiants.
+- **Vérifié** :
+  - sur une copie jetable de la base locale (`eho_essai_camps`, 453 avatars), 5 scénarios OK : un camp voit ses avatars réservés et les autres comptes, jamais ceux réservés à un autre camp ; un groupe sans camp ne voit rien tant qu'il n'est pas ajouté à la main, puis exactement les autres comptes ;
+  - 112 tests, `tsc` et build Docker OK.
+- ⚠ **Garde Prisma** : `db push --accept-data-loss` est refusé aux IA sans consentement explicite de l'utilisateur. Ne pas contourner.
+
+## 2026-09-30 (suite 6) — MELMIL : export PPT, plus de doublon rouge de l'effet dans les incidents (`a0af1d8`, `2026-09-30.6`, ✅ en ligne à 15:02)
+
+- Constat de l'utilisateur : le texte rouge de chaque incident (son `resultatAttendu`) répétait l'encadré « Effets attendus » de la storyline.
+- Analyse de l'export réel, **corrigée à 15:10** : sur 36 textes rouges, **22 sont des copies** de l'encadré. Les **14 autres** appartiennent à des storylines dont l'encadré « Effets attendus » est **vide** : ils sont le seul effet affiché, donc conservés. Le premier comptage (« 36 sur 36 ») était faux : en Python, une chaîne vide est toujours « contenue » dans une autre.
+- Vérifié en passant `effetPropre()` sur les textes réels de l'export `(2)` : 22 sur 36 filtrés.
+- L'export de 15:03, encore avec doublons, a la même taille à l'octet près que celui de 14:55 : il a été produit par l'**ancien code resté dans le navigateur**. Il faut recharger la page après un déploiement.
+- `effetPropre()` (dans `modele.ts`) n'affiche plus l'effet d'un incident quand il répète celui de la storyline (comparaison sans casse, espaces ni puces, dans un sens comme dans l'autre). Un effet **propre à l'incident** (par exemple des hypothèses H1/H2) reste affiché. On gagne de la place : plus d'incidents par diapositive.
+- 272 tests OK.
+
+## 2026-09-30 (suite 5) — MELMIL : export PPT en A4 paysage, pagination mesurée (`2b74c23`, `2026-09-30.5`, ✅ en ligne à 14:54)
+
+- Constat de l'utilisateur sur le serveur : avec les vraies descriptions (plusieurs paragraphes), le tableau des incidents **débordait** de la diapositive. Il faut respecter le format A4.
+- Diapositives en **A4 paysage** (29,7 × 21 cm, mise en page propre `A4_PAYSAGE`). Toutes les positions sont dérivées de la largeur et de la hauteur.
+- La pagination se fait selon la **hauteur mesurée** de chaque ligne : `GABARIT_A4` (colonnes, taille 8 pt, 4,75 pouces de lignes) est partagé entre `modele.ts` (mesure) et `ppt.ts` (dessin). La storyline continue sur (1/n), (2/n)…
+- Un incident trop long pour une page entière est raccourci, avec la mention « […] (suite dans MELMIL) ».
+- Vérifications :
+  - rendu PowerPoint COM : aucun tableau ne descend sous la légende (bas maxi 474 pt pour une limite de 536 pt) ;
+  - 271 tests OK, build Docker OK.
+
+## 2026-09-30 (suite 4) — MELMIL : export PowerPoint au format du PPT de montage (`4ef3232`, `2026-09-30.4`, ✅ en ligne à 14:30)
+
+- Le bouton « Exporter en PPT » (en-tête de l'atelier) produit, au format de `20260909 - GREY CELL_MAIN v4.pptx` (DE LATTRE 26) :
+  - la synthèse ;
+  - la chronologie D+ ;
+  - le récapitulatif des changements depuis une date ;
+  - une fiche par storyline, continuée sur plusieurs diapositives si besoin.
+- Les nouveautés et modifications sont marquées en rouge.
+- `pptxgenjs` (MIT) ; `src/lib/export-ppt/` (modèle pur testé + dessin). Avis DESIGNER n°17.
+- ⚠ **Piège** : un morceau de texte vide rend le `.pptx` « endommagé » pour PowerPoint. Valider dans PowerPoint (rendu COM), pas seulement avec python-pptx.
+
+## 2026-09-30 (suite 3) — MELMIL : onglet Incidents, storylines repliées (`1242213`, `2026-09-30.3`, ✅ en ligne à 14:03)
+
+- Repliées à l'arrivée, avec un en-tête qui résume : incidents, cellule, période D+, statuts accordés, médias, demandes en cours. Un intertitre par event, « Tout déplier / replier », et chacun retrouve ce qu'il avait déplié (`localStorage`).
+- Dépliées d'office : la storyline d'un incident ouvert depuis la planche, ou celle choisie dans le filtre. Avis DESIGNER n°16.
+
+## 2026-09-30 (suite 2) — Portraits cassés sur le réseau social (Olamao…) : ✅ corrigé en ligne (eho `7f1abe2` = `2026-09-30.1` à 13:41, social `4b3ec9c` à 13:46)
+
+- ⚠ **Le premier correctif d'eho (`c4f249a`) n'a rien changé** : le serveur Next pose **lui-même** des `x-forwarded-*` sur un appel direct, avec le nom du conteneur. Le repli sur `NEXTAUTH_URL`, placé après ces en-têtes, n'était jamais atteint. Le test unitaire ne l'a pas vu, parce qu'il construisait un `Request` sans en-têtes.
+- `7f1abe2` fait passer l'adresse annoncée **avant** les en-têtes, et teste le cas réel.
+- **Vérifié en ligne** : le profil `OlamaoOfficiel` porte `https://eho-delattre26.delattre-26.pleiade.internal/api/uploads/eb04e5a3….jpg`, et l'image est servie en 200 `image/jpeg`. Les 114 portraits du fil sont publics.
+- ⭐ **Leçon** : sous Next, les en-têtes `x-forwarded-*` ne prouvent **pas** qu'on est passé par Traefik. Vérifier un correctif « d'appel interne » sur le serveur, et relever la version pour pouvoir constater la mise en ligne.
+
+### Diagnostic initial
+
+- **Constat en ligne**, `GET /api/social/users/search?q=olamao` (lecture ouverte) : `avatar_url` valait `http://zone-delattre-26-eho-delattre26-app-1:3000/api/uploads/eb04e5a3….jpg`, c'est-à-dire le **nom interne du conteneur eho**. Aucun navigateur ne le joint. Le même fichier est servi en 200 à `https://eho-delattre26.delattre-26.pleiade.internal/api/uploads/…`.
+- **Cause** (`eho/src/lib/uploads.ts`, `originePublique`) : le social appelle eho **par le réseau interne**, sans Traefik, donc sans `x-forwarded-*`. eho prenait alors `req.url`, le conteneur. Le social recopie ce portrait dans ses profils à chaque recherche.
+- **Correctifs** :
+  - `eho` `c4f249a` (branche `portraits-origine`) : repli sur `NEXTAUTH_URL` / `AUTH_URL`, l'adresse publique posée par la plateforme. 3 tests, 111/111.
+  - `app-social` `4b3ec9c` (branche `portraits-publics`) : `reparerPortraitsInternes()` au démarrage, puis toutes les 30 min, redemande à eho les profils dont le portrait commence par `EHO_URL`.
+- **Ordre de mise en ligne** : eho d'abord (`main` + `prod`), puis le social (`main` + `prod`). La réparation du social n'a d'effet qu'une fois eho corrigé.
+
+## 2026-09-30 (suite) — MELMIL : nommage des pièces jointes (`2da39bd`, `2026-09-30.2`, ✅ en ligne à 10:47, poussé à la demande de l’utilisateur)
+
+- **Règle de l'utilisateur** : `AAAAMMJJ_MR_DL26_SITCEN-CELLULE-Titre.ext`.
+  - La date est celle du jour, **heure de Paris** : le 01/10, on passe à `20261001`.
+  - `MR_DL26_SITCEN` est fixe ; la CELLULE est `FORAD` ou `GREYCELL`.
+  - Dans le titre, les espaces deviennent des « - ».
+- **Import** : une fenêtre de nommage où l'on ne tape que le titre, avec le nom final affiché en direct. La cellule vient, dans l'ordre, de :
+  1. la demande, pour une livraison Prod ;
+  2. la fiche Équipe de l'importeur, en remontant les groupes (un sous-groupe de GREY CELL donne `GREYCELL`) ;
+  3. l'event de l'incident ;
+  4. sinon, un choix.
+- **Export** : un nom conforme sort tel quel ; sinon il est renommé au jour de l'export (`?nom=` sur `GET /api/medias/:id`).
+- **Serveur** : un dépôt au nom non conforme est refusé (400).
+- `src/lib/produits/nommage.ts`, pur, 13 tests.
+- ⚠ Les fichiers déposés **avant** gardent leur ancien nom dans MELMIL, mais **sortent renommés** au téléchargement.
+
+## 2026-09-30 — MELMIL : médias des incidents + demandes de produit complexe à la cellule Prod (✅ en ligne : plateforme `7de590f` à 10:15, MELMIL `4d11796` = `2026-09-30.1` à 10:17)
+
+- **Ajout demandé en cours de route** (`4d11796`) : Prod est averti des demandes, et le demandeur de leur suite. Cela passe par un signal dans le bandeau, sur toutes les pages, une alerte à l'arrivée et « (n) » dans le titre de l'onglet. `/api/demandes/signaux` est relu toutes les 20 s.
+- **Vérifié en ligne sans compte** : `/api/sante` renvoie `2026-09-30.1`, et `/api/demandes/signaux` comme `PUT /api/medias` répondent 401 (les routes existent).
+- 🔴 **Défaut de plateforme découvert** : cocher sur le bouclier un rôle qui n'existe pas encore dans Keycloak ne faisait **rien**, sans le dire. `setGroupClientRoles` écartait le rôle inconnu. L'utilisateur avait coché « Prod » pour `cecpc` avant toute synchronisation, et cela n'a donc pas été enregistré.
+- ✅ **Corrigé et en ligne** (`pleiade-platform` `b85e2e2`, 10:29) :
+  - la route du bouclier crée d'abord les rôles manquants ;
+  - le démarrage de la plateforme crée ceux de toutes les zones (`creerRolesManquants`) ;
+  - dans les deux cas, **création seulement, rien n'est retiré** ;
+  - un rôle introuvable renvoie désormais une erreur.
+  - Testé contre Keycloak 26 (`scripts/essai-roles.mts`). **Plus besoin de la commande `synchroniser-roles`** pour un rôle ajouté au catalogue.
+- ⏳ **Reste pour l'utilisateur** : recocher « Prod » pour `cecpc` sur le bouclier MELMIL (la première coche n'a pas été enregistrée), se reconnecter, puis faire un premier dépôt réel pour vérifier le volume.
+
+- **Besoin** : voir et déposer les fichiers d'un incident. FORAD et GreyCell demandent à « Prod » (l'utilisateur) les produits que les IA en ligne ne savent pas faire.
+- **Décisions de l'utilisateur** : rôle « Prod » sur le bouclier, import ouvert à tous les animateurs, 500 Mo par fichier, **pas de fiche Word** (tout dans MELMIL).
+- **`app-melmil` `e5fcf86`** (branche `produits-complexes`, version `2026-09-30.1`) :
+  - dans l'atelier : `medias[]` et `demandes[]` ;
+  - `src/lib/produits/` (modèle, gestes, dates) et le composant `produits.tsx` : rubrique de la fiche incident, fiche de demande, onglet « Demandes de produit » ;
+  - `/api/medias` : PUT en flux avec coupure à 500 Mo, GET par tranche, DELETE ;
+  - garde « Prod » dans `PUT /api/atelier` ;
+  - dossier `/data/medias` créé dans l'image, appartenant à `nextjs`.
+- **Vérifié en local** (base `melmil_produits` sur le port 3307, données fictives) : le parcours complet, un 403 sans le rôle, la coupure à 500 Mo, 241 tests, l'image reconstruite.
+  - Un **bug a été trouvé et corrigé** : un second dépôt au même id effaçait le fichier du premier.
+- **`pleiade-platform` `7de590f`** (branche `melmil-prod`) : catalogue `melmil.yml`, avec le rôle `prod` et le volume `./data/medias:/data/medias`.
+- **Ordre de mise en ligne** :
+  1. pousser la plateforme (`main` déploie aussitôt) ;
+  2. `POST /api/zones/delattre-26/synchroniser-roles` (depuis la console du tableau de bord, sans bouton) ;
+  3. cocher « Prod » sur le bouclier MELMIL, pour le groupe de l'utilisateur et `cecpc` ;
+  4. pousser MELMIL `main` + `prod` (le compose est régénéré, et le volume monté) ;
+  5. vérifier `/api/sante` → `2026-09-30.1`.
+- ⚠ Le rôle est lu **à la connexion** : se déconnecter puis se reconnecter après avoir coché.
+
+## 2026-09-29 (suite 2) — pleiade-platform : identifiants sans adresse mail + bouton « Modifier l'identifiant » (`56f0576`, ✅ en ligne)
+
+- **Demande utilisateur, pour la sécurité** : des identifiants simples (`gw01`), sans adresse, ni nom, ni prénom. Il faut conserver Xavier et Thomas, qui administrent la zone.
+- **Livré** :
+  - création sans adresse ;
+  - import et export avec une colonne « Identifiant » ;
+  - bouton crayon qui renomme **sans recréer** : le `sub` est gardé, et rien n'est perdu dans les apps ;
+  - l'option « retirer adresse, prénom et nom » ;
+  - le refus de renommer un compte d'organisateur (connexion « cecpc »).
+- **Essais contre Keycloak 26.0** (conteneur jetable sur le port 8181, `scripts/essai-identifiants.mts`) : tout passe. Deux blocages de Keycloak ont été découverts et contournés : l'adresse est obligatoire tant que la zone la prend pour identifiant, et l'identifiant est en lecture seule tant que `editUsernameAllowed` est faux.
+- **Mise en ligne** : poussé sur `main` pendant la planification, avec l'accord de l'utilisateur, puis vérifié par `/api/version` (commit `56f0576`).
+- ⚠ **Écran non essayé en local** : pas de plateforme complète sur le poste. Premier essai réel à faire par l'utilisateur, sur un seul compte.
+- ⏳ Un test unitaire déjà cassé sous Windows (`test-deploiement.mts`, « un volume relatif devient un chemin absolu d'hôte ») échoue aussi sur `main`, sans lien avec ce travail.
+
 ## 2026-09-29 (suite) — app-press : revue DESIGNER de 4 maquettes (`48b1072`, ✅ en ligne le 2026-09-29, poussé sur main + prod à la demande de l'utilisateur)
 
 - **Vérifié en ligne** vers 08:35 :

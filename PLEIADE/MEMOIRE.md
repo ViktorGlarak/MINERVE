@@ -3,6 +3,7 @@
 > **Source de vérité durable de l'agent PLEIADE.** Créée le **2026-09-11**.
 > ⭐ **RÉFLEXE NON NÉGOCIABLE : CONSULTER cette mémoire AVANT toute intervention · y CONSIGNER APRÈS chaque avancée**, sans attendre de rappel utilisateur.
 > CR daté → `PLEIADE\JOURNAL.md` · règle / capacité durable → **ce fichier**.
+> 🔒 **Sécurité (⭐ 2026-10-01)** : la doctrine, les règles de sécurité décidées et le **plan de durcissement** de la plateforme vivent chez l'agent **CYBERSECU** (`CYBERSECU\MEMOIRE.md`). Le consulter avant toute intervention qui touche l'authentification, les secrets, TLS, VPN, en-têtes, droits ou anonymat, et l'y consigner après.
 
 ---
 
@@ -345,6 +346,14 @@ C'est **la clé de la zone**, injectée par Pléiade dans toutes ses apps.
 - ⚠ Un item de scénario cible **une INSTANCE (`instanceId`), jamais un type de réseau** : *« s'il y a trois YouTube, ce sont trois cibles »*.
 - ⚠ **Un message publié par le scénario doit être strictement indiscernable d'un message tapé par un joueur** : `source = "scenario"` n'apparaît **jamais** côté joueur, seulement en supervision.
 
+### 5. ⭐ Lien admin ↔ MELMIL (2026-10-02, avis DESIGNER n°28)
+- **Un scénario de l'admin est rattaché à un incident MELMIL** : `Scenario.incidentId` contient l'identifiant interne de l'incident, qui survit au recodage et à l'alignement JEMM ; `incidentCode` n'en est qu'une copie.
+  - L'incident est **obligatoire** à la création, sauf dans une zone sans MELMIL.
+  - Les anciens scénarios dont le nom porte un code connu sont rattachés automatiquement.
+- **Routes de service** (clé de la zone) : MELMIL `GET /api/service/incidents` (liste **anonyme**) ; admin `GET /api/service/scenarios`.
+- **Découverte** : chacune trouve l'autre par son `appType` (« melmil », « admin »). En local : `ADMIN_DEV_INSTANCES` et `MELMIL_DEV_ADMIN_URL`.
+- **Côté MELMIL** : « ▶ n » sur la carte et bloc « Scénarios (admin) » dans la fiche. « Créer un scénario pour cet incident » ouvre `admin/scenarios?nouveau=<id|code>`.
+
 ### ⭐ Le démantèlement de l'admin embarquée — à connaître pour ne pas chercher au mauvais endroit
 L'administration et le cockpit vivaient **dans** mastorion (`apps/admin`, `apps/cockpit`). Ils en ont été **retirés** (commits « Retirer l'administration et le cockpit embarqués », « Retirer la gestion des comptes… ») et répartis :
 
@@ -634,8 +643,9 @@ Depuis le `frontendUrl` figé (2026-09-13), Keycloak annonce l'émetteur public
 quelle que soit l'URL appelée. Une app Auth.js qui déclare l'émetteur interne
 échoue à la découverte (« issuer mismatch ») → page « problem with the server
 configuration » au clic « se connecter ». Motif correct : `messagerie`,
-`press`, `admin`, `leac`, `eho` (corrigé `1e44e2c`). ⚠ `app-cockpit` porte
-encore l'erreur. Diagnostic sans logs : `/api/auth/csrf` OK + signin →
+`press`, `admin`, `leac`, `eho` (corrigé `1e44e2c`). ⚠ `app-cockpit` portait
+encore l'erreur : corrigé le 2026-10-01 (`ddc73b7`), après avoir été constaté
+en salle. Leçon : un défaut connu se corrige, il ne reste pas noté en règle. Diagnostic sans logs : `/api/auth/csrf` OK + signin →
 `error=Configuration` = émetteur ; csrf KO = `trustHost`/`AUTH_SECRET`
 (image ancienne).
 
@@ -644,13 +654,31 @@ encore l'erreur. Diagnostic sans logs : `/api/auth/csrf` OK + signin →
 Pas du travail de Xavier (lock resynchronisé par npm, Tailwind non minifié
 écrit par `npm run dev`). Se jettent (`git checkout --`) avant un pull.
 
-## Règle — Créer/démarrer une instance ne télécharge PAS l'image *(2026-09-21)*
+## Règle — Les volumes « ./… » d'une instance sont préparés INSCRIPTIBLES avant le démarrage *(2026-10-01, `pleiade-platform` `b946897`)*
 
-`addInstance`/`deployInstance` = `up -d` sur le `latest` déjà dans le magasin
-podman du serveur (souvent ancien). Seul **« Déployer » la zone** (`deployZone`)
-fait `pull` puis `up -d`. La promotion épingle un tag de commit (force le pull)
-mais ne vise que les zones `zone_type = prod` (`orion26`, `cecpc-div-eval` ;
-pas `delattre-26`). Symptôme : instance neuve, pages récentes en 404.
+Un volume de catalogue `./data/x:/data/x` est un montage de dossier du serveur, qui **masque** le dossier préparé dans l'image. Créé par le moteur de conteneurs au premier démarrage, il appartenait à l'utilisateur du serveur. Les apps tournent sous `nextjs` : écriture impossible (`EACCES`). MELMIL refusait ainsi tout dépôt de fichier.
+
+`preparerVolumes()` crée ces dossiers et les passe en 0777, dans `deployInstance` et `deployZone`.
+
+**Diagnostic sans compte** : `/api/sante` de MELMIL renvoie `medias: "ok"` ou `"ecriture impossible (CODE)"`.
+
+## Règle — Démarrer une instance TIRE l'image d'abord *(constaté le 2026-09-21, ✅ corrigé le 2026-10-01, `pleiade-platform` `f020b4e`)*
+
+**Avant** : `deployInstance` faisait `up -d` seul, sur le `latest` déjà présent dans
+le magasin podman du serveur (souvent ancien). Seul **« Déployer » la zone**
+(`deployZone`) faisait `pull` puis `up -d`. La promotion épingle un tag de commit,
+ce qui force le pull, mais ne vise que les zones `zone_type = prod` (`orion26`,
+`cecpc-div-eval` ; pas `delattre-26`).
+Symptôme : une instance neuve naît en retard (presse sans « maquettes existantes »,
+pages récentes en 404). **Revu le 2026-10-01 avec `tv4-international` sur DE LATTRE.**
+
+**Maintenant** : `deployInstance` fait `pull` (5 min au plus) puis `up -d`. Si le
+registre est injoignable, l'instance démarre sur l'image locale et la sortie le dit.
+
+⚠ **Leçon** : le 21/09, ce défaut a été **consigné comme règle mais pas corrigé** ;
+l'utilisateur l'a cru réglé. Un défaut qui touche l'utilisateur se **corrige**, ou
+se **signale explicitement comme non corrigé**. Il ne doit pas rester décrit dans
+la mémoire comme une simple règle.
 
 ## Règle — Groupes de travail eho = groupes Pléiade de racine *(2026-09-21, `69260ef`)*
 
@@ -663,6 +691,11 @@ Un compte de zone ne poste **jamais en son nom** sur `app-social` : il choisit u
 avatar eho (« Au nom de », `X-Act-As`). Deux verrous, tous deux côté serveur :
 1. **rôle `animateur`** sur l'instance social (bouclier Pléiade, par groupe) — sans lui, lecture seule, panneau invisible ;
 2. **référentiel des camps dans eho** (écran Groupes → « Camps ») : groupe d'avatars → groupes Pléiade autorisés. Rien de coché = personne, sauf masteradmin.
+   - ⭐ **« Autres comptes »** *(2026-09-30, eho `c0a3ea2`)* :
+     - Un groupe d'avatars **avec** des camps cochés est **RÉSERVÉ** à ces camps.
+     - Tous les autres avatars forment les **« autres comptes »** : un ensemble **calculé**, jamais stocké, où un nouvel avatar entre tout seul.
+     - Y ont droit **d'office** les camps cochés sur au moins un groupe réservé, et **en plus** ceux ajoutés dans l'encart « Autres comptes » de l'écran Groupes (joueurs sans camp propre, par exemple GREYCELL).
+     - **Pourquoi** : sans cela, à DE LATTRE 26, ≈ 500 avatars sur 3 900 étaient incarnables ; le reste était rangé dans des groupes archivés ou dans aucun groupe.
 Chaîne : social → eho `/api/impersonation` → Pléiade `resoudre-identite` (groupes + masteradmin). Fail closed si un maillon manque. Les « camps » sont **les mêmes groupes Pléiade** que nos groupes de travail (`69260ef`). Détail : JOURNAL 2026-09-21 (suite 2).
 
 ## Règle — Se déconnecter = fermer AUSSI la session Keycloak *(2026-09-21, toutes les apps Next.js)*
@@ -677,6 +710,33 @@ Fermer le royaume de ZONE déconnecte de toutes les apps de la zone (voulu, post
 la session d'organisateur (royaume `cecpc`), elle, survit (règle suivante).
 Test de référence : `e2e_deconnexion.cjs` (Playwright, Keycloak local, 10 contrôles).
 
+
+## ⭐ Rôles d'app : créés automatiquement (règle du 2026-09-30, `b85e2e2`)
+
+- Un rôle **ajouté au catalogue** existe dans Keycloak dès le démarrage de la plateforme. Il est aussi créé au moment où on le coche sur le bouclier. La création ne retire jamais rien.
+- ⚠ **Avant ce correctif**, cocher un rôle absent de Keycloak ne faisait **rien**, en silence. Un rôle coché avant le 30/09 à 10:29 est donc à recocher, s'il était nouveau.
+- `synchroniser-roles` reste le geste explicite de **ménage** : il retire les rôles disparus du catalogue.
+
+## ⭐ Identifiants de zone sans adresse mail (demande utilisateur du 2026-09-29, analyse, rien de modifié)
+
+L'utilisateur veut des identifiants simples, du type `gw01`, sans adresse mail ni nom/prénom, pour des raisons de sécurité.
+- **Les apps suivent le `sub` Keycloak**, jamais l'adresse (eho, admin, presse, messagerie, cockpit, MELMIL, LEAC, social) : un compte sans adresse fonctionne. Le social prend `preferred_username` quand l'adresse manque.
+- ⚠ **Supprimer puis recréer = nouveau `sub`**. Ce qui était rattaché à l'ancien est perdu : auteur d'articles et de messages, contrôleurs et administrateurs LEAC, animateur du social (`users.keycloak_id`), créateur d'un scénario admin, comptes liés aux personnes dans MELMIL. En revanche, le « au nom de » vient des **groupes** Keycloak (camps), recalculés à chaque fois.
+- ⚠ **Blocages relevés** (`pleiade-platform/src/keycloak-manager.ts`) :
+  - `REALM_SETTINGS.registrationEmailAsUsername: true` n'est posé **qu'à la création de la zone**, et non réimposé (correction de l'analyse du 28/09) : les zones anciennes le gardent ;
+  - `createUser` exigeait `email`.
+- ✅ **Corrigé et EN LIGNE le 2026-09-29** (`56f0576`, poussé sur `main` à la demande de l'utilisateur, pendant la phase de planification de l'exercice) :
+  - vérifié par `https://pleiade.cecpc.internal/api/version` → `commit 56f0576`, build 15:17Z ;
+  - ⚠ `app.js` et les pages redirigent vers la connexion (302) : ils ne prouvent rien. **Seul `/api/version` fait foi.**
+  - identifiant requis, adresse facultative, import et export avec une colonne « Identifiant » ;
+  - bouton crayon **« Modifier l'identifiant »** (`PATCH /api/zones/:zone/users/:id`) qui **garde le `sub`**, avec une option pour retirer adresse, prénom et nom ;
+  - `ensureIdentifiantsLibres(zone)` corrige la zone au moment de créer ou de renommer, sans toucher aux autres réglages.
+- ⭐ **Keycloak 26, constaté sur un vrai conteneur** :
+  1. une zone « adresse = identifiant » **refuse** un compte sans adresse (`error-user-attribute-required`) ;
+  2. l'identifiant est en **lecture seule, admin compris**, tant que `editUsernameAllowed` est faux : on l'ouvre le temps du renommage, puis on le referme ;
+  3. un fournisseur d'identité exige des adresses en HTTPS.
+  - Essai rejouable : `scripts/essai-identifiants.mts` (Keycloak jetable sur le port 8181).
+- **Xavier et Thomas** entrent par le bouton « cecpc » (royaume `cecpc`) : leurs comptes vivent hors des zones. Il ne faut ni toucher au fournisseur `cecpc` ni au groupe maître, ni supprimer leur compte miroir dans la zone (il serait recréé avec un nouveau `sub`).
 
 ## Règle — Le bouton « cecpc » d'une zone vient du ROYAUME, pas des apps *(2026-09-21)*
 
@@ -821,7 +881,14 @@ n'entre pas dans la fiche.
   - `1_AVATARS.md` : par pays puis catégorie, avec @compte, nom, camp, activité, langue, groupes visibles et biographie courte, complète ou absente. Le périmètre est au choix : groupes visibles (défaut), groupes choisis, ou tous ;
   - `2_MODE_EMPLOI.md` : colonnes, apps publiables avec leurs champs annoncés, groupes visibles, règles MINERVE (langue, GET, camp…) et un exemple CSV avec de vrais @comptes ;
   - `3_GUIDE.md` : l'espace permanent, les consignes à coller, la fiche de contexte, la méthode trame → lignes → auto-vérification, la vérification avant import ;
-  - `4_MODELE_VIDE.xlsx`.
+  - `4_MODELE_VIDE.xlsx` ;
+  - ⭐ `5_MODELE_DE_PROMPT.txt` *(2026-09-30)* : un prompt **COURT** à copier-coller. Il dit à l'IA de **lire les pièces jointes**, puis fixe scénario, temps (pré-rempli), rythme, avatars et la règle de la presse. **Consigne de l'utilisateur : ne pas y recopier le contexte du kit.**
+    - La **rédaction de chaque média** (demandée au site par `checkAccounts`, par paquets de 150) est dans `2_MODE_EMPLOI.md`.
+    - Règle : un article est signé par un journaliste **de ce média**.
+    - ⭐ **Aucun ne convient** *(décision utilisateur, 2026-09-30)* : on n'invente **jamais** d'avatar. L'IA **recrute** un avatar existant du modèle SKOLKAN **SANS biographie**, pour que rien ne contredise son nouveau métier.
+      - Elle le prend dans `6_AVATARS_SANS_BIO.md` : **tous** les avatars de l'EHO sans fiche bio, hors rédactions, rangés par pays, avec langue et camp.
+      - Elle le choisit du même pays et de la même langue que le média, et le déclare dans l'onglet `JOURNALISTES_A_AJOUTER` (username, media, fonction, biographie_proposee).
+      - Le traitant l'ajoute à la rédaction du média, et peut reprendre la biographie proposée, **avant l'import**.
 - ⭐ **`lib/format-scenario.ts` = LA définition du fichier**, partagée par l'import, l'export, la fenêtre d'import et le kit. Ne jamais recopier la liste des colonnes ailleurs.
 - **Import** :
   - il lit `title`, `target` et `champ:<clé>` (case à cocher : oui/non) et accepte le **CSV** (séparateur deviné) ;
@@ -901,4 +968,40 @@ n'entre pas dans la fiche.
 - ✅ **2026-09-28 (soir) — Organigramme : placement selon les liens** (commit `04b3a15`, branche `equipe-placement`, `2026-09-28.4`, ✅ **en ligne le 2026-09-28**) : `ordonnerOrganigramme` (pur, testé, déterministe) forme une chaîne de colonnes par famille de groupes reliés ; dans un groupe, le sous-groupe relié est placé du côté de son partenaire. Les cartes n'écrivent plus « Aucune personne ». Avis DESIGNER n°12. Piste : un ordre manuel qui primerait.
 - ✅ **2026-09-28 (soir) — « Confié à » par GROUPES** (commit `a65d6f2`, branche `confie-par-groupes`, `2026-09-28.5`, ✅ **en ligne le 2026-09-28**) — ⭐ **règle de l'utilisateur** : l'**event** est confié à un groupe de premier niveau (`EventAtelier.groupes`), la **storyline** à un sous-groupe du groupe de son event (`StorylineAtelier.groupes`), l'**incident** à des personnes de ce sous-groupe (`IncidentAtelier.confieA`). **Liste vide = tout le sous-groupe gère l'incident.** Logique pure dans `equipe.ts` (`choixPour*`, `gestionnairesDeLIncident`, `confieA`). L'ancien `responsables` (par personnes) est gardé et affiché avec « Effacer ». Avis DESIGNER n°13. 216 tests.
 - ✅ **2026-09-28 (soir) — Event : « Cellule » = la sélection des groupes** (commit `1e2adf8`, branche `cellule-groupes`, `2026-09-28.6`, ✅ **en ligne le 2026-09-28**) — ⭐ **décision utilisateur** : fusion de la « Cellule » (texte libre) et du « Confié à (groupe) », une seule rubrique « Cellule » à pastilles, parce que c'est plus parlant. `celluleDeLEvent` affiche les groupes cochés, sinon l'ancien texte (planche, en-têtes) ; le texte libre ne crée plus de groupe fantôme ; à l'import JEMM, le groupe du même nom que l'event est coché d'office. Storylines et incidents inchangés. 220 tests.
+- ⛔ **2026-10-01 — « CONFIÉ À » SUPPRIMÉ** (décision de l'utilisateur ; les deux entrées ci-dessus sont **caduques**). Commits `c44ffbc` + `4a1af66`, branche `retrait-confie-a`, `2026-10-01.9`, ✅ **en ligne le 2026-10-01 à 16h31**.
+  - Ce qui disparaît :
+    - **Event** : plus de « Cellule » ;
+    - **Storyline** : plus de « Confiée à » ;
+    - **Incident** : plus de « Confié à », ni dans la fiche ni en colonne du tableau ;
+    - **Équipe** : plus de rubriques « Confié » (fiche personne) ni « Events portés » (fiche groupe) ;
+    - l'import JEMM ne coche plus de groupe ;
+    - la planche ne reçoit plus de cellule venue de l'atelier.
+  - **Nommage** : la cellule (GYC / FOR) n'est plus déduite de l'event. On prend celle de la demande, sinon celle de la personne (Équipe), sinon on la choisit à l'export.
+  - ⭐ **CONSERVÉS, car essentiels pour l'utilisateur** : les **« ETIM concernées »** et le système de **comptes rendus** (un compte rendu par ETIM, par jour et par type).
+  - Les anciennes données (`groupes`, `confieA`, `responsables`) restent relues et conservées, mais sont sans effet.
+  - **Ne pas réintroduire** une attribution sans demande explicite.
+- ⛔🔒 **2026-10-01 — ANONYMAT DES COMPTES dans MELMIL** (décision de l'utilisateur pour la sécurité, option A « couper le lien » ; commit `be43962`, branche `anonymat-comptes`, `2026-10-01.10`, ✅ **en ligne le 2026-10-01 à 18h00**).
+  - **Règle durable** : **aucun lien entre un compte de la zone (gc01…) et une personne (grade et nom) ne doit être stocké ni affiché dans MELMIL**, ni dans l'Équipe, ni dans les demandes, ni ailleurs. Les comptes ont été anonymisés exprès.
+  - **Équipe** : plus de rattachement de compte, ni « C'est moi », ni liste des comptes de la zone. Les noms, grades et groupes restent.
+  - **Demandes de produit** : le demandeur (grade et nom) est **choisi à l'envoi**, dans la liste de l'Équipe ou en saisie libre. Ce choix est mémorisé **dans le navigateur seulement** (`localStorage` `melmil_demandeur`). La demande garde le nom et la cellule, **jamais le compte**.
+  - **Cellule d'un compte, sans nom** : `Atelier.cellulesDesComptes` associe le `sub` Keycloak à GREYCELL ou FORAD. Elle est apprise à l'envoi d'une demande et au choix de la cellule au nommage, et sert au nommage des fichiers et au signal.
+  - **Signal** : « les demandes de **votre cellule** ont avancé », et non plus « vos demandes ».
+  - **Purge** : `contientLiensComptes`. La relecture efface `compte` et `compteId` des fiches et des demandes, et `lireAtelier` réécrit la base aussitôt, avec `majPar` « purge anonymat des comptes ». Tout le reste est conservé (tests « anonymat »).
+  - **Limites dites à l'utilisateur** : les traces « créé par gc01 » restent, mais sans nom réel ; un utilisateur connecté voit qui a fait une demande si le nom est saisi dedans.
+- ✅ **2026-10-01 — Comptes rendus : supprimer, et plusieurs exemplaires** (`507164c`, `2026-10-01.12`, en ligne à 18h26).
+  - Plusieurs exemplaires d'un même type, pour la même ETIM et le même jour, sont possibles avec « +1 » pour PSYREP, CIMICREP et SCAMR. Ils sont numérotés n°1, n°2…
+  - « .docx (n) » produit **un seul fichier Word, un exemplaire par page** (`exporterDocxPlusieurs`). Choix de l'utilisateur : du Word et non du PDF ; le PDF se fait depuis Word.
+  - Un compte rendu se supprime depuis sa fiche, avec une confirmation qui cite les incidents qui le partagent.
+- ✅ **2026-10-02 — Navigation de MELMIL** (`b3b74af`, `2026-10-02.2`, en ligne à 08h45).
+  - **L'accueil ouvre la planification**, et la planification ouvre **toujours la planche de préparation**, qui est la vue de travail principale.
+  - La planche JEMM est à `/jemm`, à un clic dans le sélecteur.
+  - Tout onglet s'ouvre par lien direct `/preparation?onglet=…` (`planche`, `gt1`, `gt2`, `gt3`, `ecarts`, `demandes`, `equipe`, `journal`, `reglages`).
+- ✅ **2026-10-02 — Pièces jointes d'un incident = fichiers + comptes rendus** (`189f4a3`).
+  - La colonne du tableau des incidents (en-tête agrafe) et l'agrafe en bas à droite des cartes de la planche comptent les deux. Calcul unique : `piecesDeLIncident`.
+- ✅ **2026-10-01 — Alignement JEMM sans perte** (`d9d5187`, `2026-10-01.13`, en ligne à 18h55).
+  - **Sauvegarde et restauration** de l'atelier dans Réglages (JSON `melmil-sauvegarde-atelier`). C'est le seul retour en arrière : à faire **avant** chaque alignement.
+  - Option « garder le jour et l'heure de MELMIL » (par défaut JEMM fait foi) ; le bilan liste les dates qui changent ; les suppressions s'affichent en alerte.
+  - **Pièces jointes de l'export** : on choisit le dossier ; chaque pièce va à l'incident du même code si elle n'y est pas déjà, sous un **nom conforme**, avec le NMR inséré, car le serveur impose la règle de nommage.
+  - Ce que JEMM remplace : sujet, description, effet attendu, émetteur, moyen, destinataires, date ; récit, nom et période de storyline ; description d'event. Ce qui reste à MELMIL : effets attendus, QUI / OÙ, coordination et objectifs secondaires de storyline ; ETIM, statut, comptes rendus et pièces jointes des incidents.
+- ✅ **2026-10-01 — Liste des incidents : colonne « Destinataire »** (les ETIM cochées, sorties de la colonne « Sujet » ; `d6c1fe3`, en ligne à 18h09).
 - ⏳ Limites connues : pas de rôle lecture seule ; pas d'exclusivité d'écriture par traitant ; le journal ne garde que 300 gestes ; les storylines versées depuis JEMM n'ont ni effets attendus ni coordination séparés (JEMM les mêle au récit).

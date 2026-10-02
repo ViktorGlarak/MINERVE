@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « exercices ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-24 · 86 notes.
+> Généré le 2026-10-02 · 86 notes.
 
 ## Notes (par tier)
 

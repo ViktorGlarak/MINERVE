@@ -1,5 +1,33 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-02 — Avis n°27 : admin, retrouver ses scénarios dans la masse
+
+- Demande de l'utilisateur : on ne retrouve plus ses scénarios dans l'app-admin. On cherche par incident MELMIL, et les noms commencent en général par le code.
+- Constat : liste plate triée par dernière modification (l'ordre change sans cesse), grandes cartes (environ 5 par écran), aucun regroupement.
+- Proposé : rangement par event › storyline › incident lu dans le nom, une ligne par scénario, recherche qui comprend les codes, affichage mémorisé, modèle de nom à la création.
+- Signalé au passage : le `createdById` aléatoire des scénarios créés avant la correction d'identité.
+- Statut : proposé, en attente de la décision de l'utilisateur. Détail dans `AVIS\2026-10-02_ADMIN_RANGER_SCENARIOS\AVIS.md`.
+
+## 2026-10-01 — Avis n°19 : MELMIL, demande de produit sans incident + cellule demandeuse
+
+- **Demande** : la FORAD ne crée pas d'incident. Il faut un bouton dans l'onglet « Demandes de produit », et chaque demande doit indiquer GREY CELL ou FORAD. DESIGNER a été associé à la mise en place.
+- **Avis** : `AVIS\2026-10-01_MELMIL_DEMANDE_SANS_INCIDENT\AVIS.md`, R1 à R6. Les deux décisions clés : une **cellule obligatoire pré-choisie, en choix visibles** ; une **demande directe qui porte elle-même ses fichiers**.
+- **Appliqué** dans `app-melmil` `533e548` (`2026-10-01.1`). Vérifié avec Playwright en local.
+
+## 2026-10-01 — Avis n°18 : portail de zone, page « Presse », la carte entière ouvre le site
+
+- **Demande** : supprimer le bouton « Ouvrir », faire ouvrir le site par un clic sur la carte, garder « Espace de rédaction ».
+- **Avis** : `AVIS\2026-10-01_PORTAIL_CARTES_PRESSE\AVIS.md`, R1 à R7. Le point clé est le **lien étiré** : il ne faut jamais mettre un lien dans un lien, et le survol du bouton secondaire ne doit pas animer la carte.
+- **Appliqué** dans `pleiade-platform` `4995efc` (`portail.ts`, `pageChoix`). Vérifié avec Playwright : zones de clic, survols, focus, téléphone.
+- **Leçon technique** : une capture prise juste après un `mouse.move` saisit la transition en cours. Attendre ~400 ms avant de capturer un état de survol.
+
+## 2026-09-30 — Avis n°15 : MELMIL, médias des incidents et demandes de produit complexe
+
+- **Demande** : un bouton « Demande de produit complexe » sur chaque incident (FORAD, GreyCell vers la cellule Prod), et les fichiers de l'incident visibles, avec un import. Le formulaire InfoG d'ORION 26 est à remanier.
+- En cours de route, l'utilisateur a renoncé à la fiche Word : « un seul outil ». Elle a été retirée.
+- **Avis** : `AVIS\2026-09-30_MELMIL_PRODUITS\AVIS.md` (R1–R8), captures `captures\`.
+- **Appliqué** : `app-melmil` `e5fcf86`, et le catalogue de `pleiade-platform` `7de590f`.
+
 ## 2026-09-29 — Avis n°14 : maquettes existantes d'app-press (TM, HEX, TV4, BC1)
 
 - **Demande** : optimiser le rendu et l'architecture des 4 maquettes de médias fictifs, en respectant les chartes des pays (Today Mercure = média d'État « russe », en anglais). Les 6 reprises de sites réels sont exclues.

@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « mastaurige ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-24 · 54 notes.
+> Généré le 2026-10-02 · 54 notes.
 
 ## Notes (par tier)
 

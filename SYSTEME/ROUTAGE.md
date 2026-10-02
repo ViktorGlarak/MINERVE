@@ -134,6 +134,14 @@ La demande concerne...
 │       ⚠ RÈGLE : il CONTRIBUE, il ne tranche pas — besoin utilisateur, chartes des médias fictifs, modèles officiels (CR, ordres) et choix PLEIADE/ARCHITECTE priment ; il ne code pas
 │       Collabore : PLEIADE, MASTORION, LEAC (apps), MASTAURIGE (chartes d'exercice), ARCHITECTE (mise en œuvre), IMAGIER (visuels)
 │
+├── une question de SÉCURITÉ / CYBERSÉCURITÉ sur PLÉIADE, ou un document de sécurité à ingérer ?  ⭐ créé 2026-10-01
+│   └── CYBERSECU (claude-opus-4-7) → Référent cybersécurité de PLÉIADE
+│       Cas : "est-ce sûr ?", "comment protéger X ?", "quels en-têtes / quel TLS / quelle taille de clé ?", "ce secret est-il exposé ?", "audit de sécurité d'une app", "anonymat des comptes", "ingère ce guide ANSSI"
+│       Fichiers : CYBERSECU\MEMOIRE.md (doctrine sourcée + posture + règles décidées + plan) · CYBERSECU\JOURNAL.md · CYBERSECU\REFERENCES\REF-NN_*.md
+│       ⭐ RÈGLE (demandée par l'utilisateur) : le CONSULTER dès qu'un sujet touche la sécurité, et le METTRE À JOUR à chaque décision ou correction de sécurité
+│       ⚠ Il conseille et vérifie, il ne pousse rien : mise en œuvre par PLEIADE / ARCHITECTE, tests en local, accord de l'utilisateur
+│       Collabore : PLEIADE (plateforme), ARCHITECTE (code), MASTORION (réseau social), LEAC (tablette hors ligne), DESIGNER (écrans)
+│
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
         Cas : "comment structurer une synchromatrice ?", "quel effet ILI pour cet inject ?", "la séquence est-elle cohérente ?", "calibrage réalisme opération d'influence"

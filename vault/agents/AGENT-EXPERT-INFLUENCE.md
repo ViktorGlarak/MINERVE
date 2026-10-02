@@ -7,8 +7,8 @@ source: ../../EXPERT_INFLUENCE/MEMOIRE.md
 linkedTo: [DECISION-010, LESSON-022]
 relevantFor: [agents]
 tier: 2
-created: 2026-09-24
-updated: 2026-09-24
+created: 2026-10-02
+updated: 2026-10-02
 ---
 
 # 🤖 EXPERT_INFLUENCE — Canvas agent

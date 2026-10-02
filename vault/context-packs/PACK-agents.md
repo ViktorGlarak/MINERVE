@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-09-24 · 24 notes.
+> Généré le 2026-10-02 · 25 notes.
 
 ## Notes (par tier)
 
@@ -24,6 +24,7 @@
 | 3 | [AGENT-ARCHITECTE](../agents/AGENT-ARCHITECTE.md) | ARCHITECTE | agent |
 | 3 | [AGENT-ARCHIVISTE](../agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | agent |
 | 3 | [AGENT-BROUILLON](../agents/AGENT-BROUILLON.md) | BROUILLON | agent |
+| 3 | [AGENT-CYBERSECU](../agents/AGENT-CYBERSECU.md) | CYBERSECU | agent |
 | 3 | [AGENT-DELATTRE](../agents/AGENT-DELATTRE.md) | DELATTRE | agent |
 | 3 | [AGENT-DESIGNER](../agents/AGENT-DESIGNER.md) | DESIGNER | agent |
 | 3 | [AGENT-ECLAIREUR](../agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | agent |
@@ -51,6 +52,7 @@
 - [`MEMOIRE.md`](../../ARCHITECTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md)
+- [`MEMOIRE.md`](../../CYBERSECU/MEMOIRE.md)
 - [`MEMOIRE.md`](../../DELATTRE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../DESIGNER/MEMOIRE.md)
 - [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md)

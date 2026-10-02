@@ -1,0 +1,212 @@
+# MÉMOIRE — CYBERSECU
+
+> **Agent n°25 du système MINERVE**, créé le **2026-10-01** à la demande de l'utilisateur.
+> Rôle : **référent cybersécurité de PLÉIADE**.
+> ⭐ **RÉFLEXE IMPOSÉ PAR L'UTILISATEUR : CONSULTER cette mémoire dès qu'un sujet touche la sécurité · la METTRE À JOUR à chaque décision, correction ou incident de sécurité** (compte rendu daté dans `JOURNAL.md`).
+> ⚠ Ne jamais recopier ici la valeur d'un secret, ni une adresse IP, un port ou un compte d'administration du serveur.
+
+---
+
+## 1. Mission et limites (décision utilisateur, 2026-10-01)
+
+- **Maîtriser la cybersécurité de PLÉIADE** : la doctrine (les documents fournis, ingérés un par un), le terrain (ce que fait réellement la plateforme), les règles déjà décidées et le plan de durcissement.
+- **Contenir tout ce que l'assistant sait de la sécurité de PLÉIADE**, et ses mises à jour futures.
+- **Conseiller et vérifier** : il ne pousse rien. La mise en œuvre passe par PLEIADE ou ARCHITECTE, **testée en local** (image démarrée, redémarrage, scénario réel), avec l'**accord explicite** de l'utilisateur pour chaque mise en ligne.
+- **Proportionné** : PLÉIADE est une plateforme d'**entraînement** sur un réseau d'exercice derrière VPN, pas un système homologué ou classifié. On classe les mesures par gain réel ; on ne bloque pas un exercice pour un risque théorique, mais on **signale toujours un risque élevé**.
+- Les sections « Application à PLÉIADE » des fiches sont des **transpositions** faites par l'agent : ce ne sont pas des avis de l'ANSSI. Aucun des guides ne traite les conteneurs ni l'OIDC en tant que tels.
+
+## 2. Terrain : la posture de PLÉIADE (inventaire du 2026-10-01, code + mémoires, sans le serveur)
+
+> Constat fait **dans le code** des 13 dépôts de `C:\CECPC\pleiade\` et dans les mémoires. Le **serveur réel n'a pas été inspecté** : tout ce qui dépend de lui est « à vérifier » (§7). La copie locale de `pleiade-infra` est en retard sur le serveur (domaine `mastorion.internal`).
+
+### 2.1 Architecture de confiance
+- **Une zone d'exercice = un domaine** `<zone>.pleiade.internal`, une **clé de service de zone** (`X-API-Key`, 32 octets aléatoires) injectée dans toutes ses apps, des **instances d'apps** en conteneurs Podman.
+- **Accès réseau** : Traefik n'écoute que sur l'**interface du VPN** Pritunl. Le portail de zone est **public** par décision ; c'est chaque app qui refuse.
+- **Identité** : Keycloak (royaume par zone), comptes de zone **anonymes** (gc01…), « au nom de » des avatars contrôlé par eho (camps) et l'orchestrateur.
+- **TLS** : CA interne « Mastorion Internal CA », ECDSA P-256 / SHA-256, valable jusqu'en 2036, **sans contrainte de nom**. Certificats de zone en P-256, valables 10 ans. Traefik en TLS ≥ 1.2, redirection 80 → 443, aucune suite imposée.
+- **Déploiement** : runner auto-hébergé ; une app se déploie depuis `prod`, l'orchestrateur `pleiade-platform` depuis `main`.
+
+### 2.2 Ce qui est solide
+- Toutes les routes API des apps Next.js passent par un garde : `exiger*`, `access()`, `requireBearer`, `checkServiceKey`, `habilitation`. Les exceptions publiques sont voulues : santé, portraits eho, médias.
+- Les comptes de développement sont neutralisés quand `NODE_ENV=production`, dans toutes les apps.
+- La clé de zone est comparée en temps constant dans l'orchestrateur.
+- La déconnexion ferme aussi la session Keycloak de la zone.
+- L'émetteur Keycloak public est appliqué partout sauf dans `app-webserver`.
+- Les images eho et LEAC démarrent en root uniquement pour le `chown`, puis passent à `nextjs`.
+- Les secrets d'instance sont générés (`{auto}`, 32 octets).
+- Les journaux d'audit existent dans social, LEAC, messagerie et MELMIL.
+- Sauvegarde quotidienne, avec un filet de sécurité avant restauration.
+
+### 2.3 Écarts relevés dans le code
+→ Voir le plan de durcissement (§5), où chaque écart a son niveau de risque, son fichier et sa référence ANSSI.
+
+## 3. ⭐ Doctrine (synthèse des 11 guides ANSSI ingérés)
+
+> Chaque règle renvoie à sa fiche (`REF-NN`, recommandation d'origine). Détail exhaustif dans `REFERENCES\`.
+
+### 3.1 Gouvernance et hygiène
+1. **Connaître son système** : inventaire des actifs, des comptes à privilèges, des flux (matrice), des dépendances (SBOM par app et par image) — REF-01 M1-M4, REF-04 4.2.2, REF-05 R17.
+2. **Comptes nominatifs et séparés** ; un compte d'administration ne sert qu'à administrer. Les comptes de zone anonymes de PLÉIADE sont un **écart assumé**, à compenser : correspondance compte ↔ personne tenue **hors ligne**, administrateurs nominatifs, connexions journalisées — REF-01 M8, REF-02 B6.
+3. **Authentification forte pour tous les privilèges** (console Keycloak, admin de zone, GitHub, Pritunl, serveur), idéalement par clé physique — REF-01 M13, REF-05 R29, REF-02 G1.
+4. **Aucun mot de passe par défaut, aucun secret dans Git ni dans les images** ; secrets aléatoires, distincts par zone et par app, avec rotation — REF-01 M11-M12, REF-06 RègleTailleCléSym.
+5. **Correctifs dans le mois**, veille CERT-FR, Dependabot, versions harmonisées, fins de support suivies — REF-01 M34-M35, REF-04 3.12.
+6. **Journaliser** les connexions et actions sensibles (Traefik, Keycloak, apps), horloge commune (NTP), conservation ≥ 1 an, copie hors du serveur — REF-01 M36, REF-02 G2, REF-10.
+7. **Sauvegarder** base, volumes, royaumes Keycloak et **clé de la CA**, avec une copie **hors ligne**, et **tester la restauration** au moins une fois par an — REF-01 M37, REF-05 R49-R50.
+
+### 3.2 Architecture : zero trust et défense en profondeur
+8. **Plusieurs barrières indépendantes** : la chute d'une seule ne doit pas suffire — REF-02 P1-P6.
+9. **Pas de confiance implicite liée au réseau** : être sur le VPN ne donne aucun droit ; chaque app authentifie et autorise — REF-03 ZT-01 à ZT-10.
+10. **Chaîne d'administration distincte** de celle des utilisateurs : SSH, console Keycloak, admin, Traefik, Grafana, registre uniquement par un chemin d'administration, jamais exposés aux joueurs — REF-03 ZT-40/ZT-53, REF-05 R21.
+11. **Annuaire d'administration séparé** des annuaires de zone (royaume `master` à part, sans chemin d'élévation depuis un gc01) — REF-05 R21.
+12. **Un poste non maîtrisé n'administre jamais** la plateforme, même s'il paraît sain — REF-03 ZT-31/37/38, REF-04.
+13. **Cloisonner** : une zone = un segment ; pare-feu de l'hôte qui refuse tout par défaut ; MariaDB jamais exposée — REF-01 M19/M23/M28, REF-05 R17/R45.
+14. **Savoir révoquer** vite : désactiver un compte et couper ses sessions dans un délai connu ; rotation testée des clés et certificats — REF-03 ZT-20/ZT-21.
+15. **Le partage du noyau** entre zones (conteneurs) cloisonne moins qu'une VM : à justifier dans une analyse de risques — REF-03, REF-04.
+
+### 3.3 Cryptographie
+16. **RSA et DH ≥ 2048 bits jusqu'à fin 2030, ≥ 3072 à partir de 2031** ; courbes ≥ 256 bits (P-256 conforme) — REF-06.
+17. **Symétrique ≥ 128 bits** (192 à 256 pour le post-quantique) ; AES-GCM sans réutiliser d'IV ; **jamais** de mode sans intégrité, de bloc de 64 bits (3DES, Blowfish) ni de SHA-1 — REF-06.
+18. **Secrets d'app** (`AUTH_SECRET`, JWT, clés d'API) : ≥ 128 bits d'aléa cryptographique ; HMAC-SHA-256 conforme ; **une clé pré-partagée ne se partage qu'entre deux entités** — REF-06 Annexe A.4.1.
+19. **Signatures** : préférer RSA-PSS ou ECDSA à RSA PKCS#1 v1.5 — REF-06 RecoSignature.
+20. **Mots de passe** : empreintes non attaquables hors ligne ; un mot de passe ne se stocke **jamais en clair** — REF-06 RègleSecretFaibleEntropie.
+21. **Post-quantique** : toute donnée qui doit rester confidentielle au-delà du **1er janvier 2030** demande un échange de clés **hybride** (ECDHE + ML-KEM-768). ML-KEM ou ML-DSA seuls ne sont pas conformes. Confidentialité d'abord, authentification ensuite — REF-06, REF-07, REF-08, REF-09.
+22. **TLS 1.3** : hybride ECDHE + ML-KEM dès que la pile le permet (OpenSSL 3.5, Chrome de bureau) ; **0-RTT désactivé** — REF-07. **SSH** : OpenSSH ≥ 10.0 (hybride par défaut) ; pas d'ECDSA pour SSH — REF-08, REF-06. **VPN** : la clé pré-partagée WireGuard n'est qu'une mesure post-quantique temporaire — REF-09.
+
+### 3.4 Applications web (côté navigateur)
+23. **TLS partout**, redirection 80 → 443, **HSTS** `max-age=31536000; includeSubDomains`, mais **seulement après installation de la CA** sur tous les appareils : HSTS interdit de passer outre une erreur de certificat — REF-11 R1-R2.
+24. **CSP par en-tête**, générée par l'app avec un **nonce par requête**, sans `unsafe-inline`, `unsafe-eval` ni `data:`. Ne pas cumuler avec une CSP statique dans Traefik, qui bloquerait Next.js — REF-11 R13-R16.
+25. **Anti-clickjacking** : `frame-ancestors 'none'` et `X-Frame-Options: DENY` par défaut ; seules les origines exactes qui embarquent une app (cockpit, admin) sont autorisées — REF-11 R17-R18, R56.
+26. **Cookies de session** : `HttpOnly`, `Secure`, `SameSite=Lax` au minimum, **sans attribut `Domain`** ; l'app doit savoir qu'elle est en HTTPS derrière Traefik — REF-11 R27-R33, REF-10 R21.
+27. **Un nom d'hôte par app** : toutes les apps d'une zone sont « same-site », donc `SameSite` ne les protège pas les unes des autres — REF-11 R27, R41.
+28. **CSRF** : jeton aléatoire (≥ 128 bits) et contrôle d'`Origin` sur toute route qui modifie, téléversements compris — REF-11 R38, R40, annexe A ; REF-10 R24.
+29. **CORS** : jamais `Access-Control-Allow-Origin: *` ; les clés `X-API-Key` restent de serveur à serveur, jamais dans le code envoyé au navigateur — REF-11 R39-R41.
+30. **XSS** : jamais de contenu saisi injecté sans assainissement (`dangerouslySetInnerHTML`, `innerHTML`, `eval`) ; fichiers téléversés servis avec leur **vrai type**, `nosniff`, et **SVG refusés ou isolés** (CSP `sandbox`) — REF-11 R4-R10, REF-10 R14/R18.
+31. `Referrer-Policy: strict-origin-when-cross-origin` (ou `same-origin`), `Cross-Origin-Opener-Policy: same-origin` — REF-11 R21, R46.
+32. **Stockage local** (LEAC hors ligne) : analyse de risques avant d'y mettre des données sensibles ; chiffrer le stockage de la tablette — REF-11 R23-/R24-, REF-01 M30-M33.
+
+## 4. Règles de sécurité déjà décidées (elles s'appliquent toujours)
+
+| Date | Règle | Source |
+|---|---|---|
+| 2026-06-25 | Interdiction d'accéder à `DOC REF\MERCURE\RENS\01_Fiches bio` sans autorisation | mémoire auto `feedback_dossier_interdit_fiches_bio` |
+| 2026-09-15 | **Ne jamais ouvrir** les profils et certificats VPN Pritunl ; ne jamais tester de mot de passe | `feedback_certificats_vpn_interdits` |
+| 2026-09-16 | Modèle de branches : `prod` déploie devant les participants (`main` pour l'orchestrateur) ; **rien ne se pousse sans demande explicite** pour le dépôt concerné | PLEIADE §2bis, §9 |
+| 2026-09-16 | Les routes eho sont gardées (`exigerLecture` / `exigerEcriture` / clé de zone) ; « une page qui répond 200 à un inconnu est ouverte » | PLEIADE §8bis |
+| 2026-09-14 | Les règles du jeu s'appliquent **côté serveur**, jamais en masquant l'interface | PLEIADE §8bis |
+| 2026-09-16 | **Une clé de service par zone** ; une app compromise ne voit que sa zone | PLEIADE §6bis.3 |
+| 2026-09-17 | **Marquages de diffusion** : vérifier le filigrane réel ; en cas de marquage protecteur, signaler, exclure et laisser l'utilisateur trancher | `feedback_marquages_diffusion` |
+| 2026-09-18 | LEAC : « Keycloak dit qui vous êtes, LEAC dit ce que vous avez le droit d'y faire » ; le dernier administrateur ne se révoque pas | LEAC règle 24 |
+| 2026-09-21 | Émetteur Keycloak = adresse **publique** ; jeton, userinfo et JWKS en interne | PLEIADE |
+| 2026-09-21 | « Au nom de » : rôle `animateur` **et** camp ouvert dans eho ; refus si un maillon manque. « Voir comme » abandonné, jugé trop risqué | PLEIADE |
+| 2026-09-21 | La déconnexion ferme aussi la session Keycloak de la zone | PLEIADE |
+| 2026-09-23 | Le portail de zone est public : **c'est l'app qui refuse**, masquer n'est pas protéger | PLEIADE §6 |
+| 2026-09-23 | MELMIL : rôle `admin` obligatoire pour entrer | PLEIADE §6 |
+| 2026-09-29 | Identifiants de zone courts et anonymes (gw01…) ; les apps suivent le `sub` | PLEIADE |
+| 2026-10-01 | ⛔ **Anonymat des comptes dans MELMIL** : aucun lien compte ↔ personne stocké ni affiché ; purge automatique | PLEIADE, CYBERSECU §8 |
+| 2026-10-01 | **Tester en local avant tout push** (image démarrée, base, volume, `docker restart`, scénario réel) ; vérifier ce que Xavier a pu pousser (`git fetch`) ; jamais de push forcé | mémoire auto `feedback_tester_en_local_avant_push` |
+| 2026-09-21 | Un indicateur d'état mesure exactement ce qu'il rapporte ; un déploiement se vérifie par `/api/sante` | `feedback_indicateur_etat` |
+| permanent | Ne jamais contourner une protection (classificateur, garde-fou, `--accept-data-loss` sans accord, push forcé) | consignes de session |
+| 2026-10-01 | MELMIL : **sauvegarde de l'atelier** avant tout alignement JEMM (seul retour en arrière) ; le fichier contient les noms de l'équipe, à garder en lieu sûr | PLEIADE |
+
+## 5. ⭐ Plan de durcissement (écarts code ↔ doctrine, 2026-10-01)
+
+> Constaté **dans le code** : à confirmer sur le serveur avant toute action. Aucune correction n'est faite tant que l'utilisateur ne l'a pas demandée. Chaque correction suit la règle « tester en local » et s'enregistre ici et au journal.
+
+### Risque ÉLEVÉ
+| # | Écart | Où | Doctrine | Piste |
+|---|---|---|---|---|
+| E1 | **Terminal WebSocket de l'orchestrateur sans authentification** : l'`upgrade` est traité hors d'Express, sans garde ni contrôle d'`Origin`. N'importe quel client VPN, ou une page piégée visitée par un organisateur, pourrait ouvrir un shell dans un conteneur de zone | `pleiade-platform/src/index.ts` (gestionnaire `upgrade`, terminal) | REF-03 ZT-40/53, REF-11 R40 | vérifier le cookie et le rôle dans l'`upgrade`, contrôler `Origin` |
+| E2 | **Jetons locaux forgeables dans app-social** : un jeton HS256 local est accepté en premier, avec un secret par défaut codé en dur et non injecté par le catalogue ; sur ce chemin, « au nom de » ne vérifie pas les camps | `app-social/apps/api/src/auth.ts` | REF-01 M11, REF-06 | supprimer ce chemin (le login local renvoie déjà 410), ou `JWT_SECRET` obligatoire et `{auto}` |
+| E3 | **Mots de passe des comptes de zone stockés en clair** : attribut Keycloak `rawPassword`, table `orch_user_passwords`, et donc les sauvegardes non chiffrées | `pleiade-platform/src/keycloak-manager.ts`, `index.ts`, `sauvegarde-manager.ts` | REF-06 RègleSecretFaibleEntropie | distribuer une seule fois, puis supprimer ou chiffrer ; chiffrer les sauvegardes |
+| E4 | **Registre d'images routé par Traefik sans authentification** : un client VPN pourrait tirer, voire pousser, une image ensuite déployée | `pleiade-infra/docker-compose.infra.yaml` | REF-01 M34, REF-04 3.12 | authentification du registre ou restriction IP ; images épinglées par empreinte |
+| E5 | **Surface root de l'orchestrateur** : socket Podman rootful et dossier `.ssh` d'administration montés ; combiné à E1, l'hôte est en jeu | `pleiade-platform/docker-compose.prod.yml` | REF-05 (hyperviseur ↔ hôte), REF-03 | proxy de socket restreint, dossier SSH dédié et minimal |
+| E6 | **CA interne sans contrainte de nom, installée sur des appareils personnels** : qui détient la clé de la CA peut intercepter n'importe quel domaine sur ces appareils | `pleiade-infra/pki/` | REF-06, REF-03 | nouvelle CA avec `nameConstraints` (`.internal`), durée plus courte, clé hors ligne |
+| E7 | **Secrets versionnés** dans `app-social` (`apps/api/migrator.env`, 3 mots de passe) et une adresse d'administration en dur dans `deploy/` ; même chose dans l'ancêtre `mastorion` | `app-social`, `mastorion` | REF-01 M11 | faire tourner ces secrets, retirer le fichier, purger l'historique (à décider avec Xavier) |
+
+### Risque MOYEN
+| # | Écart | Où | Doctrine |
+|---|---|---|---|
+| M1 | Valeurs par défaut faibles pour le secret de cookie, l'administrateur Keycloak et les mots de passe de base ; aucun refus de démarrer en production avec une valeur par défaut | `pleiade-platform/src/config.ts`, `docker-compose.prod.yml` | REF-01 M11 |
+| M2 | **Aucun en-tête de sécurité global** : ni HSTS, ni CSP, ni `frame-ancestors`, ni `nosniff` (ni middleware Traefik, ni `headers()` Next.js) | `pleiade-infra/traefik`, `next.config.ts` des apps | REF-11 R2, R13-R18 |
+| M3 | **XSS stockée possible par SVG ou HTML téléversé** : médias de la messagerie (publics, sans CSP), portraits eho (SVG acceptés), MELMIL (type MIME repris du client, servi en ligne) | `app-messagerie/.../media/[name]`, `eho/src/lib/uploads.ts`, `app-melmil/.../medias` | REF-11 R6, R10 |
+| M4 | Royaumes Keycloak **sans protection anti-force brute ni politique de mot de passe** ; *password grant* ouvert sur tous les clients | `pleiade-platform/src/keycloak-manager.ts` | REF-01 M10, REF-06 |
+| M5 | Tableau de bord Traefik, Grafana et console Keycloak (royaume master) joignables par tout client VPN | `pleiade-infra` | REF-03 ZT-53, REF-05 R21 |
+| M6 | Dépendances : `next` 16.3.4 (critique GHSA-vcvr-r3jv-pc5j dans `next/og`, non utilisé ; corrigé en 16.3.8) dans eho et LEAC ; `mysql2`/`mariadb` (élevé) ; app-social 17 élevées (`multer` 1.x) | `package-lock.json` | REF-01 M34 |
+| M7 | Volumes passés en **0777** par `preparerVolumes()` | `pleiade-platform/src/zone-manager.ts` | REF-01 M14 |
+| M8 | Conteneurs en root : social, webserver, orchestrateur ; `wordpress:latest` non épinglé | Dockerfiles, catalogue | REF-04, REF-05 |
+| M9 | eho `GET /api/users` renvoie la fiche complète des avatars à tout participant connecté | `eho/src/app/api/users/route.ts` | REF-03 (moindre privilège) |
+| M10 | Service de génération d'images ouvert si sa clé est vide (vide par défaut) | `app-social/generator/app.py` | REF-01 M11 |
+| M11 | Mot de passe root MariaDB passé en ligne de commande lors des sauvegardes (visible par `ps`) | `pleiade-platform/src/sauvegarde-manager.ts` | REF-01 M11 |
+
+### Risque FAIBLE
+- Cookies de l'orchestrateur et du webserver sans `Secure` ; signature de session comparée hors temps constant.
+- `app-webserver` : pas de `state` OIDC, pas de limite de téléversement, émetteur interne, contrôle de chemin sans séparateur.
+- WordPress sans vérification TLS (`no_sslverify`) ; `KC_HOSTNAME_STRICT=false` ; Traefik `sniStrict: false`, sans suites imposées.
+- app-social : route `/api/testfail`, corps JSON de 100 Mo, `db push --accept-data-loss` au démarrage.
+- Garde de l'orchestrateur conditionné à la présence de la configuration Keycloak (fail-open).
+- Données LEAC hors ligne non chiffrées sur les tablettes (IndexedDB).
+- `pleiade-infra` local décalé du serveur : la PKI et le Traefik réels ne sont pas versionnés.
+- La mémoire `PLEIADE\MEMOIRE.md` §3 contient des informations d'accès au serveur (adresse, port SSH, compte) : à sortir des mémoires partagées.
+
+### Post-quantique et cryptographie (échéances)
+- **D'ici 2030** : passer Traefik et SSH à l'échange de clés hybride (REF-07, REF-08) ; vérifier OpenSSH ≥ 10.0 sur le serveur.
+- **Avant 2031** : aucune clé RSA < 3072 bits (la CA actuelle est en P-256 : conforme).
+- **Dès maintenant** : 0-RTT désactivé ; secrets ≥ 128 bits (déjà 256) ; RSA-PSS ou ECDSA pour les jetons Keycloak (à vérifier : RS256 par défaut ?).
+
+## 6. Index des sources
+
+| Réf. | Document | Fichier source | Ingéré |
+|---|---|---|---|
+| REF-01 | Guide d'hygiène informatique, 42 mesures (v2.0, 2017) | `guide_hygiene_informatique_anssi.pdf` | 2026-10-01 |
+| REF-02 | Les Essentiels — Défense en profondeur, mise en œuvre (v1.0) | `anssi_essentiels_defense_profondeur_mise_en_oeuvre_1.0.pdf` | 2026-10-01 |
+| REF-03 | Modèle Zero Trust — les fondamentaux (ANSSI-PA-111, 2025) | `anssi-fondamentaux-zero-trust-v1.0.pdf` | 2026-10-01 |
+| REF-04 | Sécurisation du poste multi-environnements (ANSSI-PA-114, 2026) | `anssi-fondamentaux-securisation-poste-multi-environnements-v1-0.pdf` | 2026-10-01 |
+| REF-05 | Sécurisation d'une infrastructure VMware (ANSSI-BP-103, 2024) | `anssi-fondamentaux-securisation_infrastructure_vmware_v1-0.pdf` | 2026-10-01 |
+| REF-06 | Mécanismes cryptographiques, règles et recommandations (ANSSI-PG-083 v3.00, 2026) | `anssi-guide-mecanismes-crypto-3.00.pdf` | 2026-10-01 |
+| REF-07 | Transition post-quantique de TLS 1.3 (ANSSI-FT-115, 2026) | `transition_post_quantique_tls_1_3.pdf` | 2026-10-01 |
+| REF-08 | Transition post-quantique de SSHv2 (ANSSI-FT-116, 2026) | `transition_post_quantique_ssh_v2.pdf` | 2026-10-01 |
+| REF-09 | Transition post-quantique d'IPsec (ANSSI-FT-117, 2026) | `transition_post_quantique_ipsec.pdf` | 2026-10-01 |
+| REF-10 | Note technique sécurité des sites web (DAT-NT-009, 2013) | `20130422-NP_Securite_Web_NoteTech.pdf` | 2026-10-01 |
+| REF-11 | Site web : maîtriser les standards de sécurité côté navigateur (ANSSI-PA-009 v2.0, 2021) | `anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf` | 2026-10-01 |
+
+Dossier source : `D:\CECPC\PLEIADE\DOC\CYBER SECU\`. Les 11 documents sont **publics** (Licence ouverte ; la note de 2013 est « NP, diffusable sans restriction »). La mention « Diffusion Restreinte » de REF-04 décrit son champ d'application, pas un marquage.
+
+**Sources utiles à ingérer ensuite**, citées par les guides et absentes du dossier : Guide de sélection d'algorithmes cryptographiques (ANSSI, 2021), RGS Annexe B2 (gestion des clés), guide ANSSI sur l'authentification multifacteur et les mots de passe, recommandations ANSSI pour un système GNU/Linux, pour TLS, pour l'administration sécurisée des SI, et le document compagnon « Défense en profondeur — principes ».
+
+## 7. Questions ouvertes (à vérifier sur le serveur ou auprès de Xavier)
+
+- Pare-feu de l'hôte : ce qui écoute hors du VPN ; SSH limité au VPN et aux clés ; fail2ban.
+- Pritunl : authentification forte, durée et **révocation des profils d'exercice** (FORAD, GREYCELL…) après exercice, cloisonnement des clients VPN.
+- `.env` réels : les valeurs par défaut sont-elles surchargées (secret de cookie, administrateur Keycloak, bases, `JWT_SECRET` des instances social, clé du service d'images) ?
+- Registre, tableau de bord Traefik, Grafana : protégés côté serveur ?
+- Où est la **clé de la CA**, qui y accède, quelle procédure de renouvellement et de révocation ?
+- Sauvegardes : disque distinct, copie hors site ou hors ligne, restaurations testées, durée de conservation des dumps qui contiennent des mots de passe.
+- Rythme de mise à jour de l'OS, de Podman, Keycloak, Traefik, MariaDB.
+- Runner de déploiement : droits sudo, validation des arguments des scripts de promotion.
+- Dépôts GitHub : privés ? protection de branche sur `prod` et sur `main` de l'orchestrateur ? scan des secrets ?
+- Journaux : Keycloak enregistre-t-il les événements de connexion ? centralisation et conservation ?
+- Niveau de sensibilité visé par la plateforme (données réelles hébergées : noms MELMIL, pièces LEAC marquées DR ?) et éventuelle homologation.
+- L'ancêtre `mastorion` tourne-t-il encore quelque part avec ses secrets par défaut ?
+
+## 8. Incidents et leçons de sécurité ou de fiabilité
+
+- **2026-09-11** : 63 groupes eho supprimés faute d'avoir lu le vrai nom d'un champ d'API → lire la réponse réelle, essayer sur un élément avant de boucler.
+- **2026-09-14/15** : un 401 lu comme « paquet vide » a effacé des données ; un jeton non rafraîchi a fait passer un animateur pour un joueur ; une section joueur répondait 200 aux anonymes → un échec de lecture n'est jamais un résultat valide ; vérifier côté serveur.
+- **2026-09-21** : émetteur Keycloak interne (« issuer mismatch ») sur toutes les zones ; `EACCES` sur les volumes possédés par root → schéma `su-exec`.
+- **2026-10-01** : panne de l'EHO (boucle de redémarrage) après un push testé sans démarrer l'image ; vraie cause, une dérive de `dotenv` au rebuild, corrigée par Xavier en épinglant le CLI Prisma → règle « tester en local » et épinglage des outils de build.
+- **2026-10-01** : MELMIL reliait les comptes anonymes (gc01) aux noms et grades → option A « couper le lien » et purge automatique (`be43962`).
+- **2026-10-01** : `EACCES` sur les médias MELMIL → `preparerVolumes()` en 0777 : fonctionne, mais crée l'écart M7.
+- **2026-10-02** : **identité aléatoire** dans 5 apps. Auth.js v5 sans adaptateur donne à `user.id` un UUID aléatoire à chaque connexion, et le callback `jwt` l'écrasait par-dessus le `sub` Keycloak. Conséquences :
+  - comptes en double (gc01 sur Chrome et Edge dans la messagerie) ;
+  - données orphelines ;
+  - tout contrôle « au nom de » ou de propriété fondé sur `session.user.id` porte sur un faux identifiant.
+
+  Correction de la messagerie : `f9a9a45` (sub Keycloak + fusion des doublons), testée en local. La messagerie est **en ligne** (2026-10-02). Admin, LEAC, MELMIL et press sont **corrigés et testés en local** sur les branches `identite-sub`, puis **poussés** le même jour (MELMIL et LEAC vérifiés en ligne). LEAC recolle en plus les droits liés à un id aléatoire (voir `PLEIADE\JOURNAL.md` du 2026-10-02, suites 3 et 4). **Règle** : l'identité est toujours le `sub` Keycloak (`profile.sub` / `providerAccountId`), jamais `user.id` d'Auth.js.
+
+## 9. Avis rendus et décisions
+
+| Date | Sujet | Décision / état |
+|---|---|---|
+| 2026-10-01 | Anonymat des comptes MELMIL (avant la création de l'agent) | Option A choisie et mise en ligne : aucun lien compte ↔ personne |
+| 2026-10-01 | Création de l'agent, ingestion des 11 guides ANSSI, inventaire de la posture | Plan de durcissement §5 dressé ; **aucune correction engagée**, en attente des choix de l'utilisateur |
+| 2026-10-02 | Récapitulatif du plan **transmis à Xavier** par l'utilisateur (priorités E1 terminal WebSocket, E2 jetons locaux app-social ; E3–E7 à décider avec lui ; risques moyens ensuite) | ⏸️ **EN ATTENTE** : l'utilisateur poursuit l'exercice ; on reprendra plus tard, après le retour de Xavier sur ce qui est déjà protégé côté serveur. **Ne rien corriger d'ici là sans demande.** |

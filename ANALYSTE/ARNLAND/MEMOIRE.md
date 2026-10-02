@@ -495,3 +495,15 @@ PIB **625,3 Mds $**, /hab **~16 526 $** (≈ 2/3 des grandes éco. EU) ; croissa
 |---|---|---|
 | 2026-05-23 | AURIGE 2BB (Guillaume) | Arnland → "Dacie Romanie (DR)". Pallesson = Président DR. TANTALE = bras armé intérieur mercurien. |
 | — | À compléter | — |
+
+## DE LATTRE 26 — avatars ARN joués par la DIV 1 (2026-10-02)
+
+> Source : `EXER\DELATTRE 26\01_Montage exercice\DIV 1\avatars_DL26 v2.docx` (« Fiches de Profils Avatars - Simulation DL26 », sans marquage). Ces comptes sont **joués par la cellule DIV 1 (joueurs)**, rangés dans eho sous le groupe **« CAMP DIV1 »**. Le camp n'est pas un camp rouge ou bleu au sens du registre MASTAURIGE : ce sont des comptes de joueurs. Fiches complètes dans eho (import préparé le 2026-10-02).
+
+| @compte | Identité | Type | Position (selon la fiche) |
+|---|---|---|---|
+| @elmircaunity | Elsa Mircanovic, 26 ans, F, en recherche d'emploi dans le social, SAP | engagement, individuel | Pas pour la guerre mais reconnaît le droit à se défendre ; prône une unité retrouvée de Skolkland |
+| @fertileground | Vlad Holub, 49 ans, H, agriculteur, SAP | engagement, individuel | Vindicatif envers son gouvernement ; voit la souveraineté d'ARNLAND passer par l'intervention de la coalition |
+| @arnverifiedconflict | Collectif d'OSINT | engagement, collectif | Documente le conflit par des images terrain ; ne diffuse pas d'images de pertes humaines |
+| @staysafe_stayalive | Collectif d'alerte (3 000 à 4 000 volontaires) | engagement, collectif | Prévient des opérations en cours pour que la population s'abrite ; utilisable pour des manœuvres de déception crédibles |
+| @donk_pedro | Stanislas Pedroliev, 35 ans, H, carreleur dans le grand HNANCY, SAP | veille, individuel | Anti-PRO-MER (soutien implicite à la ligne ARN/Coalition ou nationalisme ARN) ; peut changer d'avis selon les événements locaux |

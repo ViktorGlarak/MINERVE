@@ -7,8 +7,8 @@ source: ../../IMAGIER/MEMOIRE.md
 linkedTo: [TOOL-010]
 relevantFor: [agents]
 tier: 2
-created: 2026-09-24
-updated: 2026-09-24
+created: 2026-10-02
+updated: 2026-10-02
 ---
 
 # 🤖 IMAGIER — Canvas agent

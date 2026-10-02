@@ -436,6 +436,8 @@ avec des gants.**
 
 ## 8. État d'avancement
 
+> ⭐ **Règle d'identité (2026-10-02)** : l'identité d'un contrôleur est **toujours le `sub` Keycloak**, jamais `user.id` d'Auth.js, qui est aléatoire à chaque connexion. Les rattachements faits sous un id aléatoire sont recollés par `lib/zone/recoller.ts`. Détail : `JOURNAL.md` du 2026-10-02.
+
 | Volet | État |
 |---|---|
 | Dépôt privé `cecpc-pleiade/app-leac` créé et poussé | ✅ 2026-09-17 |

@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**462 notes** · généré le 2026-09-24
+**463 notes** · généré le 2026-10-02
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -202,6 +202,7 @@
 | [AGENT-ARCHIVISTE](agents/AGENT-ARCHIVISTE.md) | ARCHIVISTE | 3 | [`MEMOIRE.md`](../../ARCHIVISTE/MEMOIRE.md) | — |
 | [AGENT-BROUILLON](agents/AGENT-BROUILLON.md) | BROUILLON | 3 | [`MEMOIRE.md`](../../BROUILLON/MEMOIRE.md) | — |
 | [AGENT-CINEASTE](agents/AGENT-CINEASTE.md) | CINÉASTE | 2 | [`MEMOIRE.md`](../../CINEASTE/MEMOIRE.md) | [[TOOL-009]] |
+| [AGENT-CYBERSECU](agents/AGENT-CYBERSECU.md) | CYBERSECU | 3 | [`MEMOIRE.md`](../../CYBERSECU/MEMOIRE.md) | — |
 | [AGENT-DELATTRE](agents/AGENT-DELATTRE.md) | DELATTRE | 3 | [`MEMOIRE.md`](../../DELATTRE/MEMOIRE.md) | — |
 | [AGENT-DESIGNER](agents/AGENT-DESIGNER.md) | DESIGNER | 3 | [`MEMOIRE.md`](../../DESIGNER/MEMOIRE.md) | — |
 | [AGENT-ECLAIREUR](agents/AGENT-ECLAIREUR.md) | ÉCLAIREUR | 3 | [`MEMOIRE.md`](../../ECLAIREUR/MEMOIRE.md) | — |

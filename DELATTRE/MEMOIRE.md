@@ -72,6 +72,9 @@
 | | **08.04** Mouvements de populations (IDPs) | D+27-30 · D+33-35 · D+38-40 | LOG/2D | 5 (FRAGO 1CA, flux HNANCY→HTOUL, UN OCHA couloirs, HSARREBOURG, HHAGUENEAU) |
 | | **08.05** Sécurisation des IDPs et appui à la HN | D+29-31 · D+32-34 · D+38-40 | — | 5 (camps HST-DIZIER, HCHAUMONT, HJOINVILLE, HNEUFCHÂTEAU ; eau/vivres HLUNEVILLE) |
 
+- ⭐ **2026-09-30 — le retour vers ce format** : MELMIL exporte l'atelier **au format de ce PPT**, avec le bouton « Exporter en PPT ». L'export contient la synthèse, la chronologie, une fiche par storyline (sur plusieurs diapositives si besoin) et les changements depuis une date, marqués en rouge, pour transmission aux autorités. Voir `DESIGNER\AVIS\2026-09-30_MELMIL_EXPORT_PPT\`.
+  - ⚠ **Format A4 paysage** (29,7 × 21 cm) demandé par l'utilisateur, à la place du 16:9 d'origine. Les incidents sont paginés selon leur hauteur réelle, donc aucun débordement. Un incident trop long est raccourci avec la mention « suite dans MELMIL ». *(Version `2026-09-30.5`.)*
+
 Objectif d'entraînement principal : **8.1** — « Étudier les données d'environnement multidomaines de la nation hôte pouvant avoir des conséquences sur la manœuvre ». Acteurs d'injection : **ETIM** / ETEC, HN, autorités ARN, UN OCHA, 1CA.
 
 ### ⭐ Export JEMM FICTIF (fait le 2026-09-23)
@@ -90,6 +93,35 @@ Objectif d'entraînement principal : **8.1** — « Étudier les données d'envi
   - Fusion prête **en local** (bouton « Fusionner dans la base… ») : **3 983 avatars** après retrait de **220 doublons**, au profit de la fiche SKOLKAN, **ids conservés** pour ne pas casser le réseau social. Nouveau modèle : **SKOLKAN FULL PERSONA 25.09.26**.
   - Export de référence : `C:\Users\MTR\Downloads\avatars-eho-2026-09-25.xlsx`.
   - Code en ligne le 2026-09-25 à 10:36 ; la fusion reste à lancer depuis l'écran. Détail : `PLEIADE\JOURNAL.md` (2026-09-25, suite 3).
+
+### ⭐ Règle de nommage des pièces jointes (décision utilisateur du 2026-10-01, appliquée par MELMIL)
+`AAAAMMJJ_MR_DL26_SITCEN-<CODE>-<NMR>-<Titre>` :
+- **AAAAMMJJ** : le jour où l'**incident** est joué (par exemple 20261010), modifiable ;
+- **CODE** : **GYC** (GREY CELL) ou **FOR** (FORAD) ;
+- **NMR** : *(2e décision du 01/10)* le **code de l'incident sans les points**, par exemple 08.01.I01 donne **0801I01**. Pour une demande **sans incident**, c'est le numéro de pièce (001, 002…) ;
+  - choix assumé : deux fichiers du même incident avec le même titre portent le **même nom**, il faut les distinguer par le titre ;
+- **Titre** : celui de l'incident par défaut.
+- À l'**export**, un fichier nommé « -001- » sur un incident sort avec le code de l'incident.
+- **Comptes rendus** (PSYREP, CIMICREP, SCAMR) : même règle au téléchargement. Le titre par défaut est le nom du compte rendu, et le NMR le code de l'incident de la fiche ouverte. La date et le titre sont modifiables *(01/10)*.
+- **SCAMR** (CRI propagande) : nouveau compte rendu par jour et par ETIM, reproduit à l'identique de `01_Montage exercice\SCAMR.png`. **Consigne de l'utilisateur : l'image seule fait foi, pas « Modèle SCAMR.pptx »** *(en ligne le 01/10)*.
+
+Remplace la règle du 30/09 (`AAAAMMJJ_MR_DL26_SITCEN-FORAD|GREYCELL-Titre`, avec la date du jour). Détail : `PLEIADE\JOURNAL.md` (2026-10-01, suite 6).
+
+### ⭐⭐ JEMM RÉEL — la saisie fait foi (exports du 2026-09-30)
+- **Fichiers** (marqués **NATO UNCLASSIFIED**, exportés le 30/09 à 14:39) : `EXER\DELATTRE 26\01_Montage exercice\JEMM\30.09.26\NU_20260930_143929_JEMM_WDDPR_EVENT_07\…json` et `…_143920_…_EVENT_08\…json`. Espace JEMM **WDDPR**, exercice « De LATTRE ». Chaque export a un zip et une somme de contrôle.
+- ⚠ **Numérotation JEMM, qui remplace celle du PPT et des fictifs** :
+  - **Event 07 = ILI** (ex-06). Storylines : **07.01** Signaux faibles captés par les ETIM (22 incidents) · **07.02** Rumeurs sur la Force (3) · **07.03** CRQ ETIM PSYREP+CIMICREP (15, **nouvelle, sans diapo**).
+  - **Event 08 = HN** (ex-« GREY CELL »). Storylines : **08.01** Dégradation des services essentiels (6) · **08.02** Risques sites sensibles (3) · **08.03** Actions perfides (3) · **08.04** Mouvement de population (5) · **08.05** Sécurisation des IDPs et appui à la HN (5).
+  - **Total : 2 events, 8 storylines, 62 incidents.** Objectif principal de toutes les storylines : « 8-1 — ILI - Etudier les données d'environnement multidomaines… ».
+- ⚠ **JEMM a découpé et renuméroté** des incidents du PPT : un fait sur plusieurs jours devient une occurrence datée par jour (« Pylône électrique HS » D+33, D+35, D+36, D+37). Les 07.01.Ixx ne correspondent donc plus aux 06.01.Ixx.
+- **Compléments tirés des diapos** (effets attendus, QUI / OÙ, pour ce que JEMM ne tient pas) : `…\JEMM\30.09.26\COMPLEMENTS_DIAPOS_GREY-CELL-v4.json` (diapos 4 à 10 : 06-01 devient 07.01, 06-02 devient 07.02, 08-0x reste 08.0x). Ils ne remplissent que le vide.
+  - **Décision utilisateur** : les effets attendus de la **07.03** restent **vides**.
+  - Restent aussi sans QUI / OÙ : 07.02 et 08.03, dont les diapos n'ont qu'un tableau de narratifs.
+- **Décisions utilisateur du 30/09** :
+  - la planche JEMM **et** la planification sont **à 100 % identiques** aux exports, sans un incident de plus ;
+  - les noms JEMM sont retenus (« 07 ILI », « 08 HN ») ;
+  - un incident absent de JEMM est supprimé, mais on liste d'abord ceux qui portent des pièces jointes.
+- **Outil** : MELMIL `2026-09-30.7`, avec « Aligner l'atelier sur JEMM » (Réglages) et « Remplacer par des exports JEMM » (planche, menu Plus). Détail : `PLEIADE\JOURNAL.md` (2026-09-30, suite 8).
 
 ## 2. Socle hérité — acquis valables dès maintenant
 
@@ -181,3 +213,11 @@ Agent **DELATTRE** créé (20ᵉ du système MINERVE) à la demande de l'utilisa
 Enregistré au registre `CLAUDE.md`, dans `SYSTEME\ROUTAGE.md`, compteur `NOYAU\MEMOIRE.md` porté à 20.
 Prompt système `SYSTEME\PROMPTS\delattre.md` créé depuis le modèle MINAUTORE + gabarit `aurige.md`, **enrichi du RETEX MINOTAURE**.
 ⚠ **Identité de l'exercice non encore communiquée** — à recueillir auprès de l'utilisateur.
+
+- **2026-10-02 — Avatars de la DIV 1 : 7 comptes préparés pour eho.**
+  - Source : `01_Montage exercice\DIV 1\avatars_DL26 v2.docx`.
+  - Comptes : 5 d'Arnland (@elmircaunity, @fertileground, @arnverifiedconflict, @staysafe_stayalive, @donk_pedro) et 2 de Mercure (@el-salsichino, @NO_MERcy).
+  - Groupe eho **« CAMP DIV1 »**. Portraits intégrés au fichier d'import, et biographie composée à partir des seuls champs de la fiche, pour le kit IA.
+  - Testé dans l'eho local : 7 créés, 0 refusé.
+  - Détail chez ANALYSTE_ARN et ANALYSTE (Mercure).
+  - ⚠ Pour réserver ces avatars à la DIV 1, il faut cocher le camp DIV1 sur le groupe dans eho (écran Groupes, puis Camps).

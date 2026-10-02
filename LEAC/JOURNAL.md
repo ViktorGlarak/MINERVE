@@ -4,6 +4,23 @@
 
 ---
 
+## 2026-10-02 — Identité aléatoire à chaque connexion : correction et recollage (`db7738c` + `da5c4f6`, branche `identite-sub`, version `2026-10-02.1`) — ✅ EN LIGNE le 2026-10-02 (`/api/sante` = `2026-10-02.1` sur cecpc-div-eval)
+
+- **Défaut** (le même que dans la messagerie) : `auth.ts` prenait `user.id` d'Auth.js, qui est un UUID aléatoire à chaque connexion Keycloak, et non le `sub`. La première connexion liait affectation, administration ou référence à cet id ; à la connexion suivante, la personne pouvait **perdre son contrôle ou ses droits**.
+- **Correction** :
+  - `jwt` prend le `sub` (`profile.sub` / `providerAccountId`) ; le fournisseur « jeton » (type credentials) garde `user.id`.
+  - Les sessions d'avant la correction sont closes une fois (`idv: 2`).
+- **Recollage** : `src/lib/zone/recoller.ts` (`recollerIdentite`), appelé avant la lecture des droits (`profilDe`) et dans les réclamations (affectations, références).
+  - Repassent au vrai sub les lignes `MembreEquipe`, `AdministrateurEntite` et `ReferentUnite` désignées à l'adresse de la personne mais tenues par un autre id, ainsi que ses `Appareil` et l'`auteurId` de ses `Operation`.
+  - Le journal d'audit n'est pas réécrit. Une fois par processus et par identité.
+  - L'adresse suffit car le royaume refuse les adresses en double.
+- **Tests locaux** :
+  - 468/468 ;
+  - callback `jwt` simulé 5/5 (l'ancien code échoue) ;
+  - recollage sur la base locale avec des données fictives 6/6 (affectation, administration et appareil recollés, appareil d'un autre intact) ;
+  - image : `/api/sante` 200 au démarrage et au redémarrage, 0 erreur.
+- ⚠ **Terrain** : une tablette doit être en ligne une fois pour se reconnecter par Keycloak après la mise en ligne. Les notes en attente restent sur l'appareil.
+
 ## 2026-09-27 (suite) — Pastille réseau dans le bandeau, branche `etat-reseau`
 
 - **Cause des blocages confirmée** : l'autorité de la zone est absente du magasin Windows du poste principal. Le service worker ne peut ni se mettre à jour ni joindre le serveur, d'où l'ancienne version et l'effet « comme déconnecté ».

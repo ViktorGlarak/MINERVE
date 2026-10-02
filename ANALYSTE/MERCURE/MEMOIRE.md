@@ -249,6 +249,16 @@ Ces deux commandants sont les **chefs MER joués sur AURIGE 2BB**. Leurs profils
 
 ### 1.5.ter — Référentiel HVI complet GLM26 (PDF « Profiles of Enemy Commanders », extrait 2026-05-31)
 
+> ⭐ **2026-10-01 — Ces commandants deviennent des AVATARS EHO** (demande utilisateur, DE LATTRE 26).
+> - **Déjà présents (4)** : `@mgthierrypruniere`, `@mgmikhailazhukov` (Mercure, militaire), `@rzo_viktor_g_kaleva` et `@rzo_abramovitch_milanov` (réseau RZO, Arnland, groupe clandestin).
+> - **26 ajoutés par import Excel** : `CREATION\02 - MERCURE\Portraits\IMPORT_EHO_26_commandants_MER_HVI.xlsx`, portraits du PDF intégrés.
+>   - Rangement : pays Mercure, catégorie MILITAIRE, groupes `CAMP ROUGE` · `MER - MILITAIRE` · `EXERCICE DELATTRE 26`.
+>   - Identifiants : `@<grade><prénom><nom>`, par exemple `@genigorguierassimov`, `@lgborisandreev`, `@mgpeterjulius`, `@bgsergueiioffe`, `@coldimitrimikhailovic`.
+>   - Nom affiché : « BG Sergueï I. IOFFE ».
+>   - Chaque fiche porte le commandement, l'âge, la situation familiale, le parcours, les forces et les vulnérabilités (source : ce PDF).
+> - **Camp : ROUGE.** C'est l'autorité de l'Analyste pour ces figures pays sans avatar MASTAURIGE ; à reporter dans `vault/entities` si l'une d'elles entre dans un inject.
+> - ⚠ **Portraits** : ils semblent être de vraies photos d'officiers, et plusieurs noms rappellent de vrais généraux. L'utilisateur a décidé de les reprendre tels quels.
+>
 > Deck SITCEN-RENS « PROFILES OF ENEMY COMMANDERS GUILLAUME 26 » (UNCLASSIFIED). Couvre **toute la chaîne FGF-L**. ⭐ Pour **AURIGE 7BB / MINOTAURE 26**, l'adversaire est **FGF-4 (= IV(MER)CORPS)** → casting rouge militaire **déjà disponible et profilé**.
 
 **Haut commandement :**
@@ -911,3 +921,12 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 
 **Conduite :** ne jamais citer une ville trop éloignée du front pour le jour J. Si incertain → référence vague réaliste ("sur les bords de la Moselle", "secteur nord"). Si précision requise → demander confirmation.
 *Erreur corrigée 2026-05-28 : 07.01.02i-B (sniper VORIN, D+33/J3) — "secteur de HLUNEVILLE" remplacé par "sur les bords de la Moselle".*
+
+## DE LATTRE 26 — avatars MER joués par la DIV 1 (2026-10-02)
+
+> Source : `EXER\DELATTRE 26\01_Montage exercice\DIV 1\avatars_DL26 v2.docx` (sans marquage). Ces comptes de nationalité mercurienne sont **joués par la cellule DIV 1 (joueurs)**, groupe eho **« CAMP DIV1 »**. Ce ne sont pas des personnages du régime : ce sont des comptes de joueurs, et le camp n'est pas consigné au registre MASTAURIGE.
+
+| @compte | Identité | Type | Position (selon la fiche) |
+|---|---|---|---|
+| @el-salsichino | Piotr Blaskovitch, 21 ans, H, sans activité ni religion | engagement, individuel | A un avis sur tout, tourne en dérision tout acteur des RS ; répond aux critiques par des mèmes |
+| @NO_MERcy | Elena Petrova, 24 ans, F, consultante en communication | engagement, individuel | Critique sur les posts ARN ou MER ; sa nationalité lui permet de critiquer plus spécifiquement la communication de la coalition et d'ARNLAND ; déteste les mentalités occidentales |
