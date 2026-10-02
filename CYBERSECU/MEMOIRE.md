@@ -122,6 +122,7 @@
 | E5 | **Surface root de l'orchestrateur** : socket Podman rootful et dossier `.ssh` d'administration montés ; combiné à E1, l'hôte est en jeu | `pleiade-platform/docker-compose.prod.yml` | REF-05 (hyperviseur ↔ hôte), REF-03 | proxy de socket restreint, dossier SSH dédié et minimal |
 | E6 | **CA interne sans contrainte de nom, installée sur des appareils personnels** : qui détient la clé de la CA peut intercepter n'importe quel domaine sur ces appareils | `pleiade-infra/pki/` | REF-06, REF-03 | nouvelle CA avec `nameConstraints` (`.internal`), durée plus courte, clé hors ligne |
 | E7 | **Secrets versionnés** dans `app-social` (`apps/api/migrator.env`, 3 mots de passe) et une adresse d'administration en dur dans `deploy/` ; même chose dans l'ancêtre `mastorion` | `app-social`, `mastorion` | REF-01 M11 | faire tourner ces secrets, retirer le fichier, purger l'historique (à décider avec Xavier) |
+| E8 | ⭐ *(constaté le 2026-10-02)* **Messages PROGRAMMÉS lisibles avant publication dans le réseau social** (`scheduledAt` non nul = pas encore publié). Le fil public `/posts/feed` les exclut, mais **pas** : la **page profil** `/users/:username/posts` (publique, même anonyme), le fil **« Abonnements »** `/posts/following` (comptes suivis), le message par numéro `/posts/:id`, ni l'API cockpit (cf. M12). Un joueur qui suit ou consulte le compte d'un avatar peut lire un inject avant son heure | `app-social/apps/api/src/social/users.ts`, `social/posts.ts`, `cockpit/index.ts` | REF-03 (moindre privilège) | ajouter `scheduledAt: null` à ces requêtes (sauf pour l'auteur et l'animation) ; tester en local ; dépôt en lecture seule → **autorisation utilisateur requise** |
 
 ### Risque MOYEN
 | # | Écart | Où | Doctrine |
@@ -137,6 +138,7 @@
 | M9 | eho `GET /api/users` renvoie la fiche complète des avatars à tout participant connecté | `eho/src/app/api/users/route.ts` | REF-03 (moindre privilège) |
 | M10 | Service de génération d'images ouvert si sa clé est vide (vide par défaut) | `app-social/generator/app.py` | REF-01 M11 |
 | M11 | Mot de passe root MariaDB passé en ligne de commande lors des sauvegardes (visible par `ps`) | `pleiade-platform/src/sauvegarde-manager.ts` | REF-01 M11 |
+| M12 | ⭐ *(constaté le 2026-10-02, étude « cockpit joueur »)* L'API de veille du réseau social **ne filtre pas les messages PROGRAMMÉS** (`scheduledAt` non nul = pas encore publiés) sur `/feed`, `/users/:u/statuses`, `/hashtags/:tag/statuses`, `/search`, `/poll` — seuls `/activity` et `/reporting` les excluent ; le fil public (`social/posts.ts`), lui, les exclut. Le cockpit d'analyste voit donc des messages futurs comme s'ils étaient publiés. **Bloquant pour tout accès joueur** : ce serait la fuite des injects à venir. Toutes les réponses portent aussi `identity_id` (le lien eho entre les comptes d'un même avatar sur tous les réseaux) et `/groups` expose les groupes eho (les camps) | `app-social/apps/api/src/cockpit/index.ts` | REF-03 (moindre privilège), REF-11 |
 
 ### Risque FAIBLE
 - Cookies de l'orchestrateur et du webserver sans `Secure` ; signature de session comparée hors temps constant.
