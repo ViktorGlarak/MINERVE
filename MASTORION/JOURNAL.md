@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite) — 3ᵉ modification de `app-social` (autorisée) : rôles Joueurs / Animation / Modération, abonnements ouverts, durcissements CYBERSECU (`6c70d99`→`9350ddc`, branche `droits-joueurs`) — vérifié en local, en attente de push
+## 2026-10-03 (suite) — 3ᵉ modification de `app-social` (autorisée) : rôles Joueurs / Animation / Modération, abonnements ouverts, durcissements CYBERSECU (`6c70d99`→`9350ddc`, ) — POUSSÉ sur main + prod, EN LIGNE le 2026-10-03 à 23:32 (après eho `2026-10-03.1`)
 
 - **Décisions utilisateur** (2026-10-03) : les joueurs suivent avatars et hashtags (leur métier : repérer les bonnes sources) et publient avec les avatars de leur camp ; rôle « Joueurs » dans le bouclier de Pléiade ; joueurs : modifier/supprimer/programmer leurs propres messages ; rôle « Modération » (tout modifier/supprimer) ; l'Animation bornée aux avatars de son camp + sans groupe. Règles : voir MEMOIRE « Règles en vigueur ».
 - **Avis CYBERSECU** (`CYBERSECU\AVIS\2026-10-03_SOCIAL_DROITS_JOUEURS\`) appliqué : garde en liste blanche + quota, X-Act-As strict, `master` réservé à l'animation, `impersonateMiddleware` retiré, profil réservé à l'animation, comptes d'opérateurs (`users.operateur`) hors des listes/compteurs publics d'abonnés, jetons locaux refusés en mode Keycloak (E2), aperçu de lien borné (SSRF M13 : sites `*.<zone>.pleiade.internal` autorisés, interne refusé, redirections revérifiées), téléversement (M14 : types fermés, signature vérifiée, extension tirée du type, en-têtes `nosniff` + CSP sandbox, type refusé = 415).

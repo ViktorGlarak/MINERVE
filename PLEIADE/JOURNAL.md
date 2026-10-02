@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 — Réseau social : rôles « Joueurs » et « Modération » dans le bouclier, joueurs autorisés à suivre et à publier avec les avatars de leur camp (social `9350ddc`, eho `afa4766`, pleiade-platform `9714719`) — VÉRIFIÉ EN LOCAL, en attente de push
+## 2026-10-03 — Réseau social : rôles « Joueurs » et « Modération » dans le bouclier, joueurs autorisés à suivre et à publier avec les avatars de leur camp (social `9350ddc`, eho `afa4766`, pleiade-platform `9714719`) — POUSSÉ, EN LIGNE (eho 23:27, social 23:32)
 
 - **Bouclier de Pléiade (social)** : colonnes **Animation · Joueurs · Modération** + une **légende** sous le tableau (le survol ne suffisait pas), dont « Aucune case » (champ `sansRole` du catalogue). Maquette validée par l'utilisateur.
 - **eho** : la décision « au nom de » renvoie aussi `avatarIdsCamp` (groupes du camp seuls), rétrocompatible (messagerie inchangée).
