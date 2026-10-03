@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-03 (suite 17) — app-admin : timeline des scénarios en agenda vertical (`4fdf7a8`, même branche `heures-reelles`, au-dessus de `a39e1df`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande** : « impossible de travailler avec cette vue » → 3 maquettes DESIGNER (n°46) avec captures, **B retenue** (agenda vertical) ; question utilisateur : peut-on déplacer les horaires à la main ? → oui, glisser + clavier.
+- **Fait** : `Timeline.tsx` réécrit (échelle par ancres minute → hauteur, colonnes alignées, plages vides > 12 min repliées, inverse `tDe` pour le glisser ; cible du dépôt par `elementFromPoint` sur `[data-item]` / `[data-col]` ; mêmes `onPatch` qu'avant : `delta`, `replyTo`, `instanceId`) ; styles `.ag-*` dans `editor.css` ; l'ancien CSS `.tl-*` reste, inutilisé.
+- **Vérifié** (scénario local 06.01.I05, 18 publications sur 2 apps) : 18 lignes visibles (6 avant), 0 chevauchement, plages repliées ; glisser #4 → delta 45 → 50 (« Lâcher : #4 à 18:50 ») ; clavier ↓↓ +2, Maj+↑ −5 ; Échap annule (delta inchangé) ; 0 erreur console ; 35/35 tests ; image Docker (base vide, données + redémarrage) 200, 0 erreur.
+
 ## 2026-10-03 (suite 16) — app-admin : heure réelle au lieu du T+ dans l'éditeur de scénario (`a39e1df`, branche `heures-reelles`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Demande** : dans la liste des publications d'un scénario, remplacer « T+00:08 » par la vraie heure, ou un bouton pour alterner. Avis DESIGNER n°45.
