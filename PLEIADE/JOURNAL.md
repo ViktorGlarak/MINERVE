@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-10-03 (suite 7) — MELMIL : la fiche de l'incident s'ouvre sur la planche de préparation (app-melmil `1aa2354`, branche `fiche-sur-planche`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande utilisateur** : sur la planche de préparation, cliquer un incident ouvrait l'onglet Incidents ; désormais la **fiche s'ouvre à droite, modifiable**, sans quitter la planche (comme la planche JEMM, mais avec l'édition). `FicheIncident` exporté et réutilisé ; carte surlignée ; la planche se décale pour rester visible ; « Fermer »/Échap rend le focus à la carte ; changer d'onglet ou ouvrir une storyline ferme la fiche ; en « Lecture et demandes », la fiche reste en lecture avec « Demander un produit ».
+- **Vérifié** : tsc, 375/375, Playwright 9/9 (ouverture, reste sur la planche, bon incident, modification enregistrée, autre carte, fermeture, 0 erreur JS), image Docker base vide + redémarrage → `2026-10-03.5`, 0 erreur. **Notes de version** mises à jour dans le même commit.
+
 ## 2026-10-03 (suite 6) — NOTES DE VERSION dans les 12 dépôts (demande de Xavier) — ✅ POUSSÉES sur `main` (11 dépôts, sans redéploiement : seuls les pushs sur `prod` déploient) ; pleiade-platform `42ac4e8` en attente de sa prochaine modification (son `main` déploie)
 
 - **Constat** : aucun dépôt n'avait de notes de version ; l'étape « tag prod-* » du workflow de déploiement échoue en silence (`continue-on-error`) → aucun tag sur GitHub. À signaler à Xavier.
