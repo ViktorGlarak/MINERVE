@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 2) — MELMIL : statut des incidents à l'import JEMM (app-melmil `cd8222f`, branche `statut-import-jemm`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 2) — MELMIL : statut des incidents à l'import JEMM (app-melmil `cd8222f`) — POUSSÉ, EN LIGNE (`/api/sante` 2026-10-03.3)
 
 - **Question utilisateur** : les statuts saisis dans MELMIL survivent-ils à l'import des exports JEMM ? Et un incident créé dans JEMM, absent de MELMIL ?
 - **Constaté dans le code** : (1) l'import de la **Planche JEMM** n'écrit que la planche JEMM, jamais l'atelier → statuts intacts ; (2) **Réglages → verser un export** n'ajoute que ce qui manque (code inconnu), sans toucher l'existant ; (3) **Réglages → aligner sur JEMM** remplace code, sujet, description, D+/heure, moyen, émetteur, destinataires, résultat attendu, et **garde** statut, ETIM, effets attendus, QUI/OÙ, EXCON, responsables, traitants (`...ancien`). ⚠ Limite : l'alignement apparie par ressemblance du sujet puis par numéro ; un incident **trop transformé** dans JEMM (sujet ET numéro changés) n'est pas reconnu → recréé, et l'ancien est supprimé s'il n'a pas de pièces jointes (sinon gardé et listé au bilan) — le statut est alors perdu.
