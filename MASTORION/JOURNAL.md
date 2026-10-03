@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 4) — Fil : réponses et compteurs à jour sans actualiser (`app-social` `4b790f6`, branche `fil-reponses-auto`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 4) — Fil : réponses et compteurs à jour sans actualiser (`app-social` `4b790f6`, branche `fil-reponses-auto`) — ✅ EN LIGNE le 2026-10-03 à 17:39 (poussé `171b78f..4b790f6` sur main + prod ; bundle servi passé de `main-FOARPBU2.js` à `main-U6SYBCDF.js`, `/api/config` 200)
 
 - **Question utilisateur** : posts et réponses s'affichent-ils seuls dans le fil ? **Constat (code en ligne)** : le fil interroge `/api/social/posts/feed` toutes les **60 s** (`feed.ts` `checkNewPosts`) mais n'en gardait que les **nouveaux posts** (insérés si on est en haut, sinon bouton « N nouveaux posts ») ; les réponses (3 premières, les plus anciennes, incluses dans la réponse du fil) et les compteurs des posts déjà affichés n'étaient **jamais rafraîchis**.
 - **Décision utilisateur** : ne pas augmenter la fréquence (MariaDB) ; utiliser la réponse déjà reçue. **Fait** : `feed.ts` remplace les posts affichés dont la version du fil diffère ; `post-card.ts` (`effect` sur l'entrée `post`, `majDepuisFil`) reprend compteurs, réponses, texte modifié — sans toucher une édition en cours ni une réponse en cours de modification ; si toutes les réponses sont dépliées, relecture (`getComments`) seulement quand le nombre change. Écran seul, aucune modification d'API ni de base. Notes de version dans le même commit.
