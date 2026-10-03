@@ -619,6 +619,7 @@ C'est la clé pour ne pas défaire ce réglage par mégarde :
 4. **Ne pas figer le nom « MASTORION »** dans les productions durables : le réseau social sera renommé.
 5. **CONSULTER avant / CONSIGNER après** — cette mémoire + `JOURNAL.md`.
 6. Règles transverses MINERVE applicables aux contenus : camps (registre MASTAURIGE fait foi), GET, numéros fictifs, langue de l'avatar, pas de détail opérationnel réel.
+7. ⭐ **NOTES DE VERSION à chaque mise à jour poussée** *(demande de Xavier, validée par l'utilisateur le 2026-10-03)* : chaque dépôt `cecpc-pleiade` a un `NOTES-DE-VERSION.md` à sa racine (le plus récent en haut ; une section par jour `## AAAA-MM-JJ — version X` ; « Ce qui change pour les utilisateurs » en langage clair ; « Technique » = commits + « Après la mise en ligne » s'il y a une action + point technique utile à Xavier ; section « Pas encore en ligne » pour ce qui est sur `main` mais pas sur `prod`). **On le met à jour dans le MÊME commit que la modification**, avant le push. Rattrapage fait depuis le 20/09/2026. Constat du 03/10 : aucun CHANGELOG n'existait, et l'étape « tag prod-* » du workflow échoue en silence (aucun tag sur GitHub) — à signaler à Xavier.
 
 ---
 

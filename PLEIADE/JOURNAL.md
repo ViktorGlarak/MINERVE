@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-03 (suite 6) — NOTES DE VERSION dans les 12 dépôts (demande de Xavier) — PRÊTES EN LOCAL, NON POUSSÉES
+
+- **Constat** : aucun dépôt n'avait de notes de version ; l'étape « tag prod-* » du workflow de déploiement échoue en silence (`continue-on-error`) → aucun tag sur GitHub. À signaler à Xavier.
+- **Fait** : `NOTES-DE-VERSION.md` à la racine de chaque dépôt (format validé par l'utilisateur : une section par jour, « Ce qui change pour les utilisateurs » en clair, « Technique » = commits + actions après mise en ligne), rattrapage depuis le 20/09/2026 à partir des commits et de ce journal. Branche locale `notes-de-version` (1 commit au-dessus de `origin/main`) : platform `42ac4e8` (9 jours), eho `a479026` (8), admin `cc8101d` (7), leac `5953d80` (5), melmil `02bbba8` (9), social `e9aed18` (4), presse `f17554a` (6), messagerie `b94aa07` (2), cockpit `33f0371` (1), infra/webserver/wordpress (aucune mise à jour depuis le 20/09). Cause de la panne eho du 01/10 nuancée (« la plus probable »).
+- **Règle durable** inscrite en §9 de `MEMOIRE.md` : notes de version mises à jour dans le même commit que chaque modification.
+- **Vu en passant** : Xavier a poussé `01ed0e6` (pleiade-platform) → MariaDB à **1000 connexions** max, inscrit dans la configuration.
+
 ## 2026-10-03 (suite 5) — Admin : changer la cible d'un scénario existant (app-admin `7acfd4a`) — POUSSÉ sur main + prod le 2026-10-03 vers 12:07 (mise en ligne à confirmer à l’écran : l’admin n’expose pas de version)
 
 - **Constat utilisateur** : l'ancien scénario « 08.01 STARTEX » (sans cible) ne pouvait être rattaché qu'à UN incident, par une liste déroulante qui ne se fermait pas au clic extérieur. Avis DESIGNER n°37.
