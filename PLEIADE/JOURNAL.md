@@ -4,14 +4,14 @@
 
 ---
 
-## 2026-10-03 (suite 13) — MELMIL : une couleur par groupe d'animation (app-melmil `cf1c8d8`, même branche `export-ppt-groupe`, version 2026-10-03.10) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 13) — MELMIL : une couleur par groupe d'animation (app-melmil `cf1c8d8`, même branche `export-ppt-groupe`, version 2026-10-03.10) — ✅ EN LIGNE le 2026-10-03 à 17:03:57 (poussé `4bb00c9..5421cc4` sur main + prod, `/api/sante` = 2026-10-03.10)
 
 - **Demande** (capture) : « GREYCELL · LECTURE » sous chaque event de la planche, trop long et répété → une couleur par cellule, choisie par l'Admin. Avis DESIGNER n°43 (revient sur le ⛔ du n°40, décision utilisateur).
 - **Fait** : champ d'atelier `couleursGa` (clés d'une palette fermée `COULEURS_GA`, 8 teintes ; défauts GA1 violet, GA2 sarcelle) ; `couleurGa`, `cleCouleurGa`, `couleurGaInvalide` (`groupes.ts`), `colorerGa` (`gestes.ts`) ; garde serveur (GA → 403) ; planche : liseré de 6 px sur la cellule EVENT + légende unique + œil pour la lecture ; point de couleur dans les pastilles ; nuancier dans Réglages → Groupes d'animation.
 - **Retouches utilisateur (même jour)** : légende séparée retirée, la couleur va **dans les boutons « Afficher : Tous | GREYCELL | FORAD »** (même choix pour tout le monde) sous forme d'un **trait à gauche sur toute la hauteur**, comme le liseré des events (`2bc06ad`, `5421cc4`) ; vérifié Admin + FORAD, 0 erreur, image Docker rejouée (base vide, données, redémarrage, service 200).
 - **Vérifié** : 422/422 (+5) ; écran GA2 « Tous les groupes » : légende « GREYCELL · FORAD (le vôtre) · en lecture », liserés, plus aucune pastille dans la colonne, œil sur les events GREYCELL, 0 erreur console ; image Docker : base vide 200, données actuelles + redémarrage 200, incidents servis à l'Admin, 0 erreur.
 
-## 2026-10-03 (suite 12) — MELMIL : « Exporter en PPT » par groupe d'animation (app-melmil `a20ca2a`, version 2026-10-03.10, branche `export-ppt-groupe`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 12) — MELMIL : « Exporter en PPT » par groupe d'animation (app-melmil `a20ca2a`, version 2026-10-03.10, branche `export-ppt-groupe`) — ✅ EN LIGNE le 2026-10-03 à 17:03 (avec la suite 13)
 
 - **Demande** : la FORAD exporte le PPT de ses seuls events, GREYCELL les siens, plutôt que de choisir par event. Avis DESIGNER n°42.
 - **Fait** : `OptionsExport.groupe` / `nomGroupe` (`export-ppt/modele.ts`) ; dialogue « Quel PPT ? » : « PPT du groupe GREYCELL », « PPT du groupe FORAD » (un par groupe, **pour tout le monde** — précision utilisateur, commit `ce5dde5`) + « PPT de tous les groupes », mon groupe marqué et pré-choisi ; choix par event retiré ; nom du groupe dans les titres, le pied de page et le fichier ; « hors JEMM » pour un event créé dans MELMIL.
