@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 3) — Admin : scénarios de BRUIT DE FOND (app-admin `233d0df`, branche `scenarios-bruit`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 3) — Admin : scénarios de BRUIT DE FOND (app-admin `233d0df`) — POUSSÉ sur main + prod le 2026-10-04 08:57 ; ⚠ mise en ligne non constatée à 09:06 (même cause probable que MELMIL : promotion « Too many connections »)
 
 - **Besoin (utilisateur)** : créer des scénarios de bruit (ambiance des réseaux), reliés à aucun incident ni storyline, mais nommés et bien rangés ; travail avec DESIGNER (avis n°36).
 - **Serveur** : champ `Scenario.bruit` (booléen, défaut faux → ajout sans risque par le `db push` du démarrage). POST : `bruit: true` = pas de cible MELMIL exigée ; sans le drapeau, l'incident reste obligatoire. PATCH : `bruit: true` retire la cible ; poser un incident/storyline retire le drapeau. `rattacherAuxIncidents` ignore le bruit. La route lue par MELMIL ne liste que les scénarios avec incident → le bruit n'apparaît pas dans MELMIL.
