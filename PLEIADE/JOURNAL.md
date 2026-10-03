@@ -4,14 +4,17 @@
 
 ---
 
-## 2026-10-03 (suite 11) — MELMIL : l'Admin nomme les groupes d'animation (app-melmil `4bb00c9`, version 2026-10-03.9, branche `groupes-animation`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 11) — MELMIL : l'Admin nomme les groupes d'animation (app-melmil `4bb00c9`, version 2026-10-03.9, branche `groupes-animation`) — ✅ EN LIGNE le 2026-10-03 à 16:27:48 (`/api/sante` = 2026-10-03.9)
+
+- **Mise en ligne** (accord utilisateur) : pleiade-platform `01ed0e6..83084af` sur `main` (catalogue GA1/GA2, colonne Animation retirée), puis aussitôt app-melmil `1ea2e0c..4bb00c9` sur `main` + `prod` (inclut la suite 10). Vérifié avant : rien de ce que l'app Admin consomme n'a changé (`service-incidents`, `scenarios-admin`, routes `zone` intacts ; ids et codes d'incidents inchangés) → scénarios existants non touchés ; l'Admin lit MELMIL par la clé de zone, pas par les rôles.
+- **Reste à faire par l'utilisateur** : bouclier MELMIL → GA1 pour GREY CELL, GA2 pour FORAD (décocher « Lecture et demandes ») ; reconnexion ; Réglages → nommer GA1 « GREYCELL », GA2 « FORAD ».
 
 - **Demande** : voir « GREYCELL » au lieu de « GA1 » ; option retenue : l'Admin renomme (Réglages → Groupes d'animation). Avis DESIGNER n°41.
 - **Fait** : champ d'atelier `nomsGa` (relu vide pour l'existant, clés `GA\d` seulement, ≤ 24 car.) ; `nomGa`, `nomGaInvalide` (`groupes.ts`), `renommerGa` (`gestes.ts`, journalisé) ; le nom s'affiche partout (pastilles, segment d'affichage, planche, formulaires, messages serveur) ; le code GA1/GA2 reste rappelé dans Réglages, les infobulles et la bulle d'en-tête (« FORAD = GA2 sur le bouclier Pléiade »). Garde serveur : un GA qui renomme → 403. Rien à changer dans le catalogue Pléiade (les colonnes restent GA1/GA2).
 - **Vérifié** : 414/414 tests (+9) ; écran Admin (renommage, doublon refusé, pastilles et planche avec les noms, 0 erreur console) ; écran GA2 (« Groupe d'animation FORAD », « GREYCELL · lecture », pas de Réglages) ; PUT renommage en GA2 → 403 ; image Docker : base vide 200 (`2026-10-03.9`), redémarrage 200, ancien atelier d'avant les groupes → 19 incidents servis, 0 erreur.
 - Données d'essai locales : GA1 = GREYCELL, GA2 = FORAD.
 
-## 2026-10-03 (suite 10) — MELMIL : groupes d'animation GA1 / GA2 (app-melmil `6f36a7d` branche `groupes-animation` ; pleiade-platform `83084af` branche `groupes-animation`, avec les notes de version `42ac4e8`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 10) — MELMIL : groupes d'animation GA1 / GA2 (app-melmil `6f36a7d` branche `groupes-animation` ; pleiade-platform `83084af` branche `groupes-animation`, avec les notes de version `42ac4e8`) — ✅ EN LIGNE le 2026-10-03 à 16:27 (avec la suite 11)
 
 - **Décisions utilisateur** : option A (une colonne par groupe sur le bouclier) ; groupes **GA1, GA2** (GA3 possible) ; **colonne « Animation » supprimée** ; source **par event** (« Créé dans MELMIL » / « Depuis un export JEMM ») ; events MELMIL : statut arrêté à « Validé », codes libres **à partir de 20** (01–19 bloqués) ; events existants → GA1 ; chacun consulte l'autre en lecture ; choix d'affichage « mon GA / tous » ; DESIGNER n°40.
 - **Modèle** : `EventAtelier.ga`, `.source`, `.jemmMaj` (relus : GA1, source déduite du code). `lib/atelier/groupes.ts` (`modificationsHorsPerimetre`, `idsDuGroupe`, `prochainCodeMelmil`, `codeMelmilInvalide`, `incidentSansJemm`, `incidentHorsGroupe`). `alignerPerimetre` : l'alignement ne touche que les events visés et rend le reste intact (avant : tout event absent des exports était supprimé).
