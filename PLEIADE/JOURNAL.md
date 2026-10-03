@@ -4,14 +4,15 @@
 
 ---
 
-## 2026-10-04 — ⚠ Déploiements bloqués : MariaDB partagée saturée (« Too many connections »)
+## 2026-10-03 (matin) — ⚠ Déploiements bloqués : MariaDB partagée saturée (« Too many connections »)
 
 - **Constat** : MELMIL run #50 (`cd8222f`) et Admin run #20 (`233d0df`) échouent tous deux à l'étape `pleiade-promouvoir` (image construite et poussée au registre, promotion refusée).
 - **Cause probable (lecture du code)** : UN seul conteneur `pleiade-db` (`mariadb:11`, `docker-compose.prod.yml`) sert l'orchestrateur ET toutes les instances de toutes les zones ; `max_connections` non réglé → défaut **151** ; chaque instance Prisma (`PrismaMariaDb`) garde jusqu'à **10** connexions → saturation dès ~15 instances. L'orchestrateur, lui, est limité à 5 (`src/db.ts`).
+- **Contournement fait par l’utilisateur** : arrêt des instances inutiles des autres zones (connexions libérées) ; message de diagnostic transmis à Xavier.
 - **Déblocage proposé (serveur, utilisateur/Xavier)** : `SHOW PROCESSLIST` groupé par base, puis `SET GLOBAL max_connections = 500;` (non persistant), puis « Re-run failed jobs » sur les deux runs.
 - **Correctifs durables proposés, non engagés** : (1) `command: --max-connections=500` sur le service `db` (recréation du conteneur = courte coupure de toutes les apps) ; (2) réserve Prisma réduite par instance (ex. 3). À décider avec Xavier ; à tester en local d'abord.
 
-## 2026-10-03 (suite 3) — Admin : scénarios de BRUIT DE FOND (app-admin `233d0df`) — POUSSÉ sur main + prod le 2026-10-04 08:57 ; ⚠ mise en ligne non constatée à 09:06 (même cause probable que MELMIL : promotion « Too many connections »)
+## 2026-10-03 (suite 3) — Admin : scénarios de BRUIT DE FOND (app-admin `233d0df`) — POUSSÉ sur main + prod le 2026-10-03 vers 10:57 ; ⚠ mise en ligne non constatée à 09:06 (même cause probable que MELMIL : promotion « Too many connections »)
 
 - **Besoin (utilisateur)** : créer des scénarios de bruit (ambiance des réseaux), reliés à aucun incident ni storyline, mais nommés et bien rangés ; travail avec DESIGNER (avis n°36).
 - **Serveur** : champ `Scenario.bruit` (booléen, défaut faux → ajout sans risque par le `db push` du démarrage). POST : `bruit: true` = pas de cible MELMIL exigée ; sans le drapeau, l'incident reste obligatoire. PATCH : `bruit: true` retire la cible ; poser un incident/storyline retire le drapeau. `rattacherAuxIncidents` ignore le bruit. La route lue par MELMIL ne liste que les scénarios avec incident → le bruit n'apparaît pas dans MELMIL.
