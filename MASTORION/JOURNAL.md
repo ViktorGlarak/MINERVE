@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-03 (suite 2) — Sons MP3 sur les posts principaux (`app-social` `d3ed591`, branche `mp3-posts`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande utilisateur** : joindre des `.mp3` aux posts principaux, pas aux réponses ; visuel de lecture travaillé avec DESIGNER (avis n°39).
+- **Serveur** (`upload.ts`, `posts.ts`, `service/index.ts`, `media.ts`, `index.ts`) : `audio/mpeg`/`audio/mp3` → `.mp3`, signature ID3/trame MPEG, `typeDeMedia` → `"audio"`, `refuserAudioEnReponse` (commentaires + `service/publish` avec `reply_to_post_id`), durée via `probeDuration` (ffprobe), `SOCIAL_UPLOAD_AUDIO_MAX_SIZE` (défaut 20) exposé en `social_upload_audio_max_mb` dans `/api/config`. Pas de changement de base (`media_type` est une chaîne).
+- **Écran** : `post-card` branche audio (bandeau « Audio » + `<audio controls>`, `preload` none/metadata, pas d'autoplay), réponses (bouton accessible « Joindre une image ou une vidéo », refus immédiat d'un MP3, aperçu vidéo correct), édition (accept + aperçu par type), `compose` (bouton accessible, aperçu son : nom/poids/durée/écoute/Retirer, invite « Décrivez ce son… », contrôles de type et de poids avant envoi, fichier illisible bloqué), `main.ts` (un seul son/vidéo à la fois), grilles YouTube (« AUDIO ») et Instagram (pastille), page post YouTube (panneau + lecteur).
+- **Vérifié** : tsc API, build Angular, Playwright 11/11 (composer, publication, fil, refus en réponse, 0 erreur JS) avec un relais d'essai local (le compte local n'a pas d'identité eho : la recherche « Au nom de » était vide — artefact du montage local sans Keycloak, pas un défaut). ⚠ `app-cockpit` (`TootItem.tsx`) : un post audio y serait rendu comme une image → à corriger à part.
+
 ## 2026-10-03 (suite) — 3ᵉ modification de `app-social` (autorisée) : rôles Joueurs / Animation / Modération, abonnements ouverts, durcissements CYBERSECU (`6c70d99`→`9350ddc`, ) — POUSSÉ sur main + prod, EN LIGNE le 2026-10-03 à 23:32 (après eho `2026-10-03.1`)
 
 - **Décisions utilisateur** (2026-10-03) : les joueurs suivent avatars et hashtags (leur métier : repérer les bonnes sources) et publient avec les avatars de leur camp ; rôle « Joueurs » dans le bouclier de Pléiade ; joueurs : modifier/supprimer/programmer leurs propres messages ; rôle « Modération » (tout modifier/supprimer) ; l'Animation bornée aux avatars de son camp + sans groupe. Règles : voir MEMOIRE « Règles en vigueur ».

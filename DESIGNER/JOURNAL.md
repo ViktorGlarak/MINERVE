@@ -1,5 +1,13 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-03 — Avis n°39 : app-social, joindre et écouter un MP3 sur un post principal
+
+- **Demande** : joindre des .mp3 aux posts principaux (pas aux réponses), avec un visuel correct de lecture ; usages : messages audio, interceptions radio, discours, podcasts d'avatars. Le serveur (modifications en cours, non commitées) accepte `audio/mpeg` avec signature vérifiée, 20 Mo par défaut, `media_type = "audio"`, et refuse l'audio en réponse.
+- **Constat** (web `e9aed18`) : partout, ce qui n'est pas une vidéo est rendu en `<img>` (post-card, grille Instagram, et `app-cockpit` `TootItem`) → image cassée ; bouton trombone (`label` + `input hidden`) inatteignable au clavier ; limites inconnues du client, toast 413 sans accents ; aperçus d'édition et de réponse toujours en `<img>` ; info-bulle « Ajouter une image » fausse ; pas de `duration_seconds` pour l'audio (ffprobe réservé aux vidéos) ; input non remis à zéro ; **aucun thème sombre** dans le code (`darkModeSelector: false`) ; pas d'onglet « Médias » au profil.
+- **Avis** : `AVIS\2026-10-03_SOCIAL_MP3\AVIS.md`, R1 à R15. Points clés : lecteur natif dans un bandeau aux jetons `--masto-*` (variante maison sur `button` + `input range` seulement si le natif déçoit) ; un seul son à la fois par un écouteur global ; aucune lecture automatique ; pas de nom de fichier publié ; erreurs avant l'envoi et sur place ; vignette « AUDIO » dans les grilles.
+- **Limite signalée** : le modèle Slider (et Disclosure) de l'APG n'est pas encore ingéré en fiche détaillée (REF-19 = Dialog, Tabs).
+- **Statut** : proposé, à arbitrer par l'utilisateur (4 questions avec réponses par défaut) ; aucun code modifié.
+
 ## 2026-10-03 — Avis n°38 : MELMIL, un CR appartient à l'incident depuis lequel il a été créé
 
 - **Demande** : un CR rempli depuis la fiche de 07.01.I03 doit se voir sur 07.01.I03 seulement (agrafe de la planche, section CR de la fiche), pas sur tous les incidents du même jour et de la même ETIM ; dans une fiche, seul CE CR est visible et modifiable, avec éventuellement un indicateur « un autre CR du même type existe via un autre incident » ; le .docx qui télécharge toute la colonne est à garder.
