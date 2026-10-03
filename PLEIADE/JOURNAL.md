@@ -7,7 +7,7 @@
 ## 2026-10-03 (suite 12) — MELMIL : « Exporter en PPT » par groupe d'animation (app-melmil `a20ca2a`, version 2026-10-03.10, branche `export-ppt-groupe`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Demande** : la FORAD exporte le PPT de ses seuls events, GREYCELL les siens, plutôt que de choisir par event. Avis DESIGNER n°42.
-- **Fait** : `OptionsExport.groupe` / `nomGroupe` (`export-ppt/modele.ts`) ; dialogue : radios « Events du groupe » (mon groupe pré-choisi, « Tous les groupes » possible ; Admin/lecture : tous + chaque groupe), choix par event retiré ; nom du groupe dans les titres, le pied de page et le fichier ; « hors JEMM » pour un event créé dans MELMIL.
+- **Fait** : `OptionsExport.groupe` / `nomGroupe` (`export-ppt/modele.ts`) ; dialogue « Quel PPT ? » : « PPT du groupe GREYCELL », « PPT du groupe FORAD » (un par groupe, **pour tout le monde** — précision utilisateur, commit `ce5dde5`) + « PPT de tous les groupes », mon groupe marqué et pré-choisi ; choix par event retiré ; nom du groupe dans les titres, le pied de page et le fichier ; « hors JEMM » pour un event créé dans MELMIL.
 - **Vérifié** : 417/417 (+3) ; écran GA2 : FORAD pré-choisi, PPT téléchargé `…_FORAD_storylines-incidents.pptx` = 3 diapositives, seul l'event 20, titres « … – FORAD – … », 0 erreur console ; vue Admin : Tous / GREYCELL / FORAD ; image Docker : base vide 200 (`2026-10-03.10`), données actuelles + redémarrage 200, incidents servis à l'Admin, 0 erreur.
 
 ## 2026-10-03 (suite 11) — MELMIL : l'Admin nomme les groupes d'animation (app-melmil `4bb00c9`, version 2026-10-03.9, branche `groupes-animation`) — ✅ EN LIGNE le 2026-10-03 à 16:27:48 (`/api/sante` = 2026-10-03.9)
