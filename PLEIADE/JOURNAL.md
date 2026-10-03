@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-10-03 (suite 4) — MELMIL : pastille « Validé » sans coche (app-melmil `b0580f9`, branche `pastille-valide`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande utilisateur** : sur la planche, la coche du rond vert « Validé » se confondait avec le « J » de « Dans JEMM ». Désormais **vert uni = Validé**, **vert + J = Dans JEMM** (partout : planche, tableau, fiche). La jauge se lit quart → moitié → disque plein → J.
+- **Vérifié** : tsc, 375/375, capture de la planche (08.01.I07 vert uni / 08.01.I15 vert + J), image Docker base vide + redémarrage → `2026-10-03.4`, 0 erreur.
+
 ## 2026-10-03 (matin) — ⚠ Déploiements bloqués : MariaDB partagée saturée (« Too many connections »)
 
 - **Constat** : MELMIL run #50 (`cd8222f`) et Admin run #20 (`233d0df`) échouent tous deux à l'étape `pleiade-promouvoir` (image construite et poussée au registre, promotion refusée).
