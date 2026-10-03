@@ -1,5 +1,13 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-03 — Avis n°40 : MELMIL, deux groupes d'animation (GA1, GA2) et la source de chaque event
+
+- **Demande** : mettre en écran 7 décisions de l'utilisateur : rôles GA1/GA2 (fin du rôle « Animation »), chaque GA ne modifie que ses events et ce qui en dépend, lit ceux de l'autre, demande des produits partout ; propriétaire + source par event (« Synchronisé avec JEMM », un export = un event, mise à jour limitée à cet event ; « Créé dans MELMIL », jamais touché) ; codes MELMIL ≥ 20 ; statut arrêté à « Validé » pour les events MELMIL ; Écarts limités aux events JEMM ; choix d'afficher ou non l'autre GA ; events existants au GA1.
+- **Constat** (code lu le 2026-10-03, `app-melmil` `1ea2e0c` + travail non commité) : la planche JEMM **n'a pas de filtre d'events** (seulement le style, mémorisé par poste) ; « Aligner sur JEMM » supprime les events absents des exports ; le modèle `ga`/`source`, `groupes.ts` (`prochainCodeMelmil`, `codeMelmilInvalide` qui **bloque** < 20, `modificationsHorsPerimetre`, `idsDuGroupe`) et `alignerPerimetre` sont déjà en cours ; le mode lecture n°35 est un contexte React réutilisable par élément.
+- **Avis** : `AVIS\2026-10-03_MELMIL_GROUPES_ANIMATION\AVIS.md`, R1 à R13. Points clés : pastille de mode après le titre ; un seul segment « GA1 seul | Tous les groupes » mémorisé par poste, ce qui est caché toujours compté ; marquage par mot + forme (pointillé), jamais par couleur ni opacité ; `LectureContexte` imbriqué par event ; formulaire de création avec la source d'abord ; « Mettre à jour depuis JEMM… » avec bilan de l'event ; stepper à 3 segments ; « Verser » retiré, « Aligner » sans suppression d'event ; Synthèse qui nomme son périmètre.
+- **Questions** : 6, avec réponses par défaut (affichage « Tous » au premier passage ; code < 20 bloqué ; liste des events classés MELMIL montrée à l'Admin ; GA1+GA2 choisit ; Prod inchangé ; source non modifiable).
+- **Statut** : proposé, à arbitrer ; aucun code modifié. CYBERSECU à consulter sur le contrôle d'accès serveur par GA.
+
 ## 2026-10-03 — Avis n°39 : app-social, joindre et écouter un MP3 sur un post principal
 
 - **Demande** : joindre des .mp3 aux posts principaux (pas aux réponses), avec un visuel correct de lecture ; usages : messages audio, interceptions radio, discours, podcasts d'avatars. Le serveur (modifications en cours, non commitées) accepte `audio/mpeg` avec signature vérifiée, 20 Mo par défaut, `media_type = "audio"`, et refuse l'audio en réponse.
