@@ -1,5 +1,12 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-03 — Avis n°38 : MELMIL, un CR appartient à l'incident depuis lequel il a été créé
+
+- **Demande** : un CR rempli depuis la fiche de 07.01.I03 doit se voir sur 07.01.I03 seulement (agrafe de la planche, section CR de la fiche), pas sur tous les incidents du même jour et de la même ETIM ; dans une fiche, seul CE CR est visible et modifiable, avec éventuellement un indicateur « un autre CR du même type existe via un autre incident » ; le .docx qui télécharge toute la colonne est à garder.
+- **Constat** (code lu le 2026-10-03, `app-melmil` `1aa2354`) : `creerCompteRenduPartage` n'enregistre pas l'origine ; `piecesDeLIncident` compte toute la colonne (agrafe partout, Synthèse faussée) ; la fiche ouvre tous les exemplaires ; « + Créer » rend l'existant ; valeurs de départ prises sur la colonne ; la conversion du 2026-10-01 a effacé l'incident des anciens CR.
+- **Avis** : `AVIS\2026-10-03_MELMIL_CR_PAR_INCIDENT\AVIS.md`, R1 à R14. Points clés : champ `depuisIncident` distinct de `incident` ; colonne = numérotation + lot, origine = affichage ; ligne « Aussi / Déjà ce jour pour l'ETIM 7 : n°1, créé depuis 08.02.I01 › » avec lien vers la fiche ; rien sur la planche ; anciens CR « à attribuer » en un clic, jamais devinés ; changement d'origine dans la fiche du CR.
+- **Statut** : proposé, à arbitrer par l'utilisateur (4 questions avec réponses par défaut) ; aucun code modifié.
+
 ## 2026-10-03 — Avis n°37 : admin, changer la cible d'un scénario existant
 
 - **Demande** : l'ancien scénario « 08.01 STARTEX » (créé avant la fonction storyline) n'est relié à rien ; sur sa fiche on ne peut choisir qu'UN incident dans une liste déroulante. L'utilisateur veut en cocher plusieurs (le rattacher à la storyline) et juge la liste déroulante inadaptée. La liste ne se fermait pas au clic extérieur (correctif en cours à part, présent non commité dans `IncidentPicker.tsx`).

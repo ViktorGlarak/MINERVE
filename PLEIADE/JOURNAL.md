@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-03 (suite 8) — MELMIL : comptes rendus rattachés à l'incident d'origine (app-melmil `9f5ae25`, branche `cr-par-incident`, au-dessus de `1aa2354`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande utilisateur** : un CR rempli depuis 07.01.I03 mettait l'agrafe et apparaissait (modifiable) sur tous les incidents du même jour et de la même ETIM. Avis DESIGNER n°38 : la **colonne** (jour + ETIM + type) sert à numéroter et au lot .docx (inchangé) ; l'**incident d'origine** sert à l'affichage.
+- **Fait** : champ `CompteRendu.depuisIncident` (dans l'atelier JSON, aucune migration) ; `originesSures` (ancien CR → origine si un seul incident possible, sinon « À attribuer ») ; conversion des anciens CR propres à un incident → origine = cet incident ; « + Créer » / « +1 » / Importer créent toujours un exemplaire DE L'INCIDENT (valeurs de départ de l'incident) ; `piecesDeLIncident` = fichiers + CR d'origine (agrafe, colonne Pièces jointes, tri, Synthèse) ; fiche : seuls les siens en boutons, « Déjà / Aussi ce jour pour ETIM X : n°k, créé depuis CODE › » (lien → sa fiche, section CR) ; blocs « À attribuer » et « À reclasser » ; fiche du CR : « Créé depuis … · se télécharge avec n autres … » + « Changer… » ; suppression d'incident = ses CR nommés et supprimés. Échap dans un CR ouvert ne ferme plus la fiche de l'incident.
+- **Vérifié** : tsc, 386/386 (11 nouveaux), Playwright 15/15 (cas 07.01.I03 / 08.01.I04 même jour même ETIM), image Docker base vide + atelier existant sans origine versé dans une base créée par l'image (lecture OK), redémarrage, 0 erreur. ⚠ Une copie brute de la base de dev échoue en P3005 (base de dev créée par `db push`, sans historique de migrations) : artefact de test, pas un défaut. Notes de version mises à jour.
+
 ## 2026-10-03 (suite 7) — MELMIL : la fiche de l'incident s'ouvre sur la planche de préparation (app-melmil `1aa2354`, branche `fiche-sur-planche`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Demande utilisateur** : sur la planche de préparation, cliquer un incident ouvrait l'onglet Incidents ; désormais la **fiche s'ouvre à droite, modifiable**, sans quitter la planche (comme la planche JEMM, mais avec l'édition). `FicheIncident` exporté et réutilisé ; carte surlignée ; la planche se décale pour rester visible ; « Fermer »/Échap rend le focus à la carte ; changer d'onglet ou ouvrir une storyline ferme la fiche ; en « Lecture et demandes », la fiche reste en lecture avec « Demander un produit ».
