@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-10-03 (suite 9) — MELMIL : statut « En validation » = disque jaune plein, partout (app-melmil `1ea2e0c`, branche `pastille-validation`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande utilisateur (ergonomie)** : la pastille « En validation » (une moitié jaune) devient un **disque jaune plein**, sur la planche puis, précision de l'utilisateur, **partout** (tableau, fiche, sélecteur, filtres, Synthèse). Repères : quart orange = préparation, jaune plein = validation, vert plein = validé, vert + J = dans JEMM.
+- **Vérifié** : tsc, 386/386, captures (carte 08.01.I04 et filtres de statut), image Docker base vide + redémarrage → `2026-10-03.7`, 0 erreur. Notes de version mises à jour.
+
 ## 2026-10-03 (suite 8) — MELMIL : comptes rendus rattachés à l'incident d'origine (app-melmil `9f5ae25`, avec `1aa2354`) — ✅ EN LIGNE le 2026-10-03 à 14:20 (`/api/sante` 2026-10-03.6)
 
 - **Demande utilisateur** : un CR rempli depuis 07.01.I03 mettait l'agrafe et apparaissait (modifiable) sur tous les incidents du même jour et de la même ETIM. Avis DESIGNER n°38 : la **colonne** (jour + ETIM + type) sert à numéroter et au lot .docx (inchangé) ; l'**incident d'origine** sert à l'affichage.
