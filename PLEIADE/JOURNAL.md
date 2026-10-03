@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 9) — MELMIL : statut « En validation » = disque jaune plein, partout (app-melmil `1ea2e0c`, branche `pastille-validation`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 9) — MELMIL : statut « En validation » = disque jaune plein, partout (app-melmil `1ea2e0c`) — ✅ EN LIGNE le 2026-10-03 à 14:33 (`/api/sante` 2026-10-03.7)
 
 - **Demande utilisateur (ergonomie)** : la pastille « En validation » (une moitié jaune) devient un **disque jaune plein**, sur la planche puis, précision de l'utilisateur, **partout** (tableau, fiche, sélecteur, filtres, Synthèse). Repères : quart orange = préparation, jaune plein = validation, vert plein = validé, vert + J = dans JEMM.
 - **Vérifié** : tsc, 386/386, captures (carte 08.01.I04 et filtres de statut), image Docker base vide + redémarrage → `2026-10-03.7`, 0 erreur. Notes de version mises à jour.
