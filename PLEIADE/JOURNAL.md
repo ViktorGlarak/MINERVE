@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-03 (suite 14) — Fausse alerte eho / Social « In the name of » (gc10, GREYCELL)
+
+- **Signalement** : un compte GREYCELL (gc10), administrateur d'eho, « ne peut pas s'approprier un avatar » et ne voit rien sous « In the name of » dans Social. **Résultat : tout fonctionne** — erreur de manipulation de l'utilisateur ; aucune modification.
+- **Ce qui a trompé** : sur la planche d'eho, le marque-page d'un avatar **libre n'apparaît qu'au survol** de la carte (avis DESIGNER n°29) → « l'icône est absente ». ⚠ Signal de **découvrabilité** à soumettre à DESIGNER si cela se reproduit (repère permanent discret, ou mention dans l'aide de la planche).
+- **Rappel de diagnostic** (code lu) : appropriation eho et « In the name of » passent par `avatarsImpersonables` (eho) → Pléiade `resoudre-identite` → groupes Keycloak **directs** du compte dans le royaume de la zone, comparés **par nom** aux camps cochés ; marque-page masqué si `ouverts` est vide (hors camp) ou si l'état est inconnu. Vérification rapide : `<eho>/api/appropriations` connecté → `ouverts`.
+
 ## 2026-10-03 (suite 13) — MELMIL : une couleur par groupe d'animation (app-melmil `cf1c8d8`, même branche `export-ppt-groupe`, version 2026-10-03.10) — ✅ EN LIGNE le 2026-10-03 à 17:03:57 (poussé `4bb00c9..5421cc4` sur main + prod, `/api/sante` = 2026-10-03.10)
 
 - **Demande** (capture) : « GREYCELL · LECTURE » sous chaque event de la planche, trop long et répété → une couleur par cellule, choisie par l'Admin. Avis DESIGNER n°43 (revient sur le ⛔ du n°40, décision utilisateur).
