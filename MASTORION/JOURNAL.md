@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-03 (suite 3) — Cockpit à jour pour les MP3 (`app-social` `171b78f`, `app-cockpit` `94f9933`) — POUSSÉS (main + prod) vers 15:35
+
+- **app-social** (API cockpit) : `media_type` manquait dans 3 vues (compte, hashtag, activité) → le Cockpit prenait vidéos ET sons pour des images ; ajouté, plus `duration_seconds` partout (7 endroits).
+- **app-cockpit** (`TootItem.tsx`) : post `audio` → « 🔊 Audio · durée » dans le flux en direct, lecteur `<audio controls preload="none">` dans le panneau latéral ; type `Toot.duration_seconds` ; icône `volume`.
+- **Vérifié** : local (flux « Audio · 0:30 », panneau avec lecteur, 0 erreur JS) ; images Docker : social sur copie de base (API cockpit → `media_type` audio + `duration_seconds` 30, aussi en vue hashtag), cockpit (démarrage + redémarrage, 0 erreur). Notes de version des deux dépôts mises à jour. Mise en ligne à constater à l'écran (pas de marque de version exposée).
+
 ## 2026-10-03 (suite 2) — Sons MP3 sur les posts principaux (`app-social` `d3ed591`) — ✅ EN LIGNE le 2026-10-03 à 15:03
 
 - **Demande utilisateur** : joindre des `.mp3` aux posts principaux, pas aux réponses ; visuel de lecture travaillé avec DESIGNER (avis n°39).
