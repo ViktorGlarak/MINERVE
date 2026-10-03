@@ -1,5 +1,13 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-03 — Avis n°37 : admin, changer la cible d'un scénario existant
+
+- **Demande** : l'ancien scénario « 08.01 STARTEX » (créé avant la fonction storyline) n'est relié à rien ; sur sa fiche on ne peut choisir qu'UN incident dans une liste déroulante. L'utilisateur veut en cocher plusieurs (le rattacher à la storyline) et juge la liste déroulante inadaptée. La liste ne se fermait pas au clic extérieur (correctif en cours à part, présent non commité dans `IncidentPicker.tsx`).
+- **Constat** (code lu le 2026-10-03) : 3 cibles à la création, 1 seule sur la fiche, alors que le PATCH accepte déjà la storyline ; bandeau de storyline figé ; ⚠ le commentaire « l'édition du périmètre reste MELMIL » est faux (MELMIL `api/zone/scenarios` = GET seul) ; un bouton dans le `listbox` (n°36 R14) ; `Modal` sans piège du focus ni `aria-labelledby`.
+- **Avis** : `AVIS\2026-10-03_ADMIN_CIBLE_MULTI_INCIDENTS\AVIS.md`, R1 à R10. Points clés : une fenêtre « Cible du scénario » qui réutilise le bloc de la création (composant partagé), ouverte par un seul bouton du bandeau ; segment « Un incident | Une storyline | Bruit de fond » ; pré-rempli par la cible actuelle ou par le nom ; « Changer… » sur le scénario de storyline avec les codes couverts visibles ; combobox conforme au modèle APG.
+- **Limite signalée** : les modèles APG Combobox, Listbox, Radio Group et Checkbox ne sont pas encore ingérés en fiche (REF-19 = Dialog, Tabs).
+- **Statut** : proposé, à arbitrer par l'utilisateur ; aucun code modifié.
+
 ## 2026-10-03 — Avis n°36 : admin, scénarios de bruit de fond
 
 - **Demande** : créer dans l'admin des scénarios nommés reliés à aucun incident ni storyline MELMIL (posts ordinaires, ambiance), bien rangés dans « Scénarios ». L'utilisateur proposait une 3e option dans « Cible du scénario » ou une case.
