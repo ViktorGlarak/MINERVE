@@ -4,6 +4,15 @@
 
 ---
 
+## 2026-10-03 (suite 10) — MELMIL : groupes d'animation GA1 / GA2 (app-melmil `6f36a7d` branche `groupes-animation` ; pleiade-platform `83084af` branche `groupes-animation`, avec les notes de version `42ac4e8`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Décisions utilisateur** : option A (une colonne par groupe sur le bouclier) ; groupes **GA1, GA2** (GA3 possible) ; **colonne « Animation » supprimée** ; source **par event** (« Créé dans MELMIL » / « Depuis un export JEMM ») ; events MELMIL : statut arrêté à « Validé », codes libres **à partir de 20** (01–19 bloqués) ; events existants → GA1 ; chacun consulte l'autre en lecture ; choix d'affichage « mon GA / tous » ; DESIGNER n°40.
+- **Modèle** : `EventAtelier.ga`, `.source`, `.jemmMaj` (relus : GA1, source déduite du code). `lib/atelier/groupes.ts` (`modificationsHorsPerimetre`, `idsDuGroupe`, `prochainCodeMelmil`, `codeMelmilInvalide`, `incidentSansJemm`, `incidentHorsGroupe`). `alignerPerimetre` : l'alignement ne touche que les events visés et rend le reste intact (avant : tout event absent des exports était supprimé).
+- **Droits** : `ROLES_GA` (`ga1`, `ga2`), `gasDe` ; entrer/écrire = GA ou Admin (plus `admin`) ; gardes serveur atelier + fichiers. Catalogue : `ga1`, `ga2` ajoutés, `admin` retiré.
+- **Écran** : pastille de groupe ; « Afficher : GAx seul | Tous les groupes » (Admin : Tous | GA1 | GA2) mémorisé par poste + « GA2 masqué : … » ; mode lecture par élément (events, storylines, incidents, fiche, rangées de planche en pointillé et non déplaçables) ; pastilles propriétaire/source ; « + Nouvel event » (source, code proposé, avertissement, propriétaire) ; « Mettre à jour depuis JEMM… » par event (bilan limité) ; « Changer de groupe… » (Admin) ; stepper 3 étapes pour MELMIL ; Écarts limités aux events JEMM ; Réglages : « Verser » → GT1, « Mettre à jour tous les events JEMM » sans suppression d'event.
+- **Vérifié** : 405/405 (18 nouveaux), tsc, Playwright GA2 (21/22 puis corrigé), GA1 8/8, Admin + app-admin 8/8 (l'Admin récupère storylines et incidents des deux groupes, scénario créé sur 20.01 de GA2) ; image Docker base vide + atelier d'avant versé (lu en GA1, 19 incidents servis, 0 erreur) ; plateforme 24/25 (échec Windows connu).
+- **Après mise en ligne** : pousser **Pléiade puis MELMIL à la suite** ; bouclier MELMIL : **GA1** pour GREY CELL, **GA2** pour FORAD (retirer « Lecture et demandes ») ; reconnexion.
+
 ## 2026-10-03 (suite 9) — MELMIL : statut « En validation » = disque jaune plein, partout (app-melmil `1ea2e0c`) — ✅ EN LIGNE le 2026-10-03 à 14:33 (`/api/sante` 2026-10-03.7)
 
 - **Demande utilisateur (ergonomie)** : la pastille « En validation » (une moitié jaune) devient un **disque jaune plein**, sur la planche puis, précision de l'utilisateur, **partout** (tableau, fiche, sélecteur, filtres, Synthèse). Repères : quart orange = préparation, jaune plein = validation, vert plein = validé, vert + J = dans JEMM.
