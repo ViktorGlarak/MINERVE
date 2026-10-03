@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 2) — Sons MP3 sur les posts principaux (`app-social` `d3ed591`, branche `mp3-posts`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 2) — Sons MP3 sur les posts principaux (`app-social` `d3ed591`) — ✅ EN LIGNE le 2026-10-03 à 15:03
 
 - **Demande utilisateur** : joindre des `.mp3` aux posts principaux, pas aux réponses ; visuel de lecture travaillé avec DESIGNER (avis n°39).
 - **Serveur** (`upload.ts`, `posts.ts`, `service/index.ts`, `media.ts`, `index.ts`) : `audio/mpeg`/`audio/mp3` → `.mp3`, signature ID3/trame MPEG, `typeDeMedia` → `"audio"`, `refuserAudioEnReponse` (commentaires + `service/publish` avec `reply_to_post_id`), durée via `probeDuration` (ffprobe), `SOCIAL_UPLOAD_AUDIO_MAX_SIZE` (défaut 20) exposé en `social_upload_audio_max_mb` dans `/api/config`. Pas de changement de base (`media_type` est une chaîne).
