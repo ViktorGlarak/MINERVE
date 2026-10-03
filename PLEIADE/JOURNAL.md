@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite) — MELMIL : rôle « Admin » et Animation recentrée (app-melmil `955cf8c`, pleiade-platform `4844ee0`, mêmes branches) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite) — MELMIL : rôles « Admin » et « Lecture et demandes », Animation recentrée (app-melmil `955cf8c`, pleiade-platform `4844ee0`) — POUSSÉ, EN LIGNE (`/api/sante` 2026-10-03.2)
 
 - **Décision utilisateur** : un groupe « Admin » a accès à tout ; l'**Animation** crée events, storylines, incidents et demandes ; **toute la gestion technique** passe à l'Admin.
 - **Catalogue** : rôle `gestion` libellé **« Admin »** (⚠ la clé `admin` reste celle d'« Animation », historique — ne pas la renommer, les cases cochées seraient perdues). Se suffit à lui-même (entrer, écrire, droits Prod).
