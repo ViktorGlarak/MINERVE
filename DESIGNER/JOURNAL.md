@@ -1,5 +1,12 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-03 — Avis n°36 : admin, scénarios de bruit de fond
+
+- **Demande** : créer dans l'admin des scénarios nommés reliés à aucun incident ni storyline MELMIL (posts ordinaires, ambiance), bien rangés dans « Scénarios ». L'utilisateur proposait une 3e option dans « Cible du scénario » ou une case.
+- **Constat** (code lu le 2026-10-03) : incident obligatoire côté formulaire et serveur dès qu'il y a un MELMIL ; « sans incident » = « Non classés » (à ranger) ; le bandeau invite à rattacher ; le segment n'a ni rôle ni état ARIA.
+- **Avis** : `AVIS\2026-10-03_ADMIN_SCENARIOS_BRUIT\AVIS.md`, R1 à R15. Points clés : 3e segment « Bruit de fond » plutôt qu'une case (choix exclusifs, pas de mode caché) ; drapeau explicite côté données ; section « Bruit de fond » distincte, entre l'arborescence et « Non classés », sous-groupée par jour ; conversions dans les deux sens par le bandeau.
+- **Statut** : proposé, à arbitrer par l'utilisateur ; aucun code modifié.
+
 ## 2026-10-02 — Avis n°34 : MELMIL, synthèse de planification
 
 - **Demande** : voir d'un coup d'œil où en est la planification (incidents, en prépa, sans pièce jointe ni scénario…), nouvel onglet possible, ergonomie soignée ; à voir en local d'abord.
