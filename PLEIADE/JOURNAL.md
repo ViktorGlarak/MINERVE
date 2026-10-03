@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-03 (suite 16) — app-admin : heure réelle au lieu du T+ dans l'éditeur de scénario (`a39e1df`, branche `heures-reelles`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande** : dans la liste des publications d'un scénario, remplacer « T+00:08 » par la vraie heure, ou un bouton pour alterner. Avis DESIGNER n°45.
+- **Fait** : `components/editor/heure.tsx` (`HeureContexte`, `useModeHeure` — défaut « réelle », mémorisé `admin.heure-affichage` —, `heureReelle` = `startAt` + T+ comme le planificateur, `couvrePlusieursJours`, `useHeure` → `fmt`/`autre`/`lesDeux`/`court`, segment `ChoixHeure`) ; branché dans `ScenarioEditor` (à droite des onglets Arbre/Timeline), `TreeView`, `Timeline` (graduation, cartes, infobulles, libellé d'axe), `ItemDialog` (position « 18:08 (T+00:08) », liste des parents). Écran seul, aucune API ni base.
+- **Vérifié** : 35/35 (+4, `test-heures.mts`) ; écran local (scénario 06.01.I05, début 18:00 heure de Paris) : arbre 18:00 / 18:08 / 18:15 / 18:45, infobulle T+00:08, bascule T+ → T+00:08…, timeline en heures réelles, choix gardé après rechargement, 0 erreur console ; image Docker : base vide `/login` 200, données + redémarrage 200, BFF sans session 401, 0 erreur. (4 publications d'essai ajoutées au scénario local n°4.)
+
 ## 2026-10-03 (suite 15) — MELMIL : CRQ UTMC, titre des CR avec l'ETIM, correctif des saisies rapprochées (app-melmil `08ed95c`, version 2026-10-03.11, branche `crq-utmc`) — ✅ EN LIGNE le 2026-10-03 à 18:55:47 (poussé `5421cc4..08ed95c` sur main + prod ; `/api/sante` = 2026-10-03.11, modèle `/modeles-cr/crq-utmc.docx` 200)
 
 - **Demande** : sous les CR du jour, un « CRQ UTMC » (modèle `EXER\DELATTRE 26\01_Montage exercice\CRQ 071500BOCT26 PSYREP-CIMICREP.odt`, sans marquage de diffusion), **commun à tous les incidents d'un jour et d'un groupe d'animation** (tranché), lignes = **ETIM de l'exercice** (tranché), **retirables** ; téléchargeable modifiable, **nommage des pièces jointes** ; + titre des CR avec l'ETIM (`20261008_MR_DL26_SITCEN-GYC-0701I23-ETIM7-PSYREP-n°1`). Avis DESIGNER n°44.
