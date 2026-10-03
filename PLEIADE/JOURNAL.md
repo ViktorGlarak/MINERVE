@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-03 (suite 5) — Admin : changer la cible d'un scénario existant (app-admin `7acfd4a`, branche `cible-multi-incidents`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-03 (suite 5) — Admin : changer la cible d'un scénario existant (app-admin `7acfd4a`) — POUSSÉ sur main + prod le 2026-10-03 vers 12:07 (mise en ligne à confirmer à l’écran : l’admin n’expose pas de version)
 
 - **Constat utilisateur** : l'ancien scénario « 08.01 STARTEX » (sans cible) ne pouvait être rattaché qu'à UN incident, par une liste déroulante qui ne se fermait pas au clic extérieur. Avis DESIGNER n°37.
 - **Fait** : composant partagé `ChoixCible` (création + fiche : « Un incident | Une storyline | Bruit de fond », storyline = cases à cocher avec moment et doublons, compteur annoncé, incidents disparus signalés) ; `BandeauCible` sur la fiche (Cible MELMIL / Incident / Storyline avec les codes couverts / Bruit de fond) et une seule porte « Rattacher… / Changer… » vers la fenêtre « Cible du scénario » (pré-remplie par la cible actuelle ou d'après le nom, bouton qui dit l'effet, conséquence ▶ retiré, ligne d'état après validation, erreur gardée dans la fenêtre). Un scénario de **storyline devient modifiable** (le commentaire « le périmètre se modifie dans MELMIL » était faux). Liste d'incidents : fermée au clic extérieur et au Tab, ne s'ouvre plus d'office, Échap défait une chose à la fois, plus de bouton dans la listbox. `Modal` : `aria-labelledby`, focus piégé et rendu, `fermerAuFond`. Compte « n scénarios » : un scénario de storyline compte sur chacun de ses incidents.
