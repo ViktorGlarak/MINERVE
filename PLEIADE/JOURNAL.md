@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 16) — Social + admin : « impossible de publier un MP3 » (`app-social` `ada6088`, `app-admin` `6af7d0a`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Signalement** (utilisateur) : on n'arrive pas à publier de MP3 sur Social alors que la fonction existe (mise en ligne le 03/10, essayée avec un MP3 de 30 s).
+- **Causes** (deux) : (1) **app-admin** refusait le `.mp3` partout — `ALLOWED` (lib/media.ts) sans `.mp3` (« Format non pris en charge »), bouton « Média » limité à `image/*,video/*`, type enregistré image/vidéo seulement, `mimeFor` sans mp3 → impossible depuis un scénario ; (2) **app-social** n'acceptait que `audio/mpeg`/`audio/mp3` : un `.mp3` annoncé « audio/x-mpeg », « audio/mpeg3 » ou sans type (registre Windows / navigateur) était refusé par le filtre multer, alors que l'écran le laissait passer d'après son nom.
+- **Fait** : admin — `.mp3` accepté (type `audio`), envoyé en `audio/mpeg`, relu en `audio/mpeg`, lecteur dans la fiche de l'item, icône son (Arbre, Timeline, tableau), refus immédiat sur une réponse + règle de vérification (« un son MP3 ne se joint qu'à un post principal ») ; 3 tests (42/42). Social — `normaliserTypeMp3` (alias + octet-stream avec nom .mp3 → audio/mpeg, la SIGNATURE tranche), `verifierFichiersTeleverses` ajouté à `POST /api/service/publish`, l'écran envoie toujours `audio/mpeg`.
+- **Vérifié** : Social (image Docker, copie de base, `DB_PROVIDER=mysql`) : vrai MP3 annoncé audio/mpeg, octet-stream, x-mpeg, mpeg3 → post `audio` 30 s ; faux .mp3 → 400 ; PNG inchangé ; redémarrage 0 erreur. Admin (serveur local) : MP3 déposé sur un item racine → `mediaType` audio, relu `audio/mpeg` ; sur une réponse → signalé par la vérification ; image Docker (copie de base + redémarrage, /login 200, BFF 401, 0 erreur).
+
 ## 2026-10-04 (suite 15) — MELMIL : ouvrir les pièces jointes sans les télécharger (`97129ad`, version 2026-10-04.11, branche `apercu-pieces`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Besoin** (utilisateur) : certaines pièces jointes ne s'ouvrent pas, il faut les télécharger. Choix utilisateur : **visionneuse intégrée** (plutôt que conversion PDF par LibreOffice sur le serveur, +500 Mo d'image).
