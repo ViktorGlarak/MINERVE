@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 18) — MELMIL : onglet « Demandes de produit » refait (`994deb1`, version 2026-10-04.13, branche `onglet-demandes`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Question utilisateur** : la Prod voit-elle clairement qu'une demande est totalement traitée (produit approuvé) ? Réponse honnête : pas assez (Livrée ≈ Approuvée en couleur, pas de « qui doit agir », pas de signal d'approbation, synthèse confondue). Refonte demandée ; DESIGNER n°59 l'a jugée nécessaire.
+- **Fait** : `etatDemande` (étape, main, ton, libellés) ; pastilles icône + libellé + ton ; 4 cartes-filtres « à qui la main » ; colonnes Avancement et « À qui la main » ; tri ; lignes closes grisées ; compteur d'onglet Prod = chez Prod ; signal Prod à l'approbation ; synthèse `approuvees` + ligne « produits livrés attendent l'avis ».
+- **Vérifié** : 517/517 tests (5 nouveaux) ; captures avec 8 demandes d'essai (une par statut) ; Docker base vide + données → 2026-10-04.13, 0 erreur.
+
 ## 2026-10-04 (suite 17) — MELMIL : produit livré récupérable + avis du demandeur (`60a791a`, version 2026-10-04.12, branche `avis-demandeur`, construite sur `apercu-pieces`) — POUSSÉ le 2026-10-04 avec la 2026-10-04.11 (`ac45045..60a791a` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.12
 
 - **Besoin** (utilisateur, après une vraie livraison) : s'assurer que le demandeur récupère le produit ; nouvelle étape où il approuve ou remet en demande pour modification.
