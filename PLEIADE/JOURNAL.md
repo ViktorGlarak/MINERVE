@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 17) — MELMIL : produit livré récupérable + avis du demandeur (`60a791a`, version 2026-10-04.12, branche `avis-demandeur`, construite sur `apercu-pieces`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur, après une vraie livraison) : s'assurer que le demandeur récupère le produit ; nouvelle étape où il approuve ou remet en demande pour modification.
+- **Défaut trouvé** : la fiche n'affichait que le NOM du produit livré (« Livré : … ») ; pour une demande SANS incident (FORAD), le fichier livré n'était accessible nulle part.
+- **Fait** : rubrique « Produit livré » (Ouvrir / Télécharger) ; statuts « À modifier » / « Approuvée » ; avis du demandeur (`donnerAvisDemande`, historique `avis`) ; exception serveur étroite `avisSeulement` (détail CYBERSECU) ; file Prod + bandeau (« Modification demandée sur DP-xx ») ; synthèse. Avis DESIGNER n°58.
+- **Vérifié** : 512/512 tests (13 nouveaux) ; Playwright sur DP-01 : Prod → Livrée, Télécharger = 200 image/png 17 998 octets, « Demander une modification » → À modifier (texte visible des deux côtés), « Marquer livrée » → Livrée, « Approuver » → Approuvée, 0 erreur ; Docker base vide + données → 2026-10-04.12, 0 erreur.
+
 ## 2026-10-04 (suite 16) — Social + admin : « impossible de publier un MP3 » (`app-social` `ada6088`, `app-admin` `6af7d0a`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
 
 - **Signalement** (utilisateur) : on n'arrive pas à publier de MP3 sur Social alors que la fonction existe (mise en ligne le 03/10, essayée avec un MP3 de 30 s).
