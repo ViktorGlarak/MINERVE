@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 12) — app-admin : cellule de chaque scénario (GREYCELL / FORAD) (`e810c73`, branche `cellule-scenarios`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 12) — app-admin : cellule de chaque scénario (GREYCELL / FORAD) (`e810c73`, branche `cellule-scenarios`) — POUSSÉ le 2026-10-04 (`869afc4..e810c73` sur main + prod) ; mise en ligne à confirmer (redémarrage de l'admin)
 
 - **Besoin** (utilisateur) : GREYCELL et FORAD créent des scénarios de bruit ; impossible de voir à quelle cellule chacun appartient.
 - **Fait** : `lib/cellules.ts` (déduction depuis le claim `groups` Keycloak, normalisation, liste fermée) ; `kc-token` lit `groups`, la session les porte, `Operator.cellule` ; colonne `scenarios.cellule` (db push) ; API création (choisie, sinon celle du compte) et modification (GREYCELL/FORAD/null) ; UI : liseré + badge `TagCellule` dans la liste (« cellule ? » pour un bruit sans cellule), filtre « Cellule » mémorisé, segment `ChoixCellule` à la création (pré-choisi, obligatoire pour un bruit), correction dans la fiche, badge dans la barre compacte. Avis DESIGNER n°56 ; CYBERSECU consigné (aucun droit nouveau).
