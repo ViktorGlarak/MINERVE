@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 — Point de situation + app-admin : Arbre des scénarios refait (`4f9f73f`, branche `arbre-refonte`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 — Point de situation + app-admin : Arbre des scénarios refait (`4f9f73f`, branche `arbre-refonte`) — ✅ EN LIGNE le 2026-10-04 à 09:11:38 (poussé `4fdf7a8..4f9f73f` sur main + prod ; instance redémarrée, 404 de 09:11:07 à 09:11:27, puis `/login` 200 et BFF sans session 401)
 
 - **Point demandé par l'utilisateur** (soupçon d'une intervention de Xavier) : GitHub, 12 dépôts, toutes branches → depuis le 02/10, seul commit tiers : Xavier `01ed0e6` (03/10 11:46, MariaDB plafonné à 1 000 connexions). Rien après notre dernière poussée (03/10 19:32). Versions en ligne = les nôtres (MELMIL 2026-10-03.11, eho 2026-10-03.1, plateforme `83084af` construite le 03/10 16:24, Admin redémarré 19:42, LEAC cecpc-div-eval 2026-10-02.1). Zone « exercice » : LEAC et eho sans route (instances coupées par l'utilisateur le 03/10, probablement). Hors de portée : réglages faits dans l'interface Pléiade ou sur la machine.
 - **Arbre** (avis DESIGNER n°47, tout appliqué) : heure en tête + décalage « +3 », statut en mot, conversations repliables (« +6 réponses · jusqu'à 18:15 »), Tout replier / déplier, filtres par statut avec nombres, actions au survol / focus, sélection : décaler ±1 / ±5 (seuls les items sans ancêtre sélectionné), publier (une confirmation, dans l'ordre), supprimer ; en-tête du scénario non collant + barre compacte fixe en défilant.
