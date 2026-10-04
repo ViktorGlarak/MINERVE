@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 4) — MELMIL : « Écarts avec JEMM » → comparatif complet + impression A4 (`d451f6e`, version 2026-10-04.2, branche `ecarts-comparatif`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Demande** : un vrai bilan JEMM / planification (descriptions, pièces jointes, effets…), ergonomie revue avec DESIGNER (n°50), bouton d'impression A4 multi-pages.
+- **Fait** : `lib/atelier/comparatif.ts` (pur) — par code, chaque champ en « identique / different / manque-melmil / manque-jemm / vide / inconnu » ; incidents : sujet, date+heure, description, résultat attendu, moyen, émetteur, destinataires (ensemble), pièces jointes (nombre JEMM `piecesJemm` vs médias MELMIL ; « inconnu » si planche JEMM antérieure) ; storylines : nom, période, récit, objectif ; bilan (alignement %, à reprendre, d'un seul côté, PJ manquantes), matrice par champ. Écran `ecarts-comparatif.tsx` (bilan + cartes-filtres, matrice cliquable, carte de chaleur event → storyline, détail côte à côte, filtres, impression via portail `zone-impression` + `@media print`). Compte de l'onglet = lignes avec écart. L'ancien `ecarts()` (Synthèse, PPT) est inchangé.
+- **Vérifié** : 454/454 (+15) ; écran local (données d'essai face aux vrais exports du 04/10) : bilan, 12 lignes de matrice, 80 incidents en carte de chaleur, détail, filtre matrice et KPI, 0 erreur console ; PDF A4 (`page.pdf`) : 23 pages, en-tête, bilan, grille, détail ; image Docker (base vide, données + redémarrage, service) 200, 0 erreur.
+
 ## 2026-10-04 (suite 3) — MELMIL : planche JEMM — dossier entier, pièces jointes JEMM, date du dernier import (`37b5b6a`, version 2026-10-04.1, branche `jemm-pieces`) — ✅ EN LIGNE le 2026-10-04 à 10:03:53 (poussé `08ed95c..37b5b6a` sur main + prod ; `/api/sante` = 2026-10-04.1)
 
 - **Question préalable** (import des exports du 04/10 dans la planification) : réponse donnée depuis le code d'`aligner.ts` — gardés : ETIM (union, jamais retirées), statut, traitants, CR, médias, demandes, effets attendus, QUI/OÙ, coordination, objectifs secondaires, groupes ; remplacés : code, sujet, description, D+ et heure (option « garder les dates »), objectif principal, moyen, émetteur, destinataires, résultat attendu ; supprimés : storylines/incidents absents de l'export, sauf incidents avec pièces. ⚠ Seul « Mettre à jour tous les events JEMM » (Réglages) importe les PIÈCES JOINTES ; le bouton par event ne le fait pas. L'utilisateur a fait les imports : « c'est ok ».
