@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 14) — eho : avatar STARTEX rangé chez les « organisations internationales (ONG) » au lieu de Mercure dans la vue des joueurs (`14f3a72`, version 2026-10-04.1, branche `startex-zone`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Signalement** (utilisateur) : un avatar « tanker… » de Mercure (réservé FORAD), passé en STARTEX, apparaît dans la vue des joueurs dans « ONG » et non dans Mercure.
+- **Cause** (lue dans le code) : la planche du joueur pose une carte STARTEX dans la zone dont la clé est EXACTEMENT son `pays` officiel (« Mercure »), sinon dans « Autre » = ORGANISATIONS INTERNATIONALES (sous-titre « ONU · OTAN · UE · CICR · ONG… »). Le trombinoscope, lui, compare le pays normalisé (casse, accents, espaces) → un pays saisi « MERCURE » / « mercure » / « Mercure␣ » est chez Mercure côté admin et chez les ONG côté joueurs. ⚠ Valeur réelle du pays de l'avatar NON vue (pas d'accès à la base en ligne ; absent de la base d'essai).
+- **Fait** : `zoneDuPays` (trombinoscope.ts, même `normaliserPays`) pour la planche du joueur, la planche de l'animation (eho-joueurs) et `zoneAttendue` (comparaison). 7 tests (119/119). Docker : mise à niveau sur copie de la base d'essai + redémarrage → `/api/sante` 2026-10-04.1, 0 erreur.
+- **Reste à confirmer** : si le pays de l'avatar est VIDE ou écrit autrement (« MER », « République de Mercure »), la correction ne suffit pas : corriger le champ Pays de sa fiche (ou décider d'une règle de repli par groupe).
+
 ## 2026-10-04 (suite 13) — MELMIL : imprimer la planche de préparation de l'A4 à l'A0, par groupe (`ac45045`, version 2026-10-04.10) — POUSSÉ le 2026-10-04 (`be6f5bf..ac45045` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.10
 
 - **Besoin** (utilisateur) : imprimer le tableau de la planification en plusieurs formats (A4→A0), pour GREYCELL, FORAD ou les deux. Maquette DESIGNER n°57 validée (« push déjà ça, on verra les modifs plus tard »).
