@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 2) — app-admin : Arbre variante A en ligne (09:20) + Timeline en chronogramme par conversation (`869afc4`, branche `timeline-chrono`) — chronogramme VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 2) — app-admin : Arbre variante A en ligne (09:20) + Timeline en chronogramme par conversation (`869afc4`, branche `timeline-chrono`) — ✅ chronogramme EN LIGNE le 2026-10-04 à 09:30:44 (poussé `0ba7c40..869afc4` sur main + prod ; redémarrage puis `/login` 200, BFF sans session 401)
 
 - **Arbre, variante A** (DESIGNER n°48 : heure du post en gras, réponses en retrait avec ↳, séparation avant chaque post) : `0ba7c40` poussé sur main + prod, ✅ **en ligne à 09:20:48** (redémarrage, puis `/login` 200).
 - **Timeline** : l'utilisateur revient sur son choix et veut la **proposition A** (chronogramme). ⚠ Il a précisé : « variante A » = la Timeline ; **ne pas toucher à l'Arbre**. Fait : `TimelineChrono.tsx` (lignes par conversation ou par avatar, points sur l'axe, fil de conversation, points proches étagés, densité 5 min, Début / Fin / Maintenant, zoom Ajuster / 1 h / 30 min / 15 min avec défilement et libellés fixes, panneau de conversation avec Décaler ±1 / ±5 et Modifier, glisser un point + Échap, ← / → au clavier, double-clic = fiche) ; **vue par défaut**, l'agenda reste au choix (« Chronogramme | Agenda », `admin.timeline-vue`).
