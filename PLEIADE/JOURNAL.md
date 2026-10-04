@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 — Point de situation + app-admin : Arbre des scénarios refait (`4f9f73f`, branche `arbre-refonte`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Point demandé par l'utilisateur** (soupçon d'une intervention de Xavier) : GitHub, 12 dépôts, toutes branches → depuis le 02/10, seul commit tiers : Xavier `01ed0e6` (03/10 11:46, MariaDB plafonné à 1 000 connexions). Rien après notre dernière poussée (03/10 19:32). Versions en ligne = les nôtres (MELMIL 2026-10-03.11, eho 2026-10-03.1, plateforme `83084af` construite le 03/10 16:24, Admin redémarré 19:42, LEAC cecpc-div-eval 2026-10-02.1). Zone « exercice » : LEAC et eho sans route (instances coupées par l'utilisateur le 03/10, probablement). Hors de portée : réglages faits dans l'interface Pléiade ou sur la machine.
+- **Arbre** (avis DESIGNER n°47, tout appliqué) : heure en tête + décalage « +3 », statut en mot, conversations repliables (« +6 réponses · jusqu'à 18:15 »), Tout replier / déplier, filtres par statut avec nombres, actions au survol / focus, sélection : décaler ±1 / ±5 (seuls les items sans ancêtre sélectionné), publier (une confirmation, dans l'ordre), supprimer ; en-tête du scénario non collant + barre compacte fixe en défilant.
+- **Vérifié** : filtres « Tous 18 | Brouillons 16 | Publiés 1 | Erreurs 1 », replier #1 → « +6 réponses · jusqu'à 18:15 », Tout replier → 6 lignes, filtre Erreurs → 1 ligne, sélection #12 + sa réponse #13 puis +1 → #12 64→65 et #13 inchangé, barre compacte en défilant (59 px) et absente en haut, actions au focus clavier, 0 erreur console ; 35/35 ; image Docker (base vide, données + redémarrage) 200, BFF 401, 0 erreur. (Docker Desktop relancé, il était arrêté.)
+
 ## 2026-10-03 (suite 17) — app-admin : timeline des scénarios en agenda vertical (`4fdf7a8`, même branche `heures-reelles`, au-dessus de `a39e1df`) — ✅ EN LIGNE le 2026-10-03 à 19:42:58 (poussé `cc8101d..4fdf7a8` sur main, `7acfd4a..4fdf7a8` sur prod — inclut les notes de version ; l'instance a redémarré, 404 de 19:42:28 à 19:42:48, puis `/login` 200 et BFF sans session 401)
 
 - **Demande** : « impossible de travailler avec cette vue » → 3 maquettes DESIGNER (n°46) avec captures, **B retenue** (agenda vertical) ; question utilisateur : peut-on déplacer les horaires à la main ? → oui, glisser + clavier.
