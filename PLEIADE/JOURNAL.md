@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 14) — eho : avatar STARTEX rangé chez les « organisations internationales (ONG) » au lieu de Mercure dans la vue des joueurs (`14f3a72`, version 2026-10-04.1, branche `startex-zone`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 14) — eho : avatar STARTEX rangé chez les « organisations internationales (ONG) » au lieu de Mercure dans la vue des joueurs (`14f3a72`, version 2026-10-04.1, branche `startex-zone`) — POUSSÉ le 2026-10-04 (main `a479026..14f3a72`, prod `afa4766..14f3a72`) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.1 ; l'utilisateur vérifie l'avatar
 
 - **Signalement** (utilisateur) : un avatar « tanker… » de Mercure (réservé FORAD), passé en STARTEX, apparaît dans la vue des joueurs dans « ONG » et non dans Mercure.
 - **Cause** (lue dans le code) : la planche du joueur pose une carte STARTEX dans la zone dont la clé est EXACTEMENT son `pays` officiel (« Mercure »), sinon dans « Autre » = ORGANISATIONS INTERNATIONALES (sous-titre « ONU · OTAN · UE · CICR · ONG… »). Le trombinoscope, lui, compare le pays normalisé (casse, accents, espaces) → un pays saisi « MERCURE » / « mercure » / « Mercure␣ » est chez Mercure côté admin et chez les ONG côté joueurs. ⚠ Valeur réelle du pays de l'avatar NON vue (pas d'accès à la base en ligne ; absent de la base d'essai).
