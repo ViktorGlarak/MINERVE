@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 18) — MELMIL : onglet « Demandes de produit » refait (`994deb1`, version 2026-10-04.13, branche `onglet-demandes`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 18) — MELMIL : onglet « Demandes de produit » refait (`994deb1`, version 2026-10-04.13, branche `onglet-demandes`) — POUSSÉ le 2026-10-04 (`60a791a..994deb1` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.13
 
 - **Question utilisateur** : la Prod voit-elle clairement qu'une demande est totalement traitée (produit approuvé) ? Réponse honnête : pas assez (Livrée ≈ Approuvée en couleur, pas de « qui doit agir », pas de signal d'approbation, synthèse confondue). Refonte demandée ; DESIGNER n°59 l'a jugée nécessaire.
 - **Fait** : `etatDemande` (étape, main, ton, libellés) ; pastilles icône + libellé + ton ; 4 cartes-filtres « à qui la main » ; colonnes Avancement et « À qui la main » ; tri ; lignes closes grisées ; compteur d'onglet Prod = chez Prod ; signal Prod à l'approbation ; synthèse `approuvees` + ligne « produits livrés attendent l'avis ».
