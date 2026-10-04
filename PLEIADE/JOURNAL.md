@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 6) — MELMIL : import d'un dossier JEMM → pièces jointes versées automatiquement dans l'incident de même code de la planification (`f4cc04e`, version 2026-10-04.4, branche `pieces-jemm-auto`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur) : à l'import JEMM, la pièce jointe de l'incident 08.01.I01 doit aller **automatiquement** dans l'incident 08.01.I01 de la planification. Jusqu'ici, seul « Mettre à jour tous les events JEMM » (Réglages, alignement complet) versait les pièces.
+- **Fait** : `components/verser-pieces-jemm.ts` appelé après l'import par dossier ET après « Remplacer par un dossier d'exports JEMM… » de la planche JEMM (Admin) ; réutilise `repartirPieces` (nom mis en règle, anti-doublon par nom ou taille+type), `fichierDeLaPiece` (`attachments/<Id>/`), `envoyerFichier` ; dépôts un par un puis **une seule** écriture de l'atelier (évite les 409 en rafale) ; rien d'autre de la planification n'est touché. Rapport d'import : rubrique « Pièces jointes → planification » (ajoutées, déjà présentes, sans incident de ce code, à nommer à la main, absentes du dossier). Code comparé à la casse/aux espaces près (aussi pour Réglages).
+- **Vérifié** : 464/464 tests ; Playwright avec le vrai dossier `JEMM\04.10.26` sur le serveur local : 4 pièces ajoutées (08.01.I01/I02/I03/I07), 3 « sans incident » (08.05.I01, 08.05.I02, 07.02.I03 absents de la base d'essai) ; second import = 0 ajoutée, 4 déjà présentes (pas de doublon) ; image Docker : base vide + données réelles + redémarrage → 2026-10-04.4, 0 erreur.
+
 ## 2026-10-04 (suite 5) — MELMIL : la cellule Prod replace une demande de produit sur un autre incident (`9be0958`, version 2026-10-04.3, branche `deplacer-demande`) — POUSSÉ le 2026-10-04 (`d451f6e..9be0958` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.3 (vérification automatique refusée en session)
 
 - **Besoin** (utilisateur) : un animateur a fait une demande sur le mauvais incident ; la Prod, seule, doit pouvoir la **replacer** sans la supprimer.
