@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 3) — MELMIL : planche JEMM — dossier entier, pièces jointes JEMM, date du dernier import (`37b5b6a`, version 2026-10-04.1, branche `jemm-pieces`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 3) — MELMIL : planche JEMM — dossier entier, pièces jointes JEMM, date du dernier import (`37b5b6a`, version 2026-10-04.1, branche `jemm-pieces`) — ✅ EN LIGNE le 2026-10-04 à 10:03:53 (poussé `08ed95c..37b5b6a` sur main + prod ; `/api/sante` = 2026-10-04.1)
 
 - **Question préalable** (import des exports du 04/10 dans la planification) : réponse donnée depuis le code d'`aligner.ts` — gardés : ETIM (union, jamais retirées), statut, traitants, CR, médias, demandes, effets attendus, QUI/OÙ, coordination, objectifs secondaires, groupes ; remplacés : code, sujet, description, D+ et heure (option « garder les dates »), objectif principal, moyen, émetteur, destinataires, résultat attendu ; supprimés : storylines/incidents absents de l'export, sauf incidents avec pièces. ⚠ Seul « Mettre à jour tous les events JEMM » (Réglages) importe les PIÈCES JOINTES ; le bouton par event ne le fait pas. L'utilisateur a fait les imports : « c'est ok ».
 - **Demandes** : importer un dossier entier sur la planche JEMM ; voir sur la planche JEMM les pièces jointes JEMM (comparer avec la planification) et les scénarios ; date du dernier import sous le titre (DESIGNER n°49).
