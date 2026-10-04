@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 12) — app-admin : cellule de chaque scénario (GREYCELL / FORAD) (`e810c73`, branche `cellule-scenarios`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur) : GREYCELL et FORAD créent des scénarios de bruit ; impossible de voir à quelle cellule chacun appartient.
+- **Fait** : `lib/cellules.ts` (déduction depuis le claim `groups` Keycloak, normalisation, liste fermée) ; `kc-token` lit `groups`, la session les porte, `Operator.cellule` ; colonne `scenarios.cellule` (db push) ; API création (choisie, sinon celle du compte) et modification (GREYCELL/FORAD/null) ; UI : liseré + badge `TagCellule` dans la liste (« cellule ? » pour un bruit sans cellule), filtre « Cellule » mémorisé, segment `ChoixCellule` à la création (pré-choisi, obligatoire pour un bruit), correction dans la fiche, badge dans la barre compacte. Avis DESIGNER n°56 ; CYBERSECU consigné (aucun droit nouveau).
+- **Vérifié** : 39/39 tests (4 nouveaux) ; Playwright (compte GREYCELL : cellule pré-choisie, bruit créé, corrigé en FORAD dans la fiche → base = FORAD ; filtre FORAD = 1 ligne ; liseré + badges, 0 erreur) ; Docker : mise à niveau d'une base SANS la colonne (13 scénarios gardés, colonne ajoutée, /login 200, BFF 401, redémarrage, 0 erreur) et base vide.
+- ⚠ Un compte déjà connecté avant la mise en ligne n'aura sa cellule qu'après reconnexion (les groupes sont lus à la connexion) ; d'ici là, choix à la main.
+
 ## 2026-10-04 (suite 11) — MELMIL : « Écarts avec JEMM » → bouton « Fiche » (fiche d'incident à droite) + fraîcheur de JEMM en tête (version 2026-10-04.9, branche `ecarts-fiche`) — POUSSÉ le 2026-10-04 (`621d038..be6f5bf` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.9
 
 - **Besoin** (utilisateur) : rouvrir le panneau d'un incident depuis l'onglet « Écarts avec JEMM » pour le modifier sur place ; voir en haut la date/heure du dernier import JEMM et de l'export (comme sur la planche JEMM).
