@@ -4,13 +4,13 @@
 
 ---
 
-## 2026-10-04 (suite 10) — MELMIL : un clic à l'extérieur ferme le panneau incident / storyline (version 2026-10-04.8, branche `panneaux-dehors`, contient aussi la 2026-10-04.7) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 10) — MELMIL : un clic à l'extérieur ferme le panneau incident / storyline (version 2026-10-04.8, branche `panneaux-dehors`, contient aussi la 2026-10-04.7) — POUSSÉ le 2026-10-04 (`23cc5c2..621d038` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.8
 
 - **Besoin** (utilisateur) : fermer le panneau d'un incident (planche JEMM et planification) d'un clic à l'extérieur, sans « Fermer ».
 - **Fait** : `useFermerDehors` (vrai clic < 10 px, hors panneau ; ignore dialogues/alertdialog/aria-modal, menus, messages, `[data-garder-panneau]`, barre de défilement) sur `Detail`, `DetailStoryline`, `FicheIncidentContenu` ; fond de la confirmation gardé.
 - **Vérifié** : Playwright — planche JEMM (ouvert, clic dedans = reste, clic dehors = fermé, autre carte = s'ouvre), onglet Incidents et planche de préparation (clic dehors = fermé), confirmation « Supprimer » (Annuler et clic sur le fond : la fiche reste) ; tests ; Docker.
 
-## 2026-10-04 (suite 9) — MELMIL : menus « Plus ▾ » / « Compte et affichage » qui se ferment (version 2026-10-04.7, branche `menu-plus`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 9) — MELMIL : menus « Plus ▾ » / « Compte et affichage » qui se ferment (version 2026-10-04.7, branche `menu-plus`) — POUSSÉ avec la 2026-10-04.8
 
 - **Retour utilisateur** (1er import JEMM réel réussi ✅) : le menu « Plus ▾ » restait ouvert par-dessus le bilan d'import.
 - **Fait** : `FermerMenus` (clic ailleurs + Échap, tous les `details.menu`, monté dans le sas) ; « Plus ▾ » fermé à l'ouverture du bilan.
