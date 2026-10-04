@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 7) — MELMIL : badge « J » sur les fichiers venus de JEMM (`ad1e7ff`, version 2026-10-04.5, branche `badge-jemm`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur, après un import JEMM réussi) : savoir visuellement qu'un fichier provient de l'import JEMM — « un J », avec DESIGNER (avis n°52).
+- **Fait** : champ optionnel `MediaIncident.jemm` (id de la pièce JEMM) ; `marquerPiecesJemm` (écriture séparée : le serveur rattache le fichier dès son dépôt) appelé par le versement de la planche JEMM et par « Mettre à jour depuis JEMM » ; `repartirPieces` rend le `mediaId` des pièces déjà là → **les fichiers importés avant reçoivent leur J au prochain import du dossier**. UI : `BadgeJemm` (coin de vignette + listes « Fichiers fournis »), mention « Importé de JEMM ».
+- **Vérifié** : 468/468 tests ; Playwright (réimport du dossier `04.10.26` en local → 4 fichiers marqués ; vignette 08.01.I01 en clair et en sombre).
+
 ## 2026-10-04 (suite 6) — MELMIL : import d'un dossier JEMM → pièces jointes versées automatiquement dans l'incident de même code de la planification (`f4cc04e`, version 2026-10-04.4, branche `pieces-jemm-auto`) — POUSSÉ le 2026-10-04 (`9be0958..f4cc04e` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.4
 
 - **Besoin** (utilisateur) : à l'import JEMM, la pièce jointe de l'incident 08.01.I01 doit aller **automatiquement** dans l'incident 08.01.I01 de la planification. Jusqu'ici, seul « Mettre à jour tous les events JEMM » (Réglages, alignement complet) versait les pièces.
