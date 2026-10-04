@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 4) — MELMIL : « Écarts avec JEMM » → comparatif complet + impression A4 (`d451f6e`, version 2026-10-04.2, branche `ecarts-comparatif`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 4) — MELMIL : « Écarts avec JEMM » → comparatif complet + impression A4 (`d451f6e`, version 2026-10-04.2, branche `ecarts-comparatif`) — ✅ EN LIGNE le 2026-10-04 à 10:15:41 (poussé `37b5b6a..d451f6e` sur main + prod ; `/api/sante` = 2026-10-04.2)
 
 - **Demande** : un vrai bilan JEMM / planification (descriptions, pièces jointes, effets…), ergonomie revue avec DESIGNER (n°50), bouton d'impression A4 multi-pages.
 - **Fait** : `lib/atelier/comparatif.ts` (pur) — par code, chaque champ en « identique / different / manque-melmil / manque-jemm / vide / inconnu » ; incidents : sujet, date+heure, description, résultat attendu, moyen, émetteur, destinataires (ensemble), pièces jointes (nombre JEMM `piecesJemm` vs médias MELMIL ; « inconnu » si planche JEMM antérieure) ; storylines : nom, période, récit, objectif ; bilan (alignement %, à reprendre, d'un seul côté, PJ manquantes), matrice par champ. Écran `ecarts-comparatif.tsx` (bilan + cartes-filtres, matrice cliquable, carte de chaleur event → storyline, détail côte à côte, filtres, impression via portail `zone-impression` + `@media print`). Compte de l'onglet = lignes avec écart. L'ancien `ecarts()` (Synthèse, PPT) est inchangé.
