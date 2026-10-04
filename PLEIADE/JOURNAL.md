@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 8) — MELMIL : UN SEUL import JEMM sur la planche JEMM (`23cc5c2`, version 2026-10-04.6, branche `import-jemm-unique`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 8) — MELMIL : UN SEUL import JEMM sur la planche JEMM (`23cc5c2`, version 2026-10-04.6, branche `import-jemm-unique`) — POUSSÉ le 2026-10-04 (`ad1e7ff..23cc5c2` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.6
 
 - **Besoin** (utilisateur) : il importait le dossier JEMM deux fois (planche JEMM puis Réglages de la planification). Décisions : (1) aucun incident absent de JEMM supprimé sans choix ; (2) JEMM fait foi pour les dates → option « garder les dates » supprimée ; (3) bilan avant d'appliquer. Maquette DESIGNER n°53 validée.
 - **Fait** : `components/import-jemm-unique.tsx` (lecture du dossier, bilan, « Appliquer » = planche JEMM → planification → pièces jointes, chacun recalculé sur l'état du moment ; sauvegarde de l'atelier téléchargée avant). `aligner.ts` : option `supprimer` (ids) remplace `supprimerAvecPieces`/`garderDates` ; **appariement par `jemmId`** (incidents ET storylines, posé à chaque import) avant la ressemblance ; absents GARDÉS + `absentJemm` ; storyline supprimée seulement vide ET cochée ; code repris par JEMM → suffixe « -H » ; bilan détaillé. Les trois anciens chemins (BoutonImport json/dossier, AlignerJemm des Réglages, MajJemmEvent des events) → un bouton + renvois. `nomConforme` accepte « GYC_ ».
