@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 11) — MELMIL : « Écarts avec JEMM » → bouton « Fiche » (fiche d'incident à droite) + fraîcheur de JEMM en tête (version 2026-10-04.9, branche `ecarts-fiche`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 11) — MELMIL : « Écarts avec JEMM » → bouton « Fiche » (fiche d'incident à droite) + fraîcheur de JEMM en tête (version 2026-10-04.9, branche `ecarts-fiche`) — POUSSÉ le 2026-10-04 (`621d038..be6f5bf` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.9
 
 - **Besoin** (utilisateur) : rouvrir le panneau d'un incident depuis l'onglet « Écarts avec JEMM » pour le modifier sur place ; voir en haut la date/heure du dernier import JEMM et de l'export (comme sur la planche JEMM).
 - **Fait** : bouton « Fiche » en bout de ligne (incidents présents dans la planification ; discret, plein au survol / quand ouvert) + « Modifier dans la fiche → » dans le détail ; `FicheIncident` ouverte sur l'onglet ecarts (même mécanique que la planche de préparation, marge droite, ligne surlignée, focus rendu au bouton) ; `DernierImportJemm` extrait et partagé (planche JEMM + comparatif), bandeau bleu JEMM + lien « Planche JEMM → » ; masqués à l'impression.
