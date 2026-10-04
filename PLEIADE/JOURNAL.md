@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 2) — app-admin : Arbre variante A en ligne (09:20) + Timeline en chronogramme par conversation (`869afc4`, branche `timeline-chrono`) — chronogramme VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Arbre, variante A** (DESIGNER n°48 : heure du post en gras, réponses en retrait avec ↳, séparation avant chaque post) : `0ba7c40` poussé sur main + prod, ✅ **en ligne à 09:20:48** (redémarrage, puis `/login` 200).
+- **Timeline** : l'utilisateur revient sur son choix et veut la **proposition A** (chronogramme). ⚠ Il a précisé : « variante A » = la Timeline ; **ne pas toucher à l'Arbre**. Fait : `TimelineChrono.tsx` (lignes par conversation ou par avatar, points sur l'axe, fil de conversation, points proches étagés, densité 5 min, Début / Fin / Maintenant, zoom Ajuster / 1 h / 30 min / 15 min avec défilement et libellés fixes, panneau de conversation avec Décaler ±1 / ±5 et Modifier, glisser un point + Échap, ← / → au clavier, double-clic = fiche) ; **vue par défaut**, l'agenda reste au choix (« Chronogramme | Agenda », `admin.timeline-vue`).
+- **Vérifié** : 6 lignes / 18 points, 0 point recouvert ; panneau « #1 @mercure_info — 7 publications » ; Décaler +1 #7 4→5 ; glisser #4 55→70 ; Échap #17 inchangé ; → #12 65→66 ; zoom 30 min défile ; par avatar 12 lignes ; bascule Agenda mémorisée ; **Arbre intact** (↳) ; 0 erreur console ; 35/35 ; image Docker (base vide, données + redémarrage) 200, 0 erreur.
+
 ## 2026-10-04 — Point de situation + app-admin : Arbre des scénarios refait (`4f9f73f`, branche `arbre-refonte`) — ✅ EN LIGNE le 2026-10-04 à 09:11:38 (poussé `4fdf7a8..4f9f73f` sur main + prod ; instance redémarrée, 404 de 09:11:07 à 09:11:27, puis `/login` 200 et BFF sans session 401)
 
 - **Point demandé par l'utilisateur** (soupçon d'une intervention de Xavier) : GitHub, 12 dépôts, toutes branches → depuis le 02/10, seul commit tiers : Xavier `01ed0e6` (03/10 11:46, MariaDB plafonné à 1 000 connexions). Rien après notre dernière poussée (03/10 19:32). Versions en ligne = les nôtres (MELMIL 2026-10-03.11, eho 2026-10-03.1, plateforme `83084af` construite le 03/10 16:24, Admin redémarré 19:42, LEAC cecpc-div-eval 2026-10-02.1). Zone « exercice » : LEAC et eho sans route (instances coupées par l'utilisateur le 03/10, probablement). Hors de portée : réglages faits dans l'interface Pléiade ou sur la machine.
