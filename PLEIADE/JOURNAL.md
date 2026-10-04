@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 5) — MELMIL : la cellule Prod replace une demande de produit sur un autre incident (`9be0958`, version 2026-10-04.3, branche `deplacer-demande`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 5) — MELMIL : la cellule Prod replace une demande de produit sur un autre incident (`9be0958`, version 2026-10-04.3, branche `deplacer-demande`) — POUSSÉ le 2026-10-04 (`d451f6e..9be0958` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.3 (vérification automatique refusée en session)
 
 - **Besoin** (utilisateur) : un animateur a fait une demande sur le mauvais incident ; la Prod, seule, doit pouvoir la **replacer** sans la supprimer.
 - **Fait** : `deplacerDemande` (numéro, statut, formulaire gardés ; livraisons Prod qui suivent ; demande directe → ses fichiers joints passent sur l'incident et restent cochés ; journal) ; garde serveur `demandesModifieesSansDroit` (« incident de DP-xx ») ; exemption étroite Prod dans `modificationsHorsPerimetre` (`{ prod }`, route + écran) ; `fichiersDeLaDemande` montre les fichiers cochés restés ailleurs ; UI rubrique « Cellule Prod » (avis DESIGNER n°51) ; la fiche suit l'incident de la demande.
