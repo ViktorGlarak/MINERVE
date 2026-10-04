@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 8) — MELMIL : UN SEUL import JEMM sur la planche JEMM (`23cc5c2`, version 2026-10-04.6, branche `import-jemm-unique`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur) : il importait le dossier JEMM deux fois (planche JEMM puis Réglages de la planification). Décisions : (1) aucun incident absent de JEMM supprimé sans choix ; (2) JEMM fait foi pour les dates → option « garder les dates » supprimée ; (3) bilan avant d'appliquer. Maquette DESIGNER n°53 validée.
+- **Fait** : `components/import-jemm-unique.tsx` (lecture du dossier, bilan, « Appliquer » = planche JEMM → planification → pièces jointes, chacun recalculé sur l'état du moment ; sauvegarde de l'atelier téléchargée avant). `aligner.ts` : option `supprimer` (ids) remplace `supprimerAvecPieces`/`garderDates` ; **appariement par `jemmId`** (incidents ET storylines, posé à chaque import) avant la ressemblance ; absents GARDÉS + `absentJemm` ; storyline supprimée seulement vide ET cochée ; code repris par JEMM → suffixe « -H » ; bilan détaillé. Les trois anciens chemins (BoutonImport json/dossier, AlignerJemm des Réglages, MajJemmEvent des events) → un bouton + renvois. `nomConforme` accepte « GYC_ ».
+- **Vérifié** : 478/478 tests (13 nouveaux) ; Playwright avec le vrai dossier `04.10.26` sur la base d'essai : 1er import = 70 incidents créés, 14 anciens (fictifs) GARDÉS et marqués, 0 perdu, statuts/ETIM/traitants identiques, médias/CR/demandes/CRQ intacts ; 2e import = 0 créé, 0 modifié, 6 pièces « déjà présentes » (pas de doublon) ; essai avec 1 case cochée = seul cet incident supprimé ; renvois Réglages/Events affichés, 0 erreur console ; image Docker : base vide + données réelles + redémarrage → 2026-10-04.6, 0 erreur.
+- ⚠ À savoir : la base d'essai locale a des events 07/08 fictifs (sujets sans rapport avec JEMM) → rien n'y est reconnu au 1er import ; en production la planification a déjà été alignée sur JEMM, les incidents y seront reconnus (ressemblance au 1er import, puis identifiant JEMM).
+
 ## 2026-10-04 (suite 7) — MELMIL : badge « J » sur les fichiers venus de JEMM (`ad1e7ff`, version 2026-10-04.5, branche `badge-jemm`) — POUSSÉ le 2026-10-04 (`f4cc04e..ad1e7ff` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.5
 
 - **Besoin** (utilisateur, après un import JEMM réussi) : savoir visuellement qu'un fichier provient de l'import JEMM — « un J », avec DESIGNER (avis n°52).
