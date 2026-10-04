@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 15) — MELMIL : ouvrir les pièces jointes sans les télécharger (`97129ad`, version 2026-10-04.11, branche `apercu-pieces`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur) : certaines pièces jointes ne s'ouvrent pas, il faut les télécharger. Choix utilisateur : **visionneuse intégrée** (plutôt que conversion PDF par LibreOffice sur le serveur, +500 Mo d'image).
+- **Fait** : type effectif d'après l'extension quand le type déposé est générique (PDF « sans type » → s'ouvre) ; page `/apercu/[id]` : .docx (docx-preview), .xlsx/.ods/.csv (tableaux par feuille), .pptx/.odp (texte + images par diapo), .odt (texte + tableaux) ; liens « Ouvrir » de l'écran (vignettes, fichiers fournis, orphelins) vers l'aperçu pour la bureautique. Sécurité : HTML/XML/JS en texte brut + CSP sandbox (faille XSS stockée fermée) — détail CYBERSECU.
+- **Vérifié** : 500/500 tests (13 nouveaux) ; 9 fichiers d'essai générés (LibreOffice local + pptxgenjs) déposés en octet-stream sur 08.01.I02 : en-têtes (PDF → application/pdf inline ; HTML → text/plain + sandbox ; docx → type Word), aperçus Playwright des 7 formats bureautiques sans erreur ; Docker base vide + données → 2026-10-04.11, 0 erreur.
+
 ## 2026-10-04 (suite 14) — eho : avatar STARTEX rangé chez les « organisations internationales (ONG) » au lieu de Mercure dans la vue des joueurs (`14f3a72`, version 2026-10-04.1, branche `startex-zone`) — POUSSÉ le 2026-10-04 (main `a479026..14f3a72`, prod `afa4766..14f3a72`) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.1 ; l'utilisateur vérifie l'avatar
 
 - **Signalement** (utilisateur) : un avatar « tanker… » de Mercure (réservé FORAD), passé en STARTEX, apparaît dans la vue des joueurs dans « ONG » et non dans Mercure.
