@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 7) — MELMIL : badge « J » sur les fichiers venus de JEMM (`ad1e7ff`, version 2026-10-04.5, branche `badge-jemm`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 7) — MELMIL : badge « J » sur les fichiers venus de JEMM (`ad1e7ff`, version 2026-10-04.5, branche `badge-jemm`) — POUSSÉ le 2026-10-04 (`f4cc04e..ad1e7ff` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.5
 
 - **Besoin** (utilisateur, après un import JEMM réussi) : savoir visuellement qu'un fichier provient de l'import JEMM — « un J », avec DESIGNER (avis n°52).
 - **Fait** : champ optionnel `MediaIncident.jemm` (id de la pièce JEMM) ; `marquerPiecesJemm` (écriture séparée : le serveur rattache le fichier dès son dépôt) appelé par le versement de la planche JEMM et par « Mettre à jour depuis JEMM » ; `repartirPieces` rend le `mediaId` des pièces déjà là → **les fichiers importés avant reçoivent leur J au prochain import du dossier**. UI : `BadgeJemm` (coin de vignette + listes « Fichiers fournis »), mention « Importé de JEMM ».
