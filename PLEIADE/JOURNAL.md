@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-04 (suite 13) — MELMIL : imprimer la planche de préparation de l'A4 à l'A0, par groupe (`ac45045`, version 2026-10-04.10) — POUSSÉ le 2026-10-04 (`be6f5bf..ac45045` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.10
+
+- **Besoin** (utilisateur) : imprimer le tableau de la planification en plusieurs formats (A4→A0), pour GREYCELL, FORAD ou les deux. Maquette DESIGNER n°57 validée (« push déjà ça, on verra les modifs plus tard »).
+- **Fait** : `lib/atelier/impression.ts` (pur, 9 tests) + `impression-planche.tsx` (fenêtre : groupes, format, orientation, une feuille / par période 7 j-5 j-event / affiche ; aperçu feuilles + zoom + pt + alerte < 6 pt ; en-tête/pied en marges @page avec n° de page ; légende ; « À placer » en option) ; `Planche` props `impression`, `sansAPlacer` ; chaque période ne reçoit que SES incidents (sinon « à placer »).
+- **Pièges rencontrés** : (1) `@page size: A1` ignoré par Chrome (A2/A1/A0 ne sont pas des mots-clés CSS) → tailles en mm ; (2) mesure de largeur infinie (tableau 100 %) → largeur = règle de la planche (150 + 118/jour), seule la hauteur est mesurée ; (3) tuiles d'affiche réduites/coupées (débordement → rétrécissement de page) → `overflow: clip; contain: strict` ; (4) la règle d'impression du comparatif masquait tout partout → limitée à `body:has(> .zone-impression)`.
+- **Vérifié** : 487/487 tests ; PDF Playwright : A4 par semaine 7 feuilles 297×210, A1 une feuille 841×594 (136 %, ≈ 11 pt), A3 affiche 4 feuilles (132 %, tuiles lettrées + repères), A4 une feuille (1 page, alerte 3,6 pt) ; Docker base vide + données + redémarrage → 2026-10-04.10, 0 erreur.
+
 ## 2026-10-04 (suite 12) — app-admin : cellule de chaque scénario (GREYCELL / FORAD) (`e810c73`, branche `cellule-scenarios`) — POUSSÉ le 2026-10-04 (`869afc4..e810c73` sur main + prod) ; mise en ligne à confirmer (redémarrage de l'admin)
 
 - **Besoin** (utilisateur) : GREYCELL et FORAD créent des scénarios de bruit ; impossible de voir à quelle cellule chacun appartient.
