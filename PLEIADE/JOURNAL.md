@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-04 (suite 5) — MELMIL : la cellule Prod replace une demande de produit sur un autre incident (`9be0958`, version 2026-10-04.3, branche `deplacer-demande`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+
+- **Besoin** (utilisateur) : un animateur a fait une demande sur le mauvais incident ; la Prod, seule, doit pouvoir la **replacer** sans la supprimer.
+- **Fait** : `deplacerDemande` (numéro, statut, formulaire gardés ; livraisons Prod qui suivent ; demande directe → ses fichiers joints passent sur l'incident et restent cochés ; journal) ; garde serveur `demandesModifieesSansDroit` (« incident de DP-xx ») ; exemption étroite Prod dans `modificationsHorsPerimetre` (`{ prod }`, route + écran) ; `fichiersDeLaDemande` montre les fichiers cochés restés ailleurs ; UI rubrique « Cellule Prod » (avis DESIGNER n°51) ; la fiche suit l'incident de la demande.
+- **Vérifié** : 463/463 tests (9 nouveaux) ; Playwright (sans incident → 06.01.I02, puis 06.01.I02 → 07.01.I03, 0 erreur console) ; image Docker : base vide → 2026-10-04.3, données réelles + redémarrage, 0 erreur de logs. Le nom des fichiers à l'export prend le code du nouvel incident (`nomExport`).
+
 ## 2026-10-04 (suite 4) — MELMIL : « Écarts avec JEMM » → comparatif complet + impression A4 (`d451f6e`, version 2026-10-04.2, branche `ecarts-comparatif`) — ✅ EN LIGNE le 2026-10-04 à 10:15:41 (poussé `37b5b6a..d451f6e` sur main + prod ; `/api/sante` = 2026-10-04.2)
 
 - **Demande** : un vrai bilan JEMM / planification (descriptions, pièces jointes, effets…), ergonomie revue avec DESIGNER (n°50), bouton d'impression A4 multi-pages.
