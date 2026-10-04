@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-04 (suite 6) — MELMIL : import d'un dossier JEMM → pièces jointes versées automatiquement dans l'incident de même code de la planification (`f4cc04e`, version 2026-10-04.4, branche `pieces-jemm-auto`) — VÉRIFIÉ EN LOCAL, NON POUSSÉ
+## 2026-10-04 (suite 6) — MELMIL : import d'un dossier JEMM → pièces jointes versées automatiquement dans l'incident de même code de la planification (`f4cc04e`, version 2026-10-04.4, branche `pieces-jemm-auto`) — POUSSÉ le 2026-10-04 (`9be0958..f4cc04e` sur main + prod) ; mise en ligne à confirmer par `/api/sante` = 2026-10-04.4
 
 - **Besoin** (utilisateur) : à l'import JEMM, la pièce jointe de l'incident 08.01.I01 doit aller **automatiquement** dans l'incident 08.01.I01 de la planification. Jusqu'ici, seul « Mettre à jour tous les events JEMM » (Réglages, alignement complet) versait les pièces.
 - **Fait** : `components/verser-pieces-jemm.ts` appelé après l'import par dossier ET après « Remplacer par un dossier d'exports JEMM… » de la planche JEMM (Admin) ; réutilise `repartirPieces` (nom mis en règle, anti-doublon par nom ou taille+type), `fichierDeLaPiece` (`attachments/<Id>/`), `envoyerFichier` ; dépôts un par un puis **une seule** écriture de l'atelier (évite les 409 en rafale) ; rien d'autre de la planification n'est touché. Rapport d'import : rubrique « Pièces jointes → planification » (ajoutées, déjà présentes, sans incident de ce code, à nommer à la main, absentes du dossier). Code comparé à la casse/aux espaces près (aussi pour Réglages).
