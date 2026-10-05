@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Déroulé des incidents</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#f3f1ec;--carte:#fff;--creux:#f4f6f7;--trait:#dfe3e8;--trait-fort:#3d444c;--texte:#14171a;--doux:#4a5058;--pale:#7a828c;
+  --prep:#9a5b13;--prep-fond:#fbf1e3;--jemm:#1f5f8b;--jemm-fond:#e6f0f7;--direct:#1d7a3e;--direct-fond:#e3f1e8;
+  --grey:#3f4fb5;--forad:#b4232f;--alerte:#b4232f;--alerte-fond:#fdecee;
+  --tweet:#1d9bf0;--presse:#6b4fbb;--crq:#14171a;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#cfcac0;font:14px/1.4 Archivo,system-ui,sans-serif;color:var(--texte)}
+button{font:inherit;cursor:pointer}
+.mono{font-family:"JetBrains Mono",monospace}
+
+/* ---------- barre de comparaison (hors app) ---------- */
+.comparer{position:sticky;top:0;z-index:50;background:#1d2125;color:#e8e4d9;padding:10px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.comparer h1{font-size:15px;margin:0 8px 0 0;font-weight:700;color:#e0a458}
+.choix{display:flex;border:1px solid #3d444c;border-radius:8px;overflow:hidden}
+.choix button{background:transparent;color:#c9ced4;border:0;padding:6px 12px;font-weight:600}
+.choix button[aria-pressed=true]{background:#e0a458;color:#14171a}
+.horloge{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap}
+.horloge label{font-size:13px;color:#c9ced4}
+.horloge input[type=range]{width:min(360px,40vw);accent-color:#4ade80}
+.horloge output{font:700 13px "JetBrains Mono";color:#7be0a0;min-width:190px}
+.horloge button{background:#2a2f35;border:1px solid #3d444c;color:#e8e4d9;border-radius:6px;padding:4px 10px;font-size:13px}
+.explic{background:#262b31;color:#d8d3c8;padding:10px 16px 12px;font-size:13.5px;line-height:1.5;border-top:1px solid #3d444c}
+.explic b{color:#e0a458}
+
+/* ---------- maquette de l'app ---------- */
+.app{max-width:1600px;margin:16px auto;background:var(--fond);border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.25)}
+.barre{height:42px;background:#14171a;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:3px solid var(--prep);color:#e8e4d9}
+.logo{font:800 15px "JetBrains Mono";letter-spacing:.25em}
+.esp{display:flex;border:1px solid #3d444c;border-radius:8px;overflow:hidden}
+.esp span{padding:5px 12px;font-weight:600;font-size:13px;color:#9aa1a9}.esp .on{background:var(--prep);color:#fff}
+.barre .fl{flex:1}
+.dir{font-size:12px;color:#7be0a0;display:flex;align-items:center;gap:6px}.dir::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80}
+.tete{padding:12px 16px 0}
+.tete .ligne{display:flex;align-items:center;gap:12px}
+.tag{background:var(--prep-fond);color:var(--prep);font-weight:700;font-size:13px;padding:5px 10px;border-radius:6px}
+.tete h2{margin:0;font-size:26px;font-weight:800}
+.onglets{display:flex;gap:4px;align-items:flex-end;margin-top:10px;border-bottom:1px solid var(--trait);overflow-x:auto}
+.fam{font:500 10px "JetBrains Mono";letter-spacing:.12em;color:var(--pale);padding:0 8px 10px 12px}
+.ong{padding:6px 10px 9px;font-size:15px;color:#2a2f35;white-space:nowrap;border-bottom:3px solid transparent}
+.ong.on{font-weight:700;border-color:var(--prep)}
+.ong .nb{font-size:12px;color:var(--pale);margin-left:4px}
+.ong .neuf{font-size:10px;font-weight:700;background:var(--direct);color:#fff;border-radius:4px;padding:1px 4px;margin-left:5px;vertical-align:2px}
+main{padding:16px}
+
+/* ---------- commun ---------- */
+.panneau{background:var(--carte);border:1px solid var(--trait);border-radius:10px}
+.titre-bloc{font:700 12px Archivo;letter-spacing:.12em;text-transform:uppercase;color:var(--trait-fort);margin:0 0 10px}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:600;border:1px solid var(--trait);background:#fff;white-space:nowrap}
+.chip.grey{color:var(--grey);border-color:#c9cff0}.chip.forad{color:var(--forad);border-color:#efc6ca}
+.code{font:700 13px "JetBrains Mono"}
+.sl-tete{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--creux);border-bottom:1px solid var(--trait);font-weight:700}
+.vide{color:var(--pale);font-style:italic}
+.legende{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:13px;color:var(--doux)}
+.legende>span{display:inline-flex;align-items:center;gap:8px}
+.filtres{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--trait);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:5px 11px;font-weight:600;font-size:13px;color:var(--doux)}
+.seg button[aria-pressed=true]{background:var(--texte);color:#fff}
+
+/* jalons (icônes communes) : pictogramme = le type, remplissage = l'état */
+.j{--c:var(--doux);display:inline-flex;align-items:center;justify-content:center;padding:0;box-sizing:border-box;width:26px;height:26px;flex:none;border-radius:50%;position:relative;background:#fff;border:2px solid var(--c);color:var(--c)}
+.j svg{display:block;flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.j.fam{--c:var(--jemm);border-radius:7px}
+.j.tweet{--c:var(--tweet)}
+.j.presse{--c:var(--presse);border-radius:7px}
+.j.crq{--c:var(--crq);border-radius:7px}
+.j.joue{background:var(--c);color:#fff}
+.j.joue::after{content:"";position:absolute;right:-5px;bottom:-5px;width:12px;height:12px;border-radius:50%;background:var(--direct) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/9px no-repeat;border:2px solid #fff}
+.j.avenir{background:#fff}
+.j.manque{--c:var(--alerte);background:var(--alerte-fond);border-style:dashed;color:var(--alerte);font:800 14px Archivo}
+.j.echec{--c:var(--alerte);background:var(--alerte);color:#fff}
+.j.manque svg{width:16px;height:16px}
+.j.mini{width:18px;height:18px;border-width:1.5px}.j.mini svg{width:11px;height:11px}
+.b-m{z-index:1}
+.j .plus{position:absolute;top:-13px;left:50%;transform:translateX(-50%);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--texte);color:#fff;font:700 10px/17px "JetBrains Mono";text-align:center;border:2px solid #fff}
+
+/* ---------- A : déroulé en étapes ---------- */
+.a-ligne{display:grid;grid-template-columns:minmax(260px,1.3fr) minmax(520px,3fr) minmax(200px,1fr);gap:16px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--trait)}
+.a-ligne:hover{background:#fbfaf7}
+.a-sujet{font-weight:600}
+.a-meta{font-size:12px;color:var(--doux);margin-top:2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.etape{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1;text-align:center}
+.etape .lib{font-size:12px;font-weight:700}
+.etape .det{font-size:11.5px;color:var(--doux);line-height:1.25}
+.etape .det.al{color:var(--alerte);font-weight:700}
+.rail{position:absolute;top:10px;left:12.5%;right:12.5%;height:4px;background:var(--trait);border-radius:2px}
+.rail>b{display:block;height:100%;background:var(--direct);border-radius:2px}
+.bulle{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;background:#fff;border:2px solid var(--trait-fort);color:var(--trait-fort)}
+.bulle.ok{background:var(--direct);border-color:var(--direct);color:#fff}
+.bulle.part{background:linear-gradient(90deg,var(--direct) 50%,#fff 50%);border-color:var(--direct);color:var(--texte)}
+.bulle.al{background:var(--alerte-fond);border:2px dashed var(--alerte);color:var(--alerte)}
+.bulle.na{border-style:dotted;color:var(--pale);border-color:var(--pale)}
+.a-suite{font-size:13px}
+.a-suite b{display:block;font-size:12px;color:var(--pale);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.etat-inc{font:700 11px "JetBrains Mono";padding:2px 6px;border-radius:4px}
+.etat-inc.cours{background:var(--direct-fond);color:var(--direct)}
+.etat-inc.fini{background:var(--creux);color:var(--doux)}
+.etat-inc.avenir{background:#fff;border:1px solid var(--trait);color:var(--doux)}
+
+/* ---------- B : chronogramme ---------- */
+.b-cadre{display:grid;grid-template-columns:300px 1fr;border-top:1px solid var(--trait);max-height:640px;overflow:auto;position:relative}
+.b-gauche{position:sticky;left:0;z-index:4;background:var(--carte);border-right:1px solid var(--trait)}
+.b-droite{position:relative}
+.b-axe,.b-gauche .b-axe{position:sticky;top:0;z-index:3;height:46px;background:var(--carte);border-bottom:1px solid var(--trait)}
+.b-gauche .b-axe{z-index:5;display:flex;align-items:flex-end;padding:0 12px 6px;font-size:12px;color:var(--pale);font-weight:600}
+.b-jour{position:absolute;top:0;height:46px;border-left:1px solid var(--trait-fort);padding:5px 6px;font-size:12px;font-weight:700;white-space:nowrap}
+.b-jour small{display:block;font-weight:500;color:var(--doux)}
+.b-heure{position:absolute;bottom:0;height:10px;border-left:1px solid var(--trait);font:500 10px "JetBrains Mono";color:var(--pale);padding-left:2px}
+.b-heure.lab{height:18px}
+.b-rang{height:46px;border-bottom:1px solid #eef0f2;display:flex;align-items:center;gap:8px;padding:0 12px;cursor:pointer}
+.b-rang:hover,.b-rang.sel{background:#fbf7ef}
+.b-rang .s{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.b-rang.sl{background:var(--creux);font-weight:700;cursor:default;height:34px}
+.b-piste{position:relative;height:46px;border-bottom:1px solid #eef0f2}
+.b-piste.sl{height:34px;background:var(--creux)}
+.b-grille{position:absolute;top:0;bottom:0;border-left:1px solid #e6e3dc;pointer-events:none}
+.b-nuit{position:absolute;top:46px;bottom:0;background:rgba(20,23,26,.035);pointer-events:none}
+.b-span{position:absolute;top:21px;height:4px;background:#d6dbe1;border-radius:2px}
+.b-span>b{display:block;height:100%;background:var(--direct);border-radius:2px}
+.b-m{position:absolute;top:10px;transform:translateX(-50%);border:0;padding:0;background:none}
+.b-m:focus-visible{outline:3px solid var(--grey);outline-offset:2px;border-radius:4px}
+.b-now{position:absolute;top:46px;bottom:0;width:0;border-left:2px solid var(--direct);z-index:2;pointer-events:none}
+.b-now-lab{position:absolute;bottom:0;transform:translateX(-50%);background:var(--direct);color:#fff;font:700 11px "JetBrains Mono";padding:3px 6px;border-radius:6px 6px 0 0;white-space:nowrap;z-index:2}
+.b-passe{position:absolute;top:46px;bottom:0;left:0;background:rgba(29,122,62,.045);pointer-events:none}
+.tiroir{position:fixed;right:16px;top:150px;width:380px;max-height:calc(100vh - 170px);overflow:auto;background:#fff;border:1px solid var(--trait);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:40;padding:16px}
+.tiroir h3{margin:4px 0 2px;font-size:17px}
+.tiroir .fermer{float:right;border:1px solid var(--trait);background:#fff;border-radius:6px;padding:2px 8px}
+.fil{list-style:none;margin:14px 0 0;padding:0;position:relative}
+.fil li{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;padding:8px 0;border-top:1px solid #f0f1f3}
+.fil li.passe .quoi{color:var(--doux)}
+.fil .quand{font:600 12px "JetBrains Mono";color:var(--doux);white-space:nowrap}
+.fil .quoi b{font-weight:700}
+.fil .quoi small{display:block;color:var(--doux)}
+.fil li.ici{border-top:2px solid var(--direct)}
+.fil li.ici::before{content:"Maintenant";grid-column:1/-1;font:700 11px "JetBrains Mono";color:var(--direct);margin:-6px 0 2px}
+.fil li.choisi{background:#fbf7ef;box-shadow:inset 3px 0 0 var(--prep);padding-left:6px}
+.vers-admin{display:inline-block;margin-top:5px;font-size:12.5px;font-weight:600;color:var(--texte);border:1px solid var(--trait);border-radius:6px;padding:3px 8px;background:#fff;text-decoration:none}
+.vers-admin:hover{border-color:var(--trait-fort)}
+.vers-admin small{display:block;color:var(--doux);font-weight:500;font-size:11.5px}
+.fam-texte{white-space:pre-wrap;font:12px/1.4 "JetBrains Mono";background:var(--creux);border-radius:6px;padding:8px;margin-top:6px;color:var(--texte)}
+
+/* ---------- C : maintenant ---------- */
+.c-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.c-col h3{margin:0;padding:12px 14px;border-bottom:1px solid var(--trait);font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.c-col h3 small{font-weight:500;color:var(--doux);font-size:12px}
+.c-item{display:grid;grid-template-columns:24px 1fr auto;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f1f3;align-items:start}
+.c-item .quand{font:600 12px "JetBrains Mono";color:var(--doux);white-space:nowrap;text-align:right}
+.c-item .quand em{display:block;font-style:normal;color:var(--direct)}
+.c-al{border-left:4px solid var(--alerte)}
+.c-al h3{color:var(--alerte)}
+.compteurs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.compteur{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:10px 14px;min-width:150px}
+.compteur b{display:block;font-size:24px}
+.compteur span{font-size:12.5px;color:var(--doux)}
+.compteur.al b{color:var(--alerte)}
+
+/* ---------- synthèse : encart (A + reco) ---------- */
+.encart{display:flex;gap:18px;align-items:center;padding:12px 16px;margin-bottom:14px;flex-wrap:wrap}
+.encart .k{font-size:13px;color:var(--doux)}.encart .k b{font-size:18px;color:var(--texte);margin-right:4px}
+.encart .k.al b{color:var(--alerte)}
+.lien{color:var(--texte);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="comparer" role="region" aria-label="Comparer les propositions">
+  <h1>MELMIL · Déroulé des incidents — prototypes</h1>
+  <div class="choix" role="group" aria-label="Proposition">
+    <button data-p="B" aria-pressed="true">B · Chronogramme (recommandé)</button>
+    <button data-p="A" aria-pressed="false">A · Étapes par incident</button>
+    <button data-p="C" aria-pressed="false">C · Maintenant</button>
+  </div>
+  <div class="horloge">
+    <label for="curseur">Heure simulée</label>
+    <input id="curseur" type="range" min="0" max="167" step="0.25">
+    <output id="sortie" for="curseur"></output>
+    <button id="lecture" type="button" aria-pressed="false">▶ Accélérer</button>
+  </div>
+</div>
+<div class="explic" id="explic"></div>
+
+<div class="app">
+  <div class="barre">
+    <span class="logo">MELMIL</span>
+    <div class="esp"><span class="on">Planification</span><span>Planche JEMM</span></div>
+    <span class="fl"></span>
+    <span class="dir">en direct · gc01</span>
+  </div>
+  <div class="tete">
+    <div class="ligne"><span class="tag">Préparation</span><h2>DE LATTRE 26 (essai)</h2></div>
+    <nav class="onglets" id="onglets" aria-label="Onglets"></nav>
+  </div>
+  <main id="vue"></main>
+</div>
+<aside class="tiroir" id="tiroir" hidden aria-live="polite"></aside>
+
+<script>
+/* ===================== DONNÉES FICTIVES DE DÉMONSTRATION =====================
+   Calendrier réel de l'essai : D+27 = mardi 06/10/2026. Storylines, sujets et
+   FAM sont INVENTÉS (aucun contenu d'export JEMM réel). */
+const D_REF = 27, J_REF = Date.UTC(2026, 9, 6);
+const DEBUT = D_REF, NB_JOURS = 7;                       // période affichée : D+27 → D+33
+const H = 3600e3;
+const t = (d, hm) => { const [h, m] = hm.split(":").map(Number); return J_REF + (d - D_REF) * 24 * H + h * H + m * 60e3; };
+const JOURS = ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."];
+const fmtJ = (ms) => { const x = new Date(ms); return `${JOURS[x.getUTCDay()]} ${String(x.getUTCDate()).padStart(2, "0")}/${String(x.getUTCMonth() + 1).padStart(2, "0")}`; };
+const fmtH = (ms) => { const x = new Date(ms); return `${String(x.getUTCHours()).padStart(2, "0")}:${String(x.getUTCMinutes()).padStart(2, "0")}`; };
+const dDe = (ms) => D_REF + Math.floor((ms - J_REF) / (24 * H));
+const fmtDH = (ms) => `D+${dDe(ms)} · ${fmtJ(ms)} ${fmtH(ms)}`;
+const delai = (ms) => { const m = Math.round(Math.abs(ms) / 60e3); const h = Math.floor(m / 60), r = m % 60; const s = h >= 24 ? `${Math.floor(h / 24)} j ${h % 24} h` : h ? `${h} h${r ? " " + String(r).padStart(2, "0") : ""}` : `${r} min`; return ms >= 0 ? `dans ${s}` : `il y a ${s}`; };
+
+const BANNIERE = "*** EXERCISE EXERCISE EXERCISE ***";
+const SL = [
+  { code: "11.01", nom: "Pénurie d'eau à Varn", ga: "GREYCELL" },
+  { code: "11.02", nom: "Rumeurs sur la force", ga: "GREYCELL" },
+  { code: "12.01", nom: "Manifestation devant la préfecture", ga: "FORAD" },
+  { code: "12.02", nom: "Afflux de déplacés au nord", ga: "FORAD" },
+];
+// fam : texte du « Functional Area Message » importé de JEMM (null = incident pas (encore) dans JEMM)
+const INC = [
+  { code: "11.01.I01", sl: "11.01", sujet: "Coupure du réseau d'eau du quartier sud", d: 27, h: "09:30",
+    fam: `${BANNIERE}\nCRI\nFROM: ETIM 3 - UTMC\nTO: EM DIV - G39\n\nCRI ETIM 3 : file d'attente devant les points d'eau, tension montante.`,
+    pubs: [["tweet", 27, "10:05"], ["tweet", 27, "11:40"], ["presse", 27, "14:00", "« Varn sans eau depuis ce matin »"], ["tweet", 28, "08:15"]] },
+  { code: "11.01.I02", sl: "11.01", sujet: "La mairie accuse la force de sabotage", d: 28, h: "10:00",
+    fam: `${BANNIERE}\nOBSERVATION\nFROM: ETIM 5\nTO: EM DIV - G39\n\nOBS : prise de parole du maire relayée par trois comptes locaux.`,
+    pubs: [["tweet", 28, "10:20"], ["presse", 28, "12:30", "« Le maire de Varn hausse le ton »"], ["tweet", 28, "16:45"], ["tweet", 29, "09:10"], ["presse", 29, "18:00", "Éditorial : « À qui profite la soif ? »"]] },
+  { code: "11.01.I03", sl: "11.01", sujet: "Distribution d'eau par la force", d: 30, h: "08:00",
+    fam: `${BANNIERE}\nCRI`, // bannière + mot type seulement → FAM VIDE
+    pubs: [["tweet", 30, "09:00"], ["presse", 30, "13:00", "« Des camions-citernes au sud »"]] },
+  { code: "11.02.I01", sl: "11.02", sujet: "Rumeur de pillage par des soldats", d: 28, h: "18:00",
+    fam: `${BANNIERE}\nCRI\nFROM: ETIM 2\nTO: EM DIV - G39\n\nCRI ETIM 2 : vidéo ancienne republiée, attribuée à la force.`,
+    pubs: [["tweet", 28, "18:10"], ["tweet", 28, "18:40"], ["tweet", 28, "21:30"], ["tweet", 29, "07:50", null, "echec"], ["presse", 29, "11:00", "« Pillages : la force dément »"]] },
+  { code: "11.02.I02", sl: "11.02", sujet: "Démenti officiel et contre-rumeur", d: 29, h: "15:30",
+    fam: `${BANNIERE}\nOBSERVATION\nFROM: ETIM 2\nTO: EM DIV - G39\n\nOBS : le démenti est moqué, hashtag en hausse.`,
+    pubs: [["tweet", 29, "16:00"], ["tweet", 29, "19:20"], ["tweet", 30, "08:30"]] },
+  { code: "12.01.I01", sl: "12.01", sujet: "Appel à manifester relayé en ligne", d: 29, h: "08:00",
+    fam: `${BANNIERE}\nCRI\nFROM: ETIM 7\nTO: EM DIV - G39\n\nCRI ETIM 7 : appel à se rassembler jeudi 14 h devant la préfecture.`,
+    pubs: [["tweet", 29, "08:30"], ["tweet", 29, "12:00"], ["presse", 29, "17:00", "« Rassemblement annoncé jeudi »"], ["tweet", 30, "09:00"]] },
+  { code: "12.01.I02", sl: "12.01", sujet: "Rassemblement devant la préfecture", d: 30, h: "14:00",
+    fam: null, // pas encore dans JEMM
+    pubs: [["tweet", 30, "14:10"], ["tweet", 30, "14:40"], ["presse", 30, "18:00", "« Mille personnes devant la préfecture »"], ["presse", 31, "07:00", "Revue de presse du matin"]] },
+  { code: "12.02.I01", sl: "12.02", sujet: "Arrivée de familles déplacées au camp nord", d: 31, h: "07:30",
+    fam: `${BANNIERE}`, // bannière seule → FAM VIDE
+    pubs: [["presse", 31, "12:00", "« Le camp nord saturé »"], ["tweet", 31, "15:00"], ["tweet", 32, "10:00"]] },
+  { code: "12.02.I02", sl: "12.02", sujet: "Une ONG demande un couloir humanitaire", d: 32, h: "11:00",
+    fam: `${BANNIERE}\nOBSERVATION\nFROM: ETIM 4\nTO: EM DIV - G39\n\nOBS : communiqué de l'ONG, reprise par deux médias.`,
+    pubs: [["presse", 32, "11:30", "Communiqué : « Ouvrir un couloir »"], ["tweet", 32, "13:00"], ["tweet", 33, "09:00"]] },
+];
+// CRQ du jour (15:00) : rédigé dans MELMIL ? joint dans JEMM sous le même nom ?
+const CRQ = { 27: { melmil: true, jemm: true }, 28: { melmil: true, jemm: true }, 29: { melmil: true, jemm: false }, 30: { melmil: false, jemm: false }, 31: { melmil: false, jemm: false }, 32: { melmil: false, jemm: false }, 33: { melmil: false, jemm: false } };
+const nomCrq = (d, ga) => { const x = new Date(t(d, "00:00")); return `${x.getUTCFullYear()}${String(x.getUTCMonth() + 1).padStart(2, "0")}${String(x.getUTCDate()).padStart(2, "0")}_MR_DL26_SITCEN-${ga === "FORAD" ? "FOR" : "GYC"}-…-CRQ-UTMC`; };
+
+/* FAM présent ? = texte restant une fois la bannière et le mot type retirés */
+function lireFam(txt) {
+  if (txt === null) return { etat: "absent", type: null, texte: "" };
+  const l = txt.replace(/\*{3}\s*EXERCISE[^*]*\*{3}/gi, "").split("\n").map((s) => s.trim()).filter(Boolean);
+  const type = (l[0] || "").match(/^(CRI|OBSERVATION|OBS|SITREP|DRAFT)$/i) ? l.shift().toUpperCase() : null;
+  const reste = l.join(" ").trim();
+  return { etat: reste.length >= 12 ? "ok" : "vide", type: type === "OBSERVATION" ? "OBS" : type, texte: txt };
+}
+
+/* Le déroulé d'un incident : FAM → publications → CRQ (celui du jour de la dernière publication) */
+function deroule(i) {
+  const fam = lireFam(i.fam);
+  const ga = SL.find((s) => s.code === i.sl).ga;
+  const el = [{ k: "fam", at: t(i.d, i.h), fam }];
+  const scenario = { id: "scn-" + i.code, nom: `${i.code} ${i.sujet}` };
+  for (const [k, d, h, titre, statut] of i.pubs) el.push({ k, at: t(d, h), titre, statut, scenario });
+  el.sort((a, b) => a.at - b.at);
+  const dern = el[el.length - 1].at;
+  let dCrq = dDe(dern); if (dern > t(dCrq, "15:00")) dCrq += 1;
+  el.push({ k: "crq", at: t(dCrq, "15:00"), d: dCrq, ...CRQ[dCrq], nom: nomCrq(dCrq, ga) });
+  return { ...i, ga, fam, el, debut: el[0].at, fin: el[el.length - 1].at };
+}
+const INCS = INC.map(deroule);
+
+/* ===================== ÉTAT ===================== */
+const DEBUT_MS = t(DEBUT, "00:00");
+let maintenant = t(29, "14:20");
+let prop = "B", zoom = "3j", filtreA = "tous", selection = null, choisi = null;
+const ADMIN = "http://localhost:3802";
+
+const joue = (e) => e.k === "fam" ? e.at <= maintenant : e.k === "crq" ? (e.at <= maintenant && e.melmil) : e.statut === "echec" ? false : e.at <= maintenant;
+function etatEl(e) {
+  if (e.k === "fam" && e.fam.etat !== "ok") return "manque";
+  if (e.statut === "echec" && e.at <= maintenant) return "echec";
+  if (e.k === "crq" && e.at <= maintenant && !e.melmil) return "manque";
+  return joue(e) ? "joue" : "avenir";
+}
+const libK = { fam: "FAM", tweet: "Tweet", presse: "Presse", crq: "CRQ" };
+const PICTO = {
+  fam: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+  tweet: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+  presse: '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/>',
+  crq: '<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  alerte: '<rect x="10" y="3" width="4" height="12.5" rx="2" style="fill:#b4232f;stroke:none"/><circle cx="12" cy="20" r="2.3" style="fill:#b4232f;stroke:none"/>',
+};
+function icone(e, etat = etatEl(e), plus = 0) {
+  const dedans = `<svg viewBox="0 0 24 24">${PICTO[etat === "manque" ? "alerte" : etat === "echec" ? "x" : e.k]}</svg>`;
+  return `<span class="j ${e.k} ${etat}" aria-hidden="true">${dedans}${plus ? `<span class="plus">+${plus}</span>` : ""}</span>`;
+}
+function phrase(e) {
+  const etat = etatEl(e);
+  if (e.k === "fam") return e.fam.etat === "absent" ? "FAM : incident absent de JEMM" : e.fam.etat === "vide" ? `FAM ${e.fam.type || ""} vide dans JEMM (bannière seule)` : `FAM ${e.fam.type || ""} renseigné`;
+  if (e.k === "crq") return `CRQ du D+${e.d} (15:00) — ${e.melmil ? "rédigé dans MELMIL" : "pas encore rédigé"}${e.melmil ? (e.jemm ? " · joint dans JEMM ✓" : " · pas encore joint dans JEMM") : ""}`;
+  return `${libK[e.k]}${e.titre ? " — " + e.titre : ""}${etat === "echec" ? " — échec de publication (admin)" : ""}`;
+}
+const etatInc = (i) => maintenant < i.debut ? "avenir" : maintenant >= i.fin ? "fini" : "cours";
+const libEtatInc = { avenir: "À venir", cours: "En cours", fini: "Terminé" };
+const prochain = (i) => i.el.find((e) => e.at > maintenant);
+const glElem = (k, i) => i.el.filter((e) => e.k === k);
+
+/* ===================== ONGLETS ===================== */
+function onglets() {
+  const ong = (l, on, nb, neuf) => `<span class="ong${on ? " on" : ""}">${l}${nb != null ? `<span class="nb">${nb}</span>` : ""}${neuf ? `<span class="neuf">NOUVEAU</span>` : ""}</span>`;
+  const surSynthese = prop === "A";
+  document.getElementById("onglets").innerHTML =
+    `<span class="fam">CONSTRUIRE</span>${ong("Events", 0, 7)}${ong("Storylines", 0, 16)}${ong("Incidents", 0, 89)}` +
+    `<span class="fam">VISUALISER</span>${ong("Synthèse", surSynthese)}${prop !== "A" ? ong("Déroulé", true, null, true) : ""}${ong("Planche de préparation")}${ong("Écarts avec JEMM", 0, 26)}${ong("Demandes de produit", 0, 4)}` +
+    `<span class="fam">ORGANISER</span>${ong("Équipe", 0, 0)}${ong("Journal")}${ong("Réglages")}`;
+}
+
+/* ===================== A : étapes par incident ===================== */
+function bulleEtape(k, i) {
+  const els = k === "pub" ? i.el.filter((e) => e.k === "tweet" || e.k === "presse") : glElem(k, i);
+  if (k === "fam") {
+    const e = els[0], f = e.fam;
+    if (f.etat === "absent") return { cl: "na", sym: "–", lib: "FAM", det: `pas dans JEMM`, al: false };
+    if (f.etat === "vide") return { cl: "al", sym: "!", lib: `FAM ${f.type || ""}`, det: `vide dans JEMM`, al: true };
+    return { cl: joue(e) ? "ok" : "", sym: joue(e) ? "✓" : "◆", lib: `FAM ${f.type || ""}`, det: `${joue(e) ? "joué" : "prévu"} ${fmtJ(e.at)} ${fmtH(e.at)}` };
+  }
+  if (k === "crq") {
+    const e = els[0];
+    if (e.at <= maintenant && !e.melmil) return { cl: "al", sym: "!", lib: "CRQ", det: `D+${e.d} non rédigé`, al: true };
+    return { cl: e.at <= maintenant ? "ok" : "", sym: e.at <= maintenant ? "✓" : "⚑", lib: "CRQ", det: `D+${e.d} 15:00${e.melmil ? " · MELMIL ✓" : ""}${e.jemm ? " · JEMM ✓" : e.melmil ? " · JEMM —" : ""}` };
+  }
+  const tw = els.filter((e) => e.k === "tweet"), pr = els.filter((e) => e.k === "presse");
+  const nj = (l) => l.filter(joue).length, ech = els.filter((e) => etatEl(e) === "echec").length;
+  const tot = els.length, faits = nj(els);
+  const lib = k === "tw" ? "Tweets" : "Presse";
+  return null;
+}
+function etapesHtml(i) {
+  const fam = bulleEtape("fam", i), crq = bulleEtape("crq", i);
+  const etapePub = (k, lib) => {
+    const l = glElem(k, i), n = l.length, f = l.filter(joue).length, ech = l.filter((e) => etatEl(e) === "echec").length;
+    if (!n) return `<div class="etape"><span class="bulle na">0</span><span class="lib">${lib}</span><span class="det">aucun</span></div>`;
+    const cl = ech ? "al" : f === n ? "ok" : f ? "part" : "";
+    const pro = l.find((e) => e.at > maintenant);
+    return `<div class="etape"><span class="bulle ${cl}">${ech ? "!" : n}</span><span class="lib">${lib}</span><span class="det${ech ? " al" : ""}">${f}/${n} joué${f > 1 ? "s" : ""}${ech ? ` · ${ech} échec` : ""}${pro ? `<br>suivant ${fmtH(pro.at)}` : ""}</span></div>`;
+  };
+  const b = (x) => `<div class="etape"><span class="bulle ${x.cl}">${x.sym}</span><span class="lib">${x.lib}</span><span class="det${x.al ? " al" : ""}">${x.det}</span></div>`;
+  const prog = Math.max(0, Math.min(1, (maintenant - i.debut) / (i.fin - i.debut)));
+  return `<div class="etapes"><div class="rail"><b style="width:${prog * 100}%"></b></div>${b(fam)}${etapePub("tweet", "Tweets")}${etapePub("presse", "Presse")}${b(crq)}</div>`;
+}
+function vueA() {
+  const groupes = SL.map((s) => ({ s, l: INCS.filter((i) => i.sl === s.code) }));
+  const garde = (i) => filtreA === "tous" || (filtreA === "cours" && etatInc(i) === "cours") || (filtreA === "alertes" && i.el.some((e) => ["manque", "echec"].includes(etatEl(e)))) || (filtreA === "24h" && i.el.some((e) => e.at > maintenant && e.at <= maintenant + 24 * H));
+  const nbFam = INCS.filter((i) => i.fam.etat !== "ok").length;
+  return `
+  <div class="panneau encart">
+    <span class="titre-bloc" style="margin:0">Déroulé</span>
+    <span class="k">Heure de jeu : <b class="mono" style="font-size:14px">${fmtDH(maintenant)}</b></span>
+    <span class="k"><b>${INCS.filter((i) => etatInc(i) === "cours").length}</b>incidents en cours</span>
+    <span class="k al"><b>${nbFam}</b>FAM vides ou absents</span>
+    <span class="k"><b>${INCS.flatMap((i) => i.el).filter((e) => e.at > maintenant && e.at <= maintenant + 6 * H).length}</b>éléments à jouer dans les 6 h</span>
+  </div>
+  <div class="panneau">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;flex-wrap:wrap;gap:10px">
+      <p class="titre-bloc" style="margin:0">Par incident : FAM → tweets → presse → CRQ</p>
+      <div class="seg" role="group" aria-label="Filtrer">${[["tous", "Tous"], ["cours", "En cours"], ["24h", "À jouer sous 24 h"], ["alertes", "À corriger"]].map(([k, l]) => `<button data-fa="${k}" aria-pressed="${filtreA === k}">${l}</button>`).join("")}</div>
+    </div>
+    ${groupes.map(({ s, l }) => { const v = l.filter(garde); if (!v.length) return ""; return `
+      <div class="sl-tete"><span class="code">${s.code}</span>${s.nom}<span class="chip ${s.ga === "FORAD" ? "forad" : "grey"}">${s.ga}</span></div>
+      ${v.map((i) => { const p = prochain(i), ei = etatInc(i); return `
+      <div class="a-ligne">
+        <div><div><span class="code">${i.code}</span> <span class="a-sujet">${i.sujet}</span></div>
+          <div class="a-meta"><span class="etat-inc ${ei}">${libEtatInc[ei]}</span> ${fmtDH(i.debut)} → ${fmtJ(i.fin)} ${fmtH(i.fin)}</div></div>
+        ${etapesHtml(i)}
+        <div class="a-suite">${p ? `<b>Prochain</b>${icone(p)} ${libK[p.k]} ${fmtJ(p.at)} ${fmtH(p.at)} <span style="color:var(--direct);font-weight:700">· ${delai(p.at - maintenant)}</span>` : `<b>Terminé</b>dernier élément ${delai(i.fin - maintenant)}`}</div>
+      </div>`; }).join("")}`; }).join("")}
+  </div>`;
+}
+
+/* ===================== B : chronogramme ===================== */
+const PXH = { periode: 7, "3j": 18, jour: 52 };
+function vueB() {
+  const px = PXH[zoom], largeur = NB_JOURS * 24 * px;
+  const x = (ms) => ((ms - DEBUT_MS) / H) * px;
+  let axe = "", grille = "", nuits = "";
+  for (let j = 0; j < NB_JOURS; j++) {
+    const ms = DEBUT_MS + j * 24 * H;
+    axe += `<div class="b-jour" style="left:${x(ms)}px">D+${DEBUT + j}<small>${fmtJ(ms)}</small></div>`;
+    grille += `<div class="b-grille" style="left:${x(ms)}px;border-color:#c9c4b8"></div>`;
+    nuits += `<div class="b-nuit" style="left:${x(ms)}px;width:${7 * px}px"></div><div class="b-nuit" style="left:${x(ms + 21 * H)}px;width:${3 * px}px"></div>`;
+    const pas = zoom === "jour" ? 1 : zoom === "3j" ? 3 : 6;
+    for (let h = pas; h < 24; h += pas) {
+      const lab = zoom === "jour" ? true : h % 6 === 0;
+      axe += `<div class="b-heure${lab ? " lab" : ""}" style="left:${x(ms + h * H)}px">${lab ? String(h).padStart(2, "0") : ""}</div>`;
+      if (zoom !== "periode") grille += `<div class="b-grille" style="left:${x(ms + h * H)}px"></div>`;
+    }
+  }
+  axe += `<div class="b-now-lab" style="left:${x(maintenant)}px">MAINTENANT ${fmtH(maintenant)}</div>`;
+  let gauche = `<div class="b-axe">Incident</div>`, droite = `<div class="b-axe" style="width:${largeur}px">${axe}</div>`;
+  for (const s of SL) {
+    const l = INCS.filter((i) => i.sl === s.code);
+    gauche += `<div class="b-rang sl"><span class="code">${s.code}</span><span class="s">${s.nom}</span><span class="chip ${s.ga === "FORAD" ? "forad" : "grey"}">${s.ga === "FORAD" ? "FOR" : "GYC"}</span></div>`;
+    droite += `<div class="b-piste sl" style="width:${largeur}px"></div>`;
+    for (const i of l) {
+      const alerte = i.el.some((e) => ["manque", "echec"].includes(etatEl(e)));
+      gauche += `<div class="b-rang${selection === i.code ? " sel" : ""}" data-inc="${i.code}" tabindex="0" role="button" aria-label="Déroulé de ${i.code}">
+        <span class="code">${i.code.slice(6)}</span><span class="s" title="${i.sujet}">${i.sujet}</span>${alerte ? icone({ k: "fam" }, "manque").replace('class="j ', 'title="À corriger" class="j mini ') : ""}</div>`;
+      const prog = Math.max(0, Math.min(1, (maintenant - i.debut) / (i.fin - i.debut)));
+      droite += `<div class="b-piste" style="width:${largeur}px"><div class="b-span" style="left:${x(i.debut)}px;width:${x(i.fin) - x(i.debut)}px"><b style="width:${prog * 100}%"></b></div>
+        ${(() => { const grp = []; for (const e of i.el) { const g = grp[grp.length - 1]; if (g && x(e.at) - x(g[0].at) < 30) g.push(e); else grp.push([e]); } return grp; })().map((g) => {
+          const pire = g.find((e) => ["manque", "echec"].includes(etatEl(e))) || g.find((e) => etatEl(e) === "avenir") || g[0];
+          const lib = g.map((e) => `${fmtDH(e.at)} — ${phrase(e)}`).join("&#10;").replace(/"/g, "&quot;");
+          return `<button class="b-m" data-inc="${i.code}" data-at="${g[0].at}" style="left:${x(g[0].at)}px" title="${lib}" aria-label="${lib}">${icone(pire, etatEl(pire), g.length - 1)}</button>`; }).join("")}</div>`;
+    }
+  }
+  const now = x(maintenant);
+  droite += `${nuits}<div class="b-passe" style="width:${Math.max(0, now)}px"></div>${grille}<div class="b-now" style="left:${now}px"></div>`;
+  return `
+  <div class="panneau">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;flex-wrap:wrap">
+      <div><p class="titre-bloc" style="margin:0 0 4px">Déroulé de l'exercice</p>
+        <span style="font-size:13px;color:var(--doux)">Heure de jeu <b class="mono" style="color:var(--direct)">${fmtDH(maintenant)}</b> · ${INCS.filter((i) => etatInc(i) === "cours").length} incidents en cours · ${INCS.flatMap((i) => i.el).filter((e) => e.at > maintenant && e.at <= maintenant + 6 * H).length} éléments à jouer dans les 6 h</span></div>
+      <div class="filtres">
+        <div class="seg" role="group" aria-label="Échelle">${[["jour", "Jour"], ["3j", "3 jours"], ["periode", "Période"]].map(([k, l]) => `<button data-z="${k}" aria-pressed="${zoom === k}">${l}</button>`).join("")}</div>
+        <button class="seg" style="padding:5px 11px;font-weight:600" id="allerNow">⦿ Revenir à maintenant</button>
+      </div>
+    </div>
+    <div style="padding:0 14px 10px" class="legende">
+      <span>${icone({ k: "fam" }, "joue")} FAM joué (CRI, OBS…)</span>
+      <span>${icone({ k: "tweet", at: 0 }, "avenir")} Tweet à venir</span>
+      <span>${icone({ k: "tweet", at: 0 }, "joue")} Tweet publié</span>
+      <span>${icone({ k: "presse" }, "joue")} Presse publiée</span>
+      <span>${icone({ k: "crq" }, "avenir")} CRQ à venir</span><span>${icone({ k: "tweet" }, "joue", 2)} 3 éléments rapprochés</span>
+      <span>${icone({ k: "fam" }, "manque")} À corriger (FAM vide, CRQ manquant)</span>
+      <span>${icone({ k: "tweet", at: 0 }, "echec")} Échec de publication</span>
+    </div>
+    <div class="b-cadre" id="cadreB"><div class="b-gauche">${gauche}</div><div class="b-droite" style="width:${largeur}px">${droite}</div></div>
+  </div>`;
+}
+
+/* ===================== C : maintenant ===================== */
+function vueC() {
+  const tous = INCS.flatMap((i) => i.el.map((e) => ({ ...e, i })));
+  const recents = tous.filter((e) => e.at <= maintenant && e.at > maintenant - 3 * H).sort((a, b) => b.at - a.at);
+  const avenir = tous.filter((e) => e.at > maintenant && e.at <= maintenant + 6 * H).sort((a, b) => a.at - b.at);
+  const alertes = [
+    ...INCS.filter((i) => i.fam.etat === "vide" && i.debut > maintenant - 24 * H).map((i) => ({ i, e: i.el[0], txt: `FAM vide dans JEMM — incident ${i.debut > maintenant ? "joué " + delai(i.debut - maintenant) : "déjà démarré"}` })),
+    ...INCS.filter((i) => i.fam.etat === "absent").map((i) => ({ i, e: i.el[0], txt: `Incident absent de JEMM — démarre ${delai(i.debut - maintenant)}` })),
+    ...tous.filter((e) => e.statut === "echec" && e.at <= maintenant).map((e) => ({ i: e.i, e, txt: `Tweet en échec de publication (admin) — ${fmtH(e.at)}` })),
+    ...(() => { const d = dDe(maintenant); const c = CRQ[d]; return c && !c.melmil ? [{ i: null, e: { k: "crq", at: t(d, "15:00"), melmil: false }, txt: `CRQ du D+${d} pas encore rédigé — attendu ${delai(t(d, "15:00") - maintenant)}` }] : []; })(),
+  ];
+  const item = (e, quand) => `<div class="c-item">${icone(e)}<div><span class="code">${e.i ? e.i.code : ""}</span> ${phrase(e)}<div style="font-size:12px;color:var(--doux)">${e.i ? e.i.sujet : ""}</div></div><div class="quand">${fmtH(e.at)}${quand ? `<em>${delai(e.at - maintenant)}</em>` : ""}</div></div>`;
+  return `
+  <div class="compteurs">
+    <div class="compteur"><b class="mono" style="font-size:18px;color:var(--direct)">${fmtH(maintenant)}</b><span>${fmtJ(maintenant)} · D+${dDe(maintenant)}</span></div>
+    <div class="compteur"><b>${INCS.filter((i) => etatInc(i) === "cours").length}</b><span>incidents en cours</span></div>
+    <div class="compteur"><b>${recents.length}</b><span>joués ces 3 dernières heures</span></div>
+    <div class="compteur"><b>${avenir.length}</b><span>à jouer dans les 6 h</span></div>
+    <div class="compteur al"><b>${alertes.length}</b><span>à corriger</span></div>
+  </div>
+  <div class="c-grille">
+    <section class="panneau c-col"><h3>Vient d'être joué <small>3 dernières heures</small></h3>${recents.map((e) => item(e, true)).join("") || `<p class="vide" style="padding:14px">Rien n'a été joué ces 3 dernières heures.</p>`}</section>
+    <section class="panneau c-col"><h3>À venir <small>6 prochaines heures</small></h3>${avenir.map((e) => item(e, true)).join("") || `<p class="vide" style="padding:14px">Rien de prévu dans les 6 prochaines heures.</p>`}</section>
+    <section class="panneau c-col c-al"><h3>À corriger <small>avant que ce soit joué</small></h3>${alertes.map((a) => `<div class="c-item">${icone(a.e, "manque")}<div><span class="code">${a.i ? a.i.code : "CRQ"}</span> ${a.txt}<div style="font-size:12px;color:var(--doux)">${a.i ? a.i.sujet : "Onglet Incidents → fiche → CRQ du jour"}</div></div><div class="quand"></div></div>`).join("") || `<p class="vide" style="padding:14px">Rien à corriger.</p>`}</section>
+  </div>`;
+}
+
+/* ===================== tiroir (détail d'un incident, B et C) ===================== */
+function tiroir() {
+  const z = document.getElementById("tiroir");
+  const i = INCS.find((x) => x.code === selection);
+  if (!i || prop !== "B") { z.hidden = true; return; }
+  let ici = false;
+  z.hidden = false;
+  z.innerHTML = `<button class="fermer" id="fermerTiroir" aria-label="Fermer">✕</button>
+    <span class="code">${i.code}</span> <span class="chip ${i.ga === "FORAD" ? "forad" : "grey"}">${i.ga}</span> <span class="etat-inc ${etatInc(i)}">${libEtatInc[etatInc(i)]}</span>
+    <h3>${i.sujet}</h3><div style="font-size:12.5px;color:var(--doux)">${fmtDH(i.debut)} → ${fmtDH(i.fin)}</div>
+    ${etapesHtml(i)}
+    <ol class="fil">${i.el.map((e) => { const marque = !ici && e.at > maintenant ? (ici = true, " ici") : ""; return `<li class="${e.at <= maintenant ? "passe" : ""}${marque}${choisi !== null && e.at === choisi ? " choisi" : ""}">${icone(e)}<div class="quoi"><b>${phrase(e)}</b>
+      ${e.k === "fam" && e.fam.etat !== "absent" ? `<div class="fam-texte">${e.fam.texte.replace(/</g, "&lt;")}</div>` : ""}
+      ${e.k === "crq" ? `<small class="mono">${e.nom}</small>` : ""}
+      ${e.scenario ? `<a class="vers-admin" href="${ADMIN}/scenarios" target="_blank" rel="noopener" title="Dans MELMIL réel : ouvre directement ce scénario (${ADMIN}/scenarios/&lt;id&gt;)">Ouvrir le scénario dans l'admin ↗ <small>${e.scenario.nom}</small></a>` : ""}</div><span class="quand">${fmtJ(e.at)}<br>${fmtH(e.at)}</span></li>`; }).join("")}</ol>
+    <p style="font-size:12px;color:var(--doux);margin-top:12px">Tweets et presse : lus dans l'admin (scénarios rattachés à l'incident). FAM : lu dans l'export JEMM. CRQ : MELMIL + pièce jointe JEMM du même nom.</p>`;
+  document.getElementById("fermerTiroir").onclick = () => { selection = null; choisi = null; rendre(); };
+}
+
+/* ===================== textes de la barre de comparaison ===================== */
+const EXPLIC = {
+  B: `<b>B — Nouvel onglet « Déroulé » : le chronogramme.</b> Une ligne par incident, rangée par storyline ; sur l'axe du temps, à l'heure près : le FAM (CRI/OBS, pictogramme document bleu) à l'heure JEMM de l'incident, les tweets (bulle bleue), la presse (journal violet) — scénarios de l'admin —, puis le CRQ (presse-papiers noir). Plein + pastille verte ✓ = joué ; contour = à venir ; « ! » rouge pointillé = à corriger ; « +2 » = éléments trop proches à cette échelle (zoomez ou cliquez). La ligne verte « MAINTENANT » avance seule ; ce qui est à gauche est joué. Clic sur une ligne ou un repère : le déroulé détaillé de l'incident (avec le texte du FAM). <b>Recommandé</b> : c'est la seule vue où l'on voit le temps — « où en est-on » se lit d'un regard.`,
+  A: `<b>A — Dans la Synthèse : 4 étapes par incident.</b> FAM → Tweets → Presse → CRQ, comme un suivi de colis ; le trait vert avance avec l'heure ; à droite, le prochain élément et « dans 1 h 40 ». Filtres : en cours, à jouer sous 24 h, à corriger. Plus compact et sans apprentissage, mais l'heure exacte de chaque tweet ne se voit qu'en détail. <b>Idée retenue même avec B</b> : ces 4 étapes en tête du détail d'un incident.`,
+  C: `<b>C — « Maintenant » : le tableau de bord en direct.</b> Trois colonnes : vient d'être joué (3 h), à venir (6 h), à corriger avant que ce soit joué (FAM vide, incident absent de JEMM, tweet en échec, CRQ du jour non rédigé). Idéal pendant le jeu, mais on n'y voit pas l'ensemble d'un incident. <b>Idée retenue avec B</b> : ces compteurs et la colonne « À corriger » en tête de l'onglet.`,
+};
+
+/* ===================== rendu ===================== */
+function rendre() {
+  onglets();
+  document.getElementById("explic").innerHTML = EXPLIC[prop] + ` <span style="color:#9aa1a9">· Données fictives de démonstration ; calendrier réel de l'essai (D+27 = mar. 06/10). Déplacez « Heure simulée » pour voir le déroulé avancer.</span>`;
+  document.querySelectorAll(".choix button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.p === prop)));
+  const cadre = document.getElementById("cadreB"), sx = cadre ? cadre.scrollLeft : null;
+  document.getElementById("vue").innerHTML = prop === "A" ? vueA() : prop === "B" ? vueB() : vueC();
+  document.getElementById("sortie").textContent = fmtDH(maintenant);
+  document.getElementById("curseur").value = (maintenant - DEBUT_MS) / H;
+  tiroir();
+  const c2 = document.getElementById("cadreB");
+  if (c2) { if (sx !== null && !recentrer) c2.scrollLeft = sx; else c2.scrollLeft = ((maintenant - DEBUT_MS) / H) * PXH[zoom] - c2.clientWidth / 2 + 150; recentrer = false; }
+}
+let recentrer = true;
+document.querySelector(".choix").onclick = (ev) => { const b = ev.target.closest("button"); if (!b) return; prop = b.dataset.p; recentrer = true; rendre(); };
+document.getElementById("curseur").oninput = (ev) => { maintenant = DEBUT_MS + Number(ev.target.value) * H; rendre(); };
+document.getElementById("vue").onclick = (ev) => {
+  const z = ev.target.closest("[data-z]"); if (z) { zoom = z.dataset.z; recentrer = true; return rendre(); }
+  const fa = ev.target.closest("[data-fa]"); if (fa) { filtreA = fa.dataset.fa; return rendre(); }
+  if (ev.target.closest("#allerNow")) { recentrer = true; return rendre(); }
+  const inc = ev.target.closest("[data-inc]"); if (inc) { selection = inc.dataset.inc; choisi = inc.dataset.at ? Number(inc.dataset.at) : null; rendre(); const c = document.querySelector(".fil li.choisi"); if (c) c.scrollIntoView({ block: "nearest" }); }
+};
+document.getElementById("vue").onkeydown = (ev) => { const inc = ev.target.closest("[data-inc]"); if (inc && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); selection = inc.dataset.inc; rendre(); } };
+document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && selection) { selection = null; rendre(); } });
+let minuteur = null;
+document.getElementById("lecture").onclick = (ev) => {
+  const b = ev.currentTarget;
+  if (minuteur) { clearInterval(minuteur); minuteur = null; b.textContent = "▶ Accélérer"; b.setAttribute("aria-pressed", "false"); return; }
+  b.textContent = "⏸ Pause"; b.setAttribute("aria-pressed", "true");
+  minuteur = setInterval(() => { maintenant += 10 * 60e3; if (maintenant > DEBUT_MS + 167 * H) maintenant = DEBUT_MS; rendre(); }, 120);
+};
+rendre();
+</script>
+</body>
+</html>

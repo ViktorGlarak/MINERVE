@@ -269,7 +269,11 @@ Un template déclare : `image`, `port`, `healthcheck`, `icon` · `keycloak` (cli
 
 > ⭐ **Leçon de `leac` sur les rôles Keycloak** *(2026-09-17)* : ne déclarer au royaume que ce qui est **stable**. « Chef de contrôle », « chef d'équipe », « officier de marque » sont des **fonctions tenues dans une équipe**, qui changent d'un contrôle à l'autre — le même officier est chef d'équipe lundi et contrôleur S4 jeudi. Les mettre dans Keycloak obligerait à le rejouer à chaque nouvelle équipe, et **les deux vérités divergeraient au premier oubli**. Elles restent donc dans l'app. Le royaume ne tranche que l'accès au **référentiel**.
 
-### ⚠⚠ Le PORTAIL d'une zone est PUBLIC — relevé dans le code le 2026-09-23
+### ⭐⭐ 2026-10-05 : le PORTAIL d'une zone EXIGE LA CONNEXION (décision utilisateur) — `pleiade-platform` `f8c7127`
+
+Le portail `<zone>.<domaine>` n'est plus public : connexion au **royaume de la zone** (client confidentiel **`portail`**, créé à la demande par `ensurePortailClient`), flux code + **PKCE S256 + state + nonce**, session = cookie signé 1 h (`src/portail-auth.ts`, routes `/_portail/connexion|retour|deconnexion`). Chaque carte se règle **par groupe Keycloak** pour **toutes** les apps (bouton œil → « Tout le monde / Seulement certains groupes / Personne », `orch_instances.portail_groupes` = JSON d'IDENTIFIANTS de groupe, NULL = tous ; `visiblePour` dans `portail.ts`). Le visiteur porte des NOMS de groupe (claim `groups`) rapprochés des identifiants (relus toutes les 60 s). ⚠ Toujours **pas une protection** : l'adresse de l'app reste joignable, c'est le **bouclier** qui interdit. Remplace la décision du 2026-09-23 ci-dessous (« pas de connexion obligatoire sur le portail ») — la doctrine CYBERSECU (pas de confiance liée au réseau, moindre exposition) va dans ce sens. Conséquence : toute personne qui consulte le portail doit avoir un **compte dans la zone**.
+
+### ⚠⚠ (HISTORIQUE, remplacé le 2026-10-05) Le PORTAIL d'une zone est PUBLIC — relevé dans le code le 2026-09-23
 
 `<zone>.<domaine>` (ex. `delattre-26.pleiade.internal`) est servi par un
 middleware d'`index.ts` placé **avant** le garde de session (`requireAuth`,

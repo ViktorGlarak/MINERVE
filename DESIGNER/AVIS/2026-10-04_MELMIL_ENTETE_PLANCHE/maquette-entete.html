@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Maquette en-tête planche</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#f3f1ec;--carte:#fff;--creux:#f4f6f7;--trait:#dfe3e8;--trait-fort:#3d444c;--texte:#14171a;--doux:#4a5058;--prep:#9a5b13;--prep-fond:#fbf1e3;--jemm:#1f5f8b;--direct:#1d7a3e;--grey:#3f4fb5;--forad:#b4232f}
+*{box-sizing:border-box}
+body{margin:0;background:#cfcac0;font:14px/1.4 Archivo,system-ui,sans-serif;color:var(--texte)}
+.ecran{width:1900px;height:1000px;overflow:hidden;background:var(--fond);position:relative;margin:0 0 40px}
+.legende{width:1900px;padding:18px 24px;background:#1d2125;color:#e8e4d9;font-size:15px}
+.legende b{color:#e0a458}
+/* barre de l'app */
+.app{height:42px;background:#14171a;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:3px solid var(--prep);color:#e8e4d9}
+.logo{font:800 15px "JetBrains Mono";letter-spacing:.25em}
+.esp{display:flex;border:1px solid #3d444c;border-radius:8px;overflow:hidden}
+.esp span{padding:5px 12px;font-weight:600;font-size:14px;color:#9aa1a9}
+.esp .on{background:var(--prep);color:#fff}
+.sig{border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px}
+.sig.a{border:1px solid #c79a2b;color:#f2c55c;background:#2b2412}.sig.b{border:1px solid #2f8f53;color:#7be0a0;background:#12261a}
+.app .fl{flex:1}
+.app .moi{font-size:13px;color:#c9ced4}.app .moi b{color:#fff}
+.app .role{font:700 11px "JetBrains Mono";border:1px solid #3d444c;border-radius:4px;padding:2px 6px;color:#e0a458}
+.app .dir{font-size:12px;color:#7be0a0;display:flex;align-items:center;gap:6px}
+.app .dir::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80}
+.app .btn{border:1px solid #3d444c;border-radius:8px;padding:4px 10px;color:#e8e4d9;font-size:13px}
+/* commun */
+main{padding:14px 16px 0}
+.tag{background:var(--prep-fond);color:var(--prep);font-weight:700;font-size:13px;padding:5px 10px;border-radius:6px}
+h1{margin:0;font-size:28px;font-weight:800;letter-spacing:-.01em}
+.pill{border:1px solid var(--trait-fort);border-radius:999px;padding:4px 12px;font-weight:600;font-size:13px;background:#fff}
+.pill.gt{border-color:var(--trait)}
+.pill.cur{border-color:var(--prep);color:var(--prep);background:var(--prep-fond);font-weight:700}
+.btnw{border:1px solid var(--trait);background:#fff;border-radius:8px;padding:7px 14px;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.btns{border:1px solid var(--trait);background:#fff;border-radius:8px;padding:5px 11px;font-weight:600;font-size:13px}
+.vert{border-radius:999px;padding:4px 10px;background:#e3f1e8;color:var(--direct);font-size:12px}
+.row{display:flex;align-items:center;gap:12px}
+.fam{font-size:11px;color:var(--doux);margin-bottom:6px}
+.tab{padding:6px 12px 9px;font-size:15px;color:#2a2f35}
+.tab i{font-style:normal;font-size:11px;background:#e6e9ec;border-radius:4px;padding:1px 5px;margin-left:5px;color:var(--doux)}
+.tab.on{font-weight:700;border-bottom:3px solid var(--prep)}
+.seg{display:inline-flex;border:1px solid var(--trait-fort);border-radius:6px;overflow:hidden}
+.seg span{padding:4px 11px;font-size:13px;border-left:1px solid var(--trait)}
+.seg span:first-child{border-left:0}
+.seg .on{background:#14171a;color:#fff;font-weight:700}
+.seg .g{box-shadow:inset 3px 0 var(--grey)}.seg .f{box-shadow:inset 3px 0 var(--forad)}
+.lbl{font-size:13px;color:var(--doux)}
+.grille{display:block;width:1868px;margin:0 auto}
+.note{position:absolute;width:24px;height:24px;border-radius:50%;background:#ffe86b;border:2px solid #14171a;box-shadow:2px 2px 0 #14171a;z-index:5;font:800 13px Archivo;display:grid;place-items:center}.note::after{content:attr(data-n)}
+
+.regle{position:absolute;left:0;width:100%;border-top:2px dashed #b4232f;z-index:4}
+.regle span{position:absolute;right:8px;top:-22px;background:#b4232f;color:#fff;font:700 12px "JetBrains Mono";padding:2px 6px;border-radius:4px}
+/* barre d'outils de la planche */
+.outils{display:flex;align-items:center;gap:18px;background:var(--carte);border:1px solid var(--trait);border-radius:10px;padding:7px 10px;margin:0 0 8px}
+.outils .sep{width:1px;height:22px;background:var(--trait)}
+.outils .fl{flex:1}
+.aide{width:26px;height:26px;border-radius:50%;border:1px solid var(--trait-fort);display:inline-grid;place-items:center;font-weight:800;font-size:13px}
+/* B : onglets en ligne */
+.onglets-l{display:flex;align-items:flex-end;gap:2px;border-bottom:1px solid var(--trait)}
+.onglets-l .f{font:700 10px "JetBrains Mono";letter-spacing:.08em;color:#9aa1a9;padding:0 6px 11px 14px}
+.onglets-l .f:first-child{padding-left:2px}
+.onglets-l .vs{width:1px;height:22px;background:var(--trait);margin:0 6px 8px}
+.etape{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--trait);border-radius:8px;padding:4px 10px;background:#fff;font-size:13px}
+.points{display:inline-flex;gap:3px}
+.points b{width:18px;height:6px;border-radius:3px;background:#dfe3e8}
+.points b.p{background:var(--prep)}
+.points b.c{background:var(--prep);box-shadow:0 0 0 2px var(--prep-fond),0 0 0 3px var(--prep)}
+.n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#ffe86b;border:2px solid #14171a;box-shadow:2px 2px 0 #14171a;font:800 12px Archivo;color:#14171a;flex:none}
+.legende .n{margin:0 4px 0 2px;vertical-align:-4px}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════ A ════════════════════════ -->
+<div class="legende"><b>A · « Une barre d'outils pour la planche »</b> — on ne touche ni au titre ni aux onglets. <b>Effort : faible (≈ ½ journée).</b> Grille à <b class="h" data-pour="A"></b> du haut (aujourd'hui 303 px).<br>
+<span class="n">1</span> les 3 lignes posées à droite (Afficher, Imprimer, Affichage) deviennent <b>une seule barre collée à la grille</b> : tous les réglages de la planche au même endroit. &nbsp; <span class="n">2</span> la phrase d'aide devient un rappel court + « ? » (le texte complet au survol).</div>
+<div class="ecran" id="A">
+  <div class="app"><span class="logo">MELMIL</span><span style="color:#9aa1a9;font-size:13px">delattre-26</span><span class="esp"><span class="on">● Planification</span><span>● Planche JEMM</span></span><span class="sig a">● 2 demandes à traiter</span><span class="sig b">● 5 demandes ont avancé</span><span class="fl"></span><span class="moi">Thomas MEYTRE</span><span class="btn">Se déconnecter</span><span class="btn">☾</span></div>
+  <main>
+    <div class="row" style="margin-bottom:14px"><span class="tag">Préparation</span><h1>DE LATTRE 26</h1><span class="pill">👥 Admin · tous les groupes</span>
+      <span class="pill gt">✓ GT1</span>→<span class="pill gt">✓ GT2</span>→<span class="pill cur">GT3 · en cours</span>→<span class="pill gt">Exercice</span><span class="btns">Changer d'étape</span>
+      <span style="flex:1"></span><span class="btnw">Exporter en PPT</span><span class="vert">● en direct · gc03</span></div>
+    <div class="row" style="gap:46px;align-items:flex-end;border-bottom:1px solid var(--trait);margin-bottom:10px">
+      <div><div class="fam">Construire</div><span class="tab">Events<i>8</i></span><span class="tab">Storylines<i>12</i></span><span class="tab">Incidents<i>79</i></span></div>
+      <div><div class="fam">Visualiser</div><span class="tab">Synthèse</span><span class="tab on">Planche de préparation</span><span class="tab">Écarts avec JEMM<i>13</i></span><span class="tab">Demandes de produit<i>0</i></span></div>
+      <div><div class="fam">Organiser</div><span class="tab">Équipe<i>18</i></span><span class="tab">Journal</span><span class="tab">Réglages</span></div>
+    </div>
+    <div class="outils">
+      <span class="n">1</span><span class="lbl">Groupes</span><span class="seg"><span class="on">Tous</span><span class="g">GREYCELL</span><span class="f">FORAD</span></span>
+      <span class="sep"></span>
+      <span class="lbl">Affichage</span><span class="seg"><span>Liste</span><span class="on">Clair</span><span>Classique</span></span>
+      <span class="fl"></span>
+      <span class="n">2</span><span class="lbl" style="font-size:12px">Glisser = changer de jour · clic = fiche</span><span class="aide" title="Construite à partir de l'atelier, en direct…">?</span>
+      <span class="sep"></span>
+      <span class="btns">Imprimer…</span>
+    </div>
+    <img class="grille" src="grille.jpg" alt="">
+  </main>
+  <div class="regle"><span></span></div>
+</div>
+
+<!-- ════════════════════════ B ════════════════════════ -->
+<div class="legende"><b>B · « En-tête compact » (recommandé)</b> — A, plus : <b>Effort : moyen (≈ 1 journée).</b> Grille à <b class="h" data-pour="B"></b> du haut.<br>
+<span class="n">1</span> le <b>rôle</b> (ADMIN) et le <b>« en direct »</b> montent dans la barre noire, près du nom : c'est là qu'on cherche « qui suis-je, suis-je connecté ». &nbsp; <span class="n">2</span> GT1 → GT2 → GT3 → Exercice + « Changer d'étape » = <b>une seule pastille</b> avec une jauge ; le menu ▾ donne les étapes et le changement. &nbsp; <span class="n">3</span> <b>Exporter en PPT</b> redevient un bouton discret (ce n'est pas l'action principale de l'écran). &nbsp; <span class="n">4</span> les <b>familles d'onglets</b> restent, mais sur la même ligne que les onglets. &nbsp; <span class="n">5</span> la barre d'outils de A, avec en plus <b>⤢ Agrandir</b> (voir C).</div>
+<div class="ecran" id="B">
+  <div class="app"><span class="logo">MELMIL</span><span style="color:#9aa1a9;font-size:13px">delattre-26</span><span class="esp"><span class="on">● Planification</span><span>● Planche JEMM</span></span><span class="sig a">● 2 demandes à traiter</span><span class="sig b">● 5 demandes ont avancé</span><span class="fl"></span><span class="n">1</span><span class="dir">en direct · gc03</span><span class="moi"><b>Thomas MEYTRE</b></span><span class="role">ADMIN</span><span class="btn">Se déconnecter</span><span class="btn">☾</span></div>
+  <main>
+    <div class="row" style="margin-bottom:8px"><span class="tag">Préparation</span><h1 style="font-size:24px">DE LATTRE 26</h1>
+      <span class="n">2</span><span class="etape">Étape <span class="points"><b class="p"></b><b class="p"></b><b class="c"></b><b></b></span><b style="color:var(--prep)">GT3 · en cours</b> ▾</span>
+      <span style="flex:1"></span><span class="n">3</span><span class="btns">Exporter en PPT</span></div>
+    <div class="onglets-l" style="margin-bottom:10px">
+      <span class="n">4</span><span class="f">CONSTRUIRE</span><span class="tab">Events<i>8</i></span><span class="tab">Storylines<i>12</i></span><span class="tab">Incidents<i>79</i></span><span class="vs"></span>
+      <span class="f">VISUALISER</span><span class="tab">Synthèse</span><span class="tab on">Planche de préparation</span><span class="tab">Écarts avec JEMM<i>13</i></span><span class="tab">Demandes de produit<i>0</i></span><span class="vs"></span>
+      <span class="f">ORGANISER</span><span class="tab">Équipe<i>18</i></span><span class="tab">Journal</span><span class="tab">Réglages</span>
+    </div>
+    <div class="outils">
+      <span class="n">5</span><span class="lbl">Groupes</span><span class="seg"><span class="on">Tous</span><span class="g">GREYCELL</span><span class="f">FORAD</span></span>
+      <span class="sep"></span>
+      <span class="lbl">Affichage</span><span class="seg"><span>Liste</span><span class="on">Clair</span><span>Classique</span></span>
+      <span class="fl"></span>
+      <span class="lbl" style="font-size:12px">Glisser = changer de jour · clic = fiche</span><span class="aide">?</span>
+      <span class="sep"></span>
+      <span class="btns">Imprimer…</span><span class="btns">⤢ Agrandir</span>
+    </div>
+    <img class="grille" src="grille.jpg" alt="">
+  </main>
+  <div class="regle"><span></span></div>
+</div>
+
+<!-- ════════════════════════ C ════════════════════════ -->
+<div class="legende"><b>C · « Planche agrandie »</b> — le bouton ⤢ Agrandir de B. <b>Effort : + ½ journée sur B.</b> Grille à <b class="h" data-pour="C"></b> du haut.<br>
+<span class="n">1</span> l'en-tête et les onglets se replient : il ne reste qu'<b>une barre fine</b> (exercice, onglet, étape, réglages), qui <b>reste visible quand on fait défiler</b> — pour travailler sur la planche ou la projeter en réunion. &nbsp; <span class="n">2</span> « Réduire » ou Échap ramène l'écran normal ; le choix est retenu sur le poste.</div>
+<div class="ecran" id="C">
+  <div class="app"><span class="logo">MELMIL</span><span style="color:#9aa1a9;font-size:13px">delattre-26</span><span class="esp"><span class="on">● Planification</span><span>● Planche JEMM</span></span><span class="sig a">● 2 demandes à traiter</span><span class="sig b">● 5 demandes ont avancé</span><span class="fl"></span><span class="dir">en direct · gc03</span><span class="moi"><b>Thomas MEYTRE</b></span><span class="role">ADMIN</span><span class="btn">Se déconnecter</span><span class="btn">☾</span></div>
+  <main style="padding-top:10px">
+    <div class="outils"><span class="n">1</span>
+      <b style="font-size:15px">DE LATTRE 26</b><span class="lbl">· Planche de préparation · <span style="color:var(--prep);font-weight:700">GT3 en cours</span></span>
+      <span class="sep"></span>
+      <span class="lbl">Groupes</span><span class="seg"><span class="on">Tous</span><span class="g">GREYCELL</span><span class="f">FORAD</span></span>
+      <span class="sep"></span>
+      <span class="lbl">Affichage</span><span class="seg"><span>Liste</span><span class="on">Clair</span><span>Classique</span></span>
+      <span class="fl"></span><span class="aide">?</span><span class="sep"></span>
+      <span class="btns">Imprimer…</span><span class="n">2</span><span class="btns" style="background:#14171a;color:#fff;border-color:#14171a">⤡ Réduire</span>
+    </div>
+    <img class="grille" src="grille.jpg" alt="">
+  </main>
+  <div class="regle"><span></span></div>
+</div>
+
+<script>
+for (const e of document.querySelectorAll('.ecran')) {
+  const g = e.querySelector('.grille'), r = e.querySelector('.regle');
+  const top = Math.round(g.getBoundingClientRect().top - e.getBoundingClientRect().top);
+  r.style.top = top + 'px';
+  r.querySelector('span').textContent = 'grille à ' + top + ' px du haut (aujourd’hui : 303 px)';
+  e.dataset.haut = top;
+  const h = document.querySelector('.h[data-pour="' + e.id + '"]'); if (h) h.textContent = top + ' px';
+}
+</script>
+</body>
+</html>

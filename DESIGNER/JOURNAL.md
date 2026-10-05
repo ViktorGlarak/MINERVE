@@ -1,5 +1,20 @@
 # JOURNAL — DESIGNER
 
+## 2026-10-05 — Avis n°63 : MELMIL, déroulé des incidents en temps réel
+
+- **Demande** : voir pour chaque incident son déroulé (FAM JEMM → tweets / presse de l'admin → CRQ) et où l'on en est à l'heure près ; emplacement libre.
+- **Propositions** (prototype interactif `AVIS\2026-10-05_MELMIL_DEROULE\prototype.html`, données fictives, curseur « heure simulée ») : **B** nouvel onglet « Déroulé », chronogramme avec ligne MAINTENANT (recommandé) ; **A** 4 étapes par incident dans la Synthèse ; **C** « Maintenant » (joué 3 h / à venir 6 h / à corriger). Reco : B + étapes de A dans le tiroir + compteurs de C en tête.
+- **Faits relevés** : FAM présent dans les exports mais non lu ; pas d'état « joué » dans JEMM ; l'admin doit exposer ses éléments datés ; CRQ rapproché par date + cellule + « CRQ-UTMC ». Exports du 05/10 marqués NATO RESTRICTED → exclus du prototype.
+- **Statut** : montré en local, en attente du choix de l'utilisateur (3 questions dans l'AVIS).
+- **Suite (même jour)** : icônes refaites (pictogrammes Lucide, plein + ✓ / contour / « ! » / ✕, regroupement « +N » au-dessus) ; lien « Ouvrir le scénario dans l'admin » ; **B retenue** et codée dans app-melmil (branche `deroule`) avec les étapes de A dans le détail et « À corriger » de C en tête ; le détail reprend **le même bloc CRQ** que la fiche (demande utilisateur). Décisions : CRQ du jour de l'incident, joué = heure (FAM) / statut admin, FAM en entier. ⚠ Leçon technique : une règle `display:inline-flex` sur les `span` de la légende écrasait la grille des icônes (pictogramme réduit à 2 px) — cibler `> span`, et `box-sizing: content-box` pour une pastille à bordure.
+
+## 2026-10-04 — Avis n°60 : MELMIL, en-tête de la planche de préparation
+
+- **Demande** : l'utilisateur « n'est pas fan » de la zone au-dessus de la planche (capture) ; propositions demandées.
+- **Constat** : grille à 303 px du haut ; réglages éparpillés sur 3 lignes à droite ; 7 pastilles de même poids sur la ligne du titre ; « Exporter en PPT » plus visible que tout ; phrase d'aide permanente entre réglages et grille.
+- **Propositions** (maquette `AVIS6-10-04_MELMIL_ENTETE_PLANCHE\maquette-entete.html`) : A barre d'outils unique (½ j, 217 px) ; B en-tête compact, recommandé (1 j, 202 px) ; C planche agrandie collante (+½ j, 106 px).
+- **Statut** : proposé, puis **B retenue** (comparaison locale `comparer.html`) et appliquée le 2026-10-04 (app-melmil `fe17050`, 2026-10-04.15) ; grille à 200 px au lieu de 303.
+
 ## 2026-10-03 — Avis n°40 : MELMIL, deux groupes d'animation (GA1, GA2) et la source de chaque event
 
 - **Demande** : mettre en écran 7 décisions de l'utilisateur : rôles GA1/GA2 (fin du rôle « Animation »), chaque GA ne modifie que ses events et ce qui en dépend, lit ceux de l'autre, demande des produits partout ; propriétaire + source par event (« Synchronisé avec JEMM », un export = un event, mise à jour limitée à cet event ; « Créé dans MELMIL », jamais touché) ; codes MELMIL ≥ 20 ; statut arrêté à « Validé » pour les events MELMIL ; Écarts limités aux events JEMM ; choix d'afficher ou non l'autre GA ; events existants au GA1.

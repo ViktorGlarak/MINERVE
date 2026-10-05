@@ -104,6 +104,7 @@ Objectif d'entraînement principal : **8.1** — « Étudier les données d'envi
 - À l'**export**, un fichier nommé « -001- » sur un incident sort avec le code de l'incident.
 - **Comptes rendus** (PSYREP, CIMICREP, SCAMR) : même règle au téléchargement. Le titre par défaut est le nom du compte rendu, et le NMR le code de l'incident de la fiche ouverte. La date et le titre sont modifiables *(01/10)*.
 - **SCAMR** (CRI propagande) : nouveau compte rendu par jour et par ETIM, reproduit à l'identique de `01_Montage exercice\SCAMR.png`. **Consigne de l'utilisateur : l'image seule fait foi, pas « Modèle SCAMR.pptx »** *(en ligne le 01/10)*.
+- ⭐ **SCAMER** *(04/10, version MELMIL 2026-10-04.14)* : le compte rendu **SCAMR est remplacé par le « SCAMER »** (colonne renommée), modèle **`01_Montage exercice5-Modèle Fiche SCAMER - Copie.odt`** (« Le SCAME-R » : Source, Contenu, Auditoire, Média, Effets, Recommandations). Les SCAMR déjà remplis gardent l'ancien modèle « CRI propagande ». ⭐ **2026-10-04.17 : reproduit À L'IDENTIQUE** (6 cadres, réponses à la suite des intitulés, cases à cocher Word ; export = le vierge rempli ; réimport). ⚠ L'exemplaire **rempli** `…Copie.docx` porte **DIFFUSION RESTREINTE** : jamais versé dans PLÉIADE.
 
 Remplace la règle du 30/09 (`AAAAMMJJ_MR_DL26_SITCEN-FORAD|GREYCELL-Titre`, avec la date du jour). Détail : `PLEIADE\JOURNAL.md` (2026-10-01, suite 6).
 
