@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-12 (suite 18) — app-ia 2026-10-12.15 PRÊT (`0eedbb7`, local, avec la 12.14, en attente du feu vert) : pourquoi les joueurs n'ont pas de réponse IA
+## 2026-10-12 (suite 18) — app-ia 2026-10-12.14 + 12.15 POUSSÉS main + prod (`7eb3893..0eedbb7`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-12.15 vérifié) : pourquoi les joueurs n'ont pas de réponse IA
 - **Demande utilisateur** : « des postes des joueurs n'ont pas de commentaire des avatars IA » ; export du fil complet et par journée.
 - **Analyse du relevé de 15 h 47** (1 h 25) : 138 messages de joueurs (42 publications, 96 commentaires), 1 004 lectures IA, 4 publications de joueurs commentées sur 42. Deux causes :
   1. **120 publications « retenues : rien ne le pousse à écrire »**. La plupart réagissaient au fil des joueurs (D32, HLunéville, fosses communes) : le modèle écrivait sa réaction en publication, et la règle des déclencheurs la jetait.
