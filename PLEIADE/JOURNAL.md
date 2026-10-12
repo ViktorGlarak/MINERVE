@@ -4,6 +4,25 @@
 
 ---
 
+## 2026-10-12 (suite 15) — Relevé de 14 h 03 → app-ia 2026-10-12.12 POUSSÉ main + prod (`70b85d2..20d2732`, feu vert de l'utilisateur)
+- **Relevé de 14 h 03** (`moteur-ia_export_2026-10-12_1403.json`, depuis la 12.11) :
+  - 3 réponses IA au plus sous un même message ;
+  - les débuts en gabarit ont disparu ;
+  - 7 publications spontanées sur 35 reprennent le # de leur source ; réponses 3/3 avec le # du fil ; 215 J'aime posés ;
+  - 187 publications retenues « rien ne le pousse ».
+  - **Défauts** :
+    - compteur « Publications » faux (226 pour 35 : il comptait les retenues) ;
+    - citations d'accord ou d'éloge (« C'est vrai que… », « Bravo les collègues ») ;
+    - tic « j'espère » dans 15 messages sur 54 (à soumettre à PSYCHOLOGUE) ;
+    - **trop de publications de vie par rapport aux réponses aux joueurs** (35 contre 15), constat de l'utilisateur.
+- **12.12** (demande utilisateur : pas moins d'activité, plus d'implication sous les messages des joueurs) :
+  - une publication spontanée inspirée d'un message lu devient une **réponse sous ce message**, si le plafond M1 le permet ;
+  - **les messages des joueurs sont lus en premier** (score +60) ;
+  - moments de vie : 1/5 → 1/12, et 15 % → 8 % sans rien à lire ;
+  - `ADRESSE` complété (accord et éloge ; « si c'est vrai » exclu) ;
+  - compteur `/^publié/`.
+  - 41/41 essais ; image essayée seule.
+
 ## 2026-10-12 (suite 14) — app-ia 2026-10-12.11 POUSSÉ main + prod (`36a585e..70b85d2`, feu vert de l'utilisateur) : citer ou répondre
 - **Retour de l'utilisateur** : BergmanLars **citait** un appel à l'aide (« Qui peut conduire ? ») avec « Si je peux aider pour le transport, n'hésitez pas. ». C'est une réponse. Effet de bord de la règle M2 de la 12.8, où un message actionnable est partagé.
 - **Correctif** : `sAdresseALAuteur()`. Une offre (« je peux », « dispo »), un « vous » ou un « tu », ou une réponse à la question du message font passer la citation en **réponse**, avant le plafond M1. La consigne de partage est précisée.
