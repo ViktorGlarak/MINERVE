@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-10-12 (suite 20) — app-ia 12.16 POUSSÉ (`ac4cabd`, santé vérifiée) ; avis PSYCHOLOGUE n°19 et DESIGNER n°102 ; app-ia 2026-10-12.17 PRÊT (`502535a`, local)
+- **Décisions de l'utilisateur**
+  - Il suit les propositions des experts (« on fait au mieux, et on recalibrera selon les résultats »).
+  - Axes : il veut surtout pouvoir **en ajouter**, avec **8 au maximum**.
+  - Le JSON des campagnes est gardé en saisie avancée (« on garde ce qu'on peut pour analyser »).
+- **12.17** (persuasion, garde-fous et tendance), d'après l'avis n°19 :
+  - Coefficient de persuasion dans Réglages (de 0,5 à 3, 1 = référence) : joueurs × p, citoyens IA × √p, relais non affectés, voie « fait » × √p par étage, plafond journalier × √p.
+  - Bascule : 2 h de doute, 2 sources, 5 % de la population par heure au plus.
+  - Alerte de dérive au journal.
+  - Ligne de tendance dans l'invite au-delà de 5 points en 48 h.
+  - 53/53 tests, tsc OK, image `/api/sante` 2026-10-12.17.
+- 🔜 Après le push : régler la persuasion sur **2,0** (recommandation de PSYCHOLOGUE), puis relire l'export 3 h plus tard :
+  - moins de 15 % des avatars exposés à plus de 5 points → 2,5 ;
+  - un avatar ancré qui bascule, ou une alerte de dérive sans inject majeur → 1,5.
+- 🔜 Ensuite, **12.18 : axes éditables**. Une seule liste d'axes en base ; ajout avec une position de départ par groupe eho (centre × (0,6 + 0,8·ancrage) ± 8, graine fixe, aperçu obligatoire) ; modification sans changer l'état ; archivage, sauf FORCE et Mercure ; 8 axes au maximum ; éditeur de campagnes par axe, avec le JSON en saisie avancée (avis DESIGNER n°102).
+
 ## 2026-10-12 (suite 19) — Influence des avatars : constat, puis app-ia 2026-10-12.16 PRÊT (`ac4cabd`, local, en attente du feu vert)
 - **Question de l'utilisateur** : les avatars sont-ils influencés par le réseau ? Leur position envers un camp varie-t-elle ?
 - **Constat (relevé de 15 h 47)**
