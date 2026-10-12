@@ -1,0 +1,134 @@
+{
+ "cree_le": "2026-10-12T12:43:17.966Z",
+ "moteur": "app-ia 2026-10-12.13",
+ "zone": "ia-locale",
+ "modele_reference": "gemma4:26b-a4b-it-qat",
+ "appels": [
+  {
+   "fichier": "01_lecture__OlegGaspi_.json",
+   "type": "lecture",
+   "avatar": "_OlegGaspi_",
+   "cohorte": "pro_mercure",
+   "duree_ms_pc": 22716,
+   "tokens_invite": 4481,
+   "tokens_reponse": 616
+  },
+  {
+   "fichier": "02_lecture_P3trov_Sky.json",
+   "type": "lecture",
+   "avatar": "P3trov_Sky",
+   "cohorte": "pro_mercure",
+   "duree_ms_pc": 10726,
+   "tokens_invite": 4297,
+   "tokens_reponse": 533
+  },
+  {
+   "fichier": "03_lecture_Lepetitfreredebazouzou.json",
+   "type": "lecture",
+   "avatar": "Lepetitfreredebazouzou",
+   "cohorte": "pro_arnland",
+   "duree_ms_pc": 9938,
+   "tokens_invite": 3927,
+   "tokens_reponse": 493
+  },
+  {
+   "fichier": "04_lecture_BenitskyBogdan.json",
+   "type": "lecture",
+   "avatar": "BenitskyBogdan",
+   "cohorte": "pro_arnland",
+   "duree_ms_pc": 10292,
+   "tokens_invite": 4142,
+   "tokens_reponse": 531
+  },
+  {
+   "fichier": "05_lecture_G_Surfer_99.json",
+   "type": "lecture",
+   "avatar": "G_Surfer_99",
+   "cohorte": "neutre",
+   "duree_ms_pc": 6977,
+   "tokens_invite": 4287,
+   "tokens_reponse": 273
+  },
+  {
+   "fichier": "06_lecture_Alo_Livreur_42.json",
+   "type": "lecture",
+   "avatar": "Alo_Livreur_42",
+   "cohorte": "neutre",
+   "duree_ms_pc": 26189,
+   "tokens_invite": 6101,
+   "tokens_reponse": 652
+  },
+  {
+   "fichier": "07_relecture_TeleCityKov.json",
+   "type": "relecture",
+   "avatar": "TeleCityKov",
+   "cohorte": "pro_mercure",
+   "duree_ms_pc": 1240,
+   "tokens_invite": 1083,
+   "tokens_reponse": 12
+  },
+  {
+   "fichier": "08_relecture_Kas_Elec_85.json",
+   "type": "relecture",
+   "avatar": "Kas_Elec_85",
+   "cohorte": "neutre",
+   "duree_ms_pc": 14318,
+   "tokens_invite": 1098,
+   "tokens_reponse": 12
+  },
+  {
+   "fichier": "09_relecture_Lepetitbasque.json",
+   "type": "relecture",
+   "avatar": "Lepetitbasque",
+   "cohorte": "neutre",
+   "duree_ms_pc": 13138,
+   "tokens_invite": 1031,
+   "tokens_reponse": 68
+  },
+  {
+   "fichier": "10_relecture_Alo_Livreur_42.json",
+   "type": "relecture",
+   "avatar": "Alo_Livreur_42",
+   "cohorte": "neutre",
+   "duree_ms_pc": 15450,
+   "tokens_invite": 1133,
+   "tokens_reponse": 56
+  },
+  {
+   "fichier": "11_extraction_vie_Alo_Livreur_42.json",
+   "type": "extraction_vie",
+   "avatar": "Alo_Livreur_42",
+   "cohorte": null,
+   "duree_ms_pc": 2367,
+   "tokens_invite": 718,
+   "tokens_reponse": 111
+  },
+  {
+   "fichier": "12_extraction_vie_EdvDocker.json",
+   "type": "extraction_vie",
+   "avatar": "EdvDocker",
+   "cohorte": null,
+   "duree_ms_pc": 2220,
+   "tokens_invite": 702,
+   "tokens_reponse": 118
+  },
+  {
+   "fichier": "13_publication_Jrom_95.json",
+   "type": "publication",
+   "avatar": "Jrom_95",
+   "cohorte": "pro_arnland",
+   "duree_ms_pc": 13109,
+   "tokens_invite": 4996,
+   "tokens_reponse": 668
+  },
+  {
+   "fichier": "14_publication_InstitutPerun.json",
+   "type": "publication",
+   "avatar": "InstitutPerun",
+   "cohorte": "neutre",
+   "duree_ms_pc": 12478,
+   "tokens_invite": 4554,
+   "tokens_reponse": 654
+  }
+ ]
+}

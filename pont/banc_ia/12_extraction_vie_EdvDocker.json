@@ -1,0 +1,65 @@
+{
+ "model": "gemma4:26b-a4b-it-qat",
+ "stream": false,
+ "format": "json",
+ "think": false,
+ "options": {
+  "temperature": 0.1,
+  "num_ctx": 8192
+ },
+ "messages": [
+  {
+   "role": "system",
+   "content": "Tu lis un message qu'un habitant fictif vient de publier et tu notes ce qu'il dit de SA PROPRE vie (proches, animaux, biens, lieux personnels, événements de vie, états durables). Rien d'autre : ni opinion, ni nouvelle générale, ni ce que font les autres. Réponds UNIQUEMENT en JSON.\nRÈGLES (garde-fous) :\n- Pas d'invention et pas de déduction implicite (ni genre, ni âge, ni métier déduits). Ne recopie pas un détail d'un FAIT CONNU dans un fait nouveau.\n- Sens exact : « avant j'avais », « je n'ai plus », « j'ai arrêté » = le fait est TERMINÉ, note-le comme fin. « J'essaie », « pour un mois », « en attendant » = temporaire.\n- Un fait riche vaut mieux qu'un fait atomique (« voiture : en panne depuis lundi, je fais tout à pied »), 12 mots au plus pour la valeur.\n- \"depuis\" : recopie l'EXPRESSION DE TEMPS du message telle quelle (« depuis lundi », « hier », « ça fait trois jours »), ou null.\n- Pour CHAQUE fait, compare aux FAITS CONNUS (identifiés 0..n) : \"meme_fait\" = identifiants des faits connus qui disent LA MÊME CHOSE (même objet, même état — un détail en plus n'est pas une contradiction) ; \"contredit\" = identifiants des faits connus qui NE PEUVENT PAS ÊTRE VRAIS EN MÊME TEMPS que celui-ci (le fait connu a cessé d'être vrai, a été remplacé, ou les deux états s'excluent). NE JAMAIS marquer une contradiction à cause de la seule nouveauté ou d'une activité différente : « j'ai couru lundi » puis « j'ai marché mardi » n'est ni le même fait ni une contradiction ; « j'habite HToul » puis « j'habite HNancy » est une contradiction ; « ma voiture est en panne » puis « ma voiture est réparée » est une contradiction (fin de l'état)."
+  },
+  {
+   "role": "user",
+   "content": "Message : « Ma sœur est arrivée hier soir avec ses deux enfants, ils dorment chez nous en attendant que ça se calme. #Réfugiés »\nFAITS CONNUS :\n0) domicile : habite à HNancy (maison) [fiche]\n1) travail : assistante maternelle à domicile [fiche]\n2) foyer : compagnon, enfant, enfant [fiche]\n\nRends : {\"faits\": [{\"type\": \"proche\" | \"animal\" | \"bien\" | \"lieu\" | \"evenement\" | \"etat\", \"cle\": \"<1 à 3 mots : sœur, voiture, chien, appartement, domicile, travail…>\", \"valeur\": \"<ce qu'il en dit, 12 mots max>\", \"fin\": true | false, \"temporaire\": true | false, \"depuis\": \"<expression de temps du message ou null>\", \"meme_fait\": [<ids>], \"contredit\": [<ids>]}]} — ou {\"faits\": []}."
+  }
+ ],
+ "meta": {
+  "type_appel": "extraction_vie",
+  "description": "enregistrerFaits : « Ma sœur est arrivée hier soir avec ses deux enfants… » (avatar EdvDocker) ; 1 fait ajouté, 1 hors fiche",
+  "avatar": "EdvDocker",
+  "cohorte": null,
+  "orientation_initiale": null,
+  "origine": "appel direct de la fonction du moteur (même code, même invite), zone locale",
+  "moteur": "app-ia 2026-10-12.13",
+  "zone": "ia-locale (aucune donnée de joueurs de DELATTRE 26)",
+  "capture_le": "2026-10-12T12:41:33.694Z",
+  "duree_ms_pc": 2220,
+  "note_duree": "Mesurée sur le PC pro (RTX 5070 Ti 12 Go, Ollama, gemma4:26b-a4b-it-qat) pendant que le même GPU servait aussi le moteur de production : durée indicative, possiblement majorée par la concurrence.",
+  "reponse_gemma4": "{\"faits\": [{\"type\": \"proche\", \"cle\": \"sœur\", \"valeur\": \"est arrivée avec ses deux enfants\", \"fin\": false, \"temporaire\": false, \"depuis\": \"hier soir\", \"meme_fait\": [], \"contredit\": []}, {\"type\": \"evenement\", \"cle\": \"hébergement\", \"valeur\": \"ses enfants dorment chez nous\", \"fin\": false, \"temporaire\": true, \"depuis\": \"hier soir\", \"meme_fait\": [], \"contredit\": []}]}",
+  "reponse_gemma4_json": {
+   "faits": [
+    {
+     "type": "proche",
+     "cle": "sœur",
+     "valeur": "est arrivée avec ses deux enfants",
+     "fin": false,
+     "temporaire": false,
+     "depuis": "hier soir",
+     "meme_fait": [],
+     "contredit": []
+    },
+    {
+     "type": "evenement",
+     "cle": "hébergement",
+     "valeur": "ses enfants dorment chez nous",
+     "fin": false,
+     "temporaire": true,
+     "depuis": "hier soir",
+     "meme_fait": [],
+     "contredit": []
+    }
+   ]
+  },
+  "ollama": {
+   "modele": "gemma4:26b-a4b-it-qat",
+   "prompt_eval_count": 702,
+   "eval_count": 118,
+   "eval_duration_ns": 1831494000,
+   "total_duration_ns": 2218727200
+  }
+ }
+}

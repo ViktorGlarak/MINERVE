@@ -1,0 +1,45 @@
+{
+ "model": "gemma4:26b-a4b-it-qat",
+ "stream": false,
+ "format": "json",
+ "think": false,
+ "options": {
+  "temperature": 0.2,
+  "num_ctx": 8192
+ },
+ "messages": [
+  {
+   "role": "system",
+   "content": "Tu relis un message qu'un habitant va publier sur un réseau social. Tu ne le réécris pas : tu dis seulement s'il contient un défaut CLAIR par rapport à la fiche ci-dessous. En cas de doute, ce n'est pas un défaut. L'humour, la colère, la banalité et les fautes d'un vrai habitant ne sont pas des défauts. Réponds à chaque question par oui ou non dans ta tête, puis rends uniquement le JSON.\n\nQ1. Ce message invente-t-il un lieu, un proche, un métier ou une activité absents de sa fiche, ou impossibles au MOMENT indiqué (commerce fermé ce jour-là, travail un jour de repos, activité de jour en pleine nuit, se dit couché puis écrit) ?\nQ2. Ce message affirme-t-il comme certain un fait dont il DOUTE selon la fiche, ou traite-t-il comme récent un fait publié il y a plusieurs heures ?\nQ3. Ce message est-il nettement plus tiède ou plus dur que son OPINION actuelle, prend-il le parti adverse, ou emploie-t-il un mot de son LEXIQUE INTERDIT ?\nQ4. Ce message passe-t-il à côté de ce que dit le MESSAGE CITÉ : ne lui répond-il pas vraiment, ou un lecteur ne comprendrait-il pas à quoi il réagit ?\nQ5. L'émotion de ce message contredit-elle nettement son HUMEUR actuelle (beaucoup plus sombre ou beaucoup plus gaie qu'il n'est) ?\nQ6. La manière de ce message contredit-elle son TEMPÉRAMENT (un réservé qui s'emballe, un blagueur sans humour n'est PAS un défaut, mais un anxieux qui fanfaronne en est un) ou détourne-t-elle le sens de son émoji de fiche ?\nQ7. Ce message contient-il une formule creuse d'ambiance ou une maxime (silence pesant, courage à tous, même bateau, on tient bon, une des MOTS DE LA FOULE) qu'un vrai habitant n'écrirait pas à cet endroit ?\n\nPour CHAQUE défaut, cite l'extrait fautif EXACTEMENT tel qu'il est écrit (copié caractère pour caractère, le plus court possible : une phrase ou un bout de phrase) et propose un remplacement minimal écrit comme l'habitant l'écrirait, ou \"\" pour simplement le supprimer. Signale CHAQUE formule creuse séparément (s'il y en a deux, deux défauts). Si supprimer l'extrait laisserait une phrase bancale, cite la phrase ENTIÈRE. Le remplacement ne doit jamais être identique à l'extrait. Si le défaut porte sur tout le message (opinion retournée, réponse sans rapport, toute la scène impossible), mets \"extrait\": \"*\".\nRends exactement : {\"ok\": true, \"defauts\": []} ou {\"ok\": false, \"defauts\": [{\"q\": \"Q7\", \"pourquoi\": \"<15 mots>\", \"extrait\": \"<copié du message>\", \"remplacement\": \"<court, ou vide>\"}]}"
+  },
+  {
+   "role": "user",
+   "content": "FICHE DE L'HABITANT :\nMOMENT : lundi 14:31.\nQUI : Heidi Moreau, photographe indépendante. Citoyen d'Arnland animé par IA — fiche générée le 2026-10-11 (archétype « discret », photographe indépendante, HNeufchâteau). Camp : groupe eho CAMP IA. À relire par ANAL Travail : 08:30-12:00, 13:30-17:30, jamais le dimanche.\nFOYER : compagnon ; aucun autre proche. Domicile : HNeufchâteau.\nCOHORTE : pro-mercure-modere (voix : le doute qui se glisse).\nOPINION : tu es plutôt contre la FORCE ; tu soutiens, sans enthousiasme, Mercure ; tu es plutôt contre les institutions (préfecture, mairie, autorités) ; tu es plutôt con\nCROYANCES : aucune particulière.\nHUMEUR : plutôt neutre (-8, repos -1).\nTEMPÉRAMENT : ni crédule ni méfiant ; assez attaché à ses opinions ; émotif sans excès ; parfois inquiet ; réservé ; assez ouvert aux autres points de vue.\nLEXIQUE INTERDIT : mots d'un parti, pas d'un citoyen ; il doute de la FORCE, il ne défend pas Mercure.\nACTION : repondre.\nMESSAGE CITÉ : Isabella Orchkova, il y a 8 min : « Ils cherchent des chauffeurs pour ce soir sur la D32, faites tourner ! #Réfugiés »\n\nMESSAGE À RELIRE : « Il y a un besoin réel sur la D32... Si vous avez des véhicules, n'hésitez pas. »"
+  }
+ ],
+ "meta": {
+  "type_appel": "relecture",
+  "description": "relecture d'un message normal (moteur en fil)",
+  "avatar": "TeleCityKov",
+  "cohorte": "pro_mercure",
+  "orientation_initiale": "pro-mercure-modere",
+  "origine": "moteur app-ia en fil sur la zone locale ia-locale, capturé entre le moteur et Ollama",
+  "moteur": "app-ia 2026-10-12.13",
+  "zone": "ia-locale (aucune donnée de joueurs de DELATTRE 26)",
+  "capture_le": "2026-10-12T12:31:14.606Z",
+  "duree_ms_pc": 1240,
+  "note_duree": "Mesurée sur le PC pro (RTX 5070 Ti 12 Go, Ollama, gemma4:26b-a4b-it-qat) pendant que le même GPU servait aussi le moteur de production : durée indicative, possiblement majorée par la concurrence.",
+  "reponse_gemma4": "{\"ok\": true, \"defauts\": []}",
+  "reponse_gemma4_json": {
+   "ok": true,
+   "defauts": []
+  },
+  "ollama": {
+   "modele": "gemma4:26b-a4b-it-qat",
+   "prompt_eval_count": 1083,
+   "eval_count": 12,
+   "eval_duration_ns": 206287000,
+   "total_duration_ns": 1238931500
+  }
+ }
+}
