@@ -4,6 +4,30 @@
 
 ---
 
+## 2026-10-12 (suite 14) — app-ia 2026-10-12.11 POUSSÉ main + prod (`36a585e..70b85d2`, feu vert de l'utilisateur) : citer ou répondre
+- **Retour de l'utilisateur** : BergmanLars **citait** un appel à l'aide (« Qui peut conduire ? ») avec « Si je peux aider pour le transport, n'hésitez pas. ». C'est une réponse. Effet de bord de la règle M2 de la 12.8, où un message actionnable est partagé.
+- **Correctif** : `sAdresseALAuteur()`. Une offre (« je peux », « dispo »), un « vous » ou un « tu », ou une réponse à la question du message font passer la citation en **réponse**, avant le plafond M1. La consigne de partage est précisée.
+- 40/40 essais ; image essayée seule (12.11). En attente du feu vert pour le push.
+
+## 2026-10-12 (suite 13) — Relevé de 11 h 51 → app-ia 2026-10-12.10 POUSSÉ (`d6e6d9a..36a585e`, feu vert de l'utilisateur)
+- **Relevé de 11 h 51** (`moteur-ia_export_2026-10-12_1151.json`), depuis la 12.8 :
+  - **le chœur a disparu** : 4 réponses au plus sous un même message ;
+  - 6 réponses sur 8 portent le # du fil ;
+  - **314 J'aime réellement posés** ;
+  - 23 publications spontanées, 41 retenues.
+  - **Nouveaux défauts** :
+    - moule des publications spontanées (« Pas facile de rester concentré(e)… », « Entre deux… ») ;
+    - chœur de citations « Si c'est vrai… » sous une alerte TV4 ;
+    - quelques citations-formules.
+  - 7 cycles « nœud injoignable » : redémarrage du PC (VPN et proxy à relancer).
+- **12.10** :
+  - publication spontanée qui reprend les # de sa **source** (`trouverSource` : désignée par le modèle et vérifiée par les mots communs, sinon 2 mots pleins en commun) — demande de l'utilisateur, exemple « pointer du doigt l'OTAN » ;
+  - **débuts variés** (`DEBUTS_POP`, gabarits interdits, refus au-delà de 2 débuts identiques en 2 h, signalés dans l'invite) ;
+  - **citations bornées** (2 par 30 min, 3 au total) ;
+  - **M3 étendu aux citations**.
+  - 39/39 essais ; image essayée seule.
+- Docker Desktop ne repart pas seul après un redémarrage. Il est installé dans `%LOCALAPPDATA%\Programs\DockerDesktop` : il faut le relancer avant tout essai d'image.
+
 ## 2026-10-12 (suite 12) — MISE À JOUR GROUPÉE POUSSÉE (feu vert de l'utilisateur)
 - **Social** `c7908d4..2a78127` (main + prod) : J'aime de commentaire par l'API de service ; libellé « Avatar animé par IA » ; icône IA teintée.
 - **app-ia** `92ad3a7..d6e6d9a` (main + prod) = **12.9** : J'aime de commentaire ; compteur des J'aime posés ; citations qui reprennent les #.
