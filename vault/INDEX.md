@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**464 notes** · généré le 2026-10-10
+**464 notes** · généré le 2026-10-12
 
 ## ⭐ Tier 1 — à charger en priorité
 

@@ -7,8 +7,8 @@ source: ../../DESIGNER/MEMOIRE.md
 linkedTo: []
 relevantFor: [agents]
 tier: 3
-created: 2026-10-10
-updated: 2026-10-10
+created: 2026-10-12
+updated: 2026-10-12
 ---
 
 # 🤖 DESIGNER — Canvas agent

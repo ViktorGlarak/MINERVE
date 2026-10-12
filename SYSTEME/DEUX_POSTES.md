@@ -50,13 +50,13 @@ git config rebase.autoStash true
 
 > 📋 À exécuter par la session Claude du PC, après le pull qui apporte ce fichier.
 
-- [ ] `.claude/settings.local.json` est toujours présent (sinon le restaurer depuis la sauvegarde `settings.local.json.bak_pc` faite avant le pull) ; supprimer ensuite la sauvegarde.
-- [ ] `git config pull.rebase true` et `git config rebase.autoStash true`.
-- [ ] Copier **tous** les `.md` de `C:\Users\MTR\.claude\projects\d--CECPC-PRODUCTION-IA-MINERVE\memory\` vers `NOYAU\MEMOIRE_CLAUDE\` (dont `MEMORY.md`, l'index), **sans les modifier**.
-- [ ] Dans les fichiers copiés et dans CLAUDE.md, repérer les références à `memory\…` et les remplacer par `NOYAU\MEMOIRE_CLAUDE\…` (voir CLAUDE.md § « Règle de mise à jour automatique »).
-- [ ] Remplacer le contenu de la mémoire automatique du PC par un seul pointeur : « La mémoire durable est dans le dépôt : `NOYAU\MEMOIRE_CLAUDE\` ; procédure deux postes : `SYSTEME\DEUX_POSTES.md` ».
-- [ ] Vérifier `py vault\_tools\build.py` (exit 0).
-- [ ] Commit `[PC] Migration mémoire auto → NOYAU/MEMOIRE_CLAUDE + procédure deux postes appliquée`, puis pull et push.
-- [ ] Cocher cette liste ici (dans le même commit) et noter la date.
+- [x] `.claude/settings.local.json` est toujours présent (sinon le restaurer depuis la sauvegarde `settings.local.json.bak_pc` faite avant le pull) ; supprimer ensuite la sauvegarde. *(Il avait disparu au pull : restauré depuis la sauvegarde, qui n'existe plus. Ignoré par `.gitignore`.)*
+- [x] `git config pull.rebase true` et `git config rebase.autoStash true`.
+- [x] Copier **tous** les `.md` de `C:\Users\MTR\.claude\projects\d--CECPC-PRODUCTION-IA-MINERVE\memory\` vers `NOYAU\MEMOIRE_CLAUDE\` (dont `MEMORY.md`, l'index), **sans les modifier**. *(95 fichiers, vérifiés octet par octet ; aucun secret trouvé.)*
+- [x] Dans les fichiers copiés et dans CLAUDE.md, repérer les références à `memory\…` et les remplacer par `NOYAU\MEMOIRE_CLAUDE\…` (voir CLAUDE.md § « Règle de mise à jour automatique »). *(CLAUDE.md était déjà à jour. Dans `MEMORY.md`, les deux liens vers `EXPERT_INFLUENCE\REFERENCES\` sont passés en `../../`, ce qui les rend valides. La mention de l'ancien dossier dans `rename_systeme_minerve.md` est gardée : c'est un fait historique.)*
+- [x] Remplacer le contenu de la mémoire automatique du PC par un seul pointeur : « La mémoire durable est dans le dépôt : `NOYAU\MEMOIRE_CLAUDE\` ; procédure deux postes : `SYSTEME\DEUX_POSTES.md` ».
+- [x] Vérifier `py vault\_tools\build.py` (exit 0).
+- [x] Commit `[PC] Migration mémoire auto -> NOYAU/MEMOIRE_CLAUDE + procédure deux postes appliquée`, puis pull et push.
+- [x] Cocher cette liste ici (dans le même commit) et noter la date.
 
-**État :** ⏳ en attente du PC (préparé côté Mac le 2026-10-12).
+**État :** ✅ fait sur le PC pro le 2026-10-12.

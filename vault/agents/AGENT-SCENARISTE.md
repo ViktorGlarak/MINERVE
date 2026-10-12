@@ -7,8 +7,8 @@ source: ../../SCENARISTE/MEMOIRE.md
 linkedTo: [LESSON-003]
 relevantFor: [agents]
 tier: 2
-created: 2026-10-10
-updated: 2026-10-10
+created: 2026-10-12
+updated: 2026-10-12
 ---
 
 # 🤖 SCÉNARISTE — Canvas agent

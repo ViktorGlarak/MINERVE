@@ -7,8 +7,8 @@ source: ../../CINEASTE/MEMOIRE.md
 linkedTo: [TOOL-009]
 relevantFor: [agents]
 tier: 2
-created: 2026-10-10
-updated: 2026-10-10
+created: 2026-10-12
+updated: 2026-10-12
 ---
 
 # 🤖 CINÉASTE — Canvas agent
