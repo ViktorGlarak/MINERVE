@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-12 (suite 17) — app-ia 2026-10-12.14 PRÊT (`ce9776f`, local, en attente du feu vert) : mémoire « sujet → hashtag »
+- **Retour de l'utilisateur** : « … les infos qui tombent sur la D32… » (G_Volkov_Transit) ne portait que #3615MyLife, alors que la D32 vient des joueurs, qui la marquent #Réfugiés. Son idée : relier les informations du fil à leurs #.
+- **`hashtagsDuSujet()`** (`hashtags-herites.mjs`) :
+  - index terme → # bâti sur les messages des **joueurs** des dernières 24 h (le fil du moteur) ;
+  - terme distinctif = au plus 30 % des messages ; il faut au moins 2 associations et la majorité de ses messages marqués ;
+  - les termes à chiffre (D32) sont gardés.
+- **Ordre d'attribution** : # hérités, puis # du sujet (2 au plus), puis #3615MyLife.
+- **Banc d'essai Mac** : `pont/banc_ia/` (14 appels réels, zone locale), commit `d8f11e4`.
+  - Constat : l'invite de lecture n'affiche pas le message **cité** par une citation, seulement son texte (fichier 02). Amélioration du moteur à prévoir.
+- 42/42 essais ; image essayée seule.
+
 ## 2026-10-12 (suite 16) — app-ia 2026-10-12.13 POUSSÉ main + prod (`20d2732..7eb3893`, feu vert de l'utilisateur) : tout message IA porte un #
 - **Demande de l'utilisateur** : pouvoir tout mesurer dans le graphe du Cockpit, donc chaque publication, réponse ou citation IA doit porter au moins un #. Pour les moments de vie : **#3615MyLife**.
 - **Règle**, appliquée en dernier dans `proposer` :
