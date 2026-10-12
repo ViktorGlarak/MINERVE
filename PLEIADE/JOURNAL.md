@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-10-12 (suite 18) — app-ia 2026-10-12.15 PRÊT (`0eedbb7`, local, avec la 12.14, en attente du feu vert) : pourquoi les joueurs n'ont pas de réponse IA
+- **Demande utilisateur** : « des postes des joueurs n'ont pas de commentaire des avatars IA » ; export du fil complet et par journée.
+- **Analyse du relevé de 15 h 47** (1 h 25) : 138 messages de joueurs (42 publications, 96 commentaires), 1 004 lectures IA, 4 publications de joueurs commentées sur 42. Deux causes :
+  1. **120 publications « retenues : rien ne le pousse à écrire »**. La plupart réagissaient au fil des joueurs (D32, HLunéville, fosses communes) : le modèle écrivait sa réaction en publication, et la règle des déclencheurs la jetait.
+  2. **Commentaires des joueurs invisibles** : un commentaire n'était lu que si l'avatar suivait son auteur, ce qui n'est jamais le cas pour un joueur.
+- **Correctifs 12.15**
+  - Une publication inspirée d'un message de joueur (source vérifiée) devient une **réponse sous ce message**, dans le plafond par message (2 en 30 min, 4 au total). Les autres plafonds, la nuit et la relecture restent.
+  - Les commentaires des joueurs sont lisibles par tous les avatars.
+  - Ordre de lecture : un message de joueur **sans réponse IA** passe devant, et l'attention se répartit (−1 par lecteur IA déjà passé).
+  - Consigne au modèle : une réaction à un message du fil s'écrit en réponse.
+- **Export format 3**
+  - Période : tout, ou une **journée** (champ date dans Réglages, `?export=1&jour=AAAA-MM-JJ`).
+  - Section **`fil`** : chaque message de joueur avec ses commentaires IA et, sinon, sa **cause** (hors fil et pourquoi, évincé, lu avec seulement J'aime proposé, ou réponse convertie avec le motif). Une synthèse `parCause` l'accompagne.
+  - Section **`diagnostic.tours`** : avatars endormis, ailleurs, hors téléphone, sans rien de neuf, ou lisant.
+  - Le diagnostic est tenu en mémoire du moteur et repart à zéro à chaque déploiement.
+- **Vérifié en local** : 46/46 tests, tsc OK, image `/api/sante` 2026-10-12.15, route d'export protégée (401 sans session). Conteneur et volume d'essai supprimés.
+- 🔜 Après le push : laisser tourner au moins 1 h, exporter « cette journée », puis lire `fil.parCause` pour la prochaine passe.
+
 ## 2026-10-12 (suite 17) — app-ia 2026-10-12.14 PRÊT (`ce9776f`, local, en attente du feu vert) : mémoire « sujet → hashtag »
 - **Retour de l'utilisateur** : « … les infos qui tombent sur la D32… » (G_Volkov_Transit) ne portait que #3615MyLife, alors que la D32 vient des joueurs, qui la marquent #Réfugiés. Son idée : relier les informations du fil à leurs #.
 - **`hashtagsDuSujet()`** (`hashtags-herites.mjs`) :
