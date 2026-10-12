@@ -14,6 +14,17 @@
 - **Banc d'essai Mac** : `pont/banc_ia/` (14 appels réels, zone locale), commit `d8f11e4`.
   - Constat : l'invite de lecture n'affiche pas le message **cité** par une citation, seulement son texte (fichier 02). Amélioration du moteur à prévoir.
 - 42/42 essais ; image essayée seule.
+- **Relevé de 15 h 47** (depuis la 12.13) :
+  - **18/18 messages IA avec un #** ; #3615MyLife 10, #Réfugiés 5, #tract 3 ;
+  - 8 réponses et citations / 10 publications spontanées.
+  - **Défauts** :
+    - plusieurs #3615MyLife parlent de la D32 (corrigé par la mémoire « sujet → hashtag ») ;
+    - la conversion « publication inspirée → réponse » (12.12) ne s'est **jamais** déclenchée, car « D32 » (3 lettres) était ignoré par `motsCommuns` ;
+    - les avatars répondent peu : la consigne de la 12.8 était trop prudente.
+- **12.14 complétée** (`8787198`) :
+  - `trouverSource` découpe les mots avec `termes()`, qui garde les mots à chiffre ;
+  - la consigne de réponse est assouplie sous les messages des habitants (avis, question, vécu, info ; une approbation seule reste un J'aime).
+  - 43/43 essais ; image essayée seule.
 
 ## 2026-10-12 (suite 16) — app-ia 2026-10-12.13 POUSSÉ main + prod (`20d2732..7eb3893`, feu vert de l'utilisateur) : tout message IA porte un #
 - **Demande de l'utilisateur** : pouvoir tout mesurer dans le graphe du Cockpit, donc chaque publication, réponse ou citation IA doit porter au moins un #. Pour les moments de vie : **#3615MyLife**.
