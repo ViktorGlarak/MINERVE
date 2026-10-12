@@ -281,6 +281,18 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - le risque de « deux voix » si un scénario de la Console publie encore en leur nom.
 
     La protection automatique des avatars de scénario est remise à plus tard.
+- **2026-10-12 après-midi — Parc de machines (étape 5) : banc d'essai PC → Mac.**
+  - **Le PC** a exporté 14 invites réelles du moteur 12.13, capturées sur la zone locale entre le moteur et Ollama, sans aucune donnée de DELATTRE 26 (`pont/banc_ia/`, commit `d8f11e4`) : 6 lectures, 4 relectures dont 2 messages fautifs connus, 2 extractions de faits de vie, 2 publications.
+  - **Le Mac** (MacBook Pro M3 Max, 36 Go) les a rejouées sur Gemma 4 26B et 31B : `pont/banc_ia/RESULTATS_MAC_2026-10-12.md`.
+    - **26B : le Mac vaut le PC** (lecture réelle ~13 s, relecture 1-2 s). C'est un **second nœud 26B** qui double le débit sans changer la voix des avatars.
+    - **31B exclu pour le volume** : 70-90 s par lecture, et aucun gain mesuré sur la relecture. Il a de meilleurs moments concrets, mais plus de chœur entre avatars. Seule piste : les quelques avatars de scénario.
+    - **Cache** : une invite ordonnée du plus stable au plus variable (consignes, fiche, mémoire, fil), avec un même avatar sur la même machine, réduirait fortement le temps (26B ~1,3 s si le début de l'invite est identique). Piste pour `esprit.mjs`.
+    - Ollama traite une requête à la fois par défaut ; `OLLAMA_NUM_PARALLEL` reste à essayer.
+  - **Constat du PC** : l'invite de lecture n'affiche pas le message cité par une citation.
+  - **À décider** :
+    - répartition des rôles entre les machines (utilisateur) ;
+    - **avis CYBERSECU** sur l'entrée d'un ordinateur personnel dans le VPN de l'exercice ;
+    - plusieurs passages par invite pour une mesure de qualité fiable.
 
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).
