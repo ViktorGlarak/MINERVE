@@ -47,7 +47,8 @@ Reprendre aussi la machine **Mac M3 Max 36 Go** dans le « parc de machines IA �
   - rédacteur **31B `qat`** réservé aux **avatars de scénario et influenceurs**, via un modèle attribué par avatar (18 s par message, 7-10 s pour le suivant grâce au cache) ;
   - **bascule** obligatoire : le Mac est un portable personnel (veille, couvercle fermé, absence).
 - **Piste de vitesse** : garder un même avatar sur la même machine et construire les invites du plus stable au plus variable, pour profiter du cache d'Ollama.
-- ⛔ **Avant de brancher le Mac au VPN de l'exercice : avis CYBERSECU.**
+- ✅ **Kit du nœud Mac PRÊT** (`pont/noeud-mac/`, README) : proxy Python conforme O1/O2/O5/D1, matrice O8 **17/17** en local, pare-feu pf, lanceur anti-veille, script de fin d'exercice. **Décision utilisateur (2026-10-12) : brancher le Mac au serveur pour ajouter des avatars IA.** Ce qui manque côté PC : le **parc multi-nœuds dans app-ia** (README § A).
+- ⛔ **Avant de brancher le Mac au VPN de l'exercice : avis CYBERSECU** (relire le kit, plafond pour les images, D6).
   - Un **ordinateur personnel** entrerait dans le VPN de zone, et des messages de joueurs transiteraient par lui (lien avec **F4**, toujours ouverte).
   - Prévoir au minimum : Ollama qui n'écoute que l'interface VPN, un jeton comme sur le PC (proxy :11435), pas de stockage des invites, et le profil VPN retiré en fin d'exercice.
 
