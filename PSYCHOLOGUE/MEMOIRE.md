@@ -381,6 +381,9 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 - **Règles durables** : (1) un coefficient multiplie ce qui existe — si l'extraction ne produit rien, le gain ne sert à rien ; (2) un déplacement qui ne change pas l'invite n'existe pas pour les joueurs ; (3) on n'amplifie jamais une rumeur sans amplifier son démenti ; (4) baisser `p` ou archiver un axe ne désapprend rien ; (5) tout axe affiché dans l'invite devient un sujet de conversation, donc il faut afficher seulement les axes saillants.
 - **Ordre conseillé** : visibilité et traçabilité → `p` avec tests (non-régression à p = 1, crédule plus rapide qu'ancré) → garde-fous de bascule → p = 2 → registre des axes en lecture (4 axes, comportement identique) → libellé et description → ajout → archivage → saillance avant un 5e axe actif.
 
+### 4.20 ⭐ Avis n°20 — Concordance fiche ↔ vie, pensée du décideur, images (2026-10-12) — `AVIS\2026-10-12_avis20_concordance_pensee_images.md`
+- **La fiche eho fait foi** (âge, situation, activité, ville) ; le bloc `vie` est subordonné et n'affiche plus l'âge. Les messages publiés compatibles deviennent canon (veuf + « ma compagne » → registre, en proches), les incompatibles sont oubliés (alerte si un joueur a réagi). Enfants adultes ailleurs → `proches`. Correction **par le code** (rien regénéré par le modèle), « inconnu » jamais affiché, blocs nocturnes contradictoires remis à zéro. Pensée factuelle sans maxime + anti-chœur sur le texte rédigé. Images : `k_img` 1,0 / 1,15 / 1,35 (bornes 1,0 à 1,5), qui s'use (0,7^n sur 6 h), +1 imp, croyance inchangée au départ. **Erreur reconnue** : l'avis n°15 a tiré les foyers sur l'âge inventé sans lire la situation eho. Règle : toute dérivation d'un trait de vie prend le profil eho en entrée.
+
 ## 5. Index des sources
 
 | Réf. | Source | Apport principal |

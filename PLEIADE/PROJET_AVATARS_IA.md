@@ -115,7 +115,9 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
 
 ### Machines IA (décision 2026-10-10)
 - **Départ sur ce PC** (= le « Legion » du cadrage : **RTX 5070 Ti Laptop, 12 Go de VRAM**, Ollama 0.35.1 déjà installé). Modèles présents : `mistral-nemo` (12B), `mistral-small` (24B, déborde des 12 Go → plus lent), `qwen2.5-coder:14b`, `deepseek-r1:14b`, `llama3.1:8b`, `qwen2.5:3b`, embeddings `bge-m3`, `nomic-embed-text`, `snowflake-arctic-embed`. ~14B max entièrement en VRAM ; 27-32B → le Mac.
-- **Plus tard : le Mac M3 Max**, et d'autres postes. ⭐ Concevoir dès l'étape 1 un **« parc de machines IA »** : chaque machine déclarée (adresse, modèles, **rôle** : rédaction, relecture, embeddings) ; le moteur **route chaque tâche** vers une machine du bon rôle, avec bascule si l'une est éteinte / occupée (sinon : attendre le tour suivant) ; possibilité d'**attribuer un modèle à un avatar ou à un type d'avatar** ; écran du parc dans l'espace IA de la Console (état, modèle, temps moyen, ajout / pause). Réseau domestique en local, VPN sur le serveur.
+- ✅ **Mac M3 Max** (MacBook Pro, 14 cœurs CPU, 30 cœurs GPU, **36 Go** de mémoire unifiée, Ollama 0.40.2, `gemma4:26b-a4b-it-qat` et `gemma4:31b-it-qat`) : mesuré le 2026-10-12, c'est un **second nœud 26B** équivalent au PC. Kit du nœud prêt (`pont/noeud-mac/`). Branchement au VPN de l'exercice décidé par l'utilisateur, **sous réserve de l'avis CYBERSECU** (ordinateur personnel, F4).
+- ⭐ **Exigence de l'utilisateur (2026-10-12) : une GRAPPE de nœuds**, par exemple 10 ordinateurs avec Gemma 4 gérant chacun ~20 avatars. Un nœud doit pouvoir s'activer facilement. S'il tombe (coupure nette), ses avatars sont **repris automatiquement** par un autre. → conception à porter dans app-ia (parc multi-nœuds, bascule).
+- **Ensuite : d'autres postes** (voir la grappe ci-dessus). ⭐ Concevoir dès l'étape 1 un **« parc de machines IA »** : chaque machine déclarée (adresse, modèles, **rôle** : rédaction, relecture, embeddings) ; le moteur **route chaque tâche** vers une machine du bon rôle, avec bascule si l'une est éteinte / occupée (sinon : attendre le tour suivant) ; possibilité d'**attribuer un modèle à un avatar ou à un type d'avatar** ; écran du parc dans l'espace IA de la Console (état, modèle, temps moyen, ajout / pause). Réseau domestique en local, VPN sur le serveur.
 
 ### Avatar du prototype (décision 2026-10-10, révisée le même jour)
 - ⭐ **Anastasia Karlisky Popolov** (eho `3236e8c7-4492-424b-a4a0-21af33fda2a8`, identifiant `KarliskyPopolovAnastasia`) — choisie par l'utilisateur **« pour éviter les incohérences »** (« elle a déjà le bon camp etc ») ; doit être dans **PACK GREYCELL**. ⚠ Dans la copie locale et l'export du 07/10 (`SAVE EHO\avatars-eho-2026-10-07 (1).xlsx`) elle n'a que le groupe « O2 Persona keys scénario 7 GON (ECOLES MILI) » et une bio brouillon → **nouvel export eho de DELATTRE 26 demandé** à l'utilisateur (à déposer dans `SAVE EHO`), puis import dans l'eho de la zone locale. Camp : lu dans eho (groupe « CAMP … », décision Q11), jamais recopié ici. Doctrine : **Analyste Mercure** à consulter avant de compléter sa fiche.
@@ -293,6 +295,27 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - répartition des rôles entre les machines (utilisateur) ;
     - **avis CYBERSECU** sur l'entrée d'un ordinateur personnel dans le VPN de l'exercice ;
     - plusieurs passages par invite pour une mesure de qualité fiable.
+- **2026-10-12 soir — Suites du banc Mac, intégrées par le PC** (`pont/banc_ia/CONSIGNES_PC.md`).
+  - **Synthèse retenue** :
+    - le Mac est un **second nœud 26B** ;
+    - le **31B est exclu pour le volume** ;
+    - **décideur 26B + rédacteur dédié 26B** est retenu (+30 % de temps pour des textes nettement plus naturels ; le gain vient surtout de l'invite dédiée, pas du modèle) ;
+    - pour le 31B, la version **`qat` vaut mieux que MLX** grâce au cache, et il reste réservé aux avatars de scénario et influenceurs si l'utilisateur le juge utile.
+  - **Contrôle de concordance fiche ↔ bloc `vie`** (`dev/prototype-ia/controler-concordance.mjs`, sans modèle, lecture seule) :
+    - **90 avatars sur 105** ont une contradiction d'**âge** (77 ; écart médian 9 ans, au plus 23) ou de **foyer** (63 : compagne chez des veufs, enfants chez des « célibataires sans enfant », enfants de la fiche absents) ;
+    - **66** ont des valeurs « inconnu / non précisé » affichées telles quelles dans l'invite ;
+    - les blocs `vie` sont **identiques en local et en production**.
+    - **Cause** : `generer-vie.mjs` n'a pas reçu le profil eho (âge, situation, activité, biographie).
+    - Règle de résolution et méthode de correction demandées à **PSYCHOLOGUE** (avis n°20).
+    - **Avis n°20 suivi** (la fiche eho fait foi ; correction par script, sans modèle ; enfants adultes dans les proches ; mentions déjà publiées compatibles = canon, sinon alerte ; « inconnu » retiré). Script `dev/prototype-ia/corriger-vie.mjs` : **104 fiches corrigées**, **3 alertes** (des « célibataires sans enfant » qui ont écrit « mon… »), fichier validé par les règles d'eho (0 refus). Nouveau contrôle : **0 écart sur 105**. Le fichier d'import n'est **pas appliqué**.
+    - Moteur (app-ia `f21ed22`, local) : « TA VIE » ne redit l'âge que si le profil eho ne le donne pas, et n'affiche plus aucune valeur « inconnu ».
+    - ⚠⚠ **Découverte : en production, les 105 avatars n'ont PAS leur profil personnage.** 91 ont pour nom affiché leur identifiant (« _OlegGaspi_ » au lieu de « Marta Lambert ») et aucun n'a de lieu affiché. L'installation de la population (eho « Installer la population IA ») ne recopie que la fiche de comportement. Le nom, l'âge, la situation, la biographie, le caractère et les goûts sont restés dans la zone locale. En production, le bloc « QUI ELLE EST » de l'invite est donc presque vide, et « TA VIE » porte seul l'identité. → **décision de l'utilisateur demandée** : recopier les profils en production, et garder ou non les noms affichés actuels, visibles des joueurs depuis le début de l'essai.
+  - **Avis CYBERSECU du soir (A, B, C : acceptables sous conditions)** :
+    - Mac : profil VPN nominatif révoqué en fin d'exercice, pare-feu réappliqué à chaque démarrage, FileVault, une image de 2 Mo au plus ;
+    - grappe : un jeton par nœud chiffré en base, liste blanche 10.8.0.0/24 sur le port 11435 (y compris en https), gestion des nœuds par l'Administration seule, une seule relance, 401 = nœud hors service avec alerte, avatars de scénario sur nœud maîtrisé ;
+    - images : téléchargement interne `/api/uploads/…`, JPEG, PNG ou WebP, réduction à 1 024 px sans EXIF, description nettoyée de 300 caractères au plus, table vidée en fin d'exercice, réglage coupé par défaut.
+  - **Grappe de nœuds** (exigence de l'utilisateur, voir § 7bis) : avis **CYBERSECU** demandé, en même temps que celui sur le Mac et sur la lecture des images.
+  - **Images des joueurs** : la route `/api/service/retex` du réseau social renvoie déjà `medias: [{ url, type }]` pour les publications et les commentaires. Aucune route nouvelle n'est nécessaire côté Social pour connaître l'image.
 
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).

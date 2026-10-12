@@ -129,3 +129,28 @@
     - purge des tables `releve_opinion` et `influence_horaire` avec « Supprimer les archives ».
   - **Non fait** : purge à la réinitialisation générale (aucune route de réinitialisation générale dans l'app-ia), passage sur `PLEIADE_IA_KEY` (attend D2).
   - **Essai sur image** : 401 sans clé ou avec une mauvaise clé, 400 sur un paramètre inconnu ou une fenêtre de 15 jours, 200 avec la clé.
+
+## 2026-10-12 (soir) — Avis : Mac personnel comme second nœud, grappe de nœuds avec bascule, lecture des images des joueurs
+
+- **Demande** (NOYAU, pour l'utilisateur) : trois sujets liés au parc de calcul des avatars IA de DELATTRE 26. Lu : `MEMOIRE.md` (avis du nœud Ollama O1-O8 / D1-D6, F4), `pont/banc_ia/CONSIGNES_PC.md` §3 et §3bis, le kit `pont/noeud-mac/` en entier (README, `proxy_ollama.py`, `essai_proxy.py`, `pare-feu.sh`, `LANCER_NOEUD.command`, `FIN_EXERCICE.sh`), `app-ia/src/moteur/noeud.ts`, ainsi que la route `retex` du Social (`app-social/apps/api/src/service/index.ts`). Aucun certificat, profil VPN, jeton ni clé ouvert. Aucun fichier de code modifié.
+- **(A) Mac personnel** : **acceptable avec conditions obligatoires** (A1-A10).
+  - Le kit est conforme à O1/O2/O4/O5/D1.
+  - D6/F4 actés par la décision de l'utilisateur : le traitement reste local.
+  - Conditions : profil Pritunl nominatif propre au Mac, révoqué côté serveur ; O7 constaté et O8 rejoué sur le vrai montage ; pf réappliqué à chaque démarrage ; jeton propre au Mac ; fonctions cloud d'Ollama inutilisées et `server.log` vérifié ; FileVault et verrouillage automatique ; veille gérée ; plafond de 2 Mo pour les images avec ré-encodage côté app-ia, 1 image par requête ; fin d'exercice complète.
+  - **Constats sur le proxy** (non bloquants) : `num_predict` n'est pas borné par le bas (`-1` = génération sans fin) ; options non numériques et `options` non-objet transmis tels quels ; images non comptées ; les règles pf ne survivent pas à un redémarrage.
+- **(B) Grappe** : **acceptable avec règles obligatoires** (B1-B9).
+  - Un jeton par nœud, chiffré en base avec une clé secrète du catalogue, en écriture seule dans l'écran, avec rotation.
+  - Liste blanche : IPv4 littérale dans 10.8.0.0/24, port 11435.
+  - ⚠ **`https://` est lui aussi à borner** : `adresseNoeud` l'admet aujourd'hui vers n'importe quel hôte, ce qui ouvrirait une exfiltration dès que la liste est réglable.
+  - Gestion des nœuds réservée à l'Administration ; journal des nœuds et identifiant du nœud sur chaque publication.
+  - Une seule relance, sur un seul autre nœud ; un 401 ou 403 met le nœud hors service.
+  - Risque F4 (nœud compromis) traité par la minimisation des invites, des sorties traitées comme non fiables et des niveaux de confiance « maîtrisé » / « tiers » : scénario et influenceurs sur nœud maîtrisé seulement, pause plutôt que repli sur un tiers.
+  - Registre d'admission des nœuds ; TLS épinglé exigé avant l'autonomie et avant le premier nœud tiers.
+- **(C) Images** : **acceptable avec conditions obligatoires** (C1-C7).
+  - `retex` renvoie déjà `medias` et `/api/uploads` est servi dans la zone : aucune nouvelle route n'est nécessaire.
+  - Téléchargement par app-ia seulement, sur l'URL interne, chemin strict `/api/uploads/…`, sans redirection.
+  - JPEG, PNG ou WebP vérifiés par signature, ≤ 10 Mo, ≤ 40 Mpx ; ré-encodage à 1 024 px sans EXIF ni GPS.
+  - Traitement local seulement, image jamais conservée.
+  - Description assainie avant stockage (≤ 300 caractères, invisibles retirés, crochets neutralisés, consigne suspecte non recopiée), placée dans le bloc délimité des contenus de joueurs ; pas d'identification de personnes.
+  - Table `image` purgée par « Supprimer les archives », réglage Administration coupé par défaut.
+- **Consigné** : `MEMOIRE.md` §9 (ligne 2026-10-12 soir) et §7 (question O7 / VPN depuis le domicile / révocation des profils des nœuds). Rien commité.
