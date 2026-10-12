@@ -9,7 +9,7 @@
 - **app-ia 12.18** (contient la 12.17, non poussée) : relevés horaires `releve_opinion` (position par avatar et par axe) et `influence_horaire` (cumul par heure, axe et source : joueurs et animation, IA, faits) ; route de service `/api/service/opinions` (clé de zone, paramètres stricts, faits numérotés). 57/57 tests, image testée (401, 400, 200).
 - **app-cockpit** : panneau « Opinion de la population IA » (axes en petits multiples, qui fait bouger l'opinion, position moyenne, avatars ébranlés, sources, avatars avec leur courbe au clic) ; `GrapheTemps` accepte les valeurs signées ; BFF `/api/bff/reporting/opinions`. Rendu vérifié en local avec un faux moteur IA (données de synthèse).
 - **Ordre de push** : app-ia d'abord, puis le Cockpit. Les premières courbes apparaissent une heure après le déploiement du moteur.
-- Limite assumée : joueurs et animation regroupés en « comptes humains » (il faudrait que le réseau social expose l'origine des publications).
+- **Répartition par séries (demande utilisateur, 2026-10-12)** : les séries sont les catégories du Cockpit, ou ses groupes comparatifs (groupes d'eho 27BIM, 1DIV, FORAD, GREYCELL). Une courbe par série, plus « Autres comptes humains ». Le moteur garde en interne le compte d'origine de chaque déplacement, jamais renvoyé. app-ia `0e4ad31`, `bcccb64` ; cockpit `96bc85d`. Vérifié bout à bout avec un faux moteur, et sur image (POST valide : 200, invalide : 400).
 
 ## 2026-10-12 (suite 20) — app-ia 12.16 POUSSÉ (`ac4cabd`, santé vérifiée) ; avis PSYCHOLOGUE n°19 et DESIGNER n°102 ; app-ia 2026-10-12.17 PRÊT (`502535a`, local)
 - **Décisions de l'utilisateur**
