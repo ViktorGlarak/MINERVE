@@ -356,6 +356,31 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 - **Fiches** : aucune correction (le défaut est collectif ; le 🛠️ de kenaupifObiwan = mécanicien, il a un sens). Pas de fichier `2026-10-12_avis18.json`.
 - **Au prochain export** : reprise des # (pas de # hérité dans une réponse qui conteste, ≤ 280 caractères, part de l'IA par #), le premier message humain émouvant après la correction, le rejeu des blocs, l'humeur selon la distance à la D32, la population animée (103 annoncés contre 100 attendus avec 5 en pause), les abandons de la section 11 à compter à part des vrais échecs.
 
+### 4.19 ⭐ Avis n°19 — Coefficient de persuasion et axes d'opinion éditables (2026-10-12) — `AVIS\2026-10-12_avis19_persuasion_axes.md`
+- **Constat (DELATTRE 26, 15 h 47, environ 6 h)** : opinions quasi immobiles (Mercure −1,3 en moyenne, max 8,7, 0 bascule, 1 seul fait cru). C'est **conforme aux formules** : le moteur est calibré pour une semaine. Deux causes s'y ajoutent : FORCE, institutions et N.O.M sont immobiles faute de faits orientés crus (problème d'extraction, pas de gain), et un écart de 5 à 9 points reste **invisible dans les textes**, car `decrirePosition` ne change de libellé qu'à ±20 et ±60.
+- **Persuasion `p`** (décision utilisateur : réglable dans l'app-ia, 1 = comportement actuel) :
+  - bornes 0,5 à 3, pas 0,25, défaut 1, confirmation au-dessus de 2 ;
+  - **règle : chaque voie d'influence est multipliée au total par `p`, une seule fois** :
+    - accord d'opinion × p ;
+    - voie « fait » : poids de croyance, répétition et démenti × √p (démenti plafonné à 0,95), puis croyance → opinion et fait périmé × √p ;
+    - plafond journalier × √p ;
+    - seuil de bascule, doute, inertie et engagement # inchangés ;
+    - raidissement × min(1, p) ;
+  - **p_IA = √p** pour une source citoyen IA (troupeau OASIS) ; p plein pour les joueurs, l'animation et les relais ;
+  - indépendant de la crise, mais l'écran affiche crise × p et demande confirmation au-dessus de 4 ;
+  - garde-fous : doute ≥ 2 h avant bascule, ≥ 2 sources distinctes, ≤ 5 % de bascules par axe et par heure, alerte si la dérive dépasse 5 points en 6 h ;
+  - **levier de visibilité à faire en premier** : une ligne de « tendance » dans l'invite dès 5 points d'écart sur 48 h ;
+  - **valeur pour DELATTRE 26 : 2,0**, relecture à H+3.
+- **Axes éditables** :
+  - champs : `cle` immuable, `libelle`, `description` pour le modèle, `pole_plus` / `pole_moins`, `pivot`, `statut`, `version`, recette `init`, `indices` ;
+  - **position initiale** : centre par groupe eho donné par l'opérateur × (0,6 + 0,8·ancrage) + bruit uniforme de ±8 à graine fixe, |v| ≥ 3, aperçu avant écriture ; option dérivée d'un axe existant ; non par défaut à « 0 pour tous », au tempérament seul ou à l'estimation par le modèle ;
+  - modifier le libellé ou la description = rien ne change dans l'état ; changer de référent ou inverser les pôles = créer un nouvel axe ;
+  - **supprimer = archiver** : état gelé, axe retiré des invites et de l'extraction, campagnes ignorées, restauration possible, purge seulement après l'exercice ;
+  - **FORCE et Mercure ne sont pas archivables** : ce sont les pivots de la voix, de `bloc` et des # ;
+  - 6 axes actifs recommandés, 8 au maximum.
+- **Règles durables** : (1) un coefficient multiplie ce qui existe — si l'extraction ne produit rien, le gain ne sert à rien ; (2) un déplacement qui ne change pas l'invite n'existe pas pour les joueurs ; (3) on n'amplifie jamais une rumeur sans amplifier son démenti ; (4) baisser `p` ou archiver un axe ne désapprend rien ; (5) tout axe affiché dans l'invite devient un sujet de conversation, donc il faut afficher seulement les axes saillants.
+- **Ordre conseillé** : visibilité et traçabilité → `p` avec tests (non-régression à p = 1, crédule plus rapide qu'ancré) → garde-fous de bascule → p = 2 → registre des axes en lecture (4 axes, comportement identique) → libellé et description → ajout → archivage → saillance avant un 5e axe actif.
+
 ## 5. Index des sources
 
 | Réf. | Source | Apport principal |
