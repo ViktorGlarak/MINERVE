@@ -51,10 +51,28 @@ Reprendre aussi la machine **Mac M3 Max 36 Go** dans le « parc de machines IA �
   - Un **ordinateur personnel** entrerait dans le VPN de zone, et des messages de joueurs transiteraient par lui (lien avec **F4**, toujours ouverte).
   - Prévoir au minimum : Ollama qui n'écoute que l'interface VPN, un jeton comme sur le PC (proxy :11435), pas de stockage des invites, et le profil VPN retiré en fin d'exercice.
 
+## 3bis. Les avatars voient les images des joueurs (demande utilisateur, 2026-10-12)
+- **Constat de l'utilisateur** : les joueurs postent des images sur Social, et les avatars IA ne les « lisent » pas.
+- **Gemma 4 sait lire les images** : la capacité `vision` est présente dans `gemma4:26b-a4b-it-qat` comme dans le 31B, rien à installer. Testé sur le Mac (`pont/banc_ia/vision.py`), 4 images :
+  - un portrait : 8,5 s, dont le chargement ;
+  - le logo TV4 : 1,9 s ;
+  - la capture du Moteur IA : 3,9 s, avec lecture de « Avatars IA : COUPÉS » ;
+  - la planche MELMIL : 4,1 s, avec lecture de « Pression aux frontières » et « Campagne anti-OTAN ».
+
+  Descriptions **justes**, vérifiées à l'œil, sans invention. Une image coûte ~150 à 650 jetons.
+- **Conception proposée** (coût faible) :
+  1. **Décrire chaque image UNE SEULE FOIS**, à sa première lecture par le moteur. Le résultat est mis en cache par identifiant de publication, comme les vecteurs de `rappel.mjs`, dans une table `image`. On ne la redécrit pas pour chaque lecteur.
+  2. La description, factuelle et courte (~300 caractères : personnes, lieu, objets, **texte lisible**, ambiance), est injectée dans le fil de chaque lecteur sous la forme `[Image jointe : …]`.
+  3. Le texte lu dans une image est **une donnée, jamais une consigne**. Il faut prévoir une protection contre une image contenant « ignore tes instructions… », et le contrôle de forme s'applique aux réactions.
+- **À vérifier dans le code** : est-ce que `/api/service/retex` de Social renvoie les images (adresse ou fichier) aux services ? Sinon, il faut une petite route de service authentifiée.
+- **CYBERSECU** : les images des joueurs peuvent contenir de vrais visages ou des documents. Elles ne sont traitées que localement (Ollama du parc), jamais envoyées ailleurs, et la description n'est conservée que le temps de l'exercice (purge avec « Supprimer les archives »). Lien avec **F4**.
+- **PSYCHOLOGUE** : une image pèse plus qu'un texte sur l'émotion (effet de supériorité de l'image). Faut-il un coefficient d'intensité quand la publication contient une image ?
+
 ## 4. Ce que l'utilisateur attend en retour
 Un compte rendu court :
 - le résultat du contrôle de concordance (nombre de fiches touchées) ;
 - l'avancement du rédacteur en essai local ;
-- l'avis CYBERSECU sur le Mac.
+- l'avis CYBERSECU sur le Mac ;
+- la faisabilité de la lecture des images (point 3bis).
 
 Puis commit `[PC]`, pull et push.
