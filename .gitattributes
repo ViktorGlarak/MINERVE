@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Travail sur deux postes (PC pro + Mac perso) — 2026-10-12, cf. SYSTEME/DEUX_POSTES.md
+# Fichiers en ajout seul : Git garde les ajouts des deux postes au lieu de signaler un conflit.
+# ⚠ Ne PAS l'étendre aux MEMOIRE.md (structurés : l'union y créerait des doublons).
+**/JOURNAL.md merge=union
+vault/daily/*.md merge=union

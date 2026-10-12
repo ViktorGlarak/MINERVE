@@ -4,3 +4,8 @@
 
 # Obsidian — fichiers de travail
 *.tmp
+
+# Propre à chaque poste (ne pas versionner) — 2026-10-12, cf. SYSTEME/DEUX_POSTES.md
+.claude/settings.local.json
+__pycache__/
+*.pyc

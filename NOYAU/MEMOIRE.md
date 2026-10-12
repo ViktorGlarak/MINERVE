@@ -223,6 +223,9 @@ Ivan Lubrakov (Ministre de l'Intérieur RB, créé pour l'inject 07.05.05i) avai
 
 ## Patterns de routage appris
 
+### [2026-10-12] Système : travail sur deux postes (PC pro + Mac perso)
+MINERVE tourne en parallèle sur deux postes, synchronisés par GitHub. Pull au début de chaque session, commit étiqueté `[PC]`/`[MAC]` et push après chaque avancée, jamais le même agent ouvert sur les deux postes. La mémoire auto Claude n'est pas synchronisée : son contenu durable est migré dans `NOYAU/MEMOIRE_CLAUDE/`. Procédure : `SYSTEME/DEUX_POSTES.md`.
+
 ### [2026-05-06] Mockups UI (WhatsApp, interfaces mobiles)
 llama3.1:8b insuffisant pour décrire fidèlement des interfaces mobiles.
 Claude répond directement pour ce type de demande sans passer par l'IMAGIER.

@@ -106,6 +106,18 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 
 ---
 
+## Travail sur deux postes — PC pro + Mac perso *(2026-10-12)*
+
+> MINERVE est ouvert **en parallèle** sur le PC pro (Windows) et sur le Mac perso. **GitHub fait foi.** Procédure complète : **`SYSTEME\DEUX_POSTES.md`**.
+
+- **Début de session** : `git pull --rebase`, puis signaler ce que l'autre poste a apporté.
+- **Après chaque avancée consignée** : commit étiqueté **`[PC]`** ou **`[MAC]`**, puis `git pull --rebase` et `git push`. Petits commits, poussés tout de suite. Jamais de `--force`.
+- **Un agent n'est jamais ouvert en même temps sur les deux postes.** Le PC garde le code et ce qui touche à `D:\` et `C:\CECPC\pleiade` ; le Mac (sans accès à ces disques) prend la doctrine, la rédaction et BROUILLON.
+- **Conflits** : `JOURNAL.md` et `vault/daily` fusionnent seuls (`merge=union`) ; un `MEMOIRE.md` se fusionne selon le sens (on garde les deux apports, et on demande à l'utilisateur en cas de contradiction) ; les fichiers générés du vault ne se fusionnent pas, on relance `build.py`.
+- **Non versionné, propre au poste** : `.claude\settings.local.json` (hooks et permissions), `__pycache__`, et **la mémoire automatique de Claude**, qui n'est pas synchronisée. ⚠ **Rien de durable n'y est stocké** : tout ce qui compte va dans le dépôt (`NOYAU\MEMOIRE_CLAUDE\` pour l'ancienne mémoire auto).
+
+---
+
 ## Vocabulaire géographique — GET (Grand East Territory)
 
 **GET = Grand East Territory** — entité géopolitique fictive propre à l'univers Skolkan.
@@ -189,8 +201,8 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 
 **Ce qui déclenche une mise à jour :**
 - Un discours rédigé ou validé → `SCENARISTE\MEMOIRE.md`
-- Un personnage créé ou complété → mémoire auto (`aurige_guillaume.md`) + `SCENARISTE\MEMOIRE.md`
-- Un asset produit (portrait, voix, vidéo) → mémoire auto (tableau état de production)
+- Un personnage créé ou complété → `NOYAU\MEMOIRE_CLAUDE\aurige_guillaume.md` *(ex-mémoire auto, migrée dans le dépôt le 2026-10-12)* + `SCENARISTE\MEMOIRE.md`
+- Un asset produit (portrait, voix, vidéo) → `NOYAU\MEMOIRE_CLAUDE\` (tableau état de production)
 - Une règle de production apprise → `SYSTEME\DOSSIER_POSTE.md`
 - Un nouveau pattern de routage → `NOYAU\MEMOIRE.md`
 - Un agent ajouté ou modifié → **tous les fichiers du registre** (voir checklist ci-dessus)
@@ -201,7 +213,7 @@ D:\CECPC\PRODUCTION\IA\MINERVE\
 - `SCENARISTE\MEMOIRE.md` — narrative, discours, règles par exercice
 - `NOYAU\MEMOIRE.md` — patterns de routage, préférences utilisateur
 - `SYSTEME\DOSSIER_POSTE.md` — règles de production validées
-- Mémoire auto Claude (`memory\aurige_guillaume.md`) — état de production personnages
+- `NOYAU\MEMOIRE_CLAUDE\aurige_guillaume.md` — état de production personnages *(ex-mémoire auto Claude, migrée dans le dépôt le 2026-10-12 : la mémoire auto n'est pas synchronisée entre postes)*
 - **`MASTAURIGE\MEMOIRE.md` (état durable) + `MASTAURIGE\JOURNAL.md` (historique) — l'outillage MASTAURIGE. ⚠⚠ RÈGLE NON NÉGOCIABLE : (1) LIRE `MEMOIRE.md` AVANT toute intervention sur MASTAURIGE (code WEB / vierge / melmil / créateur / générateur / sites / trombino) — c'est désormais lisible d'un coup (~85 Ko) ; au besoin, `grep` `JOURNAL.md` pour un détail d'implémentation daté ; (2) METTRE À JOUR juste APRÈS tout changement, même mineur — CR daté → `JOURNAL.md`, règle/capacité durable → `MEMOIRE.md`. Un hook le rappelle à chaque édition d'un fichier MASTAURIGE — mais c'est dû quoi qu'il arrive.**
 
 ### Après chaque session productive

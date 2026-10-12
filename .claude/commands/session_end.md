@@ -10,5 +10,6 @@ Je termine ma session de travail sur **MINERVE**. Exécute le **rituel de clôtu
    - 📝 les **fichiers autoritaires modifiés** (ex. `ANALYSTE/<pays>/MEMOIRE.md`, `MASTAURIGE/MEMOIRE.md`),
    - ⏭️ surtout la **« Prochaine étape »** (pour la reprise).
 2. **Notes atomiques** : pour toute connaissance durable apparue aujourd'hui (décision, outil, leçon, architecture, **entité/persona**, savoir countrybook `reference`), crée la note depuis le template adapté (`vault/templates/`), **frontmatter complet** (cf. `vault/_SCHEMA.md`), `source:` vers le fichier autoritaire + liens `[[...]]`. ⚠ Un **`camp:`** ne se met **QUE** dans une note `entity`.
-3. **Build + validation** : lance **`py vault/_tools/build.py`** — il DOIT sortir en **exit 0** (régénère agents/packs/index/vues + valide liens, orphelins, duplications et **cohérence des camps**). Corrige si rouge.
-4. **Bilan + commit** : résume-moi ce qui a été consigné, puis **propose un commit** (avec message clair) — **ne commit pas sans mon accord**.
+3. **Build + validation** : lance **`py vault/_tools/build.py`** (sur Mac : `python3 vault/_tools/build.py`) — il DOIT sortir en **exit 0** (régénère agents/packs/index/vues + valide liens, orphelins, duplications et **cohérence des camps**). Corrige si rouge.
+4. **Bilan + commit** : résume-moi ce qui a été consigné, puis **propose un commit** (avec message clair) — **ne commit pas sans mon accord**. Message étiqueté **`[PC]`** ou **`[MAC]`** selon le poste.
+5. **Synchronise** (une fois le commit accepté) : `git pull --rebase` puis `git push`. Ne termine jamais une session avec des commits non poussés : l'autre poste doit pouvoir reprendre. En cas de conflit, cf. `SYSTEME/DEUX_POSTES.md` § 3.
