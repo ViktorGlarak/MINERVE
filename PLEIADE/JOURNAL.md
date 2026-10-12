@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-12 (suite 19) — Influence des avatars : constat, puis app-ia 2026-10-12.16 PRÊT (`ac4cabd`, local, en attente du feu vert)
+- **Question de l'utilisateur** : les avatars sont-ils influencés par le réseau ? Leur position envers un camp varie-t-elle ?
+- **Constat (relevé de 15 h 47)**
+  - Humeur très mobile : 1 346 variations, de −60 à +69.
+  - Relations très actives : environ 9 400 variations.
+  - Opinions : 400 variations, mais faibles. Seul l'axe **Mercure** bouge (−1,3 en moyenne, 11 avatars à plus de 5 points, au plus 8,7), dans le sens du fait « des milliers de personnes fuient Mercure » lancé par les joueurs.
+  - Aucune bascule de camp, un seul avatar en doute, un seul fait cru dans la population (28 porteurs).
+- **Décision de l'utilisateur : option 2 retenue.** La 12.16 ajoute à l'export une section `opinions` (dérive par axe, influences par compte joueur/animation, IA ou fait, faits crus, variations avec leur motif). Sur le relevé de 15 h 47, le fait des réfugiés est la première influence (−62,9 cumulés sur Mercure), puis le compte Br4g1n_.
+- **Vérifié en local** : 48/48 tests, tsc OK, image `/api/sante` 2026-10-12.16, route d'export protégée (401). Conteneur d'essai supprimé.
+- **Option 3 (recalibrer la persuasion)** : l'utilisateur l'accepte **seulement si elle se règle depuis l'app-ia**. C'est faisable : tous les déplacements d'opinion passent par `deplacerOpinion` (esprit.mjs), où l'on peut appliquer un coefficient « persuasion » réglable dans Réglages, comme le coefficient de crise (1 = comportement actuel). ⏳ À cadrer avec PSYCHOLOGUE avant de coder : sur quoi il agit (amplitude, seuil de bascule, plafond journalier) et ses bornes.
+
 ## 2026-10-12 (suite 18) — app-ia 2026-10-12.14 + 12.15 POUSSÉS main + prod (`7eb3893..0eedbb7`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-12.15 vérifié) : pourquoi les joueurs n'ont pas de réponse IA
 - **Demande utilisateur** : « des postes des joueurs n'ont pas de commentaire des avatars IA » ; export du fil complet et par journée.
 - **Analyse du relevé de 15 h 47** (1 h 25) : 138 messages de joueurs (42 publications, 96 commentaires), 1 004 lectures IA, 4 publications de joueurs commentées sur 42. Deux causes :
