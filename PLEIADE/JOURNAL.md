@@ -4,11 +4,14 @@
 
 ---
 
-## 2026-10-12 (suite 21) — Graphique d'influence des avatars IA dans le Reporting du Cockpit : app-ia 2026-10-12.18 (`8d39b4a`) + app-cockpit (`8535324`) PRÊTS en local
+## 2026-10-12 (suite 21) — Graphique d'influence des avatars IA dans le Reporting du Cockpit : app-ia 12.17 + 12.18 POUSSÉS main + prod (`ac4cabd..bcccb64`, `/api/sante` = 2026-10-12.18 vérifié) + app-cockpit POUSSÉ main + prod (`97070a1..dea51d1`, avance rapide) — feu vert de l'utilisateur après démonstration locale
 - **Demande utilisateur** : voir l'état d'influence de chaque avatar IA par rapport à ce que font les joueurs, dans le Reporting de l'app-cockpit. Avis DESIGNER n°103 et avis CYBERSECU du jour, suivis.
 - **app-ia 12.18** (contient la 12.17, non poussée) : relevés horaires `releve_opinion` (position par avatar et par axe) et `influence_horaire` (cumul par heure, axe et source : joueurs et animation, IA, faits) ; route de service `/api/service/opinions` (clé de zone, paramètres stricts, faits numérotés). 57/57 tests, image testée (401, 400, 200).
 - **app-cockpit** : panneau « Opinion de la population IA » (axes en petits multiples, qui fait bouger l'opinion, position moyenne, avatars ébranlés, sources, avatars avec leur courbe au clic) ; `GrapheTemps` accepte les valeurs signées ; BFF `/api/bff/reporting/opinions`. Rendu vérifié en local avec un faux moteur IA (données de synthèse).
-- **Ordre de push** : app-ia d'abord, puis le Cockpit. Les premières courbes apparaissent une heure après le déploiement du moteur.
+- **Démonstration locale** : faux moteur IA avec données de synthèse, 4 catégories fictives (27BIM, 1DIV, FORAD, GREYCELL), page ouverte dans le navigateur de l'utilisateur. Correction faite à cette occasion : le bilan du tableau des sources est passé en points de moyenne, comme le graphique (`dea51d1`). Serveurs de démonstration arrêtés, fichier d'essai supprimé.
+- 🔜 **À faire par l'utilisateur** : régler la persuasion sur 2 dans les Réglages du moteur. Courbes visibles environ 1 h après le déploiement.
+- 🔜 **Suite demandée** : « revoir les thèmes », c'est-à-dire les axes éditables (12.19, plan de la suite 20 : avis PSYCHOLOGUE n°19 B et DESIGNER n°102).
+- ℹ Le `main` local de l'app-cockpit porte toujours `9dab9da` (déconnexion Keycloak du 21/09, jamais poussé). Le push s'est fait depuis la branche à jour, sans y toucher.
 - **Répartition par séries (demande utilisateur, 2026-10-12)** : les séries sont les catégories du Cockpit, ou ses groupes comparatifs (groupes d'eho 27BIM, 1DIV, FORAD, GREYCELL). Une courbe par série, plus « Autres comptes humains ». Le moteur garde en interne le compte d'origine de chaque déplacement, jamais renvoyé. app-ia `0e4ad31`, `bcccb64` ; cockpit `96bc85d`. Vérifié bout à bout avec un faux moteur, et sur image (POST valide : 200, invalide : 400).
 
 ## 2026-10-12 (suite 20) — app-ia 12.16 POUSSÉ (`ac4cabd`, santé vérifiée) ; avis PSYCHOLOGUE n°19 et DESIGNER n°102 ; app-ia 2026-10-12.17 PRÊT (`502535a`, local)
