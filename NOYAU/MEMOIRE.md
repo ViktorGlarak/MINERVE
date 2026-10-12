@@ -321,12 +321,14 @@ Niveau 2 (script Python autonome) prévu pour une prochaine étape.
 - "GET" s'emploie quand le contexte désigne la zone géopolitique des **pays fictifs** de l'Est
 - Ce n'est PAS un remplacement automatique "Europe → GET" — c'est une question de contexte
 
-### [2026-05-25 — mis à jour 2026-10-01] 25 agents au total
+### [2026-05-25 — mis à jour 2026-10-10] 26 agents au total
 4 généralistes (ARCHITECTE, PENSEUR, SECRÉTAIRE, ÉCLAIREUR) +
 3 spécialistes exercices (IMAGIER, CINÉASTE, SCÉNARISTE) +
-17 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**, **DESIGNER**, **CYBERSECU**) +
+18 agents spécialisés (VOIX, ARCHIVISTE, ANALYSTE, ANALYSTE_ARN, ANALYSTE_BOT, MASTODONTE, MASTAURIGE, GUILLAUME, EXPERT_INFLUENCE, MINAUTORE, BROUILLON, DELATTRE, **MASTORION**, **PLEIADE**, **LEAC**, **DESIGNER**, **CYBERSECU**, **PSYCHOLOGUE**) +
 NOYAU (Claude — orchestrateur)
-= 4 + 3 + 17 + 1 = **25 agents** (vérifié contre le registre CLAUDE.md le 2026-10-01)
+= 4 + 3 + 18 + 1 = **26 agents** (vérifié contre le registre CLAUDE.md le 2026-10-10)
+
+> ⭐ **PSYCHOLOGUE ajouté le 2026-10-10** — **expert en psychologie** du système évolutif de sociabilité des avatars IA (projet piloté par PLEIADE). Stocke la logique et les données : personnalité, émotions, mémoire, relations, influence, bascules. 3 premières sources ingérées : Centaur / Psych-101 (arXiv 2410.20268), architectures cognitives (Wikipédia), Modèle de Conscience Projective (UNIGE 2017). claude-opus-4-7. Dossier `PSYCHOLOGUE\` (mémoire + journal + `REFERENCES\`). Il conseille, ne code pas. Pattern de routage : « comment l'avatar réagit / se lie / change d'avis » → PSYCHOLOGUE, mise en œuvre → PLEIADE.
 
 > ⭐ **CYBERSECU ajouté le 2026-10-01** — **référent cybersécurité de PLÉIADE**. A ingéré 11 guides **ANSSI** publics fournis par l'utilisateur (`D:\CECPC\PLEIADE\DOC\CYBER SECU\`) et l'inventaire de la sécurité déjà connue de la plateforme (règles décidées, incidents, posture dans le code). claude-opus-4-7. Dossier `CYBERSECU\` (mémoire + journal + `REFERENCES\`). **Réflexe imposé : le consulter dès qu'un sujet touche la sécurité, le mettre à jour à chaque décision ou correction.** Il conseille et vérifie ; la mise en œuvre passe par PLEIADE / ARCHITECTE. Pattern de routage : « est-ce sûr ? / comment protéger ? / TLS, secrets, VPN, en-têtes, droits, anonymat » → CYBERSECU.
 
@@ -375,3 +377,5 @@ Dossier `ANALYSTE\` créé à la racine MINERVE, centralise tous les analystes p
 1. Countrybook Mercure (943 paragraphes, CB MERCURE FR.docx) — géographie, politique, militaire (607K, triade nuc), économie (PIB 550 Mds$), société (3 ethnies Inen), info (172/180 RSF), infrastructure, tous les personnages
 2. Storm-1516 (VIGINUM, 77 opérations) — 16 TTP, 4 phases de diffusion, acteurs (DOUGAN, KOROVINE, KHOROCHENKY)
 Prompt système mis à jour : `SYSTEME\PROMPTS\analyste.md`.
+
+- **2026-10-09 — Routage : rappels / agenda personnels de l'utilisateur → SECRÉTAIRE** (`SECRETAIRE\MEMOIRE.md`, section « 📅 AGENDA & RAPPELS PERSONNELS »). NOYAU lit cette section **à chaque début de session** et rappelle ce qui tombe le jour même.

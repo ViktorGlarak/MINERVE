@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — 8a « globe au trait + S », version finie : le globe violet actuel, méridiens et parallèles courbés (volume),
+       une réserve nette autour du médaillon central, S en Segoe UI Black (rendu en PNG ; aucune police n'est requise ensuite). -->
+  <defs>
+    <mask id="reserve">
+      <rect width="512" height="512" fill="#fff"/>
+      <circle cx="256" cy="256" r="128" fill="#000"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="#6364ff" stroke-width="24" stroke-linecap="round" mask="url(#reserve)">
+    <ellipse cx="256" cy="256" rx="96" ry="210"/>
+    <path d="M52 256 H460"/>
+    <path d="M86 146 Q256 176 426 146"/>
+    <path d="M86 366 Q256 336 426 366"/>
+  </g>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#6364ff" stroke-width="28"/>
+  <circle cx="256" cy="256" r="108" fill="#6364ff"/>
+  <text x="256" y="256" dy="0.35em" text-anchor="middle" font-family="Segoe UI Black, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="196" fill="#ffffff">S</text>
+</svg>

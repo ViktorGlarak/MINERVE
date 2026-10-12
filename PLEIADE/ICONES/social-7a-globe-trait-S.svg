@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — 7a « globe au trait + S » : le globe violet actuel (méridiens, équateur, parallèles), trait épaissi ; au centre un disque violet plein portant un S clair. -->
+  <g fill="none" stroke="#6364ff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="256" cy="256" r="216"/>
+    <ellipse cx="256" cy="256" rx="100" ry="216"/>
+    <line x1="40" y1="256" x2="472" y2="256"/>
+    <path d="M82 128 H430 M82 384 H430"/>
+  </g>
+  <circle cx="256" cy="256" r="98" fill="#6364ff"/>
+  <path d="M300 214 C293 194 276 184 255 184 C231 184 214 199 214 219 C214 243 238 251 259 257 C283 264 302 274 302 298 C302 319 283 332 259 332 C236 332 219 321 211 302" fill="none" stroke="#f5f2ef" stroke-width="32" stroke-linecap="round"/>
+</svg>

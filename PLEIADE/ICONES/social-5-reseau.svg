@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — proposition 5 « réseau d'abonnés » : trois avatars reliés en triangle autour d'un avatar central violet (on suit, on est suivi). -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <line x1="256" y1="256" x2="256" y2="96"/>
+    <line x1="256" y1="256" x2="104" y2="384"/>
+    <line x1="256" y1="256" x2="408" y2="384"/>
+    <line x1="256" y1="96" x2="104" y2="384" stroke-width="10" stroke-dasharray="2 22"/>
+    <line x1="256" y1="96" x2="408" y2="384" stroke-width="10" stroke-dasharray="2 22"/>
+    <line x1="104" y1="384" x2="408" y2="384" stroke-width="10" stroke-dasharray="2 22"/>
+    <!-- Satellites -->
+    <circle cx="256" cy="92" r="58" fill="#ffa726"/>
+    <circle cx="256" cy="80" r="18" fill="#f5f2ef" stroke-width="10"/>
+    <path d="M226 128 Q256 100 286 128" fill="#f5f2ef" stroke-width="10"/>
+    <circle cx="100" cy="388" r="58" fill="#7ed957"/>
+    <circle cx="100" cy="376" r="18" fill="#f5f2ef" stroke-width="10"/>
+    <path d="M70 424 Q100 396 130 424" fill="#f5f2ef" stroke-width="10"/>
+    <circle cx="412" cy="388" r="58" fill="#ff4757"/>
+    <circle cx="412" cy="376" r="18" fill="#f5f2ef" stroke-width="10"/>
+    <path d="M382 424 Q412 396 442 424" fill="#f5f2ef" stroke-width="10"/>
+    <!-- Avatar central -->
+    <circle cx="256" cy="270" r="92" fill="#6364ff"/>
+    <circle cx="256" cy="246" r="32" fill="#f5f2ef" stroke-width="12"/>
+    <path d="M200 330 Q256 280 312 330" fill="#f5f2ef" stroke-width="12"/>
+  </g>
+</svg>

@@ -48,3 +48,17 @@ AURIGE entraîne un PC de **niveau brigade**. Les textes doivent être calibrés
 
 ## Destinataires fréquents
 <!-- Profils des interlocuteurs habituels pour adapter le ton -->
+
+## 📅 AGENDA & RAPPELS PERSONNELS DE L'UTILISATEUR *(rôle confié le 2026-10-09)*
+> Décision utilisateur (2026-10-09) : les **rappels et informations d'agenda personnels** (« rappelle-moi le … ») sont stockés **ici**, chez SECRÉTAIRE. Claude (NOYAU) **lit cette section à chaque début de session** et rappelle ce qui tombe le jour même ou est passé sans avoir été traité. **Rien n'est supprimé** : une fois traité, un rappel passe dans le tableau **Archive** ci-dessous (date de traitement + suite donnée), pour garder le suivi de ce qui a été fait.
+> Périmètre (décision du 2026-10-09) : **toute l'organisation personnelle** de l'utilisateur — rappels, rendez-vous, démarches, choses à aller chercher, échéances.
+
+| Date | Rappel | Demandé le | État |
+|---|---|---|---|
+| 2026-10-16 | Aller chercher un ordinateur | 2026-10-09 | ⏳ à rappeler |
+| 2026-10-17 | Aller chercher un ordinateur | 2026-10-09 | ⏳ à rappeler |
+
+### 🗄️ Archive — rappels traités (jamais supprimés)
+| Date prévue | Rappel | Demandé le | Traité le | Suite donnée |
+|---|---|---|---|---|
+| — | *(aucun pour l'instant)* | — | — | — |

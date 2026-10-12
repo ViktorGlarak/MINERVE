@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cohérence de l'animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* Maquette de l'avis DESIGNER n°77 — reprend les couleurs et polices réelles de l'animation (app-admin). */
+  :root {
+    --shell:#161719; --panel:#1b1c1f; --sunken:#101113; --field:#212327;
+    --line:#2e3033; --line-soft:#232528; --line-ctl:#41444a;
+    --ink:#FAFAF7; --body:#EDEEF2; --soft:#c3c8d8; --muted:#9aa0b4; --faint:#6b7080;
+    --craie:#EDE3C8; --craie-on:#14140F; --craie-soft:rgb(237 227 200 / .14);
+    --online:#34d399; --dev:#fb923c; --halt:#f87171;
+    --forad:#c98a3a; --grey:#7f97b2; --note:#8b7cf6;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--shell); color:var(--body); font:14px/1.45 Inter, system-ui, sans-serif; }
+  button { font-family:inherit; }
+  .mono { font-family:"JetBrains Mono", ui-monospace, monospace; }
+  svg.i { width:13px; height:13px; stroke:currentColor; stroke-width:1.7; fill:none; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+
+  /* ---------- Panneau de la maquette (violet = hors app) ---------- */
+  .mq { position:sticky; top:0; z-index:50; background:#1d1934; border-bottom:2px solid var(--note); padding:10px 16px; }
+  .mq-l1 { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; }
+  .mq-t { color:#fff; font-weight:700; font-size:13px; }
+  .mq-t small { color:#c9c1ff; font-weight:400; margin-left:6px; }
+  .mq-ecrans, .mq-tout { display:inline-flex; border:1px solid #5b4fc4; border-radius:7px; overflow:hidden; }
+  .mq-ecrans button, .mq-tout button { background:transparent; color:#d9d3ff; border:0; padding:6px 12px; font-size:12.5px; font-weight:600; cursor:pointer; }
+  .mq-ecrans button.on, .mq-tout button.on { background:var(--note); color:#fff; }
+  .mq-grille { display:grid; grid-template-columns:repeat(auto-fill, minmax(255px, 1fr)); gap:8px 14px; margin-top:10px; }
+  .mq-q { display:grid; gap:4px; font-size:12px; color:#d9d3ff; min-width:0; }
+  .mq-q .seg { height:auto !important; }
+  .mq-q > span b { display:inline-grid; place-items:center; width:18px; height:18px; border-radius:50%; background:var(--note); color:#fff; font-size:11px; margin-right:5px; }
+  .mq-q .seg { display:inline-flex; flex-wrap:wrap; border:1px solid #5b4fc4; border-radius:6px; overflow:hidden; width:max-content; max-width:100%; }
+  body { overflow-x:hidden; }
+  .mq-q .seg button { background:transparent; color:#d9d3ff; border:0; padding:4px 9px; font-size:11.5px; cursor:pointer; }
+  .mq-q .seg button.on { background:#4b3fb4; color:#fff; font-weight:600; }
+  .mq-q .seg button.reco::after { content:" ★"; color:#ffd36b; }
+  .mq-pli { background:transparent; border:0; color:#c9c1ff; text-decoration:underline; cursor:pointer; font-size:12px; margin-left:auto; }
+
+  /* ---------- Barre PLÉIADE + menu de l'app (identiques partout) ---------- */
+  .zone { display:flex; align-items:center; gap:12px; height:30px; padding:0 16px; background:var(--sunken); border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.14em; color:var(--muted); }
+  .zone b { color:var(--ink); }
+  .zone .apps { border:1px solid var(--line-ctl); border-radius:4px; padding:1px 7px; letter-spacing:0; color:var(--body); font-size:11.5px; }
+  .zone .r { margin-left:auto; }
+  .nav { display:flex; align-items:center; gap:4px; height:56px; padding:0 26px; border-bottom:1px solid var(--line); }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2em; color:var(--ink); font-size:14px; padding-right:22px; margin-right:14px; border-right:1px solid var(--line); }
+  .brand.casse { letter-spacing:.02em; font-size:15px; }
+  .nav a { color:var(--soft); text-decoration:none; padding:0 16px; height:56px; display:flex; align-items:center; font-size:13.5px; border-bottom:2px solid transparent; cursor:pointer; }
+  .nav a.on { color:var(--ink); font-weight:600; border-bottom-color:var(--craie); }
+  .nav .r { margin-left:auto; display:flex; gap:12px; align-items:center; font-size:11px; letter-spacing:.14em; color:var(--grey); }
+  .nav .r .sq { width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--line-ctl); border-radius:4px; color:var(--ink); letter-spacing:0; }
+  .nav .r .dec { color:var(--ink); letter-spacing:0; font-size:12px; font-weight:600; }
+
+  /* ---------- Pages ---------- */
+  .page { margin:0 auto; padding:34px 26px 80px; }
+  .w-unique { max-width:1240px; }
+  .w-large { max-width:1492px; }
+  .decale { max-width:1240px; padding-left:52px; } /* reproduit le décalage réel de 26 px de l'éditeur */
+  .eyebrow { font-size:11px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+  h1 { margin:0; font-size:27px; color:var(--ink); font-weight:700; letter-spacing:-.01em; }
+  .aide { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; border:1px solid var(--line-ctl); color:var(--soft); font-size:12px; margin-left:10px; vertical-align:middle; background:transparent; font-weight:600; }
+  .aide.seule { display:grid; margin:8px 0 0; }
+  .head { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:22px; }
+  .head.haut { align-items:flex-start; }
+  .retour { display:inline-flex; align-items:center; gap:6px; color:var(--soft); font-size:13px; text-decoration:underline; text-underline-offset:3px; margin-bottom:8px; cursor:pointer; }
+  .meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:10px; font-size:12.5px; color:var(--muted); }
+  .actions { display:flex; gap:8px; align-items:center; }
+  .btn-p { background:var(--craie); color:var(--craie-on); border:1px solid var(--craie); padding:9px 15px; border-radius:6px; font-weight:600; font-size:13px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; }
+  .btn-s { background:transparent; color:var(--ink); border:1px solid var(--line-ctl); padding:9px 15px; border-radius:6px; font-weight:600; font-size:13px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; }
+  .btn-g { background:transparent; color:var(--ink); border:0; padding:9px 10px; font-weight:600; font-size:13px; cursor:pointer; }
+  .old-btn-box { background:transparent; color:var(--ink); border:1px solid var(--line-ctl); padding:14px 18px; font-weight:600; font-size:13px; display:inline-flex; gap:7px; align-items:center; }
+
+  /* Filtres — ACTUEL : puces CAPITALES, actif crème plein */
+  .f-rang { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:10px; }
+  .f-lbl { color:var(--muted); font-size:12px; margin:0 4px 0 2px; }
+  .puce { border:1px solid var(--line-ctl); background:transparent; color:var(--soft); padding:7px 12px; font-size:11px; letter-spacing:.14em; font-weight:600; cursor:pointer; }
+  .puce .n { opacity:.6; margin-left:5px; }
+  .puce.on { background:var(--craie); color:var(--craie-on); border-color:var(--craie); }
+  .puce.cg { border-left:3px solid var(--grey); } .puce.cf { border-left:3px solid var(--forad); }
+  .lien { background:transparent; border:0; color:var(--soft); font-size:12px; cursor:pointer; padding:4px; }
+  .lien:hover { text-decoration:underline; }
+  .old-search { flex:0 0 300px; display:flex; align-items:center; gap:8px; background:var(--field); border:1px solid var(--line-ctl); padding:10px 12px; color:var(--muted); font-size:13px; }
+  .old-seg { display:inline-flex; border:1px solid var(--line-ctl); }
+  .old-seg button { background:transparent; border:0; border-left:1px solid var(--line-ctl); color:var(--soft); padding:6px 10px; font-size:12.5px; cursor:pointer; }
+  .old-seg button:first-child { border-left:0; }
+  .old-seg button.on { background:#2b2d31; color:var(--ink); font-weight:700; }
+  .old-seg button.rouge { color:var(--halt); }
+  .old-boxbtns { display:inline-flex; border:1px solid var(--line-ctl); }
+  .old-boxbtns button { background:transparent; border:0; border-left:1px solid var(--line-ctl); color:var(--soft); padding:6px 10px; font-size:12.5px; }
+  .old-boxbtns button:first-child { border-left:0; }
+
+  /* Filtres — PROPOSÉ : une barre, segmenté casse normale, bascules, actif crème pâle */
+  .bf { display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px; margin-bottom:14px; }
+  .bf .droite { margin-left:auto; display:flex; gap:4px; }
+  .rech { flex:0 1 300px; min-width:200px; height:34px; display:flex; align-items:center; gap:8px; background:var(--field); border:1px solid var(--line-ctl); border-radius:6px; padding:0 11px; color:var(--muted); font-size:13px; }
+  .seg { display:inline-flex; height:34px; border:1px solid var(--line-ctl); border-radius:6px; overflow:hidden; }
+  .seg button { background:transparent; border:0; border-left:1px solid var(--line-soft); color:var(--soft); padding:0 11px; font-size:12.5px; cursor:pointer; display:inline-flex; align-items:center; gap:5px; }
+  .seg button:first-child { border-left:0; }
+  .seg button .n { color:var(--muted); font-size:11.5px; }
+  .seg button.on { background:var(--craie-soft); color:var(--ink); font-weight:600; }
+  .seg button.on .n { color:var(--soft); }
+  .seg .pt { width:8px; height:8px; border-radius:2px; }
+  .bas { height:34px; border:1px solid var(--line-ctl); border-radius:6px; background:transparent; color:var(--soft); padding:0 11px; font-size:12.5px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
+  .bas .case { width:14px; height:14px; border:1px solid var(--line-ctl); border-radius:3px; display:grid; place-items:center; }
+  .bas.on { background:var(--craie-soft); color:var(--ink); font-weight:600; border-color:#6d6857; }
+  .bas.on .case { background:var(--craie); border-color:var(--craie); color:var(--craie-on); }
+  .bas .n { color:var(--muted); font-size:11.5px; }
+  .bas.alerte .n { color:var(--halt); font-weight:600; }
+  .sep { width:1px; height:22px; background:var(--line); }
+
+  /* Étiquettes — ACTUEL */
+  .tag-etat { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line-ctl); border-radius:5px; padding:2px 8px; font-size:11.5px; font-weight:600; color:var(--muted); white-space:nowrap; }
+  .tag-etat.lance { border-color:transparent; background:rgb(52 211 153 / .14); color:var(--online); }
+  .tag-etat.pause { border-color:transparent; background:rgb(251 146 60 / .14); color:var(--dev); }
+  .tag-etat.brouillon { border-style:dashed; }
+  .old-st { font-family:"JetBrains Mono", monospace; font-size:11px; padding:1px 7px; border:1px solid; white-space:nowrap; }
+  .old-st.pub { color:var(--online); border-color:rgb(52 211 153 / .6); }
+  .old-st.err { color:var(--halt); border-color:rgb(248 113 113 / .7); }
+  .old-st.att { color:var(--faint); border-color:transparent; }
+  .old-log { font-family:"JetBrains Mono", monospace; font-size:10.5px; font-weight:700; letter-spacing:.08em; padding:2px 7px; white-space:nowrap; }
+  .old-log.publish { background:var(--online); color:#052e21; }
+  .old-log.error { background:var(--halt); color:#2b0d0d; }
+  .old-log.action { border:1px solid var(--line-ctl); color:var(--ink); }
+  .old-log.tick { border:1px solid var(--line-ctl); color:var(--muted); font-weight:500; }
+  /* Étiquettes — PROPOSÉ : icône + mot, sans, une seule forme */
+  .et { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .et.ok { color:var(--online); } .et.alerte { color:var(--halt); } .et.attente { color:var(--dev); } .et.neutre { color:var(--muted); }
+
+  .cel { font-family:"JetBrains Mono", monospace; font-size:11px; font-weight:700; padding:2px 7px; border-left:3px solid; }
+  .cel-g { color:var(--ink); border-color:var(--grey); background:rgb(127 151 178 / .14); } .cel-f { color:var(--ink); border-color:var(--forad); background:rgb(201 138 58 / .12); }
+
+  /* Liste */
+  .table { border:1px solid var(--line); border-radius:4px; }
+  .cols, .row { display:grid; grid-template-columns:150px minmax(0,1fr) 120px 200px 160px 170px 36px; gap:12px; align-items:center; padding:0 16px; }
+  .cols { background:var(--sunken); color:var(--muted); font-size:11px; letter-spacing:.12em; text-transform:uppercase; height:34px; border-bottom:1px solid var(--line); }
+  .grp { display:flex; align-items:center; gap:10px; padding:10px 16px; background:#18191c; border-top:1px solid var(--line); font-size:13.5px; }
+  .grp .t { color:var(--ink); font-weight:700; }
+  .grp .s { color:var(--muted); font-size:12.5px; }
+  .grp.sl { padding-left:36px; background:transparent; border-top:1px solid var(--line-soft); font-size:12.5px; }
+  .row { min-height:44px; padding-top:6px; padding-bottom:6px; border-top:1px solid var(--line-soft); position:relative; font-size:13px; }
+  .row::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--grey); }
+  .row .code { font-family:"JetBrains Mono", monospace; font-size:12.5px; color:var(--soft); }
+  .row .nom { color:var(--ink); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .row .corr { display:block; color:var(--halt); font-size:12px; font-weight:500; white-space:normal; }
+  .row .per { font-family:"JetBrains Mono", monospace; font-size:12px; color:var(--soft); white-space:nowrap; }
+  .prog { display:grid; gap:4px; font-size:12px; color:var(--muted); }
+  .prog b { color:var(--ink); }
+  .barre { height:4px; background:var(--line); border-radius:2px; overflow:hidden; } .barre i { display:block; height:100%; background:var(--soft); }
+  .auteur { display:flex; gap:8px; align-items:center; color:var(--soft); font-size:12.5px; font-family:"JetBrains Mono", monospace; }
+  .plus { color:var(--soft); text-align:center; letter-spacing:.1em; }
+  .legende { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px 22px; margin:0 0 14px; padding:14px 16px; background:var(--panel); border:1px solid var(--line); border-radius:6px; font-size:12.5px; color:var(--soft); }
+  .legende > div { display:grid; gap:6px; align-content:start; }
+  .legende .m { grid-column:1/-1; justify-self:end; color:var(--soft); text-decoration:underline; font-size:12px; }
+  .q-leg { background:transparent; border:0; color:var(--ink); text-decoration:underline; text-underline-offset:3px; font-size:12.5px; cursor:pointer; }
+
+  /* Éditeur */
+  .old-l1 { display:flex; flex-wrap:wrap; align-items:center; gap:10px; font-size:12.5px; color:var(--soft); margin-bottom:6px; }
+  .old-l1 .back { width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--line-ctl); }
+  .old-l1 .eyeb { font-size:11px; letter-spacing:.18em; color:var(--muted); }
+  .old-l1 .cnt { font-family:"JetBrains Mono", monospace; font-size:11.5px; color:var(--muted); }
+  .dates { display:flex; flex-wrap:wrap; gap:10px; align-items:center; font-size:13px; color:var(--soft); margin-top:14px; }
+  .dates .champ { background:var(--field); border:1px solid var(--line-ctl); padding:7px 12px; font-family:"JetBrains Mono", monospace; font-size:12.5px; color:var(--ink); min-width:170px; }
+  .dates .mod { font-family:"JetBrains Mono", monospace; font-size:11.5px; color:var(--muted); }
+  .cible { margin:20px 0 6px; font-size:12.5px; color:var(--soft); display:flex; gap:12px; align-items:center; }
+  .cible .eyeb { font-size:11px; letter-spacing:.18em; color:var(--muted); }
+  .onglets { display:flex; gap:6px; border-bottom:1px solid var(--line); margin:18px 0 0; align-items:flex-end; }
+  .onglets a { padding:10px 16px; color:var(--soft); font-size:13.5px; border-bottom:2px solid transparent; display:flex; gap:7px; align-items:center; }
+  .onglets a.on { color:var(--ink); font-weight:600; border-bottom-color:var(--craie); }
+  .onglets a .n { color:var(--muted); font-size:11.5px; }
+  .onglets .heures { margin-left:auto; display:flex; gap:0; align-items:center; font-size:12px; color:var(--muted); padding-bottom:6px; }
+  .onglets .heures span { padding:6px 10px; border:1px solid var(--line-ctl); } .onglets .heures span.on { background:#2b2d31; color:var(--ink); font-weight:600; }
+  .panneau { border:1px solid var(--line); border-top:0; background:var(--panel); }
+  .panneau .outils { padding:14px 16px; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center; }
+  .panneau .outils .bf { margin:0; width:100%; }
+  .panneau .eyeb { font-size:11px; letter-spacing:.18em; color:var(--muted); }
+  .app { display:flex; gap:8px; align-items:center; padding:10px 16px; background:var(--sunken); border-bottom:1px solid var(--line); font-size:13px; color:var(--ink); font-weight:600; }
+  .app small { font-family:"JetBrains Mono", monospace; color:var(--muted); font-weight:400; font-size:11.5px; }
+  .pl { display:grid; grid-template-columns:78px 120px 46px 22px 150px minmax(0,1fr) 110px; gap:10px; align-items:center; padding:9px 16px; border-bottom:1px solid var(--line-soft); font-size:13px; }
+  .pl.rep { padding-left:34px; }
+  .pl .h { font-family:"JetBrains Mono", monospace; color:var(--ink); font-weight:700; font-size:13px; }
+  .pl.rep .h { font-weight:500; color:var(--soft); }
+  .pl .fid { font-family:"JetBrains Mono", monospace; color:var(--soft); font-weight:700; font-size:12.5px; }
+  .pl .av { width:20px; height:20px; display:grid; place-items:center; border:1px solid var(--line-ctl); font-size:9px; color:var(--soft); font-weight:700; }
+  .pl .who { color:var(--ink); font-weight:700; }
+  .pl .msg { color:var(--body); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pl .st { font-family:"JetBrains Mono", monospace; color:var(--muted); font-size:11.5px; text-align:right; }
+  .np { margin:16px 0 0; border:1px solid rgb(248 113 113 / .45); background:rgb(248 113 113 / .06); border-radius:6px; padding:12px 14px; }
+  .np h3 { margin:0 0 8px; color:var(--halt); font-size:14px; display:flex; gap:7px; align-items:center; }
+  .np .l { display:grid; grid-template-columns:160px 1fr auto; gap:12px; align-items:center; background:var(--sunken); padding:10px 12px; border-radius:4px; font-size:13px; }
+  .np .motif { color:var(--halt); font-size:12px; }
+  .np .gestes { display:flex; gap:6px; flex-wrap:wrap; }
+
+  /* Supervision */
+  .kpi { display:grid; grid-template-columns:repeat(4, 1fr); border:1px solid var(--line); margin-bottom:24px; }
+  .kpi > div { padding:18px 22px; border-left:1px solid var(--line); }
+  .kpi > div:first-child { border-left:0; }
+  .kpi .l { font-size:11px; letter-spacing:.16em; color:var(--muted); text-transform:uppercase; }
+  .kpi .v { font-size:28px; font-weight:700; color:var(--ink); margin-top:6px; font-family:"JetBrains Mono", monospace; }
+  .journal { border:1px solid var(--line); }
+  .journal .tete { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .journal .tete .eyeb { font-size:11px; letter-spacing:.18em; color:var(--muted); margin-right:auto; }
+  .jf { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line-ctl); padding:6px 10px; font-size:12.5px; font-weight:600; color:var(--ink); background:transparent; }
+  .jf i { width:8px; height:8px; display:inline-block; }
+  .jf.p { border-color:var(--online); background:rgb(52 211 153 / .12); } .jf.p i { background:var(--online); }
+  .jf.e { border-color:var(--halt); background:rgb(248 113 113 / .12); } .jf.e i { background:var(--halt); }
+  .jf.t i, .jf.s i { background:var(--faint); } .jf.a i { background:var(--craie); }
+  .jl { display:grid; grid-template-columns:76px 104px 40px 70px minmax(0,1fr); gap:12px; align-items:center; padding:9px 16px; border-bottom:1px solid var(--line-soft); font-size:13px; }
+  .jl .h { font-family:"JetBrains Mono", monospace; color:var(--soft); font-size:12.5px; }
+  .jl .ph.mono { font-family:"JetBrains Mono", monospace; font-size:12.5px; }
+  .jl .ph.rouge { color:var(--halt); }
+  .jl .ph a { color:var(--craie); }
+  .nb { margin-top:14px; font-size:12px; color:#c9c1ff; background:#1d1934; border:1px dashed #5b4fc4; padding:8px 12px; border-radius:6px; }
+  .nb b { color:#fff; }
+  .callout { display:inline-grid; place-items:center; width:18px; height:18px; border-radius:50%; background:var(--note); color:#fff; font-size:10.5px; font-weight:700; margin-left:6px; vertical-align:middle; box-shadow:0 0 0 3px rgb(139 124 246 / .25); flex:none; }
+  .hidden { display:none !important; }
+  @media (max-width:900px) { .cols { display:none; } .row { grid-template-columns:1fr 1fr; } .pl { grid-template-columns:60px 1fr; } .kpi { grid-template-columns:1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="mq" role="region" aria-label="Commandes de la maquette">
+  <div class="mq-l1">
+    <span class="mq-t">Maquette — avis DESIGNER n°77<small>Ce bandeau violet ne fait pas partie de l'app. Les chiffres en violet renvoient aux 6 décisions.</small></span>
+    <div class="mq-ecrans" id="ecrans">
+      <button data-e="liste" class="on">Liste des scénarios</button>
+      <button data-e="editeur">Éditeur d'un scénario</button>
+      <button data-e="supervision">Supervision</button>
+    </div>
+    <div class="mq-tout" id="tout">
+      <button data-v="0">Tout actuel</button>
+      <button data-v="1" class="on">Tout proposé</button>
+    </div>
+    <button class="mq-pli" id="pli">Masquer les réglages</button>
+  </div>
+  <div class="mq-grille" id="questions"></div>
+</div>
+
+<div class="zone"><b>PLÉIADE</b> · DELATTRE-26 <span class="apps">Apps de la zone ▾</span><span class="r" id="zone-r">ADMIN</span></div>
+<nav class="nav">
+  <span class="brand" id="brand"></span>
+  <a data-e="tdb">Tableau de bord</a><a data-e="liste">Scénarios</a><a data-e="supervision">Supervision</a>
+  <span class="r">EXERCICE · NON CLASSIFIÉ <span class="sq">☼</span><span class="sq">G</span><span class="dec">Déconnexion</span></span>
+</nav>
+
+<main id="page"></main>
+
+<script>
+const I = {
+  dashed:'<circle cx="12" cy="12" r="9.5" stroke-dasharray="3.2 3"/>',
+  play:'<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>',
+  pause:'<circle cx="12" cy="12" r="10"/><line x1="10" x2="10" y1="15" y2="9"/><line x1="14" x2="14" y1="15" y2="9"/>',
+  check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  dot:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1.5"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  alert:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  left:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  tick:'<path d="M20 6 9 17l-5-5"/>',
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+  pen:'<path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/>',
+  cycle:'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>',
+  hand:'<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>',
+};
+const ic = (n, s = 13) => `<svg class="i" viewBox="0 0 24 24" style="width:${s}px;height:${s}px">${I[n]}</svg>`;
+
+// Les 6 décisions (+ les mots, qui regroupent les points 2 et la règle de vocabulaire).
+const Q = [
+  { k:"filtres", n:1, t:"Filtres", o:["Puces CAPITALES", "Segmenté, casse normale"], reco:1 },
+  { k:"mots", n:2, t:"Mots d'une publication", o:["Publié / Erreur", "Publiée / Non partie"], reco:1 },
+  { k:"attente", n:3, t:"Publication qui attend son heure (scénario lancé)", o:["Brouillon", "Programmée"], reco:1 },
+  { k:"entete", n:4, t:"En-tête de page", o:["Sur-titres", "Retour « ← Scénarios »"], reco:1 },
+  { k:"largeur", n:5, t:"Largeur des pages", o:["Actuelle (le bord saute)", "Une seule largeur", "Éditeur plus large"], reco:1 },
+  { k:"etiquettes", n:"+", t:"Étiquettes d'état", o:["3 styles", "Icône + mot partout"], reco:1 },
+  { k:"langue", n:"+", t:"Journal, nom de l'app, chiffres", o:["publish, ADMIN, 00", "Français, Animation, 0"], reco:1 },
+];
+const S = {}; Q.forEach(q => S[q.k] = q.reco);
+let ecran = "liste";
+
+function rendreQuestions() {
+  document.getElementById("questions").innerHTML = Q.map(q => `
+    <div class="mq-q"><span><b>${q.n}</b>${q.t}</span>
+      <div class="seg" role="radiogroup" aria-label="${q.t}">${q.o.map((o, i) =>
+        `<button role="radio" aria-checked="${S[q.k] === i}" class="${S[q.k] === i ? "on" : ""} ${q.reco === i ? "reco" : ""}" data-k="${q.k}" data-i="${i}">${o}</button>`).join("")}</div>
+    </div>`).join("") + `<div class="mq-q" style="align-self:end;color:#c9c1ff">★ = recommandation DESIGNER</div>`;
+}
+const P = (k) => S[k] >= 1; // proposé ?
+const co = (n) => `<span class="callout" title="Décision ${n}">${n}</span>`;
+
+// ---------- Briques communes ----------
+function etatScenario(st) {
+  const d = { draft:["Brouillon","dashed","brouillon"], playing:["Lancé","play","lance"], paused:["Pause","pause","pause"], done:["Terminé","check","fini"] }[st];
+  return `<span class="tag-etat ${d[2]}">${ic(d[1])}${d[0]}</span>`;
+}
+// Étiquette d'une publication
+function etatPub(st, lance) {
+  const mots = P("mots");
+  if (!P("etiquettes")) {
+    if (st === "published") return `<span class="old-st pub">${mots ? "Publiée" : "Publié"}</span>`;
+    if (st === "error") return `<span class="old-st err">${mots ? "Non partie" : "Erreur"}</span>`;
+    return `<span class="old-st att">${lance && P("attente") ? "Programmée" : "Brouillon"}</span>`;
+  }
+  if (st === "published") return `<span class="et ok">${ic("check")}${mots ? "Publiée" : "Publié"}</span>`;
+  if (st === "error") return `<span class="et alerte">${ic("alert")}${mots ? "Non partie" : "Erreur"}</span>`;
+  return lance && P("attente") ? `<span class="et neutre">${ic("clock")}Programmée</span>` : `<span class="et neutre">${ic("dashed")}Brouillon</span>`;
+}
+function etatLog(t) {
+  if (!P("langue") && !P("etiquettes")) return `<span class="old-log ${t}">${t.toUpperCase()}</span>`;
+  const fr = { publish:["Publiée","check","ok"], error:["Non partie","alert","alerte"], action:["Action","pen","neutre"], tick:["Cycle","cycle","neutre"] }[t];
+  const mot = P("langue") ? fr[0] : t.toUpperCase();
+  if (!P("etiquettes")) return `<span class="old-log ${t}">${mot.toUpperCase()}</span>`;
+  return `<span class="et ${fr[2]}">${ic(fr[1])}${mot}</span>`;
+}
+// Barre de filtres : groupes = [{lbl, items:[[mot, n, actif, couleur]], exclusif}], bascules = [[mot, n, actif, alerte]]
+function barre({ recherche, groupes, bascules = [], droite = [] }) {
+  if (!P("filtres")) {
+    const r1 = `<div class="f-rang"><div class="old-search">${ic("search")}${recherche}</div>
+      ${bascules.length ? `<button class="puce on">TOUS <span class="n">59</span></button>` + bascules.map(b => `<button class="puce">${b[0].toUpperCase()} <span class="n">${b[1]}</span></button>`).join("") : ""}
+      <span style="margin-left:auto">${droite.map(d => `<button class="lien">${d}</button>`).join("")}</span></div>`;
+    const r2 = `<div class="f-rang">${groupes.map(g => `<span class="f-lbl">${g.lbl}</span>${g.items.map(it =>
+      `<button class="puce ${it[2] ? "on" : ""} ${it[3] === "g" ? "cg" : it[3] === "f" ? "cf" : ""}">${it[0].toUpperCase()} <span class="n">${it[1]}</span></button>`).join("")}${g.apres || ""}`).join('<span style="width:14px"></span>')}</div>`;
+    return r1 + r2;
+  }
+  return `<div class="bf">
+    <div class="rech">${ic("search")}${recherche}</div>
+    ${groupes.map(g => `<div class="seg" role="radiogroup" aria-label="${g.lbl}">${g.items.map(it =>
+      `<button role="radio" aria-checked="${!!it[2]}" class="${it[2] ? "on" : ""}">${it[3] ? `<i class="pt" style="background:var(--${it[3] === "g" ? "grey" : "forad"})"></i>` : ""}${it[0]} <span class="n">${it[1]}</span></button>`).join("")}</div>${g.apres || ""}`).join("")}
+    ${bascules.length ? '<span class="sep"></span>' : ""}
+    ${bascules.map(b => `<button class="bas ${b[2] ? "on" : ""} ${b[3] ? "alerte" : ""}" aria-pressed="${!!b[2]}"><span class="case">${b[2] ? ic("tick", 10) : ""}</span>${b[0]} <span class="n">${b[1]}</span></button>`).join("")}
+    <span class="droite">${droite.map(d => `<button class="lien">${d}</button>`).join('<span style="color:var(--faint)">·</span>')}</span>
+  </div>`;
+}
+function largeur(detail) {
+  if (S.largeur === 0) return detail ? "page decale" : "page w-unique";
+  if (S.largeur === 2 && detail) return "page w-large";
+  return "page w-unique";
+}
+function enTete({ sur, titre, action, retour }) {
+  const garde = !P("entete");
+  return `<div class="head">
+    <div>${garde ? `<div class="eyebrow">${sur}</div>` : (retour ? `<a class="retour">${ic("left")}${retour}</a>` : "")}
+      <h1>${titre}<span class="aide">?</span></h1></div>
+    <div class="actions">${action || ""}</div></div>`;
+}
+
+// ---------- Écran : liste ----------
+const LIGNES = [
+  ["07.24", "07.24.I02 Parution désinformation", "done", "06/10 14:29 → 06/10 22:32", 35, 35, "g", "gc03", ""],
+  ["07.24.I01", "COALITION", "done", "06/10 10:43 → 20/10 19:26", 1, 1, "g", "Thomas MEYT…", ""],
+  ["07.24.I03", "COALITION 3 — relais", "done", "06/10 12:29 → 06/10 20:29", 5, 6, "g", "gc05", "1 publication non partie — ouvrez le scénario pour la publier ou la prendre en compte"],
+  ["08.02.I03", "Accident industriel", "playing", "10/10 04:00 → 10/10 14:00", 0, 26, "g", "gc07", ""],
+  ["24.05.I05", "Mercure Today — revue du soir", "paused", "07/10 19:00 → 07/10 23:00", 2, 9, "f", "fd06", ""],
+  ["25.02.I02", "Attaques vs GDIV1", "draft", "09/10 08:00 → 09/10 18:00", 0, 12, "f", "fd18", "2 à corriger avant de lancer — ouvrez le scénario, puis « Vérifier »"],
+];
+function liste() {
+  const fem = true; // déjà « publiées » dans la liste depuis le 07/10
+  const rows = LIGNES.map(l => `
+    <div class="row" style="${l[6] === "f" ? "--x:1" : ""}">
+      <span class="code">${l[0]}</span>
+      <span style="min-width:0"><span class="nom" style="display:block">${l[1]}</span>${l[8] ? `<span class="corr">${ic("alert", 12)} <b>${l[8].split(" — ")[0]}</b> — ${l[8].split(" — ")[1]}</span>` : ""}</span>
+      <span>${etatScenario(l[2])}</span>
+      <span class="per">${l[3]}</span>
+      <span class="prog">${l[2] === "draft" ? `${l[5]} publications` : `<span><b>${l[4]}</b> / ${l[5]} publiée${l[4] > 1 ? "s" : ""}</span><span class="barre"><i style="width:${Math.round(100 * l[4] / l[5])}%"></i></span>`}</span>
+      <span class="auteur"><span class="cel ${l[6] === "f" ? "cel-f" : "cel-g"}">${l[6] === "f" ? "FORAD" : "GREYCELL"}</span>${l[7]}</span>
+      <span class="plus">⋯</span>
+    </div>`).join("");
+  return `<div class="${largeur(false)}">
+    ${enTete({ sur:"Scénarios de la zone", titre:"Scénarios", action:`<button class="btn-p">+ Nouveau scénario</button>` })}
+    ${barre({
+      recherche:"Rechercher : code (08.01, I04…) ou nom",
+      groupes:[
+        { lbl:"État", items:[["Tous",59,1],["Brouillon",5],["Lancé",27],["Pause",1],["Terminé",26]], apres:`<button class="q-leg">Que veulent dire ces états ?</button>` },
+        { lbl:"Cellule", items:[["Toutes",59,1],["GREYCELL",32,0,"g"],["FORAD",27,0,"f"]] },
+      ],
+      bascules:[["Mes scénarios",2],["À corriger",2,0,1]],
+      droite:["Tout déplier","Tout replier"],
+    })}
+    ${P("filtres") ? `<div class="nb">${co(1)} <b>Un seul style de filtre</b> : un choix exclusif (État, Cellule) = segmenté ; un choix indépendant (Mes scénarios, À corriger) = bascule avec une case. L'actif est en <b>crème pâle</b> : le crème plein reste au seul bouton « + Nouveau scénario ».</div>` : `<div class="nb">${co(1)} Actuel : 4 aplats crème pleins (Tous, Tous, Toutes, + Nouveau scénario) — on ne voit plus où est l'action principale.</div>`}
+    <div style="height:14px"></div>
+    <div class="table">
+      <div class="cols"><span>Code</span><span>Scénario</span><span>État</span><span>Période</span><span>Publications</span><span>Cellule · auteur</span><span></span></div>
+      <div class="grp"><span class="t">Event 07 — ILI</span><span class="s">· 4 scénarios · 1 à corriger</span></div>
+      <div class="grp sl"><span class="t">Storyline 07.24 — CADRE STRAT</span><span class="s">· 3 scénarios · 1 à corriger</span></div>
+      ${rows}
+    </div>
+  </div>`;
+}
+
+// ---------- Écran : éditeur ----------
+const PUBS = [
+  ["16:21", "", "#22", "S", "@stanislavvukovic", "Le droit et la vérité sont indissociables. Quand un agresseur détourne le langage…", "published"],
+  ["16:24", "+3", "#23", "K", "@kevdu13", "Respect Monsieur le Président. La justice aussi se bat avec des mots justes", "published"],
+  ["16:26", "+5", "#24", "A", "@ACAB", "Clairement. Ils veulent confondre tout le monde. On tient bon", "error"],
+  ["17:41", "", "#2", "H", "@HateNato", "Franchement les gars… on est en pleine GUERRE DES MOTS", "published"],
+  ["17:45", "+4", "#3", "A", "@Arn_Fighters", "Exactement !!! Ils manipulent les mots comme des armes.", "draft"],
+  ["18:17", "", "#5", "N", "@NaPalm_for_Breakfast", "La vraie guerre se passe sur les écrans et dans les têtes", "draft"],
+  ["18:20", "+3", "#6", "K", "@kevdu13", "Trop vrai. On est bombardés de fausses infos. Faut relayer le vrai", "draft"],
+];
+function editeur() {
+  const lance = true;
+  const mots = P("mots");
+  const nPub = 3, nTot = 7;
+  const compteur = mots ? `${nPub} / ${nTot} publiées · 1 non partie` : `${nPub}/${nTot} publiés · 1 erreur`;
+  const enteteAncien = `
+    <div class="old-l1"><span class="back">${ic("left")}</span><span class="eyeb">SCÉNARIO</span>${etatScenario("playing")}<span>Cellule</span><span class="cel cel-g">GREYCELL</span><span class="cel cel-f" style="opacity:.6">FORAD</span><span class="cnt">${compteur}</span></div>
+    <div class="head haut" style="margin-bottom:0"><div><h1>07.24.I02 Parution désinformation</h1><span class="aide seule">?</span></div>
+      <div class="actions" style="margin-top:40px"><span class="old-btn-box">${ic("shield")}Vérifier</span><button class="btn-g">⋯ Plus ▾</button></div></div>`;
+  const enteteNouveau = `
+    <div class="head" style="margin-bottom:0">
+      <div><a class="retour">${ic("left")}Scénarios</a>${co(4)}
+        <h1>07.24.I02 Parution désinformation<span class="aide">?</span></h1>
+        <div class="meta">${etatScenario("playing")}<span class="cel cel-g">GREYCELL</span><span>${compteur}</span></div></div>
+      <div class="actions"><button class="btn-s">${ic("pause")}Pause</button><button class="btn-s">${ic("shield")}Vérifier</button><button class="btn-g">⋯ Plus ▾</button></div></div>`;
+  const nonPartie = `<div class="np"><h3>${ic("alert", 14)}1 publication non partie</h3>
+    <div class="l"><span><b class="mono">#24</b> @ACAB</span><span>Clairement. Ils veulent confondre tout le monde. On tient bon<br><span class="motif">Avatar hors cellule : @ACAB n'est pas ouvert à la cellule GREYCELL dans l'EHO</span></span>
+    <span class="gestes"><button class="btn-g">${ic("pen")} Modifier</button><button class="btn-s">Publier maintenant</button><button class="btn-g">${ic("check")} Prise en compte</button></span></div></div>`;
+  const nAtt = PUBS.filter(p => p[6] === "draft").length;
+  const motAtt = P("attente") ? "Programmée" : (P("filtres") ? "Brouillon" : "Brouillons");
+  const outils = P("filtres")
+    ? barre({ recherche:"Rechercher #id, @avatar, texte…", groupes:[{ lbl:"Statut", items:[["Toutes",7,1],[motAtt,nAtt],[mots ? "Publiée" : "Publié",3],[mots ? "Non partie" : "Erreur",1]] }], droite:["Tout déplier","Tout replier"] })
+    : `<span class="eyeb">ARBRE</span><div class="old-search" style="flex-basis:250px;padding:7px 10px">${ic("search")}Rechercher #id, @avatar, texte…</div>
+       <div class="old-seg"><button class="on">Tous 7</button><button>${P("attente") ? "Programmées" : "Brouillons"} ${nAtt}</button><button>${mots ? "Publiées" : "Publiés"} 3</button><button class="rouge">${mots ? "Non parties" : "Erreurs"} 1</button></div>
+       <span class="sep"></span><div class="old-boxbtns"><button>Tout déplier</button><button>Tout replier</button></div>`;
+  const lignes = PUBS.map(p => `<div class="pl ${p[1] ? "rep" : ""}"><span class="h">${p[1] ? "↳ " : ""}${p[0]}</span><span>${etatPub(p[6], lance)}</span><span class="fid">${p[2]}</span><span class="av">${p[3]}</span><span class="who">${p[4]}</span><span class="msg">${p[5]}</span><span class="st">${p[1] || ""}</span></div>`).join("");
+  return `<div class="${largeur(true)}">
+    ${P("entete") ? enteteNouveau : enteteAncien}
+    <div class="dates"><span>Début</span><span class="champ">06/10/2026 14:29</span><span>Fin</span><span class="champ">06/10/2026 22:32</span><span class="mod">modifié le 06/10 22:05</span></div>
+    <div class="cible"><span class="eyeb">STORYLINE MELMIL</span><b class="mono">07.24</b> CADRE STRAT — 1 incident sur 1 : <b class="mono">I01</b></div>
+    ${nonPartie}
+    <div class="onglets"><a class="on">Arbre <span class="n">7</span></a><a>Timeline</a><a>Réglages</a><a>Journal</a>
+      <span class="heures"><span style="border:0">Heures</span><span class="on">Heure réelle</span><span>T+</span></span></div>
+    <div class="panneau">
+      <div class="outils">${outils}</div>
+      <div class="app">Social <small>7 publications</small></div>
+      ${lignes}
+    </div>
+    <div class="nb">
+      ${co(2)} Mots : ${mots ? "<b>Publiée / Non partie</b>, au féminin comme « publication », et le même mot que le bandeau rouge." : "« Publié » au masculin, « Erreur » dans l'arbre mais « non partie » dans le bandeau rouge."}<br>
+      ${co(3)} Une publication qui attend son heure dans un scénario <b>lancé</b> : ${P("attente") ? "<b>Programmée</b> (elle partira toute seule)." : "« Brouillon », comme si rien n'allait partir."}<br>
+      ${co(4)} ${P("entete") ? "<b>Retour nommé « ← Scénarios »</b>, « ? » collé au titre, état et cellule juste dessous, boutons toujours à droite et alignés sur le titre." : "Le « ? » est seul sur sa ligne et les boutons flottent à mi-hauteur, à un autre endroit que sur la liste."}<br>
+      ${co(5)} ${S.largeur === 0 ? "Le bord gauche est 26 px plus à droite que sur la liste : passez de l'un à l'autre pour le voir sauter." : S.largeur === 1 ? "<b>Même largeur et même bord gauche</b> que la liste." : "Éditeur plus large (1440 px) : plus de place pour les messages, mais le bord ne coïncide plus avec la liste."}
+    </div>
+  </div>`;
+}
+
+// ---------- Écran : supervision ----------
+const LOGS = [
+  ["22:48:48", "publish", "#1", "social", '#1 @virginie_petit → <a>Social (essai) publication #3 ↗</a>'],
+  ["22:48:48", "tick", "", "", "Tick : 1 publié(s), 2 en attente, 0 erreur(s)", "Cycle : 1 publiée, 2 programmées, 0 non partie"],
+  ["22:49:48", "publish", "#2", "social", '#2 @victoire_dupont → <a>Social (essai) publication #4 ↗</a>'],
+  ["22:49:48", "action", "", "", "Scénario « Essai citation » terminé"],
+  ["15:29:30", "action", "", "", "Import XLSX dans « Essai citation (brouillon) » par gc05 : 7 item(s), 0 remarque(s)", "Import Excel dans « Essai citation (brouillon) » par gc05 : 7 publications, 0 remarque"],
+  ["14:28:31", "error", "#4", "social", "#4 : Avatar hors cellule : @TankerDmitri n'est pas ouvert à la cellule GREYCELL dans l'EHO"],
+  ["14:28:31", "action", "", "", "Publication immédiate de l'item #102 demandée par gc05", "Publication immédiate de la publication #102 demandée par gc05"],
+];
+function supervision() {
+  const fr = P("langue");
+  const z = (n) => fr ? String(n) : String(n).padStart(2, "0");
+  const filtres = P("filtres")
+    ? `${[["Publiée","publish",1],["Non partie","error",1],["Ignorée","skip",0],["Cycle","tick",0],["Action","action",1]].map(f => `<button class="bas ${f[2] ? "on" : ""}" aria-pressed="${!!f[2]}"><span class="case">${f[2] ? ic("tick", 10) : ""}</span>${fr ? f[0] : f[1]}</button>`).join("")}<span class="sep"></span><button class="bas on" aria-pressed="true"><span class="case">${ic("tick", 10)}</span>Suivre</button>`
+    : `${[["publish","p"],["error","e"],["skip","s"],["tick","t"],["action","a"]].map(f => `<span class="jf ${f[1]}"><i></i>${fr ? { publish:"Publiée", error:"Non partie", skip:"Ignorée", tick:"Cycle", action:"Action" }[f[0]] : f[0]}</span>`).join("")}<button class="btn-p" style="padding:6px 12px">Suivre</button>`;
+  const lignes = LOGS.map(l => `<div class="jl"><span class="h">${l[0]}</span><span>${etatLog(l[1])}</span><span class="mono" style="color:var(--soft);font-size:12px">${l[2]}</span><span class="mono" style="color:var(--muted);font-size:12px">${l[3]}</span>
+    <span class="ph ${P("etiquettes") ? "" : "mono"} ${l[1] === "error" ? "rouge" : ""}">${fr && l[5] ? l[5] : l[4]}</span></div>`).join("");
+  return `<div class="${largeur(false)}">
+    ${enTete({ sur:"Supervision", titre:"Supervision" })}
+    <div class="kpi"><div><div class="l">Scénarios lancés</div><div class="v">${z(1)}</div></div><div><div class="l">Publiées</div><div class="v">${z(3)}</div></div><div><div class="l">${fr ? "Programmées" : "En attente"}</div><div class="v">${z(2)}</div></div><div><div class="l">${fr ? "Non parties" : "En erreur"}</div><div class="v">${z(1)}</div></div></div>
+    <div class="journal"><div class="tete"><span class="eyeb">JOURNAL</span>${filtres}</div>${lignes}</div>
+    <div class="nb">
+      ${co(1)} Filtres du journal : ${P("filtres") ? "<b>bascules à case</b>, comme « Mes scénarios » ; « Suivre » n'est plus un bouton crème plein." : "pastilles colorées en anglais + « Suivre » en crème plein, comme une action principale."}<br>
+      + Journal : ${P("langue") ? "<b>en français</b> (Publiée, Non partie, Cycle, Action), « publication » au lieu de « item », chiffres sans zéro ajouté." : "PUBLISH, TICK, ERROR, « item », compteurs « 00 »."} ${P("etiquettes") ? "Étiquettes <b>icône + mot</b>, phrase en police normale (la police machine reste aux heures et aux numéros)." : "Aplats colorés et toute la ligne en police machine."}
+    </div>
+  </div>`;
+}
+function tdb() {
+  return `<div class="${largeur(false)}">${enTete({ sur:"Théâtre d'entraînement", titre:"Tableau de bord", action:`<button class="btn-p">+ Nouveau scénario</button>` })}
+    <div class="nb">Le tableau de bord n'est pas maquetté : il suit les mêmes règles (sur-titre ${P("entete") ? "retiré" : "« Théâtre d'entraînement »"}, compteurs ${P("langue") ? "« 1 », « 14 »" : "« 01 », « 14 »"}, journal identique à la Supervision). Choisissez un écran dans le bandeau violet.</div></div>`;
+}
+
+function rendre() {
+  document.getElementById("brand").innerHTML = `<span style="color:var(--craie)">✦</span>${P("langue") ? "Animation" : "ADMIN"}`;
+  document.getElementById("brand").className = "brand" + (P("langue") ? " casse" : "");
+  document.getElementById("zone-r").textContent = P("langue") ? "ANIMATION" : "ADMIN";
+  document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("on", a.dataset.e === ecran || (ecran === "editeur" && a.dataset.e === "liste")));
+  document.querySelectorAll("#ecrans button").forEach(b => b.classList.toggle("on", b.dataset.e === ecran));
+  const tous = Q.every(q => S[q.k] === q.reco), aucun = Q.every(q => S[q.k] === 0);
+  document.querySelectorAll("#tout button").forEach(b => b.classList.toggle("on", (b.dataset.v === "1" && tous) || (b.dataset.v === "0" && aucun)));
+  document.getElementById("page").innerHTML = { liste, editeur, supervision, tdb }[ecran]();
+  rendreQuestions();
+  try { localStorage.setItem("mq77", JSON.stringify({ S, ecran })); } catch (e) {}
+}
+try { const m = JSON.parse(localStorage.getItem("mq77") || "null"); if (m) { Object.assign(S, m.S); ecran = m.ecran || ecran; } } catch (e) {}
+
+document.addEventListener("click", (e) => {
+  const q = e.target.closest("[data-k]"); if (q) { S[q.dataset.k] = +q.dataset.i; rendre(); return; }
+  const ec = e.target.closest("[data-e]"); if (ec) { ecran = ec.dataset.e; rendre(); window.scrollTo(0, 0); return; }
+  const t = e.target.closest("#tout button"); if (t) { Q.forEach(q => S[q.k] = t.dataset.v === "1" ? q.reco : 0); rendre(); return; }
+  if (e.target.closest(".row")) { ecran = "editeur"; rendre(); window.scrollTo(0, 0); return; }
+  if (e.target.closest(".retour") || e.target.closest(".old-l1 .back")) { ecran = "liste"; rendre(); return; }
+  if (e.target.id === "pli") { const g = document.getElementById("questions"); g.classList.toggle("hidden"); e.target.textContent = g.classList.contains("hidden") ? "Afficher les réglages" : "Masquer les réglages"; }
+});
+rendre();
+</script>
+</body>
+</html>

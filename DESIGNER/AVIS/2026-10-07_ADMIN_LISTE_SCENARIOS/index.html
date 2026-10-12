@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liste des scénarios — propositions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --shell:#161719; --panel:#1b1c1f; --sunken:#101113; --field:#212327;
+    --line:#2e3033; --line-soft:#232528; --line-ctl:#41444a;
+    --ink:#FAFAF7; --body:#EDEEF2; --soft:#c3c8d8; --muted:#9aa0b4;
+    --craie:#EDE3C8; --craie-on:#14140F;
+    --online:#34d399; --dev:#fb923c; --halt:#f87171;
+    --forad:#c98a3a; --grey:#7f97b2; --note:#8b7cf6;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--shell); color:var(--body); font:14px/1.45 Inter, system-ui, sans-serif; }
+  .mono { font-family:"JetBrains Mono", ui-monospace, monospace; font-size:12.5px; }
+  .bar { display:flex; gap:14px; padding:10px 24px; background:var(--sunken); border-bottom:1px solid var(--line); font-size:12px; color:var(--muted); letter-spacing:.06em; }
+  .bar b { color:var(--ink); }
+  .wrap { max-width:1260px; margin:0 auto; padding:24px 16px 80px; }
+  h1 { margin:0; font-size:28px; color:var(--ink); }
+  .eyebrow { font-size:11px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; }
+  .intro { display:grid; grid-template-columns:1fr 1.25fr; gap:20px; margin:16px 0 24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+  .card h2 { margin:0 0 10px; font-size:15px; color:var(--ink); }
+  .card ul { margin:0; padding-left:18px; color:var(--muted); font-size:13px; display:grid; gap:5px; }
+  .card ul b { color:var(--soft); }
+  ol.recos { margin:0; padding:0; list-style:none; display:grid; gap:9px; }
+  ol.recos li { display:grid; grid-template-columns:30px 1fr; gap:8px; }
+  .num { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--note); color:#fff; font-size:12px; font-weight:700; }
+  .reco-t { color:var(--ink); font-weight:600; }
+  .reco-d { color:var(--muted); font-size:13px; }
+  .qui { font-size:11px; color:var(--muted); margin-top:2px; }
+  .qui b { color:var(--note); font-weight:600; }
+  .toggle { display:inline-flex; border:1px solid var(--line-ctl); border-radius:8px; overflow:hidden; margin-bottom:14px; }
+  .toggle button { background:transparent; color:var(--soft); border:0; padding:8px 16px; font:600 13px Inter; cursor:pointer; }
+  .toggle button.on { background:var(--craie); color:var(--craie-on); }
+  .stage { border:1px solid var(--line); border-radius:12px; background:var(--panel); padding:20px 20px 20px 40px; position:relative; }
+  .hidden { display:none !important; }
+  .head { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:14px; }
+  .aide { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; border:1px solid var(--line-ctl); color:var(--soft); font-size:12px; margin-left:8px; vertical-align:middle; cursor:pointer; background:transparent; }
+  .btn-primary { background:var(--craie); color:var(--craie-on); border:1px solid var(--craie); padding:9px 14px; border-radius:7px; font:600 13px Inter; cursor:pointer; }
+  .search { flex:0 0 300px; background:var(--field); border:1px solid var(--line-ctl); border-radius:7px; padding:8px 12px; color:var(--muted); font-size:13px; }
+  .filtres { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; }
+  .grpf { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .grpf > span { color:var(--muted); font-size:12px; margin-right:2px; }
+  .chip { border:1px solid var(--line-ctl); border-radius:999px; padding:4px 11px; font:500 12.5px Inter; color:var(--soft); background:transparent; cursor:pointer; }
+  .chip.on { background:var(--craie); color:var(--craie-on); border-color:var(--craie); }
+  .chip .n { opacity:.7; margin-left:4px; }
+  .chip.cg { border-left:3px solid var(--grey); } .chip.cf { border-left:3px solid var(--forad); }
+  .tag { display:inline-flex; align-items:center; gap:6px; border-radius:5px; padding:2px 8px; font-size:11.5px; font-weight:600; white-space:nowrap; }
+  .t-lance { background:rgb(52 211 153 / .14); color:var(--online); }
+  .tag svg { width:13px; height:13px; stroke:currentColor; stroke-width:1.6; fill:none; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+  .t-brouillon { border:1px dashed var(--line-ctl); color:var(--muted); }
+  .t-pause { background:rgb(251 146 60 / .14); color:var(--dev); }
+  .t-fini { border:1px solid var(--line-ctl); color:var(--muted); }
+  .cel { font-size:11px; font-weight:700; padding:2px 7px; border-radius:4px; }
+  .cel-g { color:var(--grey); background:rgb(127 151 178 / .14); } .cel-f { color:var(--forad); background:rgb(201 138 58 / .14); }
+  .legend { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px 18px; margin:10px 0 12px; padding:12px 14px; background:var(--sunken); border:1px solid var(--line-soft); border-radius:8px; font-size:12.5px; color:var(--muted); }
+  .legend > div { display:grid; gap:5px; align-content:start; }
+  .legend .fermer { grid-column:1 / -1; justify-self:end; background:transparent; border:0; color:var(--muted); font:12px Inter; cursor:pointer; text-decoration:underline; }
+  .btn-legende { background:transparent; border:0; color:var(--soft); font:500 12.5px Inter; text-decoration:underline; text-underline-offset:3px; cursor:pointer; padding:4px 6px; }
+  .btn-legende:focus-visible { outline:2px solid var(--craie); outline-offset:2px; border-radius:4px; }
+  .table { border:1px solid var(--line); border-radius:10px; }
+  .cols, .row { display:grid; grid-template-columns:118px minmax(240px,1fr) 104px 196px 140px 92px 112px 36px; gap:12px; align-items:center; padding:0 12px; }
+  .cols { background:var(--sunken); color:var(--muted); font-size:11px; letter-spacing:.1em; text-transform:uppercase; height:32px; border-bottom:1px solid var(--line); border-radius:10px 10px 0 0; }
+  .grp { display:flex; align-items:center; gap:10px; padding:9px 12px; background:#18191c; border-top:1px solid var(--line); }
+  .grp .t { color:var(--ink); font-weight:600; }
+  .grp .stats { margin-left:auto; font-size:12.5px; color:var(--muted); }
+  .grp.sl { padding-left:32px; background:transparent; border-top:1px solid var(--line-soft); }
+  .grp.sl .t { font-size:13.5px; }
+  .row { min-height:40px; padding-top:5px; padding-bottom:5px; border-top:1px solid var(--line-soft); cursor:pointer; position:relative; }
+  .row::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; }
+  .row.g::before { background:var(--grey); } .row.f::before { background:var(--forad); }
+  .row:hover { background:rgb(255 255 255 / .025); }
+  .titre { color:var(--ink); font-weight:600; min-width:0; }
+  .titre .nom { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .corr { display:block; color:var(--halt); font-weight:500; font-size:12px; }
+  .corr b { font-weight:700; }
+  .pec { display:inline-flex; align-items:center; gap:5px; color:var(--muted); font-weight:500; font-size:12px; }
+  .pec svg { width:13px; height:13px; stroke:currentColor; stroke-width:1.6; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .apercu { margin-top:22px; display:grid; grid-template-columns:1.15fr 1fr; gap:18px; align-items:start; }
+  .pub { border:1px solid var(--line); border-radius:10px; background:var(--sunken); }
+  .pub-l { display:grid; grid-template-columns:56px 1fr auto; gap:12px; align-items:start; padding:12px 14px; border-top:1px solid var(--line-soft); }
+  .pub-l:first-child { border-top:0; }
+  .pub-l .h { color:var(--muted); font-size:12px; font-family:"JetBrains Mono", monospace; padding-top:2px; }
+  .pub-l .msg { color:var(--body); font-size:13px; }
+  .pub-l .who { color:var(--soft); font-weight:600; font-size:12.5px; }
+  .motif { margin-top:6px; padding:8px 10px; border-radius:6px; background:rgb(248 113 113 / .08); color:var(--halt); font-size:12px; }
+  .motif .gestes { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .g1 { background:var(--craie); color:var(--craie-on); border:0; border-radius:6px; padding:6px 10px; font:600 12px Inter; cursor:pointer; }
+  .g2 { background:transparent; color:var(--soft); border:1px solid var(--line-ctl); border-radius:6px; padding:6px 10px; font:500 12px Inter; cursor:pointer; }
+  .dialog { border:1px solid var(--line-ctl); border-radius:10px; background:var(--panel); padding:16px; box-shadow:0 18px 40px rgb(0 0 0 / .4); }
+  .dialog h3 { margin:0 0 6px; color:var(--ink); font-size:15px; }
+  .dialog p { margin:0 0 10px; color:var(--muted); font-size:13px; }
+  .dialog label { display:block; color:var(--soft); font-size:12.5px; margin-bottom:4px; }
+  .dialog input { width:100%; background:var(--field); border:1px solid var(--line-ctl); border-radius:6px; color:var(--body); padding:8px 10px; font:13px Inter; }
+  .dialog .act { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }
+  .reperes { display:inline-flex; gap:5px; margin-left:6px; vertical-align:middle; }
+  .rep { font-size:10.5px; font-weight:500; color:var(--soft); border:1px solid var(--line-ctl); border-radius:4px; padding:0 5px; }
+  .rep.dev { color:var(--dev); border-color:rgb(251 146 60 / .5); }
+  .devine { border-bottom:1px dotted var(--muted); }
+  .periode { color:var(--soft); font-size:12.5px; }
+  .periode small { display:block; color:var(--muted); font-size:11.5px; }
+  .prog { display:grid; gap:3px; font-size:12px; color:var(--muted); }
+  .barre { height:5px; background:var(--line); border-radius:3px; overflow:hidden; }
+  .barre i { display:block; height:100%; background:var(--online); }
+  .barre i.fini { background:var(--muted); }
+  .auteur { color:var(--muted); font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .more { width:30px; height:28px; border-radius:6px; border:1px solid transparent; background:transparent; color:var(--soft); font-size:17px; cursor:pointer; }
+  .more:hover, .more:focus-visible { border-color:var(--line-ctl); outline:none; }
+  .menu { position:absolute; z-index:9; background:var(--panel); border:1px solid var(--line-ctl); border-radius:8px; padding:6px; min-width:210px; box-shadow:0 12px 30px rgb(0 0 0 / .45); }
+  .menu button { display:block; width:100%; text-align:left; background:transparent; border:0; color:var(--body); padding:8px 10px; border-radius:5px; font:13px Inter; cursor:pointer; }
+  .menu button:hover, .menu button:focus-visible { background:var(--field); outline:none; }
+  .menu .danger { color:var(--halt); border-top:1px solid var(--line); margin-top:4px; border-radius:0 0 5px 5px; }
+  .callout { position:absolute; display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--note); color:#fff; font-size:12px; font-weight:700; box-shadow:0 0 0 4px rgb(139 124 246 / .25); z-index:4; }
+  .tip { position:relative; display:inline-flex; }
+  .tip .bulle { visibility:hidden; opacity:0; position:absolute; left:0; top:calc(100% + 8px); width:290px; z-index:8; background:#24262b; border:1px solid var(--line-ctl); border-radius:8px; padding:10px 12px; font-size:12.5px; font-weight:400; color:var(--body); line-height:1.45; transition:opacity .12s; }
+  .tip:hover .bulle, .tip:focus-within .bulle { visibility:visible; opacity:1; }
+  .tip > .tag { cursor:help; } .tip > .tag:focus-visible { outline:2px solid var(--craie); outline-offset:2px; }
+  .note { margin-top:12px; font-size:12.5px; color:var(--muted); }
+  .valider { margin-top:20px; }
+  .valider ol { margin:0; padding-left:20px; color:var(--muted); font-size:13px; display:grid; gap:4px; }
+  .valider b { color:var(--soft); }
+  /* AVANT */
+  .old-row { display:grid; grid-template-columns:110px 1fr 90px 40px 200px 110px 80px 90px 30px; gap:10px; align-items:center; padding:10px 14px; border-top:1px solid var(--line-soft); font-size:13px; }
+  .old-h { padding:12px 14px; background:var(--sunken); font-weight:600; color:var(--ink); border-top:1px solid var(--line); }
+  .old-h small, .old-s small { color:var(--muted); font-weight:400; }
+  .old-s { padding:10px 14px 10px 34px; font-weight:600; font-size:13px; border-top:1px solid var(--line-soft); }
+  .red { color:var(--halt); }
+  .old-warn { background:var(--halt); color:#2b0d0d; border-radius:4px; font-size:11px; padding:1px 6px; font-weight:700; }
+  .old-tag { border:1px solid var(--line-ctl); font-size:10.5px; letter-spacing:.1em; padding:2px 7px; color:var(--soft); }
+  .old-tag.vert { background:var(--online); color:#052e21; border-color:var(--online); }
+  @media (max-width:980px) { .intro { grid-template-columns:1fr; } .stage { overflow-x:auto; } }
+</style>
+</head>
+<body>
+<div class="bar"><b>PLÉIADE</b> · DELATTRE-26 · maquette de travail — rien n'est en ligne</div>
+<div class="wrap">
+  <div class="eyebrow">app-admin · Scénarios · avis DESIGNER n°76 · 07/10/2026</div>
+  <h1>Liste des scénarios — propositions</h1>
+
+  <div class="intro">
+    <div class="card">
+      <h2>Ce qui fait « brouillon » aujourd'hui</h2>
+      <ul>
+        <li>« <b>En lecture</b> » vient d'un lecteur vidéo, et veut déjà dire « lecture seule » dans MELMIL. Rien ne dit que le scénario <b>publie tout seul</b>.</li>
+        <li>Les lignes n'ont <b>aucun en-tête</b> : « 06/10 14:29 → 22:32 », « 0/26 publiés », « ⚠ 1 » se devinent.</li>
+        <li><b>Quatre mots</b> pour un problème (« en erreur », « ⚠ », « bloquant »…) et du <b>rouge partout</b> : l'alerte ne se remarque plus.</li>
+        <li>La <b>corbeille</b> est sur chaque ligne, à un clic d'un scénario lancé.</li>
+        <li>Rien ne répond à « <b>où sont mes scénarios ?</b> » ni à « <b>qu'est-ce que je dois corriger ?</b> ».</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Sept propositions, de la plus utile à la moins utile</h2>
+      <ol class="recos">
+        <li><span class="num">1</span><div><div class="reco-t">« Lancé » au lieu de « En lecture », et la même légende partout</div><div class="reco-d">Le mot reprend le bouton « Lancer ». Une icône par état (cercle pointillé, ▶, ❙❙, ✓) ; « Pause » au lieu de « En pause » ; une légende qui s'ouvre depuis « Que veulent dire ces états ? ».</div><div class="qui">Claude : états expliqués · <b>DESIGNER : « Lancé » plutôt que « En cours », faux pour un scénario qui ne publie que dans 3 jours</b></div></div></li>
+        <li><span class="num">2</span><div><div class="reco-t">Un seul mot, « à corriger », et seulement ce qui compte selon l'état</div><div class="reco-d">Brouillon : les remarques de vérification. Lancé, Pause, Terminé : seulement les publications <b style="color:var(--soft)">non parties</b>. Plus d'alerte sur un scénario terminé dont tout est parti.</div><div class="qui">Claude : erreur dite en clair · <b>DESIGNER : un mot unique, pas de fond ni de liseré rouges (le liseré reste celui de la cellule)</b></div></div></li>
+        <li><span class="num">3</span><div><div class="reco-t">Deux filtres de travail : « Mes scénarios » et « À corriger »</div><div class="reco-d">Ce qui part bientôt se suit dans la Supervision.</div><div class="qui">Claude : « À surveiller » · <b>DESIGNER : un filtre = une question, « À corriger (n) »</b></div></div></li>
+        <li><span class="num">7</span><div><div class="reco-t">« Prise en compte » d'une publication non partie</div><div class="reco-d">Dans le scénario, sur la publication : « Changer l'avatar et publier maintenant », ou « Prise en compte — ne pas publier ». Tracé, réversible, sans « tout acquitter ».</div><div class="qui">Utilisateur : demande · <b>DESIGNER : règle par état et geste tracé (avis n°76 § 5.3)</b></div></div></li>
+        <li><span class="num">4</span><div><div class="reco-t">Des colonnes nommées, sans perdre la densité</div><div class="reco-d">Lignes de 40 px ; textes secondaires plus contrastés ; un brouillon dit « 26 publications » sans barre ; les repères actuels (storyline, incident décalé…) restent.</div><div class="qui">Claude : colonnes et avancement · <b>DESIGNER : densité, contraste 4,5 : 1, repères conservés</b></div></div></li>
+        <li><span class="num">5</span><div><div class="reco-t">Filtres en deux groupes nommés : État et Cellule</div><div class="reco-d">Cellule : Toutes · GREYCELL · FORAD · ?, avec effectifs et liseré.</div><div class="qui"><b>DESIGNER : rétablir le filtre de cellule fixé par l'avis n°56</b></div></div></li>
+        <li><span class="num">6</span><div><div class="reco-t">« ⋯ » à la place de la corbeille, selon l'état</div><div class="reco-d">Pause seulement si Lancé, Reprendre si en Pause ; Supprimer à part, en rouge. Toute la ligne ouvre le scénario.</div><div class="qui">Claude : menu « ⋯ » · <b>DESIGNER : menu selon l'état, mêmes verbes que l'éditeur, maniable au clavier</b></div></div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="toggle">
+    <button class="on" data-v="apres">Après (proposition)</button>
+    <button data-v="avant">Avant (aujourd'hui)</button>
+  </div>
+
+  <!-- ================= APRÈS ================= -->
+  <div class="stage" id="apres">
+    <div class="head">
+      <div><div class="eyebrow">Scénarios de la zone</div><h1 style="font-size:26px">Scénarios<button class="aide" title="Aide de l'écran">?</button></h1></div>
+      <button class="btn-primary">+ Nouveau scénario</button>
+    </div>
+
+    <div class="filtres" style="position:relative">
+      <span class="callout" style="left:-30px;top:2px">3</span>
+      <div class="search">Rechercher : code (08.01, I04…) ou nom</div>
+      <div class="grpf"><button class="chip on">Tous <span class="n">58</span></button><button class="chip">Mes scénarios <span class="n">9</span></button><button class="chip">À corriger <span class="n">6</span></button></div>
+    </div>
+    <div class="filtres" style="position:relative;margin-top:10px">
+      <span class="callout" style="left:-30px;top:2px">5</span>
+      <div class="grpf"><span>État</span><button class="chip on">Tous</button><button class="chip">Brouillon <span class="n">7</span></button><button class="chip">Lancé <span class="n">24</span></button><button class="chip">Pause <span class="n">1</span></button><button class="chip">Terminé <span class="n">26</span></button><button class="btn-legende" id="btn-legende" aria-expanded="true" aria-controls="legende">Que veulent dire ces états ?</button></div>
+      <div class="grpf"><span>Cellule</span><button class="chip on">Toutes <span class="n">58</span></button><button class="chip cg">GREYCELL <span class="n">32</span></button><button class="chip cf">FORAD <span class="n">26</span></button><button class="chip" title="Scénarios sans cellule renseignée">? <span class="n">0</span></button></div>
+    </div>
+
+    <div class="legend" id="legende" style="position:relative" role="region" aria-label="Les états d'un scénario">
+      <span class="callout" style="left:-30px;top:10px">1</span>
+      <div><span><span class="tag t-brouillon">Brouillon</span></span><span>Pas encore lancé : rien ne part. Vérifiez, puis « Lancer ».</span></div>
+      <div><span><span class="tag t-lance">Lancé</span></span><span>Chaque publication part <b style="color:var(--soft)">toute seule</b> à son heure, même si personne ne regarde. Pour arrêter : « Pause ».</span></div>
+      <div><span><span class="tag t-pause">Pause</span></span><span>Arrêté : rien ne part. À la reprise, tout ce qui reste est décalé de la durée de la pause.</span></div>
+      <div><span><span class="tag t-fini">Terminé</span></span><span>Plus rien ne partira : les publications sont parties, ou non parties (voir le scénario).</span></div>
+      <button class="fermer" id="fermer-legende">Masquer</button>
+    </div>
+
+    <div class="table" style="position:relative">
+      <span class="callout" style="left:-30px;top:4px">4</span>
+      <div class="cols"><span>Code</span><span>Scénario</span><span>État</span><span>Période</span><span>Publications</span><span>Cellule</span><span>Auteur</span><span></span></div>
+
+      <div class="grp"><span>▾</span><span class="t">Event 07 — ILI</span><span class="stats">12 scénarios · 9 lancés · 3 à corriger</span></div>
+      <div class="grp sl"><span>▸</span><span class="t">07.01 — Signaux faibles captés par les ETIM</span><span class="stats">7 scénarios · 2 à corriger</span></div>
+      <div class="grp sl"><span>▾</span><span class="t">07.24 — Cadre strat</span><span class="stats">5 scénarios · 1 à corriger</span></div>
+
+      <div class="row g" style="position:relative">
+        <span class="callout" style="left:-30px;top:9px">2</span>
+        <span class="mono">07.24</span>
+        <span class="titre"><span class="nom">07.24.I02 Parution désinformation</span></span>
+        <span class="tip"><span class="tag t-fini" tabindex="0">Terminé</span><span class="bulle"><b>Terminé</b> : plus rien ne partira. Toutes les publications sont parties, ou à corriger (voir le scénario).</span></span>
+        <span class="periode">06/10 14:29 → 06/10 22:32</span>
+        <span class="prog"><span>35 / 35 publiées</span><span class="barre"><i class="fini" style="width:100%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">gc03</span>
+        <button class="more" data-etat="fini" aria-label="Actions">⋯</button>
+      </div>
+      <div class="row g">
+        <span class="mono">07.24.I03</span>
+        <span class="titre"><span class="nom">COALITION 3 — relais</span><span class="corr">⚠ <b>1 publication non partie</b> — avatar hors cellule · <a href="#apercu" style="color:var(--halt)">Voir</a></span></span>
+        <span><span class="tag t-fini">Terminé</span></span>
+        <span class="periode">06/10 12:29 → 06/10 20:29</span>
+        <span class="prog"><span>5 / 6 publiées</span><span class="barre"><i class="fini" style="width:83%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">gc03</span>
+        <button class="more" data-etat="fini" aria-label="Actions">⋯</button>
+      </div>
+      <div class="row g">
+        <span class="mono">07.24.I04</span>
+        <span class="titre"><span class="nom">COALITION 4 — synthèse</span><span class="pec"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>1 prise en compte · gc03, 07/10 18:42</span></span>
+        <span><span class="tag t-fini">Terminé</span></span>
+        <span class="periode">06/10 14:00 → 06/10 19:00</span>
+        <span class="prog"><span>34 / 35 publiées</span><span class="barre"><i class="fini" style="width:97%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">gc03</span>
+        <button class="more" data-etat="fini" aria-label="Actions">⋯</button>
+      </div>
+      <div class="row g">
+        <span class="mono">07.24.I01</span>
+        <span class="titre"><span class="nom">COALITION</span></span>
+        <span><span class="tag t-fini">Terminé</span></span>
+        <span class="periode">06/10 10:43 → 20/10 19:26</span>
+        <span class="prog"><span>1 / 1 publiée</span><span class="barre"><i class="fini" style="width:100%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">Thomas Meytre</span>
+        <button class="more" data-etat="fini" aria-label="Actions">⋯</button>
+      </div>
+
+      <div class="grp"><span>▾</span><span class="t">Event 08 — HN</span><span class="stats">6 scénarios · 5 lancés · 1 à corriger</span></div>
+      <div class="grp sl"><span>▾</span><span class="t">08.01 — Dégradation des services essentiels</span><span class="stats">2 scénarios</span></div>
+      <div class="row g">
+        <span class="mono devine" title="Code lu dans le nom, pas lié à MELMIL">08.01</span>
+        <span class="titre"><span class="nom">STARTEX — communiqués</span><span class="reperes" style="margin-left:0"><span class="rep">storyline · 4</span><span class="rep dev" title="L'incident a changé de jour : ouvrir la fiche pour décaler ou garder les dates">incident décalé</span></span></span>
+        <span class="tip"><span class="tag t-lance" tabindex="0">Lancé</span><span class="bulle"><b>Lancé</b> : chaque publication part <b>toute seule</b> à son heure, même si personne ne regarde. Pour arrêter : « Pause ».</span></span>
+        <span class="periode">08/10 09:00 → 08/10 18:00<small>prochaine : dans 42 min</small></span>
+        <span class="prog"><span>4 / 11 publiées</span><span class="barre"><i style="width:36%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">gc01</span>
+        <button class="more" data-etat="lance" aria-label="Actions">⋯</button>
+      </div>
+      <div class="grp sl"><span>▾</span><span class="t">08.02 — Risques sites sensibles</span><span class="stats">1 scénario</span></div>
+      <div class="row g">
+        <span class="mono">08.02.I03</span>
+        <span class="titre"><span class="nom">Accident industriel</span></span>
+        <span class="tip"><span class="tag t-lance" tabindex="0">Lancé</span><span class="bulle"><b>Lancé</b> : chaque publication part <b>toute seule</b> à son heure, même si personne ne regarde. Pour arrêter : « Pause ».</span></span>
+        <span class="periode">10/10 04:00 → 10/10 14:00<small>prochaine : le 10/10 à 04:00</small></span>
+        <span class="prog"><span>0 / 26 publiées</span><span class="barre"><i style="width:0%"></i></span></span>
+        <span><span class="cel cel-g">GREYCELL</span></span>
+        <span class="auteur">gc07</span>
+        <button class="more" data-etat="lance" aria-label="Actions">⋯</button>
+      </div>
+      <div class="grp sl"><span>▾</span><span class="t">25.02 — Analyses économiste des manœuvres occidentales</span><span class="stats">1 scénario · 1 à corriger</span></div>
+      <div class="row f" style="position:relative">
+        <span class="mono">25.02.I02</span>
+        <span class="titre"><span class="nom">Attaques vs GDIV1</span><span class="corr">⚠ <b>2 à corriger avant de lancer</b> — ouvrez le scénario, puis « Vérifier »</span></span>
+        <span class="tip"><span class="tag t-brouillon" tabindex="0">Brouillon</span><span class="bulle"><b>Brouillon</b> : pas encore lancé, rien ne part. Vérifiez, puis « Lancer ».</span></span>
+        <span class="periode">09/10 08:00 → 09/10 18:00</span>
+        <span class="prog"><span>12 publications</span></span>
+        <span><span class="cel cel-f">FORAD</span></span>
+        <span class="auteur">fd18</span>
+        <button class="more" data-etat="brouillon" aria-label="Actions">⋯</button>
+        <span class="callout" style="left:-30px;top:9px">6</span>
+      </div>
+      <div class="row f">
+        <span class="mono">24.05.I05</span>
+        <span class="titre"><span class="nom">Mercure Today — revue du soir</span></span>
+        <span class="tip"><span class="tag t-pause" tabindex="0">Pause</span><span class="bulle"><b>Pause</b> : arrêté, rien ne part. À la reprise, tout ce qui reste est décalé de la durée de la pause.</span></span>
+        <span class="periode">07/10 19:00 → 07/10 23:00<small>en pause depuis 18:12</small></span>
+        <span class="prog"><span>2 / 9 publiées</span><span class="barre"><i style="width:22%"></i></span></span>
+        <span><span class="cel cel-f">FORAD</span></span>
+        <span class="auteur">fd06</span>
+        <button class="more" data-etat="pause" aria-label="Actions">⋯</button>
+      </div>
+    </div>
+    <p class="note">Survolez un état, ou passez dessus au clavier (Tab), pour sa définition. Cliquez « ⋯ » : le menu change selon l'état. Les pastilles violettes renvoient aux propositions. Données de démonstration, d'après la capture du 07/10.</p>
+
+    <div id="apercu" class="apercu" style="position:relative">
+      <span class="callout" style="left:-30px;top:2px">7</span>
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px">Dans le scénario 07.24.I03 — une publication non partie</div>
+        <div class="pub">
+          <div class="pub-l"><span class="h">12:29</span><div><span class="who">@arn_krauss</span><div class="msg">Nous soutenons pleinement la coalition…</div></div><span class="tag t-fini">Publiée</span></div>
+          <div class="pub-l"><span class="h">12:44</span><div><span class="who">@rzo_kimberley</span><div class="msg">Ce matin encore, les volontaires étaient là…</div>
+            <div class="motif">⚠ <b>Non partie</b> — avatar hors cellule : @rzo_kimberley est réservé au RENS.
+              <div class="gestes"><button class="g1">Changer l'avatar et publier maintenant</button><button class="g2">Prise en compte — ne pas publier</button></div></div></div><span></span></div>
+          <div class="pub-l"><span class="h">13:05</span><div><span class="who">@arn_orchkova</span><div class="msg">Merci à tous ceux qui ont aidé…</div></div><span class="tag t-fini">Publiée</span></div>
+        </div>
+      </div>
+      <div class="dialog" role="dialog" aria-labelledby="pec-titre">
+        <div class="eyebrow" style="margin-bottom:8px">Après « Prise en compte — ne pas publier »</div>
+        <h3 id="pec-titre">Prendre en compte cette publication ?</h3>
+        <p>Cette publication ne partira pas. Elle ne sera plus comptée dans « À corriger ». C'est tracé (qui, quand, motif) et réversible.</p>
+        <label for="pec-motif">Motif (facultatif)</label>
+        <input id="pec-motif" placeholder="ex. remplacée par un post en direct">
+        <div class="act"><button class="g2">Annuler</button><button class="g1">Prendre en compte</button></div>
+      </div>
+    </div>
+
+    <div class="card valider">
+      <h2>✅ Tranché avec toi le 07/10</h2>
+      <ol>
+        <li><b>« Lancé »</b> pour l'état actif, partout dans la zone.</li>
+        <li>Tri rapide : <b>« Mes scénarios » et « À corriger »</b> (pas de « Part dans l'heure »).</li>
+        <li>Autorisation « avatars hors cellule » : le message renvoie vers <b>l'Administration</b>.</li>
+        <li><b>Pas d'essai</b> préalable auprès d'animateurs nouveaux.</li>
+        <li>Légende <b>ouverte à la première visite</b>, puis retenue par navigateur.</li>
+        <li>Scénario terminé : <b>« Changer l'avatar et publier maintenant »</b> et <b>« Prise en compte »</b>.</li>
+        <li>« Prise en compte » : <b>cellule du scénario + Administration</b>.</li>
+        <li>« <b>Pause</b> » au lieu de « En pause ».</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================= AVANT ================= -->
+  <div class="stage hidden" id="avant">
+    <div class="head">
+      <div><div class="eyebrow">Scénarios de la zone</div><h1 style="font-size:26px">Scénarios <span class="aide">?</span></h1></div>
+      <button class="btn-primary">+ Nouveau scénario</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <div class="search">Code (08.01, I04…) ou nom</div>
+      <span class="old-tag" style="background:var(--craie);color:var(--craie-on);padding:8px 12px">TOUS 58</span>
+      <span class="old-tag" style="padding:8px 12px">BROUILLONS 7</span><span class="old-tag" style="padding:8px 12px">EN LECTURE 24</span>
+      <span class="old-tag" style="padding:8px 12px">EN PAUSE 1</span><span class="old-tag" style="padding:8px 12px">TERMINÉS 26</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;font-size:12px;color:var(--muted);align-items:center">Cellule <span class="old-tag">TOUTES 58</span><span class="old-tag" style="background:var(--craie);color:var(--craie-on)">GREYCELL 32</span><span class="old-tag">FORAD 26</span></div>
+    <div class="table">
+      <div class="old-h">▾ Event 07 — ILI <small>· 12 scénarios · 9 en lecture · <span class="red">5 en erreur</span></small></div>
+      <div class="old-s">› Storyline 07.01 — SIGNAUX FAIBLES CAPTES PAR LES ETIM <small>· 7 scénarios · 7 en lecture · <span class="red">2 en erreur</span></small></div>
+      <div class="old-s">› Storyline 07.02 — RUMEURS SUR LA FORCE <small>· 1 scénario · 1 en lecture · <span class="red">1 en erreur</span></small></div>
+      <div class="old-s">⌄ Storyline 07.24 — CADRE STRAT <small>· 3 scénarios · <span class="red">1 en erreur</span></small></div>
+      <div class="old-row"><span class="mono">07.24</span><b>07.24.I02 Parution désinform…</b><span class="old-tag">TERMINÉ</span><span class="old-warn">⚠ 1</span><span class="mono">06/10 14:29 → 22:32</span><span class="mono">35/35 publiés</span><span class="cel cel-g">GREYCELL</span><span class="mono">gc03</span><span>🗑</span></div>
+      <div class="old-row"><span class="mono">07.24.I01</span><b>COALITION</b><span class="old-tag">TERMINÉ</span><span></span><span class="mono">06/10 10:43 → 20/10 19:26</span><span class="mono">1/1 publiés</span><span class="cel cel-g">GREYCELL</span><span class="mono">Thomas MEY…</span><span>🗑</span></div>
+      <div class="old-h">▾ Event 08 — HN <small>· 6 scénarios · 5 en lecture · <span class="red">3 en erreur</span></small></div>
+      <div class="old-s">⌄ Storyline 08.02 — Risques sites sensibles <small>· 1 scénario · 1 en lecture · <span class="red">1 en erreur</span></small></div>
+      <div class="old-row"><span class="mono">08.02.I03</span><b>Accident industriel</b><span class="old-tag vert">EN LECTURE</span><span class="old-warn">⚠ 1</span><span class="mono">10/10 04:00 → 14:00</span><span class="mono">0/26 publiés</span><span class="cel cel-g">GREYCELL</span><span class="mono">gc07</span><span>🗑</span></div>
+    </div>
+    <p class="note">Reproduction simplifiée de la capture du 07/10.</p>
+  </div>
+</div>
+
+<div class="menu hidden" id="menu" role="menu"></div>
+
+<script>
+  document.querySelectorAll(".toggle button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".toggle button").forEach((x) => x.classList.toggle("on", x === b));
+    document.getElementById("apres").classList.toggle("hidden", b.dataset.v !== "apres");
+    document.getElementById("avant").classList.toggle("hidden", b.dataset.v !== "avant");
+  }));
+  const ICONES = {
+    "t-brouillon": '<path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/>',
+    "t-lance": '<circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/>',
+    "t-pause": '<circle cx="12" cy="12" r="10"/><path d="M10 15V9"/><path d="M14 15V9"/>',
+    "t-fini": '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  };
+  document.querySelectorAll(".tag").forEach((t) => {
+    const k = Object.keys(ICONES).find((c) => t.classList.contains(c));
+    if (k) t.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONES[k]}</svg>`);
+  });
+  // Légende : ouverte à la première visite, puis l'état choisi est retenu par navigateur.
+  const leg = document.getElementById("legende"), btnLeg = document.getElementById("btn-legende");
+  const poser = (ouvert) => { leg.classList.toggle("hidden", !ouvert); btnLeg.setAttribute("aria-expanded", String(ouvert)); try { localStorage.setItem("maq_legende", ouvert ? "1" : "0"); } catch {} };
+  let initial = true; try { initial = localStorage.getItem("maq_legende") !== "0"; } catch {}
+  poser(initial);
+  btnLeg.addEventListener("click", (e) => { e.stopPropagation(); poser(leg.classList.contains("hidden")); });
+  document.getElementById("fermer-legende").addEventListener("click", (e) => { e.stopPropagation(); poser(false); btnLeg.focus(); });
+  leg.addEventListener("keydown", (e) => { if (e.key === "Escape") { poser(false); btnLeg.focus(); } });
+  const ITEMS = {
+    brouillon: ["Ouvrir", "Dupliquer", "Exporter le fichier"],
+    lance: ["Ouvrir", "Pause", "Dupliquer", "Exporter le fichier"],
+    pause: ["Ouvrir", "Reprendre", "Dupliquer", "Exporter le fichier"],
+    fini: ["Ouvrir", "Dupliquer", "Exporter le fichier"],
+  };
+  const menu = document.getElementById("menu");
+  const fermer = () => menu.classList.add("hidden");
+  document.querySelectorAll(".more").forEach((b) => b.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menu.innerHTML = ITEMS[b.dataset.etat].map((t) => `<button role="menuitem">${t}</button>`).join("") + `<button role="menuitem" class="danger">Supprimer…</button>`;
+    const r = b.getBoundingClientRect();
+    menu.style.left = (r.right + window.scrollX - 210) + "px";
+    menu.style.top = (r.bottom + window.scrollY + 6) + "px";
+    menu.classList.remove("hidden");
+    menu.querySelector("button").focus();
+  }));
+  document.addEventListener("click", fermer);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fermer();
+    if (!menu.classList.contains("hidden") && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+      const l = [...menu.querySelectorAll("button")]; const i = l.indexOf(document.activeElement);
+      l[(i + (e.key === "ArrowDown" ? 1 : l.length - 1)) % l.length].focus(); e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zones PLÉIADE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Maquette de l'avis DESIGNER n°79 — page « Zones » de l'orchestrateur pleiade-platform.
+     Couleurs et polices relevées dans public/style.css (Archivo, JetBrains Mono, graphite, crème). */
+  :root {
+    --shell:#161719; --panel:#1b1c1f; --sunken:#101113; --field:#212327;
+    --line:#2e3033; --line-soft:#232528; --line-ctl:#41444a;
+    --ink:#FAFAF7; --body:#EDEEF2; --soft:#c3c8d8; --muted:#9aa0b4;
+    --craie:#EDE3C8; --craie-on:#14140F; --craie-soft:rgb(237 227 200 / .14);
+    --online:#34d399; --dev:#fb923c; --halt:#f87171; --link:#9fb3d9;
+    --note:#8b7cf6;
+    color-scheme: dark;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--shell); }
+  body { color:var(--body); font:14px/1.45 Archivo, system-ui, sans-serif; overflow-x:hidden; }
+  button, input, select { font-family:inherit; font-size:inherit; }
+  .mono { font-family:"JetBrains Mono", ui-monospace, monospace; }
+  svg.i { stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; flex:none; vertical-align:-2px; }
+  :focus-visible { outline:2px solid var(--craie); outline-offset:2px; border-radius:4px; }
+  [hidden] { display:none !important; }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* ---------- Bandeau de la maquette (violet = hors app) ---------- */
+  .mq { position:sticky; top:0; z-index:40; background:#1d1934; border-bottom:2px solid var(--note); padding:8px 16px; }
+  .mq-l1 { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; }
+  .mq-t { color:#fff; font-weight:700; font-size:13px; }
+  .mq-t small { display:block; color:#c9c1ff; font-weight:400; font-size:11.5px; }
+  .mq-ecrans { display:inline-flex; flex-wrap:wrap; border:1px solid #5b4fc4; border-radius:7px; overflow:hidden; }
+  .mq-ecrans button { background:transparent; color:#d9d3ff; border:0; padding:5px 10px; font-size:12px; font-weight:600; cursor:pointer; }
+  .mq-ecrans button.on { background:var(--note); color:#fff; }
+  .mq-b { background:transparent; border:0; color:#c9c1ff; text-decoration:underline; text-underline-offset:3px; cursor:pointer; font-size:12px; padding:4px 2px; }
+  .mq-leg { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:4px 18px; margin:8px 0 2px; padding:0; list-style:none; font-size:12px; color:#d9d3ff; max-height:40vh; overflow:auto; }
+  .mq-leg li { padding:3px 6px; border-radius:5px; }
+  .mq-leg li.flash { background:#4b3fb4; color:#fff; }
+  .pa { display:inline-grid; place-items:center; min-width:20px; height:20px; padding:0 5px; border-radius:10px; background:var(--note); color:#fff; font:700 10.5px/1 Archivo, sans-serif; cursor:help; vertical-align:middle; flex:none; border:0; letter-spacing:0; }
+  body.sans-pa .pa { display:none; }
+  .ex-note { display:inline-flex; align-items:center; gap:5px; color:#c9c1ff; font-size:11.5px; border:1px dashed #5b4fc4; border-radius:5px; padding:1px 6px; }
+
+  /* ---------- Barre de l'orchestrateur (relevée sur la capture) ---------- */
+  .nav { display:flex; align-items:center; gap:2px; height:56px; padding:0 24px; border-bottom:1px solid var(--line); background:var(--shell); }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2em; color:var(--ink); font-size:14px; padding-right:20px; margin-right:10px; border-right:1px solid var(--line); }
+  .nav a.nl { color:var(--soft); text-decoration:none; padding:0 14px; height:56px; display:flex; align-items:center; font-size:13.5px; border-bottom:2px solid transparent; }
+  .nav a.nl.on { color:var(--ink); font-weight:600; border-bottom-color:var(--craie); }
+  .nav .r { margin-left:auto; display:flex; gap:12px; align-items:center; font-size:11px; letter-spacing:.14em; color:#7f97b2; }
+  .nav .r .sq { width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--line-ctl); border-radius:4px; color:var(--ink); letter-spacing:0; font-size:12px; font-weight:700; }
+  .nav .r .t { color:var(--ink); letter-spacing:0; font-size:12px; font-weight:600; }
+
+  /* ---------- Page ---------- */
+  main { max-width:1180px; margin:0 auto; padding:30px 24px 80px; }
+  h1 { margin:0; font-size:27px; color:var(--ink); font-weight:700; letter-spacing:-.01em; outline:none; }
+  .head { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px 20px; margin-bottom:20px; }
+  .head-t { min-width:0; flex:1 1 480px; }
+  .head .actions { flex:none; }
+  .meta { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; margin-top:8px; font-size:12.5px; color:var(--muted); }
+  .meta .sep { color:var(--line-ctl); }
+  .actions { display:flex; gap:8px; align-items:center; margin-left:auto; flex-wrap:wrap; justify-content:flex-end; }
+  .retour { display:inline-flex; align-items:center; gap:6px; color:var(--soft); font-size:13px; text-decoration:underline; text-underline-offset:3px; margin-bottom:10px; }
+  .retour:hover { color:var(--ink); }
+
+  .btn-p, .btn-s, .btn-d { display:inline-flex; align-items:center; gap:7px; height:36px; padding:0 15px; border-radius:6px; font-weight:600; font-size:13px; cursor:pointer; white-space:nowrap; }
+  .btn-p { background:var(--craie); color:var(--craie-on); border:1px solid var(--craie); }
+  .btn-p:hover { background:#f6eed8; }
+  .btn-s { background:transparent; color:var(--ink); border:1px solid var(--line-ctl); }
+  .btn-s:hover { background:var(--field); }
+  .btn-d { background:transparent; color:var(--halt); border:1px solid #7a3434; }
+  .btn-d:not(:disabled):hover { background:rgb(248 113 113 / .1); }
+  .btn-d:disabled { opacity:.45; cursor:not-allowed; }
+  .btn-s.sm { height:30px; padding:0 11px; font-size:12.5px; }
+  .btn-ico { display:inline-grid; place-items:center; width:32px; height:32px; border-radius:6px; background:transparent; border:1px solid var(--line-ctl); color:var(--ink); cursor:pointer; }
+  .btn-ico:hover, .btn-ico[aria-expanded="true"] { background:var(--field); }
+  .btn-ico.l { width:36px; height:36px; }
+  .lien { background:transparent; border:0; padding:0; color:var(--soft); text-decoration:underline; text-underline-offset:3px; cursor:pointer; font-size:inherit; }
+  .lien:hover { color:var(--ink); }
+
+  /* Barre de filtres (socle n°77 : recherche → segmenté exclusif → listes → bascule) */
+  .filtres { display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px; padding:12px; background:var(--panel); border:1px solid var(--line-soft); border-radius:10px; }
+  .recherche { position:relative; display:flex; align-items:center; flex:1 1 300px; min-width:0; }
+  .recherche svg { position:absolute; left:11px; color:var(--muted); pointer-events:none; }
+  .recherche input { width:100%; height:36px; padding:0 34px 0 34px; background:var(--field); border:1px solid var(--line-ctl); border-radius:6px; color:var(--ink); }
+  .recherche input::placeholder { color:var(--muted); }
+  .recherche .eff { position:absolute; right:6px; width:24px; height:24px; display:grid; place-items:center; background:transparent; border:0; color:var(--muted); cursor:pointer; border-radius:4px; }
+  .seg { display:inline-flex; max-width:100%; overflow-x:auto; border:1px solid var(--line-ctl); border-radius:7px; background:var(--sunken); padding:2px; gap:2px; scrollbar-width:thin; }
+  .seg button, .seg label { flex:none; display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 11px; border:0; border-radius:5px; background:transparent; color:var(--soft); cursor:pointer; font-size:13px; white-space:nowrap; position:relative; }
+  .seg .n { color:var(--muted); font-size:11.5px; font-variant-numeric:tabular-nums; }
+  .seg button[aria-checked="true"], .seg label:has(input:checked) { background:var(--craie-soft); color:var(--ink); font-weight:600; }
+  .seg button[aria-checked="true"] .n { color:var(--soft); }
+  .champ .seg label { display:inline-flex; padding:0 12px; margin:0; font-weight:500; color:var(--soft); font-size:13px; }
+  .champ .seg label:has(input:checked) { color:var(--ink); font-weight:600; }
+  .seg label input { position:absolute; opacity:0; inset:0; margin:0; cursor:pointer; }
+  .seg label:has(input:focus-visible) { outline:2px solid var(--craie); outline-offset:1px; }
+  .sel { display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--muted); }
+  .sel select { height:34px; background:var(--field); color:var(--ink); border:1px solid var(--line-ctl); border-radius:6px; padding:0 8px; }
+  .bascule { display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 11px; border:1px solid var(--line-ctl); border-radius:6px; color:var(--soft); cursor:pointer; font-size:13px; background:transparent; }
+  .bascule[aria-pressed="true"] { background:var(--craie-soft); color:var(--ink); font-weight:600; }
+  .bascule .coche { width:14px; height:14px; border:1px solid var(--line-ctl); border-radius:3px; display:grid; place-items:center; }
+  .bascule[aria-pressed="true"] .coche { background:var(--craie); border-color:var(--craie); color:var(--craie-on); }
+  .resume { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; margin:12px 2px 6px; font-size:12.5px; color:var(--muted); min-height:20px; }
+  .resume .droite { margin-left:auto; display:flex; gap:6px; align-items:center; }
+
+  /* Blocs de familles */
+  .bloc { margin-top:26px; }
+  .bloc-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:14px; }
+  .bloc-h h2 { margin:0; font-size:17px; color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .bloc-h h2 .n { font-size:12.5px; color:var(--muted); font-weight:500; }
+  .bloc-h p { margin:0; font-size:12.5px; color:var(--muted); }
+  .bloc-h .droite { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--muted); }
+  .bloc-h .seg button { height:26px; font-size:12.5px; }
+  .annee + .annee, .serie + .serie { margin-top:18px; }
+  .annee h3, .serie h3 { margin:0 0 8px; font-size:13px; color:var(--soft); font-weight:600; display:flex; align-items:center; gap:10px; }
+  .annee h3::after { content:""; flex:1; height:1px; background:var(--line-soft); }
+  .serie-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; margin-bottom:8px; }
+  .serie-h h3 { margin:0; font-size:14px; color:var(--ink); }
+  .serie-h span { font-size:12.5px; color:var(--muted); }
+  .grille { display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:12px; }
+  .vide-bloc { font-size:13px; color:var(--muted); padding:14px; border:1px dashed var(--line-ctl); border-radius:8px; }
+
+  /* Carte de zone repliée */
+  .carte { position:relative; display:flex; flex-direction:column; gap:8px; padding:14px 14px 12px; background:var(--panel); border:1px solid var(--line-soft); border-radius:10px; color:inherit; text-decoration:none; transition:border-color .15s, background-color .15s; min-width:0; }
+  .carte:hover { border-color:var(--line-ctl); background:#1f2024; }
+  .carte.arch { opacity:.72; }
+  .c-haut { display:flex; align-items:flex-start; gap:10px; }
+  .c-nom { font-size:15.5px; font-weight:700; color:var(--ink); line-height:1.25; overflow-wrap:anywhere; }
+  .c-id { font-size:11.5px; color:var(--muted); margin-top:2px; overflow-wrap:anywhere; }
+  .c-fl { margin-left:auto; color:var(--muted); flex:none; margin-top:2px; }
+  .carte:hover .c-fl { color:var(--ink); }
+  .c-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .c-ics { display:flex; align-items:center; gap:4px; }
+  .c-ics img { width:22px; height:22px; border-radius:5px; object-fit:contain; background:#24262a; padding:2px; }
+  .c-ics .plus { font-size:11.5px; color:var(--muted); margin-left:2px; }
+  .c-pied { display:flex; flex-wrap:wrap; gap:2px 10px; font-size:12px; color:var(--muted); border-top:1px solid var(--line-soft); padding-top:8px; margin-top:auto; }
+  .c-via { font-size:12px; color:var(--soft); }
+  .c-via b { color:var(--ink); }
+
+  /* Étiquettes : icône + mot, casse normale (socle n°77) */
+  .et { display:inline-flex; align-items:center; gap:5px; height:22px; padding:0 8px; border-radius:5px; font-size:12px; font-weight:600; border:1px solid currentColor; white-space:nowrap; }
+  .et.on { color:var(--online); border-color:rgb(52 211 153 / .45); }
+  .et.dev { color:var(--dev); border-color:rgb(251 146 60 / .45); }
+  .et.halt { color:var(--halt); border-color:rgb(248 113 113 / .45); }
+  .et.mu { color:var(--muted); border-color:var(--line-ctl); }
+  .et.prod { color:var(--online); border-color:rgb(52 211 153 / .45); }
+  .et.plat { border:0; padding:0; height:auto; font-weight:500; }
+
+  /* Page de zone */
+  .z-ed { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:-4px 0 20px; font-size:12.5px; color:var(--muted); }
+  .z-ed a { display:inline-flex; align-items:center; gap:6px; color:var(--soft); text-decoration:none; border:1px solid var(--line-ctl); border-radius:6px; padding:3px 9px; }
+  .z-ed a:hover { color:var(--ink); background:var(--field); }
+  .z-ed a[aria-current="page"] { background:var(--craie-soft); color:var(--ink); font-weight:600; border-color:transparent; }
+  .groupe { margin-top:22px; }
+  .g-h { display:flex; align-items:center; gap:10px; margin:0 0 8px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .g-h .n { letter-spacing:0; text-transform:none; font-weight:500; }
+  .g-pli { display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; width:100%; background:var(--panel); border:1px solid var(--line-soft); border-radius:8px; padding:10px 14px; color:var(--muted); cursor:pointer; text-align:left; font:inherit; }
+  .g-pli:hover { border-color:var(--line-ctl); }
+  .g-pli .ch { transition:transform .15s; }
+  .g-pli[aria-expanded="true"] .ch { transform:rotate(90deg); }
+  .g-pli .tt { font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+  .g-pli .n { font-size:12.5px; }
+  .g-logos { display:flex; gap:4px; flex-wrap:wrap; }
+  .g-logos img { width:22px; height:22px; border-radius:4px; background:#fff; object-fit:contain; padding:1px; }
+  .g-pli .et { margin-left:auto; }
+  .g-corps { margin-top:6px; }
+  .inst { display:grid; grid-template-columns:30px minmax(0,1.2fr) minmax(0,1.3fr) 118px auto; grid-template-areas:"ic nom adr etat act"; gap:4px 14px; align-items:center; padding:9px 12px; background:var(--panel); border:1px solid var(--line-soft); border-radius:8px; }
+  .inst + .inst { margin-top:6px; }
+  .inst-ic { grid-area:ic; width:30px; height:30px; border-radius:6px; object-fit:contain; background:#24262a; padding:2px; }
+  .inst-ic.logo { background:#fff; }
+  .inst-nom { grid-area:nom; min-width:0; }
+  .inst-nom b { display:block; color:var(--ink); font-weight:600; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .inst-sous { display:flex; flex-wrap:wrap; gap:2px 10px; font-size:12px; color:var(--muted); }
+  .inst-sous .vis { display:inline-flex; align-items:center; gap:4px; }
+  .inst-adr { grid-area:adr; min-width:0; font-size:12px; color:var(--link); text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .inst-adr:hover { text-decoration:underline; }
+  .inst-etat { grid-area:etat; }
+  .inst-act { grid-area:act; display:flex; gap:6px; justify-content:flex-end; }
+  .inst.off .inst-ic { opacity:.5; }
+  .z-vide { padding:28px 20px; text-align:center; border:1px dashed var(--line-ctl); border-radius:10px; color:var(--muted); margin-top:20px; }
+  .z-vide p { margin:0 0 14px; }
+  .z-note { display:flex; gap:8px; align-items:flex-start; padding:10px 12px; border:1px solid var(--line-ctl); border-radius:8px; color:var(--soft); font-size:13px; margin-bottom:16px; background:var(--panel); }
+
+  /* Menu « ⋯ » */
+  .menu { position:absolute; z-index:60; min-width:230px; max-width:calc(100vw - 16px); background:#202226; border:1px solid var(--line-ctl); border-radius:8px; padding:5px; box-shadow:0 12px 30px rgb(0 0 0 / .45); }
+  .menu-t { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); padding:6px 10px 4px; }
+  .menu-it { display:flex; align-items:center; gap:9px; width:100%; padding:8px 10px; background:transparent; border:0; border-radius:5px; color:var(--body); text-align:left; cursor:pointer; font-size:13px; }
+  .menu-it:hover, .menu-it:focus-visible { background:var(--field); outline:none; }
+  .menu-it svg { color:var(--muted); }
+  .menu-it.danger, .menu-it.danger svg { color:var(--halt); }
+  .menu-it:disabled { opacity:.45; cursor:not-allowed; }
+  .menu-it .k { margin-left:auto; color:var(--muted); font-size:11.5px; }
+  .menu-sep { height:1px; background:var(--line); margin:5px 4px; }
+
+  /* Fenêtres */
+  dialog { padding:0; border:1px solid var(--line-ctl); border-radius:12px; background:var(--panel); color:var(--body); width:min(620px, calc(100vw - 24px)); max-height:calc(100vh - 32px); }
+  dialog.large { width:min(820px, calc(100vw - 24px)); }
+  dialog::backdrop { background:rgb(0 0 0 / .6); }
+  .dlg { padding:20px 22px; }
+  .dlg-h { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .dlg-h h2 { margin:0; font-size:18px; color:var(--ink); }
+  .dlg-h .btn-ico { margin-left:auto; border-color:transparent; }
+  .dlg-pied { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; padding-top:14px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .dlg p { margin:0 0 10px; color:var(--soft); }
+  .champ { margin:0 0 14px; border:0; padding:0; min-width:0; }
+  .champ label, .champ legend, .champ .lbl { display:block; font-weight:600; color:var(--ink); font-size:13.5px; margin-bottom:2px; padding:0; }
+  .champ .aide { display:block; color:var(--muted); font-size:12.5px; margin-bottom:6px; }
+  .champ input[type=text], .champ input[type=number], .champ input:not([type]) { width:100%; height:38px; padding:0 10px; background:var(--field); border:1px solid var(--line-ctl); border-radius:6px; color:var(--ink); }
+  .champ input[readonly] { color:var(--muted); background:var(--sunken); }
+  .champ input[aria-invalid="true"] { border:2px solid var(--halt); }
+  .champ .msg { display:block; color:var(--halt); font-weight:600; font-size:12.5px; margin-bottom:4px; }
+  .ligne2 { display:grid; grid-template-columns:minmax(0,1fr) 130px; gap:0 12px; }
+  .id-l { display:flex; align-items:center; gap:6px; }
+  .id-l .suffixe { font-size:12px; color:var(--muted); white-space:nowrap; }
+  .fam-choix { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px; margin-top:6px; }
+  .champ .fam { position:relative; display:flex; margin:0; font-weight:400; flex-direction:column; gap:3px; padding:10px 11px; border:1px solid var(--line-ctl); border-radius:8px; cursor:pointer; }
+  .fam input { position:absolute; opacity:0; inset:0; margin:0; cursor:pointer; }
+  .fam:has(input:checked) { background:var(--craie-soft); border-color:var(--craie); }
+  .fam:has(input:focus-visible) { outline:2px solid var(--craie); outline-offset:2px; }
+  .fam-t { display:flex; align-items:center; gap:7px; font-weight:600; color:var(--ink); font-size:13.5px; }
+  .fam-a { font-size:12px; color:var(--muted); }
+  .apercu { display:flex; gap:8px; align-items:flex-start; padding:10px 12px; border-radius:8px; background:var(--sunken); border:1px solid var(--line-soft); font-size:13px; color:var(--soft); }
+  .apercu b { color:var(--ink); }
+  .erreurs { border:2px solid var(--halt); border-radius:8px; padding:12px 14px; margin-bottom:16px; outline:none; }
+  .erreurs h3 { margin:0 0 6px; font-size:14.5px; color:var(--ink); }
+  .erreurs ul { margin:0; padding-left:18px; }
+  .erreurs a { color:var(--halt); font-weight:600; }
+  .conseil { padding:10px 12px; border:1px solid var(--line-ctl); border-radius:8px; }
+  .apps-r { margin-bottom:12px; }
+  .apps-g h3 { margin:14px 0 6px; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  .apps-l { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:8px; }
+  .app-t { display:flex; gap:10px; align-items:center; text-align:left; padding:10px; background:var(--sunken); border:1px solid var(--line-soft); border-radius:8px; color:inherit; cursor:pointer; }
+  .app-t:hover { border-color:var(--craie); }
+  .app-t img { width:32px; height:32px; border-radius:6px; object-fit:contain; flex:none; }
+  .app-t b { display:block; color:var(--ink); font-size:13.5px; }
+  .app-t span { display:block; font-size:12px; color:var(--muted); line-height:1.35; }
+
+  /* Toast */
+  .toast { position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:80; display:flex; align-items:center; gap:14px; background:#2a2c31; border:1px solid var(--line-ctl); border-radius:8px; padding:10px 14px; color:var(--ink); font-size:13px; box-shadow:0 10px 30px rgb(0 0 0 / .5); max-width:calc(100vw - 24px); }
+  .toast .lien { color:var(--craie); font-weight:600; }
+
+  footer { border-top:1px solid var(--line); padding:16px 24px; font-size:11px; letter-spacing:.14em; color:#7f97b2; display:flex; flex-wrap:wrap; gap:6px 20px; }
+  footer .v { margin-left:auto; letter-spacing:0; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+  @media (max-width: 900px) {
+    .nav .r .cls, .nav .r .t.org { display:none; }
+  }
+  @media (max-width: 760px) {
+    .nav { padding:0 12px; overflow-x:auto; }
+    .brand { padding-right:10px; margin-right:4px; letter-spacing:.12em; }
+    .brand .bt { display:none; }
+    .nav a.nl { padding:0 10px; }
+    .nav .r .t.dec, .nav .r .theme { display:none; }
+    main { padding:22px 16px 60px; }
+    h1 { font-size:23px; }
+    .actions { margin-left:0; width:100%; justify-content:flex-start; }
+    .inst { grid-template-columns:30px minmax(0,1fr) auto; grid-template-areas:"ic nom act" "ic etat act" "ic adr adr"; }
+    .fam-choix { grid-template-columns:1fr; }
+    .ligne2 { grid-template-columns:minmax(0,1fr) 96px; }
+    .sel { flex:1 1 140px; }
+    .sel select { flex:1; min-width:0; }
+    .bloc-h .droite { margin-left:0; width:100%; }
+    .dlg { padding:16px; }
+    footer .v { margin-left:0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Bandeau de maquette : ne fait pas partie de l'app -->
+<div class="mq" role="region" aria-label="Commandes de la maquette">
+  <div class="mq-l1">
+    <span class="mq-t">Maquette — avis DESIGNER n°79 · page « Zones » de l'orchestrateur
+      <small>Ce bandeau violet ne fait pas partie de l'app. Les pastilles violettes renvoient aux recommandations R1 à R9. Rien n'est envoyé au serveur.</small></span>
+    <div class="mq-ecrans" id="ecrans">
+      <button type="button" data-ecran="accueil">Accueil</button>
+      <button type="button" data-ecran="zone">Page de zone</button>
+      <button type="button" data-ecran="nouvelle">Nouvelle zone</button>
+      <button type="button" data-ecran="modifier">Modifier la zone</button>
+      <button type="button" data-ecran="instance">+ Instance</button>
+    </div>
+    <button type="button" class="mq-b" id="bPa" aria-pressed="true">Masquer les pastilles</button>
+    <button type="button" class="mq-b" id="bLeg" aria-expanded="false" aria-controls="leg">Voir les recommandations</button>
+  </div>
+  <ul class="mq-leg" id="leg" hidden></ul>
+</div>
+
+<nav class="nav" aria-label="Orchestrateur">
+  <span class="brand"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="5" cy="9" r="1" fill="currentColor"/><circle cx="19" cy="8" r="1" fill="currentColor"/><circle cx="8" cy="19" r="1" fill="currentColor"/><circle cx="17" cy="18" r="1" fill="currentColor"/><circle cx="12" cy="3.5" r="1" fill="currentColor"/></svg><span class="bt">PLÉIADE</span></span>
+  <a class="nl on" href="#" aria-current="page">Zones</a>
+  <a class="nl" href="#" data-act="hors">Développeur</a>
+  <a class="nl" href="#" data-act="hors">Images</a>
+  <div class="r">
+    <span class="cls">EXERCICE · NON CLASSIFIÉ</span>
+    <span class="t org">Organisateurs</span>
+    <span class="sq theme" aria-hidden="true"><svg class="i" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg></span>
+    <span class="sq">TM</span>
+    <span class="t dec">Déconnexion</span>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<footer><span>PLÉIADE · PLATEFORME D'ENTRAÎNEMENT ILI · ENVIRONNEMENT SIMULÉ</span><span class="v mono">v0.2.0 · maquette n°79</span></footer>
+
+<dialog id="dlg" aria-labelledby="dlgTitre"></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+"use strict";
+/* ================= Icônes (tracés Lucide, ISC) ================= */
+const I = {
+  search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  more:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+  chevR:'<path d="m9 18 6-6-6-6"/>',
+  arrowL:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  arrowR:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+  x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  archive:'<rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/>',
+  play:'<polygon points="6 3 20 12 6 21 6 3"/>',
+  stop:'<rect width="14" height="14" x="5" y="5" rx="2"/>',
+  ext:'<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  settings:'<path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/>',
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  eyeOff:'<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="m2 2 20 20"/>',
+  image:'<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+  terminal:'<path d="m4 17 6-6-6-6"/><path d="M12 19h8"/>',
+  pencil:'<path d="M21.17 6.81a1 1 0 0 0-3.99-3.99L3.84 16.17a2 2 0 0 0-.5.83l-1.32 4.35a.5.5 0 0 0 .62.62l4.35-1.32a2 2 0 0 0 .83-.5z"/>',
+  trash:'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>',
+  refresh:'<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+  book:'<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
+  swap:'<path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/>',
+  tag:'<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5"/>',
+  flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
+  wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  flask:'<path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/>',
+  check:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  pause:'<circle cx="12" cy="12" r="10"/><path d="M10 15V9"/><path d="M14 15V9"/>',
+  dashed:'<circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/>',
+  half:'<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>',
+  dot:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+  code:'<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  history:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>',
+  lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
+};
+const ic = (n, s = 14) => `<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true">${I[n] || ""}</svg>`;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const $ = s => document.querySelector(s);
+const DOMAINE = "pleiade.internal";
+const pluriel = (n, un, plu) => `${n} ${n > 1 ? (plu || un + "s") : un}`;
+
+/* ================= Recommandations (pastilles) ================= */
+const R = {
+  1:"Trois familles de zones (Exercices · Prototypes et outils · Essais) et des Archives, dans un ordre fixe.",
+  2:"Exercices rangés par année ; une zone par édition, regroupées sous le nom de l'exercice (historique).",
+  3:"Recherche et filtres en tête : nom, année, exercice, application ; famille ; environnement ; état ; archives.",
+  4:"Cartes de zone repliées ; un clic ouvre la page de la zone, avec le retour nommé « ← Zones ».",
+  5:"Dans la zone, instances groupées par fonction ; la presse ensemble, repliable.",
+  6:"En-tête de zone : une seule action principale (+ Instance), le reste dans « ⋯ » ; la suppression à part, en rouge, confirmée par la saisie du nom.",
+  7:"Ligne d'instance compacte : état en mot, Arrêter / Démarrer en bouton secondaire, le reste dans « ⋯ ».",
+  8:"Trois champs nouveaux sur la zone : famille, exercice, année. Saisis à la création, modifiables ensuite ; nom et identifiant proposés.",
+  9:"Socle commun (n°77) : casse normale, étiquettes icône + mot, actif en crème pâle, crème plein réservé à l'action principale, mots en français."
+};
+const P = n => `<span class="pa" role="note" tabindex="0" data-r="${n}" title="R${n} — ${esc(R[n])}">R${n}</span>`;
+
+/* ================= Catalogue : fonction de chaque app ================= */
+const APPS = {
+  admin:{ nom:"Console d'animation", icone:"assets/admin.png", f:"animation", desc:"Scénarios multi-app, publication orchestrée, supervision" },
+  melmil:{ nom:"MELMIL", icone:"assets/melmil.png", f:"animation", desc:"Planche des injects, alimentée par les exports JEMM" },
+  cockpit:{ nom:"Cockpit", icone:"assets/cockpit.png", f:"animation", desc:"Veille multi-réseaux de la zone" },
+  social:{ nom:"Réseau social", icone:"assets/social.png", f:"reseaux", desc:"Le réseau social de l'exercice" },
+  messagerie:{ nom:"Messagerie", icone:"assets/messagerie.png", f:"reseaux", desc:"Canaux, groupes, conversations privées, messages programmés" },
+  presse:{ nom:"Presse", icone:"assets/presse.png", f:"presse", desc:"Un média : articles, une, fil en direct" },
+  eho:{ nom:"eho", icone:"assets/eho.png", f:"identites", desc:"Avatars et utilisateurs de l'exercice" },
+  partage:{ nom:"Partage", icone:"assets/partage.svg", f:"fichiers", desc:"Partage de fichiers de la zone (lecteur réseau)" },
+  webserver:{ nom:"Serveur web", icone:"assets/webserver.png", f:"fichiers", desc:"Pages et fichiers publiés tels quels" },
+  wordpress:{ nom:"WordPress", icone:"assets/wordpress.png", f:"fichiers", desc:"Site WordPress relié aux comptes de la zone" },
+  leac:{ nom:"LEAC", icone:"assets/leac.png", f:"controle", desc:"Contrôle des postes de commandement, notation hors ligne" }
+};
+const ORDRE_TYPES = ["admin","melmil","cockpit","social","messagerie","presse","eho","partage","webserver","wordpress","leac"];
+const FONCTIONS = [
+  { id:"animation", nom:"Animation" },
+  { id:"reseaux", nom:"Réseaux et messagerie" },
+  { id:"presse", nom:"Presse" },
+  { id:"identites", nom:"Identités" },
+  { id:"fichiers", nom:"Fichiers et web" },
+  { id:"controle", nom:"Contrôle des PC" }
+];
+const FAMILLES = [
+  { id:"exercice", nom:"Exercices", sing:"Exercice", ic:"flag", aide:"Les exercices joués, rangés par année. Une zone par édition.", court:"Un exercice joué, une édition par année." },
+  { id:"prototype", nom:"Prototypes et outils", sing:"Prototype ou outil", ic:"wrench", aide:"Des zones de travail durables, hors exercice : LEAC, partage de fichiers…", court:"Une zone de travail durable, hors exercice." },
+  { id:"essai", nom:"Essais", sing:"Essai", ic:"flask", aide:"Des zones de test ou de démonstration, jetables.", court:"Un test ou une démonstration, jetable." }
+];
+const fam = id => FAMILLES.find(f => f.id === id);
+
+/* ================= Données (relevées sur les captures du 08/10/2026) ================= */
+const inst = (host, type, label, groupes) => ({ host, type, label, groupes: groupes || 0, masquee:false, on:true });
+const media = (host, label) => ({ ...inst(host, "presse", label), logo:`assets/presse-logo-${host}.png` });
+let ZONES = [
+  { id:"delattre-26", label:"DE LATTRE 26", famille:"exercice", exercice:"DE LATTRE", annee:2026, env:"prod", version:"latest", cree:"16/09/2026", archivee:false, instances:[
+    inst("admin","admin","Console d'animation",3), inst("cockpit","cockpit","Cockpit",3), inst("eho-delattre26","eho","EHO DE LATTRE 26"),
+    inst("fichiers","partage","Partage de fichiers",1), inst("melmil","melmil","MELMIL",5), inst("messagerie","messagerie","Messagerie"),
+    inst("social","social","Réseau social"),
+    media("hexagone","HEXAGONE"), media("icrc","Comité International de la Croix-Rouge"), media("ocha","OCHA"),
+    media("prefectures-regions","Préfectures et régions"), media("tf1-info","TF1 INFO"), media("tv4-international","TV4"), media("today-mercure","TODAY MERCURE") ] },
+  { id:"delattre-27", label:"DE LATTRE 27", famille:"exercice", exercice:"DE LATTRE", annee:2027, env:"dev", version:"latest", cree:"—", exemple:true, archivee:false, instances:[] },
+  { id:"orion26", label:"ORION 26", famille:"exercice", exercice:"ORION", annee:2026, env:"prod", version:"latest", cree:"—", archivee:false, instances:[
+    inst("annuaire","eho","Annuaire Orion 26"), inst("reseau","social","Réseau Orion 26") ] },
+  { id:"cecpc-div-eval", label:"CECPC DIV EVAL", famille:"prototype", env:"prod", version:"latest", cree:"17/09/2026", archivee:false,
+    note:"Prototype LEAC : ce n'est pas un exercice.", instances:[ inst("leac","leac","LEAC") ] },
+  { id:"essai-partage", label:"essai-partage", famille:"essai", env:"dev", version:"latest", cree:"04/10/2026", archivee:false, instances:[ inst("partage","partage","Partage") ] },
+  { id:"exercice", label:"Démonstration (exercice)", famille:"essai", env:"prod", version:"latest", cree:"13/09/2026", archivee:false,
+    note:"Classement proposé : zone de démonstration, rangée en Essais.", instances:[
+    inst("agora","social","Agora"), inst("conduite","admin","Conduite d'exercice"), inst("eho","eho","Annuaire eho"),
+    inst("gazette","presse","La Gazette"), inst("messagerie","messagerie","Messagerie"), inst("veille","cockpit","Veille") ] }
+];
+
+/* ================= État de la page ================= */
+const S = { q:"", famille:"tout", annee:"tout", env:"tout", etat:"tout", archives:false, vueEx:"annee", presse:{}, scroll:0 };
+try { const m = JSON.parse(localStorage.getItem("mq79") || "{}"); if (m.vueEx) S.vueEx = m.vueEx; if (m.presse) S.presse = m.presse; } catch (e) {}
+function memo() { try { localStorage.setItem("mq79", JSON.stringify({ vueEx:S.vueEx, presse:S.presse })); } catch (e) {} }
+
+function etatZone(z) {
+  if (z.archivee) return { k:"archivee", mot:"Archivée", ic:"archive", cl:"mu" };
+  const n = z.instances.length, on = z.instances.filter(i => i.on).length;
+  if (!n) return { k:"vide", mot:"Sans instance", ic:"dashed", cl:"mu" };
+  if (on === n) return { k:"enligne", mot:`En ligne ${on}/${n}`, ic:"check", cl:"on" };
+  if (on === 0) return { k:"arretee", mot:"Arrêtée", ic:"pause", cl:"halt" };
+  return { k:"partielle", mot:`En partie ${on}/${n}`, ic:"half", cl:"dev" };
+}
+const dateCree = z => z.exemple ? "pas encore créée" : z.cree === "—" ? "date non relevée" : "créée le " + esc(z.cree);
+const etiq = e => `<span class="et ${e.cl}">${ic(e.ic, 13)}${esc(e.mot)}</span>`;
+const etiqEnv = env => env === "prod"
+  ? `<span class="et prod" title="Production : le jeu s'y déroule">${ic("dot", 13)}PROD</span>`
+  : `<span class="et dev" title="Développement : en préparation">${ic("code", 13)}DEV</span>`;
+
+/* Recherche : sans accents ni casse ; chaque mot doit se trouver dans la zone ou l'une de ses instances */
+function correspond(z) {
+  const mots = norm(S.q).split(/\s+/).filter(Boolean);
+  if (!mots.length) return { ok:true, via:[] };
+  const base = norm([z.label, z.id, z.exercice, z.annee, fam(z.famille).nom, z.env].join(" "));
+  const via = new Set();
+  for (const m of mots) {
+    if (base.includes(m)) continue;
+    const hits = z.instances.filter(i => norm(i.label + " " + APPS[i.type].nom + " " + i.host).includes(m));
+    if (!hits.length) return { ok:false, via:[] };
+    hits.forEach(h => via.add(h.label));
+  }
+  return { ok:true, via:[...via] };
+}
+function passe(z, sauf) {
+  if (sauf !== "famille" && S.famille !== "tout" && z.famille !== S.famille) return false;
+  if (S.annee !== "tout" && String(z.annee) !== S.annee) return false;
+  if (S.env !== "tout" && z.env !== S.env) return false;
+  if (S.etat !== "tout") {
+    const k = etatZone(z).k;
+    if (S.etat === "enligne" && !(k === "enligne" || k === "partielle")) return false;
+    if (S.etat === "arretee" && !(k === "arretee" || k === "vide")) return false;
+  }
+  return correspond(z).ok;
+}
+const filtresActifs = () => !!(S.q.trim() || S.famille !== "tout" || S.annee !== "tout" || S.env !== "tout" || S.etat !== "tout");
+
+/* ================= Accueil ================= */
+function renderAccueil() {
+  const annees = [...new Set(ZONES.filter(z => z.annee).map(z => z.annee))].sort((a, b) => b - a);
+  const actives = ZONES.filter(z => !z.archivee);
+  const nInst = actives.reduce((t, z) => t + z.instances.length, 0);
+  const nOn = actives.reduce((t, z) => t + z.instances.filter(i => i.on).length, 0);
+  $("#app").innerHTML = `
+    <div class="head">
+      <div class="head-t">
+        <h1 tabindex="-1" id="titre">Zones</h1>
+        <div class="meta">${pluriel(actives.length, "zone")} · ${pluriel(nInst, "instance")}, ${nOn} en ligne</div>
+      </div>
+      <div class="actions">${P(8)}<button type="button" class="btn-p" data-act="nouvelle">${ic("plus")} Nouvelle zone</button></div>
+    </div>
+    <div class="filtres" role="search">
+      ${P(3)}
+      <div class="recherche">${ic("search", 15)}
+        <label class="sr" for="q">Rechercher une zone</label>
+        <input id="q" type="search" autocomplete="off" placeholder="Rechercher : lattre, 2026, orion, TF1…" value="${esc(S.q)}">
+        <button type="button" class="eff" data-act="effq" aria-label="Effacer la recherche" ${S.q ? "" : "hidden"}>${ic("x", 14)}</button>
+      </div>
+      <div class="seg" role="radiogroup" aria-label="Famille" id="segFam"></div>
+      <label class="sel">Année <select data-f="annee"><option value="tout">Toutes</option>${annees.map(a => `<option value="${a}">${a}</option>`).join("")}</select></label>
+      <label class="sel">Environnement <select data-f="env"><option value="tout">Tous</option><option value="prod">PROD</option><option value="dev">DEV</option></select></label>
+      <label class="sel">État <select data-f="etat"><option value="tout">Tous</option><option value="enligne">En ligne</option><option value="arretee">Arrêtées</option></select></label>
+      <button type="button" class="bascule" id="bArch" aria-pressed="${S.archives}"><span class="coche"></span><span id="bArchT"></span></button>
+    </div>
+    <div class="resume" id="resume" aria-live="polite"></div>
+    <div id="resultats"></div>`;
+  document.querySelectorAll("select[data-f]").forEach(s => { s.value = S[s.dataset.f]; });
+  const q = $("#q");
+  q.addEventListener("input", () => { S.q = q.value; $("[data-act=effq]").hidden = !S.q; renderResultats(); });
+  q.addEventListener("keydown", e => { if (e.key === "Escape" && q.value) { e.preventDefault(); q.value = ""; S.q = ""; $("[data-act=effq]").hidden = true; renderResultats(); } });
+  renderResultats();
+}
+
+function renderSegFam() {
+  const opts = [{ id:"tout", nom:"Toutes" }, ...FAMILLES];
+  const seg = $("#segFam");
+  seg.innerHTML = opts.map(o => {
+    const n = ZONES.filter(z => !z.archivee && (o.id === "tout" || z.famille === o.id) && passe(z, "famille")).length;
+    const on = S.famille === o.id;
+    return `<button type="button" role="radio" aria-checked="${on}" tabindex="${on ? 0 : -1}" data-fam="${o.id}">${esc(o.nom)} <span class="n">${n}</span></button>`;
+  }).join("");
+}
+
+function renderResultats() {
+  renderSegFam();
+  const nArch = ZONES.filter(z => z.archivee).length;
+  $("#bArchT").textContent = `Archives (${nArch})`;
+  const bA = $("#bArch"); bA.setAttribute("aria-pressed", S.archives); bA.querySelector(".coche").innerHTML = S.archives ? "✓" : "";
+
+  const vis = ZONES.filter(z => !z.archivee && passe(z));
+  const visArch = ZONES.filter(z => z.archivee && passe(z));
+  const archCachees = S.archives ? 0 : visArch.length;
+  const total = vis.length + (S.archives ? visArch.length : 0);
+
+  $("#resume").innerHTML = filtresActifs()
+    ? `<span>${total ? pluriel(total, "zone affichée", "zones affichées") : "Aucune zone affichée"}${S.q.trim() ? ` pour « ${esc(S.q.trim())} »` : ""}</span>
+       ${archCachees ? `<span>· ${pluriel(archCachees, "zone archivée correspond", "zones archivées correspondent")} — <button type="button" class="lien" data-act="voirArch">les afficher</button></span>` : ""}
+       <span class="droite"><button type="button" class="lien" data-act="effacer">Effacer les filtres</button></span>`
+    : `<span>Toutes les zones, rangées par famille.</span>`;
+
+  let h = "";
+  let premier = true;
+  for (const f of FAMILLES) {
+    if (S.famille !== "tout" && S.famille !== f.id) continue;
+    const zs = vis.filter(z => z.famille === f.id);
+    if (!zs.length && filtresActifs()) continue;
+    const pa = premier ? P(1) : "";
+    premier = false;
+    let corps = "";
+    if (!zs.length) corps = `<div class="vide-bloc">Aucune zone dans cette famille.</div>`;
+    else if (f.id === "exercice" && S.vueEx === "serie") corps = vueSeries(zs);
+    else if (f.id === "exercice") corps = vueAnnees(zs);
+    else corps = `<div class="grille">${zs.sort((a, b) => a.label.localeCompare(b.label, "fr")).map(carte).join("")}</div>`;
+    h += `<section class="bloc" aria-labelledby="b-${f.id}">
+      <div class="bloc-h">
+        <h2 id="b-${f.id}">${ic(f.ic, 17)} ${esc(f.nom)} <span class="n">${zs.length}</span></h2>${pa}
+        <p>${esc(f.aide)}</p>
+        ${f.id === "exercice" && zs.length ? `<div class="droite">${P(2)}<span>Ranger</span>
+          <div class="seg" role="radiogroup" aria-label="Ranger les exercices">
+            <button type="button" role="radio" data-vue="annee" aria-checked="${S.vueEx === "annee"}" tabindex="${S.vueEx === "annee" ? 0 : -1}">par année</button>
+            <button type="button" role="radio" data-vue="serie" aria-checked="${S.vueEx === "serie"}" tabindex="${S.vueEx === "serie" ? 0 : -1}">par exercice</button>
+          </div></div>` : ""}
+      </div>${corps}</section>`;
+  }
+  if (S.archives && visArch.length) {
+    h += `<section class="bloc" aria-labelledby="b-arch"><div class="bloc-h"><h2 id="b-arch">${ic("archive", 17)} Archives <span class="n">${visArch.length}</span></h2>
+      <p>Exercices terminés : instances arrêtées, données, sauvegardes et storybook conservés.</p></div>
+      <div class="grille">${visArch.map(carte).join("")}</div></section>`;
+  } else if (S.archives && !filtresActifs()) {
+    h += `<section class="bloc"><div class="bloc-h"><h2>${ic("archive", 17)} Archives <span class="n">0</span></h2></div>
+      <div class="vide-bloc">Aucun exercice archivé. Un exercice terminé s'archive depuis le menu « ⋯ » de sa page : ses instances s'arrêtent, rien n'est effacé.</div></section>`;
+  }
+  if (!h) {
+    h = `<div class="z-vide"><p><b>Aucune zone ne correspond${S.q.trim() ? ` à « ${esc(S.q.trim())} »` : ""}.</b></p>
+      <p>La recherche porte sur le nom, l'identifiant, l'exercice, l'année et les noms des applications.</p>
+      <button type="button" class="btn-s" data-act="effacer">Effacer les filtres</button></div>`;
+  }
+  $("#resultats").innerHTML = h;
+}
+
+function vueAnnees(zs) {
+  const annees = [...new Set(zs.map(z => z.annee))].sort((a, b) => b - a);
+  return annees.map(a => `<div class="annee"><h3>${a}</h3><div class="grille">${zs.filter(z => z.annee === a).sort((x, y) => x.label.localeCompare(y.label, "fr")).map(carte).join("")}</div></div>`).join("");
+}
+function vueSeries(zs) {
+  const series = [...new Set(zs.map(z => z.exercice))].sort((a, b) => a.localeCompare(b, "fr"));
+  return series.map(s => {
+    // l'historique montre aussi les éditions archivées de la même série
+    const ed = ZONES.filter(z => z.exercice === s && (zs.includes(z) || z.archivee)).sort((a, b) => b.annee - a.annee);
+    return `<div class="serie"><div class="serie-h"><h3>${esc(s)}</h3><span>${pluriel(ed.length, "édition")} · ${ed.map(e => e.annee).join(", ")}</span></div>
+      <div class="grille">${ed.map(carte).join("")}</div></div>`;
+  }).join("");
+}
+
+function carte(z) {
+  const e = etatZone(z);
+  const types = ORDRE_TYPES.filter(t => z.instances.some(i => i.type === t));
+  const ics = types.slice(0, 7).map(t => `<img src="${APPS[t].icone}" alt="" title="${esc(APPS[t].nom)}">`).join("") + (types.length > 7 ? `<span class="plus">+${types.length - 7}</span>` : "");
+  const nPresse = z.instances.filter(i => i.type === "presse").length;
+  const { via } = correspond(z);
+  const fz = fam(z.famille);
+  const lig = z.famille === "exercice" ? `${esc(z.exercice)} · édition ${z.annee}` : esc(fz.sing);
+  const premier = z.id === "delattre-26";
+  return `<a class="carte${z.archivee ? " arch" : ""}" href="#zone/${encodeURIComponent(z.id)}">
+    <div class="c-haut"><div style="min-width:0"><div class="c-nom">${esc(z.label)}</div>${norm(z.id) !== norm(z.label) ? `<div class="c-id mono">${esc(z.id)}</div>` : ""}</div>
+      ${premier ? P(4) : ""}<span class="c-fl">${ic("chevR", 16)}</span></div>
+    <div class="c-tags">${etiq(e)} ${etiqEnv(z.env)}${z.exemple ? ` <span class="ex-note">exemple de la maquette</span>` : ""}</div>
+    ${types.length ? `<div class="c-ics" aria-label="Applications">${ics}</div>` : ""}
+    ${via.length ? `<div class="c-via">Contient : <b>${via.map(esc).join("</b>, <b>")}</b></div>` : ""}
+    ${z.note ? `<div class="c-via">${ic("info", 13)} ${esc(z.note)}</div>` : ""}
+    <div class="c-pied"><span>${lig}</span><span>${pluriel(z.instances.length, "instance")}${nPresse ? ` dont ${pluriel(nPresse, "média")}` : ""}</span><span>${dateCree(z)}</span></div>
+  </a>`;
+}
+
+/* ================= Page de zone ================= */
+function renderZone(id) {
+  const z = ZONES.find(x => x.id === id);
+  if (!z) { location.hash = ""; return; }
+  const e = etatZone(z);
+  const fz = fam(z.famille);
+  const editions = z.famille === "exercice" ? ZONES.filter(o => o.famille === "exercice" && o.exercice === z.exercice).sort((a, b) => a.annee - b.annee) : [];
+  let groupes = "";
+  for (const f of FONCTIONS) {
+    const li = z.instances.filter(i => APPS[i.type].f === f.id)
+      .sort((a, b) => ORDRE_TYPES.indexOf(a.type) - ORDRE_TYPES.indexOf(b.type) || a.label.localeCompare(b.label, "fr"));
+    if (!li.length) continue;
+    const pa = f.id === "animation" ? P(5) : "";
+    if (f.id === "presse") {
+      const ouvert = !!S.presse[z.id];
+      const on = li.filter(i => i.on).length;
+      const ep = on === li.length ? { cl:"on", ic:"check", mot:`${on}/${li.length} en ligne` } : { cl: on ? "dev" : "halt", ic: on ? "half" : "pause", mot:`${on}/${li.length} en ligne` };
+      groupes += `<section class="groupe" aria-labelledby="g-presse">
+        <h2 class="sr" id="g-presse">Presse</h2>
+        <button type="button" class="g-pli" data-act="presse" aria-expanded="${ouvert}" aria-controls="gc-presse">
+          ${ic("chevR", 15).replace('class="i"', 'class="i ch"')}<span class="tt">Presse</span><span class="n">${pluriel(li.length, "média")}</span>
+          <span class="g-logos">${li.map(i => `<img src="${i.logo || APPS.presse.icone}" alt="" title="${esc(i.label)}">`).join("")}</span>
+          ${etiq(ep)}
+        </button>${P(5)}
+        <div class="g-corps" id="gc-presse" ${ouvert ? "" : "hidden"}>${li.map(i => ligne(z, i)).join("")}</div>
+      </section>`;
+    } else {
+      groupes += `<section class="groupe" aria-labelledby="g-${f.id}"><h2 class="g-h" id="g-${f.id}">${esc(f.nom)} <span class="n">${li.length}</span>${pa}</h2>${li.map(i => ligne(z, i)).join("")}</section>`;
+    }
+  }
+  $("#app").innerHTML = `
+    <a class="retour" href="#" data-act="retour">${ic("arrowL")} Zones</a>${P(4)}
+    <div class="head">
+      <div class="head-t">
+        <h1 tabindex="-1" id="titre">${esc(z.label)}</h1>
+        <div class="meta">
+          ${etiq(e)} ${etiqEnv(z.env)}
+          <span>${ic(fz.ic, 13)} ${z.famille === "exercice" ? `${esc(fz.sing)} ${esc(z.exercice)} · édition ${z.annee}` : esc(fz.sing)}</span><span class="sep">·</span>
+          <a class="mono" style="color:var(--link)" href="#" data-act="lien" data-url="${esc(z.id)}.${DOMAINE}">${esc(z.id)}.${DOMAINE}</a><span class="sep">·</span>
+          <span>version ${esc(z.version)}</span><span class="sep">·</span><span>${dateCree(z)}</span>
+        </div>
+      </div>
+      <div class="actions">${P(6)}
+        <button type="button" class="btn-s" data-act="utilisateurs">${ic("users")} Utilisateurs</button>
+        <button type="button" class="btn-p" data-act="ajouter">${ic("plus")} Instance</button>
+        <button type="button" class="btn-ico l" data-act="menuZone" aria-haspopup="menu" aria-expanded="false" aria-label="Autres actions sur la zone">${ic("more", 16)}</button>
+      </div>
+    </div>
+    ${editions.length > 1 ? `<nav class="z-ed" aria-label="Éditions de l'exercice ${esc(z.exercice)}">${P(2)}<span>${ic("history", 13)} Éditions de ${esc(z.exercice)} :</span>
+      ${editions.map(o => `<a href="#zone/${encodeURIComponent(o.id)}" ${o.id === z.id ? 'aria-current="page"' : ""}>${o.annee}${o.archivee ? " · archivée" : o.env === "dev" ? " · en préparation" : ""}</a>`).join("")}</nav>` : ""}
+    ${z.note ? `<div class="z-note">${ic("info", 15)}<span>${esc(z.note)} <button type="button" class="lien" data-act="modifier">Modifier la zone</button></span></div>` : ""}
+    ${z.archivee ? `<div class="z-note">${ic("archive", 15)}<span>Exercice archivé : ses instances sont arrêtées, rien n'est effacé. <button type="button" class="lien" data-act="reactiver">Réactiver</button></span></div>` : ""}
+    ${z.instances.length ? groupes : `<div class="z-vide"><p><b>Aucune instance dans cette zone.</b></p><p>Pour un exercice, commencez par <b>eho</b> (les identités), puis la <b>Console d'animation</b>.</p>
+      <button type="button" class="btn-p" data-act="ajouter">${ic("plus")} Instance</button></div>`}`;
+  CTX.zone = z;
+}
+
+function ligne(z, i) {
+  const a = APPS[i.type];
+  const img = i.logo || a.icone;
+  const memeNom = norm(i.label) === norm(a.nom) || i.type === "presse";
+  const vis = i.masquee ? `<span class="vis">${ic("eyeOff", 12)} masquée du portail</span>`
+    : i.groupes ? `<span class="vis" title="Sur le portail de zone, seuls ${i.groupes} groupe(s) voient cette carte">${ic("eye", 12)} portail : ${pluriel(i.groupes, "groupe")}</span>` : "";
+  const sous = [memeNom ? "" : esc(a.nom), vis].filter(Boolean).join("");
+  const url = `${i.host}.${z.id}.${DOMAINE}`;
+  const pa = z.id === "delattre-26" && i.host === "admin" ? P(7) : "";
+  return `<div class="inst${i.on ? "" : " off"}" data-host="${esc(i.host)}">
+    <img class="inst-ic${i.logo ? " logo" : ""}" src="${img}" alt="">
+    <div class="inst-nom"><b>${esc(i.label)}</b>${sous ? `<span class="inst-sous">${sous}</span>` : ""}</div>
+    <a class="inst-adr mono" href="#" data-act="lien" data-url="${esc(url)}">${esc(url)}</a>
+    <span class="inst-etat">${i.on ? etiq({ cl:"on", ic:"check", mot:"En ligne" }) : etiq({ cl:"halt", ic:"pause", mot:"Arrêtée" })}</span>
+    <div class="inst-act">${pa}
+      ${i.on ? `<button type="button" class="btn-s sm" data-act="stop" aria-label="Arrêter ${esc(i.label)}">${ic("stop", 12)} Arrêter</button>`
+             : `<button type="button" class="btn-s sm" data-act="start" aria-label="Démarrer ${esc(i.label)}">${ic("play", 12)} Démarrer</button>`}
+      <button type="button" class="btn-ico" data-act="menuInst" aria-haspopup="menu" aria-expanded="false" aria-label="Autres actions sur ${esc(i.label)}">${ic("more", 16)}</button>
+    </div>
+  </div>`;
+}
+
+/* ================= Menus « ⋯ » ================= */
+const CTX = { zone:null };
+let menuOuvert = null;
+function ouvrirMenu(btn, titre, items) {
+  fermerMenu();
+  const m = document.createElement("div");
+  m.className = "menu"; m.setAttribute("role", "menu"); m.setAttribute("aria-label", titre);
+  m.innerHTML = `<div class="menu-t" aria-hidden="true">${esc(titre)}</div>`;
+  items.filter(Boolean).forEach(it => {
+    if (it === "sep") { const s = document.createElement("div"); s.className = "menu-sep"; s.setAttribute("role", "separator"); m.appendChild(s); return; }
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role", "menuitem");
+    b.className = "menu-it" + (it.danger ? " danger" : "");
+    b.innerHTML = ic(it.ic, 15) + `<span>${esc(it.l)}</span>` + (it.k ? `<span class="k">${esc(it.k)}</span>` : "");
+    if (it.disabled) b.disabled = true;
+    b.addEventListener("click", () => { fermerMenu(true); (it.act || (() => toast(`Maquette : « ${it.l.replace("…", "")} » ouvre la fenêtre d'aujourd'hui, inchangée.`)))(); });
+    m.appendChild(b);
+  });
+  document.body.appendChild(m);
+  const r = btn.getBoundingClientRect();
+  const w = m.offsetWidth, h = m.offsetHeight, vw = document.documentElement.clientWidth;
+  let left = Math.max(8, Math.min(r.right - w, vw - w - 8));
+  let top = r.bottom + 6;
+  if (top + h > window.innerHeight - 8 && r.top - h - 6 > 8) top = r.top - h - 6;
+  m.style.left = (left + window.scrollX) + "px";
+  m.style.top = (top + window.scrollY) + "px";
+  btn.setAttribute("aria-expanded", "true");
+  menuOuvert = { m, btn };
+  const premier = m.querySelector("button:not(:disabled)");
+  if (premier) premier.focus();
+  m.addEventListener("keydown", e => {
+    const its = [...m.querySelectorAll("button:not(:disabled)")];
+    const k = its.indexOf(document.activeElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); its[(k + 1) % its.length].focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); its[(k - 1 + its.length) % its.length].focus(); }
+    else if (e.key === "Home") { e.preventDefault(); its[0].focus(); }
+    else if (e.key === "End") { e.preventDefault(); its[its.length - 1].focus(); }
+    else if (e.key === "Escape") { e.preventDefault(); fermerMenu(true); }
+    else if (e.key === "Tab") { fermerMenu(); }
+  });
+}
+function fermerMenu(rendreFocus) {
+  if (!menuOuvert) return;
+  const { m, btn } = menuOuvert;
+  menuOuvert = null;
+  m.remove();
+  btn.setAttribute("aria-expanded", "false");
+  if (rendreFocus && document.contains(btn)) btn.focus();
+}
+document.addEventListener("click", e => {
+  if (menuOuvert && !menuOuvert.m.contains(e.target) && !menuOuvert.btn.contains(e.target)) fermerMenu();
+}, true);
+window.addEventListener("resize", () => fermerMenu());
+
+function menuZone(btn, z) {
+  ouvrirMenu(btn, "Zone " + z.label, [
+    { l:"Déployer toute la zone", ic:"refresh", act:() => toast(`Maquette : les ${pluriel(z.instances.length, "instance")} de ${z.label} seraient redéployées.`) },
+    { l:"Sauvegardes…", ic:"db" },
+    { l:"Storybook (récit pour le RETEX)…", ic:"book" },
+    "sep",
+    { l:"Modifier la zone…", ic:"pencil", act:() => ouvrirForm(z) },
+    { l: z.env === "prod" ? "Passer en DEV…" : "Passer en PROD…", ic:"swap", act:() => { z.env = z.env === "prod" ? "dev" : "prod"; route(); toast(`${z.label} est maintenant en ${z.env.toUpperCase()} (maquette).`); } },
+    z.env === "dev" ? { l:"Changer de version…", ic:"tag" } : null,
+    z.famille === "exercice" ? (z.archivee
+      ? { l:"Réactiver l'exercice", ic:"archive", act:() => reactiver(z) }
+      : { l:"Archiver l'exercice…", ic:"archive", act:() => confirmerArchive(z) }) : null,
+    "sep",
+    { l:"Supprimer la zone…", ic:"trash", danger:true, act:() => confirmerSuppression(z) }
+  ]);
+}
+function menuInst(btn, z, i) {
+  ouvrirMenu(btn, i.label, [
+    { l:"Ouvrir l'administration de l'app", ic:"ext", disabled:!i.on, act:() => toast(`Maquette : ouvrirait l'espace d'administration de ${i.label}.`) },
+    "sep",
+    { l:"Configuration…", ic:"settings" },
+    { l:"Droits…", ic:"shield" },
+    { l:"Visibilité sur le portail…", ic: i.masquee ? "eyeOff" : "eye", k: i.masquee ? "masquée" : i.groupes ? pluriel(i.groupes, "groupe") : "tous" },
+    { l:"Icône…", ic:"image" },
+    { l:"Renommer…", ic:"pencil" },
+    { l:"Terminal", ic:"terminal", disabled:!i.on },
+    "sep",
+    { l:"Supprimer l'instance…", ic:"trash", danger:true, act:() => confirmerSuppressionInst(z, i) }
+  ]);
+}
+
+/* ================= Fenêtres ================= */
+const dlg = $("#dlg");
+let dlgRetour = null;
+function ouvrirDialog(html, large) {
+  fermerMenu();
+  if (dlg.open) dlg.close();
+  dlgRetour = document.activeElement;
+  dlg.className = large ? "large" : "";
+  dlg.innerHTML = html;
+  dlg.showModal();
+}
+dlg.addEventListener("close", () => { if (dlg.open) return; if (dlgRetour && document.contains(dlgRetour)) dlgRetour.focus(); dlgRetour = null; });
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); if (e.target.closest("[data-close]")) dlg.close(); });
+const enteteDlg = (titre, pa) => `<div class="dlg-h"><h2 id="dlgTitre">${titre}</h2>${pa || ""}<button type="button" class="btn-ico" data-close aria-label="Fermer">${ic("x", 16)}</button></div>`;
+const slug = s => norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 32);
+
+function ouvrirForm(z) {
+  const nouv = !z;
+  const v = z ? { ...z } : { famille:"exercice", exercice:"", annee:2027, label:"", id:"", env:"dev" };
+  const series = [...new Set(ZONES.filter(x => x.exercice).map(x => x.exercice))];
+  ouvrirDialog(`<form class="dlg" id="fz" novalidate>
+    ${enteteDlg(nouv ? "Nouvelle zone" : "Modifier la zone", P(8))}
+    <div class="erreurs" id="err" tabindex="-1" role="alert" hidden></div>
+    <fieldset class="champ"><legend>Famille</legend>
+      <div class="fam-choix">${FAMILLES.map(f => `<label class="fam"><input type="radio" name="famille" value="${f.id}" ${v.famille === f.id ? "checked" : ""}><span class="fam-t">${ic(f.ic, 15)} ${esc(f.sing)}</span><span class="fam-a">${esc(f.court)}</span></label>`).join("")}</div>
+    </fieldset>
+    <div class="ligne2" id="blocEx">
+      <div class="champ"><label for="fex">Exercice</label><span class="aide">Même nom, même exercice : ses éditions se rangent ensemble.</span>
+        <span class="msg" id="fex-m" hidden></span>
+        <input id="fex" type="text" list="lseries" autocomplete="off" value="${esc(v.exercice || "")}" placeholder="ex. DE LATTRE">
+        <datalist id="lseries">${series.map(s => `<option value="${esc(s)}">`).join("")}</datalist></div>
+      <div class="champ"><label for="fan">Année</label><span class="aide">Année de jeu</span>
+        <span class="msg" id="fan-m" hidden></span>
+        <input id="fan" type="number" inputmode="numeric" min="2020" max="2099" value="${esc(v.annee || "")}"></div>
+    </div>
+    <div class="champ"><label for="flb">Nom affiché</label><span class="aide">Ce que lisent les organisateurs. Proposé à partir de l'exercice et de l'année.</span>
+      <span class="msg" id="flb-m" hidden></span>
+      <input id="flb" type="text" autocomplete="off" value="${esc(v.label)}"></div>
+    <div class="champ"><label for="fid">Identifiant${nouv ? "" : " (ne change plus)"}</label>
+      <span class="aide">${nouv ? "Minuscules, chiffres et tirets. Il entre dans toutes les adresses de la zone." : "Fixé à la création : il est dans toutes les adresses de la zone."}</span>
+      <span class="msg" id="fid-m" hidden></span>
+      <div class="id-l"><input id="fid" type="text" class="mono" autocomplete="off" value="${esc(v.id)}" ${nouv ? "" : "readonly"}><span class="mono suffixe">.${DOMAINE}</span></div></div>
+    ${nouv ? `<div class="champ"><span class="lbl" id="lenv">Environnement</span><span class="aide">DEV pour préparer ; on passe en PROD avant le jeu.</span>
+      <div class="seg" role="radiogroup" aria-labelledby="lenv"><label><input type="radio" name="env" value="dev" checked>${ic("code", 13)} DEV</label><label><input type="radio" name="env" value="prod">${ic("dot", 13)} PROD</label></div></div>` : ""}
+    <div class="apercu" id="apercu" aria-live="polite"></div>
+    <div class="dlg-pied"><button type="button" class="btn-s" data-close>Annuler</button><button type="submit" class="btn-p">${nouv ? "Créer la zone" : "Enregistrer"}</button></div>
+  </form>`);
+  const f = $("#fz");
+  let lbTouche = !nouv, idTouche = !nouv;
+  const famille = () => f.querySelector("input[name=famille]:checked").value;
+  const maj = () => {
+    const fa = famille(), ex = $("#fex").value.trim(), an = $("#fan").value.trim();
+    $("#blocEx").hidden = fa !== "exercice";
+    if (fa === "exercice" && ex && an) {
+      if (!lbTouche) $("#flb").value = `${ex.toUpperCase()} ${an.slice(-2)}`;
+      if (!idTouche) $("#fid").value = slug(`${ex.replace(/\s+/g, "")}-${an.slice(-2)}`);
+    }
+    let txt;
+    if (fa === "exercice") {
+      const autres = ZONES.filter(o => o.exercice && norm(o.exercice) === norm(ex) && (!z || o.id !== z.id)).sort((a, b) => a.annee - b.annee);
+      txt = `Rangée dans <b>Exercices › ${esc(an || "année ?")} › ${esc(ex || "exercice ?")}</b>` +
+        (ex ? (autres.length ? ` — ${autres.length + 1}<sup>e</sup> édition, avec ${autres.map(o => o.annee).join(", ")}.` : " — première édition.") : ".");
+    } else txt = `Rangée dans <b>${esc(fam(fa).nom)}</b>. Pas d'année ni d'exercice.`;
+    $("#apercu").innerHTML = ic("info", 15) + `<span>${txt}</span>`;
+  };
+  f.addEventListener("input", e => { if (e.target.id === "flb") lbTouche = true; if (e.target.id === "fid") idTouche = true; maj(); });
+  f.addEventListener("change", maj);
+  maj();
+  f.addEventListener("submit", e => {
+    e.preventDefault();
+    const fa = famille(), ex = $("#fex").value.trim(), an = $("#fan").value.trim(), lb = $("#flb").value.trim(), id = $("#fid").value.trim();
+    const errs = [];
+    if (fa === "exercice" && !ex) errs.push(["fex", "Indiquez le nom de l'exercice, par exemple DE LATTRE"]);
+    if (fa === "exercice" && !/^20[2-9]\d$/.test(an)) errs.push(["fan", "Indiquez l'année de jeu sur 4 chiffres, par exemple 2027"]);
+    if (!lb) errs.push(["flb", "Indiquez le nom affiché de la zone"]);
+    if (nouv && !/^[a-z0-9]([a-z0-9-]{0,30}[a-z0-9])?$/.test(id)) errs.push(["fid", "L'identifiant ne contient que des minuscules, des chiffres et des tirets, sans tiret au début ni à la fin"]);
+    else if (nouv && ZONES.some(o => o.id === id)) errs.push(["fid", `L'identifiant ${id} est déjà pris : choisissez-en un autre`]);
+    ["fex", "fan", "flb", "fid"].forEach(k => { const m = $("#" + k + "-m"); m.hidden = true; $("#" + k).removeAttribute("aria-invalid"); $("#" + k).removeAttribute("aria-describedby"); });
+    const box = $("#err");
+    if (errs.length) {
+      errs.forEach(([k, t]) => { const m = $("#" + k + "-m"); m.textContent = t; m.hidden = false; $("#" + k).setAttribute("aria-invalid", "true"); $("#" + k).setAttribute("aria-describedby", k + "-m"); });
+      box.innerHTML = `<h3>Il y a un problème</h3><ul>${errs.map(([k, t]) => `<li><a href="#${k}" data-champ="${k}">${esc(t)}</a></li>`).join("")}</ul>`;
+      box.hidden = false; box.focus();
+      return;
+    }
+    box.hidden = true;
+    if (nouv) {
+      const env = f.querySelector("input[name=env]:checked").value;
+      const d = new Date(); const cree = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
+      ZONES.push({ id, label:lb, famille:fa, exercice: fa === "exercice" ? ex : undefined, annee: fa === "exercice" ? Number(an) : undefined, env, version:"latest", cree, archivee:false, instances:[] });
+      dlgRetour = null; dlg.close();
+      location.hash = "#zone/" + encodeURIComponent(id);
+      toast(`Zone ${lb} créée (maquette).`);
+    } else {
+      Object.assign(z, { label:lb, famille:fa, exercice: fa === "exercice" ? ex : undefined, annee: fa === "exercice" ? Number(an) : undefined });
+      if (z.note && /Classement proposé/.test(z.note)) delete z.note;
+      dlg.close(); route(); toast("Zone enregistrée (maquette).");
+    }
+  });
+  $("#err").addEventListener("click", e => { const a = e.target.closest("[data-champ]"); if (a) { e.preventDefault(); $("#" + a.dataset.champ).focus(); } });
+  (nouv ? f.querySelector("input[name=famille]:checked") : $("#flb")).focus();
+}
+
+function ouvrirAjout(z) {
+  const g = FONCTIONS.map(f => {
+    const apps = ORDRE_TYPES.filter(t => APPS[t].f === f.id);
+    return `<div class="apps-g" data-g="${f.id}"><h3>${esc(f.nom)}</h3><div class="apps-l">${apps.map(t => `<button type="button" class="app-t" data-app="${t}" data-q="${esc(norm(APPS[t].nom + " " + APPS[t].desc + " " + f.nom))}"><img src="${APPS[t].icone}" alt=""><span><b>${esc(APPS[t].nom)}</b><span>${esc(APPS[t].desc)}</span></span></button>`).join("")}</div></div>`;
+  }).join("");
+  ouvrirDialog(`<div class="dlg">${enteteDlg("Ajouter une instance — " + esc(z.label), P(5))}
+    <div class="recherche apps-r">${ic("search", 15)}<label class="sr" for="qa">Rechercher une application</label><input id="qa" type="search" autocomplete="off" placeholder="Rechercher une application : presse, veille, fichiers…"></div>
+    <div id="appsListe">${g}</div>
+    <p id="appsVide" hidden>Aucune application ne correspond.</p></div>`, true);
+  const qa = $("#qa");
+  qa.addEventListener("input", () => {
+    const q = norm(qa.value.trim()); let n = 0;
+    document.querySelectorAll("#appsListe .app-t").forEach(b => { const ok = !q || b.dataset.q.includes(q); b.hidden = !ok; if (ok) n++; });
+    document.querySelectorAll("#appsListe .apps-g").forEach(gr => { gr.hidden = !gr.querySelector(".app-t:not([hidden])"); });
+    $("#appsVide").hidden = n > 0;
+  });
+  $("#appsListe").addEventListener("click", e => {
+    const b = e.target.closest("[data-app]"); if (!b) return;
+    dlg.close(); toast(`Maquette : l'étape suivante (nom, adresse, réglages de ${APPS[b.dataset.app].nom}) reste celle d'aujourd'hui.`);
+  });
+  qa.focus();
+}
+
+function confirmerSuppression(z) {
+  ouvrirDialog(`<form class="dlg" id="fs">${enteteDlg("Supprimer la zone « " + esc(z.label) + " » ?")}
+    <p>${z.instances.length ? `Ses ${pluriel(z.instances.length, "instance")} sont détruites avec leurs données.` : "La zone est vide."} <b>C'est définitif.</b></p>
+    ${z.famille === "exercice" && !z.archivee ? `<p class="conseil">L'exercice est seulement terminé ? <button type="button" class="lien" id="versArch">Archivez-le plutôt</button> : rien n'est effacé.</p>` : ""}
+    <div class="champ"><label for="fconf">Pour confirmer, tapez <span class="mono">${esc(z.id)}</span></label><input id="fconf" type="text" class="mono" autocomplete="off"></div>
+    <div class="dlg-pied"><button type="button" class="btn-s" data-close>Annuler</button><button type="submit" class="btn-d" id="bSup" disabled>${ic("trash")} Supprimer définitivement</button></div></form>`);
+  $("#fconf").addEventListener("input", e => { $("#bSup").disabled = e.target.value.trim() !== z.id; });
+  const va = $("#versArch"); if (va) va.addEventListener("click", () => confirmerArchive(z));
+  $("#fs").addEventListener("submit", e => { e.preventDefault(); dlg.close(); toast("Maquette : rien n'est supprimé."); });
+  $("#fconf").focus();
+}
+function confirmerSuppressionInst(z, i) {
+  ouvrirDialog(`<form class="dlg" id="fsi">${enteteDlg("Supprimer l'instance « " + esc(i.label) + " » ?")}
+    <p>Elle est retirée de ${esc(z.label)} avec ses données. <b>C'est définitif.</b> Pour la rendre seulement invisible des joueurs, réglez plutôt sa visibilité sur le portail.</p>
+    <div class="dlg-pied"><button type="button" class="btn-s" data-close>Annuler</button><button type="submit" class="btn-d">${ic("trash")} Supprimer l'instance</button></div></form>`);
+  $("#fsi").addEventListener("submit", e => { e.preventDefault(); dlg.close(); toast("Maquette : rien n'est supprimé."); });
+  dlg.querySelector("[data-close]").focus();
+}
+function confirmerArchive(z) {
+  ouvrirDialog(`<form class="dlg" id="fa">${enteteDlg("Archiver « " + esc(z.label) + " » ?")}
+    <p>${z.instances.length ? `Ses ${pluriel(z.instances.length, "instance")} s'arrêtent.` : ""} La zone, ses données, ses sauvegardes et son storybook sont <b>conservés</b>. Elle quitte la liste des exercices pour les Archives ; vous pourrez la réactiver.</p>
+    <div class="dlg-pied"><button type="button" class="btn-s" data-close>Annuler</button><button type="submit" class="btn-p">${ic("archive")} Archiver</button></div></form>`);
+  $("#fa").addEventListener("submit", e => {
+    e.preventDefault();
+    z.archivee = true; z.instances.forEach(i => { i.on = false; });
+    dlgRetour = null; dlg.close();
+    location.hash = "";
+    toast(`${z.label} est archivé (maquette).`, "Annuler", () => reactiver(z));
+  });
+  dlg.querySelector("button[type=submit]").focus();
+}
+function reactiver(z) { z.archivee = false; route(); toast(`${z.label} est sorti des archives ; ses instances restent arrêtées jusqu'au déploiement.`); }
+
+/* ================= Toast ================= */
+let tTimer = null;
+function toast(msg, action, fn) {
+  const t = $("#toast");
+  t.innerHTML = `<span>${esc(msg)}</span>` + (action ? `<button type="button" class="lien">${esc(action)}</button>` : "");
+  t.hidden = false;
+  if (action) t.querySelector("button").addEventListener("click", () => { t.hidden = true; fn(); });
+  clearTimeout(tTimer); tTimer = setTimeout(() => { t.hidden = true; }, action ? 7000 : 4200);
+}
+
+/* ================= Routage par l'adresse (le bouton Précédent du navigateur marche) ================= */
+let routeInit = true;
+function route() {
+  fermerMenu();
+  const m = location.hash.match(/^#zone\/(.+)$/);
+  const etaitAccueil = !CTX.zone;
+  if (m) {
+    if (etaitAccueil) S.scroll = window.scrollY;
+    renderZone(decodeURIComponent(m[1]));
+    if (!routeInit) window.scrollTo(0, 0);
+  } else {
+    CTX.zone = null;
+    renderAccueil();
+    if (!routeInit) window.scrollTo(0, S.scroll || 0);
+  }
+  document.querySelectorAll("#ecrans button").forEach(b => b.classList.toggle("on", b.dataset.ecran === (m ? "zone" : "accueil")));
+  if (!routeInit) { const t = $("#titre"); if (t) t.focus({ preventScroll:true }); }
+  routeInit = false;
+}
+window.addEventListener("hashchange", route);
+
+/* ================= Délégation des clics ================= */
+document.addEventListener("click", e => {
+  const pa = e.target.closest(".pa");
+  if (pa) { e.preventDefault(); e.stopPropagation(); montrerR(pa.dataset.r); return; }
+  const el = e.target.closest("[data-act],[data-fam],[data-vue],[data-ecran]");
+  if (!el) return;
+  if (el.dataset.ecran) {
+    const k = el.dataset.ecran;
+    if (k === "accueil") location.hash = "";
+    else if (k === "zone") location.hash = "#zone/delattre-26";
+    else if (k === "nouvelle") ouvrirForm(null);
+    else if (k === "modifier") { if (location.hash !== "#zone/delattre-26") location.hash = "#zone/delattre-26"; ouvrirForm(ZONES.find(z => z.id === "delattre-26")); }
+    else if (k === "instance") { if (location.hash !== "#zone/delattre-26") location.hash = "#zone/delattre-26"; ouvrirAjout(ZONES.find(z => z.id === "delattre-26")); }
+    return;
+  }
+  if (el.dataset.fam) { S.famille = el.dataset.fam; renderResultats(); const b = document.querySelector(`[data-fam="${S.famille}"]`); if (b) b.focus(); return; }
+  if (el.dataset.vue) { S.vueEx = el.dataset.vue; memo(); renderResultats(); const b = document.querySelector(`[data-vue="${S.vueEx}"]`); if (b) b.focus(); return; }
+  const act = el.dataset.act;
+  const z = CTX.zone;
+  const row = el.closest(".inst");
+  const i = z && row ? z.instances.find(x => x.host === row.dataset.host) : null;
+  switch (act) {
+    case "nouvelle": ouvrirForm(null); break;
+    case "retour": e.preventDefault(); location.hash = ""; break;
+    case "effq": S.q = ""; $("#q").value = ""; el.hidden = true; renderResultats(); $("#q").focus(); break;
+    case "effacer": S.q = ""; S.famille = "tout"; S.annee = "tout"; S.env = "tout"; S.etat = "tout"; renderAccueil(); $("#q").focus(); break;
+    case "voirArch": S.archives = true; renderResultats(); break;
+    case "lien": e.preventDefault(); toast(`Maquette : ouvrirait https://${el.dataset.url} dans un nouvel onglet.`); break;
+    case "hors": e.preventDefault(); toast("Hors du périmètre de la maquette."); break;
+    case "utilisateurs": toast("Maquette : ouvre la fenêtre Utilisateurs d'aujourd'hui (groupes, comptes)."); break;
+    case "ajouter": ouvrirAjout(z); break;
+    case "modifier": ouvrirForm(z); break;
+    case "reactiver": reactiver(z); break;
+    case "menuZone": if (menuOuvert && menuOuvert.btn === el) fermerMenu(); else menuZone(el, z); break;
+    case "menuInst": if (menuOuvert && menuOuvert.btn === el) fermerMenu(); else menuInst(el, z, i); break;
+    case "stop": i.on = false; renderZone(z.id); focusLigne(i, "start"); toast(`${i.label} arrêtée (maquette).`); break;
+    case "start": i.on = true; renderZone(z.id); focusLigne(i, "stop"); toast(`${i.label} redémarre (maquette).`); break;
+    case "presse": S.presse[z.id] = !S.presse[z.id]; memo(); el.setAttribute("aria-expanded", String(!!S.presse[z.id])); $("#gc-presse").hidden = !S.presse[z.id]; break;
+  }
+});
+function focusLigne(i, act) { const r = document.querySelector(`.inst[data-host="${CSS.escape(i.host)}"] [data-act="${act}"]`); if (r) r.focus(); }
+document.addEventListener("change", e => {
+  const s = e.target.closest("select[data-f]");
+  if (s) { S[s.dataset.f] = s.value; renderResultats(); }
+});
+document.addEventListener("keydown", e => {
+  const pa = e.target.closest && e.target.closest(".pa");
+  if (pa && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.stopPropagation(); montrerR(pa.dataset.r); return; }
+  const r = e.target.closest && e.target.closest('[role="radio"]');
+  if (r && ["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(e.key)) {
+    const g = [...r.parentElement.querySelectorAll('[role="radio"]')];
+    const k = g.indexOf(r) + (e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1);
+    e.preventDefault(); g[(k + g.length) % g.length].click();
+  }
+});
+// la bascule « Archives » est un bouton à aria-pressed
+document.addEventListener("click", e => { const b = e.target.closest("#bArch"); if (b) { S.archives = !S.archives; renderResultats(); } });
+// une pastille dans une carte ne doit pas ouvrir la zone
+document.addEventListener("click", e => { if (e.target.closest(".carte .pa")) e.preventDefault(); }, true);
+
+/* ================= Bandeau ================= */
+$("#leg").innerHTML = Object.entries(R).map(([n, t]) => `<li id="r${n}"><b>R${n}</b> — ${esc(t)}</li>`).join("");
+function montrerR(n) {
+  const leg = $("#leg"); leg.hidden = false; $("#bLeg").setAttribute("aria-expanded", "true"); $("#bLeg").textContent = "Masquer les recommandations";
+  document.querySelectorAll("#leg li").forEach(li => li.classList.toggle("flash", li.id === "r" + n));
+  const li = $("#r" + n); if (li) li.scrollIntoView({ block:"nearest" });
+}
+$("#bLeg").addEventListener("click", e => { const leg = $("#leg"); leg.hidden = !leg.hidden; e.currentTarget.setAttribute("aria-expanded", String(!leg.hidden)); e.currentTarget.textContent = leg.hidden ? "Voir les recommandations" : "Masquer les recommandations"; });
+$("#bPa").addEventListener("click", e => { const off = document.body.classList.toggle("sans-pa"); e.currentTarget.setAttribute("aria-pressed", String(!off)); e.currentTarget.textContent = off ? "Montrer les pastilles" : "Masquer les pastilles"; });
+
+route();
+</script>
+</body>
+</html>

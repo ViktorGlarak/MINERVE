@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Origine des publications</title>
+<style>
+  :root {
+    --bg:#000; --carte:#000; --ligne:#2f3336; --texte:#e7e9ea; --doux:#71767b; --lien:#1d9bf0; --barre:#16181c;
+    --police: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  body[data-habillage="facebook"] {
+    --bg:#f0f2f5; --carte:#fff; --ligne:#dadde1; --texte:#050505; --doux:#65676b; --lien:#0866ff; --barre:#fff;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  body { margin:0; background:var(--bg); color:var(--texte); font-family:var(--police); font-size:15px; }
+
+  /* ---- Barre de la maquette (hors produit) ---- */
+  .maquette { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; padding:10px 16px; background:#1b1c1f; color:#ddd; font-size:13px; border-bottom:1px solid #333; }
+  .maquette b { color:#fff; }
+  .seg { display:inline-flex; border:1px solid #444; border-radius:6px; overflow:hidden; }
+  .seg button { background:none; border:0; color:#ccc; padding:5px 10px; font:inherit; cursor:pointer; }
+  .seg button[aria-pressed="true"] { background:#3a3d44; color:#fff; font-weight:600; }
+  .note-maquette { flex-basis:100%; color:#999; font-size:12px; }
+
+  /* ---- Barre d'animation de Social (dans le produit, animation seulement) ---- */
+  .barre-anim { max-width:600px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:8px 14px; background:var(--barre); border:1px solid var(--ligne); border-top:0; font-size:13px; color:var(--doux); position:relative; }
+  .barre-anim .titre { font-weight:700; color:var(--texte); }
+  .interrupteur { display:inline-flex; align-items:center; gap:8px; margin-left:auto; background:none; border:1px solid var(--ligne); color:var(--texte); border-radius:999px; padding:4px 12px 4px 6px; font:inherit; cursor:pointer; }
+  .interrupteur .pastille { width:30px; height:18px; border-radius:999px; background:#555; position:relative; transition:background .15s; }
+  .interrupteur .pastille::after { content:""; position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:#fff; transition:left .15s; }
+  .interrupteur[aria-checked="true"] .pastille { background:#00ba7c; }
+  .interrupteur[aria-checked="true"] .pastille::after { left:14px; }
+  .legende-btn { background:none; border:0; color:var(--doux); font:inherit; cursor:pointer; text-decoration:underline; }
+  .legende { position:absolute; right:14px; top:100%; z-index:20; margin-top:4px; min-width:230px; padding:8px 10px; background:var(--carte); border:1px solid var(--ligne); border-radius:8px; box-shadow:0 8px 24px rgb(0 0 0/.35); font-size:12.5px; }
+  .legende div { display:flex; align-items:center; gap:8px; padding:3px 0; color:var(--texte); }
+  .legende i { width:4px; height:16px; border-radius:2px; display:inline-block; }
+  .rappel { max-width:600px; margin:0 auto; padding:6px 14px; font-size:12px; color:var(--doux); border:1px solid var(--ligne); border-top:0; background:var(--barre); }
+
+  /* ---- Fil ---- */
+  .fil { max-width:600px; margin:0 auto 60px; border-left:1px solid var(--ligne); border-right:1px solid var(--ligne); }
+  body[data-habillage="facebook"] .fil { border:0; }
+  .bloc { position:relative; }
+  body[data-habillage="facebook"] .bloc { margin:12px 0; }
+  .carte { background:var(--carte); padding:12px 16px; border-bottom:1px solid var(--ligne); }
+  body[data-habillage="facebook"] .carte { border:1px solid var(--ligne); border-radius:8px; padding:12px 16px; }
+  .entete { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .avatar { width:40px; height:40px; border-radius:50%; flex:none; display:grid; place-items:center; font-weight:700; color:#fff; font-size:15px; }
+  body[data-habillage="facebook"] .avatar { width:40px; height:40px; }
+  .nom { font-weight:700; }
+  .doux { color:var(--doux); }
+  .corps { margin:6px 0 0 52px; line-height:1.4; white-space:pre-wrap; }
+  .actions { margin:10px 0 0 52px; display:flex; gap:38px; color:var(--doux); font-size:13px; }
+  .repost-tete { margin:0 0 4px 52px; color:var(--doux); font-size:13px; font-weight:700; }
+  .encart { margin:8px 0 0 52px; border:1px solid var(--ligne); border-radius:12px; padding:10px 12px; font-size:14px; }
+  .commentaires { margin:10px 0 0 52px; border-top:1px solid var(--ligne); }
+  .com { padding:8px 0 0; font-size:14px; }
+  .com .entete { gap:5px; }
+  .com .avatar { width:24px; height:24px; font-size:11px; }
+  .com .txt { margin:2px 0 0 29px; }
+
+  /* ---- Origine : commun ---- */
+  .lien-o { color:inherit; text-decoration:underline; text-underline-offset:2px; cursor:pointer; display:inline-flex; align-items:center; gap:3px; min-height:24px; }
+  .lien-o svg { width:12px; height:12px; }
+  .ico { width:14px; height:14px; flex:none; }
+  body.masque .o-a, body.masque .o-b-etiquette, body.masque .o-c, body.masque .o-com, body.masque .o-trait { display:none !important; }
+  body.masque .bloc.b { outline:none !important; }
+
+  /* ---- Variante A : ligne de 24 px au-dessus + trait 4 px ---- */
+  .o-a { display:none; align-items:center; gap:6px; height:24px; padding:0 10px 0 14px; font-size:12px; font-weight:600; color:var(--o-texte); background:var(--o-fond); white-space:nowrap; overflow:hidden; }
+  .o-a .sep { opacity:.55; }
+  .o-a .coupe { overflow:hidden; text-overflow:ellipsis; }
+  .o-trait { display:none; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--o); z-index:2; }
+  .o-trait.inconnu { background:repeating-linear-gradient(var(--o) 0 4px, transparent 4px 8px); }
+  body[data-variante="A"] .o-a { display:flex; }
+  body[data-variante="A"] .o-trait { display:block; }
+  body[data-habillage="facebook"][data-variante="A"] .o-a { border-radius:8px 8px 0 0; }
+  body[data-habillage="facebook"][data-variante="A"] .o-a + .carte { border-top-left-radius:0; border-top-right-radius:0; }
+
+  /* ---- Variante B : cadre 2 px + étiquette sur le bord ---- */
+  body[data-variante="B"] .bloc.b { outline:2px solid var(--o); outline-offset:-2px; z-index:1; }
+  body[data-variante="B"] .bloc.b.inconnu { outline-style:dashed; }
+  .o-b-etiquette { display:none; position:absolute; top:-1px; left:14px; z-index:3; height:20px; padding:0 8px; border-radius:0 0 6px 6px; font-size:11.5px; font-weight:700; line-height:20px; background:var(--o); color:var(--o-sur); cursor:pointer; border:0; font-family:inherit; }
+  body[data-variante="B"] .o-b-etiquette { display:block; }
+  body[data-variante="B"] .carte { padding-top:24px; }
+
+  /* ---- Variante C : pastille dans l'en-tête ---- */
+  .o-c { display:none; align-items:center; gap:5px; height:20px; padding:0 8px; border-radius:999px; border:1px solid var(--ligne); background:none; color:var(--texte); font:inherit; font-size:11.5px; cursor:pointer; }
+  .o-c i { width:8px; height:8px; border-radius:50%; background:var(--o); display:inline-block; }
+  body[data-variante="C"] .o-c { display:inline-flex; }
+
+  /* ---- Détail (popover) : B, C et commentaires ---- */
+  .detail { position:absolute; z-index:40; width:300px; padding:10px 12px; background:var(--carte); color:var(--texte); border:1px solid var(--ligne); border-left:4px solid var(--o); border-radius:8px; box-shadow:0 10px 28px rgb(0 0 0/.45); font-size:13px; }
+  .detail dl { display:grid; grid-template-columns:auto 1fr; gap:4px 10px; margin:0; }
+  .detail dt { color:var(--doux); }
+  .detail dd { margin:0; }
+
+  /* ---- Commentaire compact (A et B) ---- */
+  .o-com { display:none; margin-left:auto; align-items:center; gap:5px; font-size:11px; color:var(--doux); background:none; border:0; font-family:inherit; cursor:pointer; padding:0; }
+  .o-com i { width:3px; height:12px; border-radius:1px; background:var(--o); display:inline-block; }
+  body[data-variante="A"] .o-com, body[data-variante="B"] .o-com, body[data-variante="C"] .o-com { display:inline-flex; }
+
+  .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#222; color:#fff; padding:10px 14px; border-radius:8px; font-size:13px; z-index:60; max-width:90vw; box-shadow:0 6px 20px rgb(0 0 0/.4); }
+  @media (max-width:640px) { .actions { gap:22px; } .corps, .actions, .encart, .commentaires, .repost-tete { margin-left:0; } .o-a .masquable { display:none; } }
+</style>
+</head>
+<body data-variante="A" data-habillage="x">
+
+<div class="maquette" role="region" aria-label="Commandes de la maquette">
+  <b>Maquette — avis DESIGNER n°85</b>
+  <span>Variante <span class="seg" id="seg-variante">
+    <button data-v="A" aria-pressed="true">A · ligne + trait</button><button data-v="B" aria-pressed="false">B · cadre</button><button data-v="C" aria-pressed="false">C · pastille</button>
+  </span></span>
+  <span>Habillage <span class="seg" id="seg-habillage">
+    <button data-h="x" aria-pressed="true">X</button><button data-h="facebook" aria-pressed="false">Facebook</button>
+  </span></span>
+  <span>Vue <span class="seg" id="seg-vue">
+    <button data-vue="animation" aria-pressed="true">Animation</button><button data-vue="joueur" aria-pressed="false">Comme un joueur</button>
+  </span></span>
+  <span class="note-maquette">Données fictives. Les liens « ↗ » n'ouvrent rien ici : ils affichent l'adresse que le produit ouvrirait (MELMIL, Console d'animation) dans un nouvel onglet.</span>
+</div>
+
+<div class="barre-anim" id="barre-anim">
+  <span class="titre">Animation</span>
+  <span>Fil d'actualité</span>
+  <button class="legende-btn" id="legende-btn" aria-expanded="false" aria-controls="legende">Couleurs ▾</button>
+  <button class="interrupteur" id="interrupteur" role="switch" aria-checked="true"><span class="pastille" aria-hidden="true"></span><span>Origine des publications : <b id="etat-interrupteur">Affichée</b></span></button>
+  <div class="legende" id="legende" hidden></div>
+</div>
+<div class="rappel" id="rappel">Origine visible — repère réservé à l'animation, jamais montré aux joueurs.</div>
+
+<div class="fil" id="fil"></div>
+
+<script>
+// ------- Couleurs (à définir sur PLÉIADE / eho : question ouverte n°1) -------
+const GROUPES = {
+  "DIV 1":    { o:"#4f7cff", sur:"#fff" },
+  "DIV 2":    { o:"#22a06b", sur:"#fff" },
+  "BRIGADE":  { o:"#a259ff", sur:"#fff" },
+  "GREYCELL": { o:"#7f97b2", sur:"#0b0d10" },
+  "FORAD":    { o:"#c98a3a", sur:"#0b0d10" },
+  "?":        { o:"#64748b", sur:"#fff" },
+};
+const ICO = {
+  joueur:   '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>',
+  anim:     '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+  scenario: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/></svg>',
+  inconnu:  '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+};
+const EXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+
+// ------- Faux fil : les origines possibles -------
+// o = { type: joueur|anim|scenario|inconnu, groupe, compte, scenario:{id,nom}, incident, storyline, bruit }
+const POSTS = [
+  { av:"Le Républicain HNancy", h:"@republicain_hn", c:"#c0392b", t:"2 min", txt:"Coupure d'eau à HLunéville : la préfecture annonce une distribution de bouteilles dès 14 h.",
+    o:{ type:"scenario", groupe:"GREYCELL", scenario:{ id:41, nom:"Pression sur HLunéville — crise de l'eau" }, incident:"07.01.I03" },
+    coms:[
+      { av:"Marie Duval", h:"@marie_dvl", c:"#8e44ad", txt:"Et toujours aucune explication de la mairie…", o:{ type:"joueur", groupe:"DIV 1", compte:"dv01" } },
+      { av:"EastWatch", h:"@EastWatch_Intl", c:"#2c3e50", txt:"Selon nos sources, le réseau aurait été saboté.", o:{ type:"scenario", groupe:"FORAD", scenario:{ id:44, nom:"Rumeur sabotage" }, incident:"07.02.I01" } },
+    ] },
+  { av:"Cpt Arnaud Leroy", h:"@cne_leroy_1div", c:"#1f6feb", t:"5 min", txt:"Nos unités sont en place à HSarrebourg. Situation calme, contrôle des axes en cours.",
+    o:{ type:"joueur", groupe:"DIV 1", compte:"dv01" } },
+  { repostPar:"Sgt Kevin Morel", repostO:{ type:"joueur", groupe:"DIV 2", compte:"dv14" },
+    av:"Info Grand Est", h:"@info_ge", c:"#d35400", t:"8 min", txt:"#HLunéville : des files d'attente se forment devant les points de distribution.",
+    o:{ type:"scenario", groupe:"GREYCELL", scenario:{ id:41, nom:"Pression sur HLunéville — crise de l'eau" }, incident:"07.01.I03" } },
+  { av:"Collectif Arnland Libre", h:"@ARNLibre", c:"#16a085", t:"12 min", txt:"La population n'est pas dupe. #ARNLibre",
+    o:{ type:"anim", groupe:"FORAD", compte:"fa03" } },
+  { av:"Jean-Louis Adriane", h:"@arn_jean_louis_adriane", c:"#7f8c8d", t:"20 min", txt:"Belle journée au marché de HToul, ambiance sereine malgré les rumeurs.",
+    o:{ type:"scenario", groupe:"GREYCELL", scenario:{ id:39, nom:"Bruit de fond — vie quotidienne Lorraine" }, bruit:true } },
+  { av:"Mercure Today", h:"@mercure_today", c:"#b03a2e", t:"31 min", txt:"Le ministère de Mercure dénonce « l'ingérence » de la coalition dans le GET.",
+    quote:{ h:"@info_ge", txt:"#HLunéville : des files d'attente se forment…" },
+    o:{ type:"scenario", groupe:"FORAD", scenario:{ id:45, nom:"Narratif ingérence — storyline 07-02" }, storyline:"07-02" } },
+  { av:"Lt Sophie Garnier", h:"@lt_garnier", c:"#2980b9", t:"44 min", txt:"Point de situation transmis à l'état-major. Rien à signaler sur l'axe nord.",
+    o:{ type:"joueur", groupe:"BRIGADE", compte:"br02" } },
+  { av:"Compte_ancien_42", h:"@compte_ancien_42", c:"#95a5a6", t:"1 h", txt:"Publication antérieure à l'enregistrement de l'origine.",
+    o:{ type:"inconnu", groupe:"?" } },
+];
+
+const LIBELLE_TYPE = { joueur:"Joueur", anim:"Animation", scenario:"Scénario", inconnu:"Origine inconnue" };
+const couleur = (o) => GROUPES[o.groupe] || GROUPES["?"];
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const coupe = (s, n) => s.length > n ? s.slice(0, n - 1) + "…" : s;
+
+function lienScenario(o) {
+  return `<a class="lien-o" data-ouvre="Console d'animation : https://admin.delattre-26.pleiade.internal/scenarios/${o.scenario.id}" title="${esc(o.scenario.nom)} — ouvrir dans la Console d'animation" aria-label="Scénario ${esc(o.scenario.nom)}, ouvrir dans la Console d'animation (nouvel onglet)"><span class="coupe">${esc(coupe(o.scenario.nom, 32))}</span>${EXT}</a>`;
+}
+function lienCible(o) {
+  if (o.incident) return `<a class="lien-o" data-ouvre="MELMIL : https://melmil.delattre-26.pleiade.internal/preparation?fiche=${o.incident}" aria-label="Incident ${o.incident}, ouvrir dans MELMIL (nouvel onglet)">Incident ${o.incident}${EXT}</a>`;
+  if (o.storyline) return `<a class="lien-o" data-ouvre="MELMIL : https://melmil.delattre-26.pleiade.internal/preparation?onglet=gt3&amp;storyline=${o.storyline}" aria-label="Storyline ${o.storyline}, ouvrir dans MELMIL (nouvel onglet)">Storyline ${o.storyline}${EXT}</a>`;
+  if (o.bruit) return `<span>Bruit de fond</span>`;
+  return "";
+}
+// Texte de la ligne d'origine (variante A), au mot près de l'avis.
+function ligneA(o) {
+  const s = '<span class="sep">·</span>';
+  if (o.type === "joueur") return `${ICO.joueur}<span>Joueur</span>${s}<span>${o.groupe}</span>${s}<span>${o.compte}</span>`;
+  if (o.type === "anim") return `${ICO.anim}<span>Animation</span>${s}<span>${o.groupe}</span>${s}<span>${o.compte}</span>`;
+  if (o.type === "scenario") return `${ICO.scenario}<span>Scénario</span>${s}<span class="masquable">${o.groupe}</span><span class="sep masquable">·</span>${lienScenario(o)}${s}${lienCible(o)}`;
+  return `${ICO.inconnu}<span>Origine inconnue</span>`;
+}
+function court(o) {
+  if (o.type === "joueur" || o.type === "anim") return `${o.groupe} · ${o.compte}`;
+  if (o.type === "scenario") return `${o.groupe} · ${coupe(o.scenario.nom, 18)}`;
+  return "Origine inconnue";
+}
+function detailHtml(o) {
+  const lignes = [["Type", LIBELLE_TYPE[o.type]]];
+  if (o.type !== "inconnu") lignes.push([o.type === "joueur" ? "Groupe" : "Cellule", o.groupe]);
+  if (o.compte) lignes.push(["Compte", o.compte]);
+  if (o.scenario) lignes.push(["Scénario", lienScenario(o)]);
+  if (o.incident || o.storyline || o.bruit) lignes.push([o.incident ? "Incident" : o.storyline ? "Storyline" : "Cible", lienCible(o)]);
+  if (o.type === "inconnu") lignes.push(["", "Publiée avant l'enregistrement de l'origine."]);
+  return `<dl>${lignes.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
+}
+const vars = (o) => { const c = couleur(o); const fond = document.body.dataset.habillage === "facebook" ? c.o + "22" : c.o + "2e"; return `--o:${c.o};--o-sur:${c.sur};--o-fond:${fond};--o-texte:var(--texte)`; };
+
+function rendre() {
+  const fil = document.getElementById("fil");
+  fil.innerHTML = POSTS.map((p, i) => {
+    // Pour un repost, l'origine affichée est celle de l'ACTE (qui a reposté) ; l'original en détail.
+    const o = p.repostPar ? p.repostO : p.o;
+    const inc = o.type === "inconnu" ? " inconnu" : "";
+    const coms = (p.coms || []).map((c, j) => `
+      <div class="com" style="${vars(c.o)}">
+        <div class="entete"><span class="avatar" style="background:${c.c}">${c.av[0]}</span><span class="nom">${esc(c.av)}</span><span class="doux">${c.h}</span>
+          <button class="o-com" data-detail="c${i}-${j}" aria-label="Origine : ${esc(court(c.o))}" aria-expanded="false"><i aria-hidden="true"></i>${esc(court(c.o))}</button></div>
+        <div class="txt">${esc(c.txt)}</div>
+      </div>`).join("");
+    return `
+    <div class="bloc b${inc}" style="${vars(o)}" data-i="${i}">
+      <span class="o-trait${inc}" aria-hidden="true"></span>
+      <div class="o-a" role="note" aria-label="Origine">${ligneA(o)}${p.repostPar ? `<span class="sep">·</span><button class="lien-o" style="background:none;border:0;font:inherit;color:inherit;padding:0" data-detail="r${i}" aria-expanded="false">original ▾</button>` : ""}</div>
+      <button class="o-b-etiquette" data-detail="p${i}" aria-expanded="false" aria-label="Origine : ${esc(court(o))} — détail">${esc(court(o))}</button>
+      <article class="carte">
+        ${p.repostPar ? `<div class="repost-tete">↻ ${esc(p.repostPar)} a reposté</div>` : ""}
+        <div class="entete"><span class="avatar" style="background:${p.c}">${p.av[0]}</span><span class="nom">${esc(p.av)}</span><span class="doux">${p.h} · ${p.t}</span>
+          <button class="o-c" data-detail="p${i}" aria-expanded="false" aria-label="Origine : ${esc(court(o))} — détail"><i aria-hidden="true"></i>${esc(o.type === "inconnu" ? "?" : o.groupe)}</button></div>
+        <div class="corps">${esc(p.txt)}</div>
+        ${p.quote ? `<div class="encart"><span class="doux">${p.quote.h}</span><br>${esc(p.quote.txt)}</div>` : ""}
+        <div class="actions"><span>💬 ${(p.coms || []).length}</span><span>↻ 4</span><span>♡ 12</span><span>🔖</span></div>
+        ${coms ? `<div class="commentaires">${coms}</div>` : ""}
+      </article>
+    </div>`;
+  }).join("");
+}
+
+// ------- Détail (popover) : fermeture au clic extérieur et à Échap -------
+let ouvert = null;
+function fermerDetail() { if (!ouvert) return; ouvert.pop.remove(); ouvert.btn.setAttribute("aria-expanded", "false"); ouvert.btn.focus({ preventScroll:true }); ouvert = null; }
+function ouvrirDetail(btn) {
+  const cle = btn.dataset.detail; const i = +cle.slice(1).split("-")[0];
+  const p = POSTS[i];
+  let o; if (cle[0] === "c") o = p.coms[+cle.split("-")[1]].o; else if (cle[0] === "r") o = p.o; else o = p.repostPar ? p.repostO : p.o;
+  if (ouvert && ouvert.btn === btn) { fermerDetail(); return; }
+  fermerDetail();
+  const pop = document.createElement("div");
+  pop.className = "detail"; pop.setAttribute("role", "dialog"); pop.setAttribute("aria-label", "Origine de la publication");
+  pop.style.cssText = vars(o);
+  pop.innerHTML = (cle[0] === "r" ? '<div class="doux" style="margin-bottom:6px">Publication originale</div>' : "") + detailHtml(o);
+  document.body.appendChild(pop);
+  const r = btn.getBoundingClientRect();
+  pop.style.left = Math.max(8, Math.min(window.innerWidth - 310, r.left + window.scrollX)) + "px";
+  pop.style.top = (r.bottom + window.scrollY + 6) + "px";
+  btn.setAttribute("aria-expanded", "true");
+  ouvert = { btn, pop };
+}
+
+// ------- Événements -------
+const toast = (t) => { const d = document.createElement("div"); d.className = "toast"; d.textContent = "Ouvrirait dans un nouvel onglet → " + t; document.body.appendChild(d); setTimeout(() => d.remove(), 3200); };
+document.addEventListener("click", (e) => {
+  const lien = e.target.closest("[data-ouvre]");
+  if (lien) { e.preventDefault(); e.stopPropagation(); toast(lien.dataset.ouvre); return; }
+  const btn = e.target.closest("[data-detail]");
+  if (btn) { e.stopPropagation(); ouvrirDetail(btn); return; }
+  if (ouvert && !ouvert.pop.contains(e.target)) fermerDetail();
+  const leg = document.getElementById("legende");
+  if (!leg.hidden && !e.target.closest("#legende,#legende-btn")) { leg.hidden = true; document.getElementById("legende-btn").setAttribute("aria-expanded", "false"); }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  fermerDetail();
+  const leg = document.getElementById("legende"); if (!leg.hidden) { leg.hidden = true; document.getElementById("legende-btn").setAttribute("aria-expanded", "false"); }
+});
+
+// Interrupteur mémorisé par poste (navigateur) ; masqué par défaut dans le produit, affiché ici pour la démonstration.
+let affiche = true;
+try { const v = localStorage.getItem("social.origine"); if (v !== null) affiche = v === "1"; } catch {}
+function majInterrupteur() {
+  document.body.classList.toggle("masque", !affiche);
+  const b = document.getElementById("interrupteur");
+  b.setAttribute("aria-checked", String(affiche));
+  document.getElementById("etat-interrupteur").textContent = affiche ? "Affichée" : "Masquée";
+  document.getElementById("rappel").hidden = !affiche || document.body.dataset.vue === "joueur";
+}
+document.getElementById("interrupteur").addEventListener("click", () => { affiche = !affiche; try { localStorage.setItem("social.origine", affiche ? "1" : "0"); } catch {} majInterrupteur(); });
+
+document.getElementById("legende").innerHTML = Object.entries(GROUPES).map(([g, c]) => `<div><i style="background:${c.o}"></i>${g === "?" ? "Origine inconnue" : g}</div>`).join("");
+document.getElementById("legende-btn").addEventListener("click", (e) => { e.stopPropagation(); const l = document.getElementById("legende"); l.hidden = !l.hidden; e.currentTarget.setAttribute("aria-expanded", String(!l.hidden)); });
+
+function seg(id, attr, cb) {
+  document.querySelectorAll(`#${id} button`).forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(`#${id} button`).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    cb(b.dataset[attr]);
+  }));
+}
+seg("seg-variante", "v", (v) => { document.body.dataset.variante = v; fermerDetail(); });
+seg("seg-habillage", "h", (h) => { document.body.dataset.habillage = h; fermerDetail(); rendre(); });
+seg("seg-vue", "vue", (v) => {
+  document.body.dataset.vue = v;
+  const joueur = v === "joueur";
+  document.getElementById("barre-anim").hidden = joueur;
+  document.body.classList.toggle("masque", joueur || !affiche);
+  document.getElementById("rappel").hidden = joueur || !affiche;
+  fermerDetail();
+});
+
+rendre();
+majInterrupteur();
+</script>
+</body>
+</html>

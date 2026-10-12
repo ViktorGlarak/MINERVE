@@ -135,6 +135,7 @@ graph LR
 | LEAC | [prompt](SYSTEME/PROMPTS/leac.md) | [mémoire](LEAC/MEMOIRE.md) |
 | DESIGNER | [prompt](SYSTEME/PROMPTS/designer.md) | [mémoire](DESIGNER/MEMOIRE.md) |
 | CYBERSECU | [prompt](SYSTEME/PROMPTS/cybersecu.md) | [mémoire](CYBERSECU/MEMOIRE.md) |
+| PSYCHOLOGUE | [prompt](SYSTEME/PROMPTS/psychologue.md) | [mémoire](PSYCHOLOGUE/MEMOIRE.md) |
 
 ---
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Messagerie — proposition A « enveloppe » : un courrier, une lettre qui dépasse et une pastille de nouveaux messages. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Lettre qui dépasse -->
+    <rect x="112" y="76" width="288" height="230" rx="14" fill="#f5f2ef"/>
+    <line x1="152" y1="124" x2="360" y2="124" stroke-width="12"/>
+    <line x1="152" y1="164" x2="330" y2="164" stroke-width="12"/>
+    <line x1="152" y1="204" x2="300" y2="204" stroke-width="12"/>
+    <!-- Enveloppe -->
+    <path d="M44 216 L256 352 L468 216 V430 Q468 462 436 462 H76 Q44 462 44 430 Z" fill="#1e90ff"/>
+    <path d="M44 430 L196 314" fill="none"/>
+    <path d="M468 430 L316 314" fill="none"/>
+    <path d="M44 216 L256 352 L468 216" fill="none"/>
+    <!-- Pastille -->
+    <circle cx="420" cy="104" r="62" fill="#ff4757"/>
+    <path d="M412 78 L426 70 V138" fill="none" stroke="#fff" stroke-width="14"/>
+  </g>
+</svg>

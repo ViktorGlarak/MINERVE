@@ -142,6 +142,13 @@ La demande concerne...
 │       ⚠ Il conseille et vérifie, il ne pousse rien : mise en œuvre par PLEIADE / ARCHITECTE, tests en local, accord de l'utilisateur
 │       Collabore : PLEIADE (plateforme), ARCHITECTE (code), MASTORION (réseau social), LEAC (tablette hors ligne), DESIGNER (écrans)
 │
+├── une question de PSYCHOLOGIE des avatars IA (personnalité, émotions, mémoire, relations, influence, bascule d'opinion), ou une source de psychologie à ingérer ?  ⭐ créé 2026-10-10
+│   └── PSYCHOLOGUE (claude-opus-4-7) → Expert en psychologie du système évolutif de sociabilité des avatars
+│       Cas : "comment cet avatar devrait-il réagir ?", "comment modéliser la rancune / la contagion / la bascule ?", "quels traits de personnalité ?", "ingère cet article de psychologie"
+│       Fichiers : PSYCHOLOGUE\MEMOIRE.md (état du système + doctrine sourcée + propositions) · PSYCHOLOGUE\JOURNAL.md · PSYCHOLOGUE\REFERENCES\REF-NN_*.md
+│       ⚠ Il conseille, il ne code pas : moteur codé par PLEIADE (prototype C:\CECPC\pleiade\dev\prototype-ia\, suivi PLEIADE\PROJET_AVATARS_IA.md)
+│       Collabore : PLEIADE (moteur IA), EXPERT_INFLUENCE (effets ILI), ANALYSTE / ANALYSTE_ARN / ANALYSTE_BOT (profils), MASTORION (réseau social), DESIGNER (lisibilité pour l'animation)
+│
 └── une question sur la DOCTRINE ILI, la SYNCHROMATRICE ou la PLANIFICATION des effets informationnels ?
     └── EXPERT_INFLUENCE (Claude Opus 4.7) → Expert doctrine ILI transversal
         Cas : "comment structurer une synchromatrice ?", "quel effet ILI pour cet inject ?", "la séquence est-elle cohérente ?", "calibrage réalisme opération d'influence"

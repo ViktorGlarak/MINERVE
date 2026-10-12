@@ -4,6 +4,706 @@
 
 ---
 
+## 2026-10-12 (suite 12) — MISE À JOUR GROUPÉE POUSSÉE (feu vert de l'utilisateur)
+- **Social** `c7908d4..2a78127` (main + prod) : J'aime de commentaire par l'API de service ; libellé « Avatar animé par IA » ; icône IA teintée.
+- **app-ia** `92ad3a7..d6e6d9a` (main + prod) = **12.9** : J'aime de commentaire ; compteur des J'aime posés ; citations qui reprennent les #.
+- **Console** `3aad35f..27887bd` (main + prod) : avatars animés par l'IA signalés (sélecteur, Vérifier non bloquant, kit IA) ; glyphe teinté.
+- **eho** `03e9d20..e98806d` (main + prod) : glyphe ✦ par le jeton `--color-ia`. La version reste 2026-10-12.2 : changement d'apparence seulement.
+- **pleiade-platform** `9087ed2..f4a5d7c` (main = déploiement) : `EnvVar.exemple`, placeholder grisé ; `IA_T0` devient « Premier jour de l'exercice », exemple `2026-10-10`.
+- Avant le push : avance rapide vérifiée pour les 5 dépôts, copies de travail propres, image de la Console reconstruite.
+
+## 2026-10-12 (suite 11) — J'aime IA sur les commentaires (constat utilisateur : « les J'aime restent à 0 ») — commits locaux, À POUSSER ENSEMBLE
+- **Constat** : le fil public compte bien des J'aime IA sur les publications (17/40 à 10 h 40 ; 12, 6, 5…). Mais :
+  - le moteur n'aimait **jamais les commentaires** (`!pub.commentId`), alors que 35 événements sur 55 sont des réponses ;
+  - l'API de service n'avait pas de J'aime de commentaire ;
+  - le compteur « J'aime » du tableau de bord comptait les **décisions** ;
+  - l'écran du réseau social ne se rafraîchit qu'au rechargement.
+- **Social** `25febb3` + `2a78127` (branche `libelles-ia`) : `POST /api/service/like` accepte `comment_id` (commentaire de ce post, idempotent, 404 sinon).
+  - Essai sur la zone locale (image déployée sur `ia-locale`), avec données jetables supprimées : 201, puis 200 `deja`, puis 404, et J'aime de publication 201.
+- **app-ia 12.9** `3480ad0` : J'aime de commentaire envoyé avec `comment_id` ; journal « aimé » au J'aime posé ; `compteurs.jaime` = J'aime posés, sans compter de lecture. 38/38 essais, l'image se construit.
+- **app-ia 12.9 (suite)** `d6e6d9a` : les **citations** (« partager ») reprennent aussi les # du message cité, même règle que les réponses (demande utilisateur).
+- ⚠ **Ordre de push** : le social avant ou avec app-ia 12.9. Sinon, les J'aime de commentaire reçoivent un 404, sans autre dégât.
+
+## 2026-10-12 (suite 10) — Avis PSYCHOLOGUE n°18 (premier relevé en production) → app-ia 2026-10-12.8 POUSSÉ main + prod (`fa2d404..92ad3a7`, feu vert)
+- **Relevé de 10 h 10** (export `moteur-ia_export_2026-10-12_1009.json`), après la correction d'IA_T0 :
+  - 16 réponses, 3 publications spontanées, 70 J'aime, 145 souvenirs ;
+  - **chœur** : 11 réponses IA en 5 min sous le même message d'un joueur ; 15 réponses sur 16 étaient des formules.
+  - L'avis : `PSYCHOLOGUE\AVIS\2026-10-12_avis18_production.md`.
+- **12.8 = priorité 1 de l'avis**, plus des correctifs :
+  - **M1** : plafond de 2 réponses IA par 30 min et par message, 4 au total (2 sous le message d'un avatar IA), avec exemptions ;
+  - **M2** : partage seulement pour un message actionnable (2 au plus), sinon J'aime ; consigne de `persona` corrigée ;
+  - **M3** : `sansSubstance()`, réponse-formule → J'aime, pour toute la population ;
+  - 2 min minimum entre deux messages d'un même avatar ;
+  - `laPrefecture()`, qui supprime « la la préfecture » ;
+  - remise à l'heure des dates internes négatives, et bloc nocturne v1 rejoué.
+  - 38/38 essais. Un premier `docker build` a échoué de façon passagère ; la reconstruction et l'essai de démarrage sont OK.
+- **Restent** : priorité 2 (M4 « ce qui a déjà été dit » et offre tirée du métier, similarité Jaccard ; M5 étalement log-normal ; M6 répondre aux questions) et priorité 3 (M7 moule spontané, M9 part de l'IA par #).
+
+## 2026-10-12 (suite 9) — app-ia 2026-10-12.7 POUSSÉ main + prod (`6d6fa06..fa2d404`, feu vert de l'utilisateur)
+- **Les réponses reprennent les # du message parent** (`hashtags-herites.mjs`) : le Cockpit les compte dans son reporting par hashtag. Cas d'origine : K_Rud_85, « On l'espère pour elle… Courage. », sous un message #Réfugiés.
+- **Partent aussi** : le contrôle d'`IA_T0` (`temps.ts`) et le libellé « Moteur IA » dans l'origine des publications.
+- 36/36 essais ; image essayée seule.
+- L'instance de DELATTRE 26 s'appelle **`moteur-ia`** (`https://moteur-ia.delattre-26.pleiade.internal/api/sante`).
+- Restent pour la mise à jour groupée : Console (`f959e43`, `9096f26`, `27887bd`), social (`959906c`, `612e13d`), eho (`7148f07`, `e98806d`), pleiade-platform (`f4a5d7c`).
+
+## 2026-10-12 (suite 8) — ⚠ Avatars « endormis » : IA_T0 en décembre ; correctifs (NON POUSSÉS)
+- **Diagnostic** (export moteur `moteur-ia_export_2026-10-12_0942.json`, rangé dans `%USERPROFILE%\.pleiade\analyses-ia\`) :
+  - heure interne de tous les avatars **−1 430,7 h** ; `IA_T0` effectif ≈ **2026-12-10T22:00Z**, donc une saisie erronée ;
+  - `t % 24` négatif fait croire au moteur que les avatars dorment : **95 « réflexions nocturnes » écrites à 9 h** ;
+  - 113 lectures, 0 réaction, 0 souvenir, humeur et opinions figées.
+  - Le relevé : `PSYCHOLOGUE\AVIS\2026-10-11_RELEVE_POPULATION_09h43.md` (nom de fichier daté du 11 par erreur de l'outil).
+- **Correction immédiate par l'utilisateur** : `IA_T0 = 2026-10-09T22:00:00.000Z`, puis redéployer l'instance.
+- **Correctifs à pousser** (demande utilisateur : « pré-remplir / exemple grisé ») :
+  - **app-ia 12.7** `81e0d20` :
+    - `temps.ts` : date simple `AAAA-MM-JJ` = minuit de Paris ; ISO complet accepté ;
+    - refus si illisible ou ambigu (« 10/10/2026 »), à plus de 24 h dans le futur, ou de plus de 60 jours ;
+    - erreur claire au tableau de bord et date effective affichée ;
+    - 33/33 essais.
+  - **pleiade-platform** `f4a5d7c` (branche `exemple-champs`, copie de travail `wt-platform-ia`) : `EnvVar.exemple` (placeholder grisé) ; `IA_T0` = « Premier jour de l'exercice », exemple `2026-10-10`, aide.
+- Au passage : les 5 avatars de scénario bloquaient leurs injects (« Avatar hors cellule », bloquant, car « CAMP IA » est exclusif). **L'utilisateur garde le blocage** et a mis les 5 en pause. Le cache du contrôle de cellule de la Console est de 60 s : un « Vérifier » juste après une bascule montre l'ancien état.
+
+## 2026-10-12 (suite 7) — Couleur commune « IA » sur le seul glyphe, dans toutes les apps (décision utilisateur, avis DESIGNER n°101) — NON POUSSÉ
+- **Jeton `--color-ia`** : `#c026d3` sur fond clair, `#e879f9` sur fond sombre. **Seul le signe est teinté**, jamais la bordure ni le fond.
+- **Console** `9096f26` + `27887bd` : jeton dans `pleiade-theme.css` (sombre) et `pleiade-theme-light.css` (clair), classe `.glyphe-ia` ; ✦ du sélecteur, de l'encadré de Vérifier, de la liste compacte et de `KitIaDialog`.
+- **eho** `7148f07` + `e98806d` (branche `glyphe-ia`) : jeton dans `globals.css` (thème clair seul) ; ✦ du tableau de bord, de Population IA et de la fiche d'avatar (remplace le style en ligne).
+- **Social** `612e13d` (branche `libelles-ia`) : icône `pi-sparkles` du bandeau d'origine IA teintée ; le bandeau garde la couleur de son groupe (gris « IA », décision utilisateur).
+- **app-ia** : aucun glyphe.
+
+## 2026-10-12 (suite 6) — Console : avatars animés par l'IA signalés comme « réservés » (décision utilisateur) — commit local `f959e43`, NON POUSSÉ
+- **Demande** : qu'on ne puisse plus faire jouer, depuis la Console, les avatars gérés par l'IA. Pour les 5 avatars de scénario, une simple alerte, comme pour un avatar réservé par un autre compte.
+- **Console** (copie de travail `wt-app-admin-likes`, branche `avatars-ia`, depuis `origin/main` `3aad35f`). Un avatar est concerné s'il est membre de « CAMP IA » ; « IA EN PAUSE » n'est pas concerné.
+  - **Sélecteur** : étiquette « ✦ Animé par l'IA » (forme `pa-res-autre`) et confirmation « il publie déjà de son côté ».
+  - **Vérifier** : encadré à part, jamais bloquant ; membres lus dans eho (`listGroups` + `groupMemberIdentities`) ; eho injoignable → rien n'est affirmé.
+  - **Kit IA** : ces avatars sont retirés, et le kit comme sa fenêtre l'annoncent (R4).
+  - 56/56 essais ; l'image se construit.
+- **Avis DESIGNER n°101** : 4 corrections appliquées :
+  - « publie déjà de son côté » plutôt que « parle aussi de lui-même » ;
+  - remède « demandez à l'Administration » ;
+  - consigne du kit « ne l'invente pas : signale-le » ;
+  - annonce dans `KitIaDialog`.
+  - **Différé** : jeton `--color-ia` (#c026d3 / #e879f9 sombre) sur le seul glyphe ✦, à trancher ; fusion des encadrés 🔒 et ✦.
+- **À pousser avec la prochaine mise à jour**, avec les libellés d'origine (social `959906c`, app-ia `09d90c9`).
+
+## 2026-10-12 (suite 5) — Avatars IA ACTIVÉS sur DELATTRE 26 ; libellés d'origine corrigés (NON POUSSÉS)
+- **L'utilisateur a installé les 105 avatars et activé.** Dès 08 h 58, le moteur fait générer des réponses au PC (`POST /api/chat 200`, 78 en 30 s, aucune erreur) : la lecture du réseau social fonctionne. Les publications arrivent avec un délai (actions programmées).
+- **Origine IA côté animation** :
+  - le moteur envoie `ia: "true"`, `cellule: "IA"`, `avatar` ;
+  - le réseau social affiche le bandeau ✨ « IA · IA · avatar » ;
+  - la **couleur** est celle du groupe de zone Pléiade nommé comme la cellule (« IA »), à défaut le gris neutre `#64748b`.
+  - **Décision utilisateur** : couleur IA = le gris actuel des administrateurs CECPC, posée en créant un groupe « IA » coloré dans l'écran des utilisateurs de la zone, sans code. Les administrateurs changeront de couleur.
+- **Libellés corrigés, commits locaux À POUSSER avec la prochaine mise à jour** (décision utilisateur) :
+  - social `959906c` (branche `libelles-ia`, copie de travail `wt-app-social-likes`) : « Avatar animé par IA », au lieu de « (validé par l'animation) » ;
+  - app-ia `09d90c9` (`main`) : `moteur: "Moteur IA"`, au lieu de « prototype-ia ».
+
+## 2026-10-12 (suite 4) — eho 2026-10-12.2 « Installer la population IA » (décision utilisateur) — POUSSÉ main + prod (`03e9d20`)
+- **Constat de l'utilisateur** : dans DELATTRE 26, les curseurs d'effectifs sont grisés. La cause n'est pas l'interrupteur (le réglage ne le regarde pas), c'est la population VIDE : aucune fiche de comportement. L'import de fiches ne crée rien.
+- **Fonction** : mode `installer` de `POST /api/population-ia/fiches`, `lib/installation-ia.ts`, écran `components/installation-ia.tsx`. Pour chaque avatar :
+  - retrouvé par **username** (les ids diffèrent entre zones) ;
+  - fiche créée et cohorte retenue ; entrée **EN PAUSE** ;
+  - packs non touchés ; aucune mémoire ; aucun compte créé ; aucun écrasement.
+  - Groupes IA créés s'ils manquent ; blocages sur « CAMP IA » et « IA EN PAUSE » mal réglés.
+  - Deux temps avec empreintes, transaction unique.
+- **Revue CYBERSECU — VALIDÉ AVEC RÉSERVES** : I1 `Object.hasOwn` (y compris `cohorteDe`), I2 cohorte contradictoire refusée, I3 « IA EN PAUSE » contrôlé, I4 P2002 → 409. Toutes appliquées.
+- **Avis DESIGNER n°100** : corrections 1 à 7 appliquées :
+  - place du bloc fixée au premier chargement ;
+  - installation avant l'interrupteur quand la zone est vide ;
+  - trois étapes en tête ; curseurs grisés expliqués ; texte « en pause » ;
+  - import masqué quand la zone est vide ; pas de dépôt pendant une vérification.
+- **Essais** : sur bases MariaDB jetables (`eho_essai_install_*`, dans le conteneur `eho-eho-db-1`, à supprimer avec l'accord de l'utilisateur), tous passés. Image construite ; zone locale : `/api/sante` 12.2, page 307, POST anonyme 401.
+- **⚠ OUVERT, décision utilisateur** : les 5 avatars utilisés dans des scénarios (Anastasia, ManFredK, Mar1na, MercureRealNews, Untergang). CYBERSECU I5 et DESIGNER 8 recommandent de les **retirer du fichier** tant que le réglage d'effectifs n'a pas de protection, sinon une activation les rendrait injouables en plein scénario.
+
+## 2026-10-12 (suite 3) — ✅ LE SERVEUR JOINT LE NŒUD DE CALCUL
+- **app-ia 2026-10-12.6** (`6d6fa06`, main + prod) : sonde `GET /api/tags` à chaque cycle, même interrupteur coupé, affichée au tableau de bord. L'interrupteur coupé arrêtait le moteur avant tout appel au modèle : le chemin n'avait jamais servi.
+- **Premier appel reçu** : `2026-10-12T06:32:27Z 10.8.0.1 GET /api/tags 200 22ms`.
+  - Source **constatée** : `10.8.0.1`, comme prévu (O3 de CYBERSECU) ; pare-feu et `--sources` déjà réglés dessus.
+  - Jeton accepté.
+- **Reste** : O7 Pritunl (à constater sur le serveur) ; **installer la population IA dans DELATTRE 26**. L'import de fiches d'eho ne crée rien (« aucune création ») : il faut soit `recopier-population.mjs` avec la clé de zone, soit une installation par eho sans clé (à décider).
+
+## 2026-10-12 (suite 2) — Nœud de calcul par le VPN (avis CYBERSECU du 2026-10-12, VALIDÉ AVEC RÉSERVES O1 à O8) — POUSSÉ
+- **Choix de l'utilisateur** : l'accès par le VPN existant. Le PC a l'adresse tunnel `10.8.0.3` (OpenVPN TAP). Il n'a pas été besoin d'ouvrir le certificat Pritunl, ce que la règle interdit de toute façon.
+- **app-ia 2026-10-12.5** (`d9dab99`, main + prod) :
+  - jeton `OLLAMA_CLE` envoyé en `Authorization: Bearer` (chat + embed) ;
+  - `adresseNoeud()` dans `src/moteur/noeud.ts` (module pur) : `http://` admis seulement vers `host.docker.internal` ou `10.8.0.3:11435`, sinon « nœud injoignable » ;
+  - « ollama 4xx/5xx » classé « nœud injoignable » ;
+  - 28/28 essais ; image essayée seule, moteur coupé, `/api/sante` 2026-10-12.5.
+  - ⚠ Premier essai d'image en ÉCHEC : `test-noeud.mts` importait `moteur.ts` (client Prisma pas encore généré pendant `npm test` dans l'image). Corrigé avant le push. La règle « tester en local » l'a attrapé.
+- **pleiade-platform** `9087ed2` (main = déploiement) : `OLLAMA_CLE` (editable + secret) dans `ia.yml`. La fenêtre Configuration relit le catalogue : le champ apparaît aussi sur une instance déjà créée.
+- **PC** : `C:\CECPC\pleiade\dev\noeud-ia\` :
+  - `proxy-ollama.mjs` : 10.8.0.3:11435 seulement, cible fixe, 3 routes exactes, 2 modèles, 1 Mo, Origin → 403, source vérifiée, 2 requêtes simultanées, jeton SHA-256 à temps constant, blocage après 10 échecs, journal sans contenu ;
+  - `essai-proxy.mjs` : 14/14 refus vérifiés en local avec un jeton jetable ;
+  - `pare-feu.ps1` (administrateur) : supprime les règles larges node.exe (2 règles « Node.js JavaScript Runtime » Public constatées), crée la règle unique et journalise les refus ;
+  - `LANCER_PROXY.cmd`.
+- **O4 constaté** : Ollama écoute 127.0.0.1:11434 seulement ; pas d'`OLLAMA_HOST` ni d'`OLLAMA_DEBUG` ; version 0.35.1.
+- **Reste, par l'utilisateur** :
+  - lancer le proxy, ce qui crée le jeton dans `%USERPROFILE%\.pleiade\ollama-cle.txt` (je ne le lis pas) ;
+  - lancer le pare-feu ;
+  - recopier le jeton et `OLLAMA_URL=http://10.8.0.3:11435` dans la Configuration de l'instance, puis redéployer ;
+  - **O7 à constater sur le serveur** (Pritunl en tun, pas de communication directe entre clients, `ip route get 10.8.0.3` par le tunnel) ;
+  - fixer `--sources` d'après le journal.
+
+## 2026-10-12 (suite) — PREMIÈRE MISE EN LIGNE DES AVATARS IA : 5 dépôts poussés (autorisation explicite de l'utilisateur, accord de Xavier pour l'orchestrateur)
+- **Console** `a922f85..3aad35f` (main + prod) et **Social** `c9c7808..c7908d4` (main + prod) : plus de J'aime fictifs.
+- **eho** `b961bd4..f93c442` (`ia-avatars` → main + prod) : 2026-10-12.1, fiches IA (import/export), interrupteur, état. Pas de changement de schéma. En ligne vérifié : `eho-delattre26…/api/sante` = 2026-10-12.1.
+- **pleiade-platform** `af52e0b..39dc8c7` (main = DÉPLOIEMENT) : `catalog/ia.yml` (3 commits repris depuis la branche locale `tutoriel` dans la copie de travail `wt-platform-ia`, branche `catalogue-ia`) + notes de version. Test « volume relatif » en échec AUSSI sur origin/main (chemins Windows, préexistant).
+- **app-ia** : `main` `fb98644..08e0d5f`, puis **`prod` créée**.
+  - ⚠⚠ **Défaut trouvé avant le push** : `deployer-prod.yml` était une copie de l'admin. Il construisait `localhost:5000/admin` et appelait `pleiade-promouvoir admin` : un push sur `prod` aurait remplacé la Console d'animation de toutes les zones par le Moteur IA. Corrigé en `ia` (`08e0d5f`).
+- **Vérifié** :
+  - Console `/login` 200 ; MELMIL OK ; Social répond (401 anonyme).
+  - Le front Social (fusée retirée) **n'a pas pu être vérifié** par lecture des fichiers servis : à confirmer à l'œil.
+- **Reste pour faire tourner les avatars sur le serveur** :
+  1. le **nœud de calcul** (Ollama joignable depuis le serveur, recommandation CYBERSECU : proxy TLS sur l'IP VPN avec jeton, ou PC qui tire le travail) ;
+  2. ajouter l'instance « Moteur IA » dans DELATTRE 26 avec `OLLAMA_URL` et `IA_T0` ;
+  3. installer la population CAMP IA dans eho, interrupteur coupé ;
+  4. un premier essai sous surveillance.
+- Copies de travail laissées : `wt-app-admin-likes`, `wt-app-social-likes`, `wt-platform-ia`. Leur `node_modules` est une jonction : la supprimer avant tout `git worktree remove`.
+
+## 2026-10-12 — Plus de J'aime fictifs (décision utilisateur) — ✅ POUSSÉ le même jour (voir ci-dessus)
+- **Demande** : avant le premier essai serveur des avatars IA, plus aucun J'aime fictif attribué par les joueurs ou par l'animation.
+- **Où on pouvait en fabriquer** : la Console d'animation (« Engagement simulé » d'un inject, colonne Excel `likes`) et le Turbo Boost de Social (bouton fusée des animateurs).
+- **Console `3aad35f`** (copie de travail `C:\CECPC\pleiade\wt-app-admin-likes`, `main`) :
+  - section retirée, colonne ♥ retirée de la table et de l'arbre ;
+  - `likes` et `like_groups` retirés du format, de l'export et du kit IA, ignorés à l'import ;
+  - `nbLikes` forcé à 0 à la création et à la modification, planificateur à `likes.count = 0` ;
+  - 53/53 essais.
+- **Social `c7908d4`** (copie de travail `C:\CECPC\pleiade\wt-app-social-likes`, `main` = `origin/main` + 1) : `LIKES_FICTIFS_DESACTIVES`, Turbo Boost en 403 et bouton retiré, `likes_count` du service ignoré. `/api/service/like` (avatars IA) est inchangé.
+- **Essai sur la zone locale `ia-locale`** :
+  - images déployées et saines ; anciennes images gardées sous le tag `:avant-likes` ;
+  - publication de service jetable avec `likes_count = 5` → 0 J'aime, Turbo Boost sans jeton → 401, essai supprimé.
+- **Non testé faute de jeton Keycloak d'animateur** : le 403 du Turbo Boost (une ligne, typée).
+- **Notes de version écrites dans les deux dépôts.**
+- **Au push** : pauser les scénarios d'abord (redémarrage social/admin). La branche `tutoriel` (localhost) n'a pas ces changements.
+
+## 2026-10-10 (suite 9) — Cockpit : Reporting « Par hashtag » — ✅ POUSSÉ main + prod (social `48286ff..9f18a88`, puis cockpit `6b6acc8..97070a1`)
+- Demande utilisateur : analyser la sphère informationnelle par hashtag — mêmes séries que « Activité par heure » + « Hors séries » ; un ou plusieurs hashtags additionnés ; lectures Nombres et Parts (%). Avis DESIGNER n°96 (« contenus », panneau sous le graphique, tendances en puces, colonnes empilées à 100 %, bande de volume, total distinct).
+- Social : `POST /api/cockpit/reporting/hashtags` (séries, horsSeries, total distinct). Cockpit : `/api/bff/reporting/hashtags` + `ReportingHashtag.tsx`. Essai : calculs = décompte en base ; écran sans erreur. Ordre de push : social puis cockpit.
+
+## 2026-10-10 (suite 8) — eho 2026-10-10.2 + Social : localisation réelle, lieu affiché, langue, source — ✅ POUSSÉ main + prod (eho `e9e1350..d7e3566`, social `ecbb90d..48286ff`)
+- Onglet « Avatars » rangé par **localisation réelle** (champ par avatar, initialisé une fois avec le pays : 583, bandeaux identiques) ; lot 4 de la fiche (lieu affiché, langue de publication, source de la fiche + reprise automatique de 475 sources) ; Social affiche le lieu sur le profil. Détail : `PROJET_AVATARS_IA.md` §8. ⚠ À la mise en ligne, eho fait les deux reprises au démarrage sur les vraies données de DELATTRE 26.
+
+## 2026-10-10 (suite 7) — eho : bandeaux de pays repliables (trombinoscope + planche des joueurs) — ✅ POUSSÉ main + prod (eho 2026-10-10.1, `4fd19f3..e9e1350`)
+- Demande utilisateur : ne plus traverser tout Mercure pour atteindre la France. Trombinoscope (`ad6401d`) : clic sur le bandeau, Tout replier / déplier, pays de la barre qui se déplie, mémorisé. Planche des joueurs (`6526400`, avis DESIGNER n°95) : même repli **sans casser le glisser-déposer** — lâcher sur un bandeau replié = en tête de « Sans rubrique » + message « Rangé dans … · Afficher » ; ressort 700 ms (liseré qui se remplit) ; zone ouverte par le survol refermée si rien n'y est posé ; STARTEX hors zone refusé visiblement. `lib/replis.ts` (`useSyncExternalStore`) : repli lu après l'hydratation (erreur React n°418 corrigée, `9f2ef64`).
+- Essai joueur `dv02` dans la zone locale : 10/10 (dépôt sur bandeau replié, ressort, refermeture, mémorisation, aucune erreur). Notes de version eho 2026-10-10.1 complétées. ✅ Poussé avec la fiche refondue, M9 et le défilement automatique pendant un glissement (`9b8417e` : bande de 110 px, Chrome / Edge bloquent la molette en glisser-déposer).
+
+## 2026-10-10 (suite 6) — Social : programmer une publication — ✅ POUSSÉ main + prod (`ecbb90d`)
+- Fenêtre à confirmer, bandeau « Sera publié le … », bouton « Programmer », heure passée refusée, publication datée de l'heure de publication (avis DESIGNER n°94). Détail : `MASTORION\JOURNAL.md`.
+
+## 2026-10-10 (suite 5) — Chat : messages à Isabella / Henri non vus par l'animation — correctif ✅ POUSSÉ main + prod (`0bd9c9b`)
+- Reproduit dans la zone locale `ia-locale` avec l'export eho DELATTRE 26 du 10/10 (4 037 avatars importés, cellules GREYCELL / DIV1, comptes gc10 / dv02) : le code fonctionne ⇒ cause côté réglages de groupes en zone (groupe d'Isabella ouvert aux joueurs ou exclusif — à vérifier par l'utilisateur). Correctif décidé : séparer « lu par un joueur » et « traité par l'animation » (social `2344596`, essai 10/10). Détail : `MASTORION\JOURNAL.md`.
+- 🗂️ La zone locale du projet IA a désormais **l'eho complet de DELATTRE 26** (Anastasia : PACK GREYCELL + CAMP BLEU) et deux cellules d'essai (GREYCELL : `gc10`, DIV1 : `dv02`, mot de passe d'essai local).
+
+## 2026-10-10 (suite 4) — Définition de PLEIADE : « plateforme SaaS modulaire » et « digital workspace »
+- Termes fixés par l'utilisateur, consignés dans `MEMOIRE.md` §1 (définition de PLEIADE), à employer dans les productions durables.
+
+## 2026-10-10 (suite 3) — Hashtags des commentaires comptés (Social + Cockpit) — ✅ POUSSÉ main + prod (social `8f10c2f`, cockpit `6b6acc8`)
+- Décision utilisateur (modèle X) : un # en commentaire compte comme en publication ; Cockpit affiche la part (« ↩ N ») ; comptage par avatars distincts gardé en tête. Détail : `MASTORION\MEMOIRE.md` + `JOURNAL.md`. Avis DESIGNER n°92. Ordre de push : **social puis cockpit**.
+
+## 2026-10-10 (suite 2) — Projet avatars IA, étape 1 : zone PLÉIADE locale ✅ (rien poussé)
+- Zone `ia-locale` montée par l'orchestrateur local (eho, Social, Console, MELMIL sur `http://<app>.ia-locale.localhost`), Keycloak `ia-locale` fédéré à `cecpc`, connexion vérifiée sur les 4 apps. Infra : `C:\CECPC\pleiade\dev\zone-ia\` (registre, Traefik v3.6, platform-db, `orchestrateur.sh`).
+- Correctif orchestrateur `execSql` sans shell (commit local `c6a07b9`, branche `ia-avatars`). Détail et pièges (Traefik v3.5, PKCE / `*.localhost`, IdP vu du conteneur Keycloak) : `PROJET_AVATARS_IA.md` §8.
+- Avatar du prototype : **Anastasia Karlisky Popolov** (au lieu de Lolo-Anna) ; nouvel export eho DELATTRE 26 attendu.
+
+## 2026-10-10 (suite) — Correctif « camp = allégeance » — ✅ POUSSÉ main + prod (Social `ddc8d5b`, Console `a922f85`)
+- Relevé par DESIGNER (avis n°91) : le kit IA (`campDe`) et Social (`comptes-generes.ts`, J'aime « même camp ») prenaient tout groupe « CAMP … » pour un camp. Essai Docker avec un faux eho jetable : avant, 3 J'aime bleus sur un post rouge ; après, rouges seulement. Règle unique (eho) : CAMP ROUGE / BLEU / NEUTRE.
+
+## 2026-10-10 — Ouverture du projet « Avatars animés par IA » (piloté par PLEIADE)
+- L'utilisateur colle le cadrage d'une discussion sur l'app Claude (Mastodon + Ollama, 4 000 avatars, 1 texte / min, validation humaine, fil « Pour toi ») et demande que **PLEIADE** porte ce projet d'intégration d'IA.
+- Analyse d'écart rédigée : `PLEIADE\PROJET_AVATARS_IA.md` — le réseau n'est plus Mastodon mais `app-social` ; réutiliser eho (fiches), Console d'animation (validation), origine (type « IA »), Sentinel (embeddings), `choisirComptes`, MELMIL / LO (contexte global) ; reposts désactivés ; règles fiches bio, camps, langue, GET. Mémoire durable : §8ter. Rien codé.
+
+## 2026-10-09 (suite 10) — Social : page Chat plus large et plus lisible — ✅ POUSSÉ main + prod (`4986e54`)
+- Demandes utilisateur (modèle X) + avis DESIGNER n°89, complément et n°90 : menu replié en icônes et panneau de droite masqué sur Chat (habillages par défaut et X), avatar incarné à la place du titre et en rond dans le menu replié, bulles contrastées et groupées, séparateurs de jour, heure HH:MM, images sans bulle, saisie qui grandit, trait entre les conversations, boîtes groupées par avatar (dépliables, hauteur limitée, repliables). Détail : MASTORION\MEMOIRE.md. Reste possible : replier aussi le menu des habillages Facebook / Instagram / YouTube.
+
+## 2026-10-09 (suite 9) — Chat de l'animation : « à traiter » au lieu de « lu à l'ouverture » — ✅ POUSSÉ main + prod (`74a6704`)
+- Constat utilisateur : un animateur qui ouvre un message sans le traiter le faisait disparaître pour toute l'animation. Option B choisie : pour l'animation, seul une réponse ou « Marquer comme traité » le retire ; joueurs inchangés. Rappel utilisateur : les avatars des joueurs ne sont jamais joués par l'animation (les boîtes ne les montrent pas).
+
+## 2026-10-09 (suite 8) — Social : l'animation voit les messages privés de tous ses avatars — ✅ POUSSÉ main + prod (`5f0262e`)
+- Décisions utilisateur : toute la cellule (seules les boîtes avec non-lus s'affichent), alertes activées, animateurs seulement (les joueurs inchangés). Avis DESIGNER n°88. Pastille Chat cumulée, alerte « @x a reçu un message de @y » + « Répondre au nom de @x », section « Boîtes de mes avatars ». Détail : MASTORION\MEMOIRE.md.
+
+## 2026-10-09 (suite 7) — ⛔ Incident : comptes d'organisation bloqués sur « Se connecter » — ✅ correctif POUSSÉ (Social `231200b`)
+- Signalé par l'utilisateur juste après `18de036` (son compte admin, adresse mail) ; les animateurs gc pouvaient se connecter. Cause : garde-fou écran `keycloak_id !== sub` ; pour un compte d'organisation, la fiche Social a été rattachée par l'adresse avec un ancien identifiant. Correctif : le garde-fou n'écarte plus que l'avatar incarné. Leçon consignée chez MASTORION.
+
+## 2026-10-09 (suite 6) — Social : le compte connecté ne devient plus l'avatar ; droits et groupe sous le compte — ✅ POUSSÉ main + prod (`18de036`)
+- Cause (prouvée en local) : `/api/auth/me` répondait l'avatar quand `X-Act-As` était présent (ajouté par l'intercepteur à toutes les requêtes), et `?as=` reste dans l'adresse → F5 / nouvel onglet / reconnexion remplaçait gc01 par l'avatar. Correctifs 1-2-3 choisis par l'utilisateur (le 4, retirer `?as=`, écarté : l'incarnation doit survivre au F5). Détail : MASTORION\MEMOIRE.md.
+- + identifiant-adresse mail masqué en bas à gauche, noms longs coupés ; + « Animation · GREYCELL » / « Joueur · DIV 1 » sous le compte.
+- Question utilisateur : peut-on se connecter à Social avec un avatar d'eho ? Non d'après le code (en zone Keycloak seul ; eho ne crée aucun compte Keycloak ; seul chemin = incarnation contrôlée par eho). Réserve : vérifier qu'aucun compte Keycloak au nom d'un avatar ne subsiste dans le royaume de la zone (liste « Utilisateurs » de PLÉIADE).
+
+## 2026-10-09 (suite 5) — REPOSTS SIMPLES DÉSACTIVÉS (décision utilisateur : « réalisme et égalité ») — ✅ POUSSÉ main + prod (Social `f4141f1`, Cockpit `7c59ae6`, Console `6f05782`), notes de version écrites
+- Règle : plus aucun NOUVEAU repost simple (post ou commentaire), pour personne (joueur, animation, Console, Turbo Boost) ; la **citation reste** ; les reposts existants restent affichés et annulables.
+- **app-social** `sans-repost` `7dc59f9` : `REPOSTS_DESACTIVES` (post-service.ts) ; `/:id/boost` et `/:id/comments/:cid/repost` → 403 « Les reposts sont désactivés sur ce réseau : citez la publication pour la relayer. » sauf annulation ; `/service/publish` ignore `boosts_count` ; Turbo Boost = J'aime seulement ; écran : « Repost désactivé » grisé (infobulle), compteur du bouton = citations seulement.
+- **app-cockpit** `sans-repost` `3deda5a` : choix « Tout · Publications · Commentaires » (Reposts retiré), tableau sans colonne Reposts, aide « citations comprises ; J'aime et reposts non comptés ».
+- **app-admin** `sans-repost` `ca635fe` : champ Reposts retiré de la fenêtre ; nbBoosts/boostGroupIds forcés à 0 / vide (création, modification, import — colonnes `boosts`/`boost_groups` d'un ancien Excel ignorées) ; colonnes retirées de l'Excel et du kit IA (« Pas de reposts : écris une citation ») ; planificateur n'envoie plus de reposts ; ↻ retiré de l'arbre et de la table. Champs gardés en base (pas de migration).
+- Essais : repost 403, annulation OK, repost de commentaire 403, citation 201, service `boosts_count=3` → 0 repost créé ; écrans sans erreur ; tests Console 53/53.
+
+## 2026-10-09 (suite 4) — Cockpit, Reporting : commentaires et reposts comptés + mode « En direct » — ✅ POUSSÉ main + prod (Social `12d7051`, Cockpit `e41f4a9`), notes de version écrites
+- Constat utilisateur confirmé dans le code : « Publications par heure, par série » ne comptait que les posts (ni commentaires, ni reposts) des avatars des séries (catégories du Cockpit ou groupe eho) ; texte d'aide trompeur.
+- **app-social** `reporting-contenu` (commit local) : `/api/cockpit/reporting` renvoie par heure `count` (publications, inchangé) + `commentaires` + `reposts` (générés compris). **app-cockpit** `reporting-contenu` `e084f2f` : sélecteur « Tout · Publications · Commentaires · Reposts » (Tout par défaut), titre « Activité par heure, par série », aide exacte (J'aime non comptés ; reposts des scénarios compris), tableau Publications · Commentaires · Reposts · Total (colonne choisie en gras), unité de l'axe ; « Tweets/Réponses » → « Publications/Commentaires » dans les vues par cellule (avis DESIGNER n°86).
+- Essai local : CAMP ROUGE 1 publication + 1 commentaire = 2 ; 0 erreur JS. Ordre de push : Social puis Cockpit (un Cockpit sans Social à jour affiche 0 commentaire / 0 repost, sans casser).
+- **+ mode « En direct »** (même branche Cockpit, avis DESIGNER n°87 ; « Synchroniser » écarté car trompeur) : segmenté « En direct · Figée » ; en direct, mise à jour silencieuse toutes les 60 s (pause onglet caché, reprise au retour si > 1 min), « ● En direct · mis à jour à HH:MM », échec en ambre sans effacer le graphique, bouton icône « Mettre à jour maintenant » ; modifier « À » → Figée (bouton « Recalculer ») ; modifier « De » en direct → recalcul après saisie. Essai : 1 appel au chargement, 1 appel automatique en 65 s. Point ouvert DESIGNER : charge serveur si beaucoup d'écrans ouverts (1 requête/min/écran, faible).
+
+## 2026-10-09 (suite 3) — Origine des publications — ✅ POUSSÉ (sauf Console) : pleiade-platform `af52e0b` (main), app-melmil `f4913b5` (main + prod, version 2026-10-09.1), app-social `a05da35` (main + prod) ; ⏳ app-admin `d07421d` (branche `origine-publications`) **refusé par le mode auto** → à pousser par l'utilisateur ; notes de version écrites dans les 4 dépôts
+- Décisions utilisateur : variante A ; couleurs sur **PLÉIADE** (groupe de zone) ; seul un groupe **coloré** s'affiche (Modération, Administration jamais) ; joueur jamais animation à la fois ; compte animateur affiché ; repère **masqué par défaut**, au choix de chacun (mémorisé par poste) ; clic incident → planche de préparation MELMIL, card en surbrillance + fiche ouverte.
+- **pleiade-platform** `couleurs-groupes` `d03f232` : attribut Keycloak `couleur` (palette fermée de 10 dans l'écran des groupes, « Aucune »), `GET /api/internal/zones/:zone/groupes` (clé de zone), PATCH d'un groupe qui FUSIONNE ses attributs (avant : cocher master-admin effaçait les autres).
+- **app-melmil** `origine-incident` : `2035dd5` (version 07.2 en attente, Lancé/Pause) + `7682d40` `?incident=<code>` (planche, card centrée dans la partie visible, halo doré, fiche ouverte ; message si introuvable).
+- **app-social** `origine-publications` `9ab1106` : colonne `origine` (JSON) sur posts/commentaires ; lecture du claim `groups` ; origine posée à la création (post, commentaire, repost, API de service avec `scenario_id/nom`, `cellule`, `incident_code`, `storyline_code`, `bruit` ; reposts générés « simulé ») ; **`masquerOrigine`** retire `origine` de toute réponse `/api/social` non-animation ; `GET /api/zone/groupes` (animation) ; écran : ligne + trait + repère des commentaires + interrupteur dans « Au nom de » ; dev hors zone : `ORIGINE_GROUPES_DEV`, `ZONE_APPS_DEV`.
+- **app-admin** `origine-publications` `7548295` : `publish()` envoie l'origine du scénario.
+- Essais : tsc 4 dépôts ; masquage vérifié (anonyme 0, joueur 0, animation 14) ; Playwright écran 0 erreur ; liens `localhost:3801/preparation?incident=08.04.I04` et `localhost:3802/scenarios/39`. Limite : le chemin **joueur** n'est pas jouable en local (pas de Keycloak) — l'exemple joueur a été posé en base ; à vérifier en zone.
+- Environnement local monté pour la démo : royaume Keycloak local `delattre-26` (groupes GREYCELL, FORAD, DIV 1, DIV 2, Modération) + client `pleiade` et compte `operateur-local` dans `cecpc` (local seulement) ; orchestrateur 4204 branché dessus.
+
+## 2026-10-09 (suite 2) — Social : repère « Origine des publications » pour l'animation — 🧪 MAQUETTE (rien codé)
+- Demande : voir, pour l'animation seulement et avec un interrupteur, d'où vient chaque post / commentaire / repost — groupe + compte de zone (DIV 1 · dv01) ou scénario + incident MELMIL cliquables.
+- Avis DESIGNER n°85 (`DESIGNER\AVIS\2026-10-09_SOCIAL_ORIGINE\AVIS.md`) : 3 variantes, **A recommandée** (ligne de 24 px au-dessus de la carte + trait 4 px). Maquette `index.html` du même dossier, servie sur **localhost:3854** ; captures dans `captures\`.
+- CYBERSECU : compatible avec l'anonymat (compte de zone seulement, jamais de nom) ; la donnée doit être **renvoyée par l'API à l'animation seulement**, pas masquée en CSS.
+- Manques relevés : origine non stockée sur les posts (seulement `audit_logs`, rien pour `/api/service`) ; groupes Keycloak présents dans le jeton mais non lus par Social ; la Console n'envoie ni scénario ni incident ; pas de lien MELMIL vers un incident (à ajouter, ex. `?fiche=`) ; pas de couleur de groupe de joueurs ; admin sans URL publique propre (`APP_URL` injecté mais non lu).
+
+## 2026-10-09 (suite) — Console d'animation : messages privés programmés, lieu, sondage, qui peut répondre — ✅ POUSSÉ main + prod (Social `a69d18e`, Admin `5a236bf` avec le correctif du fond de la liste des lieux ; push lancé par l'utilisateur en PowerShell, le mode auto refusant `git push` ; vérifié par `git fetch`)
+- **Social** `supports-console` (`61986b2`, notes `a69d18e`) : supports annoncés + `GET /api/service/lieux`. **Admin** `social-chat-options` (`cc1de4c`) : champ `ScenarioItem.social` (JSON, additif), `lib/options-social.ts`, fenêtre refaite selon l'avis DESIGNER n°84, planificateur (message privé → `/service/chat`, options → `/service/publish`), `/api/bff/lieux`, 4 colonnes Excel, kit IA, marques dans l'arbre/la table, vocabulaire « publication / Reposts / J'aime ».
+- **Essais** : tsc ; 53/53 ; Playwright (création sondage + lieu + restriction, message privé, résumé d'erreurs, arbre) 0 erreur JS ; publication réelle vers Social local vérifiée en base ; aller-retour Excel ; image Docker admin démarre (schéma en phase, `/api/service/scenarios` 200).
+- **Ordre de push** : Social d'abord, puis Admin (`db push` additif au démarrage). Pauser les scénarios avant (redémarrage social + admin).
+- Reste mineur : le sélecteur de destinataire réutilise celui du persona (une demande de confirmation « réservé par… » peut apparaître alors qu'on ne fait qu'écrire à cet avatar).
+
+## 2026-10-08 (suite 3) — Portail de zone refait — ✅ POUSSÉ (`pleiade-platform` `876a05f`, vérifié par `/api/version`)
+- Travaillé en direct avec l'utilisateur, sur un aperçu local du vrai rendu (`scratchpad\apercu_portail.mts`, port 4205, vues animateur et joueur).
+- **Bandeau PLÉIADE** : logo, nom de la zone, classification, compte, déconnexion. Le grand titre (hero) a été retiré à la demande de l'utilisateur.
+- **Applications en tuiles**, rangées par **fonction** : le champ `fonction` du catalogue est lu par le portail et par l'écran des zones. La section « Réseaux sociaux & Messagerie » est nommée ainsi par l'utilisateur.
+- **Presse sans page intermédiaire** ; bouton **« Rédaction »** sur la tuile, seulement si le visiteur a un rôle Direction ou Journaliste sur le média (`rolesDuVisiteur`).
+- **Disposition (avis DESIGNER n°80)** : les petites sections en première rangée, les grandes ensuite, avec les mêmes bords ; en vue joueur, les sections s'élargissent pour aller jusqu'au bord.
+- **Correctif** : le message « Aucune application n'est ouverte à votre compte » était perdu ; un test l'a détecté.
+- **Essais** : 29/30 tests, dont 2 nouveaux (l'échec, préexistant, ne se produit que sous Windows) ; Docker OK.
+
+## 2026-10-08 (suite 2) — Tendances : Cockpit aligné sur le réseau social — ✅ POUSSÉ (social `25b7c75` puis cockpit `30e338e`)
+- Signalement de l'utilisateur : #mercure 35 dans le Cockpit, 82 dans le social.
+- **Cause côté social** : `/api/cockpit/trending` comptait sur une fenêtre fixe de 3 h, avec les posts programmés et sans dire la période.
+- **Correctif** :
+  - social : même règle que le cadre Tendances, c'est-à-dire posts parus depuis `?depuis=` ou, à défaut, depuis `tendances.depuis` ; nouvelle route `/trending/reglage` ;
+  - cockpit : il passe sa date « depuis » et affiche la période.
+- **Essais** : Docker social sur une copie avec données d'essai (chiffres identiques des deux côtés) et Docker cockpit (307/307). Notes de version des deux dépôts. Le détail est dans `MASTORION\MEMOIRE.md`.
+
+## 2026-10-08 (suite) — PROJET : refonte de la page « Zones » de l'orchestrateur (maquette locale, avis DESIGNER n°79)
+- Demande utilisateur : les zones et les instances se mélangent ; il y aura plusieurs exercices par an et des éditions annuelles (DE LATTRE 26, 27…) ; il faut chercher une zone par nom ou par année ; la zone LEAC est un prototype, pas un exercice.
+- La maquette tourne en local sur le port 3853 (`DESIGNER\AVIS\2026-10-08_PLEIADE_ZONES\index.html`) et reste **en local comme projet**, sans aucun code dans `pleiade-platform` (dépôt de Xavier).
+- Les recommandations :
+  - **3 familles** : Exercices par année / Prototypes et outils / Essais, et des archives ;
+  - **une zone par édition**, reliée par le nom de l'exercice ;
+  - recherche et filtres ; cartes repliées ;
+  - page de zone avec ses instances **groupées par fonction**, presse repliée ;
+  - une seule action principale, le reste dans « ⋯ » ;
+  - 3 colonnes à ajouter à `orch_zones` : `famille`, `exercice`, `annee` (+ `archivee_le` si l'archivage est retenu).
+- 5 questions ouvertes pour l'utilisateur (avis n°79 §questions). Mise en œuvre envisagée après DELATTRE 26 et l'accord de Xavier.
+- ✅ **Programmé EN LOCAL** à la demande de l'utilisateur (« applique-le en localhost »), sur la branche `zones-v2` de `pleiade-platform`, **non commité et non poussé**. Les réponses aux 5 questions sont celles recommandées par DESIGNER.
+  - **Serveur** :
+    - 4 colonnes `orch_zones` : `famille`, `exercice`, `annee`, `archivee_le`. Ce sont des migrations idempotentes, purement descriptives.
+    - `validerRangement` ; POST `/api/zones` accepte `famille`, `exercice`, `annee` et `id` (identifiant proposé) ; PATCH accepte aussi `label` et `archivee`.
+  - **Écran** :
+    - `public/zones-v2.js` + `zones-v2.css`, cantonnés à `#zv2` et branchés sur les jetons de thème (clair et sombre) ;
+    - accueil par familles, avec « À classer » pour les zones d'avant ; recherche et filtres ; page de zone groupée par fonction, presse repliable ;
+    - toutes les actions réutilisent celles de `app.js`.
+  - **Nouveau** :
+    - « Arrêter » demande une confirmation (l'ancien « Stop » n'en demandait pas) ;
+    - la suppression d'une zone se confirme en tapant son identifiant ;
+    - l'archivage peut arrêter les instances.
+  - **« Ancienne vue »** reste disponible, avec un choix gardé par navigateur.
+  - Correctif global au passage : `body > main { min-width:0 }`. Sur téléphone, l'ancien écran débordait à 550 px.
+- **Essai local** : base d'essai `orch-essai` sur le port 3308, avec une copie fictive des zones de production (aucun conteneur lancé : toutes les instances apparaissent « Arrêtée »). 14/14 vérifications navigateur après correction du débordement mobile : familles, recherche, page de zone, menus, modification, archivage et réactivation, création de DE LATTRE 27 avec ses éditions liées, ancienne vue, 390 px.
+- ⚠ À l'envoi en production, toutes les zones apparaîtront « À classer » jusqu'à ce qu'on les range (un clic par zone dans « Modifier la zone »).
+- ✅ **POUSSÉ** le 2026-10-08 sur décision de l'utilisateur (« tu peux push… c'est parfait ») : `pleiade-platform` `7c85ed6` sur main, déploiement automatique, vérifié par `/api/version`. Contrôles avant l'envoi :
+  - compilation ;
+  - tests 28/29 : l'échec est préexistant et propre à Windows (chemin de volume) ;
+  - Docker sur une base au format production : démarrage et redémarrage 200, 4 colonnes ajoutées, 6 zones et 24 instances conservées ;
+  - feuille de style régénérée en version compacte ;
+  - notes de version.
+- **Reste à faire, par l'utilisateur** : ranger les zones de production (« ⋯ › Modifier la zone »). Classement proposé : `delattre-26` = Exercice DE LATTRE 2026 ; `orion26` = Exercice ORION 2026 ; `cecpc-div-eval` = Prototype ou outil ; `essai-partage` = Essai ; `exercice` = Essai (« Démonstration »).
+- La base d'essai locale `orch-essai` (port 3308) reste en place pour les prochains travaux.
+
+## 2026-10-08 — Noms et icônes des instances du portail
+- **Instance `admin` renommée « Console d'animation »** par l'utilisateur, avec un `PATCH /api/zones/delattre-26/instances/admin/label` lancé depuis la console du navigateur. L'écran de gestion de PLÉIADE n'a pas de bouton « Renommer » : la route existe, mais aucun écran ne l'appelle. L'adresse `admin.delattre-26…` ne change pas.
+- **Icônes dessinées** (SVG originaux + PNG 512, dans le style « traits noirs + aplats » des icônes du catalogue), dans `PLEIADE\ICONES\` :
+  - pupitre de régie → Console d'animation ;
+  - radar de veille → Cockpit ;
+  - bulles de conversation → Messagerie ;
+  - journal → Presse.
+  - Installation par l'utilisateur, avec `POST …/instances/<id>/icon/upload` depuis la console : PNG/JPG/WEBP/GIF seulement, 1 Mo au plus ; le SVG est refusé par sécurité. Les scripts `installer-icone-*.js` sont à côté.
+- ⚠ **La carte « Presse » du portail est un REGROUPEMENT**, pas une instance (`grouper`, dès 2 instances d'un même type). L'essai d'icône sur l'identifiant `presse` a renvoyé 400 « Instance introuvable », et un fichier orphelin `.icones/presse.png` est resté sur le serveur, sans effet. L'icône de ce regroupement est celle du TYPE : `pleiade-platform/public/img/apps/presse.png`.
+- ✅ **pleiade-platform `5414393` poussé** (main, déploiement automatique, vérifié par `/api/version`) : `presse.png` = le journal. Les logos des médias (`logoPath`, servis par chaque instance) ne changent pas.
+- ⚠ **Effet de bord, signalé par l'utilisateur** : sur la page de gestion PLÉIADE (`pleiade.cecpc.internal`), les journaux sans icône propre ont pris l'icône du TYPE, désormais le journal. Le portail de zone n'est pas touché, car les logos y passent d'abord. Le même effet touche le menu « Apps de la zone » et le repli du portail.
+  - **Correctif** : chaque média reçoit sa propre icône d'instance, tirée de son logo (`/api/public/logo`) et rendue en tuile blanche 512 px. Les fichiers sont dans `PLEIADE\ICONES\medias\` : TF1 INFO, TV4, Today Mercure, Hexagone, OCHA, CICR, Préfectures.
+  - Installation par l'utilisateur avec la commande `installer-icones-medias.js`. Elle trouve chaque instance par le début de son adresse.
+  - **Leçon** : une icône de TYPE sert de repli partout (gestion, menus, portail). Avant de la changer, vérifier quelles instances n'ont pas d'icône propre.
+- **Social** : image fournie par l'utilisateur (globe et flèches en S), détourée en PNG/WEBP transparent. Installée par une commande qui retrouve l'instance par son adresse `social.`. L'identifiant interne n'était PAS `social`, d'où l'échec de la première commande.
+- Constat : `admin.png`, `cockpit.png`, `messagerie.png`, `presse.png` et `social.png` du catalogue étaient la **même image provisoire**. Les quatre premiers ont désormais une icône propre (instance ou type) ; `social.png` reste à dessiner.
+
+## 2026-10-07 (suite 17) — Cohérence de toutes les pages de l'animation (avis DESIGNER n°77) — branche `coherence-77`
+- Demande : « toutes les pages devraient avoir le même menu et une charte cohérente ». L'agent DESIGNER relève 26 incohérences. Une maquette interactive est servie sur le port 3852 (`DESIGNER\AVIS\2026-10-07_ADMIN_COHERENCE\index.html`).
+- **Décisions de l'utilisateur, « tout proposé »** :
+  - filtres segmentés en casse normale ;
+  - publications : Publiée / Non partie / **Programmée** ;
+  - retour « ← Scénarios » ;
+  - une seule largeur ;
+  - icône + mot partout ;
+  - « Animation » à la place de « ADMIN », journal en français, chiffres sans zéro ajouté.
+  - Consignées dans le lexique de zone (`PLEIADE\LEXIQUE_ZONE.md` §2).
+- **Mise en œuvre** :
+  - socle CSS commun : `.pl-seg`, `.pl-bascule`, `.pl-etiquette`, `.pl-journal-ligne` ;
+  - `lib/etats-publication.ts`, `Etiquette`, `LigneJournal` ;
+  - `PageHeader` avec retour et méta, adopté par l'éditeur.
+  - Messages du journal en français à la source, et traduits à l'affichage pour les anciennes lignes.
+- **Hors lot** :
+  - éditeur à 390 px (étape 5, non tranchée) ;
+  - libellés « publiable / lecture » du tableau de bord ;
+  - mot-symbole « ANIMATION » laissé en capitales (style PLÉIADE).
+- L'utilisateur a dit « Tu pourras push quand tu auras terminé ».
+- **Relecture DESIGNER avant push** : 7/7 décisions conformes. Elle a relevé un défaut bloquant, corrigé avant le push : le titre de l'éditeur disparaissait à 390 px. La cause était le bloc titre de `PageHeader` en `flex-1`, désormais `flex-[1_1_18rem]`.
+- **Contrôles** : 49/49 tests ; navigateur sans erreur ; Docker 307/307 sur base vide et sur une copie au format actuel (22 scénarios et 160 publications conservés).
+- ✅ **POUSSÉ** : commit `af592fb` sur main + prod, tag `prod-20261007-1704-af592fb`. GitHub a répondu « Internal Server Error » 8 fois de suite alors que sa page d'état était au vert, et le push est passé au 9e essai.
+- ⚠ **app-melmil (libellés Lancé / Pause, 2026-10-07.2) toujours NON POUSSÉ** : le mode automatique refuse le commit et le push. À lancer par l'utilisateur.
+
+## 2026-10-07 (suite 16) — app-admin, liste des Scénarios v2 CODÉE en local (branche `liste-scenarios-v2`, non commitée, NON POUSSÉE)
+- Les 7 décisions de l'avis DESIGNER n°76 § 6 sont mises en œuvre :
+  - « Lancé » / « Pause » ; icônes cerclées ; légende repliable (ouverte la 1re fois, mémorisée) ;
+  - Mes scénarios / À corriger ; colonnes nommées ; menu « ⋯ » ;
+  - « à corriger » selon l'état : vérification si brouillon, sinon publications non parties non prises en compte.
+- **Prise en compte** : 4 colonnes `prise_en_compte_*` sur `scenario_items`, appliquées par `prisma db push`, sans perte.
+  - Actions `prendre-en-compte` et `annuler-prise-en-compte` : tracées, réversibles.
+  - Droit **vérifié par le serveur** : cellule du scénario ou Administration (403 sinon, essayé GREYCELL → scénario FORAD).
+  - Effacées si la publication est modifiée ou finit par partir.
+- Éditeur : bandeau « publications non parties » (Modifier / Publier maintenant / Prise en compte), utilisable même sur un scénario Terminé.
+- Essais locaux sur 6 scénarios « DÉMO » jetables (base d'essai) : tsc 0, tests 49/49 ; aller-retour prise en compte / annulation OK dans le navigateur.
+- **Préparé pour le push** (l'utilisateur a dit « tu peux push ») :
+  - libellé « Lancé » / « Pause » dans MELMIL (version 2026-10-07.2) ;
+  - avis CYBERSECU consigné ;
+  - notes de version admin + MELMIL ;
+  - Docker admin 307/307 sur base vide et sur une copie au format actuel (4 colonnes ajoutées, 21 scénarios / 152 publications conservés) ; Docker MELMIL 200/200, 613/613.
+- ✅ **app-admin POUSSÉ** (2e « tu peux push ») : commit `0b30e80` sur main + prod, tag `prod-20261007-1557-0b30e80`.
+- ⚠ **app-melmil NON POUSSÉ** : commit et push refusés par le mode automatique de la session. Modification (libellés Lancé / Pause, 2026-10-07.2, notes de version) restée **non commitée** sur `main`, testée. À pousser par l'utilisateur ou après autorisation.
+
+## 2026-10-07 (suite 15) — app-admin, liste des Scénarios : maquette de propositions avec DESIGNER (avis n°76) — rien de codé
+- Demande utilisateur : l'écran fait « brouillon », « c'est quoi "en lecture" ? ». Maquette HTML `DESIGNER\AVIS\2026-10-07_ADMIN_LISTE_SCENARIOS\index.html` servie sur **localhost:3851** (Après / Avant), d'abord de Claude puis **relue par l'agent DESIGNER** (consigne + mémoire) : avis `AVIS.md` n°76, 6 recommandations intégrées (« Lancé » au lieu de « En lecture » ; un seul mot « à corriger » sur la seule ligne fautive ; filtres « Mes scénarios » / « À corriger » ; colonnes nommées à 40 px, contraste 4,5 : 1, repères conservés ; filtres État / Cellule de l'avis n°56 ; menu « ⋯ » selon l'état). 5 points à trancher par l'utilisateur.
+- ⚠ Rappel utilisateur : **impliquer l'agent DESIGNER** (pas seulement lire sa mémoire) sur tout sujet d'ergonomie.
+- Suite (DESIGNER § 5) : icônes Lucide cerclées par état (CircleDashed, CirclePlay, CirclePause, CircleCheck) ; légende en panneau dépliant « Que veulent dire ces états ? » (ouvert la 1re fois, mémorisé) ; **règle par état** : remarques de vérification comptées seulement en Brouillon, sinon seules les publications **non parties** ; geste **« Prise en compte — ne pas publier »** (dans le scénario, tracé, réversible, cellule + Administration, avis CYBERSECU à demander). Décision utilisateur : **« Pause »** au lieu de « En pause ». **7 points tranchés en séance** (AVIS § 6) : « Lancé » partout ; « Mes scénarios » + « À corriger » ; autorisation → Administration ; **pas d'essai préalable** ; légende ouverte la 1re fois ; Terminé : publier maintenant ET prise en compte ; prise en compte = cellule + Administration. Rien de codé — développement à lancer sur décision.
+
+## 2026-10-07 (suite 14) — Préfecture d'Arnland : Marianne encore visible (cache) + départements en « H » — commit 004976e — ✅ POUSSÉ, tag prod-20261007-1443-004976e
+- Constat : la production servait la croix d'Arnland sous `marianne.png` (fichier identique, vérifié), mais le navigateur de l'utilisateur affichait Marianne (cache). Correctif : images sous des noms nouveaux (`arnland-*`). Leçon : **changer le contenu d'une image publique = changer son nom**.
+- Départements du pied : convention « H » (HArdennes… HVosges, HHaut-Rhin). Nom par défaut « HGrand Est ». Docker 200/200.
+
+## 2026-10-07 (suite 13) — app-press : habillage Préfecture → République d'Arnland — commit dface8c — ✅ POUSSÉ, tag prod-20261007-1432-dface8c
+- Demande utilisateur : remplacer Marianne / drapeaux français / « France » par le drapeau d'Arnland (ORION 26 `FLAG\ARNLAND.png`) — le site est celui d'Arnland.
+- 4 images régénérées sous leurs noms d'origine (bloc-marque, filigrane, vignette par défaut, logo du pied) ; textes « République d'Arnland », « Service d'information du Gouvernement », sites .arn ; libellé « Préfecture de région (Arnland) ». Rendu vérifié au navigateur (0 mention française visible) ; Docker 200/200. Départements français du pied : question posée. Symboles consignés chez ANALYSTE_ARN.
+
+## 2026-10-07 (suite 12) — Social : message programmé vu « publié » par l'animation — commit a76635a — ✅ POUSSÉ, tag prod-20261007-1335-a76635a
+- Erreur confirmée côté affichage : `scheduled_at` jamais transmis → l'animation, qui voit les programmés (profil, page du message), les lisait comme publiés. Création et publication différée correctes ; joueurs non concernés. Correctif : étiquette « Programmé · date ». Docker 200/200 après correction d'un typage de gabarit. Détail : `MASTORION\MEMOIRE.md`.
+
+## 2026-10-07 (suite 11) — Cockpit : période du Reporting mémorisée — commit bdb8a06 — ✅ POUSSÉ, tag prod-20261007-1259-bdb8a06
+- Demande utilisateur : les dates « De / À » revenaient à « aujourd'hui 00:00 → maintenant » à chaque rechargement ou changement d'onglet.
+- `localStorage` `ck_reporting_periode` (préférence par navigateur) ; « À » suit l'heure tant qu'il n'est pas fixé (« Actualiser » va jusqu'à maintenant) ; lien « jusqu'à maintenant ». Essai Playwright 5/5 ; Docker 307/307 (1er build en échec passager). Push : ne redémarre que le cockpit.
+
+## 2026-10-07 (suite 10) — Contrôle de cellule des scénarios — commits app-admin c978793, eho ab8ee87 (2026-10-07.5) — ✅ POUSSÉS dans l'ordre : eho prod-20261007-1242-ab8ee87 puis animation prod-20261007-1244-c978793
+- Décision utilisateur : contrôle à la vérification ET à chaque publication (scénarios déjà créés et en cours compris), levée possible par l'Administration.
+- eho : `POST /api/impersonation { camps }` (`decisionDesCamps`). Animation : `lib/controle-cellule.ts` (cache 60 s), contrôle dans `publishItem` (refus → erreur « Avatar hors cellule », EHO injoignable → reporté) et `validateScenario` (bloquant) ; colonne `scenarios.hors_cellule` ; cellule verrouillée hors Administration ; case « Avatars hors cellule autorisés » (Administration). Tests 49/49, essai 7/7, Docker OK.
+- ⚠ Push : **eho d'abord** (attendre le tag), puis l'animation (pauser les scénarios). Après coup, les publications encore mal attribuées passeront en erreur au lieu de partir : les animateurs changent l'avatar puis « Publier ».
+
+## 2026-10-07 (suite 9) — PACK importés et « Avatars autorisés » réglés (utilisateur) ; Kit IA restreint hors Administration — commit 2dd429b (app-admin) — ✅ POUSSÉ, tag prod-20261007-1030-2dd429b
+- Utilisateur : import des PACK fait (1 671 / 1 938) ; « Camps autorisés » réglés ; « Exclusif » d'abord coché sur 6 groupes (incohérent : rouvre les 93 RZO ∩ camps) puis corrigé → Reseau rzo seul.
+- Constat : un animateur « Conduite d'exercice » voyait les 4 périmètres du Kit IA. Décision : seulement « Ma cellule » et « Certains groupes de ma cellule », imposé côté serveur ; Administration inchangée. Essai local (animateur GREYCELL non admin) conforme ; Docker 307/307. Push en attente (l'animation redémarre : pauser les scénarios).
+
+## 2026-10-07 (suite 8) — Export de 11:50 : partage et import PACK régénérés, nouveau cas MullerDaniel
+- Décisions utilisateur appliquées même hors conflit (correctif de calcul) ; import PACK régénéré (1 670 / 1 939) ; liste de corrections élargie à tout avatar dont la cellule du partage ≠ celle du scénario : 106 publications restantes. MullerDaniel (FORAD n°125 + GREYCELL n°123 / n°91) : proposé GREYCELL → **décidé FORAD** par l'utilisateur (FORAD peut créer et employer des avatars d'Arnland) ; import régénéré (1 671 / 1 938) ; corrections : 2 lignes GREYCELL ajoutées.
+
+## 2026-10-07 (suite 7) — Fichier d'import eho des PACK FORAD / GREYCELL, essayé sur la démo
+- Question utilisateur : « les groupes pack ne sont pas créés ? » → non : pas d'accès aux bases de prod ; création par l'**import Excel d'eho** (lancé par l'utilisateur).
+- Partage recalculé sur l'export de 09:33 (+ antoine_boyer → GREYCELL, CorrespondantEst → FORAD) ; fichier `IMPORT_EHO_PACKS_FORAD_GREYCELL_2026-10-07.xlsx` (3 609 lignes).
+- Essai démo : PACK FORAD 1 671 / PACK GREYCELL 1 938 appliqués, aucun champ ni groupe retiré, 2 créations attendues (absents de la démo) ; ≈ 10 min ; démo remise en l'état. Mes premiers contrôles SQL avaient échoué (guillemets) : refaits par fichiers SQL et comparaison d'exports.
+
+## 2026-10-07 (suite 6) — eho : fiches d'avatars bornées par cellule (2026-10-07.4) — commit c970adf — ✅ POUSSÉ, tag prod-20261007-0933-c970adf
+- Constat (question utilisateur) : tout « Animateurs » pouvait modifier / supprimer / changer les groupes de n'importe quel avatar. Décision utilisateur : borner par cellule.
+- `lib/droits-avatars.ts` branché dans PATCH / DELETE `/api/users/[id]` et POST `/api/users` : avatar hors cellule → 403 ; changement d'un groupe CAMP / PACK / exclusif → 403 (Administration seule) ; création → PACK de la cellule d'office. Administration et clé de service inchangées.
+- Essais : jeton Keycloak local d'un animateur GREYCELL, 10/10 conformes ; Docker 200/200. ⚠ Un premier essai mal filtré a supprimé l'avatar de démo ZubizarettaIker (base locale) : restauré à l'identique, script corrigé.
+
+## 2026-10-07 (matin, suite 5) — RESEAU RZO réservé au RENS + groupe « exclusif » (eho) + Kit IA « Ma cellule » (animation) — ✅ POUSSÉ : eho prod-20261007-0814-e3dc0d6, animation prod-20261007-0816-ed5866c (+ garde-fou 409 si kit vide)
+- Décision utilisateur : les comptes RZO sont **restreints au RENS uniquement, à ce jour** ; deux Kits IA distincts FORAD / GREYCELL.
+- Partage recalculé (FORAD 1 863 · GREYCELL 2 038 · RENS 108 · DIV1 19) ; classeur de corrections étendu : 120 publications, 22 scénarios (5 FORAD).
+- **eho** `groupe-reserve` e3dc0d6 (2026-10-07.3) : colonne `groups.exclusif`, `filtreExclusif()` dans `avatarsImpersonables` / `groupesDesCamps` / `comptesLibres`, case « Exclusif » + badge. Essai : −91 avatars (CAMP ROUGE ∩ RZO), Docker 200/200.
+- **app-admin** `kit-ia-cellule` e6329b3 : `avatarsOuverts()` (POST `/api/impersonation`), périmètre `cellule` par défaut, 503 si eho injoignable, nom de fichier avec la cellule ; tests 10/10 ; essai : kit GREYCELL 3 706 avatars, 0 RZO, 0 CAMP ROUGE. Docker 307/307.
+- Import eho vérifié : un fichier `username` + `groups` **ajoute** les groupes (créés à la volée), ne retire rien, ne vide aucun champ → moyen d'appliquer PACK FORAD / PACK GREYCELL. ⚠ Un username inconnu serait CRÉÉ : le fichier doit venir de l'export.
+- Serveurs locaux relancés : eho 3001 (`ba9m7jml9`), animation 3802 sous l'identité d'essai GREYCELL (`bo4han0ov`).
+
+## 2026-10-07 (matin, suite 4) — Classeur de corrections pour les animateurs
+- Export eho 09:33 (sources OK) : 30 alertes, 24 avec publications prévues. Classeur `EXER\DELATTRE 26\01_Montage exercice\CORRECTIONS_AVATARS_SCENARIOS_2026-10-07.xlsx` (mode d'emploi, 24 lignes triées par échéance, liens, 3 suggestions de remplaçant, suivi « Fait »). Scénario n°123 OP LIONESS : première publication à corriger ce soir 18:08. antoine_boyer (n°125 FORAD) : **GREYCELL** (décision utilisateur) → FORAD le retire de son scénario, ligne URGENT du classeur. Détail : `PARTAGE_AVATARS_FORAD_GREYCELL.md`.
+
+## 2026-10-07 (matin, suite 3) — Partage FORAD / GREYCELL DÉFINITIF : 23 cas tranchés par l'utilisateur
+- Choix lus dans le classeur rempli : A → FORAD ; Mar1na_Dialecte → FORAD, marie_duval → GREYCELL ; elmircaunity → DIV1 ; habitants de Mercure (BDADaily, NaPalm_for_Breakfast, Love_Our_Soldiers) → FORAD (contre la proposition GREYCELL). Résultat : FORAD 1 955 · GREYCELL 2 054 · DIV1 19 ; PACK FORAD 1 674, PACK GREYCELL 1 950. Fichier `PARTAGE_AVATARS_FORAD_GREYCELL_2026-10-07_DEFINITIF.xlsx` (l'original, ouvert dans Excel, n'a pas été réécrit). Compteur « déjà utilisés » corrigé (163, et non 2 862).
+
+## 2026-10-07 (matin, suite 2) — « Où corriger » : onglet « # Usage — scénarios » (eho 2026-10-07.2 + Admin) — commits ad9b5cf (eho) et 6812a10 (app-admin) — ✅ POUSSÉ, tags prod-20261007-0702-6812a10 (Admin) et prod-20261007-0704-ad9b5cf (eho)
+- Décisions utilisateur : **chloe.provence = GREYCELL** ; les **10 CAMP ROUGE employés par GREYCELL n'auraient pas dû l'être → FORAD**, correction **à la main** des scénarios par l'animation. 8 sur 10 n'ont rien publié : 15 publications **prévues** à retirer / réattribuer.
+- Admin `GET /api/service/usage/avatars` : `scenarios_detail` (n°, nom, cellule, statut, parties, prévues, prochaine prévue = début + minute absolue). eho : onglet « # Usage — scénarios » (une ligne avatar × scénario, ALERTE de camp, alertes avec prévues en tête, heure de Paris, lien `/scenarios/<n°>`).
+- Essais : tsc propres ; route locale juste (16:00 + 15 min → 16:15 UTC → 18:15 Paris) ; alerte « ⚠ CAMP ROUGE dans un scénario GREYCELL » en tête (essai temporaire en base de démo, annulé) ; Docker eho 200/200, Admin 307/307 (redirection connexion). Notes de version écrites. **Push en attente : mettre les scénarios en pause avant (l'Admin redémarre).**
+
+## 2026-10-07 (matin, suite) — Partage FORAD / GREYCELL : proposition définitive sur l'export eho avec usage (lecture seule)
+- Export `SAVE EHO\avatars-eho-2026-10-07.xlsx` (08:37) : 10 sources « OK ». Proposition : FORAD 1 952 · GREYCELL 2 057 · DIV1 19 ; PACK FORAD 1 671, PACK GREYCELL 1 953 à ajouter. 0 réservation du mauvais côté. **23 cas à décider**, dont 10 avatars CAMP ROUGE employés seulement par des scénarios GREYCELL (conflit entre « l'historique prime » et « les camps ne bougent pas »). Classeur `PLEIADE\PARTAGE_AVATARS_FORAD_GREYCELL_2026-10-07.xlsx` ; détail dans `PARTAGE_AVATARS_FORAD_GREYCELL.md` § 4 bis. Rien appliqué.
+
+## 2026-10-07 (matin) — MELMIL : enquête « import JEMM qui perd / déplace des incidents » → 2 défauts corrigés (2026-10-07.1), branche `import-jemm-preserver`, commit 438ac03 — ✅ POUSSÉ (main + prod), tag prod-20261007-0624-438ac03
+- Décision utilisateur après discussion : placement des incidents = **heure PRÉVUE** JEMM (les replanifications JEMM modifient l'heure prévue, pas l'heure réelle — 12 replanifiées vs 9 jouées, vérifié sur les exports successifs). Heure réelle gardée à part (Déroulé).
+- Signalement utilisateur : après l'import JEMM du 07/10 (dossier `JEMM\07.10.26`), 07.24 aurait perdu / déplacé des incidents, sans rien coché. Puis : « je me suis trompé, il n'y a pas eu de problème ».
+- **Constat sur sauvegardes** (`SAVE TABLEAU` 0535 / 0550 + `Downloads\…avant_import_JEMM_…0537`) : **rien supprimé** (journal « 0 créés, 0 supprimés », 101 incidents avant et après). 07.24 « CADRE STRAT » (créée 06/10 08:36 par Thomas MEYTRE) n'a jamais eu qu'un incident, 07.24.I01 « COALITION », non placé (D+ vide).
+- **Défaut 1 réel — incidents déplacés** : l'import lisait `DisplayDateTime`, qui devient l'heure RÉELLE de jeu dès qu'un inject est joué. 9 incidents joués ont bougé (08.01.I01/I02/I03/I07 D+25 → D+27 09:18-09:23 ; 07.02.I01 10:40 → 07:50 ; 07.03.I01 ; 08.02.I01 ; 08.04.I01 ; 08.05.I02). Correctif : date prévue (`FixedDateTime`, `CalculatedPlannedDateTime` si calé sur un autre). Mesure sur tous les exports : 513 affichage = prévu, 9 = heure réelle.
+- **Défaut 2 — faux « absents »** : 07.24, 07.25 (créées dans MELMIL sous l'event JEMM 07) et leurs 3 incidents marqués « absent de JEMM » et proposés à la suppression. Correctif : marque `origine: "melmil"` à la création ; sans identifiant JEMM dans une storyline sans identifiant → gardé sans marque. 08.05.I01 (vraiment retiré de JEMM) reste à décider.
+- Essais : 613/613, tsc + eslint propres, Docker démarrage 200 / redémarrage 200. Rejeu réel : depuis l'avant-import → 0 date changée ; depuis 0550 → les 9 heures prévues reviennent. **Après push : refaire l'import du même dossier pour remettre les heures prévues.**
+- Push du relevé d'usage (5 dépôts) **en production** : tags prod-20261007-0551-7285d0b (press), -0553-1b5b062 (admin), -0557-d386bad (social), -0559-c4f84a7 (messagerie), -0601-96e327a (eho).
+
+## 2026-10-07 — Relevé d'usage des avatars dans l'export d'eho (feu vert utilisateur) — branches `usage-avatars` ×5, en essai, NON POUSSÉ → ✅ POUSSÉ et en production (voir entrée du matin)
+- But : relever l'historique d'utilisation de chaque avatar avant le partage FORAD / GREYCELL (`PLEIADE\PARTAGE_AVATARS_FORAD_GREYCELL.md`). Je n'ai pas accès aux bases de la zone → l'utilisateur fera l'export eho et le déposera dans `SAVE EHO`.
+- **Routes** (lecture seule, clé de zone) : social `/api/cockpit/usage/avatars` (audit : compte connecté × avatar, tweets/réponses/likes/partages faits à la main) ; Admin, presse (chaque journal : nom + habillage), messagerie `/api/service/usage/avatars`. **eho** : `lib/usage-avatars.ts` + 2 onglets « # Usage » et « # Usage — sources » dans `api/avatars/export` ; conclusions FORAD / GREYCELL / LES DEUX / INCONNU / JOUEURS / JAMAIS UTILISÉ ; alerte « ⚠ CAMP … utilisé par … » (règle Mercure comprise). Likes automatiques des scénarios exclus (non audités / pas des choix d'avatar).
+- Essais locaux (eho relié à Admin 3802, social de démo 3872 semé, presse 3500, messagerie 3605) : cas FORAD, GREYCELL, LES DEUX, JOUEURS, journaliste → GREYCELL, messagerie « sans cellule connue », alerte CAMP ROUGE utilisé par GREYCELL : tous justes. eho → 2026-10-07.1. Avis CYBERSECU consigné.
+
+## 2026-10-06 (soir) — RÉFLEXION (aucun code, consigne utilisateur) : partage des avatars entre FORAD et GREYCELL
+- **Constat code** : le Kit IA ne restreint rien selon la cellule (périmètre « Groupes visibles » par défaut = avatars ayant ≥ 1 groupe non archivé → les SANS GROUPE sont exclus) ; ni l'import ni la publication de l'Admin ne vérifient le camp. Seul le **direct du social** restreint : avatars des groupes ouverts au camp Keycloak du compte (eho « Avatars autorisés », `GroupeCamp`) + avatars sans groupe.
+- **Analyse de l'export** `DELATTRE 26\01_Montage exercice\SAVE EHO\avatars-eho-2026-10-06.xlsx` (version 20:07) : 4 028 avatars, 236 groupes ; CAMP ROUGE 277, BLEU 106, NEUTRE 117, DIV1 19 ; aucun avatar dans 2 camps ; « pack commun » 3 509 (229 sans groupe), pays et catégorie vides → répartition possible seulement par anciens groupes.
+- **Décisions utilisateur** : ROUGE → FORAD seul ; BLEU et **NEUTRE** → GREYCELL seul ; DIV1 → joueurs DIV1 ; **RENS = groupe RESEAU RZO** (108, tous aussi dans un camp : 90 rouges, 18 neutres/bleus) → RENS **+** la cellule du camp ; groupes marqués du pack selon leur bord (rouges : COS rouge, 002-tweeter-mercure, REDTEAM*, 02-RED-*, O2-RED-*, Troll LPE, RED_Trolls_nm, ROSO-Rouge → FORAD ; bleus : COS bleu, 003-tweeter-NATO, O4 Medias Francais, keys bleus, ROSO-Bleu, 712CT-Bleu 1, O4 Groupe Officiel Français, CECLANT → GREYCELL) ; COS vert (+UACIN), ROSO-Gris, STARTEX, EXERCICE DELATTRE 26 → GREYCELL ; reste neutre coupé en deux groupe par groupe ; groupes d'animation (O4animation1CA, Influence-joueurs-BRUIT, ANIMATION EXERCICE, O4 animation DIV1) → **l'utilisateur regardera** ; contrôle Admin = **bloquant** (Administration peut passer outre).
+- **Simulation (lecture seule)** : FORAD 1 953 · GREYCELL 1 941 · joueurs DIV1 19 · animation en attente 111 · **4 conflits** (avatars à la fois dans ROSO-Rouge et ROSO-Bleu/Gris : AbeGarm_vitraux, HoryGreg, MeeminKoryn, RablatMalcolm). Script : scratchpad `simul_partage.py`.
+- **Suite de la réflexion (même soir)** : les 4 conflits ROSO → GREYCELL ; les avatars partagés ne reçoivent **jamais** CAMP BLEU / ROUGE (les camps = avatars **principaux**, politiquement orientés ; les PACK = neutres de bruit, orientables peu à peu) ; **l'historique prime** (un avatar déjà utilisé par une cellule lui reste ; likes compris) ; **un journaliste suit son journal** — **TODAY MERCURE = seul média rouge (FORAD)**, tous les autres titres → GREYCELL ; **100 % des habitants de Mercure → FORAD**. Constat : 167 avatars de Mercure (pays ou groupe MER-/Mercure) = 152 CAMP ROUGE, 4 sans camp, **9 CAMP NEUTRE** (dont Natacha Inconnu `Love_Our_Soldiers`, pacifistes, EastWatch_Intl, CorrespondantEst, rzo_x…) et **2 CAMP BLEU** (`Abuisson_Invaz`, `aurelbegnis`, famille de militaire) → conflit avec « NEUTRE/BLEU → GREYCELL », à trancher. Trous de traçabilité : presse rédaction et messagerie directe ne gardent pas le compte opérateur. Données d'usage : copies des bases de la zone à demander à Xavier.
+- **Décision** : tout habitant de Mercure → FORAD (prioritaire sur NEUTRE / BLEU), journaliste de Mercure compris. Les 2 familles de militaire (`Abuisson_Invaz`, `aurelbegnis`) : **passées en CAMP ROUGE par l'utilisateur** dans eho (Mercure → FORAD). Simulation corrigée : **FORAD 1 966 · GREYCELL 1 932** · DIV1 19 · animation 111 en attente. Document de référence : `PLEIADE\PARTAGE_AVATARS_FORAD_GREYCELL.md`.
+- **Suite** : 111 avatars d'animation (O4animation1CA, Influence-joueurs-BRUIT, O4 animation DIV1) → GREYCELL, **sans rééquilibrage** (FORAD 1 966 · GREYCELL 2 043 · DIV1 19). « On ajoute PACK, on ne retire aucun groupe. » **Parade validée** : n'ouvrir dans « Avatars autorisés » que CAMP ROUGE + PACK FORAD (FORAD), CAMP BLEU + PACK GREYCELL (GREYCELL), CAMP DIV1 (DIV1), RESEAU RZO (RENS) — un groupe ouvert l'est en entier, sinon un avatar CAMP NEUTRE + PACK FORAD serait partagé. Réservations « Me l'approprier » (eho `Appropriation` : 1 titulaire, compte, camp, date) : proposé de les compter comme un usage — **REFUSÉ par l'utilisateur** : la réservation **suit le partage** (FORAD ne réserve que CAMP ROUGE + PACK FORAD, GREYCELL que CAMP BLEU + PACK GREYCELL ; automatique via « Avatars autorisés ») ; réservations existantes du mauvais côté (jamais utilisées) : listées puis libérées (à confirmer). Elles ne sont pas dans l'export Excel.
+- Mise en œuvre envisagée (NON lancée) : groupes eho « PACK FORAD » / « PACK GREYCELL » + « Avatars autorisés » ; Kit IA périmètre « Ma cellule » ; vérification bloquante dans l'Admin ; direct du social : avatars sans groupe plus ouverts à tous.
+
+## 2026-10-06 — Reporting : « programmées / en direct », « animation » au lieu d'« Admin », plus de compte en double — app-cockpit `2ea2f5d` ✅ POUSSÉ (main + prod) sur feu vert utilisateur, tag `prod-20261006-1735-2ea2f5d`
+- Retours utilisateur (capture « Origine ») : **gc10 deux fois** ; « 59 scénarios » lu comme 59 scénarios créés ; « scénarios de l'Admin » inexact (l'Admin fait plus que l'animation). Correctifs : vocabulaire unique **programmées** (scénarios d'animation) / **en direct** (posté à la main) dans les 5 vues, légendes, aides, tableau ; rapprochement des comptes **par nom** quand l'id Keycloak de l'auteur (Admin `createdById`) ne correspond pas au `keycloak_id` du social ; petites barres = nombre seul. Règle mémorisée (`feedback_vocabulaire_animation.md`).
+- ⚠ « Thomas MEYTRE », « Chloe PROVENCE » : auteurs dont l'Admin a gardé le **nom affiché** (`session.user.name`) et qui n'ont jamais posté en direct → pas de rattachement possible à un gcXX (PROVENCE = gc04 d'après la fiche d'indicatifs). Piste : enregistrer aussi le `preferred_username` à la création d'un scénario (à proposer).
+- Essais : doublon reproduit (auteur gc10 id A / compte gc10 id B) puis réuni ; Docker 307/307.
+
+## 2026-10-06 — MELMIL 2026-10-06.4 : le Déroulé montre toutes les storylines — app-melmil `bf6be8e` ✅ POUSSÉ (main + prod) sur feu vert utilisateur, tag `prod-20261006-1726-bf6be8e`
+- Signalé par l'utilisateur : nouvelle storyline 07.24 (event 07) absente du Déroulé. Cause : `deroule.tsx` ne gardait que les storylines ayant un incident **placé à un jour** (`jourDuDPlus`) ou un scénario de storyline → une storyline neuve, ou dont les incidents sont « À placer », disparaissait sans un mot. Correctif : toutes les storylines, triées par code (07.25 n'est plus après 08.05), mention « n incidents à placer » / « aucun incident ». Essai : 20.01 visible avec « 1 incident à placer » ; Docker 200/200.
+
+## 2026-10-06 — Reporting : graphique refait, vue « Dans le temps », tout par compte (avis DESIGNER n°75) — ✅ POUSSÉS (main + prod) sur feu vert utilisateur : admin `b8b3198` (tag `prod-20261006-1708-b8b3198`), social `dc2a556` (`prod-20261006-1712-dc2a556`), cockpit `74cc91a` (`prod-20261006-1713-74cc91a`)
+- **Admin** `/api/service/stats/cellules` : `auteurs` (par `createdById` = sub Keycloak) et `heures` (`parHeure=1`). **Social** `/api/cockpit/stats/operateurs` : `identity_id` (sub) par compte et `heures` (`parHeure=1`, journal d'audit). **Cockpit** : `/api/bff/stats-cellules?serie=1` réunit tout (série horaire complète par cellule ; comptes réunis par sub, repli sur le nom), composant `GrapheTemps` (graphique principal refait + vue « Dans le temps »), « Origine » = scénarios + direct par compte.
+- ⚠ Dans l'Admin, `createdBy` = `session.user.name` (peut être un nom complet) ; la jonction fiable avec le compte du social est `createdById` = `users.keycloak_id` du social. Un auteur qui n'a jamais publié en direct n'a pas de ligne dans le social → affiché sous son `createdBy`, cellule = préfixe s'il en a un, sinon cellule de son scénario.
+- Essais : navigateur (série 41 h, gc05 = 3 par scénarios), Docker 3/3 (démarrage + redémarrage).
+
+## 2026-10-06 — Cockpit : vues graphiques des publications par cellule (avis DESIGNER n°74) — app-cockpit `fef7bc0` ✅ POUSSÉ (main + prod) sur feu vert utilisateur, tag `prod-20261006-1646-fef7bc0`
+- Demande utilisateur : vues graphiques parlantes, à basculer par boutons ; « Tweets » au lieu de « Posts » pour le direct. `CellulesVues.tsx` : Synthèse / Par type / Origine / Tableau ; plein = scénarios, hachuré = direct ; couleurs de cellule de l'Admin ; nombre sur chaque barre. Rendu vérifié avec les chiffres réels de la zone (FORAD 81, GREYCELL 59 : capture utilisateur).
+- ⚠ 1er essai Docker : **BUILD KO**, puis OK à l'identique au 2e essai (même arbre `4dd0432…`) → raté passager, très probablement le **téléchargement Google Fonts** au `next build` (même symptôme que le déploiement cockpit de 13:35). Confirme la fragilité à traiter après l'exercice (polices embarquées). ⚠ Et leçon de méthode : enchaîner `test && commit`, jamais `test ; commit`.
+
+## 2026-10-06 — Social : Tendances comptées à partir d'une date réglée par l'animation — app-social `a2b896b` ✅ POUSSÉ (main + prod) sur feu vert utilisateur, tag `prod-20261006-1637-a2b896b`
+- Demande utilisateur : les posts d'ORION 26, restés dans le social de DELATTRE 26, gonflaient les Tendances ; il veut un décompte à partir du 04/10 00:00, réglable par un admin. Réglage d'instance Pléiade écarté (catalogue de Xavier, effet incertain sur une instance existante) → **table `reglages` dans le social** (`tendances.depuis`), `GET|PUT /api/social/hashtags/reglage` (PUT = rôle ANIMATEUR, audité), filtre sur Tendances, recherche de hashtags et page d'un hashtag (posts programmés exclus aussi). UI : « Régler » dans le cadre Tendances (animation), « Depuis le … » pour tous. Les vieux posts restent consultables.
+- Essais Docker sur copie semée : 3 → 1 pour #natogohome, #stopwar sorti, 401/403/400, interface OK, réglage conservé au redémarrage.
+
+## 2026-10-06 — Reporting : posts DIRECTS des comptes fdXX / gcXX ajoutés au tableau par cellule — ✅ POUSSÉS (main + prod) : social `bad8f28` (tag `prod-20261006-1623-bad8f28`), cockpit `79e00f8` (tag `prod-20261006-1624-79e00f8`)
+- Demande utilisateur : compter aussi ce que les comptes FORAD (fdXX) et GREYCELL (gcXX) postent directement dans le réseau social, **au nom d'un avatar compris**. Le post ne garde que l'avatar (`user_id`) et `par_animation` ; mais le **journal d'audit du social** (`audit_logs`, middleware sur `/api/social`, depuis le 10/09) garde l'**opérateur réel** (`operator_id`) et l'avatar (`avatar_id`) pour `post.create` / `comment.create`. Les scénarios publient par `/api/service/publish`, hors audit → pas de double compte.
+- Social : `GET /api/cockpit/stats/operateurs?from&to` (clé de zone). Cockpit : `/api/bff/stats-cellules` fusionne Admin + social, rattachement par préfixe du compte (`fd\d` → FORAD, `gc\d` → GREYCELL ; nom du compte = `preferred_username` Keycloak) ; tableau en deux blocs + détail par compte. Joueurs exclus.
+- Essais : social Docker sur copie semée (fd07 2+1 au nom d'avatars, gc05 1, joueur exclu, hors période exclu, « j'aime » exclu, 401 sans clé, redémarrage OK) ; cockpit navigateur (total 7) + Docker 307/307. ⚠ Un 1er test « faux négatif » venait de l'ancien serveur de dev pas encore redémarré.
+
+## 2026-10-06 — Admin : la cellule d'un scénario TERMINÉ se corrige — app-admin `4df3b17` ✅ POUSSÉ (main + prod) sur feu vert utilisateur, tag `prod-20261006-1605-4df3b17`
+- Capture utilisateur : scénario 24.05.I01 « Terminé », « cellule ? », aucun moyen de le ranger (admin). Cause : `ScenarioEditor` n'affichait `ChoixCellule` que si `canEdit` (= droit **et** statut ≠ done) ; le PATCH serveur accepte la cellule quel que soit le statut. Correctif : condition sur `mayEdit` (le droit seul). Essai navigateur (scénario 31 terminé → FORAD en base), Docker 307/307.
+- Rappel donné à l'utilisateur : le tableau « par cellule » du Reporting compte les `ScenarioItem` `published` dont `publishedAt` est dans la période, rangés par `Scenario.cellule` et par type d'app (tweet = social sans `replyTo`).
+
+## 2026-10-06 — Cockpit revu P1 à P8 (avis DESIGNER n°73) + Reporting par groupe eho et par cellule — ✅ POUSSÉ (main + prod) sur feu vert utilisateur : admin `82645d0` (tag `prod-20261006-1542-82645d0`) puis cockpit `fe1886d` (tag `prod-20261006-1543-fe1886d`)
+- **Cockpit** (branche `audit-p1-p8`) : premier écran (groupes eho actifs en un clic), barre filtre + « Seulement les non-lus », mode Sélectionner, menu « ⋯ » par carte, plus de clignotement (critique = liseré fixe, en tête), puce « Depuis le … × », Reporting en vue, libellés FR, **espaces partagés** (P8).
+- **P8 — décision d'architecture** : le cockpit n'a **ni base ni volume** (catalogue : `requires: []`, « phase 2 »). Lui en donner = modifier `pleiade-platform/catalog/cockpit.yml` (dépôt de Xavier, sans sas) **et supprimer/recréer l'instance** (`requires` lu à la création seulement) → refusé pendant l'exercice. **Espaces rangés dans la base de l'Admin** (`cockpit_espaces`, routes `/api/service/cockpit/espaces*`, clé de la zone), relayés par le BFF du cockpit (`lib/admin.ts`). À reprendre en phase 2 si Xavier donne une base au cockpit.
+- **Reporting** : séries « groupe d'eho » (membres → identités → comptes sur chaque réseau, par paquets de 20) ; tableau « Publications des scénarios (Admin), par cellule » (`/api/service/stats/cellules` : `published` + `publishedAt` dans la période, cellule du scénario, type d'app). ⚠ Un scénario remis à zéro efface `publishedAt` → n'est plus compté.
+- **Admin** (branche `cockpit-espaces-stats`) : modèle `CockpitEspace`, 2 familles de routes de service. `db push` local OK.
+- Essais navigateur bout en bout (voir notes de version) ; dev local : cockpit 3860 (`COCKPIT_DEV_INSTANCES` avec eho, social, admin), admin 3802.
+
+## 2026-10-06 — Barre PLÉIADE : au repos SOUS les fenêtres (8 apps) + cockpit « Toutes (n) ▾ » — ✅ POUSSÉS (main + prod) sur feu vert utilisateur, 8 tags `prod-*` constatés (eho 14:56, admin 14:58, leac 15:00, press 15:02, messagerie 15:05, cockpit 15:05, social 15:09, melmil 15:11 UTC) ; cockpit groupes eho en ligne depuis le « Re-run » (tag `prod-20261006-1438-9a9d493`)
+- Commits (branche `barre-sous-fenetres`) : admin `64e9c9c`, melmil `5f1420c` (2026-10-06.3), eho `044f038` (2026-10-06.3), press `6d2bba7`, messagerie `db3c805` (`CLAUDE.md` modifié hors session laissé de côté), leac `149e8c8`, social `9329f56` ; cockpit branche `barre-et-groupees` : `4f54b83` (barre) + `e792921` (actions groupées). Docker 8/8 OK (démarrage + redémarrage).
+- **Cockpit, actions groupées** (demande utilisateur : 264 avatars dans « Sans catégorie » par erreur) : bouton « Toutes (n) ▾ » sur chaque catégorie → « Déplacer les n sources vers… » / « Retirer les n sources », confirmation chiffrée ; store `moveSourcesOf` / `removeSourcesOf` ; menu en `position: fixed` (les panneaux sont en overflow-hidden). Essai : 30 → GREYCELL → 0. Les sources vivent dans le navigateur : l'action porte sur le poste où on la fait.
+- Capture utilisateur (MELMIL) : l'en-tête et le « Fermer » de la fenêtre « Demande de produit complexe » passaient SOUS la barre (« parfois aussi la fiche d'incident selon l'écran »). Cause : `.bz { z-index: 60 }` au-dessus des fenêtres Tailwind `fixed inset-0 z-50` (demande, CRQ, compte rendu, confirmations… et ailleurs dans les autres apps).
+- Remède dans les 8 copies (`barre-zone.css` ×7, composant Angular du social) : `z-index: 1` au repos, `.bz:has(.bz-menu[open]) { z-index: 80 }` menu ouvert. Mesuré MELMIL : titre et « Fermer » visibles (élément au point = la fenêtre), menu ouvert au-dessus de la planche. MELMIL et eho → 2026-10-06.3.
+- ⭐ **Leçon** : un élément commun posé sur des apps existantes doit être AU PLUS BAS au repos (il ne connaît pas les couches des apps) et ne monter que pour son propre menu.
+
+## 2026-10-06 — Messagerie : la barre d'actions d'un message ne recouvre plus son texte — app-messagerie `c0e0ad1` ✅ POUSSÉ (main + prod, depuis `4989868`) sur feu vert utilisateur
+- Capture utilisateur : barre au survol (`.ms-actions`, `top: -12px`, ~32 px) posée sur la 1re ligne. Placement mesuré au survol (`data-place` : `cote` à côté de la bulle si la place libre suffit, `dessus` sinon, `coin` en repli pour le premier message en haut du fil). Essais : messagerie locale (`MESSAGERIE_DEV_USER`, base `messagerie_apercu`, port 3605 — le 3600 était tenu par un autre Node), 1 400 / 900 px, 5 messages, aucune superposition ni défilement horizontal ; Docker 307/307. Captures `DESIGNER\AVIS\2026-10-06_MESSAGERIE_ACTIONS\`.
+
+## 2026-10-06 — MELMIL 2026-10-06.2 : panneaux latéraux pleine hauteur — app-melmil `3542280` ✅ POUSSÉ (main + prod, depuis `6ae2eaa`) sur feu vert utilisateur
+- Capture utilisateur : vide de ~45 px au-dessus de la fiche d'incident. Cause **ancienne** (`aeaa796`, refonte DESIGNER n°1) : `.panneau` et `.panneau-fiche` en `position: fixed; top: 44px` pour laisser voir le bandeau, qui n'est pas fixe → vide dès que la page défile ; la barre PLÉIADE (30 px) du jour décale aussi le haut de page. Remède : `top: 0`, `z-index: 61` ; `.ip-*` 70/71. Mesuré : top 0, hauteur = fenêtre. Docker `/api/sante` 2026-10-06.2.
+
+## 2026-10-06 — Cockpit : les groupes viennent d'eho (avis DESIGNER n°72) — app-cockpit `9a9d493` ✅ POUSSÉ (main + prod, depuis `2e561ca`) sur feu vert utilisateur — ⚠ **déploiement ÉCHOUÉ** (pas de tag `prod-…-9a9d493`) : `next build` dans le runner → `next/font/google` JetBrains Mono « queries have exactly one entry » / « Can't resolve @vercel/turbopack-next/internal/font/google/font ». Pas le code : même police et même Next 16.3.4 que l'Admin, construit sans erreur à 13:42 → raté passager du téléchargement Google Fonts. Remède immédiat : « Re-run all jobs » (utilisateur). ⭐ **Fragilité à traiter après l'exercice** : admin, cockpit, press, eho, messagerie téléchargent leurs polices chez Google À CHAQUE construction → embarquer les polices (`next/font/local`) dans chaque dépôt. Un « Déployer » sur l'instance ne sert à rien si l'image n'a pas été reconstruite (vérifier le tag `prod-*`).
+- **Constat utilisateur** : « Ajouter une source › Groupe » ne proposait pas FORAD ni les camps de DELATTRE 26 — seulement des groupes d'ORION (« 001-tweeter-arnland », « 02-RED-Anya »…).
+- **Cause** : `/api/bff/groups` lisait `/api/cockpit/groups` de chaque réseau social, c'est-à-dire la table `group` LOCALE du social — vestige d'avant le démantèlement (les groupes vivent dans eho depuis), restée figée sur ORION. ⚠ Même vestige servi par `/api/service/groups` du social (« repli sans eho ») : à nettoyer un jour côté social.
+- **Correctif** : `lib/eho.ts` (groupes `GET /api/groups`, membres `/api/groups/:id/members` filtrés — ni e-mail ni pays), repli réseaux si pas d'eho ; fenêtre refaite (recherche, liste, archivés, aperçu, catégorie proposée). Essais local + Docker (307/307, 401 sans session).
+
+## 2026-10-06 — ⛔ INCIDENT : l'Admin de DELATTRE 26 redémarrait en boucle (404) — cause : import Excel — correctif app-admin `9a87114` ✅ POUSSÉ (main + prod, depuis `f06c65d`) sur feu vert utilisateur
+- **Symptôme** : 404 Traefik par intermittence ; un animateur n'arrivait pas à importer `scenario_replis contraint.xlsx` dans le scénario « 21.02.I01 — repli contraint ». Relevés de l'utilisateur dans la console du conteneur : `next-server` jamais plus de quelques minutes, PID de démarrage qui change, mémoire sans limite, `oom_kill 0`, contrôle de santé `/login` OK.
+- **Cause** (reproduite) : l'import lisait `rowCount × cellCount`. Le fichier (5 lignes remplies) se déclare long de **1 048 576 lignes** (mise en forme étendue jusqu'en bas) × 21 colonnes = **22 millions de cellules** → « JavaScript heap out of memory » → Node s'arrête (pas un oom_kill du cgroup, d'où le 0) → redémarrage → 404 ; chaque nouvel essai recommence. Le déploiement auto n'a tourné qu'une fois (tag `prod-20261006-1144-f06c65d`) : hors de cause. La mise à jour navigation du jour : hors de cause.
+- **Correctif** : `eachRow({ includeEmpty: false })`, largeur = dernière cellule d'en-tête NOMMÉE, plafonds 10 Mo / 5 000 lignes / 200 colonnes, message clair au-delà. Essais : fichier réel 0,18 s ; fichier piégé 1,3 s ; export → import 7/7 ; 6 000 lignes → 400 ; image Docker démarrée et redémarrée.
+- ⭐ **Leçon** : un fichier fourni par l'utilisateur ne doit JAMAIS dicter la taille d'une boucle serveur (`rowCount`, `cellCount`, longueur annoncée) ; un seul processus Node porte toute l'app, une requête qui l'épuise coupe l'Admin pour toute la zone et coupe le programmateur des scénarios.
+
+## 2026-10-06 — Support « Qui fait quoi dans PLÉIADE » pour les animateurs (demande utilisateur)
+- Diaporama de 11 diapositives (artifact claude.ai `F3uhbWTAVa48BGxCNQiLmx`, privé, téléchargeable en .pptx) : carte de la zone (JEMM → MELMIL ↔ Admin → social / presse / messagerie → cockpit ; eho au-dessus de tout ; LEAC à part ; portail), entrée unique, 4 diapos par rôle (préparer, publier, jouer, observer), parcours d'un incident en 6 étapes, tableau « je veux… j'ouvre… », 5 pièges, 3 réflexes d'aide. Faits tirés de `MEMOIRE.md` §2, §6, §6bis et de `LEXIQUE_ZONE.md`. Notes de l'orateur sur chaque diapo.
+- Constat à l'origine : un animateur ne savait pas que le cockpit ne surveille que les sources ajoutées (« + Source ») → piège n°3 du support.
+
+## 2026-10-06 — Social : l'auteur d'une réponse mène à son profil — app-social `bfeb517` ✅ POUSSÉ (main + prod, depuis `19199ea`) sur feu vert utilisateur
+- Avatar, nom et @ d'une réponse sous un post → lien vers `/profile/<username>` ; @ des commentaires vidéo idem. Essai Docker sur copie de base : clic → profil, 0 erreur. Détail : `MASTORION\MEMOIRE.md`.
+
+## 2026-10-06 — Navigation de PLÉIADE : R1 à R7 de l'avis DESIGNER n°69 mis en œuvre dans les 8 apps (avis n°71) — ✅ POUSSÉ (main + prod) sur feu vert utilisateur, pendant l'exercice
+- **Push** : eho, app-press, app-messagerie, app-cockpit, app-leac, app-melmil d'abord ; puis app-social et app-admin **après pause des scénarios confirmée par l'utilisateur**. Le premier essai de push avait été refusé par le mode auto, le second est passé. ⚠ Vérification `/api/sante` (MELMIL 2026-10-06.1, eho 2026-10-06.2) **refusée par le mode auto** → à faire par l'utilisateur. Penser à **relancer les scénarios mis en pause**.
+- **R3 — barre de plateforme** dans toutes les apps : composant `BarreZone` + `barre-zone.css` copiés à l'identique (admin `src/components/barre-zone/`, melmil `src/lib/ui/barre-zone/`, eho `components/barre-zone/`, press, cockpit, leac, messagerie) ; social : composant Angular `app-barre-zone` + `portail` ajouté à `/api/zone/apps`. Découverte Pléiade ajoutée à **MELMIL** (`src/lib/zone/voisines.ts`, `MELMIL_DEV_INSTANCES`) et **eho** (`src/lib/voisines.ts`, `EHO_DEV_INSTANCES`) par copie de LEAC ; cockpit `appsDeLaZone()`. Portail = hôte sans sa première étiquette, ou `PLEIADE_PORTAIL_URL`. Liste des apps **réservée à l'animation** (joueur : retour portail seul) — l'API `/api/internal/zones/:zone/instances` ne renvoie pas `portail_visible` / `portail_groupes` → **à demander à Xavier** pour filtrer par groupe.
+- **R4 — MELMIL** : 5 onglets + menus Construction ▾ / Organisation ▾ (`ecran-atelier.tsx`, `.onglets-menu`), « Étape ▾ » n'ouvre plus d'onglet, refus d'accès avec les vrais rôles (Admin, GA1/GA2, Prod, Lecture), « Réglages de la planche JEMM », libellé « Groupes ».
+- **R5 — Admin** : `MenuPlus.tsx` (Plus ▾ / Affichage ▾), `regroupement` et `plagesRepliees` remontés dans `ScenarioEditor`, onglet « Réglages », « publication » à la place d'« item » ; **cockpit** `Header.tsx` : « + Source » principal + `ck-plus`.
+- **R6** : `AideEcran` (admin, eho, press, cockpit) et `AideOnglet` (MELMIL, 11 textes) ; page admin `/aide` « Premiers pas » (opérateur requis), liée depuis la barre de chaque app.
+- **R2 / R7** : `PLEIADE\LEXIQUE_ZONE.md` (5 arbitrages à prendre) ; `PLEIADE\OBSERVATION_ANIMATEURS.md`.
+- **Essais** : `tsc --noEmit` propre sur les 7 apps Next, `ng build` social OK ; rendu local vérifié par Playwright sur admin (3802), MELMIL (3801), presse, cockpit (3860) ; images Docker construites depuis l'arbre de travail et démarrées sur base vide (santé 200/307 au démarrage et au redémarrage) — résultats par app dans le journal Docker de la session, voir ci-dessous le complément. Non vus à l'écran : eho, messagerie, LEAC, social.
+- **Docker, résultat final (8/8 OK)** : admin 307/307, melmil 200/200, eho 200/200, press 200/200, messagerie 307/307, cockpit 307/307, leac 200/200, social 200/200 (démarrage / redémarrage). ⚠ Les images ont été construites juste avant le dernier correctif d'une ligne (bulle d'aide MELMIL) et avant les notes de version — à reconstruire au moment du push.
+- **Commits locaux, branche `navigation-zone` dans chaque dépôt, NON POUSSÉS** : app-admin `f06c65d` · app-melmil `6ae2eaa` (version 2026-10-06.1) · eho `2567a9f` (2026-10-06.2) · app-press `59738c8` · app-messagerie `4989868` · app-cockpit `2e561ca` · app-leac `816866e` · app-social `19199ea`. Notes de version écrites dans chacun.
+- ⚠ Avant un éventuel push : pauser les scénarios en cours (social, admin) ; prévenir les animateurs du nouvel ordre des onglets MELMIL.
+
+## 2026-10-06 — ⚠ CORRECTION : un push sur `prod` met à jour DELATTRE 26 tout seul
+- Vérifié sur la zone (12:26) : eho en **2026-10-06.1** sans redéploiement manuel (il répondait 2026-10-05.4 juste après le push), MELMIL sur la dernière version poussée ; l'utilisateur confirme n'avoir jamais eu à redéployer.
+- Les consignes « cliquer Déployer sur chaque instance » données toute la journée (kit IA, presse, social, eho, admin) étaient **inutiles** : la note du 2026-10-01 (« une zone non-prod n'est pas mise à jour par la promotion ») est **périmée**.
+- Conséquence : le redémarrage suit le push de quelques minutes → pour social et admin, **pauser les scénarios qui publient dans les minutes à venir AVANT le push**.
+
+## 2026-10-06 — Admin : date et heure de publication au lieu du délai en minutes (avis DESIGNER n°70) — app-admin `15f4366` ✅ POUSSÉ (main + prod, depuis `fd9158c`) sur feu vert utilisateur — « Déployer » l’admin de DELATTRE 26
+- Demande utilisateur (capture item #5, délai 2 760 min) : changer le jour d'une publication obligeait à calculer les minutes depuis T0.
+- Fait : bloc « Quand » (`ChoixMoment.tsx`) — « Date et heure » (défaut) ou « Délai » en j/h/min, ligne de conséquence, erreur si trop tôt ; « Répond à » au-dessus. Modèle inchangé (`delta`).
+- Essais : Playwright (08/10 09:41 → 3 470 ; 1 j 2 h 30 → 1 590 ; trop tôt refusé ; 0 erreur JS) ; piège corrigé avant essai (secondes du début → arrondi supérieur) ; Docker base vide + redémarrage.
+
+## 2026-10-06 — Social : profil en onglets Publications / Réponses / Partages — app-social `1442932` ✅ POUSSÉ (main + prod, depuis `cd01e04`) sur feu vert utilisateur — redéployer le social de DELATTRE 26
+- Demande utilisateur (capture du profil @Skolkan_rules) : distinguer posts (citations comprises), commentaires et partages.
+- Fait : API `posts?type=publications|partages`, nouvelle `replies` ; compteur sans les partages ; onglets accessibles (rôle tab) dans 4 habillages (YouTube : vidéos). Bonus : l'encart des citations s'affiche désormais aussi sur le profil.
+- Essais : build Angular OK ; Docker avec jeu publié par l'API de service (post, citation, réponse, partage) → chaque onglet juste ; captures ; redémarrage OK. Aucun changement de base. Déploiement : social seul (pause des scénarios pendant le redémarrage).
+
+## 2026-10-06 — Description publique des avatars (EHO → réseau social) — eho `0ca93de` (2026-10-06.1) + app-social `cd01e04` ✅ POUSSÉS (main + prod ; eho depuis `862f712`, social depuis `857b65f`) sur feu vert utilisateur — Déployer eho PUIS social
+- Demande utilisateur, suite du correctif urgent : un champ de l'EHO destiné **uniquement** à la description du compte sur le réseau social.
+- eho : `User.bioPublique` (« Description publique (réseaux sociaux) », encadré « Visible par les joueurs », 500 car.), « Bio » renommée « Bio (interne — jamais montrée aux joueurs) », API + PATCH, import/export `bio_publique` (sans la colonne : rien n'est effacé). Tests 538 + 119 verts ; image : ancienne version puis nouvelle sur la même base → colonne ajoutée, PATCH OK, redémarrage OK.
+- social : le profil montre `bioPublique` seule ; alignement au démarrage + 30 min (eho injoignable → effacement) ; relue à l'ouverture d'un profil. Essai Docker (public affiché, interne réinjectée → remplacée au redémarrage, modification eho → visible aussitôt, accents OK).
+- ⚠ Non vérifié à l'écran : la fiche avatar d'eho (connexion Keycloak locale indisponible) — tsc OK, champ testé par l'API.
+- **Ordre de déploiement : eho puis social**, scénarios en pause pendant le redémarrage du social.
+
+## 2026-10-06 — ⚠ URGENT Social : profils d'avatars sans description — app-social `857b65f` ✅ POUSSÉ (main + prod, depuis `e57914a`) sur feu vert utilisateur — « Déployer » l’instance social de DELATTRE 26
+- Signalement utilisateur (capture du profil @MamaMia) : le réseau social affiche la description complète des avatars → les joueurs savent qui est qui.
+- Cause : la `bio` eho (fiche interne) était recopiée à chaque synchronisation dans `users.bio` et affichée sur le profil.
+- Correctif : plus de copie (`bio: ""`), effacement de toutes les bios des comptes d'avatars au démarrage, plus de saisie de bio sur un compte d'avatar ; fiches eho intactes.
+- Essais : image d'avant + base vide → profil `zozo-hstras` avec « Couture et finission » ; image corrigée sur la même base → effacée (log « Biographies d'avatars effacees : 1 »), API `bio: ""`, 0 bio restante ; avatar ouvert après coup sans bio ; redémarrage OK. Messagerie et presse vérifiées : n'affichent pas la bio. Consigné CYBERSECU (fuite + leçon « données eho = internes par défaut ») et MASTORION (règle).
+
+## 2026-10-06 — Presse : joindre un document PDF dans un article (option A) — app-press `9338cee` ✅ POUSSÉ (main + prod, depuis `f1f3a67`) sur feu vert utilisateur — « Déployer » chaque journal de DELATTRE 26
+- Demande : un animateur veut mettre un PDF dans son article. Trois options proposées (A lien dans le texte, B encadré « Documents liés », C PDF affiché dans la page) ; **A retenue** par l'utilisateur.
+- Constat : la médiathèque acceptait déjà les PDF et les servait (`/media/…`), mais rien ne permettait de les insérer (adresse invisible).
+- Fait : bouton « Joindre un document PDF » dans l'éditeur de la rédaction → médiathèque filtrée PDF (choisir ou verser) → lien « Nom (PDF, taille) » au curseur, ou la sélection devient le lien ; nom du fichier repris comme description à l'envoi ; icône de document sur le site (toutes maquettes) ; nouvel onglet (`cleanHtml`).
+- Essais : Playwright (bouton, fenêtre PDF, envoi d'un fichier au nom accentué → lien « Arrêté préfectoral n°2026-148 (PDF, 653 o) », HTML de l'éditeur publié → site : icône, `target=_blank`) ; Edge affiche le PDF (CSP `sandbox` sans effet gênant) ; Docker base vide + redémarrage. ⚠ Enregistrement depuis la rédaction non rejouable en local (signature contrôlée par eho, compte d'essai non reconnu) — code d'enregistrement inchangé. Non couvert : l'Admin (scénarios) ne peut pas joindre de PDF (option à part si besoin).
+
+## 2026-10-06 — Presse : maquette « Préfecture de région » — app-press `f1f3a67` ✅ POUSSÉ (main + prod, depuis `280d714`) sur feu vert utilisateur — « Déployer » les journaux de DELATTRE 26, puis choisir la maquette dans Réglages
+- Demande utilisateur : nouveau thème enregistré (comme TF1…) d'après le site « La préfecture et les services de l'État en région » (Grand Est) — page « site » = liste des actualités, page « article » ; fonctionnement complet avec l'Admin et le kit IA. Avant : avis DESIGNER n°69 (navigation) mis **en attente** à la demande de l'utilisateur.
+- ⚠ Site de l'État (bloc-marque RF, Marianne) : question posée, **décision utilisateur « identique, logo compris »**, réseau fermé de l'exercice (consigné chez DESIGNER §5).
+- Méthode : le site bloque les navigateurs automatisés (Cloudflare) et les pages HTML (403) ; les **feuilles de style, images et polices** se téléchargent. Rendu de référence obtenu en servant au navigateur les deux fichiers HTML fournis par l'utilisateur (Bureau) + les ressources d'origine, puis **mesures relevées** (couleurs, tailles, marges, polices) et captures. Images d'origine et Roboto Slab (Apache 2.0) embarquées : `public/skins/prefecture/` (132 Ko).
+- Essais : rendu comparé à la référence (une, article) ; publication API ; aperçu depuis l'Admin (maquette, bloc-marque, gras, listes) ; kit IA (section « Grand Est » dans `2_MODE_EMPLOI.md`) ; Réglages (vignette + aperçu en direct) ; 390 px sans débordement ; test logo 3/3 ; Docker base vide (santé 200, ressources 200, publication, redémarrage, 0 erreur). Rien à changer côté Admin : il lit le nom et les champs que le journal annonce.
+
+## 2026-10-06 — Admin : corps d'article « Mise en forme | HTML » (avis DESIGNER n°68) — ✅ POUSSÉ app-admin `fd9158c` (main + prod, depuis `5457185`) sur feu vert utilisateur ; correctif presse `280d714` ✅ POUSSÉ (main + prod, depuis `52ff84f`) sur feu vert utilisateur — « Déployer » admin + chaque journal de DELATTRE 26
+- Demande utilisateur : dans la fenêtre d'un article de presse, écrire le corps en HTML ou « en basique » avec des boutons (gras, italique…) comme sur un forum.
+- Admin : `EditeurArticle.tsx` (Tiptap 3.31.3 épinglé, comme la presse) — segment mémorisé par poste, barre d'outils (Toolbar APG, raccourcis), lien en barre en ligne, HTML aéré ; un corps à encadrés de maquette / images / tableaux s'ouvre en HTML, la bascule affiche ce qui serait effacé. Réactions, social, messagerie : champ texte inchangé. Défaut trouvé à l'essai et corrigé avant tout commit : `setEditable()` émettait une mise à jour qui vidait le corps d'un article ouvert en HTML. Essais : Playwright (parcours complet, enregistrer sans toucher = corps inchangé, 4 cas), Docker base vide + redémarrage.
+- **Question utilisateur « le gras sera-t-il aussi sur le site de presse ? »** → vérifié de bout en bout (aperçu par l'admin + publication par l'API de service + page publique) : gras, italique, souligné, barré, lien, intertitres, listes, citation, trait **arrivent** dans le HTML. Mais mesure sur les 13 maquettes : **OCHA, CICR et générique n'affichaient ni puces ni numéros** (remise à zéro Tailwind), OCHA et CICR **pas de style de citation** ; EFS : ronds rouges maison (OK) ; les 9 autres OK.
+- Presse `280d714` : `list-style` sur `.site .prose ul/ol`, `.ocha-body`, `.cicr-body` + `blockquote` / `hr` OCHA et CICR. Re-mesuré : 13/13 maquettes OK. Docker : santé 200, redémarrage OK ; règles présentes dans le CSS construit (le minificateur écrit `list-style:outside` = disque par défaut).
+
+## 2026-10-06 — Kit IA lent + rédactions fausses (« Rédaction (500) ») — ✅ POUSSÉ app-press `52ff84f` (main + prod, depuis `6aa6715`) sur feu vert utilisateur — « Déployer » chaque journal de DELATTRE 26 dans PLÉIADE (zone non prod)
+- Signalement utilisateur : « Télécharger le kit » (Admin › Kit IA) ne fonctionne plus → en fait il aboutit, mais après une très longue attente (kit du 06/10 07:39 obtenu).
+- **Cause** (régression de mon correctif presse du 05/10, pagination eho) : le kit appelle `/api/service/accounts` de chaque journal par paquets de 150 identités (27 appels pour 4 025 avatars), en séquence. Chaque appel relisait la rédaction dans eho ; sans rédaction configurée, `listPersonas` sans groupe paginait 5 pages de la zone → ~135 lectures eho par journal et par kit (6 journaux sur DELATTRE 26).
+- **Second défaut, visible dans le kit** : un journal sans rédaction (et toute rédaction > 500) rendait « Rédaction (500) » = les 500 premiers avatars de la zone (TF1, Hexagone, OCHA, CICR avaient la même liste `@rzo_emeritus`…), et ces 500 faux journalistes étaient retirés du vivier `6_AVATARS_SANS_BIO.md`.
+- **Correctif** (presse seule, admin inchangé) : rédaction lue une fois puis gardée 60 s par composition des groupes, sans plafond ; sans `newsroomGroupIds`, aucun appel eho → tout `missing` (le kit écrit alors « aucun journaliste — à recruter »). Effet de bord assumé : à la vérification d'un scénario, l'auteur d'un article sur un journal sans rédaction est signalé « hors rédaction » (l'article paraît quand même).
+- **Essais** : dev local (3 983 identités) kit 3,4 s → 1,0 s ; rédaction de 3 groupes = 732 (au lieu de 500). Docker image `git archive` sur base vide : santé 200, rédaction vide → 0 trouvé, configurée → 95/95, 2e appel 10 ms (mémoire), redémarrage OK, aucune erreur. ⚠ En production la presse trouve eho **par l'annuaire PLÉIADE** (`EHO_URL` ignoré si `NODE_ENV=production`) : pour l'essai, petit serveur de découverte factice (`/api/internal/zones/<zone>/instances` → eho).
+- Kit fourni par l'utilisateur : déjà à jour (4 025 avatars = sauvegarde `EXER\DELATTRE 26\01_Montage exercice\SAVE EHO\avatars-eho-2026-10-06.xlsx` ; OCHA `ocha` et CICR `icrc` présents) — le kit est généré en direct, il suffit de le retélécharger. Reste à faire côté zone : choisir la rédaction d'OCHA et du CICR (Réglages › Rédaction), et vérifier celles de TF1 / Hexagone.
+
+## 2026-10-06 — Admin : sélecteur de groupes compact (likes, retweets) — avis DESIGNER n°67 — ✅ POUSSÉ app-admin `5457185` (main + prod, depuis `a90af07`) sur feu vert utilisateur
+- Demande utilisateur (capture) : dans la fenêtre d'un item, tous les groupes eho s'affichent en pastilles (deux fois) → moche et long à défiler.
+- Fait : `GroupPicker` réécrit — groupes choisis seuls en pastilles retirables, « Choisir des groupes… » ouvre une liste intégrée (recherche, cases, membres, choisis en tête), « Tout retirer », ligne d'état. Même composant dans le Kit IA. Données inchangées.
+- Vérifié : tsc ; Playwright avec l'eho local (235 groupes : fermé 0 pastille, recherche « arn » → 25, 2 cochés → « 2 groupes · jusqu'à 210 membres », 0 erreur) ; Docker base vide + redémarrage (401 / 307, 0 erreur). Admin local relancé avec `EHO_URL=http://localhost:3001` pour les groupes.
+
+## 2026-10-05 (suite 24) — Molette : relais du défilement vers la page en fin de tableau — ✅ POUSSÉS : MELMIL `0a6a007` (main + prod, **2026-10-05.8 en ligne à 23:24**) et eho `862f712` (main + prod, **2026-10-05.4 en ligne**, vérifié sur `eho-delattre26.delattre-26.pleiade.internal/api/sante`)
+- Demande utilisateur : arrivé en butée d'un tableau défilant, la molette doit faire descendre la page (sans sortir la souris du tableau).
+- Cause : le chaînage natif du navigateur était coupé par `overscroll-behavior: contain`. Inventaire de toutes les apps : **MELMIL Déroulé** (`.der-cadre`) et **eho Trombinoscope** (liste des cartes, `overscroll-contain`) → retirés. Messagerie : laissé (application plein écran, la page ne défile pas). Aucun gestionnaire `wheel` dans le code.
+- Mesuré au navigateur (40 crans de molette, souris sur la zone) : Déroulé avant = zone en bas, page figée ; après = la page descend jusqu'en bas. Planche de préparation et Planche JEMM : déjà correctes (la page descend). Eho non mesuré à l'écran (pas de connexion de développement) — correction déduite du code.
+- ⚠ Règle à retenir pour tout nouvel écran : **ne pas poser `overscroll-behavior: contain` (`overscroll-contain`) sur une zone défilante d'une page qui défile elle-même** ; le réserver aux fenêtres modales et aux applications plein écran.
+- Docker base vide + redémarrage : MELMIL `/api/sante` 2026-10-05.8, eho 2026-10-05.4, 0 erreur.
+
+## 2026-10-05 (suite 23) — RETWEET AVEC CITATION dans social + Admin — ✅ POUSSÉS sur feu vert : app-social `e57914a` (main + prod, depuis `ada6088`) PUIS app-admin `a90af07` (main + prod, depuis `70cdc56`). Mise en ligne de social non vérifiable à distance (`/api/service/health` exige la clé de zone, 401).
+- Demande utilisateur : « tweeter en ayant comme référence le tweet de quelqu'un d'autre » = **retweet avec citation** (confirmé), citations **limitées au même scénario** dans l'Admin (décision).
+- Social : `quoteOf` (post ordinaire, sans clé étrangère), `quote_of` / `quote_post_id`, encart `app-citation`, bouton « Citer », compteur, notification `quote`, `supports: citation`. Retweet simple (boost, `repostOf`) inchangé.
+- Admin : `ScenarioItem.quoteOf`, champ « Cite le tweet » (si l'app annonce `citation`), planificateur qui attend le cité, `quote_post_id`, « cite #n » dans l'arbre, colonne XLSX `quote_of` (Kit IA), règles partagées `citationInvalide()`.
+- Vérifié : tsc API + web + Admin, build Angular en image ; API social en conteneur (publier, citer, refus d'un cité inexistant, encart, `quote_count`, fil, original supprimé → « indisponible ») ; **bout en bout Admin → social** (scénario lancé : #1 publié, #2 publié au tour suivant avec l'encart du post cité) ; refus Admin (se citer, citer une réponse) ; captures fil / Admin ; Docker base vide + redémarrage (social et Admin) ; **mise à jour d'une base existante** (ancienne version social → nouvelle : post conservé, colonne ajoutée).
+- ⚠ Non vérifié à l'écran : la publication depuis la fenêtre « Citer » de social (le compte admin local n'a aucun avatar « Au nom de » dans l'eho de test — règle existante, sans lien).
+
+## 2026-10-05 (suite 22) — Admin : fenêtre de choix de l'incident agrandie (avis DESIGNER n°65) — ✅ POUSSÉ app-admin `70cdc56` (main + prod, avance rapide depuis `972b348`) sur feu vert utilisateur
+- Demande utilisateur : la fenêtre de choix d'incident (création de scénario, « Changer… ») est trop petite ; revoir avec DESIGNER, montrer une capture.
+- Fait : `IncidentPicker` liste intégrée (plus de menu flottant rogné), deux colonnes storylines | incidents, coche « actuel », prop `listeOuverte` ; `ChoixCible` mode storyline au même gabarit ; fenêtres à 960 px ; « Changer… » ouvre directement la liste sur la storyline actuelle. Styles `globals.css` (une colonne sous 700 px).
+- Vérifié : tsc + lint ; Playwright (création, Changer…, storyline : filtre 08.01 → 7, choix → étiquette + nom, 07.01 → 23/23, 0 erreur) ; Docker base vide + redémarrage (401 / 307, 0 erreur). Captures avant/après : `DESIGNER\AVIS\2026-10-05_ADMIN_CHOIX_INCIDENT\captures\`.
+
+## 2026-10-05 (suite 21) — Admin : « Tout » par partie dans l'arbre d'un scénario (avis DESIGNER n°64) — ✅ POUSSÉ app-admin `972b348` (main + prod, avance rapide depuis `19e27a1`) sur feu vert utilisateur
+- Demande utilisateur : en mode Sélection, pouvoir tout sélectionner par partie (ex. 100 % des tweets sans la presse) ; revoir l'architecture des boutons, via l'agent DESIGNER.
+- Fait (`TreeView.tsx`, `editor.css`) : case « Tout » tri-état sur chaque en-tête d'app ; barre de sélection visible dès le mode ouvert (case globale + « N sélectionnés sur M », texte d'état vide) ; actions brouillons au centre, **Supprimer isolé à droite**, « Terminer » ; barre du haut en 3 groupes avec bouton « Sélectionner / Sélection active » ; Échap quitte (sauf fenêtre ouverte). La case respecte recherche + filtre, inclut les réponses repliées, exclut « en cours ».
+- Vérifié : tsc ; Playwright sur le scénario 4 local (social 15 + presse 3 : tweets seuls = 15, + presse = 18, globale partielle puis pleine, décocher/cocher global, Terminer, 0 erreur JS) ; Docker base vide + redémarrage (401 / 307, 0 erreur).
+
+## 2026-10-05 (suite 20) — Admin : cellule OBLIGATOIRE à la création d'un scénario ✅ POUSSÉ app-admin `19e27a1` (main + prod, avance rapide depuis `100bf40`) sur feu vert utilisateur
+- Demande utilisateur : obliger à choisir une cellule à la création d'un scénario (« ils l'oublient toujours »).
+- Fait : `NewScenarioDialog` — cellule obligatoire pour toute cible (avant : seulement le bruit de fond), libellé « Cellule (obligatoire) », « Créer » grisé + deux messages rouges tant qu'elle manque ; pré-choix gardé **d'après le compte** (groupe Keycloak), **supprimé** la reprise de « la dernière cellule du poste » (risque de mauvaise cellule sans qu'on le voie). `POST /api/bff/scenarios` : 400 si ni corps ni compte ne donnent de cellule (seule voie de création ; la fiche d'un scénario ne propose que GREYCELL/FORAD).
+- Vérifié : tsc ; API locale (sans cellule → 400 avec message, avec FORAD → créé puis supprimé) ; Playwright (sans cellule : Créer inactif + message ; FORAD : actif) ; Docker base vide + redémarrage (`/api/bff/scenarios` 401, `/` 307, 0 erreur — l'Admin n'a pas de `/api/sante`).
+- Serveur Admin local (3802) relancé avec un compte SANS groupe de cellule (`ADMIN_DEV_GROUPS=""`) pour ce test.
+
+## 2026-10-05 (suite 19) — MELMIL 2026-10-05.7 : events et storylines repliables ✅ POUSSÉ app-melmil `6e9d62f` (main + prod, avance rapide depuis `d813ae4`), **en ligne à 20:20** (`/api/sante` 2026-10-05.7)
+- Demande utilisateur : boutons pour plier/déplier les lignes d'event et de storyline « comme sur les incidents », et lignes **fermées par défaut**.
+- Fait : onglet **Events** (chaque event = ligne pliable : code, nom, nb storylines, pastilles groupe/source ; fiche montée seulement dépliée) ; onglet **Storylines** (events ET storylines pliables, ligne de storyline = code, nom, nb incidents, période D+) ; « Tout déplier / Tout replier » sur les deux. `lib/ui/pliage.ts` (`usePliage`) : mémoire par poste (localStorage), ligne apparue (création, collègue) ouverte d'office, storyline venue de la planche ouverte avec son event ; pas d'ouverture en masse quand les données arrivent après l'affichage.
+- Vérifié : tsc ; tests 607/607 ; Playwright (gt1 0/7 → 7/7 → mémorisé → 0/7 → 1/7 ; gt2 0/23 → 23/23 → mémorisé → 0/23 → 1/23 ; 0 erreur JS) ; Docker base vide + redémarrage (`/api/sante` 2026-10-05.7, 0 erreur). Erreur de lint préexistante (setTri dans un effet, onglet Incidents) non liée.
+
+## 2026-10-05 (suite 18) — Presse : maquette « CICR » ✅ POUSSÉE app-press `6aa6715` (main + prod, avance rapide depuis `99ffdf9`) sur feu vert utilisateur
+- Demande utilisateur : même chose qu'OCHA pour icrc.org/fr (accueil + page d'article), maquette enregistrée, même nom, même logo.
+- Fait : `src/skins/cicr/` (en-tête logo + signature, menu, langue, 2 boutons = 2 premières pages fixes ; une = photo + encart rouge puis « Dernières nouvelles » à carré rouge, 1re carte pleine largeur ; article = fil d'Ariane maison, étiquette beige + date jj-mm-aaaa, grand titre, mots-clés, photo 2048×736 + crédit, Partager, « Sur le même sujet » ; pied anthracite), logo officiel `public/skins/cicr-logo.svg` (non recoloré : croix rouge gardée, posé sur pastille blanche dans le pied).
+- Même règle qu'OCHA : feuille et composants écrits par nous à partir de la charte relevée ; aucun texte ni bloc de contenu du CICR repris ; mention d'exercice conservée.
+- Vérifié : tsc, test-logo (3/3), Playwright PC + mobile (pas de débordement ; orpheline de grille et alignement « Partager » corrigés), Docker base vide (sante, logo, accueil 200, 0 erreur). Presse locale (3500) laissée en maquette CICR.
+
+## 2026-10-05 (suite 17) — Presse : maquette « OCHA » ✅ POUSSÉE app-press `99ffdf9` (main + prod, avance rapide depuis `f64ff1b`) sur feu vert utilisateur
+- Demande utilisateur : reproduire unocha.org (accueil + page d'actualité) comme maquette enregistrée, même nom, même logo.
+- Fait : `src/skins/ocha/` (Shell, Home « Latest news and stories » vedette + grille 3 col., Article fil d'Ariane / titre bleu / Share / photo 2:1 + légende italique / Posted on, List, Page), logo officiel récupéré sur le site (`public/skins/ocha-logo.svg`), identité « OCHA » + signature ; inscrite au registre, `SKIN_VIEWS`, `skins.css`, `lib/logo.ts`.
+- Choix : feuille et composants **écrits par nous** à partir de la charte relevée (bleu #1f69b3, nuit #144372, gris-bleu #e6ecf1, Roboto→Helvetica/Arial car zone sans Internet) ; aucun texte ni bloc de contenu d'OCHA repris (carte des réponses, vidéos, liste des services) — le contenu vient de l'exercice. Mention d'exercice conservée en tête comme sur toutes les maquettes.
+- Vérifié : tsc, test-logo, Playwright PC + mobile (pas de débordement), Docker base vide (`/api/sante`, logo, accueil 200, 0 erreur). Presse locale (3500) laissée en maquette OCHA pour relecture ; config d'origine sauvegardée (scratchpad `site-avant.tsv`).
+
+## 2026-10-05 (suite 16) — Presse : groupes de rédaction « 98 identités » mais aucune affichée — ✅ POUSSÉ app-press `e4a9b3e` + `f64ff1b` (main + prod). Sur remarque utilisateur (« charger les avatars quand j'ouvre le groupe, pas avant »), 2e commit : Réglages ne lit que les membres des groupes déjà cochés, les autres **à la coche** (`/api/bff/groupes?ids=`) — Réglages 0,6 s, groupe de 99 en 0,4 s (Playwright, eho 235 groupes) ; signatures du rédacteur plafond 300 → 5000. Essai Docker base vide + redémarrage OK.
+- **Cause** : eho `/api/users` plafonne `limit` à **100 par page** (tri createdAt desc). La presse demandait 200 et filtrait par groupe chez elle → tout groupe dont les membres ne sont pas parmi les 100 identités les plus récentes de la zone paraissait vide (002-tweeter-mercure dans DELATTRE 26).
+- **Ce n'est pas un défaut de synchronisation** : la presse ne recopie rien, elle ne stocke que les identifiants des groupes cochés et relit eho à chaque affichage (réponse à la demande utilisateur « mise à jour automatique depuis eho » : c'est déjà le cas, et ça le reste).
+- **Correctif** : `listPersonas` pagine et interroge eho **groupe par groupe** (filtre `groupId`, 8 en parallèle) ; nouveau `groupesEtMembres()` (Réglages, `/api/bff/groupes`, `/api/service/groups`), sans plafond de taille de zone.
+- **Vérifié** contre l'eho local (eho_demo, 3 983 identités, 235 groupes) : avant 0/0/0 pour 001/002/003-tweeter, après 200/99/100 ; **0 écart** sur les 235 groupes (≈ 5 s en dev). Image Docker sur base vide : démarre, `/api/sante` 200. Notes de version dans le commit.
+- ⚠ À retenir pour toute app qui lit eho : `/api/users` = 100 max par page → toujours paginer ou filtrer côté eho (`groupId`, `search`).
+
+## 2026-10-05 (suite 15) — Aperçu des articles avant publication (presse + admin) ✅ POUSSÉ : app-press `6fe2252` (main + prod, 18:50) puis app-admin `100bf40` (main + prod, **route en ligne à 18:55**, 401 sans session). ⚠ Adresse publique de la presse de la zone non trouvée (presse/tv4/bc1… → 404 Traefik) : mise en ligne de la presse non vérifiée à distance — à confirmer par l'utilisateur (bouton « Aperçu de l'article » visible dans l'Admin = presse à jour).
+
+- **Besoin** : capturer un article AVANT sa publication pour l'insérer dans un post social programmé. Décisions : date affichée = **date prévue** ; l'Admin vise la presse de l'item.
+- **Presse** : bouton « Aperçu » dans l'éditeur (non publié ; enregistre avant) → `/apercu/article/[id]` (rédacteur) ; `/api/service/apercu` (clé de zone, rien en base, jeton 1 h) → `/apercu/[jeton]` ; habillage réel du journal ; **en-tête à la date prévue** (`EnveloppeSite` sorti du layout, `maintenant` passé aux 5 habillages et à `SiteHeader`) ; bandeau « Aperçu — non publié » masquable. `health.supports` += `apercu`.
+- **Admin** : bouton « Aperçu de l'article » dans `ItemDialog` (presse, pas une réaction, `supports` contient `apercu`) ; route BFF `/api/bff/scenarios/[id]/apercu` ; date = `startAt` du scénario + minutes absolues de l'item ; image du formulaire ou de l'item.
+- 🐞 **Corrigé au passage (presse)** : `asHtml` (publish) échappait les `<br />` qu'il venait d'insérer → « <br /> » visible dans les articles de scénario à retour simple ; `\r\n` normalisé.
+- **Essais** : presse locale (`presse_apercu` sur essai-db2, seed démo) + admin local avec presse déclarée ; aperçu scénario / brouillon / programmé / habillage TV4 (titre blanc sur blanc = artefact du seed, idem sur un article publié) / image / SVG refusé / 401-404 ; Docker presse + admin base vide (health, page, redirection, redémarrage, 0 erreur).
+- DESIGNER non sollicité formellement (rendu = page article existante ; seul ajout : bandeau flottant).
+
+## 2026-10-05 (suite 14) — ✅ « Joueurs : demandes seules » POUSSÉ et EN LIGNE : pleiade-platform `70ff2a1` (main, redémarré ~17:49, portail OK) puis app-melmil `d813ae4` (main + prod, **2026-10-05.6 en ligne à 17:57**)
+
+- Ajouts depuis la suite 13 : **fichiers joints dès la création** (formulaire joueur) ; **portail de zone : carte renommée selon les droits du visiteur** — `portailNom`/`portailSousTitre` sur un rôle du catalogue, `nomPourVisiteur` (portail.ts, pur, testé), rôles du visiteur relus dans Keycloak par groupe (cache 60 s) → MELMIL s'affiche **« PRODUCTION — Demandes de produit »** pour un joueur, « MELMIL » pour les animateurs ; dans MELMIL, bandeau et onglet « PRODUCTION » pour un joueur. ⚠ Barre d'adresse inchangée (`melmil.<zone>…`) — seconde adresse d'instance proposée pour plus tard.
+- Test catalogue : descriptions de rôle ≤ 255 caractères (limite Keycloak) — « Lecture » (268) et « Joueurs » raccourcies. `test-deploiement` « volume relatif → absolu » échoue sous Windows (préexistant, chemins Linux).
+- **Pas de synchronisation de rôles à faire** : depuis `b85e2e2` (30/09) la plateforme crée les rôles manquants au démarrage et à la coche. Reste pour l'utilisateur : cocher DIV 1 dans « Joueurs : demandes seules », régler l'incident des joueurs (Réglages MELMIL), membres de DIV 1 à reconnecter.
+- Nettoyage : copie de travail `app-melmil-joueur` (essai joueur, port 3804) supprimée ; `main` locaux alignés.
+
+## 2026-10-05 (suite 13) — MELMIL « Joueurs : demandes seules » prêt en local (app-melmil `a6d4455`, 2026-10-05.6 ; pleiade-platform `cd69ff3`), NON POUSSÉ — attend le feu vert
+
+- **Besoin** : un groupe de joueurs (DIV 1) fait des demandes de produit et les valide, sans rien voir d'autre. Décisions : A) chaque membre voit toutes les demandes de son groupe ; B) leurs demandes vont sur un incident dédié (event/storyline/incident créés par l'animation), réglé par l'Admin (Réglages → « Demandes des joueurs »), pour les voir dans le Déroulé.
+- **MELMIL** : rôle `joueur` ; page `/demandes` hors sas ; `/api/joueur`, `/api/joueur/fichiers` ; `lib/produits/joueurs.ts` ; cellule = groupe Pléiade (claim `groups`, ajouté à `Operateur`) ; bandeau sans navigation ; onglet Demandes des animateurs : cellules de joueurs dans la colonne, les filtres et le demandeur. Détail sécurité : CYBERSECU.
+- **Pléiade** : rôle `joueur` (`joueurs: true`) dans `catalog/melmil.yml` ; bouclier : colonne mise à part, « Lecture et demandes » → « Lecture », intitulés sur deux lignes. Après mise en ligne : **synchroniser les rôles** de la zone, puis cocher DIV 1.
+- **Essais** : 607/607 ; HTTP en joueur (403 partout sauf ses routes ; création, fichier, refus d'une autre cellule, refus d'un fichier d'incident) ; captures joueur + animation ; Docker base vide ; tsc plateforme.
+- Ordre de mise en ligne : Pléiade puis MELMIL (le rôle doit exister pour être coché).
+
+## 2026-10-05 (suite 12) — ⚠ INCIDENT : clic « Les marquer Dans JEMM » → tous les statuts écrasés ; MELMIL 2026-10-05.5 POUSSÉ (`edd4e33`, main + prod), **en ligne à 17:08**
+
+- **Incident** : l'utilisateur a cliqué par erreur sur « Les marquer « Dans JEMM » » (bandeau des incidents) → `marquerDansJemm` a passé d'un coup les incidents listés à « Dans JEMM », ancien statut écrasé, aucune annulation.
+- **Corrigé** : bouton groupé **retiré** (bandeau + Synthèse ; reste le marquage incident par incident). Outil de secours **Réglages → « Rétablir des statuts depuis une sauvegarde »** (`lib/atelier/retablir-statuts.ts`) : ne touche QUE `statut/statutPar/statutLe` des incidents passés « Dans JEMM » par le clic (repéré au journal, sinon plus gros lot au même instant) ; valeur = sauvegarde, sauf changement de statut noté au journal entre la sauvegarde et le clic. Aperçu avant validation. Appliqué par `agir` (rejoué sur l'état frais).
+- **Essais** : simulation sur une vraie sauvegarde (68 incidents) — seuls les statuts changent, retour exact à l'état d'avant le clic ; 582/582 ; Docker base vide OK.
+- ⚠ Pourquoi pas « Restaurer » : il remplace tout l'atelier et aurait effacé le travail fait depuis la sauvegarde.
+- Travail « joueurs demandeurs » mis de côté sur la branche locale `demandes-joueurs` (commit WIP, non poussé).
+
+## 2026-10-05 (suite 11) — MELMIL 2026-10-05.4 « garde-fous comptes rendus » POUSSÉ (`bae8c5d`, main + prod), **en ligne à 16:17** (`/api/sante`)
+
+- **Constat** : la suppression d'un compte rendu demandait DÉJÀ une confirmation (deux boutons, fiche et liste) → le CIMICREP de 07.01.I13 a été supprimé après confirmation. Le message était trop vague.
+- **Fait** : `texteSuppressionCr` — type, ETIM, jour, incident d'origine, nb de champs remplis + dernière modification, « ne pourra pas être récupéré ». Import JEMM : chaque absent annonce les comptes rendus emportés (« 1 PSYREP, 1 CIMICREP »), rouge si coché + rappel avant validation.
+- **Bug corrigé** : « Ce qu'il porte » ne comptait que les anciens CR d'incident (`c.incident`), pas ceux créés **depuis** l'incident (`depuisIncident`), pourtant supprimés avec lui (`sansOrphelins`) → `comptesRendusEmportes`.
+- **Essais** : tsc OK, 582/582, image Docker sur base vide (version .4, 401 sans session, redémarrage, 0 erreur).
+- **Diagnostic import (rectifié)** : le mélange d'identités de 08:21 vient de la **transition** vers l'appariement par `jemmId` (1er import après `23cc5c2`, aucun `jemmId` encore posé → repli sur la ressemblance des titres) ; depuis, tous les incidents ont leur `jemmId` (import de 11:23 sans interversion). Pas de correctif nécessaire.
+
+## 2026-10-05 (suite 10) — Messagerie POUSSÉE (`1eea00e`, main + prod, avance rapide depuis `3e4e202`) ; redémarrage observé vers 15:46 (404 transitoire puis `/api/sante` ok) ; `main` local aligné sur `origin/main`. MELMIL : l'import JEMM du 05/10 08:21 (heure de Paris) a **réattribué les identifiants internes** d'une quinzaine d'incidents 07.01 (ex. `fb33167e` : I04 → I13) — constaté sur les sauvegardes 0621/0723, cause à chercher dans l'appariement ; CIMICREP « perdu » de 07.01.I13 introuvable dans toutes les sauvegardes (créé puis supprimé à 15:21).
+
+## 2026-10-05 (suite 9) — Messagerie : déconnexion complète (correctif du 21/09 resté local) — branche `deconnexion-complete` (`1eea00e`), testée, en attente du feu vert
+
+- **Constat** : le `main` local de app-messagerie portait `b322f54` (« Se déconnecter ferme aussi la session Keycloak de la zone », 21/09) jamais poussé, avec 11 commits plus récents sur GitHub. La version en ligne fait toujours un `signOut` nu (`/api/auth/signout`) → « Se connecter » rouvre le même compte. Utile : **gardé**, pas supprimé (question utilisateur).
+- **Fait** : branche depuis `origin/main` (`3e4e202`), cherry-pick sans conflit (fusion automatique d'`auth.ts` relue) ; **1 seul commit ajouté**, `origin/main` ancêtre (les 11 commits conservés). Même méthode qu'eho / presse (jeton d'identité en session → `id_token_hint`). Notes de version (2026-10-05).
+- **Essais** : tsc + `next build` OK ; Keycloak **local** : client `messagerie` créé (secret de dev, retours `http://localhost:3600/*`), rôle client `superviseur` donné à `anim-essai` ; Playwright en mode production : joueur connecté → « Se déconnecter » → `/connexion`, sessions Keycloak 1 → 0, plus de session d'app → « Se connecter » redemande le mot de passe → autre compte (anim-essai) → supervision → déconnexion → `/connexion`, sessions 0 ; 0 erreur. Docker base vide : `/connexion` 200, accueil 307 → `/connexion`, redémarrage, 0 erreur.
+- **Reste** : push `deconnexion-complete` → main + prod sur feu vert ; puis aligner le `main` local sur `origin/main` (le vieux commit disparaît, son contenu étant intégré).
+
 ## 2026-10-05 (suite 8) — MELMIL Déroulé : storylines repliables + affichage GREYCELL / FORAD — validé, POUSSÉ (`e999b92`, 2026-10-05.3, main + prod), **en ligne à 14:45** ; essai Docker base vide OK (401 sans session, redémarrage, 0 erreur)
 
 - **Demande** : plier / déplier les storylines pour fermer ce qui n'intéresse pas ; ne voir que GREYCELL, FORAD ou les deux, comme sur la planche.
@@ -2833,3 +3533,77 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - ⚠ **Sort de notre travail EHO Angular** : la branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe toujours** mais n'a **jamais été fusionnée** dans `main`, et `main` a divergé (Keycloak, layouts sociaux, impersonation auditée). Les fonctionnalités développées (modèles d'EHO, cellules joueurs, fiches d'analyse, **package STARTEX**, trombinoscope, vue comparative) sont **absentes du nouvel EHO** → **point à trancher avec l'utilisateur** (abandonner ou porter). Le savoir de conception reste capitalisé dans `MASTORION\MEMOIRE.md` et `MASTORION\JOURNAL.md` (09–10 sept.).
 - **Créations MINERVE** : dossier `PLEIADE\` (README + MEMOIRE + JOURNAL), prompt système `SYSTEME\PROMPTS\pleiade.md`, entrée au registre `CLAUDE.md` (**21 → 22 agents**), branche de routage dans `SYSTEME\ROUTAGE.md`, compteur `NOYAU\MEMOIRE.md` mis à jour.
 - **Agent MASTORION recadré** : son périmètre devient **le réseau social seul** ; chemins, organisation GitHub et statut de l'EHO corrigés dans ses fichiers.
+
+## 2026-10-08 (suite 4) — Social : menu « ⋯ » des publications (modèle X) — ✅ POUSSÉ `4ae40a1` (main + prod)
+- Demande utilisateur, après 2 versions refusées (ligne de statistiques ; petites icônes) : menu **« ⋯ »** sur chaque publication, choix de X grisés sauf **« Voir l'activité sur Social »** (page **Activité du post** : onglets **Citations** / **Reposts**) et **« Suivre / Ne plus suivre @… »**.
+- **Règle de suivi** (décision utilisateur, côté serveur) : un **joueur** ne suit qu'au nom d'un avatar incarné ; l'**animation** avec ou sans avatar (ses « Abonnements » = ceux de l'avatar incarné).
+- **Recherche** : « @pseudo » et « #mot » trouvent le compte / le hashtag.
+- Avis DESIGNER n°82. Essais : tsc + build Angular ; Docker sur copie `essai_reac` (listes, citation programmée invisible, refus joueur sans avatar, suivi au nom d'un avatar, redémarrage) ; notes de version. Non testé faute de Keycloak local : joueur incarnant un avatar qui suit.
+- Pause des scénarios confirmée par l'utilisateur avant le push. ⚠ Vérification de mise en ligne refusée par le mode auto → à faire par l'utilisateur ; **relancer les scénarios**.
+- 🔜 Chantier suivant : gestes sur les commentaires (répondre à l'infini, J'aime ≠ Favoris, partager/citer un commentaire).
+
+## 2026-10-08 (suite 5) — Social : J'aime ≠ Favoris, bouton « Repost » — ✅ POUSSÉ `f6e4637` (main + prod)
+- ❤️ **J'aime** = likes existants (`SocialLike`) en cœur : Console d'animation (champ « Likes ♥ ») et Turbo Boost y tombent sans modification de la Console.
+- 🔖 **Favoris** = nouvelle table `social_bookmarks` (additive, `db push` au démarrage) : marque-page personnel, sans compteur ni notification ; page Favoris = marque-pages (vide au départ). Rangés par identité incarnée.
+- 🔁 **Repost** : un bouton → menu « Repost / Citer » (modèle X), compteur reposts + citations. « Partager » → « Repost » partout dans le social.
+- Essais : tsc, build, Docker sur copie (table créée, 10 likes / 10 posts intacts, redémarrage). Push sur feu vert explicite de l'utilisateur (« tu peux push », redit après ma demande de pause). ⚠ Vérification de mise en ligne à faire par l'utilisateur ; relancer les scénarios.
+- Ouvert : renommer « Retweets » en « Reposts » dans la Console (ItemDialog.tsx:347) ? Étape B (commentaires : répondre à l'infini, J'aime, Favoris, Repost/Citer).
+
+## 2026-10-08 (suite 6) — Social : répondre aux commentaires, J'aime/Favoris sur commentaires, logo — ✅ POUSSÉ `06ff88d` (main + prod)
+- Étape B1 : `social_comments.parent_id` (fil sans limite, cascade), tables `social_comment_likes` / `social_comment_bookmarks` (additives) ; écran en fil (avis DESIGNER n°83 : 2 retraits puis « En réponse à @x », « Voir les réponses (N) ») ; page Favoris à 2 onglets ; notifications `reply`, `like_comment`.
+- Logo du menu = icône Social de PLÉIADE (`apps/web/public/logo-social.png`).
+- Essais : tsc, build, Docker sur copie (4 niveaux, compteurs, refus inter-post, cascade, redémarrage) ; notes de version. ⚠ Mise en ligne à vérifier par l'utilisateur ; relancer les scénarios.
+- 🔜 B2 (Repost / Citer un commentaire), puis brouillons, lieu (communes lorraines + villes des profils), « Qui peut répondre ? » + certification (eho section Social + admin sur Social), sondages.
+
+## 2026-10-08 (suite 7) — Social : Repost / Citer un commentaire, menu « ⋯ » des commentaires — ✅ POUSSÉ `3b48598` (main + prod)
+- Étape B2 : `social_posts.quote_of_comment` (citation = post ordinaire avec encart) ; table `social_comment_reposts` (repost à part, pas de post vide) ; page « Activité de la réponse » ; notifications `boost_comment`, `quote_comment`. Limite : un commentaire reposté ne remonte pas dans le fil ni l'onglet Reposts du profil.
+- Essais : tsc, build, Docker sur copie, redémarrage ; notes de version. ⚠ Mise en ligne à vérifier par l'utilisateur ; relancer les scénarios.
+- 🔜 Brouillons (par avatar), lieu, « Qui peut répondre ? » + certification, sondages.
+
+## 2026-10-08 (suite 8) — Social : brouillons par avatar — ✅ POUSSÉ `e8126f2` (main + prod)
+- Table `social_drafts`, routes `/posts/drafts`, lien « Brouillons (N) » + bouton « Enregistrer en brouillon ». Texte seul, 50 max, joueur sans avatar refusé. Docker OK. ⚠ Écran non vu en local (aucun avatar sur le compte d’essai) → à essayer sur le serveur ; relancer les scénarios.
+
+## 2026-10-08 (suite 9) — Social : lieu d’une publication (liste imposée) — ✅ POUSSÉ `f1456e2` (main + prod)
+- 2 339 lieux (communes 54/55/57/88 en « H » + 18 villes des profils, dont HSarre-Union en Bas-Rhin), pays Arnland ; `social_posts.lieu` ; page `/lieu/:nom` ; lieu hors liste refusé. Docker OK. ⚠ Bouton 📍 non vu en local (aucun avatar) → à essayer sur le serveur ; relancer les scénarios.
+- 🔜 « Qui peut répondre ? » + certification (eho section Social + admin sur Social), puis sondages.
+
+## 2026-10-08 (suite 10) — Social : avatars des reposts masqués — ✅ POUSSÉ `61172a4` (main + prod)
+- Décision utilisateur : aucun avatar reposteur affiché (à tous) ; message volontaire ; bandeau « Reposté par » retiré ; côté serveur. Restent visibles : onglet Reposts du profil, Cockpit.
+- Décisions : certification par l’ANIMATION (+ eho) ; auteur neutre → avatars neutres. 🔜 Fiabiliser la génération (comptes réels exclus, tirage, même camp), puis certification + « Qui peut répondre ? », puis sondages.
+
+## 2026-10-08 (suite 11) — Social : likes/reposts générés fiables — ✅ POUSSÉ `1d13f0c` (main + prod)
+- `comptes-generes.ts` : jamais de compte réel, tirage, groupes Console > même camp que l’auteur (eho « CAMP … », neutre → neutres) ; avatars eho inconnus créés à la volée (la Console obtient le nombre demandé). Docker : 100 % du camp ×3, 0 compte réel.
+- Décision confirmée : likes privés (aucune liste). Reposteurs toujours masqués (réaffichage à décider).
+- 🔜 Certification (animation + eho section Social) + « Qui peut répondre ? », puis sondages.
+
+## 2026-10-08 (suite 12) — Certification ✓ : eho `9698f13` (2026-10-08.1) + social `96578a1` — ✅ POUSSÉS (main + prod)
+- eho : `User.certifie`, case « Compte certifié » (section « Réseau social »), export/import. Social : badge ✓, bouton animation qui écrit dans eho (eho fait foi). Ordre : eho puis social. Essais Docker eho (copie `eho_certif`) + social, aller-retour OK.
+- ⚠ Mise en ligne à vérifier (eho `/api/sante` = 2026-10-08.1) ; relancer les scénarios ; si « Au nom de » vide → déconnexion/reconnexion.
+- 🔜 « Qui peut répondre ? » (5 options de X, dont « Utilisateurs certifiés »), puis sondages.
+
+## 2026-10-08 (suite 13) — Social : « Qui peut répondre ? » — ✅ POUSSÉ `6beed15` (main + prod)
+- 5 options de X à la rédaction, vérifiées par le serveur (`peutRepondre`), mention façon X sous le post ; Console non bornée. Docker : matrice juste. ⚠ Menu de rédaction non vu en local (aucun avatar) → à essayer sur le serveur ; relancer les scénarios.
+- 🔜 Dernier chantier de la liste : sondages (Social seul, pas la Console).
+
+## 2026-10-08 (suite 14) — Social : sondages — ✅ POUSSÉ `7bc6638` (main + prod) — fin de la liste « Social façon X »
+- 2 à 4 choix, 5 min → 7 j, un vote par avatar, résultats après vote / clôture / auteur ; pas avec un média ; pas dans la Console. Docker OK. ⚠ Éditeur non vu en local (aucun avatar) → à essayer sur le serveur ; relancer les scénarios.
+- Bilan du 08/10 sur Social (12 envois) : menu ⋯ + activité ; J’aime/Favoris + Repost ; réponses aux commentaires + logo ; repost/citer un commentaire ; brouillons ; lieux ; reposteurs masqués ; génération fiable ; certification (+ eho) ; qui peut répondre ; sondages.
+- Restes ouverts : réafficher les reposteurs (prochain exercice ?) ; onglet Reposts du profil et Cockpit montrent encore des reposts générés ; sondages dans la Console ; tutoriel guidé (en pause).
+
+## 2026-10-09 — Social : fenêtres fermées au clic extérieur — ✅ POUSSÉ `734d036` (main + prod)
+- Règle d’ergonomie (demande utilisateur) : toute fenêtre / liste ouverte par un bouton se ferme d’un clic à côté ou à Échap (dialogs PrimeNG `dismissableMask`, popovers de la rédaction, résultats « Au nom de »). Règle consignée en mémoire pour toutes les apps.
+
+## 2026-10-09 — Certification à 3 niveaux (gris/or/bleu) + limite de cellule : eho `4fd19f3` (2026-10-09.1) + social `3bcb971` — ✅ POUSSÉS (main + prod)
+- eho : liste Aucune/Gris/Or/Bleu (section « Réseau social »), `User.certification`, export/import ; anciens certifiés = bleu. Social : badge en 3 couleurs, menu « Certification » (animation), écrit dans eho.
+- Décision utilisateur : un animateur ne certifie QUE les avatars ouverts à sa cellule (ex. GREYCELL : pack GREYCELL + camp bleu) ; joueurs jamais.
+- ⚠ À vérifier en zone : eho `/api/sante` = 2026-10-09.1 ; refus hors cellule (compte GREYCELL sur un avatar FORAD : menu absent) ; relancer les scénarios.
+
+## 2026-10-09 — Social : publication entièrement cliquable + visionneuse d’image façon X — ✅ POUSSÉ `fa09f90` (main + prod)
+- Clic n’importe où (à côté des boutons compris) → page du post ; zones actives exclues ; Ctrl+clic / molette → nouvel onglet. Image → plein écran avec la publication et ses commentaires à droite. Vidéo : lecture sur place avec le son.
+
+## 2026-10-09 — Social : correctif liste blanche des joueurs — ✅ POUSSÉ `12d30cf` (main + prod)
+- Les gestes du 08/10 (favoris, vote, J’aime/Favoris/Repost de commentaire, brouillons) étaient refusés aux joueurs (« Action réservée à l’animation ») : ajoutés à `garde-ecriture.ts`. Essai du garde 8/8, Docker OK. Leçon consignée chez MASTORION.
+
+## 2026-10-09 — Social : chat privé entre avatars — ✅ POUSSÉ `601170f` (main + prod)
+- Onglet Chat (pastille), conversations à deux texte + image, bouton Message ; boîte lue par ceux qui incarnent l’avatar ; route dans la liste blanche joueurs. Service : `/service/chat` + `publish` (lieu, sondage, qui_peut_repondre) prêts pour la Console.
+- 🔜 Étape 2 : Console d’animation (messages privés programmés, lieu, sondage, qui peut répondre, alignement J’aime/Repost) + kit IA, avec DESIGNER.

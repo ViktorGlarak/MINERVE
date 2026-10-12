@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Console d'animation — proposition B « écran qui publie » : des publications programmées sur un écran, et le bouton lecture. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Écran -->
+    <rect x="28" y="44" width="420" height="300" rx="30" fill="#f5f2ef"/>
+    <rect x="60" y="76" width="356" height="236" rx="12" fill="#1e90ff" stroke-width="12"/>
+    <!-- Publications (bulles) -->
+    <path d="M88 104 h170 q14 0 14 14 v40 q0 14 -14 14 h-130 l-26 22 v-22 h-14 q-14 0 -14 -14 v-40 q0 -14 14 -14 z" fill="#f5f2ef" stroke-width="10"/>
+    <line x1="106" y1="130" x2="238" y2="130" stroke-width="9"/>
+    <line x1="106" y1="150" x2="200" y2="150" stroke-width="9"/>
+    <path d="M388 196 h-150 q-14 0 -14 14 v40 q0 14 14 14 h112 l26 22 v-22 h12 q14 0 14 -14 v-40 q0 -14 -14 -14 z" fill="#7ed957" stroke-width="10"/>
+    <line x1="246" y1="222" x2="366" y2="222" stroke-width="9"/>
+    <line x1="246" y1="242" x2="330" y2="242" stroke-width="9"/>
+    <!-- Cœur (réactions) -->
+    <path d="M330 112 c10 -16 38 -12 38 10 c0 18 -22 30 -38 42 c-16 -12 -38 -24 -38 -42 c0 -22 28 -26 38 -10 z" fill="#ff4757" stroke-width="10"/>
+    <!-- Pied -->
+    <path d="M200 344 h76 l14 56 h-104 z" fill="#c3c8d8"/>
+    <rect x="140" y="398" width="196" height="30" rx="12" fill="#e6e1dc"/>
+    <!-- Bouton lecture : le scénario part tout seul -->
+    <circle cx="400" cy="400" r="84" fill="#ffa726"/>
+    <path d="M378 358 L440 400 L378 442 Z" fill="#fff" stroke-width="14"/>
+  </g>
+</svg>

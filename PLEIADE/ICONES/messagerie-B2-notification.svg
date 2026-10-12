@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Messagerie — variante B2 « bulle + nouveau message » : une grande bulle, et la pastille rouge des messages non lus. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M86 88 H400 Q440 88 440 128 V318 Q440 358 400 358 H200 L112 436 V358 H86 Q46 358 46 318 V128 Q46 88 86 88 Z" fill="#1e90ff"/>
+    <line x1="104" y1="170" x2="380" y2="170" stroke="#fff" stroke-width="16"/>
+    <line x1="104" y1="226" x2="340" y2="226" stroke="#fff" stroke-width="16"/>
+    <line x1="104" y1="282" x2="260" y2="282" stroke="#fff" stroke-width="16"/>
+    <circle cx="420" cy="96" r="64" fill="#ff4757"/>
+    <path d="M410 70 L426 60 V132" fill="none" stroke="#fff" stroke-width="15"/>
+  </g>
+</svg>

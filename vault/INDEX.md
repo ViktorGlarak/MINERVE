@@ -5,7 +5,7 @@
 > Le détail vit dans les fichiers `source:` ; ces notes pointent, elles ne dupliquent pas.
 > Carte humaine du système : [MINERVE_HOME](../MINERVE_HOME.md) · Source de vérité : [CLAUDE.md](../CLAUDE.md)
 
-**463 notes** · généré le 2026-10-02
+**464 notes** · généré le 2026-10-10
 
 ## ⭐ Tier 1 — à charger en priorité
 
@@ -217,6 +217,7 @@
 | [AGENT-NOYAU](agents/AGENT-NOYAU.md) | NOYAU | 3 | [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md) | — |
 | [AGENT-PENSEUR](agents/AGENT-PENSEUR.md) | PENSEUR | 3 | [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md) | — |
 | [AGENT-PLEIADE](agents/AGENT-PLEIADE.md) | PLEIADE | 2 | [`MEMOIRE.md`](../../PLEIADE/MEMOIRE.md) | [[ARCH-012]] [[ARCH-013]] [[DECISION-014]] [[DECISION-015]] [[DECISION-016]] [[DECISION-017]] [[DECISION-018]] [[DECISION-019]] [[DECISION-020]] [[DECISION-029]] [[DECISION-030]] [[DECISION-033]] [[DECISION-034]] [[DECISION-035]] [[LESSON-030]] [[LESSON-031]] [[LESSON-032]] [[LESSON-033]] [[LESSON-037]] [[LESSON-038]] [[LESSON-039]] [[LESSON-042]] [[TOOL-017]] |
+| [AGENT-PSYCHOLOGUE](agents/AGENT-PSYCHOLOGUE.md) | PSYCHOLOGUE | 3 | [`MEMOIRE.md`](../../PSYCHOLOGUE/MEMOIRE.md) | — |
 | [AGENT-SCENARISTE](agents/AGENT-SCENARISTE.md) | SCÉNARISTE | 2 | [`MEMOIRE.md`](../../SCENARISTE/MEMOIRE.md) | [[LESSON-003]] |
 | [AGENT-SECRETAIRE](agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | 3 | [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md) | — |
 | [AGENT-VOIX](agents/AGENT-VOIX.md) | VOIX | 2 | [`MEMOIRE.md`](../../VOIX/MEMOIRE.md) | [[TOOL-008]] |

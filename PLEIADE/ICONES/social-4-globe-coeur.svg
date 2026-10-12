@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — proposition 4 « globe + cœur » : le globe violet actuel, en aplat dans la famille, avec une pastille cœur (on aime, on réagit). Simple et lisible à 20 px. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="236" cy="240" r="196" fill="#6364ff"/>
+    <ellipse cx="236" cy="240" rx="84" ry="196" fill="none" stroke="#f5f2ef" stroke-width="14"/>
+    <line x1="40" y1="240" x2="432" y2="240" stroke="#f5f2ef" stroke-width="14"/>
+    <path d="M70 140 H402 M70 340 H402" fill="none" stroke="#f5f2ef" stroke-width="12"/>
+    <circle cx="236" cy="240" r="196" fill="none"/>
+    <circle cx="392" cy="392" r="96" fill="#ff4757"/>
+    <path d="M392 442 C356 416 330 396 330 368 C330 346 348 330 368 330 C380 330 388 336 392 344 C396 336 404 330 416 330 C436 330 454 346 454 368 C454 396 428 416 392 442 Z" fill="#fff" stroke-width="10"/>
+  </g>
+</svg>

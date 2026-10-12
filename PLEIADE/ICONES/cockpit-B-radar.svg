@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Cockpit — proposition B « radar de veille » : le balayage repère les publications des réseaux ; une courbe de tendance en dessous. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Écran -->
+    <rect x="28" y="28" width="456" height="456" rx="40" fill="#f5f2ef"/>
+    <!-- Radar -->
+    <circle cx="256" cy="210" r="150" fill="#1e90ff"/>
+    <circle cx="256" cy="210" r="96" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="2 14"/>
+    <circle cx="256" cy="210" r="44" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="2 14"/>
+    <!-- Balayage -->
+    <path d="M256 210 L256 60 A150 150 0 0 1 392 146 Z" fill="#7ed957" fill-opacity="0.85" stroke-width="10"/>
+    <line x1="256" y1="210" x2="392" y2="146" stroke-width="10"/>
+    <circle cx="256" cy="210" r="12" fill="#000"/>
+    <!-- Publications repérées -->
+    <circle cx="318" cy="116" r="18" fill="#ff4757" stroke-width="10"/>
+    <circle cx="176" cy="150" r="14" fill="#ffa726" stroke-width="10"/>
+    <circle cx="200" cy="290" r="14" fill="#f5f2ef" stroke-width="10"/>
+    <circle cx="340" cy="270" r="12" fill="#ffa726" stroke-width="10"/>
+    <!-- Courbe de tendance -->
+    <path d="M70 434 L150 400 L210 418 L290 380 L360 394 L440 352" fill="none" stroke="#ff4757" stroke-width="14"/>
+  </g>
+</svg>

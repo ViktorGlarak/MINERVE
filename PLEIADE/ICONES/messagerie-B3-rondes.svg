@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Messagerie — variante B3 « bulles rondes » : deux bulles arrondies qui se chevauchent (orange et bleue). -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M200 50 C300 50 368 112 368 190 C368 268 300 330 200 330 C176 330 154 326 134 320 L62 356 L82 290 C50 262 32 228 32 190 C32 112 100 50 200 50 Z" fill="#ffa726"/>
+    <circle cx="130" cy="190" r="17" fill="#000" stroke-width="0"/>
+    <circle cx="200" cy="190" r="17" fill="#000" stroke-width="0"/>
+    <circle cx="270" cy="190" r="17" fill="#000" stroke-width="0"/>
+    <path d="M330 206 C412 206 476 258 476 324 C476 356 460 386 434 408 L450 466 L388 434 C370 440 350 442 330 442 C248 442 184 390 184 324 C184 258 248 206 330 206 Z" fill="#1e90ff"/>
+    <line x1="256" y1="300" x2="404" y2="300" stroke="#fff" stroke-width="15"/>
+    <line x1="256" y1="350" x2="360" y2="350" stroke="#fff" stroke-width="15"/>
+  </g>
+</svg>

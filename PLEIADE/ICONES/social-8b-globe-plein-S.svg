@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — 8b « globe plein + S », version finie : aplat violet avec ombre en croissant (volume, comme la famille),
+       quadrillage clair courbé interrompu autour de la lettre, contour noir 16, grand S blanc en Segoe UI Black cerné de noir. -->
+  <defs>
+    <clipPath id="globe"><circle cx="256" cy="256" r="216"/></clipPath>
+    <mask id="reserve">
+      <rect width="512" height="512" fill="#fff"/>
+      <text x="256" y="256" dy="0.35em" text-anchor="middle" font-family="Segoe UI Black, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="300" fill="#000" stroke="#000" stroke-width="44" stroke-linejoin="round">S</text>
+    </mask>
+  </defs>
+  <circle cx="256" cy="256" r="216" fill="#6364ff"/>
+  <g clip-path="url(#globe)">
+    <!-- Ombre en croissant à droite -->
+    <path d="M300 40 A216 216 0 0 1 300 472 A240 240 0 0 0 300 40 Z" fill="#4c4de6"/>
+    <circle cx="372" cy="256" r="216" fill="none"/>
+    <!-- Quadrillage -->
+    <g fill="none" stroke="#9fa0ff" stroke-width="12" stroke-linecap="round" mask="url(#reserve)">
+      <ellipse cx="256" cy="256" rx="100" ry="216"/>
+      <path d="M40 256 H472"/>
+      <path d="M62 150 Q256 182 450 150"/>
+      <path d="M62 362 Q256 330 450 362"/>
+    </g>
+  </g>
+  <circle cx="256" cy="256" r="216" fill="none" stroke="#000" stroke-width="16"/>
+  <text x="256" y="256" dy="0.35em" text-anchor="middle" font-family="Segoe UI Black, Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="300" fill="#fff" stroke="#000" stroke-width="16" stroke-linejoin="round" paint-order="stroke">S</text>
+</svg>

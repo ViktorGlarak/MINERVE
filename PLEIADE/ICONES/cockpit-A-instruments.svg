@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Cockpit — proposition A « poste de pilotage » : le pare-brise au-dessus, la planche de bord et ses instruments. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Pare-brise (deux vitres) -->
+    <path d="M86 40 H426 Q446 40 450 60 L478 226 H34 L62 60 Q66 40 86 40 Z" fill="#8fd0ff"/>
+    <line x1="256" y1="40" x2="256" y2="226"/>
+    <path d="M300 104 q14 -18 34 -8 q20 -8 30 10 q18 2 16 18 h-90 q-8 -16 10 -20 z" fill="#fff" stroke-width="10"/>
+    <!-- Planche de bord -->
+    <path d="M26 226 H486 V430 Q486 472 444 472 H68 Q26 472 26 430 Z" fill="#e6e1dc"/>
+    <!-- Horizon artificiel (centre) -->
+    <circle cx="256" cy="344" r="80" fill="#1e90ff"/>
+    <path d="M178 362 Q256 330 334 322 A80 80 0 0 1 180 374 Z" fill="#ffa726" stroke-width="10"/>
+    <line x1="218" y1="344" x2="294" y2="344" stroke="#fff" stroke-width="9"/>
+    <circle cx="256" cy="344" r="80" fill="none"/>
+    <!-- Cadrans -->
+    <circle cx="100" cy="350" r="48" fill="#f5f2ef"/>
+    <path d="M70 370 A36 36 0 1 1 130 370" fill="none" stroke="#7ed957" stroke-width="9"/>
+    <line x1="100" y1="350" x2="122" y2="328" stroke-width="9"/>
+    <circle cx="412" cy="350" r="48" fill="#f5f2ef"/>
+    <path d="M382 370 A36 36 0 0 1 412 314" fill="none" stroke="#7ed957" stroke-width="9"/>
+    <path d="M412 314 A36 36 0 0 1 442 370" fill="none" stroke="#ff4757" stroke-width="9"/>
+    <line x1="412" y1="350" x2="432" y2="334" stroke-width="9"/>
+    <!-- Voyants -->
+    <circle cx="84" cy="264" r="11" fill="#7ed957" stroke-width="9"/>
+    <circle cx="118" cy="264" r="11" fill="#ffa726" stroke-width="9"/>
+    <circle cx="428" cy="264" r="11" fill="#ff4757" stroke-width="9"/>
+  </g>
+</svg>

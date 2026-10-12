@@ -2,7 +2,7 @@
 
 > ⚙️ Généré (`generer_context_packs.py`). **À charger pour travailler sur « agents ».**
 > Notes triées par tier (1 = prioritaire). Les fichiers `source:` sont la vérité à ouvrir.
-> Généré le 2026-10-02 · 25 notes.
+> Généré le 2026-10-10 · 26 notes.
 
 ## Notes (par tier)
 
@@ -32,6 +32,7 @@
 | 3 | [AGENT-MASTODONTE](../agents/AGENT-MASTODONTE.md) | MASTODONTE | agent |
 | 3 | [AGENT-NOYAU](../agents/AGENT-NOYAU.md) | NOYAU | agent |
 | 3 | [AGENT-PENSEUR](../agents/AGENT-PENSEUR.md) | PENSEUR | agent |
+| 3 | [AGENT-PSYCHOLOGUE](../agents/AGENT-PSYCHOLOGUE.md) | PSYCHOLOGUE | agent |
 | 3 | [AGENT-SECRETAIRE](../agents/AGENT-SECRETAIRE.md) | SECRÉTAIRE | agent |
 
 ## 📄 Fichiers autoritaires à ouvrir (sources)
@@ -60,4 +61,5 @@
 - [`MEMOIRE.md`](../../MASTODONTE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../NOYAU/MEMOIRE.md)
 - [`MEMOIRE.md`](../../PENSEUR/MEMOIRE.md)
+- [`MEMOIRE.md`](../../PSYCHOLOGUE/MEMOIRE.md)
 - [`MEMOIRE.md`](../../SECRETAIRE/MEMOIRE.md)

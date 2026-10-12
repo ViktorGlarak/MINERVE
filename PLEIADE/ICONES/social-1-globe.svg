@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — proposition 1 « globe habité » : le globe Lucide déjà connu des utilisateurs (cercle, méridien, équateur), passé dans la famille (aplat violet, trait noir), et habité par trois avatars posés sur son bord. Continuité maximale avec l'icône actuelle (loi de Jakob). -->
+  <defs>
+    <clipPath id="social1-av1"><circle cx="132" cy="115" r="46"/></clipPath>
+    <clipPath id="social1-av2"><circle cx="380" cy="115" r="46"/></clipPath>
+    <clipPath id="social1-av3"><circle cx="256" cy="415" r="46"/></clipPath>
+  </defs>
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Globe -->
+    <circle cx="256" cy="239" r="196" fill="#6364ff"/>
+    <!-- Méridien et équateur (grammaire du globe Lucide) -->
+    <ellipse cx="256" cy="239" rx="84" ry="188" fill="none" stroke="#f5f2ef" stroke-width="14"/>
+    <line x1="70" y1="239" x2="442" y2="239" stroke="#f5f2ef" stroke-width="14"/>
+    <!-- Contour repassé pour nettoyer les extrémités -->
+    <circle cx="256" cy="239" r="196" fill="none"/>
+    <!-- Avatar haut gauche (buste coupé par le cercle) -->
+    <circle cx="132" cy="115" r="54" fill="#ffa726" stroke="none"/>
+    <g clip-path="url(#social1-av1)" fill="#f5f2ef" stroke-width="10">
+      <circle cx="132" cy="102" r="17"/>
+      <path d="M98 180 V160 Q98 130 132 130 Q166 130 166 160 V180 Z"/>
+    </g>
+    <circle cx="132" cy="115" r="54" fill="none"/>
+    <!-- Avatar haut droit -->
+    <circle cx="380" cy="115" r="54" fill="#7ed957" stroke="none"/>
+    <g clip-path="url(#social1-av2)" fill="#f5f2ef" stroke-width="10">
+      <circle cx="380" cy="102" r="17"/>
+      <path d="M346 180 V160 Q346 130 380 130 Q414 130 414 160 V180 Z"/>
+    </g>
+    <circle cx="380" cy="115" r="54" fill="none"/>
+    <!-- Avatar bas -->
+    <circle cx="256" cy="415" r="54" fill="#ff4757" stroke="none"/>
+    <g clip-path="url(#social1-av3)" fill="#f5f2ef" stroke-width="10">
+      <circle cx="256" cy="402" r="17"/>
+      <path d="M222 480 V460 Q222 430 256 430 Q290 430 290 460 V480 Z"/>
+    </g>
+    <circle cx="256" cy="415" r="54" fill="none"/>
+  </g>
+</svg>

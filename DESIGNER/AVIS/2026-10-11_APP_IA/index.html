@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avatars IA — maquette</title>
+<meta name="description" content="Maquette DESIGNER n°98 : écran de l'app app-ia (moteur des avatars IA d'une zone), réservé à l'Administration. Données fictives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ===== Jetons : copie des valeurs de pleiade-theme.css / pleiade-theme-light.css (Console d'animation) ===== */
+:root {
+  --shell:#161719; --panel:#1b1c1f; --sunken:#101113; --field:#212327;
+  --line:#2e3033; --line-strong:#35373b; --line-soft:#232528; --line-control:#41444a;
+  --ink:#FAFAF7; --ink-body:#EDEEF2; --ink-soft:#c3c8d8; --ink-muted:#9aa0b4; --ink-faint:#6a7189;
+  --craie:#EDE3C8; --craie-on:#14140F; --craie-soft:rgb(237 227 200 / .12); --craie-ring:rgb(237 227 200 / .30);
+  --online:#34d399; --online-on:#052e21; --dev:#fb923c; --dev-on:#2b1402; --halt:#f87171; --halt-on:#2b0d0d;
+  --ia:#e879f9; /* repère ✦ IA (même signe que la page Population IA d'eho, éclairci pour le fond sombre) */
+  --ombre:0 12px 30px rgb(0 0 0 / .45);
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --shell:#F3F0E7; --panel:#FBFAF6; --sunken:#ECE8DD; --field:#FFFFFF;
+    --line:#DAD5C8; --line-strong:#C8C2B2; --line-soft:#E7E2D6; --line-control:#B8B2A1;
+    --ink:#14140F; --ink-body:#1c1e21; --ink-soft:#3b3e46; --ink-muted:#5f667c; --ink-faint:#8a90a3;
+    --craie:#1b1c1f; --craie-on:#EDE3C8; --craie-soft:rgb(27 28 31 / .08); --craie-ring:rgb(27 28 31 / .22);
+    --online:#047857; --online-on:#ecfdf5; --dev:#b45309; --dev-on:#fff7ed; --halt:#dc2626; --halt-on:#fef2f2;
+    --ia:#a21caf; --ombre:0 12px 30px rgb(40 30 10 / .18);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --shell:#F3F0E7; --panel:#FBFAF6; --sunken:#ECE8DD; --field:#FFFFFF;
+  --line:#DAD5C8; --line-strong:#C8C2B2; --line-soft:#E7E2D6; --line-control:#B8B2A1;
+  --ink:#14140F; --ink-body:#1c1e21; --ink-soft:#3b3e46; --ink-muted:#5f667c; --ink-faint:#8a90a3;
+  --craie:#1b1c1f; --craie-on:#EDE3C8; --craie-soft:rgb(27 28 31 / .08); --craie-ring:rgb(27 28 31 / .22);
+  --online:#047857; --online-on:#ecfdf5; --dev:#b45309; --dev-on:#fff7ed; --halt:#dc2626; --halt-on:#fef2f2;
+  --ia:#a21caf; --ombre:0 12px 30px rgb(40 30 10 / .18);
+  color-scheme: light;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.menu-types{position:relative}
+.menu-types summary{list-style:none}
+.menu-types summary::-webkit-details-marker{display:none}
+.menu-liste{position:absolute;top:calc(100% + 4px);left:0;z-index:35;min-width:230px;padding:6px;background:var(--panel);border:1px solid var(--line-control);border-radius:8px;box-shadow:var(--ombre);display:grid;gap:2px}
+.menu-liste label{display:flex;align-items:center;gap:8px;padding:6px 8px;font-size:13px;border-radius:4px;cursor:pointer}
+.menu-liste label:hover{background:var(--craie-soft)}
+.menu-liste .n{margin-left:auto;font-size:11.5px;color:var(--ink-muted)}
+.seg .n{font-size:11.5px;color:var(--ink-muted)}
+html{background:var(--sunken);font-family:Archivo,ui-sans-serif,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+body{margin:0;background:var(--shell);color:var(--ink-body);font-size:14px;line-height:1.45;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--craie);text-decoration:none}
+a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+button{font:inherit}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--craie-ring);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Barre de plateforme (avis n°69/71) : toujours sombre ===== */
+.bz{display:flex;align-items:center;gap:12px;height:30px;padding:0 16px;background:#0f1114;color:#b9bec7;font:12px/1 system-ui,"Segoe UI",Arial,sans-serif;border-bottom:1px solid #2a2f36;position:relative;z-index:40}
+.bz-marque{color:#ece7d8;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
+.bz-marque:hover{color:#fff}
+.bz-zone{color:#8b919b;font-weight:600;letter-spacing:.1em}
+.bz-menu{position:relative}
+.bz-menu summary{list-style:none;cursor:pointer;padding:4px 8px;border:1px solid #2a2f36;border-radius:2px;color:#d7dbe2;white-space:nowrap}
+.bz-menu summary::-webkit-details-marker{display:none}
+.bz-menu[open] summary,.bz-menu summary:hover{background:#1b1f25;color:#fff}
+.bz-liste{position:absolute;top:28px;left:0;min-width:280px;background:#15181c;border:1px solid #2a2f36;box-shadow:0 10px 28px rgba(0,0,0,.45);padding:6px;z-index:70}
+.bz-type{margin:6px 8px 2px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8b919b}
+.bz-item{display:flex;justify-content:space-between;gap:10px;padding:6px 8px;font-size:12.5px;color:#e4e7ec;border-radius:2px}
+.bz-item:hover{background:#22272e;color:#fff;text-decoration:none}
+.bz-item[aria-current="page"]{background:#1d2127;box-shadow:inset 3px 0 0 #e8c36a}
+.bz-ici{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#e8c36a}
+.bz-aide{color:#e8c36a;border-bottom:1px solid #2a2f36;margin-bottom:4px}
+.bz-espace{flex:1}
+.bz-courant{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8b919b}
+
+/* ===== Coquille de la Console ===== */
+.hd{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:20px;padding:0 26px;flex-wrap:wrap;background:var(--panel);border-bottom:1px solid var(--line);min-height:55px}
+.hd-logo{display:flex;align-items:center;gap:11px;padding:14px 0;color:var(--ink)}
+.hd-logo:hover{text-decoration:none;color:var(--ink)}
+.hd-logo .etoile{color:var(--ia);font-size:22px;line-height:1}
+.hd-logo b{font-size:15px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.hd-sep{width:1px;height:18px;background:var(--line-strong)}
+.hd nav{display:flex;align-self:stretch}
+.tab{display:flex;align-items:center;padding:0 16px;font-size:13.5px;color:var(--ink-muted)}
+.tab:hover{color:var(--ink);text-decoration:none}
+.tab[aria-current="page"]{color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--craie)}
+.hd-droite{margin-left:auto;display:flex;align-items:center;gap:14px}
+.classif{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted)}
+.initiales{width:30px;height:30px;background:var(--field);border:1px solid var(--line-control);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink-soft)}
+main{flex:1;width:100%;max-width:1240px;margin:0 auto;padding:32px 26px 72px;display:flex;flex-direction:column;gap:22px}
+footer{border-top:1px solid var(--line);padding:18px 26px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+
+/* ===== Composants (familles pl-/pa- de la Console) ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 17px;font-size:13px;font-weight:600;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--ink-soft);transition:background-color .24s var(--ease),border-color .24s var(--ease),filter .24s var(--ease)}
+.btn:disabled{color:var(--ink-faint);border-color:var(--line);background:transparent;cursor:not-allowed}
+.btn-primary{background:var(--craie);color:var(--craie-on)}
+.btn-primary:hover:not(:disabled){filter:brightness(1.07)}
+.btn-secondary{border-color:var(--line-control);font-weight:500}
+.btn-secondary:hover:not(:disabled){border-color:var(--ink-muted);color:var(--ink)}
+.btn-confirm{background:color-mix(in srgb,var(--online) 12%,transparent);color:var(--online);border-color:var(--online)}
+.btn-confirm:hover:not(:disabled){background:color-mix(in srgb,var(--online) 22%,transparent)}
+.btn-danger{color:var(--halt);border-color:var(--halt)}
+.btn-danger:hover:not(:disabled){background:color-mix(in srgb,var(--halt) 14%,transparent)}
+.btn-danger-solid{background:var(--halt);color:var(--halt-on)}
+.btn-ghost{color:var(--craie);font-weight:500;min-height:30px;padding:0 10px;font-size:12px}
+.btn-ghost:hover{background:var(--craie-soft)}
+.btn-grand{min-height:46px;padding:0 22px;font-size:14px}
+
+.panel{background:var(--panel);border:1px solid var(--line)}
+.panel-hd{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{margin:0;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted)}
+.panel-hd .aside{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--ink-muted)}
+.panel-bd{padding:18px 20px}
+
+.page-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+.page-hd h1{margin:0;font-size:27px;line-height:1.1;letter-spacing:-.01em;font-weight:700;color:var(--ink)}
+.titre-ligne{display:flex;align-items:center;gap:12px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:12.5px;color:var(--ink-muted)}
+.meta b{color:var(--ink-soft);font-weight:600}
+
+.aide-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--line-control);background:transparent;color:var(--ink-soft);font-size:12.5px;font-weight:700;cursor:pointer}
+.aide-btn:hover,.aide-btn[aria-expanded="true"]{border-color:var(--craie);color:var(--ink)}
+.bulle{position:absolute;z-index:45;width:min(360px,calc(100vw - 32px));padding:12px 14px;background:var(--field);border:1px solid var(--line-control);border-radius:8px;box-shadow:var(--ombre);font-size:13px;line-height:1.5}
+.bulle h4{margin:8px 0 2px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-muted)}
+.bulle h4:first-child{margin-top:0}
+.bulle p{margin:0}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.stat{padding:16px 20px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.stat-l{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+.stat-v{font-weight:700;font-size:28px;line-height:1;color:var(--ink)}
+.stat-c{margin-top:6px;font-size:11.5px;color:var(--ink-muted)}
+.stat-v.alerte{color:var(--halt)}
+
+.etiquette{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;white-space:nowrap}
+.t-ok{color:var(--online)} .t-attente{color:var(--dev)} .t-alerte{color:var(--halt)} .t-neutre{color:var(--ink-muted)}
+
+.seg{display:inline-flex;flex-wrap:wrap;min-height:32px;border:1px solid var(--line-control);border-radius:6px;overflow:hidden}
+.seg>button{display:inline-flex;align-items:center;gap:6px;padding:0 11px;min-height:30px;font-size:12.5px;background:none;border:0;color:var(--ink-soft);cursor:pointer;white-space:nowrap}
+.seg>button+button{border-left:1px solid var(--line-soft)}
+.seg>button:hover{color:var(--ink)}
+.seg>button[aria-checked="true"]{background:var(--craie-soft);color:var(--ink);font-weight:600}
+.seg>button:focus-visible{outline:2px solid var(--craie-ring);outline-offset:-2px}
+
+.bascule{display:inline-flex;align-items:center;gap:7px;min-height:32px;padding:0 11px;border:1px solid var(--line-control);border-radius:6px;background:transparent;color:var(--ink-soft);font-size:12.5px;cursor:pointer;white-space:nowrap}
+.bascule:hover{color:var(--ink);border-color:var(--ink-muted)}
+.bascule .case{width:14px;height:14px;border:1px solid var(--line-control);border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;line-height:1}
+.bascule[aria-pressed="true"]{background:var(--craie-soft);color:var(--ink);font-weight:600;border-color:var(--craie-ring)}
+.bascule[aria-pressed="true"] .case{background:var(--craie);border-color:var(--craie);color:var(--craie-on)}
+.bascule .n{font-size:11.5px;color:var(--ink-muted);font-weight:500}
+.bascule .n-alerte{color:var(--dev);font-weight:700}
+
+.champ{padding:9px 12px;font:inherit;font-size:13px;background:var(--field);color:var(--ink-body);border:1px solid var(--line-control);outline:none;min-height:36px}
+.champ:focus{border-color:var(--craie);box-shadow:0 0 0 3px var(--craie-ring)}
+textarea.champ{width:100%;resize:vertical;line-height:1.5;font-size:13.5px}
+label.lib{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px}
+.aide-txt{font-size:12.5px;color:var(--ink-muted);margin:4px 0 0}
+
+/* ===== Interrupteur ===== */
+.inter{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:center;padding:20px 22px;border:1px solid var(--line);border-left:6px solid var(--line-control);background:var(--panel)}
+.inter[data-etat="actif"]{border-left-color:var(--online);background:color-mix(in srgb,var(--online) 6%,var(--panel))}
+.inter[data-etat="inconnu"]{border-left-color:var(--ink-faint);background:repeating-linear-gradient(135deg,var(--panel) 0 10px,color-mix(in srgb,var(--line) 45%,var(--panel)) 10px 20px)}
+.inter-etat{display:flex;align-items:center;gap:12px;margin:0;font-size:20px;font-weight:700;color:var(--ink)}
+.inter-etat .forme{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:2px solid currentColor;font-size:14px}
+.inter[data-etat="actif"] .inter-etat .valeur{color:var(--online)}
+.inter[data-etat="coupe"] .inter-etat .valeur{color:var(--ink-soft)}
+.inter-ligne{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft)}
+.inter-trace{margin:8px 0 0;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:var(--ink-muted)}
+.inter-trace b{color:var(--ink-soft);font-weight:600}
+.frais{display:inline-flex;align-items:center;gap:6px}
+.frais i{width:7px;height:7px;background:var(--online);display:inline-block}
+.frais.vieux i{background:var(--dev)}
+.flash{animation:flash 1.6s var(--ease) 1}
+@keyframes flash{0%{box-shadow:0 0 0 0 var(--craie-ring)}30%{box-shadow:0 0 0 6px var(--craie-ring)}100%{box-shadow:0 0 0 0 transparent}}
+.inter-actions{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.inter-actions small{font-size:12px;color:var(--ink-muted)}
+
+/* ===== Moteur ===== */
+.grille2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:22px}
+.moteur-etat{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:700;color:var(--ink);margin:0}
+.pictos{width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;border:1.5px solid currentColor;flex:none}
+.m-cycle{color:var(--online)} .m-pause{color:var(--craie)} .m-attente{color:var(--ink-muted)} .m-panne{color:var(--halt)}
+.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.moteur-txt{margin:8px 0 0;font-size:13.5px;color:var(--ink-soft);max-width:62ch}
+.prog{margin-top:14px}
+.prog-barre{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog-barre i{display:block;height:100%;background:var(--online);transition:width .4s var(--ease)}
+.prog-l{display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--ink-muted)}
+.frise{display:flex;align-items:center;gap:6px;margin-top:16px;font-size:11.5px;color:var(--ink-muted);flex-wrap:wrap}
+.frise span{padding:3px 8px;border:1px solid var(--line-control)}
+.frise span.ici{border-color:var(--craie);color:var(--ink);font-weight:600}
+.lien-eho{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:12px 14px;background:var(--sunken);border:1px solid var(--line-soft);font-size:13px}
+.lien-eho b{font-size:20px;color:var(--ink)}
+
+/* ===== Tendance (petits multiples, une série chacun) ===== */
+.multiples{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.mult{padding:16px 18px;border-right:1px solid var(--line-soft)}
+.mult:last-child{border-right:0}
+.mult h4{margin:0;font-size:12.5px;font-weight:600;color:var(--ink-soft)}
+.mult .der{font-size:11.5px;color:var(--ink-muted);margin:2px 0 10px}
+.mult svg{display:block;width:100%;height:64px;overflow:visible}
+.mult .b{fill:var(--ink-faint)}
+.mult .b.dernier{fill:var(--craie)}
+.mult .b.err{fill:var(--halt)}
+.mult .zone-hit{fill:transparent;cursor:default}
+.mult .moy{stroke:var(--ink-muted);stroke-width:1;stroke-dasharray:3 3}
+.mult .axe{font-size:10px;fill:var(--ink-muted)}
+.tip{position:fixed;z-index:90;pointer-events:none;padding:6px 9px;background:var(--field);border:1px solid var(--line-control);box-shadow:var(--ombre);font-size:12px;color:var(--ink-body);white-space:nowrap}
+table.tab-donnees{width:100%;border-collapse:collapse;font-size:12.5px}
+.tab-donnees th,.tab-donnees td{padding:6px 12px;border-bottom:1px solid var(--line-soft);text-align:right}
+.tab-donnees th:first-child,.tab-donnees td:first-child{text-align:left}
+.tab-donnees th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);font-weight:600}
+
+/* ===== Journal ===== */
+.filtres{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}
+.filtres .sep{width:1px;align-self:stretch;min-height:22px;background:var(--line)}
+.recherche{position:relative;flex:0 1 240px;min-width:190px}
+.recherche input{width:100%;padding-left:30px}
+.recherche svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-muted)}
+.nouveaux{display:flex;justify-content:center;padding:8px}
+.nouveaux button{border:1px solid var(--craie-ring);background:var(--craie-soft);color:var(--ink);padding:5px 14px;border-radius:14px;font-size:12.5px;font-weight:600;cursor:pointer}
+.cycle-sep{display:flex;align-items:center;gap:12px;padding:8px 20px;background:var(--sunken);border-bottom:1px solid var(--line-soft);font-size:11.5px;color:var(--ink-muted)}
+.cycle-sep b{font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--ink-soft)}
+.repli{padding:6px 20px 6px 128px;border-bottom:1px solid var(--line-soft);font-size:12px;color:var(--ink-muted)}
+.repli button{background:none;border:0;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:12px;padding:2px}
+.ligne{display:grid;grid-template-columns:64px 190px 128px minmax(0,1fr);gap:4px 14px;align-items:start;padding:9px 20px;border-bottom:1px solid var(--line-soft);font-size:13px;cursor:pointer;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0;color:inherit}
+.ligne:hover,.ligne:focus-visible{background:var(--craie-soft)}
+.ligne .h{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-muted);padding-top:2px}
+.av{display:flex;flex-direction:column;min-width:0}
+.av b{font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.coh{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-muted)}
+.coh i{width:8px;height:8px;border-radius:2px;display:inline-block;flex:none}
+.act{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;white-space:nowrap;padding-top:1px}
+.act .g{width:18px;text-align:center;font-size:12px}
+.a-ecrit{color:var(--ink)} .a-discret{color:var(--ink-muted);font-weight:500} .a-garde{color:var(--dev)} .a-retenu{color:var(--ink-soft)}
+.contenu{min-width:0;display:flex;flex-direction:column;gap:3px}
+.cible{color:var(--ink-muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.texte{color:var(--ink-body);line-height:1.45}
+.raison{color:var(--ink-muted);font-size:12.5px;font-style:italic}
+.garde{display:inline-flex;align-items:flex-start;gap:6px;font-size:12.5px;color:var(--dev);font-weight:600}
+.puce-hash{display:inline-block;padding:1px 6px;margin-left:6px;border:1px solid var(--line-control);font-size:11px;color:var(--ink-soft);font-weight:600}
+.vide{padding:36px 20px;text-align:center;color:var(--ink-muted)}
+
+/* ===== Volet de détail (non modal, clic extérieur + Échap) ===== */
+.volet{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(460px,100vw);background:var(--panel);border-left:1px solid var(--line-control);box-shadow:var(--ombre);transform:translateX(102%);transition:transform .22s var(--ease);display:flex;flex-direction:column}
+.volet.ouvert{transform:none}
+.volet-hd{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line-soft)}
+.volet-hd h2{margin:0;font-size:15px;color:var(--ink)}
+.volet-bd{padding:16px 18px;overflow:auto;display:flex;flex-direction:column;gap:14px;font-size:13.5px}
+.volet dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 12px;margin:0}
+.volet dt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);padding-top:2px}
+.volet dd{margin:0}
+.bloc-txt{padding:10px 12px;background:var(--sunken);border:1px solid var(--line-soft);line-height:1.5}
+.bloc-txt.ecarte{opacity:.8;text-decoration:line-through;text-decoration-color:var(--ink-faint)}
+
+/* ===== Réglages ===== */
+.crise{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.crise-saisie{display:flex;align-items:center;gap:12px}
+.crise-saisie input[type=range]{flex:1;accent-color:var(--craie);min-height:32px}
+.crise-saisie .champ{width:76px;text-align:right}
+.reperes{position:relative;height:30px;margin:2px 88px 0 0;font-size:11px;color:var(--ink-muted)}
+.reperes button{position:absolute;transform:translateX(-50%);background:none;border:0;color:var(--ink-muted);font-size:11px;cursor:pointer;padding:3px 2px;white-space:nowrap;text-align:center;line-height:1.2}
+.reperes button:first-child{transform:none;text-align:left}
+.reperes button:last-child{transform:translateX(-100%);text-align:right}
+.reperes button:hover{color:var(--ink);text-decoration:underline}
+.consequence{padding:14px 16px;background:var(--sunken);border:1px solid var(--line-soft)}
+.consequence .gros{font-size:28px;font-weight:700;color:var(--ink);line-height:1}
+.consequence ul{margin:10px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--ink-soft);display:grid;gap:4px}
+.consequence li b{color:var(--ink)}
+.barre-act{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.barre-act .etat-sauv{font-size:12.5px;color:var(--ink-muted)}
+.camp-table{width:100%;border-collapse:collapse;font-size:13px}
+.camp-table th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);font-weight:600;text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+.camp-table td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.hash{font-family:"JetBrains Mono",monospace;font-weight:600;color:var(--ink)}
+.sens{display:grid;grid-template-columns:86px 120px 92px;gap:2px 10px;align-items:center;font-size:12px}
+.sens .ax{color:var(--ink-soft)}
+.div{position:relative;height:10px;background:var(--line-soft)}
+.div::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--ink-faint)}
+.div i{position:absolute;top:0;bottom:0;background:var(--ink-soft)}
+.sens .mot{color:var(--ink-muted)}
+.icone-btn{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;background:transparent;color:var(--ink-soft);cursor:pointer;border-radius:4px}
+.icone-btn:hover{border-color:var(--line-control);color:var(--ink)}
+.icone-btn.suppr:hover{color:var(--halt);border-color:color-mix(in srgb,var(--halt) 40%,transparent)}
+.compteur{font-size:12px;color:var(--ink-muted);text-align:right;margin-top:4px}
+.histo li{display:grid;grid-template-columns:112px 140px minmax(0,1fr);gap:12px;padding:8px 20px;border-bottom:1px solid var(--line-soft);font-size:12.5px}
+.histo ul{list-style:none;margin:0;padding:0}
+.histo .h{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-muted)}
+.histo .qui{color:var(--ink-soft)}
+
+/* ===== Fenêtres modales ===== */
+dialog{border:1px solid var(--line-control);background:var(--panel);color:var(--ink-body);padding:0;width:min(520px,calc(100vw - 32px));box-shadow:var(--ombre)}
+dialog::backdrop{background:rgb(0 0 0 / .55)}
+.dlg-hd{padding:18px 22px 6px}
+.dlg-hd h2{margin:0;font-size:17px;color:var(--ink)}
+.dlg-bd{padding:6px 22px 4px;font-size:13.5px;line-height:1.55;color:var(--ink-soft)}
+.dlg-bd p{margin:8px 0}
+.dlg-releve{margin:10px 0;padding:10px 12px;background:var(--sunken);border:1px solid var(--line-soft);font-size:12.5px;color:var(--ink-muted)}
+.dlg-releve b{color:var(--ink)}
+.dlg-pied{display:flex;justify-content:flex-end;gap:10px;padding:16px 22px 20px}
+.axe-ligne{display:grid;grid-template-columns:100px minmax(0,1fr) 112px;gap:12px;align-items:center;margin:10px 0}
+.axe-ligne input[type=range]{width:100%;accent-color:var(--craie)}
+.axe-ligne output{font-size:12.5px;color:var(--ink-soft)}
+
+/* ===== Toast ===== */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:95;padding:10px 16px;background:var(--field);border:1px solid var(--line-control);border-left:4px solid var(--online);box-shadow:var(--ombre);font-size:13px;color:var(--ink-body);max-width:calc(100vw - 32px)}
+.toast.avert{border-left-color:var(--dev)}
+
+/* ===== Commandes de la maquette (hors app) ===== */
+.demo{position:fixed;left:12px;bottom:12px;z-index:85;font:12px/1.4 system-ui,sans-serif;background:#0f1114;color:#d7dbe2;border:1px dashed #e8c36a;max-width:300px}
+.demo summary{cursor:pointer;padding:7px 10px;color:#e8c36a;font-weight:700;letter-spacing:.06em}
+.demo .c{padding:4px 10px 10px;display:grid;gap:6px}
+.demo label{display:flex;gap:6px;align-items:center}
+.demo button{background:#1b1f25;color:#fff;border:1px solid #2a2f36;padding:4px 8px;cursor:pointer;text-align:left}
+.demo h5{margin:6px 0 0;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8b919b}
+
+/* ===== Tablette ===== */
+@media (max-width: 1080px){
+  .grille2{grid-template-columns:1fr}
+  .crise{grid-template-columns:1fr}
+}
+@media (max-width: 900px){
+  .hd{gap:12px;padding:0 16px}
+  .classif{display:none}
+  main{padding:24px 16px 72px}
+  .multiples{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mult:nth-child(2){border-right:0}
+  .mult:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
+  .ligne{grid-template-columns:56px minmax(0,1fr) auto;padding:10px 16px}
+  .ligne .contenu{grid-column:2 / -1}
+  .repli{padding-left:86px}
+  .histo li{grid-template-columns:100px minmax(0,1fr)}
+  .histo li .qui{grid-column:2}
+  .histo li .quoi{grid-column:1 / -1}
+  .inter{grid-template-columns:1fr}
+  .inter-actions{align-items:flex-start}
+}
+@media (max-width: 640px){
+  .bz-courant{display:none}
+  .hd-sep{display:none}
+  .multiples{grid-template-columns:1fr}
+  .mult{border-right:0;border-bottom:1px solid var(--line-soft)}
+  .sens{grid-template-columns:80px minmax(0,1fr)}
+  .sens .mot{grid-column:2}
+}
+</style>
+</head>
+<body>
+
+<!-- Étage 1 : la plateforme (identique dans toutes les apps de la zone) -->
+<div class="bz" role="navigation" aria-label="Plateforme PLÉIADE — apps de la zone">
+  <a class="bz-marque" href="#" title="Retour au portail de la zone">PLÉIADE<span class="bz-zone"> · delattre-26</span></a>
+  <details class="bz-menu" id="bzMenu">
+    <summary>Apps de la zone ▾</summary>
+    <div class="bz-liste" role="menu">
+      <a class="bz-item" role="menuitem" href="#"><b>Portail de la zone</b></a>
+      <a class="bz-item bz-aide" role="menuitem" href="#">Premiers pas (aide)</a>
+      <p class="bz-type">Animation</p>
+      <a class="bz-item" role="menuitem" href="#">Animation (Console)</a>
+      <a class="bz-item" role="menuitem" href="#" aria-current="page">Avatars IA <span class="bz-ici">vous êtes ici</span></a>
+      <a class="bz-item" role="menuitem" href="#">MELMIL</a>
+      <a class="bz-item" role="menuitem" href="#">Identités (eho)</a>
+      <p class="bz-type">Réseaux et médias</p>
+      <a class="bz-item" role="menuitem" href="#">Social</a>
+      <a class="bz-item" role="menuitem" href="#">Cockpit</a>
+    </div>
+  </details>
+  <span class="bz-espace"></span>
+  <span class="bz-courant">Avatars IA</span>
+</div>
+
+<!-- Étage 2 : l'app — même coquille que la Console d'animation -->
+<header class="hd">
+  <a class="hd-logo" href="#tableau"><span class="etoile" aria-hidden="true">✦</span><b>Avatars IA</b></a>
+  <span class="hd-sep"></span>
+  <nav aria-label="Avatars IA">
+    <a class="tab" href="#tableau" data-page="tableau">Tableau de bord</a>
+    <a class="tab" href="#journal" data-page="journal">Journal</a>
+    <a class="tab" href="#reglages" data-page="reglages">Réglages</a>
+  </nav>
+  <div class="hd-droite">
+    <span class="classif">Exercice · non classifié</span>
+    <div class="seg" role="radiogroup" aria-label="Thème" id="theme">
+      <button role="radio" aria-checked="true" data-t="auto">Auto</button>
+      <button role="radio" aria-checked="false" data-t="light">Clair</button>
+      <button role="radio" aria-checked="false" data-t="dark">Sombre</button>
+    </div>
+    <span class="initiales" title="cne.varenne — Administration">CV</span>
+    <button class="btn btn-ghost">Se déconnecter</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== TABLEAU DE BORD ===================== -->
+<section id="p-tableau" data-page="tableau" hidden>
+  <div class="page-hd">
+    <div>
+      <div class="titre-ligne"><h1>Tableau de bord</h1>
+        <button class="aide-btn" aria-expanded="false" data-aide="a-tableau" aria-label="Aide de l'écran">?</button></div>
+      <div class="meta"><span>Zone <b>delattre-26</b></span><span>Réservé à l'Administration</span><span id="metaMaj">Relu en continu (toutes les 15 s)</span></div>
+    </div>
+  </div>
+
+  <!-- Interrupteur : une seule valeur de référence (eho), affichée telle que RELUE -->
+  <section class="inter" id="inter" aria-labelledby="interTitre" style="margin-top:22px">
+    <div>
+      <h2 class="inter-etat" id="interTitre"><span class="forme" id="interForme" aria-hidden="true">○</span><span>Avatars IA :</span> <span class="valeur" id="interValeur">COUPÉS</span></h2>
+      <p class="inter-ligne" id="interLigne">Ils ne lisent rien et ne publient rien.</p>
+      <p class="inter-trace" id="interTrace"></p>
+    </div>
+    <div class="inter-actions">
+      <button class="btn btn-grand" id="interBtn"></button>
+      <small id="interNote">Le même interrupteur que dans eho › Population IA.</small>
+    </div>
+  </section>
+
+  <div class="grille2" style="margin-top:22px">
+    <section class="panel" aria-labelledby="mTitre">
+      <div class="panel-hd"><h3 class="eyebrow" id="mTitre">Moteur</h3><span class="aside" id="mAside"></span></div>
+      <div class="panel-bd">
+        <p class="moteur-etat" id="mEtat"></p>
+        <p class="moteur-txt" id="mTxt"></p>
+        <div class="prog" id="mProg" hidden>
+          <div class="prog-barre" role="progressbar" aria-label="Avancement du cycle" id="mBarre"><i id="mBarreI"></i></div>
+          <div class="prog-l"><span id="mProgL"></span><span id="mProgR"></span></div>
+        </div>
+        <div class="frise" aria-label="Rythme du moteur">
+          <span id="fCycle">Cycle</span><span aria-hidden="true">→</span><span id="fPause">Pause 90 s</span><span aria-hidden="true">→</span><span>Cycle suivant</span>
+        </div>
+        <div class="lien-eho">
+          <span><b id="nbAnimes">61</b> avatars animés <span style="color:var(--ink-muted)">sur 105 qui ont une fiche</span></span>
+          <a href="#" title="Ouvre eho › Population IA dans un nouvel onglet" target="_blank" rel="noreferrer">Population IA dans eho ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="dTitre">
+      <div class="panel-hd"><h3 class="eyebrow" id="dTitre">Dernier cycle</h3><span class="aside mono" id="dAside">17:41:12 → 17:45:04</span></div>
+      <div class="stats" id="dStats"></div>
+      <p class="aide-txt" style="padding:10px 20px 14px">Sous chaque chiffre : la moyenne des 12 cycles précédents. Le détail est au <a href="#journal">Journal</a>.</p>
+    </section>
+  </div>
+
+  <section class="panel" style="margin-top:22px" aria-labelledby="tTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="tTitre">Tendance — 12 derniers cycles</h3>
+      <span class="aside"><div class="seg" role="radiogroup" aria-label="Présentation de la tendance" id="tVue"><button role="radio" aria-checked="true" data-v="g">Graphiques</button><button role="radio" aria-checked="false" data-v="t">Tableau</button></div></span></div>
+    <div class="multiples" id="tGraph"></div>
+    <div id="tTable" hidden style="overflow-x:auto"></div>
+  </section>
+
+  <section class="panel" style="margin-top:22px" aria-labelledby="eTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="eTitre">Derniers écrits et garde-fous</h3><span class="aside"><a href="#journal">Tout le journal →</a></span></div>
+    <div id="eListe"></div>
+  </section>
+</section>
+
+<!-- ===================== JOURNAL ===================== -->
+<section id="p-journal" data-page="journal" hidden>
+  <div class="page-hd">
+    <div>
+      <div class="titre-ligne"><h1>Journal</h1>
+        <button class="aide-btn" aria-expanded="false" data-aide="a-journal" aria-label="Aide de l'écran">?</button></div>
+      <div class="meta"><span>Ce que chaque avatar a fait, et pourquoi</span><span>Mis à jour en direct</span><span>Conservé 7 jours</span></div>
+    </div>
+  </div>
+
+  <section class="panel" style="margin-top:22px">
+    <div class="filtres" role="group" aria-label="Filtres du journal">
+      <div class="recherche">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="champ" type="search" id="jAvatar" list="listeAvatars" placeholder="Un avatar" aria-label="Filtrer sur un avatar">
+        <datalist id="listeAvatars"></datalist>
+      </div>
+      <span class="sep"></span>
+      <div class="seg" role="radiogroup" aria-label="Que montrer" id="jVue">
+        <button role="radio" aria-checked="true" data-v="defaut">Écrits et garde-fous <span class="n" id="nDefaut"></span></button>
+        <button role="radio" aria-checked="false" data-v="garde">Garde-fous seulement <span class="n" id="nGarde" style="color:var(--dev);font-weight:700"></span></button>
+        <button role="radio" aria-checked="false" data-v="tout">Tout <span class="n" id="nTout"></span></button>
+      </div>
+      <details class="menu-types" id="jMenu"><summary class="bascule" id="jMenuBtn">Types ▾</summary><div class="menu-liste" id="jTypes" role="group" aria-label="Types d'action"></div></details>
+      <span class="sep"></span>
+
+      <div class="seg" role="radiogroup" aria-label="Période" id="jPeriode" style="margin-left:auto">
+        <button role="radio" aria-checked="false" data-p="h">Dernière heure</button>
+        <button role="radio" aria-checked="true" data-p="j">Aujourd'hui</button>
+        <button role="radio" aria-checked="false" data-p="t">7 jours</button>
+      </div>
+    </div>
+    <div class="nouveaux" id="jNouveaux" hidden><button id="jNouveauxBtn"></button></div>
+    <div id="jListe" aria-live="off"></div>
+  </section>
+</section>
+
+<!-- ===================== RÉGLAGES ===================== -->
+<section id="p-reglages" data-page="reglages" hidden>
+  <div class="page-hd">
+    <div>
+      <div class="titre-ligne"><h1>Réglages</h1>
+        <button class="aide-btn" aria-expanded="false" data-aide="a-reglages" aria-label="Aide de l'écran">?</button></div>
+      <div class="meta"><span>Réservé à l'Administration</span><span>Relus par le moteur au début de chaque cycle</span><span>Chaque modification est journalisée (qui, quand)</span></div>
+    </div>
+  </div>
+
+  <section class="panel" style="margin-top:22px" aria-labelledby="cTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="cTitre">Coefficient de crise</h3><span class="aside" id="cAside">Réglé à 1,0 par cne.varenne le 11/10 à 08:02</span></div>
+    <div class="panel-bd crise">
+      <div>
+        <label class="lib" for="cRange">Activité des avatars, de l'accalmie à la nuit de crise</label>
+        <div class="crise-saisie">
+          <input type="range" id="cRange" min="0.2" max="3" step="0.1" value="1" aria-describedby="cConseq">
+          <input class="champ mono" id="cNum" type="number" min="0.2" max="3" step="0.1" value="1" aria-label="Coefficient de crise (0,2 à 3)">
+        </div>
+        <div class="reperes" id="cReperes"></div>
+        <p class="aide-txt">Le coefficient multiplie le nombre de messages que chaque avatar s'autorise par heure, et le plafond de toute la population. Il ne change ni les opinions ni la mémoire des avatars.</p>
+        <div class="barre-act">
+          <button class="btn btn-primary" id="cSauv" disabled>Enregistrer</button>
+          <button class="btn btn-secondary" id="cAnnul" hidden>Annuler</button>
+          <span class="etat-sauv" id="cEtat">Aucune modification.</span>
+        </div>
+      </div>
+      <div class="consequence" id="cConseq" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:22px" aria-labelledby="hTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="hTitre">Campagnes de hashtags</h3><span class="aside"><button class="btn btn-secondary" id="hAjout" style="min-height:32px;font-size:12.5px">+ Nouvelle campagne</button></span></div>
+    <p class="aide-txt" style="padding:12px 20px 0;margin:0">Le sens déclaré de chaque # : sur quels axes il pousse, et dans quel sens. Un # absent de cette liste n'est rattaché qu'aux axes FORCE et Mercure, d'après le camp de ceux qui l'emploient.</p>
+    <div style="overflow-x:auto;padding:6px 8px 8px">
+      <table class="camp-table">
+        <thead><tr><th>Hashtag</th><th>Sens</th><th>Modifié</th><th><span class="sr">Actions</span></th></tr></thead>
+        <tbody id="hListe"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:22px" aria-labelledby="xTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="xTitre">Contexte de l'exercice</h3><span class="aside" id="xAside">Modifié par cne.varenne le 11/10 à 07:55</span></div>
+    <div class="panel-bd">
+      <label class="lib" for="xTexte">Ce que tout avatar sait de la situation (fiction de l'exercice)</label>
+      <textarea class="champ" id="xTexte" rows="6"></textarea>
+      <div class="compteur" id="xCompte"></div>
+      <p class="aide-txt">Lu par chaque avatar à chaque cycle. Écrire des faits de la fiction, au présent, sans consigne de camp : la position de chaque avatar vient de sa fiche. Aucune personne réelle.</p>
+      <div class="barre-act">
+        <button class="btn btn-primary" id="xSauv" disabled>Enregistrer</button>
+        <button class="btn btn-secondary" id="xAnnul" hidden>Annuler</button>
+        <span class="etat-sauv" id="xEtat">Aucune modification.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel histo" style="margin-top:22px" aria-labelledby="rTitre">
+    <div class="panel-hd"><h3 class="eyebrow" id="rTitre">Historique des réglages</h3><span class="aside">Le plus récent en haut</span></div>
+    <ul id="rListe"></ul>
+  </section>
+</section>
+</main>
+
+<footer>Pléiade · plateforme d'entraînement ILI · environnement simulé</footer>
+
+<!-- Bulles d'aide (« ? ») : fermées au clic extérieur et par Échap -->
+<div class="bulle" id="a-tableau" role="dialog" aria-label="Aide — Tableau de bord" hidden>
+  <h4>À quoi sert</h4><p>Voir d'un coup d'œil si les avatars IA sont actifs, ce que fait le moteur et comment s'est passé le dernier cycle.</p>
+  <h4>Par quoi commencer</h4><p>Vérifier l'interrupteur. Pour choisir QUI est animé : eho › Population IA.</p>
+  <h4>Ensuite</h4><p>Le Journal pour lire ce qu'ils ont écrit ; les Réglages pour le coefficient de crise et les campagnes.</p>
+</div>
+<div class="bulle" id="a-journal" role="dialog" aria-label="Aide — Journal" hidden>
+  <h4>À quoi sert</h4><p>Lire ce que chaque avatar a fait pendant les cycles, et pourquoi.</p>
+  <h4>Par quoi commencer</h4><p>Par défaut : ce qu'ils ont écrit et les garde-fous. Les J'aime et les lectures sont comptés, repliés.</p>
+  <h4>Ensuite</h4><p>Cliquer une ligne ouvre le détail à droite (texte complet, version écartée, effet sur l'opinion).</p>
+</div>
+<div class="bulle" id="a-reglages" role="dialog" aria-label="Aide — Réglages" hidden>
+  <h4>À quoi sert</h4><p>Régler le rythme (coefficient de crise), le sens des campagnes de hashtags et le contexte fictif.</p>
+  <h4>Par quoi commencer</h4><p>Le coefficient : 1 = normal, 2 = soir de crise.</p>
+  <h4>Ensuite</h4><p>Le changement part au prochain cycle ; il est inscrit dans l'historique en bas de page.</p>
+</div>
+
+<!-- Volet de détail d'une ligne de journal -->
+<aside class="volet" id="volet" aria-labelledby="voletTitre" aria-hidden="true">
+  <div class="volet-hd"><h2 id="voletTitre">Détail</h2><button class="icone-btn" id="voletFermer" aria-label="Fermer le détail" style="margin-left:auto">✕</button></div>
+  <div class="volet-bd" id="voletBd"></div>
+</aside>
+
+<!-- Confirmation de bascule -->
+<dialog id="dlgBascule" aria-labelledby="dbTitre">
+  <div class="dlg-hd"><h2 id="dbTitre"></h2></div>
+  <div class="dlg-bd" id="dbBd"></div>
+  <div class="dlg-pied"><button class="btn btn-secondary" id="dbAnnul">Annuler</button><button class="btn" id="dbOk"></button></div>
+</dialog>
+
+<!-- Nouvelle campagne / modifier -->
+<dialog id="dlgCamp" aria-labelledby="dcTitre">
+  <form method="dialog" id="fCamp">
+    <div class="dlg-hd"><h2 id="dcTitre">Nouvelle campagne</h2></div>
+    <div class="dlg-bd">
+      <label class="lib" for="dcHash">Hashtag</label>
+      <input class="champ mono" id="dcHash" placeholder="#PaixMaintenant" style="width:100%" autocomplete="off">
+      <p class="aide-txt" id="dcErr" style="color:var(--halt);display:none"></p>
+      <p style="margin:14px 0 2px;font-weight:600;color:var(--ink-soft);font-size:12.5px">Sens sur chaque axe (de « contre » à « pour »)</p>
+      <div id="dcAxes"></div>
+    </div>
+    <div class="dlg-pied"><button type="button" class="btn btn-secondary" id="dcAnnul">Annuler</button><button type="submit" class="btn btn-primary" id="dcOk">Ajouter</button></div>
+  </form>
+</dialog>
+
+<div class="tip" id="tip" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<!-- Commandes de démonstration : ne font PAS partie de l'app -->
+<details class="demo" id="demo">
+  <summary>Maquette — commandes de démonstration</summary>
+  <div class="c">
+    <h5>État du moteur (si les avatars sont actifs)</h5>
+    <label><input type="radio" name="dm" value="cycle" checked> En cycle</label>
+    <label><input type="radio" name="dm" value="pause"> En pause</label>
+    <label><input type="radio" name="dm" value="panne"> Nœud de calcul injoignable</label>
+    <h5>Interrupteur</h5>
+    <button id="dEho">Simuler : quelqu'un bascule depuis eho</button>
+    <label><input type="checkbox" id="dConflit"> Conflit : eho bascule pendant ma confirmation</label>
+    <label><input type="checkbox" id="dEhoKO"> eho ne répond plus</label>
+    <h5>Journal</h5>
+    <button id="dNouv">Simuler 3 nouvelles actions</button>
+  </div>
+</details>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const fr = (n, d = 1) => n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const hhmm = (d) => d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+const hhmmss = (d) => d.toLocaleTimeString("fr-FR");
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- Thème ---------- */
+const appliquerTheme = (t) => {
+  if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+  $$("#theme button").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.t === t)));
+  try { localStorage.setItem("ia-theme", t); } catch {}
+};
+$$("#theme button").forEach((b) => b.onclick = () => appliquerTheme(b.dataset.t));
+try { appliquerTheme(localStorage.getItem("ia-theme") || "auto"); } catch { appliquerTheme("auto"); }
+
+/* ---------- Navigation (titre = libellé du menu) ---------- */
+const pages = ["tableau", "journal", "reglages"];
+function route() {
+  const p = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : "tableau";
+  pages.forEach((x) => { $("#p-" + x).hidden = x !== p; });
+  $$(".tab").forEach((t) => { if (t.dataset.page === p) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current"); });
+  document.title = { tableau: "Tableau de bord", journal: "Journal", reglages: "Réglages" }[p] + " — Avatars IA";
+  fermerVolet();
+}
+addEventListener("hashchange", route);
+
+/* ---------- Fermeture universelle : clic extérieur (vrai clic) + Échap ---------- */
+let appui = null;
+document.addEventListener("pointerdown", (e) => { appui = { x: e.clientX, y: e.clientY, t: e.target }; });
+document.addEventListener("click", (e) => {
+  const vraiClic = appui && Math.hypot(e.clientX - appui.x, e.clientY - appui.y) < 10;
+  if (!vraiClic) return;
+  $$("details[open]").forEach((d) => { if (!d.contains(e.target)) d.open = false; });
+  $$(".bulle:not([hidden])").forEach((b) => { const btn = $(`[data-aide="${b.id}"]`); if (!b.contains(e.target) && e.target !== btn) fermerBulle(b); });
+  if ($("#volet").classList.contains("ouvert") && !$("#volet").contains(e.target) && !e.target.closest(".ligne") && !e.target.closest("dialog")) fermerVolet();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (document.querySelector("dialog[open]")) return; // la fenêtre modale gère son Échap
+  $$("details[open]").forEach((d) => { d.open = false; d.querySelector("summary").focus(); });
+  $$(".bulle:not([hidden])").forEach(fermerBulle);
+  if ($("#volet").classList.contains("ouvert")) fermerVolet(true);
+});
+// Fenêtres modales : clic sur le fond = fermer
+$$("dialog").forEach((d) => d.addEventListener("click", (e) => {
+  const vraiClic = appui && Math.hypot(e.clientX - appui.x, e.clientY - appui.y) < 10 && appui.t === d;
+  if (e.target === d && vraiClic) d.close("annule");
+}));
+
+/* ---------- Aide « ? » ---------- */
+function fermerBulle(b) { b.hidden = true; const btn = $(`[data-aide="${b.id}"]`); btn.setAttribute("aria-expanded", "false"); }
+$$(".aide-btn").forEach((btn) => btn.onclick = () => {
+  const b = $("#" + btn.dataset.aide); const ouvrir = b.hidden;
+  $$(".bulle").forEach(fermerBulle);
+  if (!ouvrir) return;
+  const r = btn.getBoundingClientRect(); b.hidden = false;
+  b.style.top = (r.bottom + scrollY + 8) + "px"; b.style.left = Math.max(16, Math.min(r.left, innerWidth - b.offsetWidth - 16)) + "px";
+  btn.setAttribute("aria-expanded", "true");
+});
+
+/* ---------- Toast ---------- */
+let tt;
+function toast(msg, avert = false) { const t = $("#toast"); t.textContent = msg; t.className = "toast" + (avert ? " avert" : ""); t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 5200); }
+
+/* =====================================================================
+   INTERRUPTEUR — la valeur fait foi dans eho ; on n'affiche que ce qu'on a RELU
+   ===================================================================== */
+const now = new Date(2026, 9, 11, 17, 45, 30);
+let horloge = new Date(now);
+const eho = { actif: true, par: "cne.varenne", depuis: "eho", le: new Date(2026, 9, 11, 16, 58), joignable: true };   // la « vraie » valeur, côté eho
+let lu = { ...eho, releveA: new Date(horloge) };   // ce que l'app a relu
+let basculeEnCours = false;
+
+function relire(signaler) {
+  if (!eho.joignable) { lu = { inconnu: true, releveA: lu.releveA, depuisPanne: lu.depuisPanne || new Date(horloge) }; renderInter(); renderMoteur(); return; }
+  const avant = lu.inconnu ? null : lu.actif;
+  lu = { ...eho, releveA: new Date(horloge) };
+  renderInter(); renderMoteur();
+  if (signaler && avant !== null && avant !== lu.actif) {
+    $("#inter").classList.remove("flash"); void $("#inter").offsetWidth; $("#inter").classList.add("flash");
+    toast(`Avatars IA ${lu.actif ? "activés" : "coupés"} par ${lu.par} depuis ${lu.depuis === "eho" ? "eho" : "Avatars IA"} (${hhmm(lu.le)}).`, !lu.actif);
+  }
+}
+
+function renderInter() {
+  const box = $("#inter"), btn = $("#interBtn");
+  const age = Math.round((horloge - lu.releveA) / 1000);
+  const frais = `<span class="frais${age > 30 ? " vieux" : ""}"><i aria-hidden="true"></i>Relu dans eho il y a ${age} s</span>`;
+  if (lu.inconnu) {
+    box.dataset.etat = "inconnu";
+    $("#interForme").textContent = "?"; $("#interValeur").textContent = "ÉTAT INCONNU";
+    $("#interLigne").textContent = "eho ne répond pas : par sécurité, le moteur se tait et a annulé ce qu'il avait programmé.";
+    $("#interTrace").innerHTML = `<span>eho injoignable depuis <b>${hhmm(lu.depuisPanne)}</b></span><span>Dernière valeur relue : ${hhmmss(lu.releveA)}</span>`;
+    btn.className = "btn btn-grand btn-secondary"; btn.disabled = true; btn.textContent = "Bascule impossible (eho ne répond pas)";
+    $("#interNote").textContent = "L'interrupteur revient dès qu'eho répond.";
+    return;
+  }
+  box.dataset.etat = lu.actif ? "actif" : "coupe";
+  $("#interForme").textContent = lu.actif ? "●" : "○";
+  $("#interValeur").textContent = lu.actif ? "ACTIFS" : "COUPÉS";
+  $("#interLigne").textContent = lu.actif ? "Ils lisent le réseau social de la zone et y réagissent." : "Ils ne lisent rien et ne publient rien. Leur mémoire est conservée.";
+  $("#interTrace").innerHTML = `<span>${lu.actif ? "Activés" : "Coupés"} le <b>${lu.le.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" })} à ${hhmm(lu.le)}</b> par <b>${esc(lu.par)}</b>, depuis <b>${lu.depuis === "eho" ? "eho" : "Avatars IA"}</b></span>${frais}`;
+  if (basculeEnCours) { btn.disabled = true; btn.textContent = "Bascule demandée… relecture dans eho"; return; }
+  btn.disabled = false;
+  btn.className = "btn btn-grand " + (lu.actif ? "btn-danger" : "btn-confirm");
+  btn.textContent = lu.actif ? "Couper les avatars IA" : "Activer les avatars IA";
+  $("#interNote").textContent = "Le même interrupteur que dans eho › Population IA.";
+}
+
+$("#interBtn").onclick = () => {
+  const d = $("#dlgBascule"), cible = !lu.actif;
+  d.dataset.cible = String(cible); d.dataset.vu = String(lu.actif);
+  $("#dbTitre").textContent = cible ? "Activer les avatars IA ?" : "Couper les avatars IA ?";
+  $("#dbBd").innerHTML = (cible
+    ? `<p>Les <b>61 avatars animés</b> vont se remettre à lire le réseau social de la zone <b>delattre-26</b> et à y réagir, au rythme du coefficient de crise (<b>${fr(reg.crise)}</b>).</p><p>Le prochain cycle part dans les 15 secondes.</p>`
+    : `<p>Ils cessent <b>immédiatement</b> de lire, d'aimer et de publier ; le cycle en cours s'arrête et ce que le moteur avait programmé est annulé.</p><p>Leur mémoire est conservée : réactivés, ils reprennent où ils en étaient.</p>`)
+    + `<div class="dlg-releve">État relu dans eho : <b>${lu.actif ? "ACTIFS" : "COUPÉS"}</b> — ${lu.actif ? "activés" : "coupés"} par ${esc(lu.par)} à ${hhmm(lu.le)}. La bascule est refusée si quelqu'un a changé l'état entre-temps.</div>`;
+  const ok = $("#dbOk"); ok.textContent = cible ? "Activer" : "Couper"; ok.className = "btn " + (cible ? "btn-primary" : "btn-danger-solid");
+  d.showModal();
+  (cible ? $("#dbAnnul") : ok).focus();   // Activer : le focus va sur Annuler ; Couper (geste d'urgence) : sur Couper
+};
+$("#dbAnnul").onclick = () => $("#dlgBascule").close("annule");
+$("#dbOk").onclick = () => $("#dlgBascule").close("ok");
+$("#dlgBascule").addEventListener("close", () => {
+  const d = $("#dlgBascule"); $("#interBtn").focus();
+  if (d.returnValue !== "ok") return;
+  const cible = d.dataset.cible === "true", vu = d.dataset.vu === "true";
+  basculeEnCours = true; renderInter();          // réponse immédiate (< 400 ms), sans faire semblant
+  if ($("#dConflit").checked) { eho.actif = cible; eho.par = "lt.orsini"; eho.depuis = "eho"; eho.le = new Date(horloge); $("#dConflit").checked = false; }
+  setTimeout(() => {
+    basculeEnCours = false;
+    if (!eho.joignable) { relire(false); toast("eho ne répond pas : rien n'a été changé.", true); return; }
+    if (eho.actif !== vu) {           // précondition « état attendu » non remplie : quelqu'un a basculé avant nous
+      relire(false);
+      toast(`Rien n'a été changé : ${eho.par} les avait déjà ${eho.actif ? "activés" : "coupés"} depuis eho à ${hhmm(eho.le)}. L'état affiché est l'état relu.`, true);
+      return;
+    }
+    eho.actif = cible; eho.par = "cne.varenne"; eho.depuis = "app-ia"; eho.le = new Date(horloge);
+    relire(false);
+    if (cible) { moteur.mode = "cycle"; moteur.avatar = 1; }
+    renderMoteur();
+    toast(`Avatars IA ${cible ? "activés" : "coupés"} — état relu dans eho à ${hhmmss(horloge)}.`, !cible);
+  }, 900);
+});
+
+/* =====================================================================
+   MOTEUR
+   ===================================================================== */
+const moteur = { mode: "cycle", avatar: 23, total: 61, debut: new Date(2026, 9, 11, 17, 45, 4 + 90), finPrec: new Date(2026, 9, 11, 17, 45, 4), pauseFin: null, panneDepuis: new Date(2026, 9, 11, 17, 38) };
+moteur.debut = new Date(2026, 9, 11, 17, 43, 40);
+function etatMoteur() {
+  if (lu.inconnu) return "attente-eho";
+  if (!lu.actif) return "attente";
+  return moteur.mode;
+}
+function renderMoteur() {
+  const e = etatMoteur(), E = $("#mEtat"), T = $("#mTxt");
+  $("#mProg").hidden = e !== "cycle";
+  $("#fCycle").classList.toggle("ici", e === "cycle"); $("#fPause").classList.toggle("ici", e === "pause");
+  if (e === "cycle") {
+    const el = Math.round((horloge - moteur.debut) / 1000);
+    E.innerHTML = `<span class="pictos m-cycle"><span class="pulse">●</span></span><span class="m-cycle">En cycle</span><span style="color:var(--ink-soft);font-weight:600"> — avatar ${moteur.avatar} sur ${moteur.total}</span>`;
+    T.textContent = "Chaque avatar lit son fil, décide, puis agit. L'interrupteur est revérifié avant chaque avatar et juste avant chaque action.";
+    $("#mBarreI").style.width = (100 * moteur.avatar / moteur.total) + "%";
+    $("#mBarre").setAttribute("aria-valuenow", moteur.avatar); $("#mBarre").setAttribute("aria-valuemax", moteur.total);
+    $("#mProgL").textContent = `Commencé à ${hhmmss(moteur.debut)}`; $("#mProgR").textContent = `depuis ${Math.floor(el / 60)} min ${String(el % 60).padStart(2, "0")} s`;
+    $("#mAside").innerHTML = `<span class="etiquette t-ok">● en marche</span>`;
+  } else if (e === "pause") {
+    const reste = Math.max(0, Math.round((moteur.pauseFin - horloge) / 1000));
+    E.innerHTML = `<span class="pictos m-pause">❚❚</span><span>En pause jusqu'à ${hhmmss(moteur.pauseFin)}</span>`;
+    T.textContent = `Le cycle précédent s'est terminé à ${hhmmss(moteur.finPrec)} ; le suivant part 90 s après la fin du précédent (dans ${reste} s).`;
+    $("#mAside").innerHTML = `<span class="etiquette t-ok">● en marche</span>`;
+  } else if (e === "attente") {
+    E.innerHTML = `<span class="pictos m-attente">○</span><span>En attente — interrupteur coupé</span>`;
+    T.textContent = "Le moteur est prêt mais se tait : aucun avatar ne lit ni ne publie. Il repart dans les 15 s qui suivent l'activation.";
+    $("#mAside").innerHTML = `<span class="etiquette t-neutre">○ au repos</span>`;
+  } else if (e === "attente-eho") {
+    E.innerHTML = `<span class="pictos m-attente">?</span><span>En attente — eho ne répond pas</span>`;
+    T.textContent = "Sans interrupteur lisible, le moteur ne fait rien. Il reprend seul quand eho répond.";
+    $("#mAside").innerHTML = `<span class="etiquette t-attente">▲ dégradé</span>`;
+  } else {
+    E.innerHTML = `<span class="pictos m-panne">✕</span><span class="m-panne">Nœud de calcul injoignable</span>`;
+    T.innerHTML = `Le modèle ne répond plus depuis <b>${hhmm(moteur.panneDepuis)}</b>. Le dernier cycle s'est arrêté proprement, sans rien publier à moitié ; nouvel essai au prochain cycle (${hhmmss(new Date(+horloge + 47000))}). Si la panne dure, prévenir PLEIADE.`;
+    $("#mAside").innerHTML = `<span class="etiquette t-alerte">✕ en panne</span>`;
+  }
+}
+
+/* =====================================================================
+   DERNIER CYCLE + TENDANCE (12 cycles, petits multiples d'une série)
+   ===================================================================== */
+const cycles = [
+  // heure de début, durée (s), lectures, réponses, J'aime, partages, publications, garde-fous, erreurs
+  ["16:53", 212, 58, 5, 33, 1, 2, 4, 0], ["16:58", 236, 61, 6, 36, 2, 3, 5, 0], ["17:03", 251, 61, 4, 41, 1, 2, 3, 0],
+  ["17:08", 198, 54, 3, 29, 0, 1, 2, 0], ["17:12", 265, 61, 8, 44, 2, 4, 6, 0], ["17:17", 240, 61, 5, 38, 1, 3, 4, 1],
+  ["17:22", 233, 60, 6, 35, 1, 2, 3, 0], ["17:26", 412, 61, 4, 30, 0, 1, 2, 3], ["17:33", 228, 61, 7, 40, 2, 3, 5, 0],
+  ["17:37", 219, 59, 6, 37, 1, 2, 4, 0], ["17:41", 232, 61, 7, 38, 2, 3, 6, 0],
+].map(([h, d, l, r, a, p, pu, g, e]) => ({ h, d, l, r, a, p, pu, g, e, ecrits: r + p + pu }));
+const der = cycles[cycles.length - 1], prec = cycles.slice(0, -1);
+const moy = (k) => prec.reduce((s, c) => s + c[k], 0) / prec.length;
+const dur = (s) => { s = Math.round(s); return `${Math.floor(s / 60)} min ${String(s % 60).padStart(2, "0")}`; };
+function renderDernier() {
+  const items = [
+    ["Durée", dur(der.d), `moy. ${dur(Math.round(moy("d")))}`],
+    ["Lectures", der.l, `moy. ${fr(moy("l"), 0)}`],
+    ["Réponses", der.r, `moy. ${fr(moy("r"))}`],
+    ["J'aime", der.a, `moy. ${fr(moy("a"), 0)}`],
+    ["Publications", der.pu + der.p, `dont ${der.p} partages · moy. ${fr(moy("pu") + moy("p"))}`],
+    ["Erreurs", der.e, der.e ? "voir le journal" : "aucune"],
+  ];
+  $("#dStats").innerHTML = items.map(([l, v, c]) => `<div class="stat"><div class="stat-l">${l}</div><div class="stat-v${l === "Erreurs" && v ? " alerte" : ""}">${v}</div><div class="stat-c">${c}</div></div>`).join("");
+}
+function mini(titre, k, fmt, opts = {}) {
+  const W = 240, H = 64, n = cycles.length, gap = 2, bw = (W - gap * (n - 1)) / n;
+  const max = Math.max(...cycles.map((c) => c[k])) || 1, m = moy(k);
+  const bars = cycles.map((c, i) => {
+    const h = Math.max(c[k] ? 3 : 0, (c[k] / max) * (H - 4)), x = i * (bw + gap), y = H - h;
+    const cls = opts.err && c[k] ? "b err" : (i === n - 1 ? "b dernier" : "b");
+    return `<path class="${cls}" d="M${x},${H} V${y + Math.min(4, h)} q0,-4 4,-4 h${bw - 8} q4,0 4,4 V${H} Z"/><rect class="zone-hit" x="${x - 1}" y="0" width="${bw + 2}" height="${H}" data-tip="${c.h} · ${titre} : ${fmt(c[k])}"/>`;
+  }).join("");
+  const ym = H - (m / max) * (H - 4);
+  return `<div class="mult"><h4>${titre}</h4><p class="der">dernier : <b style="color:var(--ink)">${fmt(der[k])}</b> · moyenne ${fmt(Math.round(m * 10) / 10)}</p>
+    <svg viewBox="0 0 ${W} ${H + 14}" role="img" aria-label="${titre}, 12 derniers cycles"><line class="moy" x1="0" x2="${W}" y1="${ym}" y2="${ym}"/>${bars}
+    <text class="axe" x="0" y="${H + 12}">${cycles[0].h}</text><text class="axe" x="${W}" y="${H + 12}" text-anchor="end">${der.h}</text></svg></div>`;
+}
+function renderTendance() {
+  $("#tGraph").innerHTML = mini("Durée du cycle", "d", dur) + mini("Écrits (réponses, partages, publications)", "ecrits", (v) => fr(v, Number.isInteger(v) ? 0 : 1)) + mini("J'aime", "a", (v) => fr(v, Number.isInteger(v) ? 0 : 1)) + mini("Erreurs", "e", (v) => fr(v, Number.isInteger(v) ? 0 : 1), { err: true });
+  $("#tTable").innerHTML = `<table class="tab-donnees"><thead><tr><th>Cycle</th><th>Durée</th><th>Lectures</th><th>Réponses</th><th>J'aime</th><th>Partages</th><th>Publications</th><th>Garde-fous</th><th>Erreurs</th></tr></thead><tbody>${cycles.slice().reverse().map((c) => `<tr><td class="mono">${c.h}</td><td>${dur(c.d)}</td><td>${c.l}</td><td>${c.r}</td><td>${c.a}</td><td>${c.p}</td><td>${c.pu}</td><td>${c.g}</td><td>${c.e}</td></tr>`).join("")}</tbody></table>`;
+}
+document.addEventListener("pointermove", (e) => {
+  const t = e.target.closest && e.target.closest("[data-tip]"), tip = $("#tip");
+  if (!t) { tip.hidden = true; return; }
+  tip.textContent = t.dataset.tip; tip.hidden = false;
+  tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = (e.clientY - 34) + "px";
+});
+$$("#tVue button").forEach((b) => b.onclick = () => { $$("#tVue button").forEach((x) => x.setAttribute("aria-checked", String(x === b))); $("#tGraph").hidden = b.dataset.v !== "g"; $("#tTable").hidden = b.dataset.v !== "t"; });
+
+/* =====================================================================
+   JOURNAL — données fictives (aucune personne réelle ; lieux en H…)
+   ===================================================================== */
+const COH = { pm: ["Pro-Mercure", "#e0645a"], pa: ["Pro-Arnland", "#5b8def"], ne: ["Neutres", "#9aa0b4"], me: ["Mercure", "#b4232c"] };
+const AV = {
+  lena: ["Lena Wirth", "ne"], tomas: ["Tomas Brandt", "pm"], ilse: ["Ilse Kramer", "pa"], hugo: ["Hugo Lemaire", "ne"],
+  agathe: ["Agathe Roussel", "ne"], viktor: ["Viktor Sallen", "pm"], nadia: ["Nadia Ferrand", "ne"], jonas: ["Jonas Beckert", "pa"],
+  piotr: ["Piotr Halas", "me"], mirela: ["Mirela Costin", "pa"], radek: ["Radek Vonn", "pm"], elsa: ["Elsa Martel", "ne"],
+};
+const TYPES = {
+  repondu: { l: "a répondu", g: "↩", c: "a-ecrit", ecrit: true },
+  publie: { l: "a publié", g: "✎", c: "a-ecrit", ecrit: true },
+  partage: { l: "a partagé", g: "⇄", c: "a-ecrit", ecrit: true },
+  reformule: { l: "reformulé", g: "↻", c: "a-ecrit", ecrit: true },
+  bloque: { l: "bloqué", g: "⊘", c: "a-garde" },
+  retenu: { l: "s'est retenu", g: "…", c: "a-retenu" },
+  aime: { l: "a aimé", g: "♥", c: "a-discret" },
+  lu: { l: "a lu", g: "◌", c: "a-discret" },
+};
+// [heure, avatar, type, cible, raison, texte, garde-fou, extra]
+const J = [
+  ["17:44:58", "nadia", "repondu", "Hugo Lemaire : « Encore une nuit sans courant à HMetz, quelqu'un sait si l'école rouvre lundi ? »", "Elle a des enfants scolarisés à HMetz et veut rassurer.", "La mairie de HMetz dit lundi si le réseau tient. On s'organise entre parents pour la garde, écris-moi si besoin.", null],
+  ["17:44:41", "tomas", "reformule", "Ilse Kramer : « Les convois de la FORCE passent à HToul depuis 6 h. »", "Il doute du récit sur les convois et veut semer la question.", "Des convois à HToul ? J'habite à côté, j'ai vu deux camions en tout. On nous raconte n'importe quoi. #QuiDitVrai", "Première version écartée : tic de langage déjà écrit dans les 24 h", { ecartee: "On nous raconte vraiment n'importe quoi, comme d'habitude, j'ai vu deux camions en tout.", hash: "#QuiDitVrai", mode: "reprend" }],
+  ["17:44:20", "viktor", "bloque", "Agathe Roussel : « Ma voisine a été évacuée de HÉpinal cette nuit. »", "Il voulait répondre pour minimiser l'évacuation.", "", "Budget du jour atteint (9 messages, budget 6 + 3) → lu sans répondre"],
+  ["17:43:55", "ilse", "publie", "", "Elle relaie la campagne de son camp vue chez 3 comptes depuis 2 h.", "Ce soir encore, les bénévoles de HToul tiennent le centre d'accueil. Merci à eux. #TenirEnsemble", null, { hash: "#TenirEnsemble", mode: "reprend" }],
+  ["17:43:31", "agathe", "aime", "Nadia Ferrand : « On s'organise entre parents pour la garde… »", "Solidarité entre voisins.", "", null],
+  ["17:43:30", "hugo", "aime", "Ilse Kramer : « Ce soir encore, les bénévoles de HToul… »", "", "", null],
+  ["17:43:12", "jonas", "partage", "Pr. Arnland Info : « Point de situation : la route HToul–HNancy rouverte à 18 h. »", "Information utile pour ses proches, source qu'il juge fiable.", "", null],
+  ["17:42:50", "elsa", "retenu", "« J'ai ressorti les photos de l'école de HToul… »", "Rien ne la pousse à écrire maintenant.", "", null],
+  ["17:42:33", "piotr", "bloque", "Jonas Beckert : « Point de situation : la route HToul–HNancy rouverte… »", "Il voulait affirmer que la route est minée.", "", "Contrôle de texte : affirmation de fait non présente dans la fiction → publication refusée"],
+  ["17:42:10", "mirela", "lu", "Fil : 14 publications lues", "", "", null],
+  ["17:41:58", "radek", "repondu", "Lena Wirth : « Les prix du pain ont doublé en une semaine à HVerdun. »", "Il veut rejeter la faute sur les sanctions décidées hors du GET.", "Doublé, oui. Et qui a voté les sanctions ? Pas nous. Ce sont les familles du GET qui paient.", null],
+  ["17:41:40", "lena", "aime", "Radek Vonn : « Doublé, oui. Et qui a voté les sanctions ? »", "", "", null],
+  ["17:41:22", "viktor", "aime", "Radek Vonn : « Doublé, oui. Et qui a voté les sanctions ? »", "Il partage la colère.", "", null],
+  ["17:41:15", "nadia", "lu", "Fil : 9 publications lues", "", "", null],
+  // cycle précédent
+  ["17:40:44", "hugo", "publie", "", "Il s'inquiète de la coupure de courant annoncée.", "Coupure annoncée à HMetz de 20 h à minuit. Pensez à charger vos téléphones.", null],
+  ["17:40:20", "mirela", "repondu", "Tomas Brandt : « On nous raconte n'importe quoi. »", "Elle conteste le hashtag adverse vu dans son fil.", "#QuiDitVrai ? Les photos des convois sont partout, il suffit de regarder.", null, { hash: "#QuiDitVrai", mode: "conteste" }],
+  ["17:39:55", "agathe", "retenu", "« Je n'ai pas eu le courage d'aller au marché… »", "Fatigue de fin de journée.", "", null],
+  ["17:39:31", "tomas", "bloque", "Hugo Lemaire : « Coupure annoncée à HMetz… »", "Il voulait répondre une troisième fois au même fil.", "", "Anti-chœur : 3 avatars ont déjà répondu à ce message → lu sans répondre"],
+  ["17:38:58", "jonas", "aime", "Hugo Lemaire : « Coupure annoncée à HMetz… »", "", "", null],
+  ["17:38:40", "elsa", "aime", "Hugo Lemaire : « Coupure annoncée à HMetz… »", "", "", null],
+];
+let journal = J.map((x, i) => ({ id: i, h: x[0], av: x[1], type: x[2], cible: x[3], raison: x[4], texte: x[5], garde: x[6], extra: x[7] || {}, cycle: x[0] >= "17:41:12" ? "17:41" : "17:37" }));
+let nouveaux = [];
+const filtre = { avatar: "", types: new Set(["repondu", "publie", "partage", "reformule", "bloque"]), garde: false, periode: "j", vue: "defaut" };
+
+$("#listeAvatars").innerHTML = Object.values(AV).map(([n]) => `<option value="${n}">`).join("");
+const DEFAUT = ["repondu", "publie", "partage", "reformule", "bloque"];
+function renderTypes() {
+  const cpt = {}; journal.forEach((e) => cpt[e.type] = (cpt[e.type] || 0) + 1);
+  $("#jTypes").innerHTML = Object.entries(TYPES).map(([k, t]) => `<label><input type="checkbox" data-type="${k}" ${filtre.types.has(k) ? "checked" : ""}> <span class="${t.c}" aria-hidden="true">${t.g}</span> ${t.l.replace(/^a |^s'est /, "").replace(/^./, (c) => c.toUpperCase())}<span class="n">${cpt[k] || 0}</span></label>`).join("");
+  $$("#jTypes input").forEach((b) => b.onchange = () => { const k = b.dataset.type; b.checked ? filtre.types.add(k) : filtre.types.delete(k); filtre.vue = "perso"; majVue(); renderJournal(); });
+  $("#nDefaut").textContent = journal.filter((e) => DEFAUT.includes(e.type) || e.garde).length;
+  $("#nGarde").textContent = journal.filter((e) => e.garde).length;
+  $("#nTout").textContent = journal.length;
+  majVue();
+}
+function majVue() {
+  $$("#jVue button").forEach((x) => x.setAttribute("aria-checked", String(x.dataset.v === filtre.vue)));
+  const n = filtre.types.size, tot = Object.keys(TYPES).length;
+  $("#jMenuBtn").textContent = filtre.vue === "perso" ? `Types : ${n} sur ${tot} ▾` : "Types ▾";
+  $("#jMenuBtn").setAttribute("aria-pressed", String(filtre.vue === "perso"));
+}
+$$("#jVue button").forEach((b) => b.onclick = () => {
+  filtre.vue = b.dataset.v; filtre.garde = b.dataset.v === "garde";
+  filtre.types = new Set(b.dataset.v === "tout" ? Object.keys(TYPES) : DEFAUT);
+  renderTypes(); renderJournal();
+});
+function avatarHtml(id) { const [n, c] = AV[id]; return `<span class="av"><b>${n}</b><span class="coh"><i style="background:${COH[c][1]}"></i>${COH[c][0]}</span></span>`; }
+function ligneHtml(e) {
+  const t = TYPES[e.type];
+  const hash = e.extra.hash ? `<span class="puce-hash">${e.extra.mode === "conteste" ? "conteste" : "reprend"} ${e.extra.hash}</span>` : "";
+  return `<button class="ligne" data-id="${e.id}">
+    <span class="h">${e.h.slice(0, 5)}</span>${avatarHtml(e.av)}
+    <span class="act ${t.c}"><span class="g" aria-hidden="true">${t.g}</span>${t.l}</span>
+    <span class="contenu">
+      ${e.cible ? `<span class="cible">${e.type === "repondu" || e.type === "reformule" ? "↳ " : ""}${esc(e.cible)}</span>` : ""}
+      ${e.texte ? `<span class="texte">${esc(e.texte)}${hash}</span>` : ""}
+      ${e.garde ? `<span class="garde"><span aria-hidden="true">▲</span>Garde-fou : ${esc(e.garde)}</span>` : ""}
+      ${e.raison ? `<span class="raison">Pourquoi : ${esc(e.raison)}</span>` : ""}
+    </span></button>`;
+}
+function filtrer(e) {
+  if (filtre.avatar && !AV[e.av][0].toLowerCase().includes(filtre.avatar.toLowerCase())) return false;
+  if (filtre.garde) return !!e.garde;
+  return filtre.types.has(e.type) || !!e.garde;
+}
+function renderJournal() {
+  const vis = journal.filter(filtrer);
+  if (!vis.length) { $("#jListe").innerHTML = `<p class="vide">Aucune action ne correspond à ces filtres.<br><button class="btn btn-ghost" id="jReset">Revenir aux filtres par défaut</button></p>`; $("#jReset").onclick = resetFiltres; return; }
+  let html = "", cyc = null;
+  const masques = (c) => journal.filter((e) => e.cycle === c && !filtrer(e)).length;
+  vis.forEach((e) => {
+    if (e.cycle !== cyc) {
+      if (cyc) { const m = masques(cyc); if (m) html += `<div class="repli">${m} autres actions de ce cycle (J'aime, lectures…) <button data-montrer>Afficher tout</button></div>`; }
+      cyc = e.cycle; const c = cycles.find((x) => x.h === cyc) || der;
+      html += `<div class="cycle-sep"><b>Cycle ${cyc}</b><span>${dur(c.d)} · ${c.l} lectures · ${c.ecrits} écrits · ${c.a} J'aime · ${c.g} garde-fous${c.e ? ` · <span class="t-alerte">${c.e} erreurs</span>` : ""}</span></div>`;
+    }
+    html += ligneHtml(e);
+  });
+  const m = masques(cyc); if (m) html += `<div class="repli">${m} autres actions de ce cycle (J'aime, lectures…) <button data-montrer>Afficher tout</button></div>`;
+  $("#jListe").innerHTML = html;
+  $$("#jListe [data-montrer]").forEach((b) => b.onclick = () => { filtre.vue = "tout"; filtre.garde = false; filtre.types = new Set(Object.keys(TYPES)); renderTypes(); renderJournal(); });
+  $$("#jListe .ligne").forEach((b) => b.onclick = (ev) => { ev.stopPropagation(); ouvrirVolet(+b.dataset.id, b); });
+}
+function resetFiltres() { filtre.avatar = ""; $("#jAvatar").value = ""; filtre.vue = "defaut"; filtre.garde = false; filtre.types = new Set(DEFAUT); renderTypes(); renderJournal(); }
+$("#jAvatar").oninput = (e) => { filtre.avatar = e.target.value; renderJournal(); };
+$$("#jPeriode button").forEach((b) => b.onclick = () => { $$("#jPeriode button").forEach((x) => x.setAttribute("aria-checked", String(x === b))); filtre.periode = b.dataset.p; });
+
+function renderDerniersEcrits() {
+  $("#eListe").innerHTML = journal.filter((e) => TYPES[e.type].ecrit || e.garde).slice(0, 5).map(ligneHtml).join("");
+  $$("#eListe .ligne").forEach((b) => b.onclick = (ev) => { ev.stopPropagation(); ouvrirVolet(+b.dataset.id, b); });
+}
+
+/* ---------- Nouvelles lignes : jamais de saut sous les yeux du lecteur ---------- */
+$("#dNouv").onclick = () => {
+  const base = [["17:45:40", "lena", "repondu", "Radek Vonn : « Et qui a voté les sanctions ? »", "Elle refuse le raccourci.", "Les sanctions n'ont pas coupé le courant à HMetz. Restons sur les faits.", null],
+    ["17:45:52", "piotr", "aime", "Tomas Brandt : « On nous raconte n'importe quoi. »", "", "", null],
+    ["17:46:05", "agathe", "bloque", "Viktor Sallen : « Tout ça est monté de toutes pièces. »", "Elle voulait répondre sous le coup de la colère.", "", "Humeur : colère au plafond (−80) → attend le cycle suivant"]];
+  base.forEach((x) => nouveaux.unshift({ id: journal.length + nouveaux.length, h: x[0], av: x[1], type: x[2], cible: x[3], raison: x[4], texte: x[5], garde: x[6], extra: {}, cycle: "17:45" }));
+  cycles.push({ h: "17:45", d: 0, l: 0, r: 0, a: 0, p: 0, pu: 0, g: 0, e: 0, ecrits: 0 }); cycles.pop();
+  $("#jNouveaux").hidden = false; $("#jNouveauxBtn").textContent = `${nouveaux.length} nouvelles actions — Afficher`;
+  toast("Journal : 3 nouvelles actions (la liste ne bouge pas tant que vous ne les affichez pas).");
+};
+$("#jNouveauxBtn").onclick = () => { journal = [...nouveaux, ...journal]; nouveaux = []; $("#jNouveaux").hidden = true; renderTypes(); renderJournal(); renderDerniersEcrits(); };
+
+/* ---------- Volet de détail ---------- */
+let declencheur = null;
+function ouvrirVolet(id, src) {
+  const e = journal.find((x) => x.id === id); if (!e) return;
+  declencheur = src; const t = TYPES[e.type], [n, c] = AV[e.av];
+  $("#voletTitre").textContent = `${n} — ${t.l}`;
+  $("#voletBd").innerHTML = `<dl>
+      <dt>Heure</dt><dd class="mono">${e.h} · cycle ${e.cycle}</dd>
+      <dt>Cohorte</dt><dd><span class="coh"><i style="background:${COH[c][1]}"></i>${COH[c][0]}</span> <span style="color:var(--ink-muted)">(orientation de départ)</span></dd>
+      <dt>Action</dt><dd class="${t.c}" style="font-weight:600">${t.g} ${t.l}${e.extra.hash ? ` · ${e.extra.mode} ${e.extra.hash}` : ""}</dd>
+      ${e.cible ? `<dt>En réponse à</dt><dd>${esc(e.cible)}</dd>` : ""}
+      <dt>Pourquoi</dt><dd>${esc(e.raison || "—")}</dd>
+      ${e.garde ? `<dt>Garde-fou</dt><dd class="garde">▲ ${esc(e.garde)}</dd>` : ""}
+      <dt>Opinion</dt><dd>FORCE −31 → −32 · Mercure +12 (inchangé) · humeur : inquiète</dd>
+    </dl>
+    ${e.texte ? `<div><p class="eyebrow" style="margin-bottom:6px">Texte publié</p><div class="bloc-txt">${esc(e.texte)}</div></div>` : ""}
+    ${e.extra.ecartee ? `<div><p class="eyebrow" style="margin-bottom:6px">Version écartée par le contrôle</p><div class="bloc-txt ecarte">${esc(e.extra.ecartee)}</div></div>` : ""}
+    <p class="aide-txt">Fiche de l'avatar et mémoire : <a href="#" target="_blank" rel="noreferrer">${n} dans eho ↗</a></p>`;
+  $("#volet").classList.add("ouvert"); $("#volet").setAttribute("aria-hidden", "false"); $("#voletFermer").focus();
+}
+function fermerVolet(rendreFocus) { const v = $("#volet"); if (!v.classList.contains("ouvert")) return; v.classList.remove("ouvert"); v.setAttribute("aria-hidden", "true"); if (rendreFocus && declencheur) declencheur.focus(); }
+$("#voletFermer").onclick = () => fermerVolet(true);
+
+/* =====================================================================
+   RÉGLAGES
+   ===================================================================== */
+const reg = { crise: 1.0, contexte: "Depuis le 8 octobre, la République de Mercure masse des troupes le long de la frontière est du Grand East Territory. La FORCE (coalition) a renforcé ses positions autour de HToul et de HNancy. HMetz subit des coupures d'électricité chaque soir. Des familles évacuées de HÉpinal sont accueillies à HToul. Le prix du pain a doublé à HVerdun en une semaine. Les autorités régionales appellent au calme et démentent toute pénurie d'eau.", camp: [
+  { h: "#PaixMaintenant", ax: { FORCE: -1, Mercure: 0, institutions: -0.3 }, qui: "cne.varenne", le: "11/10 09:12" },
+  { h: "#TenirEnsemble", ax: { FORCE: 0.6, Mercure: -0.4, institutions: 0.8 }, qui: "cne.varenne", le: "11/10 11:40" },
+  { h: "#QuiDitVrai", ax: { FORCE: -0.5, Mercure: 0.3, institutions: -0.8 }, qui: "adj.morin", le: "11/10 14:05" },
+] };
+const histo = [
+  ["11/10 14:05", "adj.morin", "Campagne #QuiDitVrai ajoutée (FORCE −0,5 · Mercure +0,3 · institutions −0,8)"],
+  ["11/10 11:40", "cne.varenne", "Campagne #TenirEnsemble ajoutée (FORCE +0,6 · Mercure −0,4 · institutions +0,8)"],
+  ["11/10 09:12", "cne.varenne", "Campagne #PaixMaintenant ajoutée (FORCE −1,0 · institutions −0,3)"],
+  ["11/10 08:02", "cne.varenne", "Coefficient de crise 2,0 → 1,0"],
+  ["11/10 07:55", "cne.varenne", "Contexte de l'exercice modifié (412 → 498 caractères)"],
+  ["10/10 21:30", "adj.morin", "Coefficient de crise 1,0 → 2,0"],
+];
+const REP = [[0.2, "quasi-silence"], [0.5, "accalmie"], [1, "normal"], [2, "soir de crise"], [3, "maximum"]];
+$("#cReperes").innerHTML = REP.map(([v, l]) => `<button type="button" style="left:${(v - 0.2) / 2.8 * 100}%" data-v="${v}">${fr(v)}<br>${l}</button>`).join("");
+$$("#cReperes button").forEach((b) => b.onclick = () => majCrise(+b.dataset.v));
+function conseqHtml(c) {
+  const r = (x) => Math.max(1, Math.round(x * c));
+  return `<p class="eyebrow">Concrètement, à ${fr(c)}</p>
+    <p style="margin:8px 0 0"><span class="gros">${Math.round(40 * c)}</span> <span style="color:var(--ink-soft)">messages par heure au plus</span><br><span class="aide-txt">pour toute la population (réponses, partages, publications ; 40 à 1,0)</span></p>
+    <ul>
+      <li>Un avatar réservé : <b>${r(1.3)}</b> message${r(1.3) > 1 ? "s" : ""} / h au plus</li>
+      <li>Un avatar très extraverti : <b>${r(3.7)}</b> / h au plus</li>
+      <li>Un relais de campagne : <b>${r(6)}</b> / h au plus</li>
+      <li>Les J'aime et les lectures suivent le même rythme.</li>
+    </ul>`;
+}
+function majCrise(v) {
+  v = Math.max(0.2, Math.min(3, Math.round(v * 10) / 10));
+  $("#cRange").value = v; $("#cNum").value = v; $("#cConseq").innerHTML = conseqHtml(v);
+  const modif = v !== reg.crise;
+  $("#cSauv").disabled = !modif; $("#cAnnul").hidden = !modif;
+  $("#cEtat").textContent = modif ? `Non enregistré : ${fr(reg.crise)} → ${fr(v)}.` : "Aucune modification.";
+}
+$("#cRange").oninput = (e) => majCrise(+e.target.value);
+$("#cNum").onchange = (e) => majCrise(+String(e.target.value).replace(",", "."));
+$("#cAnnul").onclick = () => majCrise(reg.crise);
+$("#cSauv").onclick = () => {
+  const v = +$("#cRange").value, avant = reg.crise; reg.crise = v;
+  histo.unshift([`11/10 ${hhmm(horloge)}`, "cne.varenne", `Coefficient de crise ${fr(avant)} → ${fr(v)}`]);
+  $("#cAside").textContent = `Réglé à ${fr(v)} par cne.varenne le 11/10 à ${hhmm(horloge)}`;
+  majCrise(v); $("#cEtat").textContent = `Enregistré. Pris en compte au prochain cycle (vers ${hhmm(new Date(+horloge + 150000))}).`;
+  renderHisto(); toast(`Coefficient de crise : ${fr(avant)} → ${fr(v)}. Inscrit dans l'historique.`);
+};
+
+const AXES = ["FORCE", "Mercure", "institutions"];
+const motPoids = (w) => w === 0 ? "sans effet" : `${w > 0 ? "pour" : "contre"} · ${fr(Math.abs(w))}`;
+function renderCamp() {
+  $("#hListe").innerHTML = reg.camp.map((c, i) => `<tr>
+    <td><span class="hash">${esc(c.h)}</span></td>
+    <td><div class="sens">${AXES.map((a) => { const w = c.ax[a] || 0, l = w < 0 ? 50 + w * 50 : 50, wd = Math.abs(w) * 50; return `<span class="ax">${a}</span><span class="div" aria-hidden="true"><i style="left:${l}%;width:${wd}%"></i></span><span class="mot">${motPoids(w)}</span>`; }).join("")}</div></td>
+    <td style="font-size:12px;color:var(--ink-muted)">${esc(c.qui)}<br><span class="mono">${c.le}</span></td>
+    <td style="text-align:right;white-space:nowrap"><button class="icone-btn" data-modif="${i}" aria-label="Modifier ${esc(c.h)}" title="Modifier">✎</button><button class="icone-btn suppr" data-suppr="${i}" aria-label="Retirer ${esc(c.h)}" title="Retirer">✕</button></td></tr>`).join("")
+    || `<tr><td colspan="4" class="vide">Aucune campagne déclarée. Les # seront rattachés aux axes FORCE / Mercure d'après le camp de ceux qui les emploient.</td></tr>`;
+  $$("[data-modif]").forEach((b) => b.onclick = () => ouvrirCamp(+b.dataset.modif, b));
+  $$("[data-suppr]").forEach((b) => b.onclick = () => {
+    const c = reg.camp.splice(+b.dataset.suppr, 1)[0];
+    histo.unshift([`11/10 ${hhmm(horloge)}`, "cne.varenne", `Campagne ${c.h} retirée`]); renderCamp(); renderHisto();
+    toast(`Campagne ${c.h} retirée. Inscrit dans l'historique.`);
+  });
+}
+let campIdx = null, campSrc = null;
+function ouvrirCamp(i, src) {
+  campIdx = i; campSrc = src; const c = i === null ? { h: "", ax: { FORCE: 0, Mercure: 0, institutions: 0 } } : reg.camp[i];
+  $("#dcTitre").textContent = i === null ? "Nouvelle campagne" : `Modifier ${c.h}`; $("#dcOk").textContent = i === null ? "Ajouter" : "Enregistrer";
+  $("#dcHash").value = c.h; $("#dcHash").readOnly = i !== null; $("#dcErr").style.display = "none";
+  $("#dcAxes").innerHTML = AXES.map((a) => `<div class="axe-ligne"><label for="ax-${a}">Axe ${a}</label><input type="range" id="ax-${a}" min="-1" max="1" step="0.1" value="${c.ax[a] || 0}" aria-describedby="o-${a}"><output id="o-${a}">${motPoids(c.ax[a] || 0)}</output></div>`).join("");
+  AXES.forEach((a) => $("#ax-" + a).oninput = (e) => $("#o-" + a).textContent = motPoids(+e.target.value));
+  $("#dlgCamp").showModal(); (i === null ? $("#dcHash") : $("#ax-FORCE")).focus();
+}
+$("#hAjout").onclick = (e) => ouvrirCamp(null, e.currentTarget);
+$("#dcAnnul").onclick = () => $("#dlgCamp").close("annule");
+$("#dlgCamp").addEventListener("close", () => campSrc && campSrc.focus());
+$("#fCamp").onsubmit = (ev) => {
+  let h = $("#dcHash").value.trim().replace(/\s+/g, "");
+  if (h && !h.startsWith("#")) h = "#" + h;
+  const err = !/^#[\p{L}\p{N}_]{2,40}$/u.test(h) ? "Écrire un hashtag d'un seul mot, par exemple #PaixMaintenant (lettres, chiffres, _)."
+    : (campIdx === null && reg.camp.some((c) => c.h.toLowerCase() === h.toLowerCase())) ? `${h} existe déjà : le modifier dans la liste.` : null;
+  if (err) { ev.preventDefault(); $("#dcErr").textContent = err; $("#dcErr").style.display = "block"; $("#dcHash").setAttribute("aria-invalid", "true"); $("#dcHash").focus(); return; }
+  const ax = Object.fromEntries(AXES.map((a) => [a, +$("#ax-" + a).value]));
+  const desc = AXES.filter((a) => ax[a]).map((a) => `${a} ${ax[a] > 0 ? "+" : "−"}${fr(Math.abs(ax[a]))}`).join(" · ") || "sans effet";
+  if (campIdx === null) reg.camp.unshift({ h, ax, qui: "cne.varenne", le: `11/10 ${hhmm(horloge)}` });
+  else Object.assign(reg.camp[campIdx], { ax, qui: "cne.varenne", le: `11/10 ${hhmm(horloge)}` });
+  histo.unshift([`11/10 ${hhmm(horloge)}`, "cne.varenne", `Campagne ${h} ${campIdx === null ? "ajoutée" : "modifiée"} (${desc})`]);
+  renderCamp(); renderHisto(); toast(`Campagne ${h} ${campIdx === null ? "ajoutée" : "modifiée"} — prise en compte au prochain cycle.`);
+};
+
+$("#xTexte").value = reg.contexte;
+const majX = () => { const v = $("#xTexte").value, modif = v !== reg.contexte; $("#xCompte").textContent = `${v.length} caractères · environ ${Math.max(1, Math.round(v.split(/\s+/).length))} mots`; $("#xSauv").disabled = !modif; $("#xAnnul").hidden = !modif; $("#xEtat").textContent = modif ? "Non enregistré." : "Aucune modification."; };
+$("#xTexte").oninput = majX; $("#xAnnul").onclick = () => { $("#xTexte").value = reg.contexte; majX(); };
+$("#xSauv").onclick = () => { const a = reg.contexte.length; reg.contexte = $("#xTexte").value; histo.unshift([`11/10 ${hhmm(horloge)}`, "cne.varenne", `Contexte de l'exercice modifié (${a} → ${reg.contexte.length} caractères)`]); $("#xAside").textContent = `Modifié par cne.varenne le 11/10 à ${hhmm(horloge)}`; majX(); $("#xEtat").textContent = "Enregistré. Lu par les avatars au prochain cycle."; renderHisto(); toast("Contexte enregistré. Inscrit dans l'historique."); };
+function renderHisto() { $("#rListe").innerHTML = histo.map(([h, q, t]) => `<li><span class="h">${h}</span><span class="qui">${esc(q)}</span><span class="quoi">${esc(t)}</span></li>`).join(""); }
+
+/* =====================================================================
+   COMMANDES DE DÉMONSTRATION
+   ===================================================================== */
+$$("input[name=dm]").forEach((r) => r.onchange = () => {
+  moteur.mode = r.value;
+  if (r.value === "pause") { moteur.finPrec = new Date(+horloge - 18000); moteur.pauseFin = new Date(+moteur.finPrec + 90000); }
+  if (r.value === "cycle") { moteur.debut = new Date(+horloge - 85000); moteur.avatar = 23; }
+  renderMoteur();
+});
+$("#dEho").onclick = () => { if (!eho.joignable) return; eho.actif = !eho.actif; eho.par = "lt.orsini"; eho.depuis = "eho"; eho.le = new Date(horloge); toast("(maquette) Bascule faite dans eho — l'app la verra à sa prochaine relecture (≤ 15 s ; ici 3 s).", true); setTimeout(() => relire(true), 3000); };
+$("#dEhoKO").onchange = (e) => { eho.joignable = !e.target.checked; if (!eho.joignable) lu.depuisPanne = new Date(horloge); relire(false); };
+
+/* ---------- Horloge de la maquette ---------- */
+let tic = 0;
+setInterval(() => {
+  horloge = new Date(+horloge + 1000); tic++;
+  if (tic % 15 === 0) relire(true);
+  if (etatMoteur() === "cycle" && tic % 4 === 0) {
+    moteur.avatar++;
+    if (moteur.avatar > moteur.total) { moteur.mode = "pause"; moteur.finPrec = new Date(horloge); moteur.pauseFin = new Date(+horloge + 90000); $$("input[name=dm]").forEach((r) => r.checked = r.value === "pause"); }
+  }
+  if (etatMoteur() === "pause" && horloge >= moteur.pauseFin) { moteur.mode = "cycle"; moteur.avatar = 1; moteur.debut = new Date(horloge); $$("input[name=dm]").forEach((r) => r.checked = r.value === "cycle"); }
+  renderInter(); renderMoteur();
+}, 1000);
+
+/* ---------- Premier rendu ---------- */
+route(); renderInter(); renderMoteur(); renderDernier(); renderTendance(); renderTypes(); renderJournal(); renderDerniersEcrits();
+majCrise(reg.crise); renderCamp(); majX(); renderHisto();
+})();
+</script>
+</body>
+</html>

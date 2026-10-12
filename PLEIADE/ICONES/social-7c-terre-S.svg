@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social — 7c « Terre + S » : un vrai globe terrestre (continents stylisés sur l'océan violet, méridiens), et une pastille S en bas à droite. -->
+  <defs><clipPath id="g"><circle cx="236" cy="236" r="196"/></clipPath></defs>
+  <circle cx="236" cy="236" r="196" fill="#6364ff"/>
+  <g clip-path="url(#g)">
+    <!-- Continents (stylisés) -->
+    <path d="M96 130 C130 96 190 92 214 120 C230 140 206 162 214 186 C222 212 196 226 176 214 C152 200 150 230 128 226 C100 220 88 190 76 170 C70 156 82 142 96 130 Z" fill="#a9aaff"/>
+    <path d="M236 160 C262 140 300 144 312 168 C322 190 304 204 316 226 C330 254 318 300 290 330 C270 352 254 342 250 316 C246 290 228 280 232 252 C236 226 222 210 226 188 C228 176 230 166 236 160 Z" fill="#a9aaff"/>
+    <path d="M330 120 C356 110 392 118 410 140 C424 158 412 176 392 178 C370 180 356 196 340 186 C322 176 316 142 330 120 Z" fill="#a9aaff"/>
+    <path d="M120 300 C146 288 176 300 182 324 C188 348 164 372 140 366 C116 360 102 340 104 322 C106 312 112 304 120 300 Z" fill="#a9aaff"/>
+    <!-- Méridiens -->
+    <g fill="none" stroke="#f5f2ef" stroke-width="7" stroke-opacity=".55">
+      <ellipse cx="236" cy="236" rx="86" ry="196"/>
+      <line x1="40" y1="236" x2="432" y2="236"/>
+    </g>
+  </g>
+  <circle cx="236" cy="236" r="196" fill="none" stroke="#000" stroke-width="16"/>
+  <!-- Pastille S -->
+  <circle cx="392" cy="392" r="92" fill="#f5f2ef" stroke="#000" stroke-width="16"/>
+  <path d="M424 360 C418 342 404 334 388 334 C368 334 356 346 356 362 C356 382 376 388 392 392 C412 397 428 405 428 426 C428 442 412 452 392 452 C374 452 360 444 354 428" fill="none" stroke="#6364ff" stroke-width="26" stroke-linecap="round"/>
+</svg>

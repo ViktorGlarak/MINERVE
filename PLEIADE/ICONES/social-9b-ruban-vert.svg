@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Social 9b — d'après le modèle 2 : Terre bleue aux continents crème, S en ruban vert. -->
+  <defs>
+    <clipPath id="globe"><circle cx="256" cy="256" r="168"/></clipPath>
+    <mask id="hors"><rect width="512" height="512" fill="#fff"/><circle cx="256" cy="256" r="176" fill="#000"/></mask>
+  </defs>
+  <!-- Ruban, partie arrière : passe derrière le globe en haut à gauche -->
+  <path d="M424 116 C364 44 156 34 96 130" fill="none" stroke="#000" stroke-width="62" stroke-linecap="round"/>
+  <path d="M424 116 C364 44 156 34 96 130" fill="none" stroke="#7ed957" stroke-width="36" stroke-linecap="round"/>
+  <!-- Globe -->
+  <circle cx="256" cy="256" r="168" fill="#1e90ff"/>
+  <g clip-path="url(#globe)">
+    <path d="M120 168 C146 132 196 120 226 136 C246 148 236 170 218 176 C204 182 210 200 196 212 C182 224 168 214 160 228 C150 244 136 236 126 220 C114 202 110 184 120 168 Z" fill="#f5f2ef" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M188 262 C206 252 230 260 234 282 C238 304 222 322 214 346 C208 366 196 386 184 392 C178 368 184 346 176 326 C168 304 172 274 188 262 Z" fill="#f5f2ef" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M282 134 C302 120 334 124 346 140 C354 152 340 162 326 164 C312 166 304 178 290 176 C276 174 272 146 282 134 Z" fill="#f5f2ef" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M292 192 C318 182 352 190 362 214 C372 238 366 262 352 286 C340 308 332 334 316 346 C304 326 308 302 298 282 C288 262 268 250 270 226 C272 208 280 198 292 192 Z" fill="#f5f2ef" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M362 140 C384 140 408 160 418 186 C420 200 404 204 390 196 C376 188 362 182 356 166 C352 154 354 144 362 140 Z" fill="#f5f2ef" stroke="#000" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M330 100 A168 168 0 0 1 330 412 A196 196 0 0 0 330 100 Z" fill="#000" fill-opacity=".15"/>
+  </g>
+  <circle cx="256" cy="256" r="168" fill="none" stroke="#000" stroke-width="16"/>
+  <!-- Ruban, partie avant : le S se lit d'un seul trait -->
+  <path d="M96 130 C58 196 150 238 256 256 C362 274 454 316 416 382 C356 478 148 468 88 396" fill="none" stroke="#000" stroke-width="62" stroke-linecap="round"/>
+  <!-- Jonction sans couture : la partie arrière, hors du globe, repasse par-dessus le contour du départ avant -->
+  <path d="M424 116 C364 44 156 34 96 130" fill="none" stroke="#7ed957" stroke-width="36" stroke-linecap="round" mask="url(#hors)"/>
+  <path d="M96 130 C58 196 150 238 256 256 C362 274 454 316 416 382 C356 478 148 468 88 396" fill="none" stroke="#7ed957" stroke-width="36" stroke-linecap="round"/>
+</svg>

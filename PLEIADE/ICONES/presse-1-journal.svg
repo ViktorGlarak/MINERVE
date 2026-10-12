@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Presse — variante 1 « journal » : un quotidien, son titre, une photo et des colonnes. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M88 64 H452 Q472 64 472 84 V424 Q472 456 440 456 H72 Q40 456 40 424 V160 H88 Z" fill="#f5f2ef"/>
+    <path d="M40 160 H88 V424 Q88 456 64 456" fill="#e6e1dc"/>
+    <rect x="124" y="100" width="312" height="52" rx="8" fill="#1e90ff"/>
+    <rect x="124" y="184" width="140" height="112" rx="8" fill="#ffa726"/>
+    <path d="M140 280 L182 236 L212 264 L232 246 L250 280" fill="none" stroke-width="10"/>
+    <line x1="296" y1="192" x2="436" y2="192" stroke-width="12"/>
+    <line x1="296" y1="230" x2="436" y2="230" stroke-width="12"/>
+    <line x1="296" y1="268" x2="400" y2="268" stroke-width="12"/>
+    <line x1="124" y1="340" x2="436" y2="340" stroke-width="12"/>
+    <line x1="124" y1="378" x2="436" y2="378" stroke-width="12"/>
+    <line x1="124" y1="416" x2="340" y2="416" stroke-width="12"/>
+  </g>
+</svg>

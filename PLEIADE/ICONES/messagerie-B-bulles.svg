@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Messagerie — proposition B « conversation » : deux bulles qui se répondent, l'une en train d'écrire. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Bulle reçue (arrière) -->
+    <path d="M70 40 H330 Q362 40 362 72 V218 Q362 250 330 250 H150 L88 300 V250 H70 Q38 250 38 218 V72 Q38 40 70 40 Z" fill="#1e90ff"/>
+    <line x1="88" y1="104" x2="306" y2="104" stroke="#fff" stroke-width="14"/>
+    <line x1="88" y1="148" x2="270" y2="148" stroke="#fff" stroke-width="14"/>
+    <line x1="88" y1="192" x2="220" y2="192" stroke="#fff" stroke-width="14"/>
+    <!-- Bulle envoyée (avant), en train d'écrire -->
+    <path d="M442 230 H210 Q178 230 178 262 V378 Q178 410 210 410 H366 L428 460 V410 H442 Q474 410 474 378 V262 Q474 230 442 230 Z" fill="#7ed957"/>
+    <circle cx="256" cy="320" r="18" fill="#f5f2ef" stroke-width="10"/>
+    <circle cx="326" cy="320" r="18" fill="#f5f2ef" stroke-width="10"/>
+    <circle cx="396" cy="320" r="18" fill="#f5f2ef" stroke-width="10"/>
+  </g>
+</svg>

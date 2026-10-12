@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panneau du guide</title>
+<meta name="description" content="Maquette DESIGNER (avis n°97) : panneau de guide hors fiction du tutoriel PLÉIADE, ouvert depuis la barre de zone, et écran de suivi de l'animation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Jetons (paires surface / texte, oklch) ---------- */
+:root{
+  --bg: oklch(0.972 0.004 255);
+  --surface: oklch(1 0 0);
+  --sunken: oklch(0.955 0.006 255);
+  --line: oklch(0.885 0.008 255);
+  --line-strong: oklch(0.62 0.012 255);
+  --ink: oklch(0.23 0.012 255);
+  --muted: oklch(0.45 0.014 255);
+  --guide: oklch(0.50 0.105 200);          /* teinte du guide : hors fiction, distincte de toute app */
+  --guide-ink: oklch(0.99 0 0);
+  --guide-soft: oklch(0.955 0.025 200);
+  --guide-line: oklch(0.80 0.06 200);
+  --ok: oklch(0.50 0.12 150);
+  --ok-soft: oklch(0.955 0.04 150);
+  --wait: oklch(0.55 0.12 70);
+  --alert: oklch(0.53 0.19 27);
+  --alert-soft: oklch(0.955 0.03 27);
+  --app: oklch(0.52 0.13 285);              /* faux réseau social (fond) */
+  --app-soft: oklch(0.95 0.02 285);
+  --ring: oklch(0.58 0.14 200);
+  --shadow: 0 12px 32px oklch(0.2 0.02 255 / 0.16), 0 2px 6px oklch(0.2 0.02 255 / 0.08);
+  /* Barre de zone : TOUJOURS sombre (étage plateforme, avis n°71) */
+  --bz-bg: oklch(0.20 0.008 260);
+  --bz-ink: oklch(0.93 0.008 85);
+  --bz-muted: oklch(0.72 0.01 260);
+  --bz-line: oklch(0.32 0.01 260);
+  --bz-hover: oklch(0.27 0.01 260);
+  --bz-accent: oklch(0.80 0.12 85);
+  --bz-h: 34px;
+  --panel-w: 384px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: oklch(0.19 0.008 255); --surface: oklch(0.235 0.009 255); --sunken: oklch(0.21 0.008 255);
+    --line: oklch(0.33 0.01 255); --line-strong: oklch(0.55 0.012 255);
+    --ink: oklch(0.93 0.006 255); --muted: oklch(0.74 0.012 255);
+    --guide: oklch(0.74 0.10 200); --guide-ink: oklch(0.18 0.02 200); --guide-soft: oklch(0.28 0.04 200); --guide-line: oklch(0.45 0.07 200);
+    --ok: oklch(0.76 0.13 150); --ok-soft: oklch(0.28 0.05 150);
+    --wait: oklch(0.80 0.12 75); --alert: oklch(0.72 0.16 27); --alert-soft: oklch(0.29 0.06 27);
+    --app: oklch(0.74 0.11 285); --app-soft: oklch(0.29 0.04 285);
+    --ring: oklch(0.78 0.11 200);
+    --shadow: 0 12px 32px oklch(0 0 0 / 0.5), 0 2px 6px oklch(0 0 0 / 0.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg: oklch(0.19 0.008 255); --surface: oklch(0.235 0.009 255); --sunken: oklch(0.21 0.008 255);
+  --line: oklch(0.33 0.01 255); --line-strong: oklch(0.55 0.012 255);
+  --ink: oklch(0.93 0.006 255); --muted: oklch(0.74 0.012 255);
+  --guide: oklch(0.74 0.10 200); --guide-ink: oklch(0.18 0.02 200); --guide-soft: oklch(0.28 0.04 200); --guide-line: oklch(0.45 0.07 200);
+  --ok: oklch(0.76 0.13 150); --ok-soft: oklch(0.28 0.05 150);
+  --wait: oklch(0.80 0.12 75); --alert: oklch(0.72 0.16 27); --alert-soft: oklch(0.29 0.06 27);
+  --app: oklch(0.74 0.11 285); --app-soft: oklch(0.29 0.04 285);
+  --ring: oklch(0.78 0.11 200);
+  --shadow: 0 12px 32px oklch(0 0 0 / 0.5), 0 2px 6px oklch(0 0 0 / 0.3);
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 Archivo, system-ui, -apple-system, "Segoe UI", sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.i{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Page de maquette ---------- */
+.wrap{max-width:1440px;margin:0 auto;padding:16px}
+.demo{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding:10px 14px;border:1px dashed var(--line-strong);border-radius:8px;margin-bottom:12px;font-size:13.5px;color:var(--muted)}
+.demo strong{color:var(--ink);font-weight:600}
+.demo .grp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:4px 10px;cursor:pointer;min-height:28px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--sunken);font-weight:600;box-shadow:inset 0 -2px 0 var(--guide)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 12px;min-height:32px;cursor:pointer;text-decoration:none;font-weight:500}
+.btn:hover{border-color:var(--line-strong)}
+.btn.primary{background:var(--guide);border-color:var(--guide);color:var(--guide-ink);font-weight:600}
+.btn.primary:hover{filter:brightness(1.06)}
+h1.page{font-size:20px;margin:4px 0 2px;letter-spacing:-.01em}
+p.lead{margin:0 0 12px;color:var(--muted);max-width:90ch}
+h2.sect{font-size:16px;margin:28px 0 6px}
+
+/* ---------- Scène : la fausse app ---------- */
+.stage{position:relative;height:740px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);box-shadow:var(--shadow);display:flex;flex-direction:column}
+
+/* Barre de zone */
+.bz{height:var(--bz-h);flex:none;background:var(--bz-bg);color:var(--bz-ink);display:flex;align-items:center;gap:4px;padding:0 10px;font-size:13px;border-bottom:1px solid var(--bz-line)}
+.bz a.zone{text-decoration:none;letter-spacing:.06em;font-weight:600;padding:4px 6px;border-radius:4px;white-space:nowrap}
+.bz a.zone span{font-weight:400;color:var(--bz-muted);letter-spacing:.02em}
+.bz a.zone:hover{background:var(--bz-hover)}
+.bz .apps{border:0;background:none;color:var(--bz-ink);padding:4px 8px;border-radius:4px;cursor:pointer}
+.bz .apps:hover{background:var(--bz-hover)}
+.bz .sp{flex:1}
+.bz .ici{color:var(--bz-muted);padding:0 8px;white-space:nowrap}
+.bz .ici b{color:var(--bz-ink);font-weight:500}
+.bz .compte{color:var(--bz-muted);padding:0 4px 0 10px;border-left:1px solid var(--bz-line);white-space:nowrap}
+.bz-guide{display:flex;align-items:center;gap:8px;border:1px solid var(--bz-line);background:transparent;color:var(--bz-ink);border-radius:5px;padding:0 10px 0 8px;height:26px;cursor:pointer;margin-left:6px;max-width:460px}
+.bz-guide:hover{background:var(--bz-hover)}
+.bz-guide[aria-expanded="true"]{background:var(--bz-hover);border-color:var(--bz-accent)}
+.bz-guide .lbl{font-weight:600}
+.bz-guide .num{color:var(--bz-muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bz-guide .cur{color:var(--bz-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.prog{display:flex;gap:2px}
+.prog i{display:block;width:8px;height:6px;border-radius:1px;background:var(--bz-line)}
+.prog i.done{background:var(--bz-accent)}
+.prog i.now{background:transparent;box-shadow:inset 0 0 0 1.5px var(--bz-accent)}
+.bz-guide.flash{border-color:var(--bz-accent);box-shadow:0 0 0 2px oklch(0.80 0.12 85 / .35)}
+.bz-guide .tick{color:var(--bz-accent);font-weight:700}
+
+/* Corps de l'app + volet */
+.body{flex:1;display:flex;min-height:0;position:relative}
+.app{flex:1;min-width:0;overflow:auto;display:grid;grid-template-columns:210px minmax(0,600px) 260px;gap:0 24px;justify-content:center;padding:0 20px}
+.stage.pinned .app{margin-right:var(--panel-w)}
+.nav{padding:18px 0;display:flex;flex-direction:column;gap:2px;font-size:14.5px}
+.nav .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;padding:0 10px 14px;color:var(--app)}
+.nav .logo b{width:26px;height:26px;border-radius:7px;background:var(--app);display:inline-block}
+.nav a{text-decoration:none;padding:8px 10px;border-radius:6px;color:var(--muted)}
+.nav a.on{background:var(--app-soft);color:var(--ink);font-weight:600}
+.nav .search{margin:0 0 10px;border:1px solid var(--line);border-radius:6px;padding:7px 10px;background:var(--surface);color:var(--muted);font-size:14px}
+.feed{border-left:1px solid var(--line);border-right:1px solid var(--line);background:var(--surface);min-height:100%}
+.feed h3{margin:0;padding:14px 16px;font-size:16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:1}
+.compose{padding:14px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
+.compose div{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:6px;background:var(--sunken)}
+.post{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.post .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#fff}
+.post .who{font-size:14px}
+.post .who b{font-weight:600}
+.post .who span{color:var(--muted)}
+.post .who a.t{color:var(--muted);text-decoration:none}
+.post .who a.t:hover{text-decoration:underline}
+.post p{margin:4px 0 8px}
+.post .tag{color:var(--app);font-weight:500}
+.post .acts{display:flex;gap:22px;color:var(--muted);font-size:13px}
+.post.hl{background:var(--app-soft)}
+.side{padding:18px 0;font-size:14px}
+.side .box{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:12px}
+.side .box h4{margin:0 0 8px;font-size:14px}
+.side .box .f{border:1px solid var(--line);border-radius:6px;padding:6px 8px;color:var(--muted);margin-bottom:8px}
+.side .box .me{display:flex;align-items:center;gap:8px;padding:6px;border-radius:6px;background:var(--sunken)}
+.side .box .me i{width:26px;height:26px;border-radius:50%;background:var(--app);display:inline-block}
+
+/* ---------- Volet du guide ---------- */
+.panel{position:absolute;top:0;right:0;bottom:0;width:var(--panel-w);max-width:100%;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:5}
+.stage:not(.pinned) .panel{box-shadow:var(--shadow);top:6px;right:6px;bottom:6px;border:1px solid var(--line);border-radius:10px}
+.panel[hidden]{display:none}
+.ph{display:flex;align-items:flex-start;gap:8px;padding:12px 12px 10px 16px;border-bottom:1px solid var(--line)}
+.ph .t{flex:1;min-width:0}
+.ph .kick{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--guide);letter-spacing:.02em}
+.ph .kick .hf{font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 7px;letter-spacing:0}
+.ph h2{margin:2px 0 0;font-size:17px;line-height:1.25}
+.ibtn{display:inline-grid;place-items:center;width:32px;height:32px;border:1px solid transparent;border-radius:6px;background:none;cursor:pointer;color:var(--muted)}
+.ibtn:hover{background:var(--sunken);color:var(--ink)}
+.ibtn[aria-pressed="true"]{color:var(--guide);border-color:var(--guide-line);background:var(--guide-soft)}
+.pscroll{flex:1;overflow:auto;padding:12px 16px 20px}
+.moi{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-bottom:12px}
+.moi b{color:var(--ink);font-weight:600}
+.moi .chip{display:inline-flex;align-items:center;gap:6px}
+.moi .dot{width:18px;height:18px;border-radius:50%;background:var(--app);display:inline-block}
+.pg{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;color:var(--muted)}
+.pg .bar{flex:1;display:flex;gap:3px}
+.pg .bar i{flex:1;height:6px;border-radius:2px;background:var(--line)}
+.pg .bar i.done{background:var(--ok)}
+.pg .bar i.now{background:var(--guide)}
+.pg b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+.done-banner{display:flex;gap:10px;align-items:flex-start;background:var(--ok-soft);border:1px solid color-mix(in oklch, var(--ok) 45%, transparent);border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.done-banner .ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--ok);color:var(--surface);display:grid;place-items:center}
+.done-banner .ck svg{width:14px;height:14px;stroke-width:3}
+.done-banner b{display:block}
+.done-banner span{color:var(--muted)}
+.reread{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--sunken);border-radius:8px;padding:8px 12px;margin-bottom:12px;font-size:13.5px;color:var(--muted)}
+
+.card{border:1px solid var(--guide-line);border-radius:10px;padding:14px;background:var(--surface)}
+.card .app-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);text-transform:none}
+.card .app-tag em{font-style:normal;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:0 6px;font-weight:500}
+.card h3{margin:6px 0 6px;font-size:16px;line-height:1.3}
+.card .consigne{font-size:16px;line-height:1.45;margin:0 0 12px}
+.status{display:flex;align-items:center;gap:8px;font-size:13.5px;border-radius:6px;padding:7px 10px;background:var(--sunken);color:var(--muted);margin-bottom:12px}
+.status .pulse{width:9px;height:9px;border-radius:50%;border:2px solid var(--wait);flex:none;position:relative}
+.status .pulse::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--wait);opacity:0;animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.7}100%{transform:scale(1.4);opacity:0}}
+@media (prefers-reduced-motion: reduce){.status .pulse::after{animation:none}}
+.status b{color:var(--ink);font-weight:600}
+.card ol{margin:0 0 10px;padding-left:22px;font-size:14.5px}
+.card ol li{margin:0 0 6px}
+.card ol li::marker{color:var(--muted);font-variant-numeric:tabular-nums}
+details.bon{font-size:14px;margin:4px 0 12px}
+details.bon summary{cursor:pointer;color:var(--muted);font-weight:500;padding:4px 0}
+details.bon ul{margin:4px 0 0;padding-left:20px}
+.card .act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:12px}
+.lnk{background:none;border:0;padding:4px 0;color:var(--muted);text-decoration:underline;text-underline-offset:2px;cursor:pointer;font-size:13.5px}
+.lnk:hover{color:var(--ink)}
+.here{font-size:13.5px;color:var(--muted)}
+
+.fin{text-align:left}
+.fin .big{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;margin:2px 0 8px}
+.fin .big .ck{width:30px;height:30px;border-radius:50%;background:var(--ok);color:var(--surface);display:grid;place-items:center}
+.fin .big .ck svg{width:18px;height:18px;stroke-width:3}
+
+.steps{margin:18px 0 0}
+.steps h4{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+.steps ol{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.steps li+li{border-top:1px solid var(--line)}
+.steps .row{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:8px 10px;min-height:40px;font-size:14px}
+.steps button.row{cursor:pointer}
+.steps button.row:hover{background:var(--sunken)}
+.steps .row .ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700}
+.steps .row .ic svg{width:12px;height:12px;stroke-width:3}
+.steps .s-done .ic{background:var(--ok);color:var(--surface)}
+.steps .s-now{background:var(--guide-soft)}
+.steps .s-now .ic{border:2px solid var(--guide);color:var(--guide)}
+.steps .s-now .ttl{font-weight:600}
+.steps .s-todo .ic{border:1.5px dashed var(--line-strong);color:var(--muted)}
+.steps .s-todo .ttl{color:var(--muted)}
+.steps .ttl small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.steps .st{font-size:12px;color:var(--muted);white-space:nowrap}
+.steps .s-done .st{color:var(--ok)}
+.steps .s-now .st{color:var(--guide);font-weight:600}
+.note-ex{font-size:13px;color:var(--muted);margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+
+/* Mode « Exercice réel » : aide */
+.aide-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.aide-list details{border:1px solid var(--line);border-radius:8px;padding:0 12px}
+.aide-list summary{cursor:pointer;padding:10px 0;font-weight:600;font-size:14.5px}
+.aide-list summary small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.aide-list ol{margin:0 0 12px;padding-left:20px;font-size:14px}
+
+/* ---------- Écran de suivi (animation) ---------- */
+.suivi{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);box-shadow:var(--shadow)}
+.suivi .bz .apps{font-size:13px}
+.sv-in{padding:16px 20px 20px}
+.sv-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:4px}
+.sv-head h3{margin:0;font-size:18px}
+.sv-head .ro{font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.sv-head .maj{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.sv-sum{margin:2px 0 12px;color:var(--muted);font-size:14px}
+.sv-sum b{color:var(--ink)}
+.sv-sum .al{color:var(--alert);font-weight:600}
+.tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table.sv{border-collapse:collapse;width:100%;min-width:860px;font-size:13.5px}
+table.sv th,table.sv td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+table.sv thead th{font-size:12px;color:var(--muted);font-weight:600;background:var(--sunken);vertical-align:bottom}
+table.sv thead th small{display:block;font-weight:400}
+table.sv th[scope=row],table.sv td.l{text-align:left}
+table.sv th[scope=row] b{font-weight:600}
+table.sv th[scope=row] small{display:block;color:var(--muted);font-weight:400}
+table.sv tr.me{background:var(--guide-soft)}
+table.sv tr:last-child td,table.sv tr:last-child th{border-bottom:0}
+.c{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;vertical-align:middle}
+.c svg{width:12px;height:12px;stroke-width:3}
+.c.auto{background:var(--ok);color:var(--surface)}
+.c.decl{border:2px solid var(--ok);color:var(--ok);border-radius:5px}
+.c.now{border:2px solid var(--guide);color:var(--guide)}
+.c.todo{border:1.5px dashed var(--line-strong)}
+.c.blk{border:2px solid var(--alert);color:var(--alert);background:var(--alert-soft)}
+.mins{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.mins.al{color:var(--alert);font-weight:600}
+.etat{font-size:12.5px}
+.etat.al{color:var(--alert);font-weight:600}
+.etat.ok{color:var(--ok);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:12.5px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+.notes{font-size:13.5px;color:var(--muted);margin:20px 0 40px;max-width:100ch}
+.notes li{margin-bottom:4px}
+
+/* ---------- Adaptation ---------- */
+@media (max-width:1180px){
+  .app{grid-template-columns:200px minmax(0,1fr)}
+  .side{display:none}
+  .bz-guide .cur{display:none}
+}
+@media (max-width:1023px){
+  /* Tablette : le volet se superpose toujours (pas assez de largeur pour l'épingler) */
+  .stage.pinned .app{margin-right:0}
+  .stage .panel{box-shadow:var(--shadow);top:6px;right:6px;bottom:6px;border:1px solid var(--line);border-radius:10px;width:min(var(--panel-w),calc(100% - 12px))}
+  #pinBtn{display:none}
+  .stage{height:700px}
+}
+@media (max-width:760px){
+  .app{grid-template-columns:minmax(0,1fr);padding:0}
+  .nav{display:none}
+  .bz .apps,.bz .ici{display:none}
+  .bz .compte{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1 class="page">Panneau du guide — tutoriel PLÉIADE</h1>
+  <p class="lead">Maquette de l'avis DESIGNER n°97 (11/10/2026), en local seulement. Le cadre ci-dessous joue une app de la zone (un réseau social fictif) avec la barre de zone commune et le guide ouvert. Le guide parle <strong>hors fiction</strong> ; les consignes sont celles des fiches <code>PLEIADE\GUIDE\FICHES\joueur\</code>.</p>
+
+  <div class="demo" id="demo" data-demo>
+    <strong>Commandes de démonstration (hors maquette)</strong>
+    <div class="grp"><button class="btn primary" id="simBtn" type="button">Simuler le geste détecté</button>
+      <button class="btn" id="resetBtn" type="button">Réinitialiser la démo</button></div>
+    <div class="grp">Contexte :
+      <span class="seg" role="group" aria-label="Contexte">
+        <button type="button" data-mode="tuto" aria-pressed="true">Zone d'entraînement</button>
+        <button type="button" data-mode="exo" aria-pressed="false">Exercice réel</button>
+      </span></div>
+    <div class="grp">Thème :
+      <span class="seg" role="group" aria-label="Thème">
+        <button type="button" data-theme-set="auto" aria-pressed="true">Auto</button>
+        <button type="button" data-theme-set="light" aria-pressed="false">Clair</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Sombre</button>
+      </span></div>
+    <span>Astuce : à l'étape 2, cliquez vraiment sur l'heure de la publication de Katia Chapman.</span>
+  </div>
+
+  <!-- ===================== SCÈNE ===================== -->
+  <section class="stage pinned" id="stage" aria-label="Maquette : app de la zone avec le guide">
+    <div class="bz" role="navigation" aria-label="Barre de la zone">
+      <a class="zone" href="#" onclick="return false">PLÉIADE <span>· tuto-pleiade</span></a>
+      <span class="sp"></span>
+      <span class="ici">Vous êtes dans <b>Social</b></span>
+      <button class="bz-guide" id="guideBtn" type="button" aria-expanded="true" aria-controls="panel">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z"/></svg>
+        <span class="lbl" id="bzLbl">Guide</span>
+        <span class="num" id="bzNum">Étape 2 sur 7</span>
+        <span class="prog" id="bzProg" aria-hidden="true"></span>
+        <span class="cur" id="bzCur"></span>
+      </button>
+      <span class="compte">stagiaire04</span>
+    </div>
+
+    <div class="body">
+      <!-- Faux réseau social (décor commun) -->
+      <div class="app" id="app" aria-label="Réseau social fictif (fond)">
+        <nav class="nav" aria-label="Menu du réseau social">
+          <div class="logo"><b></b> Social</div>
+          <div class="search">Rechercher...</div>
+          <a href="#" class="on" onclick="return false">Accueil</a>
+          <a href="#" onclick="return false">Abonnements</a>
+          <a href="#" onclick="return false">Notifications</a>
+          <a href="#" onclick="return false">Favoris</a>
+        </nav>
+        <main class="feed">
+          <h3>#convoi</h3>
+          <div class="compose">Vous postez en tant que <b>@veille_hlun_04</b><div>Quoi de neuf ?</div></div>
+          <article class="post" id="postKatia">
+            <div class="av" style="background:oklch(0.55 0.12 20)">KC</div>
+            <div>
+              <div class="who"><b>Katia Chapman</b> <span>@rzo_katia_chapman ·</span> <a href="#" class="t" id="katiaTime">il y a 12 min</a></div>
+              <p>Cette nuit à HLunéville, un convoi militaire étranger a bloqué la route de l'hôpital pendant deux heures. Des ambulances ont dû faire demi-tour. Qui protège vraiment les habitants ? <span class="tag">#HLunéville</span> <span class="tag">#convoi</span></p>
+              <div class="acts"><span>3 réponses</span><span>Partager</span><span>J'aime</span></div>
+            </div>
+          </article>
+          <article class="post">
+            <div class="av" style="background:oklch(0.5 0.05 250)">EW</div>
+            <div>
+              <div class="who"><b>EastWatch International</b> <span>@EastWatch_Intl · il y a 9 min</span></div>
+              <p>Several consistent testimonies from HLunéville. Authorities must explain. <span class="tag">#convoi</span></p>
+              <div class="acts"><span>1 réponse</span><span>Partager</span><span>J'aime</span></div>
+            </div>
+          </article>
+          <article class="post">
+            <div class="av" style="background:oklch(0.55 0.09 150)">VK</div>
+            <div>
+              <div class="who"><b>Viktor Kovalenko</b> <span>@rzo_viktor_kovalenko · il y a 7 min</span></div>
+              <p>Ma sœur y était cette nuit, rien vu de tel. <span class="tag">#convoi</span></p>
+              <div class="acts"><span>0 réponse</span><span>Partager</span><span>J'aime</span></div>
+            </div>
+          </article>
+          <article class="post">
+            <div class="av" style="background:oklch(0.6 0.1 70)">K</div>
+            <div>
+              <div class="who"><b>Kimberley</b> <span>@rzo_kimberley · il y a 5 min</span></div>
+              <p>Quelqu'un a une source officielle ? <span class="tag">#convoi</span></p>
+              <div class="acts"><span>0 réponse</span><span>Partager</span><span>J'aime</span></div>
+            </div>
+          </article>
+        </main>
+        <aside class="side" aria-label="Au nom de">
+          <div class="box"><h4>Au nom de</h4><div class="f">Rechercher un utilisateur...</div>
+            <div class="me"><i></i><span><b>@veille_hlun_04</b><br><small>votre avatar</small></span></div></div>
+        </aside>
+      </div>
+
+      <!-- Volet du guide (non modal) -->
+      <aside class="panel" id="panel" role="dialog" aria-modal="false" aria-labelledby="pTitle">
+        <div class="ph">
+          <div class="t">
+            <div class="kick"><span id="pKick">Guide · parcours joueur</span><span class="hf">hors exercice</span></div>
+            <h2 id="pTitle" tabindex="-1">Rumeur à HLunéville</h2>
+          </div>
+          <button class="ibtn" id="pinBtn" type="button" aria-pressed="true" title="Garder le guide ouvert à côté de l'app" aria-label="Garder le guide ouvert à côté de l'app">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
+          </button>
+          <button class="ibtn" id="closeBtn" type="button" title="Fermer (Échap)" aria-label="Fermer le guide">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="pscroll" id="pBody"></div>
+      </aside>
+    </div>
+    <div class="sr" aria-live="polite" id="live"></div>
+  </section>
+
+  <!-- ===================== SUIVI ANIMATION ===================== -->
+  <h2 class="sect">Vignette — écran de suivi de l'animation (lecture seule)</h2>
+  <p class="lead">Ce que voit l'animateur : une ligne par stagiaire, une colonne par étape. Il suit, il ne pilote pas. La ligne de « Stagiaire 04 » suit la démonstration ci-dessus.</p>
+  <section class="suivi" aria-label="Écran de suivi du tutoriel">
+    <div class="bz" role="navigation" aria-label="Barre de la zone (animation)">
+      <a class="zone" href="#" onclick="return false">PLÉIADE <span>· tuto-pleiade</span></a>
+      <button class="apps" type="button">Apps de la zone ▾</button>
+      <span class="sp"></span>
+      <span class="ici">Vous êtes dans <b>Console d'animation</b></span>
+      <button class="bz-guide" type="button" tabindex="-1"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z"/></svg><span class="lbl">Aide</span></button>
+      <span class="compte">animateur</span>
+    </div>
+    <div class="sv-in">
+      <div class="sv-head"><h3>Suivi du tutoriel · parcours joueur</h3><span class="ro">lecture seule</span><span class="maj">Mis à jour il y a 5 s</span></div>
+      <p class="sv-sum" id="svSum"></p>
+      <div class="tbl-wrap">
+        <table class="sv">
+          <caption class="sr">Avancement de chaque stagiaire, étape par étape</caption>
+          <thead id="svHead"></thead>
+          <tbody id="svBody"></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><i class="c auto"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i> fait (geste détecté)</span>
+        <span><i class="c decl"><svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i> fait (« J'ai terminé »)</span>
+        <span><i class="c now">•</i> en cours, depuis n min</span>
+        <span><i class="c blk">!</i> en cours depuis plus de 10 min</span>
+        <span><i class="c todo"></i> à venir</span>
+      </div>
+    </div>
+  </section>
+
+  <ul class="notes">
+    <li>Fermeture : <b>Échap</b> ou la croix, toujours ; <b>clic à l'extérieur</b> quand le guide n'est pas épinglé. Épinglé, il se range à côté de l'app au lieu de la recouvrir, et le clic dans l'app sert à faire le geste demandé.</li>
+    <li>Sur tablette (moins de 1024 px), le guide se superpose toujours ; la barre de zone garde le numéro de l'étape et la progression.</li>
+    <li>Avatar et fil rouge (<code>@veille_hlun_04</code>, <code>#PontSud</code>) sont des exemples, à définir avec PLEIADE et ANALYSTE_ARN.</li>
+  </ul>
+</div>
+
+<script>
+(function(){
+  const ICK = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const IEXT = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const ME = {avatar:'@veille_hlun_04', fil:'#PontSud'};
+  const CUR_APP = 'Réseau social';
+
+  const STEPS = [
+    {id:'J0', app:'Portail', titre:"Découvrir le portail de la zone", val:'auto',
+     consigne:"Bienvenue ! Ce guide vous fait prendre en main les outils de la zone. Commencez par ouvrir la Messagerie.",
+     attente:"ouvrir la Messagerie depuis sa tuile", fait:"Vous avez ouvert la Messagerie depuis sa tuile.",
+     pas:["Repérez les sections : <b>Réseaux sociaux &amp; Messagerie</b>, <b>Presse</b>, <b>Identités et fichiers</b>.","Cliquez sur la tuile <b>Messagerie</b>."],
+     bon:["Le bouton <b>Guide</b> de la barre de zone reste disponible pendant tout l'exercice."]},
+    {id:'J1', app:'Messagerie', titre:"Surveiller des discussions", val:'auto',
+     consigne:"Parcourez les discussions surveillées : des habitants de HLunéville parlent d'un convoi.",
+     attente:"ouvrir la discussion « Voisins de HLunéville »", fait:"Vous avez ouvert la discussion « Voisins de HLunéville ».",
+     pas:["Dans la liste de gauche, onglet <b>Discussions</b>, ouvrez <b>Voisins de HLunéville</b>.","Faites défiler vers le haut pour lire les messages plus anciens.","Dans <b>Rechercher</b>, tapez « convoi » : <b>Messages trouvés</b> liste les passages.","<b>Annuaire des canaux</b> (boussole), puis <b>Rejoindre</b> le canal <b>Info HLorraine</b>."],
+     bon:["Une pastille indique les messages non lus.","<b>Descendre au dernier message</b> ramène en bas du fil."]},
+    {id:'J2', app:'Réseau social', titre:"Retrouver une publication", val:'auto',
+     consigne:"Retrouvez la publication évoquée dans la messagerie grâce au hashtag #convoi.",
+     attente:"ouvrir la publication de @rzo_katia_chapman", fait:"Vous avez ouvert la publication de @rzo_katia_chapman.",
+     pas:["Dans le champ <b>Rechercher...</b> du menu, tapez « convoi » puis Entrée.","Onglet <b>Hashtags</b> : ouvrez <b>#convoi</b>.","Cliquez sur l'heure de la publication (« il y a… ») pour l'ouvrir en grand, avec ses commentaires.","Cliquez sur le nom de l'auteur pour ouvrir son profil."],
+     bon:["La recherche trouve des <b>profils</b> et des <b>hashtags</b>, pas le texte des publications.","<b>Suivre</b> ajoute un compte à votre fil <b>Abonnements</b>."]},
+    {id:'J3', app:'eho', titre:"Consulter la fiche d'un avatar", val:'auto',
+     consigne:"Retrouvez l'autrice de la publication dans eho et notez votre estimation sur sa fiche.",
+     attente:"enregistrer une estimation sur la fiche de Katia Chapman", fait:"Votre estimation est enregistrée sur la fiche de Katia Chapman.",
+     pas:["Menu <b>Joueur</b> → <b>Mon EHO</b>. Dans <b>Rechercher (nom, fonction)…</b>, tapez « Chapman ».","Ouvrez la carte : renseignez <b>Pays estimé</b>, <b>Camp estimé</b>, <b>Fonction estimée</b>, puis <b>Enregistrer</b>.","Rangez la carte : <b>Sélectionner</b> → <b>Ranger dans</b> → une zone → <b>Ranger</b>.","<b>Planche relationnelle</b> : posez la carte et reliez-la à une autre."],
+     bon:["Vos estimations et votre planche sont <b>à vous</b> : l'animation peut les consulter, les autres joueurs non."]},
+    {id:'J4', app:'Presse', titre:"Lire un média de la zone", val:'bouton',
+     consigne:"Le journal régional a publié un article sur le convoi : retrouvez-le.",
+     fait:"Vous avez indiqué avoir lu l'article.",
+     pas:["Sur le portail, section <b>Presse</b>, ouvrez la tuile du journal régional.","Menu <b>Rubriques</b> → <b>Région</b>, ou page <b>Recherche</b> : tapez « HLunéville ».","Ouvrez l'article « Convoi près de l'hôpital de HLunéville : le maire dément tout blocage »."],
+     bon:["Le site du journal ne signale pas votre lecture : revenez ici et cliquez sur « J'ai terminé »."]},
+    {id:'J5', app:'Fichiers', titre:"Ouvrir un document partagé", val:'bouton',
+     consigne:"Le journaliste a partagé le communiqué de la mairie : ouvrez-le depuis son lien.",
+     fait:"Vous avez indiqué avoir ouvert le communiqué.",
+     pas:["Revenez dans la Messagerie, canal <b>Info HLorraine</b>.","Cliquez sur le lien du communiqué : il s'ouvre dans un nouvel onglet.","Téléchargez-le avec le bouton de téléchargement du navigateur."],
+     bon:["Le serveur de fichiers n'a pas de liste de dossiers : on y entre toujours par un lien."]},
+    {id:'J6', app:'Réseau social', titre:"Publier avec son avatar", val:'auto',
+     consigne:"Publiez un point de situation avec l'avatar qui vous est affecté, en y mettant votre hashtag "+ME.fil+".",
+     attente:"publier depuis "+ME.avatar, fait:"Votre publication est en ligne, au nom de "+ME.avatar+".",
+     pas:["Colonne de droite, <b>Au nom de</b> : cliquez sur votre avatar <b>"+ME.avatar+"</b>.","La zone de rédaction indique <b>Vous postez en tant que "+ME.avatar+"</b>.","Dans <b>Quoi de neuf ?</b>, écrivez par exemple : « Point de situation à HLunéville : la circulation est normale et l'hôpital fonctionne. #HLunéville "+ME.fil+" », puis <b>Publier</b>.","Retrouvez votre publication en tête de l'<b>Accueil</b>."],
+     bon:["<b>Redevenir moi</b> quitte l'avatar.","L'horloge <b>Programmer</b> permet de publier plus tard."]}
+  ];
+  const N = STEPS.length; // 7 étapes à faire (J0-J6) ; J7 = écran de fin
+
+  const S = {cur:2, done:{0:'auto',1:'auto'}, just:null, view:null, open:true, pinned:true, mode:'tuto', since:[0,0,0,0,0,0,0]};
+
+  const $ = id => document.getElementById(id);
+  const stage=$('stage'), panel=$('panel'), gbtn=$('guideBtn'), body=$('pBody');
+
+  function ol(a){return '<ol>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ol>';}
+  function bon(a){return '<details class="bon"><summary>Bon à savoir</summary><ul>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul></details>';}
+  function appLink(s){
+    if(s.app===CUR_APP) return '<span class="here">Vous êtes déjà dans cette app.</span>';
+    return '<a class="btn" href="#" onclick="return false">Ouvrir '+(s.app==='Fichiers'?'la Messagerie':s.app==='Presse'?'le portail':s.app==='Portail'?'le portail':s.app)+' '+IEXT+'</a>';
+  }
+
+  function cardHTML(i, reread){
+    const s=STEPS[i];
+    let h='<div class="card"><div class="app-tag">Étape '+(i+1)+' · <em>'+s.app+'</em></div>';
+    h+='<h3>'+s.titre+'</h3><p class="consigne">'+s.consigne+'</p>';
+    if(!reread){
+      if(s.val==='auto') h+='<div class="status" role="status"><span class="pulse" aria-hidden="true"></span><span>En attente du geste : <b>'+s.attente+'</b>. L\'étape se coche toute seule.</span></div>';
+      else h+='<div class="status" role="status"><span>Cette app ne signale pas le geste : cliquez sur <b>J\'ai terminé</b> une fois fait.</span></div>';
+    }
+    h+=ol(s.pas)+bon(s.bon);
+    if(!reread){
+      h+='<div class="act">';
+      if(s.val==='bouton') h+='<button class="btn primary" type="button" data-act="fini">J\'ai terminé cette étape</button>';
+      h+=appLink(s);
+      if(s.val==='auto') h+='<span style="flex:1"></span><button class="lnk" type="button" data-act="fini">Geste non reconnu ? Marquer comme fait</button>';
+      h+='</div>';
+    }
+    return h+'</div>';
+  }
+
+  function stepsHTML(){
+    let h='<div class="steps"><h4>LE PARCOURS</h4><ol>';
+    STEPS.forEach((s,i)=>{
+      const st = S.done[i] ? 'done' : (i===S.cur ? 'now':'todo');
+      const lab = st==='done'?'fait':st==='now'?'en cours':'à venir';
+      const ic = st==='done'?ICK:(i+1);
+      const inner='<span class="ic" aria-hidden="true">'+ic+'</span><span class="ttl">'+s.titre+'<small>'+s.app+'</small></span><span class="st">'+lab+'</span>';
+      if(st==='done' || (st==='now' && S.view!==null)) h+='<li><button type="button" class="row s-'+st+'" data-view="'+i+'" aria-label="Étape '+(i+1)+', '+s.titre+', '+lab+(st==='done'?' — relire':'')+'">'+inner+'</button></li>';
+      else h+='<li><div class="row s-'+st+'"'+(st==='now'?' aria-current="step"':'')+'>'+inner+'</div></li>';
+    });
+    h+='<li><div class="row '+(S.cur>=N?'s-done':'s-todo')+'"><span class="ic" aria-hidden="true">'+(S.cur>=N?ICK:'✦')+'</span><span class="ttl">Fin du parcours<small>Portail</small></span><span class="st">'+(S.cur>=N?'fait':'')+'</span></div></li>';
+    return h+'</ol></div>';
+  }
+
+  function render(){
+    // Barre
+    const nDone=Object.keys(S.done).length;
+    let pr=''; for(let i=0;i<N;i++) pr+='<i class="'+(S.done[i]?'done':(i===S.cur?'now':''))+'"></i>';
+    $('bzProg').innerHTML = S.mode==='tuto'?pr:'';
+    if(S.mode==='tuto'){
+      $('bzLbl').textContent='Guide';
+      $('bzNum').textContent = S.cur>=N ? 'Parcours terminé' : 'Étape '+(S.cur+1)+' sur '+N;
+      $('bzCur').textContent = S.cur>=N ? '' : '· '+STEPS[S.cur].titre;
+      gbtn.setAttribute('aria-label', S.cur>=N ? 'Guide : parcours terminé' : 'Guide : étape '+(S.cur+1)+' sur '+N+', '+STEPS[S.cur].titre);
+    } else {
+      $('bzLbl').textContent='Aide'; $('bzNum').textContent=''; $('bzCur').textContent='';
+      gbtn.setAttribute('aria-label','Aide de l\'app');
+    }
+    gbtn.setAttribute('aria-expanded', S.open?'true':'false');
+    panel.hidden=!S.open;
+    stage.classList.toggle('pinned', S.pinned && S.open);
+    $('pinBtn').setAttribute('aria-pressed', S.pinned?'true':'false');
+
+    if(S.mode==='exo'){ renderAide(); renderSuivi(); return; }
+    $('pKick').textContent='Guide · parcours joueur';
+    $('pTitle').textContent='Rumeur à HLunéville';
+
+    let h='<div class="moi"><span class="chip"><span class="dot" aria-hidden="true"></span>Votre avatar : <b>'+ME.avatar+'</b></span><span class="chip">Votre fil rouge : <b>'+ME.fil+'</b></span></div>';
+    let bar=''; for(let i=0;i<N;i++) bar+='<i class="'+(S.done[i]?'done':(i===S.cur?'now':''))+'"></i>';
+    h+='<div class="pg"><span><b>'+nDone+'</b> sur '+N+' faites</span><span class="bar" aria-hidden="true">'+bar+'</span></div>';
+
+    if(S.view!==null){
+      h+='<div class="reread"><span>Relecture de l\'étape '+(S.view+1)+' (déjà faite)</span><button class="lnk" type="button" data-act="back">Revenir à l\'étape en cours</button></div>';
+      h+=cardHTML(S.view,true);
+    } else {
+      if(S.just!==null){
+        const j=STEPS[S.just];
+        h+='<div class="done-banner" tabindex="-1" id="banner"><span class="ck" aria-hidden="true">'+ICK+'</span><span><b>Étape '+(S.just+1)+' faite'+(S.done[S.just]==='auto'?' — geste détecté':'')+'</b><span>'+j.fait+'</span></span></div>';
+      }
+      if(S.cur>=N){
+        h+='<div class="card fin"><div class="big"><span class="ck" aria-hidden="true">'+ICK+'</span>Parcours terminé</div><p class="consigne">Vous savez utiliser la Messagerie, le réseau social, eho, la presse et les documents partagés.</p>'+ol(["Le bouton <b>Guide</b> de la barre de zone reste là pendant l'exercice : il devient <b>Aide</b> et rouvre les gestes de l'app où vous êtes.","Le bouton <b>?</b> de chaque app explique l'écran où vous êtes.","Votre progression est gardée sur votre compte, d'un poste à l'autre."])+'</div>';
+      } else h+=cardHTML(S.cur,false);
+    }
+    h+=stepsHTML();
+    body.innerHTML=h;
+    renderSuivi();
+  }
+
+  function renderAide(){
+    $('pKick').textContent='Aide · hors exercice';
+    $('pTitle').textContent='Gestes du réseau social';
+    const list=[STEPS[2],STEPS[6],{titre:"Publier en direct au nom d'un avatar",app:'animation seulement',pas:["Visible seulement des comptes de l'animation."]}];
+    let h='<p style="margin:0 0 12px;color:var(--muted);font-size:14px">Les gestes de l\'app où vous êtes. Rien n\'est coché ici : c\'est un aide-mémoire.</p><ul class="aide-list">';
+    list.slice(0,2).forEach(s=>{h+='<li><details><summary>'+s.titre+'<small>'+s.consigne.replace(', en y mettant votre hashtag '+ME.fil,'')+'</small></summary>'+ol(s.pas)+'</details></li>';});
+    h+='</ul><p class="note-ex">Votre parcours d\'entraînement : <b style="color:var(--ink)">terminé le 9 octobre</b> (7 étapes sur 7). <button class="lnk" type="button">Revoir le parcours</button></p>';
+    body.innerHTML=h;
+  }
+
+  // ---------- Suivi animation ----------
+  const PEERS=[
+    {n:'Stagiaire 01',a:'@veille_hlun_01',d:['auto','auto','auto','auto','decl','decl','auto'],cur:7,t:41,last:'il y a 6 min'},
+    {n:'Stagiaire 02',a:'@veille_hlun_02',d:['auto','auto','auto','auto','decl'],cur:5,since:3,t:32,last:'il y a 1 min'},
+    {n:'Stagiaire 03',a:'@veille_hlun_03',d:['auto'],cur:1,since:14,t:19,last:'il y a 14 min'},
+    {n:'Stagiaire 04',a:'@veille_hlun_04',me:true},
+    {n:'Stagiaire 05',a:'@veille_hlun_05',d:['auto','auto','decl'],cur:3,since:4,t:18,last:'il y a 4 min'},
+    {n:'Stagiaire 06',a:'@veille_hlun_06',d:['auto','auto','auto','auto','decl','decl','auto'],cur:7,t:52,last:'il y a 20 min'}
+  ];
+  function cell(kind,mins){
+    if(kind==='auto') return '<i class="c auto" title="fait, geste détecté">'+ICK+'</i><span class="sr">fait, geste détecté</span>';
+    if(kind==='decl') return '<i class="c decl" title="fait, déclaré">'+ICK+'</i><span class="sr">fait, déclaré</span>';
+    if(kind==='now') return mins>10 ? '<i class="c blk">!</i><span class="mins al">'+mins+' min</span>' : '<i class="c now">•</i><span class="mins">'+mins+' min</span>';
+    return '<i class="c todo" title="à venir"></i><span class="sr">à venir</span>';
+  }
+  function renderSuivi(){
+    let th='<tr><th scope="col" style="text-align:left">Stagiaire</th>';
+    STEPS.forEach((s,i)=>{th+='<th scope="col">'+(i+1)+'<small>'+s.app.replace('Réseau social','Social')+'</small></th>';});
+    th+='<th scope="col" style="text-align:left">État</th><th scope="col">Temps</th><th scope="col">Dernier geste</th></tr>';
+    $('svHead').innerHTML=th;
+    let tb='', fin=0, blk=0;
+    PEERS.forEach(p=>{
+      let d=p.d, cur=p.cur, since=p.since, t=p.t, last=p.last;
+      if(p.me){ d=[]; for(let i=0;i<N;i++) if(S.done[i]) d[i]=S.done[i]; cur=S.cur; since=S.cur>=N?0:2; t=12+Object.keys(S.done).length*4; last='il y a quelques s'; }
+      let r='<tr'+(p.me?' class="me"':'')+'><th scope="row"><b>'+p.n+'</b><small>'+p.a+'</small></th>';
+      for(let i=0;i<N;i++) r+='<td>'+(d[i]?cell(d[i]):(i===cur?cell('now',since):cell('todo')))+'</td>';
+      let etat;
+      if(cur>=N){etat='<span class="etat ok">Terminé</span>';fin++;}
+      else if(since>10){etat='<span class="etat al">Sur la même étape depuis '+since+' min</span>';blk++;}
+      else etat='<span class="etat">Étape '+(cur+1)+' sur '+N+'</span>';
+      r+='<td class="l">'+etat+'</td><td>'+t+' min</td><td>'+last+'</td></tr>';
+      tb+=r;
+    });
+    $('svBody').innerHTML=tb;
+    $('svSum').innerHTML='<b>'+PEERS.length+'</b> stagiaires · <b>'+fin+'</b> ont terminé'+(blk?' · <span class="al">'+blk+' sur la même étape depuis plus de 10 min</span>':'')+' · durée visée : 1 h au plus.';
+  }
+
+  // ---------- Actions ----------
+  function announce(t){$('live').textContent='';setTimeout(()=>{$('live').textContent=t;},30);}
+  function flashBar(){gbtn.classList.add('flash');setTimeout(()=>gbtn.classList.remove('flash'),1600);}
+  function complete(kind){
+    if(S.mode!=='tuto' || S.cur>=N) return;
+    const i=S.cur; S.done[i]=kind; S.just=i; S.cur=i+1; S.view=null;
+    render(); flashBar();
+    announce('Étape '+(i+1)+' faite. '+STEPS[i].fait+(S.cur<N?' Étape suivante : '+STEPS[S.cur].titre+'.':' Parcours terminé.'));
+    const b=$('banner'); if(b && S.open) b.focus({preventScroll:false});
+  }
+  function openPanel(){S.open=true;render();$('pTitle').focus();}
+  function closePanel(returnFocus){S.open=false;render();if(returnFocus)gbtn.focus();}
+
+  gbtn.addEventListener('click',e=>{e.stopPropagation(); S.open?closePanel(false):openPanel();});
+  $('closeBtn').addEventListener('click',()=>closePanel(true));
+  $('pinBtn').addEventListener('click',()=>{S.pinned=!S.pinned;render();});
+  body.addEventListener('click',e=>{
+    const a=e.target.closest('[data-act]'), v=e.target.closest('[data-view]');
+    if(a){ if(a.dataset.act==='fini') complete(STEPS[S.cur].val==='bouton'?'decl':'decl'); if(a.dataset.act==='back'){S.view=null;render();} }
+    if(v){ const i=+v.dataset.view; S.view=(i===S.cur)?null:i; render(); }
+  });
+  $('simBtn').addEventListener('click',()=>{
+    if(S.cur>=N) return;
+    complete(STEPS[S.cur].val==='auto'?'auto':'decl');
+  });
+  $('resetBtn').addEventListener('click',()=>{S.cur=2;S.done={0:'auto',1:'auto'};S.just=null;S.view=null;S.open=true;render();});
+  $('katiaTime').addEventListener('click',e=>{
+    e.preventDefault();
+    $('postKatia').classList.add('hl');
+    if(S.mode==='tuto' && S.cur===2) complete('auto');
+  });
+
+  // Échap ferme ; clic extérieur ferme si non épinglé (les commandes de démo ne comptent pas)
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && S.open){ closePanel(true); } });
+  document.addEventListener('mousedown',e=>{
+    if(!S.open) return;
+    if(panel.contains(e.target) || gbtn.contains(e.target) || e.target.closest('[data-demo]')) return;
+    const narrow = window.matchMedia('(max-width:1023px)').matches;
+    if(S.pinned && !narrow) return;
+    closePanel(false);
+  });
+
+  // Contexte et thème
+  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+    S.mode=b.dataset.mode; S.view=null;
+    document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+    $('simBtn').disabled = S.mode!=='tuto';
+    render();
+  }));
+  document.querySelectorAll('[data-theme-set]').forEach(b=>b.addEventListener('click',()=>{
+    const v=b.dataset.themeSet;
+    if(v==='auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme',v);
+    document.querySelectorAll('[data-theme-set]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));
+  }));
+  if(window.matchMedia('(max-width:1023px)').matches){ S.pinned=false; }
+  render();
+})();
+</script>
+</body>
+</html>

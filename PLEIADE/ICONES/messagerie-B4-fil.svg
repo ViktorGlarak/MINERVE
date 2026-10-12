@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Messagerie — variante B4 « fil de discussion » : trois bulles empilées, à gauche et à droite, comme un fil de messages. -->
+  <g stroke="#000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M64 40 H300 Q328 40 328 68 V128 Q328 156 300 156 H112 L68 190 V156 H64 Q36 156 36 128 V68 Q36 40 64 40 Z" fill="#f5f2ef"/>
+    <line x1="74" y1="98" x2="286" y2="98" stroke-width="13"/>
+    <path d="M448 200 H212 Q184 200 184 228 V288 Q184 316 212 316 H400 L444 350 V316 H448 Q476 316 476 288 V228 Q476 200 448 200 Z" fill="#7ed957"/>
+    <line x1="224" y1="258" x2="436" y2="258" stroke-width="13"/>
+    <path d="M64 360 H260 Q288 360 288 388 V448 Q288 476 260 476 H112 L68 500 V476 H64 Q36 476 36 448 V388 Q36 360 64 360 Z" fill="#1e90ff"/>
+    <circle cx="104" cy="418" r="14" fill="#fff" stroke-width="9"/>
+    <circle cx="162" cy="418" r="14" fill="#fff" stroke-width="9"/>
+    <circle cx="220" cy="418" r="14" fill="#fff" stroke-width="9"/>
+  </g>
+</svg>
