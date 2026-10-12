@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-12 (suite 16) — app-ia 2026-10-12.13 PRÊT (`7eb3893`, local, en attente du feu vert) : tout message IA porte un #
+## 2026-10-12 (suite 16) — app-ia 2026-10-12.13 POUSSÉ main + prod (`20d2732..7eb3893`, feu vert de l'utilisateur) : tout message IA porte un #
 - **Demande de l'utilisateur** : pouvoir tout mesurer dans le graphe du Cockpit, donc chaque publication, réponse ou citation IA doit porter au moins un #. Pour les moments de vie : **#3615MyLife**.
 - **Règle**, appliquée en dernier dans `proposer` :
   - d'abord les # hérités (parent, message cité, source) ;
