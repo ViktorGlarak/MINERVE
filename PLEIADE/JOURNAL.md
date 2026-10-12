@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-12 (suite 21) — Graphique d'influence des avatars IA dans le Reporting du Cockpit : app-ia 2026-10-12.18 (`8d39b4a`) + app-cockpit (`8535324`) PRÊTS en local
+- **Demande utilisateur** : voir l'état d'influence de chaque avatar IA par rapport à ce que font les joueurs, dans le Reporting de l'app-cockpit. Avis DESIGNER n°103 et avis CYBERSECU du jour, suivis.
+- **app-ia 12.18** (contient la 12.17, non poussée) : relevés horaires `releve_opinion` (position par avatar et par axe) et `influence_horaire` (cumul par heure, axe et source : joueurs et animation, IA, faits) ; route de service `/api/service/opinions` (clé de zone, paramètres stricts, faits numérotés). 57/57 tests, image testée (401, 400, 200).
+- **app-cockpit** : panneau « Opinion de la population IA » (axes en petits multiples, qui fait bouger l'opinion, position moyenne, avatars ébranlés, sources, avatars avec leur courbe au clic) ; `GrapheTemps` accepte les valeurs signées ; BFF `/api/bff/reporting/opinions`. Rendu vérifié en local avec un faux moteur IA (données de synthèse).
+- **Ordre de push** : app-ia d'abord, puis le Cockpit. Les premières courbes apparaissent une heure après le déploiement du moteur.
+- Limite assumée : joueurs et animation regroupés en « comptes humains » (il faudrait que le réseau social expose l'origine des publications).
+
 ## 2026-10-12 (suite 20) — app-ia 12.16 POUSSÉ (`ac4cabd`, santé vérifiée) ; avis PSYCHOLOGUE n°19 et DESIGNER n°102 ; app-ia 2026-10-12.17 PRÊT (`502535a`, local)
 - **Décisions de l'utilisateur**
   - Il suit les propositions des experts (« on fait au mieux, et on recalibrera selon les résultats »).
