@@ -5,11 +5,15 @@ d'écrire (réponse, commentaire de partage, publication spontanée), on constru
 (fiche + règles absolues + la publication concernée + l'état de l'avatar + sa décision et sa pensée)
 et on fait rédiger le texte seul par chaque modèle passé en argument.
 
-Usage : python3 -I redacteur.py gemma4:26b-a4b-it-qat gemma4:31b-mlx  → redacteur_resultats.json
+Usage : python3 -I redacteur.py [--v2] gemma4:26b-a4b-it-qat gemma4:31b-mlx  → redacteur_resultats[_v2].json
+--v2 (2026-10-12, après le 1er essai) : longueur cible selon la disponibilité, règles de réalisme remises,
+interdiction d'inventer, souvenirs sous la publication limités à 2 (invite plus courte).
 """
 import json, os, re, sys, time, urllib.request
 
 ici = os.path.dirname(os.path.abspath(__file__))
+V2 = "--v2" in sys.argv
+MODELES = [a for a in sys.argv[1:] if not a.startswith("--")]
 
 
 def appel(modele, systeme, utilisateur):
@@ -31,7 +35,13 @@ def systeme_court(sys_long):
         if ligne.startswith("- Elle ne réagit PAS") or ligne.startswith("- Il ne réagit PAS") or ligne.startswith("FORMAT"):
             break
         absolues.append(ligne)
-    return avant + "RÈGLES ABSOLUES :" + "\n".join(absolues).rstrip() + "\n- Ne recopie pas les exemples ; varie les émojis et les tournures."
+    court = avant + "RÈGLES ABSOLUES :" + "\n".join(absolues).rstrip() + "\n- Ne recopie pas les exemples ; varie les émojis et les tournures."
+    if V2:
+        court += ("\n\nRÉALISME :\n- Une vraie personne écrit court, surtout quand elle est occupée. Pas de formule d'encouragement générique "
+                  "(« Bravo pour l'initiative », « Courage à tous », « On lâche rien »).\n- Respecte ton registre et ton nombre d'émojis habituel (voir tes exemples).\n"
+                  "- N'invente AUCUN lieu, métier, proche, activité ou fait qui ne figure pas dans ta fiche, dans TA VIE ou dans ce que tu viens de lire.\n"
+                  "- Si tu parles de ce que tu fais en ce moment, ça doit coller à ton métier et à l'heure.")
+    return court
 
 
 def bloc_publication(user, n):
@@ -50,10 +60,15 @@ def invite_utilisateur(user, cas):
     moment = user.split("\n", 1)[0]
     etat = "TON ÉTAT :" + user.split("TON ÉTAT :", 1)[1].rsplit("\nQue fait ", 1)[0]
     lu = bloc_publication(user, cas["n"]) if cas["n"] else ""
+    if V2 and lu:  # au plus 2 souvenirs sous la publication
+        tete, sep, souv = lu.partition("Ce que tu as déjà vu ou dit sur ce sujet :")
+        lu = tete + sep + "\n" + "\n".join(souv.strip().split("\n")[:2]) if sep else lu
     lu = f"CE QUE TU VIENS DE LIRE :\n{lu}\n\n" if lu else ""
     return (f"{moment}\n\n{lu}{etat.strip()}\n\n"
             f"TA DÉCISION : {CONSIGNE[cas['action']]}\nCe que tu en penses vraiment : « {cas['pensee']} »\n\n"
-            "Écris maintenant ce texte, et seulement lui : naturel, à ta façon, 280 caractères au plus, "
+            + (("LONGUEUR : " + ("tu es au travail ou occupé(e) : UNE phrase courte, 120 caractères au plus, 0 ou 1 émoji. "
+                if ("au travail" in moment or "occup" in moment) else "une ou deux phrases, 200 caractères au plus. ")) if V2 else "")
+            + "Écris maintenant ce texte, et seulement lui : naturel, à ta façon, " + ("" if V2 else "280 caractères au plus, ") +
             "sans recopier ta pensée mot pour mot. Réponds UNIQUEMENT par un objet JSON : {\"texte\": \"<ton message>\"}")
 
 
@@ -76,7 +91,7 @@ for res in json.load(open(os.path.join(ici, "resultats_gemma4_26b-a4b-it-qat.jso
 for cas in cas_tous:
     cas["invite_sys"], cas["invite_user"] = systeme_court(cas.pop("sys")), invite_utilisateur(cas.pop("user"), cas)
 
-for modele in sys.argv[1:]:
+for modele in MODELES:
     appel(modele, "Réponds ok.", "ok")  # chargement
     for cas in cas_tous:
         duree, ji, jr, texte = appel(modele, cas["invite_sys"], cas["invite_user"])
@@ -84,4 +99,4 @@ for modele in sys.argv[1:]:
         print(f"{modele:24} {cas['fichier'][:30]:30} n={cas['n']} {cas['action']:11} {duree:5.1f} s ({ji} → {jr} jetons)", flush=True)
     urllib.request.urlopen(urllib.request.Request("http://localhost:11434/api/generate", json.dumps({"model": modele, "keep_alive": 0}).encode()))
 
-json.dump(cas_tous, open(os.path.join(ici, "redacteur_resultats.json"), "w"), ensure_ascii=False, indent=1)
+json.dump(cas_tous, open(os.path.join(ici, "redacteur_resultats_v2.json" if V2 else "redacteur_resultats.json"), "w"), ensure_ascii=False, indent=1)

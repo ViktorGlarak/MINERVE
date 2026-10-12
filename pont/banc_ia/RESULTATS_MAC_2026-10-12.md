@@ -68,10 +68,40 @@ Script : `redacteur.py`. Résultats : `redacteur_resultats.json` (13 messages is
 **Qualité (à juger par l'utilisateur ; textes côte à côte dans le JSON)** :
 - **Le 31B s'ancre mieux dans la vie de l'avatar** : « Je viens de voir ça entre deux livraisons », « Je repasse aux chèvres mais je partage », « Je suis en service sur HChaumont là ». Il **reformule** la pensée, quand le 26B rédacteur la **recopie** souvent (« Ah, ça c'est du concret ! », « La pause café est terminée… »).
 - ⚠ **Les deux rédacteurs écrivent trop long et trop enthousiaste** (2 à 4 émojis, « Bravo pour l'initiative ! ») alors que l'avatar est **au travail**. Les textes en un seul appel sont plus courts et plus crédibles sur ce point. Cause : l'invite courte a perdu les règles de disponibilité (« au travail, au mieux une réponse courte ») et de concret, et « 280 caractères au plus » pousse à remplir. **À corriger avant toute conclusion** : longueur cible selon la disponibilité et les exemples, et remise des règles de réalisme utiles.
-- ⚠ **Inventions** : 31B « HVandœuvre » (lieu absent de la fiche ?), « ma tournée » (P3trov_Sky), « bloquées par les troupes » ; 26B rédacteur « problèmes de canalisation qu'on a vus à HToul ». La relecture du moteur devra s'appliquer au texte rédigé.
+- ⚠ **Inventions** : « ma tournée » (P3trov_Sky) et « bloquées par les troupes ». *Rectifié après vérification* : « HVandœuvre » est bien le domicile de G_Surfer_99 dans TA VIE, et « canalisation à HToul » vient d'un souvenir (« HToul Infos ») : ce ne sont pas des inventions. La relecture du moteur devra s'appliquer au texte rédigé.
 - Le chœur reste présent (« la solidarité c'est ce qui nous fait tenir »), parce qu'il vient de la **pensée** du décideur, que les deux rédacteurs reprennent.
 
 **Incohérence de données repérée (pour PLEIADE / eho)** : `_OlegGaspi_` (Marta Lambert). La fiche dit **48 ans, 1 fils** ; le bloc « TA VIE » dit **28 ans, vit seul**. Le modèle reçoit deux personnages contradictoires. À vérifier sur les autres fiches (bloc `vie` généré le 2026-10-12).
+
+### Essai v2 du rédacteur (`redacteur.py --v2`, résultats `redacteur_resultats_v2.json`)
+Corrections apportées :
+- longueur cible selon la disponibilité (au travail : une phrase, 120 caractères au plus, 0 ou 1 émoji) ;
+- règles de réalisme : pas de formule d'encouragement générique, registre et émojis habituels respectés ;
+- interdiction d'inventer un lieu, un métier ou un fait ;
+- 2 souvenirs au plus sous la publication.
+
+| Rédacteur | Temps par message | Longueur moyenne |
+|---|---|---|
+| 26B | **2,5 s** (1,1-3,4) | 85 car. |
+| 31B `qat` | **18 s** (7-25) ; **7-10 s pour le 2e message d'une même lecture** (cache) | 87 car. |
+| 31B MLX | **20 s** (17-24) ; pas de cache | 88 car. |
+| *(26B en un seul appel, aujourd'hui)* | *(compris dans la lecture)* | *94 car.* |
+
+**Constats** :
+- Les textes sont désormais **courts et sobres** dans les 3 versions. Il y a nettement moins de « Bravo pour l'initiative » et d'émojis. Les publications spontanées sont nettement plus naturelles : « Fin du café, je remonte dans le bus. Je pense aux gens qui attendent sur la route. 🚌 » contre 3 phrases et une formule de fin en un seul appel.
+- **Le gain vient surtout de l'INVITE DÉDIÉE, pas du modèle** : en v2, le 26B rédacteur et le 31B donnent des textes très proches. L'avance du 31B en ancrage concret (vue en v1) s'efface quand le texte est court. Il garde un léger plus : il utilise mieux la fiche (« l'hôpital de HVandœuvre ») et varie un peu mieux (« Enfin rentré chez moi… assurer ma ligne demain »).
+- La « pensée » du décideur reste la source du chœur (« la solidarité c'est ce qui nous fait tenir ») : les rédacteurs la reprennent. C'est à traiter en amont, au niveau du décideur ou par l'anti-chœur.
+- **Pour le 31B, `qat` vaut mieux que MLX** : le cache fonctionne avec `qat` pour les messages suivants d'une même lecture.
+
+**Coût d'une lecture d'avatar (8 lectures réelles, ~1,6 message écrit par lecture)** :
+- aujourd'hui (26B, un appel) : ~13 s ;
+- décideur 26B + rédacteur 26B : **~17 s** (+30 %). Si le décideur n'écrit plus les textes, une partie de ce surcoût disparaît ;
+- décideur 26B + rédacteur 31B `qat` : **~35-40 s** (×3) ;
+- 31B seul : 52-92 s.
+
+**Recommandation** : adopter **décideur 26B + rédacteur 26B** (presque tout le gain de qualité pour +30 % de temps). Réserver le **rédacteur 31B `qat`** aux **avatars de scénario et influenceurs**, peu nombreux, si l'utilisateur juge son léger plus visible.
+
+**Données (pour PLEIADE / eho) — 2e cas confirmé** : G_Surfer_99 a **48 ans** dans la fiche et **35 ans** dans TA VIE (lieu de travail « inconnu », déplacement « inconnu »). Marta Lambert : 48 contre 28. **L'âge du bloc `vie` contredit la fiche** : contrôle de concordance à faire sur les 105 fiches.
 
 ## Reste à faire
 - ✅ Vraies invites rejouées (voir plus haut).
