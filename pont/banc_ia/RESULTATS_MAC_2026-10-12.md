@@ -103,6 +103,19 @@ Corrections apportées :
 
 **Données (pour PLEIADE / eho) — 2e cas confirmé** : G_Surfer_99 a **48 ans** dans la fiche et **35 ans** dans TA VIE (lieu de travail « inconnu », déplacement « inconnu »). Marta Lambert : 48 contre 28. **L'âge du bloc `vie` contredit la fiche** : contrôle de concordance à faire sur les 105 fiches.
 
+## Essai v3 : rédacteur + DICTIONNAIRE DES ÉMOTIONS (`redacteur.py --v3`, `emotions.py`, `redacteur_resultats_v3.json`)
+- Dictionnaire : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json`. Le code choisit une nuance, que le rédacteur reçoit « à faire sentir sans la nommer ».
+- **26B : 3,0 s par message** (+0,5 s) ; longueur 101 caractères (contre 85).
+- **Gains** :
+  - approbation réservée pour la râleuse sceptique ;
+  - fierté personnelle au lieu de la déprime (« On a réussi à stabiliser le service malgré le chaos. Pas mal. ☕ ») ;
+  - impuissance concrète.
+- **Limites** :
+  - la pensée du décideur domine (« la solidarité c'est ce qui nous fait tenir » revient malgré « à éviter ») ;
+  - nouveau tic chez 2 avatars (« on ne peut rien faire de notre côté ») ;
+  - lassitude et mélancolie peu visibles.
+- **Suites** : voir `PSYCHOLOGUE/MEMOIRE.md` § 4bis (nuance choisie au niveau du décideur, rotation sur la population, formules creuses, familles honte et culpabilité).
+
 ## Reste à faire
 - ✅ Vraies invites rejouées (voir plus haut).
 - Éventuellement : 3 à 5 passages par invite pour une mesure de qualité fiable, et `OLLAMA_NUM_PARALLEL` sur le Mac.

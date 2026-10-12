@@ -384,6 +384,36 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 ### 4.20 ⭐ Avis n°20 — Concordance fiche ↔ vie, pensée du décideur, images (2026-10-12) — `AVIS\2026-10-12_avis20_concordance_pensee_images.md`
 - **La fiche eho fait foi** (âge, situation, activité, ville) ; le bloc `vie` est subordonné et n'affiche plus l'âge. Les messages publiés compatibles deviennent canon (veuf + « ma compagne » → registre, en proches), les incompatibles sont oubliés (alerte si un joueur a réagi). Enfants adultes ailleurs → `proches`. Correction **par le code** (rien regénéré par le modèle), « inconnu » jamais affiché, blocs nocturnes contradictoires remis à zéro. Pensée factuelle sans maxime + anti-chœur sur le texte rédigé. Images : `k_img` 1,0 / 1,15 / 1,35 (bornes 1,0 à 1,5), qui s'use (0,7^n sur 6 h), +1 imp, croyance inchangée au départ. **Erreur reconnue** : l'avis n°15 a tiré les foyers sur l'âge inventé sans lire la situation eho. Règle : toute dérivation d'un trait de vie prend le profil eho en entrée.
 
+## 4bis. Dictionnaire des émotions (2026-10-12, demande de l'utilisateur, depuis le Mac)
+- **But** : rendre les dialogues plus précis et plus variés (granularité émotionnelle) contre la monotonie mesurée : « tristesse » chez 105/105, déprime 39-43 %, humour 0 %.
+- **Fichier** : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2). Sources :
+  - REF-10 Boussole des Émotions, reformulée ;
+  - Plutchik (intensités) et Barrett (granularité), à sourcer ;
+  - complément PSYCHOLOGUE : émotions de crise et marques d'écriture.
+- **Contenu** :
+  - **36 nuances** en **11 familles** : les 9 du moteur, plus **honte** et **culpabilité**, absentes du moteur à ce jour ;
+  - chaque nuance a une définition, un élan d'action, des **marques d'écriture**, des formules **à éviter** et des **affinités** de caractère ;
+  - **10 nuances « sur contexte »** (joie maligne, rancune, humiliation, remords, gratitude, chagrin…), jamais tirées au hasard ;
+  - **4 règles d'émotion secondaire** liées au **tempérament**, jamais au genre (BdE).
+- **Doctrine** : le **code choisit** la nuance (règles 1 à 7 du fichier), et le **rédacteur** la reçoit « à faire sentir sans la nommer ». On ne donne jamais une liste de mots, car elle créerait un nouveau tic. L'**élan d'action** peut orienter la décision (honte → se taire ; remords → corriger ; mépris → ignorer ou ironiser).
+- **Piège constaté** : la ligne « Tempérament » standard (« ni crédule ni méfiant ») faussait la détection des affinités. Seuls le **Caractère** et l'**Activité** comptent.
+- **Essai v3 sur le banc Mac** (`pont/banc_ia/redacteur.py --v3`, `emotions.py`, 13 messages réels, 26B) : effet **réel mais modeste**. Détail dans `pont/banc_ia/RESULTATS_MAC_2026-10-12.md`.
+  - +0,5 s par message ; +16 caractères en moyenne.
+  - ✅ Gains :
+    - **approbation réservée** pour la râleuse sceptique (« super initiative, mais j'espère qu'ils ont prévu de quoi transporter tout ça en toute sécurité ») ;
+    - **fierté personnelle** au lieu de la déprime (« On a réussi à stabiliser le service malgré le chaos. Pas mal. ») ;
+    - **impuissance** exprimée concrètement.
+  - ⚠ Limites :
+    - **la pensée du décideur domine** : « la solidarité c'est ce qui nous fait tenir » revient malgré « à éviter » ;
+    - un **nouveau tic** apparaît chez 2 avatars (« on ne peut rien faire de notre côté ») ;
+    - lassitude rendue par de l'inquiétude ; la mélancolie ne se voit pas.
+- **Suites proposées** :
+  1. donner le dictionnaire **au décideur** (choisir la nuance au moment de la pensée), ou faire réécrire la pensée selon la nuance ;
+  2. **rotation sur la population** (règle 4) dans le moteur réel ;
+  3. ajouter à `retirerFormulesCreuses` les formules repérées ;
+  4. ajouter honte et culpabilité aux familles du moteur ;
+  5. relier le dictionnaire au Reporting d'influence (mépris, joie maligne, haine = marqueurs ILI).
+
 ## 5. Index des sources
 
 | Réf. | Source | Apport principal |
@@ -397,8 +427,10 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 | REF-07 | Letta (ex-MemGPT) — github.com/letta-ai/letta + Packer et al., arXiv 2310.08560 (2023 ; Apache 2.0, Python/TS, Ollama) | mémoire « style OS » : contexte de travail **éditable par l'agent** (blocs), rappel, archive, résumé récursif, pression mémoire, blocs partagés, agents de sommeil ; verdict : récupérer l'idée (bloc « où j'en suis » réécrit la nuit, blocs partagés lecture seule = bases de camp, ordonnancement nocturne) |
 | REF-08 | Letta Code — github.com/letta-ai/letta-code (README, 2026-10-12 ; Apache 2.0, modèles cloud) | harnais de programmation à mémoire persistante (MemFS versionné par git, skills) ; verdict : sans intérêt (note : archiver les versions du bloc « où j'en suis ») |
 | REF-09 | Model Context Protocol — github.com/modelcontextprotocol (Linux Foundation ; SDK TS/Python/…) | standard hôte/client/serveur JSON-RPC (tools, resources, prompts) ; prise, pas mémoire ; verdict : sans intérêt pour la psychologie, s'en inspirer plus tard pour interroger la mémoire pendant les relevés (PLEIADE + CYBERSECU) |
+| REF-10 | **La Boussole des Émotions** — emotioncompass.org/fr (TCE, traduction de l'Institut Français de la TCE ; aucune licence affichée, donc reformulé) | émotions de base avec fonction, besoin, élan d'action et corps ; **primaire / secondaire / instrumentale** (la colère masque la tristesse, la honte ou la peur) ; honte (ce qu'on EST, se cacher) contre culpabilité (ce qu'on a FAIT, réparer) ; dégoût social et mépris ; émotions mêlées (jalousie, haine, envie, désespoir, attachement, joie maligne, rancune) ; verdict : **base du DICTIONNAIRE DES ÉMOTIONS** (`DICTIONNAIRE_EMOTIONS.json`) |
 
 ## 6. Questions ouvertes
+- ⭐ **À reprendre avec l'utilisateur (2026-10-12)** : la **pyramide de Maslow**, associée aux émotions. Piste : chaque émotion de la Boussole signale déjà un **besoin** (sécurité pour la peur, appartenance pour la honte, lien pour la tristesse, limites et dignité pour la colère). Des besoins hiérarchisés pourraient moduler les émotions (un avatar privé d'eau ou de sécurité lit tout à travers ce manque) et rejoindre les **besoins** de la Psi-Theory déjà prévus (REF-02). ⚠ À sourcer : la hiérarchie stricte de Maslow est contestée (révision de Kenrick et al., 2010) ; mieux vaut des besoins **pondérés par la situation** qu'un escalier.
 - Valider le lot « contagion » et les paramètres de tempérament à ajouter dans la fiche eho (section « Comportement IA »).
 - Formaliser la contagion en **mise à jour bayésienne** (REF-03) ou en règles bornées simples (plus lisibles pour l'animation) ? Probablement les deux : calcul bayésien, affichage simplifié.
 - Sourcer les références générales (confiance bornée, vérité illusoire, retour de flamme, Big Five, preuve sociale) — et, depuis l'avis n°1 : influence persistante après démenti (Lewandowsky 2012), effet rebond du démenti (Wood & Porter 2019), biais de négativité (Baumeister 2001), congruence de l'humeur (Forgas), règle 1-9-90 (Nielsen 2006), crédibilité de la source (Hovland & Weiss 1951), vigilance épistémique (Sperber 2010).

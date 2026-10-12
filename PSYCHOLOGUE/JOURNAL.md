@@ -195,3 +195,12 @@
   - **Cause** : une chaîne de 6 maillons dans le code. Exposition simultanée par `filDe`, `persona` qui pousse au partage, **conversion « partage → réponse » de mon avis n°12 à l'origine de 15 réponses sur 16**, `CHOEUR` limité aux messages colorés, anti-tic sur 4 mots, `retirerFormulesCreuses` sans l'éloge et qui rend intacte une formule seule.
   - **Moteur** : 9 améliorations en 3 priorités (plafond par publication, conversion refaite, formule seule → J'aime, « ce qui a déjà été dit » + test de substance, étalement, pertinence, moule spontané « concentr / Entre… », hygiène de l'horloge avec rejeu des 95 blocs, garde-fou des # hérités), assorties de 13 critères chiffrés.
   - **Fiches** : aucune correction. MEMOIRE §4.18.
+
+## 2026-10-12 (soir, Mac) — REF-10 Boussole des Émotions + DICTIONNAIRE DES ÉMOTIONS + essai v3
+
+- **Demande de l'utilisateur** : intégrer un dictionnaire des émotions pour des dialogues plus précis et plus intéressants. Source fournie : emotioncompass.org/fr, « à compléter avec ce que tu as ».
+- **Pages lues** : 7 émotions de base, autres émotions, primaires / secondaires, émotions et corps. → `REFERENCES/REF-10_boussole-des-emotions.md`. Aucune licence affichée : le contenu est reformulé.
+- **Produit** : `DICTIONNAIRE_EMOTIONS.json` (36 nuances, 11 familles, 4 règles secondaires, règles de sélection 1 à 7). Prototype de sélection : `pont/banc_ia/emotions.py` ; rédacteur `--v3`.
+- **Essai** : voir MEMOIRE § 4bis. Effet réel mais modeste ; la pensée du décideur domine.
+- **Mi-session, l'utilisateur propose la pyramide de Maslow**, associée aux émotions : notée en question ouverte, à reprendre.
+

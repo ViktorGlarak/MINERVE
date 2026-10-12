@@ -1,0 +1,1003 @@
+{
+ "version": "2026-10-12.2",
+ "proprietaire": "PSYCHOLOGUE (doctrine) ; mise en œuvre : PLEIADE dans app-ia",
+ "sources": {
+  "BdE": "Boussole des Émotions, emotioncompass.org/fr (TCE) — REF-10, reformulé",
+  "Plutchik": "roue de Plutchik : intensités d'une même émotion et mélanges (connaissance de l'agent, à sourcer pour citation)",
+  "Barrett": "granularité émotionnelle, L. Feldman Barrett (connaissance de l'agent, à sourcer)",
+  "Complement": "complément de PSYCHOLOGUE : émotions de crise et marques d'écriture sur un réseau social"
+ },
+ "principe": "Le code CHOISIT une nuance (famille + intensité + tempérament + cause), et le rédacteur reçoit sa définition, ses marques d'écriture et ce qu'il faut éviter. Jamais une liste de mots à placer : sur un réseau social, l'émotion se VOIT plus qu'elle ne se NOMME.",
+ "familles": {
+  "colere": "atteinte à ce qui compte ; pousse à se défendre, poser une limite (BdE)",
+  "peur": "menace ; besoin de sécurité et de maîtrise ; fuir, éviter, s'informer (BdE)",
+  "tristesse": "perte réelle ou annoncée ; chercher du réconfort, se retirer (BdE)",
+  "degout": "norme bafouée, contamination ; se détourner, mettre à distance (BdE)",
+  "joie": "ce qui a de la valeur ; partager, renforcer le lien (BdE)",
+  "fierte": "reconnaissance de soi ou des siens ; affirmer, montrer (Complement)",
+  "tendresse": "attachement, élan vers l'autre ; protéger, soutenir (BdE attachement)",
+  "soulagement": "une menace se lève ; relâcher, remercier (BdE joie de soulagement)",
+  "honte": "appartenance menacée, porte sur ce qu'on EST ; se cacher, se taire (BdE) — famille absente du moteur à ce jour",
+  "culpabilite": "on a mal agi, porte sur ce qu'on a FAIT ; réparer, s'excuser (BdE) — famille absente du moteur à ce jour",
+  "neutre": "pas d'émotion saillante : constat, information, routine"
+ },
+ "nuances": [
+  {
+   "id": "agacement",
+   "famille": "colere",
+   "intensite": 1,
+   "src": [
+    "Plutchik",
+    "BdE"
+   ],
+   "def": "petite contrariété, souvent face à la bêtise, à la lenteur ou à la répétition",
+   "elan": "soupirer, piquer, passer son chemin",
+   "ecrit": [
+    "phrase courte et sèche",
+    "un soupir écrit (« Bon. », « Pff. ») ou une question rhétorique",
+    "aucun ou un seul émoji (🙄)"
+   ],
+   "eviter": [
+    "indignation morale",
+    "point d'exclamation multiple",
+    "« inadmissible »"
+   ],
+   "affinites": [
+    "râleur",
+    "sceptique",
+    "épuisé",
+    "direct",
+    "têtu"
+   ]
+  },
+  {
+   "id": "exasperation",
+   "famille": "colere",
+   "intensite": 2,
+   "src": [
+    "Complement"
+   ],
+   "def": "agacement qui se répète jusqu'à saturation ; « encore »",
+   "elan": "dire que ça suffit, rappeler que ce n'est pas la première fois",
+   "ecrit": [
+    "« encore » / « toujours » / « à chaque fois »",
+    "énumération courte de ce qui ne va pas",
+    "ironie possible"
+   ],
+   "eviter": [
+    "appel à l'action militant",
+    "insulte"
+   ],
+   "affinites": [
+    "râleur",
+    "épuisé",
+    "direct",
+    "têtu"
+   ]
+  },
+  {
+   "id": "indignation",
+   "famille": "colere",
+   "intensite": 2,
+   "src": [
+    "Complement",
+    "BdE"
+   ],
+   "def": "colère morale : une injustice ou une valeur bafouée, souvent pour autrui",
+   "elan": "prendre position publiquement, défendre la victime",
+   "ecrit": [
+    "nomme précisément ce qui est injuste",
+    "« comment peut-on… »",
+    "ton ferme, sans gros mots"
+   ],
+   "eviter": [
+    "slogans de camp",
+    "majuscules partout"
+   ],
+   "affinites": [
+    "engagé",
+    "protecteur",
+    "militant",
+    "juste"
+   ]
+  },
+  {
+   "id": "colere_affirmee",
+   "famille": "colere",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "colère primaire saine : pose une limite avec calme et dignité",
+   "elan": "dire non, réclamer, exiger une réponse",
+   "ecrit": [
+    "phrases assertives au présent",
+    "« je » assumé",
+    "pas d'émoji ou un seul"
+   ],
+   "eviter": [
+    "menace",
+    "insulte"
+   ],
+   "affinites": [
+    "déterminé",
+    "protecteur",
+    "engagé",
+    "têtu"
+   ]
+  },
+  {
+   "id": "rage",
+   "famille": "colere",
+   "intensite": 3,
+   "src": [
+    "Plutchik",
+    "BdE"
+   ],
+   "def": "colère débordante, souvent secondaire (couvre une peur ou une impuissance)",
+   "elan": "attaquer, accuser, tout envoyer promener",
+   "ecrit": [
+    "phrases hachées",
+    "quelques MAJUSCULES sur un mot",
+    "point d'exclamation",
+    "😡 possible"
+   ],
+   "eviter": [
+    "insulte (règle absolue)",
+    "menace",
+    "information militaire"
+   ],
+   "affinites": [
+    "impulsif",
+    "protecteur",
+    "râleur"
+   ],
+   "contexte": "atteinte grave à lui ou aux siens, ou humiliation retournée"
+  },
+  {
+   "id": "rancune",
+   "famille": "colere",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "colère ou tristesse retenue qui s'installe contre quelqu'un",
+   "elan": "rappeler un tort passé, refuser de reconnaître un geste",
+   "ecrit": [
+    "allusion au passé (« comme la dernière fois »)",
+    "compliment pincé ou remarque froide",
+    "brièveté"
+   ],
+   "eviter": [
+    "oubli du tort dans la phrase suivante"
+   ],
+   "affinites": [
+    "rancunier",
+    "têtu",
+    "méfiant"
+   ],
+   "contexte": "un tort passé de l'auteur figure dans la relation (souvenir d'attaque)"
+  },
+  {
+   "id": "inquietude",
+   "famille": "peur",
+   "intensite": 1,
+   "src": [
+    "Plutchik",
+    "BdE"
+   ],
+   "def": "peur légère et diffuse ; on surveille, on se pose des questions",
+   "elan": "demander une information, vérifier, prévenir ses proches",
+   "ecrit": [
+    "question concrète (« quelqu'un sait si… ? »)",
+    "conditionnel",
+    "un détail pratique (eau, route, horaires)"
+   ],
+   "eviter": [
+    "dramatisation",
+    "« on va tous mourir »"
+   ],
+   "affinites": [
+    "anxieux",
+    "méticuleux",
+    "parent",
+    "prudent"
+   ]
+  },
+  {
+   "id": "anxiete",
+   "famille": "peur",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "peur secondaire, tournée vers l'avenir ; ruminer des scénarios",
+   "elan": "anticiper le pire, faire des réserves, ne pas dormir",
+   "ecrit": [
+    "« et si… »",
+    "points de suspension",
+    "un geste concret de précaution (placard, sac prêt)"
+   ],
+   "eviter": [
+    "inventer un fait pour justifier la peur"
+   ],
+   "affinites": [
+    "anxieux",
+    "inquiet",
+    "solitaire",
+    "méticuleux"
+   ]
+  },
+  {
+   "id": "mefiance",
+   "famille": "peur",
+   "intensite": 1,
+   "src": [
+    "Plutchik",
+    "Complement"
+   ],
+   "def": "on doute de la source ou de l'intention ; peur d'être manipulé",
+   "elan": "demander la source, prendre ses distances, ne pas partager",
+   "ecrit": [
+    "guillemets ironiques ou « soi-disant »",
+    "question sur l'origine",
+    "ton neutre et bref"
+   ],
+   "eviter": [
+    "« ta source ? » systématique",
+    "complotisme non porté par la fiche"
+   ],
+   "affinites": [
+    "sceptique",
+    "méfiant",
+    "observateur",
+    "vigilant"
+   ]
+  },
+  {
+   "id": "effroi",
+   "famille": "peur",
+   "intensite": 3,
+   "src": [
+    "Plutchik",
+    "BdE"
+   ],
+   "def": "menace immédiate et forte ; l'esprit se rétrécit",
+   "elan": "fuir, appeler à l'aide, alerter",
+   "ecrit": [
+    "très court",
+    "pas de nuance",
+    "présent de l'indicatif",
+    "une info de lieu ou d'heure"
+   ],
+   "eviter": [
+    "longues phrases",
+    "humour"
+   ],
+   "affinites": [
+    "anxieux",
+    "parent",
+    "émotif"
+   ],
+   "contexte": "menace immédiate dans sa ville ou pour ses proches"
+  },
+  {
+   "id": "sideration",
+   "famille": "peur",
+   "intensite": 3,
+   "src": [
+    "Complement"
+   ],
+   "def": "choc qui laisse sans voix ; on n'arrive pas à y croire",
+   "elan": "se taire, ou écrire très peu",
+   "ecrit": [
+    "phrase inachevée ou un seul mot",
+    "« je n'arrive pas à y croire »",
+    "pas d'émoji ou 😶"
+   ],
+   "eviter": [
+    "analyse",
+    "explication"
+   ],
+   "affinites": [
+    "discret",
+    "émotif",
+    "observateur"
+   ],
+   "contexte": "événement grave et soudain (attaque, explosion, mort)"
+  },
+  {
+   "id": "melancolie",
+   "famille": "tristesse",
+   "intensite": 1,
+   "src": [
+    "Plutchik"
+   ],
+   "def": "tristesse douce, tournée vers ce qui était avant",
+   "elan": "évoquer un souvenir, un lieu, une habitude perdue",
+   "ecrit": [
+    "imparfait",
+    "un détail sensoriel du passé",
+    "ton calme"
+   ],
+   "eviter": [
+    "désespoir",
+    "« plus jamais rien ne sera comme avant » (cliché)"
+   ],
+   "affinites": [
+    "discret",
+    "nostalgique",
+    "observateur",
+    "âgé"
+   ]
+  },
+  {
+   "id": "lassitude",
+   "famille": "tristesse",
+   "intensite": 2,
+   "src": [
+    "Complement",
+    "BdE"
+   ],
+   "def": "fatigue morale à force de durer ; on ne se révolte plus, on encaisse",
+   "elan": "aimer sans commenter, écrire peu, constater",
+   "ecrit": [
+    "très court",
+    "« encore une journée… »",
+    "pas d'émoji ou ☕"
+   ],
+   "eviter": [
+    "« on lâche rien »",
+    "« courage à tous »",
+    "lyrisme"
+   ],
+   "affinites": [
+    "épuisé",
+    "résilient",
+    "soignant",
+    "travailleur"
+   ]
+  },
+  {
+   "id": "chagrin",
+   "famille": "tristesse",
+   "intensite": 3,
+   "src": [
+    "Plutchik",
+    "BdE"
+   ],
+   "def": "perte d'un proche, d'un lieu, d'un espoir ; douleur vive",
+   "elan": "se retirer, ou chercher du réconfort chez les siens",
+   "ecrit": [
+    "phrases simples",
+    "la personne ou la chose perdue nommée",
+    "pas de leçon"
+   ],
+   "eviter": [
+    "formules de condoléances génériques",
+    "inventer un deuil absent de TA VIE"
+   ],
+   "affinites": [
+    "émotif",
+    "attaché",
+    "parent"
+   ],
+   "contexte": "une perte réelle figure dans TA VIE ou dans ce qu'il vient de lire (proche, lieu, maison)"
+  },
+  {
+   "id": "compassion",
+   "famille": "tristesse",
+   "intensite": 1,
+   "src": [
+    "Complement",
+    "BdE"
+   ],
+   "def": "tristesse pour autrui, qui pousse à aider plutôt qu'à se lamenter",
+   "elan": "proposer quelque chose de concret, relayer une demande",
+   "ecrit": [
+    "un geste ou une offre précise",
+    "s'adresse aux personnes touchées"
+   ],
+   "eviter": [
+    "« pensées pour… » seul",
+    "« courage à tous »"
+   ],
+   "affinites": [
+    "protecteur",
+    "sociable",
+    "soignant",
+    "conciliant"
+   ]
+  },
+  {
+   "id": "impuissance",
+   "famille": "tristesse",
+   "intensite": 2,
+   "src": [
+    "BdE",
+    "Complement"
+   ],
+   "def": "on voudrait agir et on ne peut pas ; terreau de la haine si cela dure",
+   "elan": "constater, se reprocher, désigner un responsable",
+   "ecrit": [
+    "« on ne peut rien faire »",
+    "contraste entre ce qu'on voudrait et ce qu'on fait (au travail, sans voiture…)"
+   ],
+   "eviter": [
+    "désespoir total",
+    "appel militant"
+   ],
+   "affinites": [
+    "protecteur",
+    "parent",
+    "anxieux"
+   ]
+  },
+  {
+   "id": "mepris",
+   "famille": "degout",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "quelqu'un ou un groupe bafoue les normes ; on le met au-dessous de soi",
+   "elan": "se détourner, ironiser, disqualifier",
+   "ecrit": [
+    "ironie froide",
+    "guillemets autour de ses mots",
+    "brièveté dédaigneuse"
+   ],
+   "eviter": [
+    "insulte",
+    "déshumanisation",
+    "lexique d'un camp qui n'est pas le sien"
+   ],
+   "affinites": [
+    "moqueur",
+    "sceptique",
+    "direct",
+    "fier"
+   ]
+  },
+  {
+   "id": "ecoeurement",
+   "famille": "degout",
+   "intensite": 2,
+   "src": [
+    "BdE",
+    "Plutchik"
+   ],
+   "def": "dégoût moral face à un acte (profit sur le malheur, mensonge)",
+   "elan": "dénoncer, se retirer d'une discussion",
+   "ecrit": [
+    "« ça me dégoûte » une fois, pas répété",
+    "le fait précis qui écœure"
+   ],
+   "eviter": [
+    "généralisation à tout un peuple"
+   ],
+   "affinites": [
+    "juste",
+    "engagé",
+    "direct"
+   ]
+  },
+  {
+   "id": "sarcasme",
+   "famille": "degout",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "moquerie qui sert de bouclier ; forme sociale du mépris ou d'une colère qu'on n'assume pas",
+   "elan": "répondre par une pique, détourner",
+   "ecrit": [
+    "antiphrase (« Génial. »)",
+    "fausse naïveté",
+    "un émoji ironique au plus (🙃, 👏)"
+   ],
+   "eviter": [
+    "expliquer la blague",
+    "méchanceté gratuite envers un proche"
+   ],
+   "affinites": [
+    "moqueur",
+    "blagueur",
+    "sceptique",
+    "râleur"
+   ]
+  },
+  {
+   "id": "contentement",
+   "famille": "joie",
+   "intensite": 1,
+   "src": [
+    "Plutchik"
+   ],
+   "def": "petite joie tranquille ; un besoin simple satisfait",
+   "elan": "partager un détail agréable de sa journée",
+   "ecrit": [
+    "détail concret (soleil, café, client sympa)",
+    "phrase simple",
+    "un émoji au plus"
+   ],
+   "eviter": [
+    "enthousiasme démesuré",
+    "« super initiative »"
+   ],
+   "affinites": [
+    "résilient",
+    "discret",
+    "optimiste"
+   ]
+  },
+  {
+   "id": "amusement",
+   "famille": "joie",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "quelque chose fait rire, même en pleine crise ; soupape",
+   "elan": "plaisanter, raconter une anecdote cocasse",
+   "ecrit": [
+    "chute drôle",
+    "autodérision",
+    "😅 ou 😂 au plus"
+   ],
+   "eviter": [
+    "rire d'une victime",
+    "blague sur un drame en cours"
+   ],
+   "affinites": [
+    "blagueur",
+    "moqueur",
+    "pétillant",
+    "humoristique"
+   ]
+  },
+  {
+   "id": "enthousiasme",
+   "famille": "joie",
+   "intensite": 2,
+   "src": [
+    "Complement"
+   ],
+   "def": "élan joyeux pour une initiative ou une bonne nouvelle",
+   "elan": "relayer, proposer de s'y joindre",
+   "ecrit": [
+    "une raison précise d'être content",
+    "proposition concrète",
+    "1 ou 2 émojis"
+   ],
+   "eviter": [
+    "« super initiative ! » répété",
+    "« bravo » seul",
+    "3 émojis ou plus"
+   ],
+   "affinites": [
+    "optimiste",
+    "pétillant",
+    "sociable",
+    "engagé"
+   ]
+  },
+  {
+   "id": "joie_maligne",
+   "famille": "joie",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "se réjouir du malheur d'un adversaire, sur fond de colère contre lui",
+   "elan": "ironiser sur sa chute, « bien fait »",
+   "ecrit": [
+    "ironie",
+    "rappel de ce qu'il disait avant",
+    "brièveté"
+   ],
+   "eviter": [
+    "cruauté envers des civils",
+    "joie devant une victime"
+   ],
+   "affinites": [
+    "moqueur",
+    "rancunier",
+    "militant"
+   ],
+   "contexte": "l'auteur ou la cible est un ADVERSAIRE qui trébuche"
+  },
+  {
+   "id": "joie_de_facade",
+   "famille": "joie",
+   "intensite": 1,
+   "src": [
+    "BdE"
+   ],
+   "def": "joie secondaire ou jouée : on garde le sourire pour ne pas montrer qu'on va mal",
+   "elan": "rassurer les autres, détourner la conversation",
+   "ecrit": [
+    "positif un peu forcé",
+    "un détail qui trahit la fatigue ou la peur",
+    "« ça va, ça va »"
+   ],
+   "eviter": [
+    "avouer franchement la tristesse dans la même phrase"
+   ],
+   "affinites": [
+    "résilient",
+    "pudique",
+    "commerçant",
+    "serveur"
+   ]
+  },
+  {
+   "id": "fierte_collective",
+   "famille": "fierte",
+   "intensite": 2,
+   "src": [
+    "Complement"
+   ],
+   "def": "fier de son quartier, de son métier ou des siens qui tiennent bon",
+   "elan": "mettre en avant un geste précis des siens",
+   "ecrit": [
+    "« chez nous » / « mes collègues »",
+    "le geste concret salué"
+   ],
+   "eviter": [
+    "patriotisme de slogan",
+    "« on lâche rien »"
+   ],
+   "affinites": [
+    "engagé",
+    "protecteur",
+    "attaché",
+    "têtu"
+   ]
+  },
+  {
+   "id": "fierte_personnelle",
+   "famille": "fierte",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "satisfaction d'avoir tenu ou réussi quelque chose soi-même",
+   "elan": "le raconter sobrement",
+   "ecrit": [
+    "une petite victoire concrète",
+    "pudeur (« pas peu fier »)"
+   ],
+   "eviter": [
+    "vantardise"
+   ],
+   "affinites": [
+    "déterminé",
+    "travailleur",
+    "résilient"
+   ]
+  },
+  {
+   "id": "solidarite_active",
+   "famille": "tendresse",
+   "intensite": 2,
+   "src": [
+    "BdE",
+    "Complement"
+   ],
+   "def": "élan vers ceux qui souffrent, qui se traduit en aide",
+   "elan": "proposer une aide précise (heure, moyen, lieu)",
+   "ecrit": [
+    "offre concrète liée à sa vie (son métier, son véhicule, ses horaires)",
+    "s'adresse à l'auteur"
+   ],
+   "eviter": [
+    "« la solidarité c'est ce qui nous fait tenir »",
+    "« bravo pour l'initiative »"
+   ],
+   "affinites": [
+    "protecteur",
+    "sociable",
+    "engagé",
+    "soignant"
+   ]
+  },
+  {
+   "id": "attachement",
+   "famille": "tendresse",
+   "intensite": 1,
+   "src": [
+    "BdE"
+   ],
+   "def": "lien à une personne, un lieu ou une valeur ; peur de le perdre",
+   "elan": "évoquer ce lien, s'inquiéter pour lui",
+   "ecrit": [
+    "nom du lieu ou de la personne (si dans la fiche)",
+    "possessif (« ma rue », « notre marché »)"
+   ],
+   "eviter": [
+    "inventer un proche absent de TA VIE"
+   ],
+   "affinites": [
+    "attaché",
+    "nostalgique",
+    "parent",
+    "âgé"
+   ]
+  },
+  {
+   "id": "approbation_reservee",
+   "famille": "tendresse",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "d'accord sur le fond, mais avec une réserve pratique ou un doute",
+   "elan": "soutenir en ajoutant un « mais »",
+   "ecrit": [
+    "structure « oui, mais… »",
+    "la réserve est concrète (organisation, sécurité, source)"
+   ],
+   "eviter": [
+    "enthousiasme",
+    "rejet"
+   ],
+   "affinites": [
+    "sceptique",
+    "râleur",
+    "méticuleux",
+    "prudent",
+    "observateur"
+   ]
+  },
+  {
+   "id": "soulagement",
+   "famille": "soulagement",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "une menace se lève, un démenti rassure, un proche donne des nouvelles",
+   "elan": "relayer la bonne nouvelle, remercier",
+   "ecrit": [
+    "« ouf » / « enfin »",
+    "ce qui est rassurant, précisément",
+    "un émoji au plus"
+   ],
+   "eviter": [
+    "oublier la peur d'avant (la mentionner suffit)"
+   ],
+   "affinites": [
+    "anxieux",
+    "parent",
+    "émotif"
+   ]
+  },
+  {
+   "id": "gratitude",
+   "famille": "soulagement",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "reconnaissance envers quelqu'un qui a aidé",
+   "elan": "remercier nommément",
+   "ecrit": [
+    "merci + ce qui a été fait",
+    "nom ou métier de la personne"
+   ],
+   "eviter": [
+    "« merci à tous » générique"
+   ],
+   "affinites": [
+    "conciliant",
+    "sociable",
+    "âgé"
+   ],
+   "contexte": "quelqu'un a aidé l'avatar ou ses proches"
+  },
+  {
+   "id": "espoir",
+   "famille": "soulagement",
+   "intensite": 1,
+   "src": [
+    "Plutchik",
+    "Complement"
+   ],
+   "def": "attente d'un mieux, appuyée sur un fait",
+   "elan": "relayer un signe positif",
+   "ecrit": [
+    "le fait qui donne espoir",
+    "futur proche (« demain », « ce soir »)"
+   ],
+   "eviter": [
+    "optimisme sans appui",
+    "« ça va aller » seul"
+   ],
+   "affinites": [
+    "optimiste",
+    "résilient",
+    "croyant"
+   ]
+  },
+  {
+   "id": "gene",
+   "famille": "honte",
+   "intensite": 1,
+   "src": [
+    "BdE",
+    "Complement"
+   ],
+   "def": "petite honte sociale : avoir dit une bêtise, être pris en défaut",
+   "elan": "rectifier vite, s'excuser à moitié, plaisanter",
+   "ecrit": [
+    "autocorrection (« bon, je me suis trompé »)",
+    "autodérision"
+   ],
+   "eviter": [
+    "longue justification"
+   ],
+   "affinites": [
+    "discret",
+    "pudique",
+    "blagueur"
+   ],
+   "contexte": "l'avatar a été pris en défaut ou contredit"
+  },
+  {
+   "id": "humiliation",
+   "famille": "honte",
+   "intensite": 3,
+   "src": [
+    "BdE"
+   ],
+   "def": "honte forte après une attaque publique ; on se sent rabaissé devant tous",
+   "elan": "se taire, disparaître, ou riposter (colère secondaire)",
+   "ecrit": [
+    "silence (ne pas répondre) le plus souvent",
+    "sinon riposte brève et blessée"
+   ],
+   "eviter": [
+    "avouer la honte franchement"
+   ],
+   "affinites": [
+    "fier",
+    "pudique",
+    "sensible"
+   ],
+   "contexte": "l'avatar vient d'être attaqué ou moqué publiquement"
+  },
+  {
+   "id": "remords",
+   "famille": "culpabilite",
+   "intensite": 2,
+   "src": [
+    "BdE"
+   ],
+   "def": "on a blessé ou relayé une fausse info ; on veut réparer",
+   "elan": "s'excuser sans se justifier, corriger, supprimer",
+   "ecrit": [
+    "« je me suis trompé » / « désolé »",
+    "la correction précise",
+    "pas d'excuse à rallonge"
+   ],
+   "eviter": [
+    "« mais » qui annule l'excuse"
+   ],
+   "affinites": [
+    "conciliant",
+    "honnête",
+    "méticuleux"
+   ],
+   "contexte": "l'avatar a relayé une fausse information ou blessé quelqu'un"
+  },
+  {
+   "id": "constat",
+   "famille": "neutre",
+   "intensite": 1,
+   "src": [
+    "Complement"
+   ],
+   "def": "pas d'émotion saillante : on informe, on décrit",
+   "elan": "relayer une info utile, poser une question pratique",
+   "ecrit": [
+    "fait, lieu, heure",
+    "pas d'adjectif émotionnel",
+    "pas d'émoji"
+   ],
+   "eviter": [
+    "coller une émotion qui n'y est pas"
+   ],
+   "affinites": [
+    "observateur",
+    "méticuleux",
+    "discret"
+   ]
+  }
+ ],
+ "secondaires": [
+  {
+   "primaire": [
+    "peur",
+    "tristesse",
+    "honte"
+   ],
+   "si_temperament": [
+    "fier",
+    "râleur",
+    "têtu",
+    "direct",
+    "impulsif"
+   ],
+   "devient": [
+    "agacement",
+    "exasperation",
+    "sarcasme"
+   ],
+   "proba": 0.4,
+   "pourquoi": "colère secondaire qui masque une vulnérabilité (BdE)"
+  },
+  {
+   "primaire": [
+    "colere"
+   ],
+   "si_temperament": [
+    "conciliant",
+    "discret",
+    "pudique",
+    "anxieux"
+   ],
+   "devient": [
+    "impuissance",
+    "lassitude"
+   ],
+   "proba": 0.35,
+   "pourquoi": "tristesse ou culpabilité qui masque une colère qu'on ne s'autorise pas (BdE)"
+  },
+  {
+   "primaire": [
+    "tristesse",
+    "peur"
+   ],
+   "si_temperament": [
+    "résilient",
+    "pudique",
+    "blagueur",
+    "commerçant",
+    "serveur"
+   ],
+   "devient": [
+    "joie_de_facade",
+    "amusement"
+   ],
+   "proba": 0.3,
+   "pourquoi": "joie de façade : garder le sourire devant les autres (BdE)"
+  },
+  {
+   "primaire": [
+    "honte"
+   ],
+   "si_temperament": [
+    "fier",
+    "impulsif",
+    "direct"
+   ],
+   "devient": [
+    "rage",
+    "mepris"
+   ],
+   "proba": 0.5,
+   "pourquoi": "humiliation retournée en attaque (BdE)"
+  }
+ ],
+ "regles_selection": [
+  "1. Famille = émotion du décideur ; intensité = son intensité (1-3).",
+  "2. Candidates = nuances de la famille d'intensité la plus proche ; bonus ×2 si un mot du Caractère ou du Tempérament figure dans `affinites`.",
+  "2bis. Une nuance qui porte un champ `contexte` n'est JAMAIS tirée au hasard : seulement si le moteur a repéré ce contexte (relation, souvenir, fait lu), ou par la règle « secondaire ».",
+  "3. Règle « secondaire » : si la famille et le tempérament correspondent, avec la probabilité `proba`, on prend une nuance de `devient` (tirage déterministe par hachage avatar + publication, pour rejouer).",
+  "4. Rotation : on écarte les 2 dernières nuances utilisées par l'avatar et, si possible, la nuance la plus utilisée par la population dans l'heure (anti-chœur).",
+  "5. Le ressenti du décideur corrige la famille : d_accord + doute → approbation_reservee ; en_desaccord/mefiante → mefiance ou mepris selon le tempérament.",
+  "6. L'élan (`elan`) peut orienter la DÉCISION : humiliation → ignorer/se taire ; remords → répondre pour corriger ; mépris → ignorer ou ironiser ; inquiétude → poser une question.",
+  "7. Le rédacteur reçoit : nom + définition + 2-3 marques d'écriture + « à éviter ». Jamais la liste des affinités ni le nom de la source."
+ ]
+}
