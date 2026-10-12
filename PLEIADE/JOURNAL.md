@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-10-12 (suite 16) — app-ia 2026-10-12.13 PRÊT (`7eb3893`, local, en attente du feu vert) : tout message IA porte un #
+- **Demande de l'utilisateur** : pouvoir tout mesurer dans le graphe du Cockpit, donc chaque publication, réponse ou citation IA doit porter au moins un #. Pour les moments de vie : **#3615MyLife**.
+- **Règle**, appliquée en dernier dans `proposer` :
+  - d'abord les # hérités (parent, message cité, source) ;
+  - s'il n'en reste aucun, `#3615MyLife` (variable `IA_HASHTAG_VIE`, absente du catalogue, valeur par défaut) ;
+  - cela vaut aussi pour une réponse dans un fil sans # ;
+  - messages privés exclus.
+- Le social reconnaît les # qui commencent par un chiffre (`HASHTAG_RE = /#([a-zA-Z0-9_À-ɏ]+)/`).
+- 41/41 essais ; image essayée seule.
+
 ## 2026-10-12 (suite 15) — Relevé de 14 h 03 → app-ia 2026-10-12.12 POUSSÉ main + prod (`70b85d2..20d2732`, feu vert de l'utilisateur)
 - **Relevé de 14 h 03** (`moteur-ia_export_2026-10-12_1403.json`, depuis la 12.11) :
   - 3 réponses IA au plus sous un même message ;
