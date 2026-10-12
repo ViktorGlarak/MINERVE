@@ -69,11 +69,37 @@ Reprendre aussi la machine **Mac M3 Max 36 Go** dans le « parc de machines IA �
 - **CYBERSECU** : les images des joueurs peuvent contenir de vrais visages ou des documents. Elles ne sont traitées que localement (Ollama du parc), jamais envoyées ailleurs, et la description n'est conservée que le temps de l'exercice (purge avec « Supprimer les archives »). Lien avec **F4**.
 - **PSYCHOLOGUE** : une image pèse plus qu'un texte sur l'émotion (effet de supériorité de l'image). Faut-il un coefficient d'intensité quand la publication contient une image ?
 
+## 3ter. ⭐ Dictionnaire des émotions dans le moteur (DÉCISION UTILISATEUR, 2026-10-12 soir : « on part sur ta proposition, on testera »)
+- **Doctrine et données** (propriétaire **PSYCHOLOGUE**) : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2), avec la source `PSYCHOLOGUE/REFERENCES/REF-10_boussole-des-emotions.md` et le compte rendu `PSYCHOLOGUE/MEMOIRE.md` § 4bis.
+- **Prototype qui marche** (Mac, banc) : `pont/banc_ia/emotions.py`, qui implémente les règles 1, 2, 2bis, 3 et 5 ; rédacteur `--v3`. Mesure : +0,5 s par message.
+- **À faire dans app-ia** (en local, avec groupe témoin, feu vert avant push) :
+  1. **Embarquer le dictionnaire** dans app-ia : copie de `DICTIONNAIRE_EMOTIONS.json` avec son champ `version`, affiché dans le journal. La source reste chez PSYCHOLOGUE, et on recopie à chaque nouvelle version.
+  2. **Choisir la nuance AU NIVEAU DU DÉCIDEUR**, et non après : c'est la principale leçon du banc, car la pensée du décideur dicte le texte. Deux options, à trancher avec PSYCHOLOGUE :
+     - (a) le code pré-choisit **2 ou 3 nuances candidates** (famille probable d'après l'humeur, le tempérament et la cause) et les présente au décideur, qui en retient une par réaction (champ `nuance`) et forme sa pensée en conséquence ;
+     - (b) le décideur garde ses 9 émotions, le code choisit la nuance, puis la **pensée est réécrite** selon la nuance avant le rédacteur.
+
+     Mesurer les deux sur le banc si possible.
+  3. Le **rédacteur** reçoit la consigne de nuance : « à faire SENTIR sans la nommer », définition, 2 ou 3 marques d'écriture, « à éviter » (voir `emotions.consigne()`).
+  4. **Affinités** : lire le **Caractère** et l'**Activité** seulement. La ligne « Tempérament » standard (« ni crédule ni méfiant ») fausse la détection : piège constaté au banc.
+  5. **Nuances « sur contexte »** (champ `contexte` : joie maligne, rancune, humiliation, gêne, remords, gratitude, chagrin, effroi, sidération, rage) : **jamais tirées au hasard**, seulement quand le moteur repère le contexte (relation avec un souvenir d'attaque, adversaire, propre fausse info relayée, aide reçue…).
+  6. **Rotation sur la POPULATION** (règle 4) : écarter les 2 dernières nuances de l'avatar et, si possible, la plus utilisée par la population dans l'heure. Au banc, « impuissance » est sortie deux fois de suite et a donné un nouveau tic (« on ne peut rien faire de notre côté »).
+  7. **Familles honte et culpabilité** à ajouter à l'énumération `emotion` du moteur et aux variations d'humeur, avec PSYCHOLOGUE pour les coefficients.
+  8. **Élan d'action** (règle 6), dans un second temps : humiliation → ignorer ou se taire ; remords → répondre pour corriger ; mépris → ignorer ou ironiser ; inquiétude → poser une question.
+  9. `retirerFormulesCreuses` : ajouter « la solidarité c'est ce qui nous fait tenir », « on ne peut rien faire de notre côté », « super initiative », « bravo pour l'initiative ».
+- **Mesure** (relevé habituel + groupe témoin) :
+  - répartition des nuances (aucune au-dessus de 15 % des messages) ;
+  - part de déprime et d'humour par rapport au témoin ;
+  - formules creuses ;
+  - test à l'aveugle : 20 messages, deviner la nuance d'après le texte (au moins 50 %) ;
+  - temps ajouté par cycle.
+- **Lien Reporting d'influence** (plus tard) : mépris, joie maligne et haine comme marqueurs ILI, avec EXPERT_INFLUENCE.
+
 ## 4. Ce que l'utilisateur attend en retour
 Un compte rendu court :
 - le résultat du contrôle de concordance (nombre de fiches touchées) ;
 - l'avancement du rédacteur en essai local ;
 - l'avis CYBERSECU sur le Mac ;
-- la faisabilité de la lecture des images (point 3bis).
+- la faisabilité de la lecture des images (point 3bis) ;
+- le dictionnaire des émotions en essai local, avec la mesure contre le témoin (point 3ter).
 
 Puis commit `[PC]`, pull et push.
