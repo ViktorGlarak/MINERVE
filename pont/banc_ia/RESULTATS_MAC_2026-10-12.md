@@ -57,6 +57,22 @@ JSON lisible : **28/28**.
 2. **Le 31B n'est pas à retenir pour le volume** (70-90 s par lecture), **ni pour la relecture** (aucun gain mesuré). Seul usage à essayer : la **rédaction des quelques avatars de scénario**, pour la richesse concrète, à condition que l'anti-chœur du code s'applique.
 3. Avant de conclure sur la qualité, il faudrait **plusieurs passages par invite** et un relevé par critère (comme l'essai 3). Avec un seul passage, la variance l'emporte.
 
+## Essai « décideur 26B + rédacteur » (idée retenue par l'utilisateur, 2026-10-12)
+
+**Principe** : le 26B lit le fil et décide comme aujourd'hui. Pour chaque message qu'il choisit d'écrire, un **rédacteur** écrit le texte seul, à partir d'une **invite courte** (~2 000-3 000 jetons). Cette invite contient la fiche, la situation, les exemples et les règles absolues, sans les règles de décision ni le format. Elle y ajoute la publication lue, l'état de l'avatar, sa décision et sa pensée.
+Script : `redacteur.py`. Résultats : `redacteur_resultats.json` (13 messages issus des 8 lectures, en 3 versions).
+
+**Temps** : rédacteur 26B **1,5-4,1 s** par message ; rédacteur **31B MLX 17-25 s** par message, dont presque tout pour lire l'invite. Les messages d'une même lecture ne profitent pas du cache (pas d'accélération du 2e message), alors que c'était le cas avec la version `qat`.
+**31B MLX en lecture complète** : 52-80 s (contre 69-92 s pour `31b-it-qat`), soit **~20 % plus rapide seulement**. Relecture 8-9 s, extraction 6-9 s.
+
+**Qualité (à juger par l'utilisateur ; textes côte à côte dans le JSON)** :
+- **Le 31B s'ancre mieux dans la vie de l'avatar** : « Je viens de voir ça entre deux livraisons », « Je repasse aux chèvres mais je partage », « Je suis en service sur HChaumont là ». Il **reformule** la pensée, quand le 26B rédacteur la **recopie** souvent (« Ah, ça c'est du concret ! », « La pause café est terminée… »).
+- ⚠ **Les deux rédacteurs écrivent trop long et trop enthousiaste** (2 à 4 émojis, « Bravo pour l'initiative ! ») alors que l'avatar est **au travail**. Les textes en un seul appel sont plus courts et plus crédibles sur ce point. Cause : l'invite courte a perdu les règles de disponibilité (« au travail, au mieux une réponse courte ») et de concret, et « 280 caractères au plus » pousse à remplir. **À corriger avant toute conclusion** : longueur cible selon la disponibilité et les exemples, et remise des règles de réalisme utiles.
+- ⚠ **Inventions** : 31B « HVandœuvre » (lieu absent de la fiche ?), « ma tournée » (P3trov_Sky), « bloquées par les troupes » ; 26B rédacteur « problèmes de canalisation qu'on a vus à HToul ». La relecture du moteur devra s'appliquer au texte rédigé.
+- Le chœur reste présent (« la solidarité c'est ce qui nous fait tenir »), parce qu'il vient de la **pensée** du décideur, que les deux rédacteurs reprennent.
+
+**Incohérence de données repérée (pour PLEIADE / eho)** : `_OlegGaspi_` (Marta Lambert). La fiche dit **48 ans, 1 fils** ; le bloc « TA VIE » dit **28 ans, vit seul**. Le modèle reçoit deux personnages contradictoires. À vérifier sur les autres fiches (bloc `vie` généré le 2026-10-12).
+
 ## Reste à faire
 - ✅ Vraies invites rejouées (voir plus haut).
 - Éventuellement : 3 à 5 passages par invite pour une mesure de qualité fiable, et `OLLAMA_NUM_PARALLEL` sur le Mac.

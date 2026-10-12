@@ -1,0 +1,15 @@
+gemma4:31b-mlx           01_lecture__OlegGaspi_.json                  56.9 s (PC  22.7 s) json=ok
+gemma4:31b-mlx           02_lecture_P3trov_Sky.json                   56.1 s (PC  10.7 s) json=ok
+gemma4:31b-mlx           03_lecture_Lepetitfreredebazouzou.json       52.0 s (PC   9.9 s) json=ok
+gemma4:31b-mlx           04_lecture_BenitskyBogdan.json               56.9 s (PC  10.3 s) json=ok
+gemma4:31b-mlx           05_lecture_G_Surfer_99.json                  60.6 s (PC   7.0 s) json=ok
+gemma4:31b-mlx           06_lecture_Alo_Livreur_42.json               80.1 s (PC  26.2 s) json=ok
+gemma4:31b-mlx           07_relecture_TeleCityKov.json                 9.4 s (PC   1.2 s) json=ok
+gemma4:31b-mlx           08_relecture_Kas_Elec_85.json                 9.0 s (PC  14.3 s) json=ok
+gemma4:31b-mlx           09_relecture_Lepetitbasque.json               9.5 s (PC  13.1 s) json=ok
+gemma4:31b-mlx           10_relecture_Alo_Livreur_42.json              8.4 s (PC  15.4 s) json=ok
+gemma4:31b-mlx           11_extraction_vie_Alo_Livreur_42.json         9.0 s (PC   2.4 s) json=ok
+gemma4:31b-mlx           12_extraction_vie_EdvDocker.json              5.6 s (PC   2.2 s) json=ok
+gemma4:31b-mlx           13_publication_Jrom_95.json                  72.6 s (PC  13.1 s) json=ok
+gemma4:31b-mlx           14_publication_InstitutPerun.json            72.4 s (PC  12.5 s) json=ok
+FIN
