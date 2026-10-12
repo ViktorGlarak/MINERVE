@@ -15,8 +15,9 @@ O2  jeton 32 octets aléatoires dans ~/.pleiade/ollama-cle.txt (0600, hors dép�
     comparaison à temps constant des empreintes SHA-256 ; 401 sans détail ; 10 échecs → blocage 10 min de la source.
 O5  journal ~/.pleiade/proxy-ollama.log : heure, source, méthode, route, modèle, statut, durée, taille — jamais le corps,
     la réponse ni l'en-tête Authorization.
-D1  corps reconstruit depuis une liste blanche de champs ; options bornées (num_ctx ≤ 16384, num_predict ≤ 2048) ;
-    keep_alive forcé à "30m".
+D1  corps reconstruit depuis une liste blanche de champs ; options numériques seulement (400 sinon), bornées
+    (num_ctx 1-16384, num_predict 1-2048) ; keep_alive forcé à "30m".
+A9  1 image par requête au plus ; 1 Mo sans image, --plafond-ko (≤ 2 048) avec image.
 """
 import argparse, hashlib, hmac, http.client, http.server, json, os, secrets, socket, subprocess, sys, threading, time
 
@@ -31,6 +32,7 @@ CHAMPS = {"/api/chat": {"model", "messages", "stream", "format", "think", "optio
           "/api/embed": {"model", "input", "truncate", "options"}}
 OPTIONS = {"temperature", "top_p", "top_k", "num_ctx", "num_predict", "num_gpu", "seed", "repeat_penalty", "stop"}
 BORNES = {"num_ctx": 16384, "num_predict": 2048}
+PLAFOND_TEXTE = 1024 * 1024  # 1 Mo sans image ; --plafond-ko (2 048 au plus) ne vaut que pour une requête avec image
 SIMULTANES = threading.BoundedSemaphore(2)
 echecs, bloques, verrou = {}, {}, threading.Lock()
 
@@ -119,12 +121,25 @@ class Relais(http.server.BaseHTTPRequestHandler):
             if modele not in MODELES:
                 return self.repondre(403, modele=modele, t0=t0)
             propre = {k: v for k, v in donnees.items() if k in CHAMPS[self.path]}
-            if isinstance(propre.get("options"), dict):
+            if "options" in propre:
+                if not isinstance(propre["options"], dict):
+                    return self.repondre(400, modele=modele, t0=t0)
                 opts = {k: v for k, v in propre["options"].items() if k in OPTIONS}
-                for k, maxi in BORNES.items():
-                    if isinstance(opts.get(k), (int, float)) and opts[k] > maxi:
-                        opts[k] = maxi
+                for k, v in opts.items():  # options numériques seulement (sauf stop : liste de chaînes)
+                    if k == "stop":
+                        if not (isinstance(v, list) and all(isinstance(x, str) for x in v)):
+                            return self.repondre(400, modele=modele, t0=t0)
+                    elif isinstance(v, bool) or not isinstance(v, (int, float)):
+                        return self.repondre(400, modele=modele, t0=t0)
+                for k, maxi in BORNES.items():  # bornes basses aussi : num_predict -1/-2 = génération sans fin
+                    if k in opts and not 1 <= opts[k] <= maxi:
+                        opts[k] = min(max(opts[k], 1), maxi)
                 propre["options"] = opts
+            images = [i for m in propre.get("messages", []) if isinstance(m, dict) for i in (m.get("images") or [])]
+            if len(images) > 1:  # 1 image par requête au plus (avis CYBERSECU A9)
+                return self.repondre(413, modele=modele, t0=t0)
+            if not images and len(brut) > PLAFOND_TEXTE:  # le plafond large n'est admis qu'avec une image
+                return self.repondre(413, modele=modele, t0=t0)
             propre["keep_alive"] = "30m"
             corps = json.dumps(propre).encode()
         if not SIMULTANES.acquire(blocking=False):
@@ -158,10 +173,12 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument("--ecoute", help="adresse VPN du Mac (10.8.0.X)")
     a.add_argument("--sources", default="", help="adresses autorisées, séparées par des virgules (l'IP du serveur observée)")
-    a.add_argument("--plafond-ko", type=int, default=1024, help="taille max d'une requête (Ko) ; images : voir README")
+    a.add_argument("--plafond-ko", type=int, default=1024, help="taille max d'une requête AVEC image (Ko, 2 048 au plus, avis A9) ; sans image : 1 Mo")
     a.add_argument("--essai", action="store_true", help="127.0.0.1, jeton jetable écrit dans ~/.pleiade/essai-cle.txt")
     o = a.parse_args()
     os.makedirs(DOSSIER, mode=0o700, exist_ok=True)
+    if not 1 <= o.plafond_ko <= 2048:
+        sys.exit("Arrêt : --plafond-ko doit être compris entre 1 et 2 048 (avis CYBERSECU A9).")
     if o.essai:
         ecoute, sources = "127.0.0.1", {"127.0.0.1"}
     else:

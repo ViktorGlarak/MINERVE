@@ -38,6 +38,10 @@ cas = [
     ("JSON illisible", lambda: req("POST", "/api/chat", brut=b"{pas du json"), 400),
     ("corps trop gros (2 Mo)", lambda: req("POST", "/api/chat", brut=b"x" * (2 * 1024 * 1024)), 413),
     ("en-tête Origin", lambda: req("POST", "/api/chat", OK, entetes={"Origin": "http://piege.example"}), 403),
+    ("options qui n'est pas un objet", lambda: req("POST", "/api/chat", {**OK, "options": "num_ctx=99"}), 400),
+    ("option non numérique", lambda: req("POST", "/api/chat", {**OK, "options": {"num_ctx": "9999999"}}), 400),
+    ("2 images dans une requête", lambda: req("POST", "/api/chat", {**OK, "messages": [{"role": "user", "content": "x", "images": ["AAAA", "AAAA"]}]}), 413),
+    ("num_predict -1 ramené à 1..2048", lambda: req("POST", "/api/chat", {**OK, "options": {"num_predict": -1}}), 200),
     ("GET /api/tags avec jeton", lambda: req("GET", "/api/tags"), 200),
     ("POST /api/chat avec jeton (num_ctx borné)", lambda: req("POST", "/api/chat", OK), 200),
 ]

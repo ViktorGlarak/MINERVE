@@ -12,7 +12,11 @@
 | Ollama n'écoute que sur 127.0.0.1:11434, sans `OLLAMA_HOST` ni `OLLAMA_DEBUG`, version 0.40.2 (**O4**) | ✅ constaté |
 | Disque chiffré (FileVault, équivalent de **D3** BitLocker) | ✅ constaté |
 | `proxy_ollama.py` : Python sans dépendance (Node absent du Mac), **O1 / O2 / O5 / D1** | ✅ écrit |
-| `essai_proxy.py` : matrice de refus **O8** en local, jeton jetable | ✅ **17/17 conformes** ; le journal ne contient ni jeton ni contenu |
+| `essai_proxy.py` : matrice de refus **O8** en local, jeton jetable | ✅ **21/21 conformes** (après les améliorations de l'avis CYBERSECU du soir) ; le journal ne contient ni jeton ni contenu |
+| Améliorations CYBERSECU (soir) : `num_predict` borné 1-2048, options non numériques → 400, `options` non-objet → 400, **1 image par requête**, 1 Mo sans image et ≤ 2 Mo avec (**A9**) | ✅ |
+| **Pare-feu pf réappliqué à chaque lancement** par `LANCER_NOEUD.command` (mot de passe demandé, puis `sudo -k`) ; le nœud ne démarre pas sans lui (**A3**) | ✅ |
+| **Mac sur le VPN : 10.8.0.51**, interface `utun7` point à point (= **tun**) ; **PC 10.8.0.3 injoignable depuis le Mac** (port 11435 et ping), cohérent avec un client-to-client désactivé ; serveur 10.8.0.1 joignable (**O7, constat côté client** ; reste à le confirmer côté serveur) | ✅ 2026-10-12 |
+| `~/.ollama/logs` : **aucune invite** retrouvée (**A5**) ; `~/.pleiade` **exclu de Time Machine**, hors iCloud (**A6**) ; `~/.pleiade/noeud.conf` créé (ECOUTE=10.8.0.51, SOURCES=10.8.0.1 provisoire, à confirmer dans le journal) | ✅ |
 | Démarrage refusé si l'IP VPN est absente (échec fermé, **O1 / D5**) | ✅ vérifié |
 | `pare-feu.sh` : règle pf, seule la source serveur vers l'IP VPN :11435 (**O3**) | ✅ écrit, **pas appliqué** (VPN absent) |
 | `LANCER_NOEUD.command` : double-clic, empêche la veille pendant le service (**D4**) | ✅ écrit |
@@ -35,7 +39,8 @@ Différences avec le proxy du PC :
 2. **Catalogue `ia.yml`** : un second jeton secret (`OLLAMA_CLE_MAC`, ou un champ par nœud).
 3. **CYBERSECU** : relire ce kit, trancher le plafond pour les images, et acter le changement de périmètre : un **ordinateur personnel** devient lieu de traitement des messages de joueurs (**D6 / F4**).
 
-### B. Côté utilisateur (le Mac sur le VPN)
+### B. Côté utilisateur (le Mac sur le VPN) — ✅ VPN connecté le 2026-10-12 (10.8.0.51)
+0. **Encore à faire par l'utilisateur** (Réglages système, **A3 / A7**) : activer le **pare-feu macOS** (Réseau → Pare-feu) et le **verrouillage automatique ≤ 5 min avec mot de passe** (Écran verrouillé). Recommandé : une session macOS dédiée au nœud.
 1. **Profil Pritunl NOMINATIF pour le Mac** : à créer par l'administrateur du VPN, puis client Pritunl à installer sur le Mac. ⛔ Claude n'ouvre jamais un profil ni un certificat VPN.
 2. ⚠ **À vérifier** : le serveur VPN est-il joignable depuis le réseau où se trouve le Mac (domicile) ? Le PC s'y connecte depuis le réseau du travail.
 3. Une fois connecté, noter l'**adresse VPN du Mac** (10.8.0.X) et créer `~/.pleiade/noeud.conf` :
