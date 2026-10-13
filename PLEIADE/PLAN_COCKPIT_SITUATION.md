@@ -147,6 +147,10 @@ Les joueurs pourraient rendre **privée** une conversation (à deux, en groupe, 
   - garde-t-on les **volumes** dans le Cockpit (recommandé : oui, sans interlocuteurs) ;
   - l'animation accepte-t-elle de perdre la vue sur ces échanges (risque de coordination hors jeu) ;
   - la supervision reste-t-elle possible sur décision de l'Administration ?
+- **Précision de l'utilisateur (2026-10-13)** :
+  - un compte venant de Keycloak est **d'office humain**, donc une conversation entre de tels comptes peut être rendue privée ;
+  - **dès qu'un avatar IA est membre**, la conversation ne peut pas être rendue privée, même avec des humains dedans.
+  - Reste à préciser : dans les apps, on écrit **sous un avatar** (identité eho). Un avatar **incarné par un joueur** (appropriation eho) compte comme humain. Mais un avatar **incarné par l'animation** est-il humain lui aussi ? (Proposition : non, sinon l'animation pourrait se cacher d'elle-même.)
 - **Agents** : CYBERSECU (cela réduit l'exposition du privé : avis favorable probable), MASTORION (Chat social), PLEIADE (messagerie), DESIGNER (geste « rendre privée » et indicateur visible par tous les membres).
 - **Placement** : après le lot 4, puisqu'il suppose la supervision et les métadonnées en place.
 
