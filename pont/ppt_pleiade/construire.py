@@ -3,7 +3,7 @@ import sys
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
 from pptx.dml.color import RGBColor
-from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION
+from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_TICK_LABEL_POSITION
 from pptx.enum.dml import MSO_LINE
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
@@ -36,6 +36,11 @@ def fond(s, h):
     s.background.fill.fore_color.rgb = rgb(h)
 
 
+def typo(t):
+    t = t.replace("'", "’").replace(" :", NBSP + ":").replace(" ;", NBSP + ";")
+    return t.replace("« ", "«" + NBSP).replace(" »", NBSP + "»")
+
+
 def texte(s, x, y, w, h, contenu, taille=24, couleur=T_CORPS, gras=False, align=PP_ALIGN.LEFT,
           ancre=MSO_ANCHOR.TOP, interligne=1.1, espace_apres=0, nom=None):
     """contenu : str, ou liste de paragraphes ; un paragraphe = str ou liste de (texte, {taille, couleur, gras})."""
@@ -55,7 +60,7 @@ def texte(s, x, y, w, h, contenu, taille=24, couleur=T_CORPS, gras=False, align=
         runs = para if isinstance(para, list) else [(para, {})]
         for t, o in runs:
             r = p.add_run()
-            r.text = t
+            r.text = typo(t)
             f = r.font
             f.name = F
             f.size = Pt(o.get("taille", taille))
@@ -104,8 +109,8 @@ def titre(s, t, sombre=False):
 
 def pied(s, n, sombre=False):
     c = S_3 if sombre else T_PIED
-    texte(s, 48, 510, 600, 16, "PLÉIADE · Exercice · non classifié", taille=12, couleur=c)
-    texte(s, 812, 510, 100, 16, f"{n}{NBSP}/{NBSP}{NB}", taille=12, couleur=c, align=PP_ALIGN.RIGHT)
+    texte(s, 48, 505, 600, 16, "PLÉIADE · Exercice · non classifié", taille=12, couleur=c)
+    texte(s, 812, 505, 100, 16, f"{n}{NBSP}/{NBSP}{NB}", taille=12, couleur=c, align=PP_ALIGN.RIGHT)
 
 
 def notes(s, t):
@@ -130,31 +135,31 @@ s = nouvelle(True)
 constellation(s, 48, 96, 1.0)
 texte(s, 48, 196, 864, 90, "PLÉIADE", taille=72, gras=True, couleur=S_1)
 texte(s, 48, 290, 864, 40, "L'espace informationnel d'entraînement du CECPC", taille=28, couleur=S_2)
-texte(s, 48, 340, 864, 30, f"D'ORION{NBSP}26 à DELATTRE{NBSP}26 · six mois d'avancées", taille=20, couleur=S_3)
-texte(s, 48, 500, 864, 20, "Exercice · non classifié · pays, personnages, médias et villes cités : fictifs", taille=12, couleur=S_3)
+texte(s, 48, 340, 864, 30, f"D'ORION{NBSP}26 à DELATTRE{NBSP}26 · six mois d'avancées", taille=20, couleur=S_2)
+texte(s, 48, 505, 864, 20, "Exercice · non classifié · pays, personnages, médias et villes cités : fictifs", taille=12, couleur=S_3)
 notes(s, "PLÉIADE est la plateforme d'entraînement du CECPC. Elle reproduit, pour chaque exercice, un espace "
          "informationnel complet et fermé : réseau social, presse, messagerie, fiches de personnages, planche des "
          "injects et outils de mesure. Cette présentation retrace six mois d'évolution, d'ORION 26 à DELATTRE 26.")
 
 # ════════ 2. Vase clos + 4 piliers ════════
 s = nouvelle()
-titre(s, "La lutte informationnelle se joue en ligne : PLÉIADE la reproduit en vase clos")
+titre(s, ["La lutte informationnelle se joue en ligne :", "PLÉIADE la reproduit en vase clos"])
 # périmètre fermé
-boite(s, 48, 152, 420, 300, trait=T_CORPS, epaisseur=2, nom="Périmètre fermé")
-texte(s, 64, 164, 300, 20, "Réseau fermé", taille=18, gras=True, couleur=T_SEC)
+boite(s, 72, 152, 396, 300, trait=T_CORPS, epaisseur=2, nom="Périmètre fermé")
+texte(s, 96, 164, 300, 20, "Réseau fermé", taille=18, gras=True, couleur=T_SEC)
 for i, m in enumerate(["Réseau social", "Presse", "Messagerie"]):
-    boite(s, 72, 200 + i * 78, 372, 60, remplissage=GRAPHITE)
-    texte(s, 92, 200 + i * 78, 340, 60, m, taille=24, gras=True, couleur=CRAIE, ancre=MSO_ANCHOR.MIDDLE)
+    boite(s, 96, 200 + i * 78, 348, 60, remplissage=GRAPHITE)
+    texte(s, 116, 200 + i * 78, 316, 60, m, taille=24, gras=True, couleur=CRAIE, ancre=MSO_ANCHOR.MIDDLE)
 # porte VPN
-boite(s, 30, 288, 36, 36, remplissage=CLAIR, trait=T_CORPS, epaisseur=2)
-texte(s, 30, 288, 36, 36, "VPN", taille=12, gras=True, couleur=T_CORPS, align=PP_ALIGN.CENTER, ancre=MSO_ANCHOR.MIDDLE)
+boite(s, 48, 288, 48, 36, remplissage=CLAIR, trait=T_CORPS, epaisseur=2)
+texte(s, 48, 288, 48, 36, "VPN", taille=18, gras=True, couleur=T_CORPS, align=PP_ALIGN.CENTER, ancre=MSO_ANCHOR.MIDDLE)
 # 4 piliers
 piliers = [("Réalisme", "des outils et des personnages crédibles"), ("Rapidité", "une zone déployée en minutes"),
            ("Isolation", "les fausses rumeurs restent dans la salle"), ("Reproductibilité", "tout se réutilise d'un exercice à l'autre")]
 for i, (t, d) in enumerate(piliers):
     y = 152 + i * 78
     boite(s, 504, y + 4, 12, 12, remplissage=T_CORPS)
-    texte(s, 530, y - 4, 382, 70, [[(t, {"taille": 24, "gras": True, "couleur": T_TITRE})], [(d, {"taille": 18, "couleur": T_SEC})]])
+    texte(s, 530, y - 4, 382, 70, [[(t, {"taille": 24, "gras": True, "couleur": T_TITRE})], [(d, {"taille": 20, "couleur": T_SEC})]])
 pied(s, 2)
 notes(s, "Le métier se joue sur des réseaux sociaux, des sites d'information et des messageries. PLÉIADE reproduit cet "
          "écosystème dans un espace fermé, accessible par VPN nominatif. Quatre arguments : réalisme (outils et "
@@ -168,12 +173,13 @@ titre(s, "Six mois, quatre exercices : chaque manque a produit un outil")
 mois = ["Avr.", "Mai", "Juin", "Juil.", "Août", "Sept.", "Oct."]
 x0, x1, ya = 72, 888, 300
 pas = (x1 - x0) / 6
-ligne(s, x0, ya, x0 + pas * 4.5, ya, T_SEC, 3, pointille=True)
-ligne(s, x0 + pas * 4.5, ya, x1, ya, T_CORPS, 4)
+ligne(s, x0, ya, x0 + pas * 4.2, ya, T_SEC, 3, pointille=True)
+ligne(s, x0 + pas * 4.2, ya, x1, ya, T_CORPS, 4)
 for i, m in enumerate(mois):
-    texte(s, x0 + i * pas - 30, ya + 12, 60, 20, m, taille=16, couleur=T_PIED, align=PP_ALIGN.CENTER)
-texte(s, x0, ya + 40, 400, 20, "Fichiers HTML envoyés par mail en ZIP", taille=16, couleur=T_SEC)
-texte(s, x0 + pas * 4.5, ya + 40, 330, 20, "Serveur unique, accès VPN", taille=16, gras=True, couleur=T_CORPS)
+    texte(s, x0 + i * pas - 34, ya + 12, 68, 22, m, taille=18, couleur=T_PIED, align=PP_ALIGN.CENTER)
+# légendes des deux époques, au-dessus de l'axe, entre les repères
+texte(s, x0 + 18, ya - 32, 290, 22, "Pages HTML envoyées en ZIP", taille=18, couleur=T_SEC)
+texte(s, x1 - 16 - 260, ya - 32, 260, 22, "Serveur unique, accès VPN", taille=18, gras=True, couleur=T_CORPS, align=PP_ALIGN.RIGHT)
 etapes = [(0, f"ORION{NBSP}26", "réseau social + premier COCKPIT", True),
           (1, "AURIGE 2BB", "MELMIL, EHO, presse HTML", False),
           (2.3, "MINOTAURE 26", "impact non mesurable", True),
@@ -181,13 +187,29 @@ etapes = [(0, f"ORION{NBSP}26", "réseau social + premier COCKPIT", True),
           (6, f"DELATTRE{NBSP}26", "avatars IA + mesure", True)]
 for pos, nom_, outil, haut in etapes:
     cx = x0 + pos * pas
-    boite(s, cx - 8, ya - 8, 16, 16, remplissage=GRAPHITE if nom_ != f"DELATTRE{NBSP}26" else T_TITRE, forme=MSO_SHAPE.OVAL)
-    yb = 150 if haut else 384
-    ligne(s, cx, yb + (70 if haut else 0), cx, ya - 10 if haut else ya + 70, FILET, 1)
+    # jalons évidés, seul l'aboutissement (DELATTRE 26) est plein
+    if pos == 6:
+        boite(s, cx - 10, ya - 10, 20, 20, remplissage=T_TITRE, forme=MSO_SHAPE.OVAL)
+    else:
+        boite(s, cx - 8, ya - 8, 16, 16, remplissage=CLAIR, trait=GRAPHITE, epaisseur=2, forme=MSO_SHAPE.OVAL)
+    if haut:
+        ligne(s, cx, 222, cx, ya - 10, FILET, 1)
+        yb = 150
+    else:
+        ligne(s, cx, ya + 40, cx, 384, FILET, 1)
+        yb = 390
+    # les repères des extrémités s'alignent sur la marge au lieu de déborder
+    if pos == 0:
+        tx, al = 48, PP_ALIGN.LEFT
+    elif pos == 6:
+        tx, al = 912 - 200, PP_ALIGN.RIGHT
+    else:
+        tx, al = cx - 100, PP_ALIGN.CENTER
+    lw = 200
     if not haut:
-        yb = 410
-    texte(s, cx - 90, yb, 180, 70, [[(nom_, {"taille": 20, "gras": True, "couleur": T_TITRE})], [(outil, {"taille": 16, "couleur": T_SEC})]],
-          align=PP_ALIGN.CENTER)
+        tx, lw = cx - 130, 260
+    texte(s, tx, yb, lw, 70, [[(nom_, {"taille": 20, "gras": True, "couleur": T_TITRE})], [(outil, {"taille": 18, "couleur": T_SEC})]],
+          align=al)
 pied(s, 3)
 notes(s, "Avril, ORION 26 : le Mastodon prévu ne convient pas à l'exercice ; création de MASTORION (réseau social "
          "d'exercice) et d'un premier COCKPIT de suivi. Mai, AURIGE 2BB : JEMM n'est pas adapté à l'influence et les "
@@ -200,12 +222,12 @@ notes(s, "Avril, ORION 26 : le Mastodon prévu ne convient pas à l'exercice ; c
 
 # ════════ 4. Avant / après ════════
 s = nouvelle()
-titre(s, "D'un ZIP envoyé par mail à une plateforme unique, mise à jour en direct")
-lignes = [("Déploiement", "une copie par poste", "une zone en quelques minutes"),
-          ("Personnages", "fiches faites deux fois", f"une fiche, la même partout (≈{NBSP}4{NBSP}000)"),
+titre(s, ["D'un ZIP envoyé par mail à une plateforme unique,", "mise à jour en direct"])
+lignes = [("Déploiement", "une copie par poste", "une zone en minutes"),
+          ("Personnages", "fiches en double", f"une seule fiche (≈{NBSP}4{NBSP}000)"),
           ("Population", "muette sans animateur", "105 avatars IA qui réagissent"),
-          ("Injects", "JEMM recopié à la main", "MELMIL importe JEMM"),
-          ("Mesure", "impact non mesurable", "opinion suivie au COCKPIT")]
+          ("Injects", "JEMM recopié", "MELMIL importe JEMM"),
+          ("Mesure", "impact non mesuré", "opinion suivie au COCKPIT")]
 texte(s, 260, 150, 300, 24, "Avant (AURIGE 2BB, MINOTAURE)", taille=18, gras=True, couleur=T_SEC)
 boite(s, 576, 144, 336, 332, remplissage=GRAPHITE)
 texte(s, 596, 150, 300, 24, f"DELATTRE{NBSP}26", taille=18, gras=True, couleur=CRAIE)
@@ -226,22 +248,22 @@ notes(s, "Avant (AURIGE 2BB et MINOTAURE 26) : outils séparés, pages HTML diff
 
 # ════════ 5. Schéma zone ════════
 s = nouvelle()
-titre(s, "Une zone par exercice : les applications à la carte, une seule identité partout")
+titre(s, ["Une zone par exercice : les applications à la carte,", "une seule identité partout"])
 boite(s, 72, 144, 840, 332, trait=T_CORPS, epaisseur=2, nom="Zone")
-texte(s, 88, 152, 400, 20, f"Zone « DELATTRE{NBSP}26 »", taille=16, gras=True, couleur=T_SEC)
-boite(s, 52, 290, 40, 40, remplissage=CLAIR, trait=T_CORPS, epaisseur=2)
-texte(s, 52, 290, 40, 40, "VPN", taille=12, gras=True, align=PP_ALIGN.CENTER, ancre=MSO_ANCHOR.MIDDLE)
+texte(s, 88, 152, 400, 22, f"Zone « DELATTRE{NBSP}26 »", taille=18, gras=True, couleur=T_SEC)
+boite(s, 48, 290, 48, 40, remplissage=CLAIR, trait=T_CORPS, epaisseur=2)
+texte(s, 48, 290, 48, 40, "VPN", taille=18, gras=True, align=PP_ALIGN.CENTER, ancre=MSO_ANCHOR.MIDDLE)
 groupes = [("Préparer", ["EHO", "MELMIL", "Animation"]), ("Jouer", ["Réseau social", "Presse", "Messagerie"]),
            ("Observer et faire réagir", ["COCKPIT", "Moteur IA"])]
 gx = 112
 for g, apps in groupes:
-    texte(s, gx, 182, 250, 24, g, taille=18, gras=True, couleur=T_TITRE)
+    texte(s, gx, 182, 240, 24, g, taille=18, gras=True, couleur=T_TITRE)
     for j, a in enumerate(apps):
-        boite(s, gx, 214 + j * 52, 250, 42, remplissage="FFFFFF", trait=FILET)
-        texte(s, gx + 14, 214 + j * 52, 230, 42, a, taille=20, couleur=T_CORPS, ancre=MSO_ANCHOR.MIDDLE)
-    gx += 270
-boite(s, 112, 384, 790, 52, remplissage=GRAPHITE)
-texte(s, 132, 384, 760, 52, "EHO : chaque personnage existe une fois, avec la même identité dans toutes les applications",
+        boite(s, gx, 214 + j * 52, 240, 42, remplissage="FFFFFF", trait=FILET)
+        texte(s, gx + 14, 214 + j * 52, 220, 42, a, taille=20, couleur=T_CORPS, ancre=MSO_ANCHOR.MIDDLE)
+    gx += 262
+boite(s, 112, 384, 764, 52, remplissage=GRAPHITE)
+texte(s, 132, 384, 734, 52, "EHO : chaque personnage existe une fois, même identité partout",
       taille=20, couleur=CRAIE, ancre=MSO_ANCHOR.MIDDLE)
 pied(s, 5)
 notes(s, "Une zone est une bulle étanche par exercice : ses comptes, ses données, ses adresses. On y déploie les "
@@ -256,17 +278,16 @@ s = nouvelle()
 titre(s, "Du plan JEMM à l'écran des joueurs, dans un seul circuit")
 etapes = [("JEMM", "l'incident est planifié"), ("MELMIL", "on le prépare"), ("Animation", "on programme"),
           ("À l'heure", "publication automatique"), ("Joueurs", "réseau, presse, messagerie"), ("COCKPIT", "on mesure")]
-w, g = 124, 24
+w, g = 120, 28.8
 for i, (t, d) in enumerate(etapes):
     x = 48 + i * (w + g)
-    boite(s, x, 170, w, 160, remplissage=GRAPHITE if i in (1, 5) else "FFFFFF", trait=None if i in (1, 5) else FILET)
-    c1, c2 = (CRAIE, S_2) if i in (1, 5) else (T_TITRE, T_SEC)
-    texte(s, x + 12, 182, w - 24, 24, f"{i + 1}", taille=18, gras=True, couleur=c2)
-    texte(s, x + 12, 214, w - 24, 110, [[(t, {"taille": 20, "gras": True, "couleur": c1})], [(d, {"taille": 16, "couleur": c2})]])
+    boite(s, x, 172, w, 160, remplissage="FFFFFF", trait=FILET)
+    texte(s, x + 10, 184, w - 20, 24, f"{i + 1}", taille=18, gras=True, couleur=T_SEC)
+    texte(s, x + 10, 216, w - 16, 110, [[(t, {"taille": 20, "gras": True, "couleur": T_TITRE})], [(d, {"taille": 18, "couleur": T_SEC})]])
     if i < 5:
-        fleche(s, x + w + 4, 240, 16, 20, T_SEC)
-boite(s, 48, 372, 864, 52, remplissage=CLAIR, trait=T_CORPS, epaisseur=1)
-texte(s, 68, 372, 830, 52, "À chaque étape, les mêmes personnages, venus de l'EHO", taille=20, couleur=T_CORPS, ancre=MSO_ANCHOR.MIDDLE)
+        fleche(s, x + w + 3.4, 242, 22, 20, T_SEC)
+boite(s, 48, 374, 864, 52, remplissage=GRAPHITE)
+texte(s, 68, 374, 830, 52, "À chaque étape, les mêmes personnages, venus de l'EHO", taille=20, couleur=CRAIE, ancre=MSO_ANCHOR.MIDDLE)
 pied(s, 6)
 notes(s, "1. L'incident est planifié dans JEMM puis exporté. 2. Il arrive sur la planche MELMIL, qui importe les "
          "exports JEMM (events, storylines, incidents) : on le prépare et on le valide. 3. Dans la console "
@@ -276,20 +297,26 @@ notes(s, "1. L'incident est planifié dans JEMM puis exporté. 2. Il arrive sur 
 
 # ════════ 7. 105 (sombre) ════════
 s = nouvelle(True)
-titre(s, f"Nouveauté DELATTRE{NBSP}26 : un espace informationnel qui réagit", sombre=True)
-texte(s, 48, 150, 400, 150, "105", taille=120, gras=True, couleur=CRAIE)
-texte(s, 48, 300, 400, 70, ["avatars animés par IA,", "joués par personne"], taille=24, couleur=S_1)
+titre(s, [f"Nouveauté DELATTRE{NBSP}26 :", "un espace informationnel qui réagit"], sombre=True)
+texte(s, 48, 174, 400, 150, "105", taille=120, gras=True, couleur=CRAIE)
+texte(s, 48, 324, 400, 70, ["avatars animés par IA,", "sans joueur humain derrière"], taille=24, couleur=S_1)
 # barre 15 / 70 / 15 sur 100 citoyens
-bx, bw, by = 480, 432, 196
+bx, bw, by = 480, 432, 220
 parts = [(0.15, "15 %", "pro-Mercure", S_3), (0.70, "70 %", "neutres", S_2), (0.15, "15 %", "pro-Arnland", S_3)]
 x = bx
-texte(s, bx, 160, bw, 24, "100 citoyens de l'Arnland", taille=18, gras=True, couleur=S_1)
+texte(s, bx, 184, bw, 24, "100 citoyens de l'Arnland", taille=18, gras=True, couleur=S_1)
 for f_, pct, lib, c in parts:
     boite(s, x, by, bw * f_ - 2, 48, remplissage=c)
-    texte(s, x, by + 56, bw * f_, 50, [[(pct.replace(" ", NBSP), {"taille": 20, "gras": True, "couleur": S_1})], [(lib, {"taille": 16, "couleur": S_3})]],
-          align=PP_ALIGN.CENTER)
+    if x == bx:
+        lx, lw, al = bx, 140, PP_ALIGN.LEFT
+    elif f_ == 0.15:
+        lx, lw, al = bx + bw - 140, 140, PP_ALIGN.RIGHT
+    else:
+        lx, lw, al = x, bw * f_, PP_ALIGN.CENTER
+    texte(s, lx, by + 56, lw, 50, [[(pct.replace(" ", NBSP), {"taille": 20, "gras": True, "couleur": S_1})], [(lib, {"taille": 18, "couleur": S_2})]],
+          align=al)
     x += bw * f_
-texte(s, bx, 330, bw, 60, "+ 3 avatars de test et 2 relais mercuriens", taille=18, couleur=S_3)
+texte(s, bx, 354, bw, 60, "+ 3 avatars de test et 2 relais mercuriens", taille=18, couleur=S_2)
 pied(s, 7, True)
 notes(s, "Jusqu'ici, le réseau ne réagissait que si un animateur écrivait. Sur DELATTRE 26, 105 avatars sont animés par "
          "IA : 100 citoyens de l'Arnland orientés 15 % pro-Mercure, 15 % pro-Arnland, 70 % neutres, plus 3 avatars de "
@@ -300,20 +327,21 @@ notes(s, "Jusqu'ici, le réseau ne réagissait que si un animateur écrivait. Su
 # ════════ 8. Programme / IA ════════
 s = nouvelle()
 titre(s, "Le programme tient la psychologie ; l'IA ne fait que lire et formuler")
-blocs = [(48, 150, "L'IA lit", "le fil d'actualité", "FFFFFF"),
-         (288, 330, "Le programme décide", "humeur · mémoire · relations · opinions · qui réagit", GRAPHITE),
-         (668, 150, "L'IA formule", "dans la voix du personnage", "FFFFFF")]
+blocs = [(48, 170, "L'IA lit", "le fil d'actualité", "FFFFFF"),
+         (262, 300, "Le programme décide", ["humeur · mémoire · relations", "opinions · qui réagit"], GRAPHITE),
+         (606, 200, "L'IA formule", "dans la voix du personnage", "FFFFFF")]
 for x, w, t, d, c in blocs:
     sombre_b = c == GRAPHITE
     boite(s, x, 180, w, 150, remplissage=c, trait=None if sombre_b else FILET)
-    texte(s, x + 16, 196, w - 32, 130, [[(t, {"taille": 24, "gras": True, "couleur": CRAIE if sombre_b else T_TITRE})],
-                                       [(d, {"taille": 18, "couleur": S_2 if sombre_b else T_SEC})]])
-fleche(s, 206, 245, 74, 22, T_SEC)
-fleche(s, 626, 245, 34, 22, T_SEC)
+    ds = d if isinstance(d, list) else [d]
+    texte(s, x + 16, 196, w - 32, 130, [[(t, {"taille": 24, "gras": True, "couleur": CRAIE if sombre_b else T_TITRE})]]
+          + [[(dd, {"taille": 18, "couleur": S_2 if sombre_b else T_SEC})] for dd in ds])
+fleche(s, 229, 246, 22, 20, T_SEC)
+fleche(s, 573, 246, 22, 20, T_SEC)
 # barrière de garde-fous puis publication
-boite(s, 832, 180, 6, 150, remplissage=T_TITRE)
-texte(s, 846, 230, 80, 50, "Publié", taille=18, gras=True, couleur=T_TITRE, ancre=MSO_ANCHOR.MIDDLE)
-texte(s, 668, 346, 244, 60, "Garde-fous avant publication : relecture, interdits, plafonds, interrupteur", taille=16, couleur=T_SEC)
+boite(s, 822, 180, 6, 164, remplissage=T_TITRE)
+texte(s, 838, 230, 74, 50, "Publié", taille=18, gras=True, couleur=T_TITRE, ancre=MSO_ANCHOR.MIDDLE)
+texte(s, 606, 350, 306, 60, ["Garde-fous : relecture, interdits,", "plafonds, interrupteur"], taille=18, couleur=T_SEC, align=PP_ALIGN.RIGHT)
 texte(s, 48, 420, 864, 30, "◐ En essai : rédacteur dédié et 36 nuances d'émotion", taille=18, couleur=T_SEC)
 pied(s, 8)
 notes(s, "Le modèle d'IA ne décide pas seul. Un programme tient la psychologie de chaque avatar, avec des règles "
@@ -333,8 +361,9 @@ titre(s, "Pour la première fois, on voit l'effet d'une action de joueur sur l'o
 cd = CategoryChartData()
 cd.categories = ["8 h", "10 h", "12 h", "14 h", "16 h", "18 h", "20 h"]
 cd.add_series("Opinion moyenne de la population IA", (-18, -20, -12, 4, 14, 18, 16))
-ch = s.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(48), Pt(150), Pt(560), Pt(300), cd).chart
+ch = s.shapes.add_chart(XL_CHART_TYPE.LINE, Pt(48), Pt(200), Pt(560), Pt(276), cd).chart
 ch.has_legend = False
+ch.has_title = False
 ch.font.size = Pt(16)
 ch.font.name = F
 ch.font.color.rgb = rgb(T_SEC)
@@ -347,17 +376,23 @@ va.minimum_scale, va.maximum_scale, va.major_unit = -100, 100, 50
 va.major_gridlines.format.line.color.rgb = rgb(FILET)
 va.format.line.fill.background()
 ch.category_axis.format.line.color.rgb = rgb(T_PIED)
-ch.category_axis.tick_labels.font.size = Pt(16)
-va.tick_labels.font.size = Pt(16)
-texte(s, 64, 150, 420, 20, "ILLUSTRATION · données fictives", taille=14, gras=True, couleur=T_PIED)
+ch.category_axis.tick_labels.font.size = Pt(18)
+ch.category_axis.tick_label_position = XL_TICK_LABEL_POSITION.LOW
+va.tick_labels.font.size = Pt(18)
+va.tick_labels.number_format = "+0;−0;0"
+va.tick_labels.number_format_is_linked = False
+texte(s, 48, 150, 560, 22, "Opinion moyenne de la population IA", taille=18, gras=True, couleur=T_TITRE)
+texte(s, 48, 174, 560, 22, "ILLUSTRATION · données fictives", taille=18, gras=True, couleur=T_SEC)
 # annotation : inject joueur
-boite(s, 300, 254, 2, 160, remplissage=T_SEC)
-texte(s, 308, 390, 180, 40, "message des joueurs", taille=16, couleur=T_SEC)
+boite(s, 300, 215, 2, 223, remplissage=T_SEC)
+texte(s, 308, 392, 200, 40, "message des joueurs", taille=18, couleur=T_SEC)
+# pôles de l'axe d'opinion
+texte(s, 112, 214, 130, 22, "▲ soutient", taille=18, couleur=T_SEC)
+texte(s, 112, 410, 130, 22, "▼ rejette", taille=18, couleur=T_SEC)
 # ce que suit le Reporting
 texte(s, 640, 150, 272, 28, "Le COCKPIT suit", taille=20, gras=True, couleur=T_TITRE)
 items = ["l'activité par série de comptes", "les hashtags repris", "l'opinion sur chaque axe", "qui la fait bouger : joueurs, IA ou faits"]
-for i, t in enumerate(items):
-    y = 194 + i * 60
+for y, t in zip((194, 262, 306, 350), items):
     boite(s, 640, y + 8, 10, 10, remplissage=T_TITRE)
     texte(s, 662, y, 250, 56, t, taille=20, couleur=T_CORPS)
 pied(s, 9)
@@ -372,18 +407,18 @@ notes(s, "ILLUSTRATION (courbe fictive). Le RETEX de MINOTAURE 26 relevait que l
 s = nouvelle()
 titre(s, "Fermé, local, réparti : rien ne sort de la salle")
 cols = [(48, "Joueurs et animation", "profil VPN nominatif"), (360, "Serveur du CECPC", "les zones d'exercice"),
-        (672, "Nœuds de calcul IA", "PC et Mac de l'équipe")]
+        (672, "Nœuds de calcul IA", "PC et Mac")]
 for i, (x, t, d) in enumerate(cols):
     c = GRAPHITE if i == 1 else "FFFFFF"
     boite(s, x, 170, 240, 130, remplissage=c, trait=None if i == 1 else FILET)
     texte(s, x + 16, 186, 208, 110, [[(t, {"taille": 22, "gras": True, "couleur": CRAIE if i == 1 else T_TITRE})],
                                      [(d, {"taille": 18, "couleur": S_2 if i == 1 else T_SEC})]])
 for x in (288, 600):
-    fleche(s, x + 14, 224, 44, 22, T_SEC)
-    texte(s, x, 254, 72, 20, "VPN", taille=14, gras=True, couleur=T_SEC, align=PP_ALIGN.CENTER)
-lignes10 = ["IA locale, sous licence libre (Gemma 4) : aucun service en ligne",
-            "Une machine s'arrête : ses avatars sont repris par une autre",
-            "Être sur le VPN ne donne aucun droit : chaque application vérifie les siens"]
+    fleche(s, x + 25, 225, 22, 20, T_SEC)
+    texte(s, x, 252, 72, 22, "VPN", taille=18, gras=True, couleur=T_SEC, align=PP_ALIGN.CENTER)
+lignes10 = ["IA locale, licence libre : aucun service en ligne",
+            "Une machine s'arrête : une autre reprend ses avatars",
+            "Le VPN ne donne aucun droit"]
 for i, t in enumerate(lignes10):
     y = 330 + i * 46
     boite(s, 48, y + 9, 10, 10, remplissage=T_TITRE)
@@ -407,12 +442,12 @@ verbes = [("Entraîner", "un état-major à la lutte informationnelle"), ("Monte
 for i, (v, d) in enumerate(verbes):
     y = 150 + i * 58
     texte(s, 48, y, 200, 50, v, taille=28, gras=True, couleur=CRAIE)
-    texte(s, 250, y + 4, 380, 50, d, taille=20, couleur=S_1)
-boite(s, 660, 150, 252, 260, trait=FILET_S, epaisseur=1)
-texte(s, 680, 166, 220, 240, [[("La suite", {"taille": 20, "gras": True, "couleur": S_1})],
+    texte(s, 250, y + 7, 380, 50, d, taille=20, couleur=S_1)
+boite(s, 660, 150, 252, 200, trait=FILET_S, epaisseur=1)
+texte(s, 680, 166, 220, 180, [[("La suite", {"taille": 20, "gras": True, "couleur": S_1})],
                                [("◐ en essai : rédacteur, émotions", {"taille": 18, "couleur": S_2})],
-                               [("○ à l'étude : lecture des images", {"taille": 18, "couleur": S_2})],
-                               [("○ ensuite : plus d'avatars, plus de machines", {"taille": 18, "couleur": S_2})]],
+                               [("○ à l'étude : lecture d'images", {"taille": 18, "couleur": S_2})],
+                               [("→ ensuite : plus d'avatars", {"taille": 18, "couleur": S_2})]],
       espace_apres=10)
 constellation(s, 820, 440, 0.6)
 pied(s, 11, True)

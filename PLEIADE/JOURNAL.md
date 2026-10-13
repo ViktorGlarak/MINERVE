@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-13 (suite 16) — Diaporama PLÉIADE v2 : revue visuelle PC avec DESIGNER (avis n°107), corrigé, PDF de secours exporté
+- Consignes `pont\ppt_pleiade\CONSIGNES_PC.md` appliquées : rendu des 11 diapos par PowerPoint (export PNG), revue, corrections dans `pont\ppt_pleiade\construire.py`, régénération de `PLEIADE\PRESENTATION\PLEIADE_presentation_v2.pptx`, PDF exporté par PowerPoint à côté (`PLEIADE_presentation_v2.pdf`, 11 pages).
+- **Défauts du premier rendu** : frise (diapo 3) dont ORION et DELATTRE sortaient de la diapo ; ligne de tableau sur 2 lignes (4) ; bandeau EHO qui débordait (5) ; « pro- / Mercure » coupé (7) ; bloc « L'IA formule » qui débordait (8) ; titre du graphique qui chevauchait la mention ILLUSTRATION, heures posées sur la courbe (9).
+- **Revue DESIGNER (8 bloquants)**, tous corrigés : plancher 18 pt pour tout texte porteur (frise, flux, garde-fous, mention ILLUSTRATION, « VPN ») ; porte VPN hors marge (2) ; double emphase de la diapo 6 (seul le bandeau EHO reste graphite) ; garde-fous rattachés à la barrière « Publié » (8) ; pôles « soutient / rejette » et graduations +100 / −100 (9). Mineurs repris : apostrophe ’ et insécables, titres coupés en 2 paragraphes, pied à y 505, flèches 22×20, frise pleine à partir du jalon Fusion et jalons évidés, textes raccourcis sous 40 mots (4, 10, 11), « joués par personne » → « sans joueur humain derrière ».
+- **Contre-revue DESIGNER** : aucun bloquant, prêt pour le PDF. Laissés : « Joueurs et animation » sur 2 lignes (10), « on le / prépare » (6).
+- ✅ **Fichiers** : ils restent dans `PLEIADE\PRESENTATION\` (l'utilisateur y a récupéré le PDF).
+
 ## 2026-10-13 (suite 15) — Moteur IA 2026-10-13.4 et réseau social POUSSÉS ; projet avatars IA MIS EN PAUSE
 - **Poussé** (feu vert de l'utilisateur) :
   - réseau social `b0302af..25c7227` (`reply_to_comment_id`) ;
