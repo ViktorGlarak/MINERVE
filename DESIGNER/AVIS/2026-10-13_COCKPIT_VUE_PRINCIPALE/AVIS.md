@@ -215,3 +215,17 @@ L'app note l'heure du dernier passage **par animateur** (pas par carte). Tout ch
 4. Noms d'onglets : « Situation · À traiter » ou « Vue d'ensemble · À lire ».
 
 ⭐ **Doctrine dégagée** : *un outil de contrôle compte des variations depuis le dernier regard, pas des stocks ; il affiche des catégories (des règles), pas des sources (des copies) ; la vue d'ensemble et le traitement sont deux pages reliées, pas une page qui fait les deux.*
+
+---
+
+## 8. Arbitrages de l'utilisateur (2026-10-13)
+
+1. **Dernier passage : par animateur.** « J'ai fait le point » ne remet à zéro que son propre compteur.
+2. **Poids d'un compte** (recommandation acceptée par défaut) : ce sont les **réactions suscitées dans l'heure glissante** (réponse ×3, partage ×2, j'aime ×1). Le nombre d'**abonnés est affiché à part, hors calcul**. Raisons :
+   - les abonnés d'exercice sont fixés par le scénario et feraient toujours gagner les mêmes gros comptes ;
+   - ce qui compte pour l'animation, c'est ce qui fait réagir **maintenant**.
+3. **Noms d'onglets** : « Situation », « À traiter », « Catégories de suivi », retenus et révisables plus tard.
+4. **Architecture retenue** :
+   - **B** en page d'accueil (Situation) ;
+   - **C** en onglet (À traiter) ;
+   - **A conservé en « Projection grand écran »**, rangé dans un menu discret « ⋯ » (Affichage) de l'en-tête, qui ouvre un nouvel onglet. La projection n'a aucune commande, utilise de gros caractères et ne se met jamais en pause. Le contenu privé (Chat et messagerie) n'y est **jamais** projeté : seule la mention « Message privé » s'affiche.
