@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-10-13 (suite) — app-ia 2026-10-13.2 POUSSÉE main + prod (`2973742..cc265de`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.2 vérifié à 10 h 53)
+- **Contenu** :
+  - lecture des images des joueurs en contexte (texte du message, type de compte), avec les mesures de CYBERSECU § C ; réglage coupé par défaut ;
+  - familles honte et culpabilité ;
+  - élan d'action dans le groupe d'essai du rédacteur, journalisé sous « élan » (avis PSYCHOLOGUE n°20 et n°21).
+- Nouvelle table `image_description` (créée au démarrage) et dépendance directe `sharp`.
+- 🔜 L'utilisateur active « Rédacteur dédié », « Nuances d'émotion » et « Lecture des images » dans Réglages, puis envoie un export de la journée pour mesurer : groupe témoin, élan, part de honte et de culpabilité (moins de 5 %), images.
+
 ## 2026-10-13 — app-ia 2026-10-13.1 POUSSÉE main + prod (`bcccb64..2973742`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.1 vérifié à 09 h 24)
 - **Contenu** :
   - rédacteur dédié et nuances d'émotion, en essai sur le groupe « relu », coupés par défaut dans Réglages ;
