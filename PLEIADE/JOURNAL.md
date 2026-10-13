@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-13 (suite 7) — Cockpit : partage « Toute l'animation de la zone » POUSSÉ ; en-tête du Reporting et correctif PRÊTS (non poussés)
+- **Poussé** (`1ec85cb..e4304ef`, main + prod, feu vert de l'utilisateur) :
+  - partage « zone » d'une catégorie (tout porteur du rôle Veille), choisi par défaut quand le compte n'a pas de cellule ;
+  - cellule relue dans la fenêtre ouverte depuis À traiter.
+  - Le bouton « Ajouter » est **conservé** (l'utilisateur ne veut pas d'ajout automatique : correctif annulé, `dab01b0`).
+  - Déploiement non vérifiable sans session : l'empreinte de `/login` ne change pas d'une version à l'autre (page inchangée).
+- **Prêt, non poussé** (`5ecd228`) :
+  - le Reporting reçoit le même en-tête (`EnteteSituation actuel="reporting"`) ;
+  - **correctif** : dans une zone sans Moteur IA, la page Reporting plantait entièrement (`ReportingOpinions` lisait `parAxe`/`topSources` avant le test `disponible`). Défaut en production depuis le 12/10 ; DELATTRE 26 n'est pas touchée (elle a un moteur).
+- ⚠ À traiter ensuite : les « groupes comparatifs » du Reporting reposent encore sur les **anciennes catégories du navigateur**, pas sur les nouvelles catégories de suivi du serveur.
+
 ## 2026-10-13 (suite 6) — Cockpit Situation : POUSSÉ EN PRODUCTION (4 dépôts, feu vert de l'utilisateur) — l'instance Cockpit est MISE À JOUR, pas recréée
 - **Demande utilisateur** : mettre à jour l'app-cockpit **sans créer de nouvelle instance**. La plateforme ne créait une base qu'à la création d'une instance → ajout de `assurerBaseInstance` (pleiade-platform) : au déploiement (promotion d'une version, ou `deployInstance`), si le catalogue exige `mariadb` et que le `.env` n'a pas les variables, la base est créée et les variables ajoutées. Client Keycloak, rôles cochés et portail sont conservés.
 - Repris dans la même branche : le correctif **SQL sans shell** du 10/10 (`c6a07b9`, jusqu'ici seulement sur la branche locale `tutoriel`) ; sans lui, la création des bases échouait sous Windows (l'essai local a buté dessus). Plus `ALTER USER` pour aligner le mot de passe d'un utilisateur restant.
