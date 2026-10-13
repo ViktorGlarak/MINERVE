@@ -9,6 +9,18 @@
 >
 > Règles de chaque lot : essai en local, puis feu vert de l'utilisateur **pour chaque dépôt** avant le push sur `prod`, puis vérification de `/api/sante` ou de la page.
 
+
+> ⏸️ **CHANTIER EN PAUSE depuis le 2026-10-13 au soir (demande de l'utilisateur : « on reviendra après »).**
+> **En production** (DELATTRE 26) : lots 1 et 2 ; partage « Toute l'animation de la zone » ; même en-tête pour le Reporting ; Reporting branché sur les catégories de suivi (`app-cockpit` `b0dbfa0`, vérifié par `/api/bff/situation/series-reporting` → 401) ; plateforme `b6f128f` ; réseau social `0e35443` ; eho `2026-10-13.1`.
+> **À la reprise, dans l'ordre proposé** :
+> 1. Vérifier avec l'utilisateur ce qu'il a vu à l'écran (catégories créées, collecteur « lu à l'instant »).
+> 2. Les « vues enregistrées » (équivalent des espaces de travail) : question posée, sans réponse — partager (déjà couvert) ou basculer entre configurations ?
+> 3. Lot 3 (presse) ; lot 4 (Chat et messagerie en métadonnées + supervision, case « Supervision » à côté de « Veille ») ; lot 5 (projection, retrait de l'ancien écran).
+> 4. Conversations privées entre joueurs (après le lot 4 ; question : un avatar incarné par l'animation est-il humain ?).
+> 5. Reporting : règles camp et cellule pas encore comptées (signalées en orange).
+> **État technique à connaître** : branches `situation` dans `app-cockpit`, `app-social`, `eho` (toutes fusionnées dans main/prod) ; copie de travail `C:\CECPC\pleiade\wt-platform-situation` (branche `situation` = main de la plateforme) ; la zone locale `ia-locale` tourne sur les images `situation-essai` du social, d'eho et du Cockpit ; scripts d'essai dans le dossier temporaire de session (non conservés).
+
+
 ---
 
 ## 1. Point de départ (ce que le code montre)

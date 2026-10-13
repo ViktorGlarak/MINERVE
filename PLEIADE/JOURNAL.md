@@ -4,6 +4,10 @@
 
 ---
 
+## 2026-10-13 (suite 9) — Cockpit : Reporting sur les catégories de suivi POUSSÉ ; chantier MIS EN PAUSE
+- `app-cockpit` `5ecd228..b0dbfa0` (main + prod, feu vert de l'utilisateur) ; déploiement vérifié : `/api/bff/situation/series-reporting` passe de 404 à 401.
+- ⏸️ **Pause demandée par l'utilisateur.** L'état et l'ordre de reprise sont en tête de `PLEIADE\PLAN_COCKPIT_SITUATION.md`.
+
 ## 2026-10-13 (suite 8) — Cockpit : en-tête du Reporting POUSSÉ ; Reporting branché sur les catégories de suivi PRÊT (non poussé, `b0dbfa0`)
 - **Poussé** (`e4304ef..5ecd228`, feu vert de l'utilisateur) : même en-tête pour le Reporting, et correctif de la page qui plantait sans Moteur IA.
 - **Prêt** :
