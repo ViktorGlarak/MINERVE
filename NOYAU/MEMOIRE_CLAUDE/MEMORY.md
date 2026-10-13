@@ -32,7 +32,7 @@
 ## Système MINERVE / PLÉIADE
 - [⭐ LIRE À CHAQUE SESSION — agenda & rappels perso chez SECRÉTAIRE](feedback_rappels_secretaire.md) — SECRETAIRE\MEMOIRE.md § AGENDA ; y ranger tout « rappelle-moi »
 - [⭐ Avatars IA — on perfectionne aussi les FICHES INDIVIDUELLES (11/10)](feedback_fiches_individuelles_ia.md) — moteur de groupe + fiche par fiche ; ancrage plus tard ; boucle relevé → PSYCHOLOGUE → corriger-fiches.mjs
-- [🤖 Projet avatars animés par IA (10/10) — piloté par PLEIADE](projet_avatars_ia.md) — suivi PLEIADE\PROJET_AVATARS_IA.md ; cadrage Mastodon à traduire vers app-social
+- [🤖 Projet avatars animés par IA (10/10) — piloté par PLEIADE](projet_avatars_ia.md) — suivi PLEIADE\PROJET_AVATARS_IA.md ; cadrage Mastodon à traduire vers app-social ; ⏸️ EN PAUSE depuis le 13/10 (moteur 2026-10-13.4 en prod ; reprise : avis PSYCHOLOGUE 22, étape 1)
 - [🧭 Projet tutoriel guidé PLÉIADE (08/10)](projet_tutoriel_guide_pleiade.md) — décisions de conception ; ⛔ localhost seul jusqu'au feu vert
 - [🔔 À RAPPELER — likes invisibles dans la vue joueurs du social](rappel_likes_vue_joueurs.md) — après la réflexion partage des avatars
 - [Système MINERVE — architecture et chemins](project_mercure.md) — CLAUDE.md = source de vérité
