@@ -169,3 +169,14 @@
 - K2 : la résolution eho ne rend ni compte de zone, ni `sub`, ni origine. K6 : la base du Cockpit n'a aucun champ de texte ; le texte public est relu à l'unité, jamais stocké ; réponses `no-store`. K7 : les routes de service du social et d'eho sont en lecture seule, avec des paramètres stricts (inconnu → 400, fenêtre de 14 jours au plus, plafonds, troncature signalée), sous clé de service seule. K9 : rôle « Veille » exigé, canal injoignable affiché comme tel. K11 : la cellule est tirée du jeton, les catégories sont validées et leurs modifications tracées. K12 : purge à 14 jours.
 - Chat et messagerie : **aucun contenu** ; la route du volet refuse les canaux privés (403). Restent à faire au lot 4 : K1, K3 à K5, K8 et K13.
 - Plateforme : création des bases **sans shell** (`execFile`) ; le mot de passe root passe toujours en argument de `docker exec` (comme avant) : point à revoir (`MYSQL_PWD` en variable d'environnement).
+
+## 2026-10-13 — Avis : export .md des contenus d'une cellule (Console d'animation, Supervision)
+
+- **Demande** (NOYAU, pour l'utilisateur) : un bouton dans l'écran Supervision d'app-admin pour télécharger en .md ce que la cellule de l'animateur a publié (scénarios et publications en direct, social et presse), les réactions des autres comptes (commentaires, citations) et, en option, les contenus de la zone qui reprennent les hashtags lancés. Filtre par Event / Storyline / Incident (MELMIL) ou par scénario. Le fichier sort de la plateforme.
+- **Lu** : `MEMOIRE.md` (§4, avis K1-K13, B1-B9/F1-F5, E8/M12), `app-admin/src/lib/cellules.ts` et `auth.ts` (`5cc2ffe`).
+- **Constats** :
+  - la cellule se déduit déjà du claim `groups` ; aucune ou deux cellules donnent « » ;
+  - le champ cellule d'un scénario se corrige à la main ;
+  - le texte du FAM JEMM est NATO RESTRICTED au niveau du fichier.
+- **Avis** : acceptable avec conditions **E1-E15** (risque **moyen** : des messages de joueurs sortent vers un poste). Contenu public et paru seulement ; cellule tirée du jeton ; pas d'origine ni de compte de zone dans le fichier ; route de service dédiée (K7) ; export journalisé ; plafonds ; Markdown neutralisé ; consignes de conservation et de purge sur le poste.
+- **Consigné** : `MEMOIRE.md` §4 (2 règles) et §9 (1 ligne). Rien commité.

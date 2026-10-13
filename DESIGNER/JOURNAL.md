@@ -1,5 +1,11 @@
 # JOURNAL — DESIGNER
 
+## Avis n°106 — 2026-10-13 — Console d'animation, Supervision : télécharger en .md les contenus de sa cellule
+- **Demande utilisateur** : un bouton dans Supervision pour que l'animateur télécharge en .md ce que SA cellule a publié (scénarios et direct) + les réactions des autres comptes, filtré par Event / Storyline / Incident / Scénario et par types (publications, commentaires, citations, articles, reprises de hashtags), rangé Event > Storyline > Incident. Arbitrages déjà pris par l'utilisateur, repris tels quels.
+- Code lu sans rien modifier (`app-admin`) : `Monitoring.tsx`, `Shell.tsx` (`PageHeader` a une prop `action`), `dialogs\Modal.tsx`, `IncidentPicker.tsx`.
+- Avis : bouton secondaire en en-tête ; formulaire unique à 4 blocs (cellule en lecture, périmètre arbre/scénarios avec recherche, types, période) ; aperçu chiffré vivant + nom de fichier ; 4 états (rien, long, erreur, app injoignable sans partiel silencieux) ; structure du fichier avec bandeau de diffusion en tête et en pied, exemple de 20 lignes. `AVIS\2026-10-13_EXPORT_MD_SUPERVISION\AVIS.md`. Aucun commit.
+- Remontées : PLEIADE (export serveur, cellule de la session, aperçu, rattachement du direct, hashtags lancés), CYBERSECU (libellé de diffusion, journalisation, plafond).
+
 ## Avis n°101 — 2026-10-12 — Console d'animation : avatars animés par l'IA (« CAMP IA ») traités comme réservés (avant commit)
 - **Demande** (décision utilisateur du 12/10) : les avatars membres du groupe eho « CAMP IA », qui ne sont pas jouables sur le social, doivent être traités dans la Console comme un avatar réservé par un autre compte. Il faut **alerter** l'animateur, pas le bloquer. Cinq avatars de scénarios sont concernés, dont ManFredK et GREYCELL. Lu sans rien modifier (`wt-app-admin-likes`, branche `avatars-ia`, `git diff origin/main`) : `lib/avatars-ia.ts`, `lib/avatars-ia-serveur.ts`, `lib/scheduler.ts`, `PersonaPicker.tsx`, `ScenarioEditor.tsx`, `lib/kit-ia.ts`, `api/bff/scenarios/[id]/kit-ia/route.ts`, `globals.css` (`.pa-res*`), `KitIaDialog.tsx`. Comparé avec eho (`population-ia`, `dashboard` : ✦ `#c026d3`) et avec l'origine « IA » du social (`pi-sparkles`, MASTORION).
 - **Ce qui va** : l'avis n°29 est bien repris.
