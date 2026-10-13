@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-10-13 (suite 11) — Export .md de la Supervision : POUSSÉ EN PRODUCTION (4 dépôts, feu vert de l'utilisateur)
+- Dans l'ordre :
+  1. **MELMIL** `f4913b5..8c35400` → `/api/sante` = 2026-10-13.1, `/api/service/arbre` sans clé → 401 ;
+  2. **réseau social** `0e35443..e584d33` (non vérifiable sans clé : la garde de service répond avant la route) ;
+  3. **presse** `004976e..3ab3abc` → `today-mercure.delattre-26` : `/api/service/export-cellule` passe de 404 à 401 ;
+  4. **Console** `27887bd..122b604` → `admin.delattre-26` et `conduite.exercice` : `/api/bff/export-md/arbre` passe de 404 à 401.
+- À vérifier par l'utilisateur dans la Supervision : l'aperçu ne doit pas annoncer « version trop ancienne » pour le réseau social.
+- Montage d'essai local supprimé (copies du social, du MELMIL et de la presse ; bases jetables).
+- Instances de presse connues de DELATTRE 26 : `today-mercure` (les autres noms n'ont pas répondu aux essais).
+
 ## 2026-10-13 (suite 10) — Export .md de la Supervision : lots C (MELMIL), A (réseau social), D (Console) FAITS EN LOCAL, non poussés
 - Plan : `PLEIADE\PLAN_EXPORT_MD_SUPERVISION.md` (avis DESIGNER n°106, CYBERSECU E1 à E15 ; réponses de l'utilisateur : l'Administration seule peut changer de cellule, mention validée, pas de nom d'exportateur).
 - **MELMIL** (`8c35400`, branche `export-md`, version 2026-10-13.1) : `GET /api/service/arbre`, anonyme (identifiants, codes, titres ; events et storylines vides compris). 616 tests.

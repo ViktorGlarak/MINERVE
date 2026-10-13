@@ -1,5 +1,7 @@
 # Plan — Console d'animation, Supervision : télécharger en .md les contenus de sa cellule
 
+> ✅ **EN PRODUCTION le 2026-10-13** (lots A, B, C et D) : MELMIL `8c35400`, réseau social `e584d33`, presse `3ab3abc`, Console `122b604`. Détail : journal PLEIADE, 13/10, suites 10 et 11.
+
 > Rédigé le 2026-10-13. Sources :
 > - demande et arbitrages de l'utilisateur (même jour) ;
 > - avis DESIGNER n°106 (`DESIGNER\AVIS\2026-10-13_EXPORT_MD_SUPERVISION\AVIS.md`) ;
