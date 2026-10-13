@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-13 (suite 3) — Cockpit : plan de refonte de la vue principale (Situation · À traiter · Projection)
+- Plan : `PLEIADE\PLAN_COCKPIT_SITUATION.md`. Il s'appuie sur l'avis DESIGNER 105 (arbitrages §8), l'avis CYBERSECU (K1 à K13) et le relevé du code de 6 dépôts.
+- Constats :
+  - le Cockpit n'a ni base ni tests ; tout est dans le stockage du navigateur ;
+  - un groupe eho est copié membre par membre ; le serveur fait un lookup par avatar toutes les 10 s ;
+  - la messagerie est de type Telegram, pas du courriel ;
+  - les partages sont désactivés sur le social ; les réactions y sont horodatées mais non exposées ;
+  - le Chat du social est marqué « rien n'en sort » dans le schéma.
+- Cible : base propre au Cockpit, avec un index de MÉTADONNÉES alimenté par un collecteur (routes de service `evenements` / `reactions` / `meta`) et les compteurs en SQL. Le texte est relu à la demande. Le privé passe par un lien vers la supervision de l'app source.
+- 5 lots : 1 socle ; 2 social public (premier lot utile) ; 3 presse ; 4 Chat et messagerie en métadonnées ; 5 projection et retrait de l'ancienne vue. Rien n'est codé : en attente des 4 réponses de l'utilisateur (§5 du plan).
+
 ## 2026-10-13 (suite 2) — app-ia 2026-10-13.3 POUSSÉE main + prod (`cc265de..6dca069`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.3 vérifié à 11 h 34)
 - **Corrections issues du relevé de 11 h 19** :
   - faux blocages corrigés : « ville sans H » sur un nom composé en H, « insulte » sur « prendre pour des imbéciles » ;

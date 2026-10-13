@@ -154,3 +154,13 @@
   - Description assainie avant stockage (≤ 300 caractères, invisibles retirés, crochets neutralisés, consigne suspecte non recopiée), placée dans le bloc délimité des contenus de joueurs ; pas d'identification de personnes.
   - Table `image` purgée par « Supprimer les archives », réglage Administration coupé par défaut.
 - **Consigné** : `MEMOIRE.md` §9 (ligne 2026-10-12 soir) et §7 (question O7 / VPN depuis le domicile / révocation des profils des nœuds). Rien commité.
+
+## 2026-10-13 — Avis : messages privés, presse et projection dans le Cockpit refondu (avis DESIGNER n°105)
+
+- **Demande** (NOYAU, pour l'utilisateur) : la refonte du Cockpit veut montrer le Chat du social, la messagerie et la presse en plus du fil public. Lu : `MEMOIRE.md`, prompt `cybersecu.md`, avis DESIGNER n°105 (§2 préalable données, §8 arbitrages), code `app-cockpit` (`dea51d1` : `lib/admin.ts`, `eho.ts`, `instances.ts`, `mastorion.ts`, routes `bff/*`), `app-messagerie/src/lib/auth.ts`, `app-social/apps/api/src/service/index.ts`.
+- **Constats** :
+  - le BFF du Cockpit lit toutes les apps avec la **clé de zone** ;
+  - la messagerie sépare déjà `animateur` et `superviseur` : seul le superviseur lit les conversations privées ;
+  - ⚠ `GET /api/service/chat/messages` du Social (moteur IA, 10/10) rend le contenu des Chats de 200 identités quelconques, sans journal (risque **moyen**, à borner).
+- **Avis** : acceptable avec conditions **K1-K13** (risque moyen). Analyste = métadonnées ; contenu = rôle `superviseur`, à l'unité, motif, journal d'accès ; v1 par **lien profond** vers la supervision de l'app source ; routes de métadonnées sans champ de contenu ; projection = public et agrégats ; catégories de cellule déduites du jeton et filtrées à la lecture ; purge avec la zone ; joueurs informés.
+- **Consigné** : `MEMOIRE.md` §4 (3 règles du 2026-10-13) et §9 (ligne 2026-10-13). Rien commité.
