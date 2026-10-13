@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-10-13 (suite 15) — Moteur IA 2026-10-13.4 et réseau social POUSSÉS ; projet avatars IA MIS EN PAUSE
+- **Poussé** (feu vert de l'utilisateur) :
+  - réseau social `b0302af..25c7227` (`reply_to_comment_id`) ;
+  - moteur IA `6dca069..9a6368a` → `/api/sante` = **2026-10-13.4**. Contenu : garde-fous du relevé de 17 h 46, mentions `@compte`, réponse = notification, commentaire qui dit à qui il répond, réponse rangée sous le commentaire visé.
+- **Constat de l'utilisateur** : les messages de vie se repèrent tout de suite (même moule). Il veut de l'actualité, des positions et de vrais débats entre avatars.
+  - Mesures : vie seule 18 % (joueurs 1 %), position prise 5/94, @ 1/94, commentaires IA → IA 7 contre 91 vers les joueurs, 67 % des publications IA sans commentaire, désaccord 7/116 ;
+  - forme : émoji final 89 %, « … » 73 %, 3 ou 4 phrases 86 %.
+- **Avis PSYCHOLOGUE n°22** (`PSYCHOLOGUE\AVIS6-10-13_avis22_formes_spontanees.md`) : sujet → position → nuance → forme ; 10 formes ; vie ≤ 15 % ; plafonds (émoji final, « … », phrases, vocabulaire du calme) ; désaccord 20 à 30 % ; attention IA ↔ IA ≤ 25 % ; suivi des fils ; 15 mesures, dont 3 bloquantes.
+- **Découpage accepté par l'utilisateur** :
+  - **étape 1** : sujet d'actualité + position + formes + plafonds ;
+  - **étape 2** : désaccord ;
+  - **étape 3** : débats IA ↔ IA et suivi des fils.
+  - Chaque étape testée en local contre un groupe témoin avant tout push.
+- ⏸️ **PAUSE demandée par l'utilisateur** (« on va basculer sur un autre truc »). Reprise par l'étape 1, à partir de l'avis n°22 (§ A et B1-B2, mesures § C 1 à 5, 8, 10, 15).
+- À vérifier au prochain relevé de production : l'effet « notification » (l'auteur revient-il dans son fil ?), plus de réponse « à la première personne » sous un commentaire adressé à un autre, réponses rangées sous le commentaire visé, phrases inachevées ≈ 0.
+
 ## 2026-10-13 (suite 14) — Moteur IA : relevé de production de 17 h 46 analysé ; 2026-10-13.4 PRÊTE (non poussée, `78539f8`)
 - Exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\` (messages de joueurs : purge en fin d'exercice). Période analysée : depuis 2026-10-13.3 (11 h 34).
 - **Ce qui marche** :
