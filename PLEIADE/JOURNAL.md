@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-13 (suite 8) — Cockpit : en-tête du Reporting POUSSÉ ; Reporting branché sur les catégories de suivi PRÊT (non poussé, `b0dbfa0`)
+- **Poussé** (`e4304ef..5ecd228`, feu vert de l'utilisateur) : même en-tête pour le Reporting, et correctif de la page qui plantait sans Moteur IA.
+- **Prêt** :
+  - les séries du Reporting viennent des **catégories de suivi du serveur**. Route `GET /api/bff/situation/series-reporting` : groupes eho → membres (relus une fois par groupe), comptes (identité ou nom, « sur tous les réseaux »), hashtags, exclusions de comptes et de groupes ;
+  - les règles camp et cellule sont **signalées** en orange, pas comptées (pas d'équivalent dans le Reporting du social) ;
+  - un « Groupe de catégories » est l'union des catégories choisies ; sans base, repli sur les anciennes catégories du navigateur ;
+  - les BFF `reporting` et `reporting/hashtags` acceptent un compte sans instance (= tous les réseaux).
+  - Pur et testé : `src/situation/serie-reporting.ts` (15 tests au total).
+- Essai de bout en bout en local (copies du social et d'eho de `ia-locale`, base jetable) : Camp rouge 280 membres → 10 publications ; Avatars IA 105 → 21 publications et 62 commentaires ; « Pont coupé » (#pontcoupé + camp) → 10, avec l'alerte du camp. Capture vérifiée.
+- ⚠ Piège répété : un `next dev` arrêté par TaskStop laisse un processus orphelin sur le port 4311. Avant de relancer, l'arrêter (`Get-NetTCPConnection -LocalPort 4311`).
+
 ## 2026-10-13 (suite 7) — Cockpit : partage « Toute l'animation de la zone » POUSSÉ ; en-tête du Reporting et correctif PRÊTS (non poussés)
 - **Poussé** (`1ec85cb..e4304ef`, main + prod, feu vert de l'utilisateur) :
   - partage « zone » d'une catégorie (tout porteur du rôle Veille), choisi par défaut quand le compte n'a pas de cellule ;
