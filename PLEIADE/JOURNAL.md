@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-13 (suite 2) — app-ia 2026-10-13.3 POUSSÉE main + prod (`cc265de..6dca069`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.3 vérifié à 11 h 34)
+- **Corrections issues du relevé de 11 h 19** :
+  - faux blocages corrigés : « ville sans H » sur un nom composé en H, « insulte » sur « prendre pour des imbéciles » ;
+  - journal du parc exact (nœud de secours réellement utilisé, ou aucun) ;
+  - indicateurs d'image dans l'export (décomptes seulement).
+- Détails : `PROJET_AVATARS_IA.md` § 8. PC n°3 (6 Go de mémoire graphique) : mesure à refaire avec une invite longue avant toute décision.
+
 ## 2026-10-13 (suite) — app-ia 2026-10-13.2 POUSSÉE main + prod (`2973742..cc265de`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.2 vérifié à 10 h 53)
 - **Contenu** :
   - lecture des images des joueurs en contexte (texte du message, type de compte), avec les mesures de CYBERSECU § C ; réglage coupé par défaut ;
