@@ -164,3 +164,8 @@
   - ⚠ `GET /api/service/chat/messages` du Social (moteur IA, 10/10) rend le contenu des Chats de 200 identités quelconques, sans journal (risque **moyen**, à borner).
 - **Avis** : acceptable avec conditions **K1-K13** (risque moyen). Analyste = métadonnées ; contenu = rôle `superviseur`, à l'unité, motif, journal d'accès ; v1 par **lien profond** vers la supervision de l'app source ; routes de métadonnées sans champ de contenu ; projection = public et agrégats ; catégories de cellule déduites du jeton et filtrées à la lecture ; purge avec la zone ; joueurs informés.
 - **Consigné** : `MEMOIRE.md` §4 (3 règles du 2026-10-13) et §9 (ligne 2026-10-13). Rien commité.
+
+## 2026-10-13 (soir) — Cockpit « Situation » en production : conditions appliquées
+- K2 : la résolution eho ne rend ni compte de zone, ni `sub`, ni origine. K6 : la base du Cockpit n'a aucun champ de texte ; le texte public est relu à l'unité, jamais stocké ; réponses `no-store`. K7 : les routes de service du social et d'eho sont en lecture seule, avec des paramètres stricts (inconnu → 400, fenêtre de 14 jours au plus, plafonds, troncature signalée), sous clé de service seule. K9 : rôle « Veille » exigé, canal injoignable affiché comme tel. K11 : la cellule est tirée du jeton, les catégories sont validées et leurs modifications tracées. K12 : purge à 14 jours.
+- Chat et messagerie : **aucun contenu** ; la route du volet refuse les canaux privés (403). Restent à faire au lot 4 : K1, K3 à K5, K8 et K13.
+- Plateforme : création des bases **sans shell** (`execFile`) ; le mot de passe root passe toujours en argument de `docker exec` (comme avant) : point à revoir (`MYSQL_PWD` en variable d'environnement).
