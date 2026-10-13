@@ -16,6 +16,7 @@
   - en un tour : 46 contenus, 109 réactions, 31 avatars résolus ;
   - 5 catégories sur les vrais groupes eho ;
   - 10 publications #pontcoupé injectées (camp rouge, zone d'essai) → flambée « Camp rouge », bandeau, tendance, rafale en tête d'À traiter.
+- **Ajout (demande utilisateur)** : « Tout marquer vu (n) » en tête de la liste d'« À traiter ». Le bouton vide **tout le filtre courant** (catégorie et canal) côté serveur, au-delà des 100 lignes affichées (`POST /api/bff/situation/tout-vu`), puis propose « Annuler » pendant 10 s. Vérifié en local : 41 → 31 (Camp rouge) → 0, puis l'annulation ramène à 41.
 - Reste avant tout push : la base du Cockpit en production (catalogue `cockpit.yml` + décision : recréer l'instance ou modifier la plateforme), les notes de version des 3 dépôts, et le feu vert dépôt par dépôt. Puis le lot 3 (presse).
 
 ## 2026-10-13 (suite 4) — Cockpit Situation, lot 1 (socle) : FAIT EN LOCAL, non poussé (branche `situation` de `app-cockpit`, `a6bb846` + 1)
