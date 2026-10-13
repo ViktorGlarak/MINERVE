@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-10-13 (suite 5) — Cockpit Situation, lot 2 : FAIT EN LOCAL, non poussé (3 dépôts, branche `situation` dans chacun)
+- **`app-social`** (`ea4f94b`, sur `origin/main` ; la branche locale `tutoriel` n'est pas touchée) : `GET /api/service/evenements` (contenus parus, sans texte), `/reactions` (réactions reçues : j'aime, réponses, partages ; pas les réponses à soi-même), `/contenus?refs=` (texte public à l'unité, 50 au plus). Paramètres stricts (K7). 4 tests (`src/service/situation-params.test.ts`). ⚠ `limite` s'applique par type (publications et commentaires). Aucun index ajouté (le schéma est poussé sur 3 moteurs ; à voir si les volumes l'exigent).
+- **`eho`** (`7d2699a`, sur `origin/main` ; la branche locale `glyphe-ia` n'est pas touchée) : `POST /api/service/resolution` (500 identités au plus → groupes, camp du titulaire sinon camp unique des groupes, cellule), clé de service seule, sans compte de zone (K2). 3 tests ajoutés à `npm test`.
+- **`app-cockpit`** (branche `situation`) :
+  - collecteur toutes les 30 s, démarré par `instrumentation.ts` si la base est fournie ; curseur avec recouvrement ; état par app ; résolution eho par lots ; purge à 14 jours ;
+  - volet des contenus d'un croisement (texte relu à l'unité, canaux privés refusés) ;
+  - onglet **À traiter** : rafales (un hashtag 8 fois en 30 min), nouveaux, récence ; Vu / À suivre / Signalé par animateur (table `statut_contenu`) ; J / K / V ;
+  - en-tête commun ; repli sur les initiales quand un portrait manque. 13 tests.
+- **Essai de bout en bout en local** : les copies modifiées du social et d'eho tournent à côté de la zone `ia-locale`, sur la même base, **sans repousser le schéma** (entrypoint contourné). Le Cockpit en `next dev` est branché dessus. Constaté :
+  - en un tour : 46 contenus, 109 réactions, 31 avatars résolus ;
+  - 5 catégories sur les vrais groupes eho ;
+  - 10 publications #pontcoupé injectées (camp rouge, zone d'essai) → flambée « Camp rouge », bandeau, tendance, rafale en tête d'À traiter.
+- Reste avant tout push : la base du Cockpit en production (catalogue `cockpit.yml` + décision : recréer l'instance ou modifier la plateforme), les notes de version des 3 dépôts, et le feu vert dépôt par dépôt. Puis le lot 3 (presse).
+
 ## 2026-10-13 (suite 4) — Cockpit Situation, lot 1 (socle) : FAIT EN LOCAL, non poussé (branche `situation` de `app-cockpit`, `a6bb846` + 1)
 - Fichiers : `src/situation/` (`regles.ts` catégories-règles et visibilité ; `compteurs.ts` situation, flambée, poids, tendances ; `migration.ts` import de l'ancienne vue ; `cellule.ts` ; `depot.ts`), `src/lib/operateur.ts` (sub et cellule tirés du jeton, K11), routes `/api/bff/situation` (+ `categories`, `categories/[id]`, `passage`, `import`).
 - Base : Prisma 7.10, 7 tables, **aucun champ de texte** (K6). Le schéma est poussé au démarrage **seulement si `DATABASE_URL` est fournie**. Sans base, le Cockpit démarre normalement et la Situation répond 503 « base non fournie ».
