@@ -314,6 +314,11 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - `profils-ia_pour-delattre-26.xlsx` : 105 lignes, 17 colonnes (username et champs du personnage), **sans nom affiché, sans groupes, sans adresse**. L'import d'eho met à jour par `username` et ne touche qu'aux colonnes présentes. Une cellule vide efface la valeur : contrôle fait, 0 cellule vide là où la production a une valeur (export du 10/10), et les 4 colonnes vides ont été retirées ;
     - `vie-corrigee_pour-delattre-26.json` : 104 fiches, calculées sur les fiches de production (export de 09 h 37), sans identifiant. Contrôle : 0 fiche invalide, 0 champ protégé touché, seul le bloc `vie` change.
     - Le moteur recharge à chaud les fiches de comportement, mais **lit les profils au démarrage** : il faut **redémarrer l'instance Moteur IA** après les deux imports.
+    - ✅ **Fait par l'utilisateur le 2026-10-13 vers 9 h**, puis contrôlé à partir de ses exports de production :
+      - profils : 0 créé, 105 mis à jour, 0 refusé ; 105/105 conformes, 0 nom affiché modifié ;
+      - blocs `vie` : 104/104 corrigés, aucun autre champ touché ;
+      - concordance en production : **0 écart d'âge, 0 écart de foyer, 0 « inconnu »**, contre 90 avatars sur 105 la veille.
+      - Reste à faire : **redémarrer l'instance Moteur IA**, qui lit les profils au démarrage.
     - Script alternatif `dev/prototype-ia/recopier-profils.mjs` (clé de zone, sauvegarde, restauration, nom affiché jamais touché), testé à blanc, non utilisé.
   - **Avis CYBERSECU du soir (A, B, C : acceptables sous conditions)** :
     - Mac : profil VPN nominatif révoqué en fin d'exercice, pare-feu réappliqué à chaque démarrage, FileVault, une image de 2 Mo au plus ;
