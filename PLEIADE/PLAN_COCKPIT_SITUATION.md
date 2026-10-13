@@ -133,6 +133,12 @@ Voir §5. Sans réponse aux questions 1 et 2, le lot 4 ne démarre pas.
 3. **Joueurs informés** de la supervision des échanges privés (au briefing et par une mention dans les apps), condition K13 : d'accord ?
 4. **Mot-clé** dans les règles de catégorie : il oblige à indexer du texte. *Recommandé : plus tard ; la v1 couvre groupe eho, camp, cellule, compte et hashtag.*
 
+### Réponses de l'utilisateur (2026-10-13)
+1. **Métadonnées du Chat vers le Cockpit : OUI** (pas le contenu).
+2. **Rôle superviseur** : l'utilisateur propose de le lier aux groupes Keycloak, comme la case « Veille » (rôle `analyste` du catalogue `cockpit.yml`, cochée par groupe sur la plateforme). Recommandation : **même mécanisme, mais une seconde case « Supervision »** pour le Cockpit, à côté de « Veille ». Elle suit le modèle de la messagerie (`messagerie.yml` : Animation / Supervision). Sinon, toute personne en veille lirait les messages privés. *En attente de confirmation.*
+3. **Information des joueurs** : explication demandée. *En attente.*
+4. **Mot-clé : reporté** ; la v1 couvre groupe eho, camp, cellule, compte et hashtag.
+
 ## 6. Agents et dépôts concernés
 | Lot | Dépôts | Agents |
 |---|---|---|
