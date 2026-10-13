@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-10-13 (suite 10) — Export .md de la Supervision : lots C (MELMIL), A (réseau social), D (Console) FAITS EN LOCAL, non poussés
+- Plan : `PLEIADE\PLAN_EXPORT_MD_SUPERVISION.md` (avis DESIGNER n°106, CYBERSECU E1 à E15 ; réponses de l'utilisateur : l'Administration seule peut changer de cellule, mention validée, pas de nom d'exportateur).
+- **MELMIL** (`8c35400`, branche `export-md`, version 2026-10-13.1) : `GET /api/service/arbre`, anonyme (identifiants, codes, titres ; events et storylines vides compris). 616 tests.
+- **Réseau social** (`e584d33`, branche `export-md`) :
+  - `GET /api/service/export-cellule` : propres de la cellule (scénario ou en direct), réactions des autres comptes (réponses, citations), reprises des hashtags lancés ; ni origine ni compte de zone ; paramètres stricts ;
+  - l'origine d'une publication en direct d'un animateur range désormais sa **cellule** (`social/cellule.ts`).
+  - 5 tests.
+- **Console** (`fee6f80`, branche `export-md`) :
+  - bouton dans la Supervision, fenêtre en 4 blocs avec aperçu chiffré ; `src/lib/export-md/` (périmètre et Markdown purs et testés, service) ; routes `/api/bff/export-md` (+ `/apercu`, `/arbre`) ;
+  - table `export_log` ; 10 exports par heure ; un seul à la fois.
+  - 61 tests en tout.
+- **Essai de bout en bout en local** (copies du social et du MELMIL de `ia-locale`, base jetable pour la Console, contenus fictifs publiés dans la zone d'essai) :
+  - fichier correct : propre GREYCELL sous son incident, réponse et citation dessous, reprise de #PontDeVrena ;
+  - contenu FORAD exclu ; message piégé (`<script>`, faux bloc, image) neutralisé ;
+  - refus vérifiés : autre cellule par un opérateur (403), champ inconnu (400), Administration sans cellule (403 tant qu'elle n'en choisit pas une) ;
+  - le journal enregistre l'export et le refus.
+- Restent : le lot B (presse : origine des articles + route d'export), puis le feu vert de l'utilisateur pour pousser MELMIL, le réseau social et la Console (dans cet ordre).
+
 ## 2026-10-13 (suite 9) — Cockpit : Reporting sur les catégories de suivi POUSSÉ ; chantier MIS EN PAUSE
 - `app-cockpit` `5ecd228..b0dbfa0` (main + prod, feu vert de l'utilisateur) ; déploiement vérifié : `/api/bff/situation/series-reporting` passe de 404 à 401.
 - ⏸️ **Pause demandée par l'utilisateur.** L'état et l'ordre de reprise sont en tête de `PLEIADE\PLAN_COCKPIT_SITUATION.md`.
