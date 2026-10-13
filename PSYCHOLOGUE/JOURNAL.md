@@ -204,3 +204,17 @@
 - **Essai** : voir MEMOIRE § 4bis. Effet réel mais modeste ; la pensée du décideur domine.
 - **Mi-session, l'utilisateur propose la pyramide de Maslow**, associée aux émotions : notée en question ouverte, à reprendre.
 
+## 2026-10-13 (soir) — Avis n°22 : formes des publications spontanées, de la vie à l'actualité et au débat (`AVIS6-10-13_avis22_formes_spontanees.md`)
+
+- **Demande** (NOYAU, pour PLEIADE) : les publications « de vie » se repèrent tout de suite. **Élargissement en cours de travail** : l'utilisateur veut que les avatars parlent de l'actualité et engagent de vraies discussions entre eux (« on s'en fout de ta vie »).
+- **Mesures** :
+  - relevé de 17 h 46 : émoji final 89 %, « … » 73 %, 3 ou 4 phrases 86 % ;
+  - export depuis 11 h 20 : vie seule 18 % ; ambiance 29 % ; position prise 5 fois sur 94 ; commentaires IA → IA 7 contre 91 IA → joueur ;
+  - 67 % des publications IA sans commentaire ; l'auteur revient 4 fois sur 134 ; désaccord 7 fois sur 116.
+- **Avis** : sujet → position → nuance → forme, tirés par le code. Le détail est dans MEMOIRE § 4.22.
+  - 10 formes, dont 4 qui ouvrent la discussion (50 %) ; la vie plafonnée à 15 % ;
+  - plafonds sur l'émoji et les « … » ;
+  - règles du désaccord (p selon le tempérament, civilité, pas d'escalade) ;
+  - audience IA ↔ IA (25 % des lectures au plus) et suivi des fils ;
+  - 15 critères pour l'essai avec groupe témoin.
+- **Code lu sans le modifier**. Aucun export lu.

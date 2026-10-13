@@ -387,6 +387,62 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 ### 4.21 ⭐ Avis n°21 — Honte, culpabilité, élan d'action (2026-10-13) — `AVIS\2026-10-13_avis21_honte_culpabilite_elan.md`
 - `EMOTIONS` : honte [-7, -8, « honteuse »], culpabilite [-5, +4, « coupable »], plancher -40 ; ETIQ gêné/honteux/humilié et embêté/coupable/rongé par le remords. Le décideur ne les choisit que si c'est LUI qu'on moque ou LUI qui a relayé du faux ; sinon le code requalifie (honte → degout, culpabilité → tristesse) ; cible < 5 %. Aucun effet sur les opinions. Remords : confiance -10 envers l'auteur relayé, +3 envers la source du démenti, partages non officiels × 0,7 pendant 24 h. Élan = **conversion par le code avant le rédacteur** (la nuance est choisie après la décision) : humiliation → silence, riposte p 0,25 (+0,35 si fier ou impulsif, -0,15 si pudique, entre 0,10 et 0,70) ; remords → partage cité du démenti avec correction, p 0,60 (+0,20 si conciliant ; 0 si croyance ≥ 60, démenti anonyme ou adverse, ou relais) ; mépris → ignorer p 0,40 (0,20 si interpellé), sinon ironie de 120 caractères au plus ; inquiétude → question dans 70 % des cas (consigne seule). Garde-fous : 1 correction par fait, 2 par jour, 4 par démenti et par heure sur la population ; 1 excuse par 24 h ; jamais d'excuse à un insulteur ; 1 riposte par insulteur et par jour. Pas de suppression du message d'origine.
 
+### 4.22 ⭐ Avis n°22 — Formes des publications spontanées, de la vie à l'actualité et au débat (2026-10-13) — `AVIS6-10-13_avis22_formes_spontanees.md`
+- **Constats** :
+  - un moule unique : émoji final 89 %, « … » 73 %, 3 ou 4 phrases 86 % ;
+  - vie seule 18 % et ambiance sans sujet 29 % des publications IA (joueurs : vie seule 1 %) ;
+  - position prise 5 fois sur 94 ; commentaires IA → IA 7 contre 91 IA → joueur ;
+  - 67 % des publications IA sans commentaire ; l'auteur revient 4 fois sur 134 ; désaccord 7 fois sur 116.
+  - L'utilisateur : « on s'en fout de ta vie ».
+- **Verdict** : le problème n'est pas d'abord la forme, **les avatars n'ont rien à dire**. Le code tire, sans appel de plus, dans cet ordre : sujet → position → nuance → forme, avec permission d'émoji et de « … ». 4 consignes qui fabriquent le moule sont à réécrire (« une fois sur deux sur SA VIE », « ce qui te préoccupe », « ce que tu fais en ce moment », « nombre d'émojis habituel », qui devient un maximum).
+- **10 formes**, cibles en % des spontanées ; plafond = cible + 5 points, sur 3 h, actif dès 6 messages :
+
+  | Forme | Cible |
+  |---|---|
+  | A1 prise de position | 20 |
+  | A2 question à la communauté | 12 |
+  | A3 réfutation | 10 |
+  | A4 interpellation @ | 8 |
+  | A5 info pratique | 10 |
+  | A6 ligne sèche | 10 |
+  | A7 humour | 8 |
+  | A8 coup de gueule | 7 |
+  | V1 anecdote ou bonne nouvelle | 8 |
+  | V2 état d'âme | 7 (plafond 10, une fois par 24 h et par avatar) |
+
+  - **Vie (V1 + V2) ≤ 15 %**, plafond dur ; ambiance sans sujet ≤ 5 %.
+  - Poids × 2 si un trait favorise la forme, × 0,5 si un trait s'y oppose ; 2 formes de prédilection par avatar (× 1,5).
+  - Conditions d'accès : pas d'humour sous tristesse ou peur ≥ 2, ni sur des victimes ; info pratique seulement avec un fait disponible.
+- **Plafonds de population** :
+  - émoji final ≤ 45 % ; « … » ≤ 20 % ; les deux ensemble ≤ 10 % ; 3 ou 4 phrases ≤ 25 % ;
+  - « Entre … et … » : 1 par 3 h ; « Le calme… » : interdit ; lexique du calme ≤ 8 % ;
+  - métier et sensations : au plus 1 spontanée sur 3 chacun.
+- **Réponses** : bande de longueur tirée (20-70 : 35 % · 70-140 : 45 % · 140-220 : 20 %), mêmes plafonds sur l'émoji et les « … ».
+- **Sujet** : faits et rumeurs connus, mots-dièse qui montent, message lu.
+  - Poids : récence × expositions × proximité × (1 + |opinion| / 50).
+  - Au plus 2 fois par avatar sur 24 h et 30 % de la population sur 3 h ; les 3 sujets chauds gardent la priorité.
+  - La position (pour / contre / doute) est calculée par le code et transmise au rédacteur (« TON SUJET · TA POSITION · CE QUI LA FONDE »). La vie située compte comme actualité.
+- **Désaccord** :
+  - déclenché si l'écart atteint 30 points sur l'axe, ou si la crédence contredit le fait ;
+  - p = 0,20, +0,25 si affirmé ou râleur, +0,15 si méfiant, −0,15 si conciliant, −0,10 si affinité ≥ 60 ; bornes 0,05 à 0,60 ;
+  - trois degrés : nuance, doute, contradiction ; cible 20 à 30 % des réponses IA ;
+  - civilité : on vise l'idée, pas la personne ;
+  - plafonds : 2 messages par avatar et par dispute, 1 dispute par paire et par jour ; arrêt sur insulte, répétition ou 2 tours sans fait nouveau.
+- **Audience IA ↔ IA** :
+  - la priorité aux joueurs ne change pas (un joueur sans réponse depuis 20 min passe avant tout) ;
+  - au plus 25 % des lectures et 30 % du plafond horaire ; cible 20 à 30 % de commentaires IA → IA ;
+  - lecture obligatoire si l'avatar est @interpellé.
+- **Suivi des fils** :
+  - retour de l'auteur : p 0,8 s'il est interpellé par @, 0,6 sur une question ou une contradiction, 0,3 sur une approbation ; délai de 3 à 20 min ;
+  - au plus 3 réponses de l'auteur (4 face à un joueur), 4 messages entre deux IA ;
+  - arrêt à 12 h ou quand il n'y a plus rien de nouveau.
+- **Mesures** : 15 critères. Sont **bloquants** : joueurs non lésés, 0 fait inventé, dérive attribuée à « ia » au plus 1,5 fois celle du groupe témoin.
+- **Règles durables** :
+  1. pas de publication sans sujet ;
+  2. la forme se tire après l'émotion et ne la contredit jamais ;
+  3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
+  4. un débat entre IA ne passe jamais avant un joueur sans réponse.
+
 ## 4bis. Dictionnaire des émotions (2026-10-12, demande de l'utilisateur, depuis le Mac)
 - **But** : rendre les dialogues plus précis et plus variés (granularité émotionnelle) contre la monotonie mesurée : « tristesse » chez 105/105, déprime 39-43 %, humour 0 %.
 - **Fichier** : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2). Sources :
