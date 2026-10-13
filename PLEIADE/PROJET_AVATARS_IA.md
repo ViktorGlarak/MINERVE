@@ -384,6 +384,7 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
   - **Opinions** (persuasion 1) : sur Mercure, dérive −3 (−1,3 la veille), 33 avatars à plus de 5 points (11 la veille), 8 en doute, 0 bascule.
   - **Fil** : 114 messages de joueurs, dont 77 antérieurs au redémarrage de 10 h 53 et donc sans diagnostic. Parmi les autres, 9 n'ont reçu que des J'aime et 2 réponses ont été converties.
   - **Faux blocages corrigés en 2026-10-13.3** : « HFlavigny-sur-Moselle » (ville sans H) et « nous prendre pour des imbéciles » (insulte). Le journal du parc annonçait aussi une relance sans nœud de secours.
+- **2026-10-13 (soir) — relevé de 17 h 46 → 2026-10-13.4 (prête, non poussée).** Rédacteur confirmé (156 car. contre 181 pour le témoin), nuances ≤ 15 %, honte/culpabilité 1/180, élan observé 5 fois. Quatre garde-fous corrigés : « phrase inachevée » à cause d'un hashtag final (185 → 5 sur 186 textes rejoués), « ferme la » pris pour une insulte, suppression de relecture qui cassait une phrase, interlocuteur pris pour un proche inventé (Q1). Observations : 6 % de messages « oubliés » par le modèle, #3615MyLife ajouté d'office à 14 % des messages, tics « vraiment » et 😟, persuasion forte de deux comptes joueurs. Détail : journal PLEIADE, 13/10, suite 14.
 - **PC n°3 envisagé** (6 Go de mémoire graphique, 16 Go de mémoire vive) : probablement trop juste pour le modèle 26B (15,6 Go). Mesure de vitesse demandée avant ajout. Le kit Windows est généralisé dans `pont/noeud-windows/`.
 
 ### Questions pour le réveil (nuit du 12/10)
