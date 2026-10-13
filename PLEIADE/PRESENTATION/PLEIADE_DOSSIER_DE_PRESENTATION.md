@@ -121,7 +121,7 @@
 Sur les exercices précédents, le réseau social ne réagissait **que** si un animateur écrivait. Résultat : un espace informationnel figé, où l'action des joueurs n'avait pas d'écho mesurable. DELATTRE 26 a besoin d'une **population** qui **lit**, **réagit**, **se souvient** et **change d'avis** selon ce que les joueurs et l'adversaire publient.
 
 ### 6.2 Ce qui a été fait
-- **105 avatars animés par IA** sur DELATTRE 26 : des **citoyens de l'Arnland** (le pays fictif envahi), orientés **15 % pro-Mercure, 15 % pro-Arnland, 70 % neutres**, plus deux relais mercuriens.
+- **105 avatars animés par IA** sur DELATTRE 26 : **100 citoyens de l'Arnland** (le pays fictif envahi), orientés **15 % pro-Mercure, 15 % pro-Arnland, 70 % neutres**, plus 3 avatars de test et 2 relais mercuriens.
 - Chacun a une **fiche complète** : âge, métier, foyer, horaires, caractère, goûts, façon d'écrire, positions de départ.
 - Ils **vivent** : ils se lèvent, travaillent, dorment ; au travail ils écrivent peu ; le dimanche certains commerces sont fermés. Ils parlent de leur vie (« Fin du café, je remonte dans le bus. Je pense aux gens qui attendent sur la route. 🚌 ») autant que de la crise.
 - Ils **réagissent** aux publications des joueurs et de l'adversaire : J'aime, réponse, citation, ou silence. **Comme dans la vraie vie, la plupart lisent beaucoup et écrivent peu.**
@@ -146,10 +146,16 @@ C'est le point central à expliquer. Le modèle d'IA **ne décide pas seul** : u
 - **Des fiches cohérentes** : les 105 profils ont été contrôlés et corrigés (âge, foyer) pour que l'IA ne reçoive jamais deux versions contradictoires d'un même personnage.
 - **Un parc de calcul en grappe** (§8.2) : le travail est réparti sur plusieurs ordinateurs, avec reprise automatique si l'un s'arrête.
 
-### 6.5 Quelques chiffres mesurés
-- Un relevé en production : l'IA produisait **environ un tiers (37 %)** des événements du réseau social.
-- Un autre relevé : **plus de 1 000 lectures** de la population IA pour **138 messages** de joueurs, soit des joueurs **lus et entendus** par la population.
-- Environ **3 secondes** par texte écrit ; une lecture complète de fil par un avatar prend **environ 13 secondes** par machine.
+### 6.5 Quelques chiffres mesurés (à citer avec leur contexte)
+- ⚠ **Correction du 13/10** : deux chiffres d'une version précédente de ce dossier étaient présentés à tort comme des réussites.
+  - « environ 37 % des événements » vient d'une fenêtre de **24 minutes** (12/10, 9 h 46 à 10 h 10), dont l'analyse relevait surtout un **chœur de formules** (15 réponses sur 16).
+  - « 1 004 lectures pour 138 messages de joueurs » vient d'un **diagnostic** (12/10, 1 h 25) : **4 publications de joueurs sur 42 seulement** avaient reçu une réponse de l'IA. Le défaut a été **corrigé le jour même** : un message de joueur qui inspire un avatar reçoit désormais une réponse sous ce message.
+  - **Ne pas les utiliser comme preuves de succès.** Ils illustrent au contraire la **boucle d'amélioration** : relevé, diagnostic, correction en quelques heures.
+- Chiffres fiables pour un support :
+  - **105 avatars IA**, dont 100 citoyens de l'Arnland (15 % pro-Mercure, 15 % pro-Arnland, 70 % neutres), 3 de test et 2 relais mercuriens ;
+  - **environ 3 secondes** par texte écrit ;
+  - **environ 13 secondes** par machine pour la lecture complète d'un fil par un avatar.
+- **Effet du rédacteur, en essai local** (13/10, avec groupe témoin) : des messages plus courts (135 caractères contre 177 pour le témoin) et quasiment plus de formules creuses. À présenter comme un **résultat d'essai**, pas comme un résultat de production.
 
 ---
 
@@ -181,7 +187,7 @@ Le RETEX de MINOTAURE 26 était clair : **l'impact de l'influence n'était pas m
 
 ### 8.2 Le calcul de l'IA : local, et réparti
 - **Le modèle d'IA tourne en local**, sur des ordinateurs de l'équipe, et **jamais dans un service en ligne** : les messages de l'exercice ne sortent pas du réseau fermé.
-- Modèle utilisé : **Gemma 4** (Google, licence libre Apache 2.0), version 26B, rapide car seule une petite partie du modèle travaille à chaque mot.
+- Modèle utilisé : **Gemma 4** (Google, **licence libre** Apache 2.0, ce qui n'est pas « libre de droits »), version 26B, rapide car seule une petite partie du modèle travaille à chaque mot.
 - Le serveur n'ayant pas de carte graphique, il confie le calcul à des **« nœuds de calcul »** joints par le VPN, chacun protégé par un **jeton** et un **pare-feu** dédiés.
 - **Le parc de calcul** (nouveau, 13/10) : un PC et un Mac sont branchés ; chaque avatar est rattaché à une machine ; **si une machine s'arrête, ses avatars sont repris automatiquement** par une autre. Deux machines font tourner les cycles environ **deux fois plus vite** : les avatars lisent leur fil plus souvent et réagissent plus vite. On peut ajouter d'autres machines pour aller vers une population plus nombreuse.
 
@@ -229,7 +235,6 @@ Le RETEX de MINOTAURE 26 était clair : **l'impact de l'influence n'était pas m
 | Avatars animés par IA | **105** |
 | Incidents JEMM de DELATTRE 26 | **62** (2 events, 8 storylines) |
 | Jours de jeu DELATTRE 26 | **15** (du 6 au 20 octobre) |
-| Part de l'IA dans l'activité du réseau (relevé) | **environ 37 %** |
 | Nuances d'émotion du dictionnaire | **36** (11 familles) |
 | Machines de calcul IA branchées | **2** (PC et Mac), extensible |
 | Temps d'écriture d'un message par l'IA | **environ 3 s** |
