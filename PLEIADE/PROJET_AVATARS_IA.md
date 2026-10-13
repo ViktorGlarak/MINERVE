@@ -322,6 +322,28 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
   - **Grappe de nœuds** (exigence de l'utilisateur, voir § 7bis) : avis **CYBERSECU** demandé, en même temps que celui sur le Mac et sur la lecture des images.
   - **Images des joueurs** : la route `/api/service/retex` du réseau social renvoie déjà `medias: [{ url, type }]` pour les publications et les commentaires. Aucune route nouvelle n'est nécessaire côté Social pour connaître l'image.
 
+- **2026-10-13 matin — Consignes 2, 3 et 3ter appliquées en local** (app-ia `0ab0dc9`, `560adba`, `3eeb6a9`, version 2026-10-13.1, rien poussé).
+  - **Rédacteur dédié** (consigne 2) : un second appel court rédige chaque message écrit, à partir de l'INTENTION du décideur, jamais de sa pensée (avis n°20). Pour le groupe d'essai, la pensée devient factuelle et un champ `intention` (8 mots au plus) est ajouté. Groupe d'essai = « relu » (même découpage que la relecture), le groupe témoin écrit comme avant. Deux cases dans Réglages, coupées par défaut.
+  - **Nuances d'émotion** (consigne 3ter) : dictionnaire PSYCHOLOGUE 2026-10-12.2 embarqué (`src/moteur/dictionnaire-emotions.json`).
+    - Le code choisit la nuance ; l'option (b) est retenue sans réécriture de la pensée, puisque le rédacteur ne la voit plus.
+    - Affinités lues dans le caractère et l'activité seulement.
+    - Nuances de contexte réservées aux contextes repérés : humiliation sur insulte reçue, remords sur un fait relayé puis démenti, gratitude sur une offre d'aide reçue, rancune sur une relation hostile.
+    - Rotation sur l'avatar et sur la population.
+  - **Formules creuses** du banc ajoutées.
+  - **Grappe** (consigne 3, exigence de l'utilisateur, avis CYBERSECU § B, avis DESIGNER n°104) :
+    - module pur `parc.mjs` : adresses 10.8.0.x:11435 seulement, y compris en https ; affectation stable par rendez-vous ; jetons chiffrés AES-GCM ;
+    - `parc-serveur.ts` : sonde de tous les nœuds avant chaque tour ; perdu ou repris après 2 sondes ; 401 = hors service avec alerte persistante ; une seule relance sur un nœud maîtrisé ;
+    - une file par nœud, en parallèle, et une erreur d'avatar n'arrête plus le tour ;
+    - onglet « Parc de calcul » et routes réservées à l'Administration ; le nœud de chaque publication est mesuré.
+    - Essai : un faux nœud injoignable est exclu, les avatars restent sur le nœud principal. La relance en cours d'appel n'a pas été provoquée en vrai.
+  - **Essai local avec groupe témoin** (zone ia-locale, après correction locale de ses blocs `vie`, 8 messages d'animation injectés, ~40 min, 28 messages publiés) :
+    - **rédacteur** (13) : longueur 165 caractères, 1,2 émoji par message, **0 formule creuse**, 2 messages au lexique de la déprime, 0 humour ; **+2,7 s par message** ; 9 nuances différentes, mais « mépris » à 23 % (cible : 15 % au plus) ;
+    - **témoin** (15) : longueur 188, 1,3 émoji, 2 formules creuses, 4 déprime, 1 humour ;
+    - gains vus : le doute est mieux rendu, une offre concrète remplace un « courage », moins de formules ;
+    - défauts : le rédacteur **perd parfois l'information utile** du décideur (le gymnase ouvert 24 h/24, remplacé par une offre de covoiturage). La longueur cible « au travail » (120 caractères) n'est pas tenue. « Mépris » ressort trop par la règle 5. Deux soupçons d'invention vérifiés : ce n'en était pas (HParis est dans le profil, la mairie de HSarrebourg aussi) ;
+    - test à l'aveugle (20 messages) : pas fait, il revient à l'utilisateur.
+  - **Reste à faire** : familles honte et culpabilité (point 7, coefficients à demander à PSYCHOLOGUE), élan d'action (point 8), lecture des images (3bis), `IA_CLE_NOEUDS` à déclarer dans `catalog/ia.yml` (en attendant, la clé de chiffrement est `AUTH_SECRET`).
+
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).
 - **Faits hors fiche** : j'ai décidé qu'un proche / animal absent de la fiche ne devient PAS canon (signalé seulement). PSYCHOLOGUE proposait l'inverse. À trancher si tu préfères que l'avatar assume ce qu'il a publié.
