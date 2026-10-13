@@ -4,6 +4,11 @@
 
 ---
 
+## 2026-10-13 (suite 13) — Récupération des contenus d'avant le 09/10 : POUSSÉE (feu vert de l'utilisateur)
+- **Réseau social** `e584d33..b0302af` (main + prod) à 17 h 25, puis 7 minutes d'attente du déploiement : la nouvelle Console envoie `posts=` et `commentaires=`, qu'un social plus ancien refuserait (400).
+- **Console** `122b604..eb3f9ae` (main + prod) à 17 h 32.
+- Aucune route nouvelle, donc pas de signal 404/401 à surveiller. À vérifier par l'utilisateur : un export sur « Tout » doit faire apparaître les publications de scénarios anciennes (sauf les scénarios remis à zéro), sans mention « paramètre inconnu ».
+
 ## 2026-10-13 (suite 12) — Export .md : récupérer les contenus d'AVANT le 09/10 — FAIT EN LOCAL, non poussé
 - Question de l'utilisateur : pourquoi rien avant le 09/10 ? Parce que l'origine (scénario, cellule) n'est rangée qu'à partir de là. Deux traces plus anciennes existent :
   1. **la Console garde l'identifiant distant** de chaque message de ses scénarios (`ScenarioItem.remotePostId` / `remoteCommentId`) ;
