@@ -4,6 +4,29 @@
 
 ---
 
+## 2026-10-13 (suite 14) — Moteur IA : relevé de production de 17 h 46 analysé ; 2026-10-13.4 PRÊTE (non poussée, `78539f8`)
+- Exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\` (messages de joueurs : purge en fin d'exercice). Période analysée : depuis 2026-10-13.3 (11 h 34).
+- **Ce qui marche** :
+  - rédacteur : relu 156 car. contre 181 pour le témoin (> 200 car. : 14 contre 33), +2,9 s par message ;
+  - nuances : la plus fréquente fait 14 % (≤ 15 % ✓) ;
+  - honte/culpabilité 1/180 (✓) ;
+  - élan observé 5 fois (2 « mépris : ignore », 3 « remords : correction ») ;
+  - grappe : principal 102, Mac 78 ; 122 cycles sans erreur, durée médiane 90 s ;
+  - 1 seul blocage, 1 relecture retenue.
+- **Défauts trouvés et corrigés (2026-10-13.4)** :
+  1. « phrase inachevée » déclenchée par un **hashtag final**. Rejoué sur 186 textes : 185 → 5. C'était la cause de la plupart des reformulations « sans mieux » ;
+  2. « **ferme la** » (« je ferme la boutique ») pris pour une insulte ;
+  3. relecture ciblée : une **suppression au milieu d'une phrase la cassait** (« On dirait que. ») → toute la phrase part, et un reste bancal est réécrit ;
+  4. relecture Q1 : **l'interlocuteur pris pour un proche inventé** → consigne complétée, et le défaut est écarté par le code.
+  - 4 tests ; 86 en tout ; image démarrée (`/api/sante` = 2026-10-13.4, moteur coupé).
+- **Observations sans correction** :
+  - le modèle « oublie » 6 % des messages présentés (307 avis absents sur 5 077 lectures) ;
+  - #3615MyLife ajouté d'office à 25 messages sur 180 (14 %) ;
+  - tics « vraiment » (34 sur 180) et 😟 (20) ;
+  - le nœud principal tombe 4 fois (ollama 500, environ 2 à 5 min) ; les avatars « sensibles » attendent faute d'autre nœud maîtrisé ;
+  - persuasion : depuis 11 h 34, Mercure −110 et FORCE +107 en cumul de variations ; 30 avatars à plus de 5 points sur Mercure, 1 bascule ; deux comptes joueurs ont touché à eux seuls une vingtaine d'avatars chacun (effets de rejet « se raidit » fréquents).
+- Reste : le feu vert de l'utilisateur pour pousser 2026-10-13.4.
+
 ## 2026-10-13 (suite 13) — Récupération des contenus d'avant le 09/10 : POUSSÉE (feu vert de l'utilisateur)
 - **Réseau social** `e584d33..b0302af` (main + prod) à 17 h 25, puis 7 minutes d'attente du déploiement : la nouvelle Console envoie `posts=` et `commentaires=`, qu'un social plus ancien refuserait (400).
 - **Console** `122b604..eb3f9ae` (main + prod) à 17 h 32.
