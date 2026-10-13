@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-10-13 (suite 6) — Cockpit Situation : POUSSÉ EN PRODUCTION (4 dépôts, feu vert de l'utilisateur) — l'instance Cockpit est MISE À JOUR, pas recréée
+- **Demande utilisateur** : mettre à jour l'app-cockpit **sans créer de nouvelle instance**. La plateforme ne créait une base qu'à la création d'une instance → ajout de `assurerBaseInstance` (pleiade-platform) : au déploiement (promotion d'une version, ou `deployInstance`), si le catalogue exige `mariadb` et que le `.env` n'a pas les variables, la base est créée et les variables ajoutées. Client Keycloak, rôles cochés et portail sont conservés.
+- Repris dans la même branche : le correctif **SQL sans shell** du 10/10 (`c6a07b9`, jusqu'ici seulement sur la branche locale `tutoriel`) ; sans lui, la création des bases échouait sous Windows (l'essai local a buté dessus). Plus `ALTER USER` pour aligner le mot de passe d'un utilisateur restant.
+- **Essai local complet avant le push** : promotion du réseau social, d'eho et du Cockpit sur `ia-locale` avec le code de la copie de travail. Schémas des images comparés au préalable (identiques, donc rien supprimé par `db push --accept-data-loss`). Résultat : « (base créée) », Cockpit redémarré avec sa base, collecteur passé par la découverte normale (41 contenus, 84 réactions, 28 avatars résolus).
+  - ⚠ Incident d'essai : mon script n'avait pas `BASE_DOMAIN=localhost` et a réécrit l'adresse Traefik des 3 instances en `*.127.0.0.1.nip.io`. Corrigé en relançant avec l'environnement de `dev/zone-ia/orchestrateur.sh`. **La zone `ia-locale` tourne désormais sur les images `situation-essai`** du social, d'eho et du Cockpit (retour possible : promotion `latest`).
+- Ajout de dernière minute (plan, lot 2) : **la Situation devient l'accueil** ; l'ancien écran passe sur `/ancienne-vue` (menu ⋯), avec un lien « ← Situation ».
+- **Mise en production, dans l'ordre** :
+  1. `pleiade-platform` `f4a5d7c..b6f128f` (main) → `/api/version` = b6f128f ;
+  2. `app-social` `2a78127..0e35443` (main + prod) ;
+  3. `eho` `e98806d..3e52e5f` → `/api/sante` = 2026-10-13.1, `resolution` sans clé → 401 ;
+  4. `app-cockpit` `dea51d1..1ec85cb` (un premier push a échoué sur une coupure réseau, relancé) → `/situation` passe de 404 à 307.
+- **À vérifier par l'utilisateur à l'écran** (session requise) : la Situation s'affiche sans « base non fournie » (la base a été créée), et la colonne « Réseau social » est « lu à l'instant ».
+- Les catégories de l'ancien écran restent dans le navigateur de chaque poste : bouton « Importer mes catégories de l'ancienne vue » au premier écran.
+
 ## 2026-10-13 (suite 5) — Cockpit Situation, lot 2 : FAIT EN LOCAL, non poussé (3 dépôts, branche `situation` dans chacun)
 - **`app-social`** (`ea4f94b`, sur `origin/main` ; la branche locale `tutoriel` n'est pas touchée) : `GET /api/service/evenements` (contenus parus, sans texte), `/reactions` (réactions reçues : j'aime, réponses, partages ; pas les réponses à soi-même), `/contenus?refs=` (texte public à l'unité, 50 au plus). Paramètres stricts (K7). 4 tests (`src/service/situation-params.test.ts`). ⚠ `limite` s'applique par type (publications et commentaires). Aucun index ajouté (le schéma est poussé sur 3 moteurs ; à voir si les volumes l'exigent).
 - **`eho`** (`7d2699a`, sur `origin/main` ; la branche locale `glyphe-ia` n'est pas touchée) : `POST /api/service/resolution` (500 identités au plus → groupes, camp du titulaire sinon camp unique des groupes, cellule), clé de service seule, sans compte de zone (K2). 3 tests ajoutés à `npm test`.

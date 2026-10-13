@@ -161,6 +161,8 @@ La plateforme ne crée la base d'une app **qu'à la création de l'instance** (`
 
 Dans tous les cas, le Cockpit doit **tourner sans base** : ancienne vue intacte, et la nouvelle annonce « base non fournie ».
 
+✅ **Tranché et fait le 2026-10-13 : option 2.** L'utilisateur voulait une mise à jour sans recréer l'instance. `assurerBaseInstance` (pleiade-platform `b6f128f`) crée la base au déploiement. Lots 1 et 2 **en production** le 13/10.
+
 ## 6. Agents et dépôts concernés
 | Lot | Dépôts | Agents |
 |---|---|---|
