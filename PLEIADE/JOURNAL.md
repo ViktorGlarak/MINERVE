@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-10-13 (suite 12) — Export .md : récupérer les contenus d'AVANT le 09/10 — FAIT EN LOCAL, non poussé
+- Question de l'utilisateur : pourquoi rien avant le 09/10 ? Parce que l'origine (scénario, cellule) n'est rangée qu'à partir de là. Deux traces plus anciennes existent :
+  1. **la Console garde l'identifiant distant** de chaque message de ses scénarios (`ScenarioItem.remotePostId` / `remoteCommentId`) ;
+  2. le **journal d'audit** du social (`audit_logs` : `post.create` / `comment.create`, avec le compte de zone).
+- **Réseau social** (`b0302af`) :
+  - `export-cellule` accepte `posts=` et `commentaires=` (1 500 au plus) : contenus désignés par la Console ;
+  - un contenu sans origine créé par un compte `gc<chiffre>` ou `fd<chiffre>` (journal d'audit) est rattaché « en direct » à la cellule, si le direct est demandé ;
+  - le compte ne sort jamais. 6 tests.
+- **Console** (`eb3f9ae`) :
+  - transmet les identifiants de ses scénarios (publication = post seul ; commentaire = post ET commentaire ; **un message privé, qui n'a qu'un identifiant de message, n'est jamais repris**) et complète le scénario, l'incident et la storyline des contenus retrouvés ;
+  - même chose pour les articles de presse désignés.
+- Essai local : scénario fictif GREYCELL n° 950 désignant deux publications sans origine du 10/10 → elles sortent sous « scénario n° 950 », avec leurs réactions (avatars IA) ; le faux message privé désigné n'apparaît pas.
+- Limites :
+  - la zone locale date du 10/10 (journal d'audit depuis le 10/10, 7 h 34) : impossible d'y **mesurer** la récupération d'avant le 09/10 ;
+  - les scénarios remis à zéro ont perdu leurs identifiants ;
+  - rien avant le début du journal d'audit pour le direct ;
+  - la fenêtre de l'export reste limitée à 14 jours (avant le 29/09, rien en tout cas).
+
 ## 2026-10-13 (suite 11) — Export .md de la Supervision : POUSSÉ EN PRODUCTION (4 dépôts, feu vert de l'utilisateur)
 - Dans l'ordre :
   1. **MELMIL** `f4913b5..8c35400` → `/api/sante` = 2026-10-13.1, `/api/service/arbre` sans clé → 401 ;
