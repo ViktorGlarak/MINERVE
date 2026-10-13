@@ -26,7 +26,7 @@ FICHIER_CLE = os.path.join(DOSSIER, "ollama-cle.txt")
 JOURNAL = os.path.join(DOSSIER, "proxy-ollama.log")
 PORT = 11435
 CIBLE = ("127.0.0.1", 11434)
-MODELES = {"gemma4:26b-a4b-it-qat", "gemma4:31b-it-qat", "bge-m3"}
+MODELES = {"gemma4:26b-a4b-it-qat", "gemma4:31b-it-qat", "bge-m3", "bge-m3:latest"}  # app-ia demande « bge-m3:latest » (nom lu dans /api/tags), constaté le 2026-10-13
 ROUTES = {("POST", "/api/chat"), ("POST", "/api/embed"), ("GET", "/api/tags")}
 CHAMPS = {"/api/chat": {"model", "messages", "stream", "format", "think", "options", "tools"},
           "/api/embed": {"model", "input", "truncate", "options"}}

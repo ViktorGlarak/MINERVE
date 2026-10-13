@@ -1,4 +1,11 @@
-# Nœud de calcul MAC pour les avatars IA (préparé le 2026-10-12)
+# Nœud de calcul MAC pour les avatars IA (préparé le 2026-10-12, ✅ BRANCHÉ le 2026-10-13)
+
+> ✅ **2026-10-13, 10 h 22 — le Mac est en service dans le parc de DELATTRE 26.** Nœud « Mac Thomas », `http://10.8.0.51:11435`, niveau maîtrisé, ajouté par l'utilisateur dans app-ia 2026-10-13.1 (onglet Parc de calcul).
+> - **Adresse source observée dans le journal : 10.8.0.1** = `SOURCES`. La réserve **O3** (« ne pas supposer ») est levée.
+> - Premiers appels : `/api/chat` 200 en 0,9 à 14,7 s.
+> - ⚠ **Défaut trouvé et corrigé** : app-ia demande le modèle sous le nom **`bge-m3:latest`** (lu dans `/api/tags`), refusé en 403 par la liste blanche, qui ne connaissait que `bge-m3`. Les avatars du Mac rédigeaient donc sans rappel de souvenirs. Correction : `bge-m3:latest` ajouté à `MODELES`, nœud relancé à 10 h 26. → **À répercuter sur le proxy du PC** si son app-ia lit les noms de la même façon. L'alerte « 403 = nœud hors service » (B5) ne s'est pas déclenchée sur `/api/embed` : à vérifier par PLEIADE.
+> - **A5** : aucune invite dans `~/.ollama/logs`. Journal du proxy sans contenu.
+> - **À vérifier au prochain relevé** : premiers `/api/embed` en 200 (aucun appel de souvenirs depuis la relance, à 10 h 36).
 
 > Objectif : que le serveur PLÉIADE (app-ia, zone DELATTRE 26) utilise **aussi** les modèles du Mac, en plus du PC, pour animer davantage d'avatars.
 > Même contrat de sécurité que le nœud du PC : **avis CYBERSECU du 2026-10-12, réserves O1 à O8** (`CYBERSECU/MEMOIRE.md`, `PLEIADE/JOURNAL.md` 2026-10-12 suite 2).
