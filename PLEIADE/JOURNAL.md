@@ -25,6 +25,8 @@
   - tics « vraiment » (34 sur 180) et 😟 (20) ;
   - le nœud principal tombe 4 fois (ollama 500, environ 2 à 5 min) ; les avatars « sensibles » attendent faute d'autre nœud maîtrisé ;
   - persuasion : depuis 11 h 34, Mercure −110 et FORCE +107 en cumul de variations ; 30 avatars à plus de 5 points sur Mercure, 1 bascule ; deux comptes joueurs ont touché à eux seuls une vingtaine d'avatars chacun (effets de rejet « se raidit » fréquents).
+- **Ajout dans la même version** (demande utilisateur, `6547da4`) : un compte connu cité sans @ reçoit son @. « Le post d'Albi_EcoMind » devient « Le post de @Albi_EcoMind ». La consigne le demande au modèle, et le code (`arobase.mjs`) l'ajoute, avant le nettoyage qui garde deux mentions. La préfecture garde « la préfecture » (avis n°18). 2 tests (88 en tout) ; image démarrée.
+- ⚠ Vu sur la capture de l'utilisateur : le bandeau « Origine » du social (réservé à l'animation) affiche « cecpc · <adresse e-mail réelle d'un animateur> » : le compte venu de la fédération cecpc a pour nom d'utilisateur son adresse e-mail. C'est contraire à la règle de l'origine (« seul le compte de zone, anonyme »). → CYBERSECU, à traiter.
 - Reste : le feu vert de l'utilisateur pour pousser 2026-10-13.4.
 
 ## 2026-10-13 (suite 13) — Récupération des contenus d'avant le 09/10 : POUSSÉE (feu vert de l'utilisateur)
