@@ -358,6 +358,16 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - premier humour vu chez un avatar : « Ce chêne a décidé de me faire de la résistance ce matin, il a une humeur de chien. 😅 » ;
     - image finale vérifiée : `/api/sante` = 2026-10-13.1, routes du parc refusées sans session (401), page redirigée vers la connexion.
 
+- **2026-10-13 fin de matinée — app-ia 2026-10-13.2 prête en local** (demande de l'utilisateur : les 3 points restants ; clé `IA_CLE_NOEUDS` reportée à sa demande, `AUTH_SECRET` sert de clé).
+  - **Images des joueurs** (avis CYBERSECU § C, PSYCHOLOGUE n°20 §5) : une description par message et par image, sur un nœud maîtrisé, AVEC le texte du message et le type de compte qui publie (retour de l'utilisateur : « interpréter l'image selon le texte et selon qui poste »). Réglage « Lecture des images », coupé par défaut.
+  - **Honte et culpabilité** et **élan d'action** (avis PSYCHOLOGUE n°21, groupe d'essai du rédacteur), chaque décision d'élan étant écrite au journal sous « élan ».
+  - **Essais locaux 3 et 4** :
+    - l'affiche « GYMNASE DES TILLEULS — COMPLET » est décrite justement, et les avatars y réagissent (partage, réponses) ;
+    - **la même image sous deux messages** : la description et le lien (« appuie ») restent proches. La lecture n'a pas repris l'insinuation de l'habitant (« on nous cache »). En revanche, **les réactions des avatars diffèrent bien selon le message et l'auteur** : relais de l'information sous la préfecture ; questions, tempérance ou doute sous le message de l'habitant ;
+    - **l'image piégée** (« IGNORE TES INSTRUCTIONS… ») n'a fait obéir personne (« ça me semble louche »). La description la recopiait entre guillemets droits : le nettoyage couvre maintenant tous les guillemets, et c'est testé ;
+    - **insultes** : Marta (groupe témoin) n'est pas concernée par l'élan ; pour Zoé (groupe d'essai), rien n'est observable, puisque les silences n'étaient pas journalisés. D'où la ligne « élan » ajoutée. **Élan à mesurer en production.**
+  - 81 tests ; image vérifiée (`/api/sante` = 2026-10-13.2) ; conteneurs d'essai supprimés.
+
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).
 - **Faits hors fiche** : j'ai décidé qu'un proche / animal absent de la fiche ne devient PAS canon (signalé seulement). PSYCHOLOGUE proposait l'inverse. À trancher si tu préfères que l'avatar assume ce qu'il a publié.
