@@ -343,6 +343,15 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - défauts : le rédacteur **perd parfois l'information utile** du décideur (le gymnase ouvert 24 h/24, remplacé par une offre de covoiturage). La longueur cible « au travail » (120 caractères) n'est pas tenue. « Mépris » ressort trop par la règle 5. Deux soupçons d'invention vérifiés : ce n'en était pas (HParis est dans le profil, la mairie de HSarrebourg aussi) ;
     - test à l'aveugle (20 messages) : pas fait, il revient à l'utilisateur.
   - **Reste à faire** : familles honte et culpabilité (point 7, coefficients à demander à PSYCHOLOGUE), élan d'action (point 8), lecture des images (3bis), `IA_CLE_NOEUDS` à déclarer dans `catalog/ia.yml` (en attendant, la clé de chiffrement est `AUTH_SECRET`).
+  - **Corrections demandées par l'utilisateur après le 1er essai** (app-ia `35c3186` et commits précédents) :
+    - le rédacteur reçoit les **faits utiles** du brouillon du décideur (lieux, heures, sources, mentions, offres, questions pratiques), sans formules ni pensée ;
+    - **longueur** : au travail, au-delà de 150 caractères, le texte est ramené à ses premières phrases ;
+    - **plafond de 15 % par nuance** sur toutes les voies de choix. En simulation sur 200 choix : 22 nuances, la plus fréquente à 14,5 %.
+  - **2e essai local** (25 messages ; 15 rédacteur, 10 témoin) :
+    - rédacteur : **135 caractères** (165 au 1er essai ; témoin 177), 1 émoji par message, 1 formule creuse (« Courage pour HChaumont »), 1 humour, 2,6 s par message ; « mépris » encore à 20 %, avant l'extension du plafond à toutes les voies ;
+    - **les faits sont gardés** : la question pratique d'Esteban sur le gymnase des Tilleuls, le conseil de Marina sur la @PrefHGrandEst, l'objection concrète de Rémi sur le casque ;
+    - premier humour vu chez un avatar : « Ce chêne a décidé de me faire de la résistance ce matin, il a une humeur de chien. 😅 » ;
+    - image finale vérifiée : `/api/sante` = 2026-10-13.1, routes du parc refusées sans session (401), page redirigée vers la connexion.
 
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).
