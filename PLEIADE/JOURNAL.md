@@ -20,7 +20,11 @@
   - contenu FORAD exclu ; message piégé (`<script>`, faux bloc, image) neutralisé ;
   - refus vérifiés : autre cellule par un opérateur (403), champ inconnu (400), Administration sans cellule (403 tant qu'elle n'en choisit pas une) ;
   - le journal enregistre l'export et le refus.
-- Restent : le lot B (presse : origine des articles + route d'export), puis le feu vert de l'utilisateur pour pousser MELMIL, le réseau social et la Console (dans cet ordre).
+- **Lot B fait aussi** :
+  - **presse** (`eb75f93` + notes `3ab3abc`) : colonne `Article.origine` (nullable) posée à la publication ; `GET /api/service/export-cellule` (articles publiés de la cellule + articles désignés par la Console + commentaires publiés). 4 tests ;
+  - **Console** (`122b604`) : appelle les presses ; les articles anciens sont transmis par `ScenarioItem.remotePostId`. Case « Articles » active.
+  - Essai local avec une presse d'essai sur base jetable : article GREYCELL rangé sous le même incident que la publication sociale, commentaire dessous, article FORAD exclu.
+- Reste : le feu vert de l'utilisateur pour pousser MELMIL, le réseau social, la presse, puis la Console.
 
 ## 2026-10-13 (suite 9) — Cockpit : Reporting sur les catégories de suivi POUSSÉ ; chantier MIS EN PAUSE
 - `app-cockpit` `5ecd228..b0dbfa0` (main + prod, feu vert de l'utilisateur) ; déploiement vérifié : `/api/bff/situation/series-reporting` passe de 404 à 401.
