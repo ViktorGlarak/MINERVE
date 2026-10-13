@@ -368,6 +368,24 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
     - **insultes** : Marta (groupe témoin) n'est pas concernée par l'élan ; pour Zoé (groupe d'essai), rien n'est observable, puisque les silences n'étaient pas journalisés. D'où la ligne « élan » ajoutée. **Élan à mesurer en production.**
   - 81 tests ; image vérifiée (`/api/sante` = 2026-10-13.2) ; conteneurs d'essai supprimés.
 
+- **2026-10-13 — Relevé de 11 h 19 en production** (exports du jour et complet).
+  - **Réglages** : rédacteur et nuances actifs depuis 09 h 25, lecture des images depuis 10 h 57. Persuasion non réglée, donc restée à 1.
+  - **Grappe réelle** :
+    - à 10 h 03, le PC principal a été perdu 2 min puis repris ;
+    - le « Mac de Thomas » a été ajouté à 10 h 22 (classe tiers), perdu à 10 h 26, repris à 10 h 33 ;
+    - publications : 27 sur le PC, 6 sur le Mac. Les avatars sensibles et les images restent sur le PC (nœud maîtrisé).
+  - **Rédacteur face au témoin** (39 messages) :
+    - longueur 122 contre 154 caractères, 0 formule creuse contre 3 ;
+    - les faits sont gardés et des questions concrètes apparaissent (« C'était quoi comme modèle d'engin ? »), pour **3,6 s par message** ;
+    - nuances : 8 différentes, anxiété en tête (4 sur 13) ;
+    - incohérence relevée : « C'est tellement triste… 🙄 » (agacement, issu de la règle 3 « secondaire », sur une intention triste) → à voir avec PSYCHOLOGUE.
+  - **Élan** : aucune ligne, faute d'insulte ou de démenti visant un avatar du groupe d'essai.
+  - **Images** : l'export ne permettait pas de les voir (les médias n'y étaient pas repris). Corrigé en 2026-10-13.3.
+  - **Opinions** (persuasion 1) : sur Mercure, dérive −3 (−1,3 la veille), 33 avatars à plus de 5 points (11 la veille), 8 en doute, 0 bascule.
+  - **Fil** : 114 messages de joueurs, dont 77 antérieurs au redémarrage de 10 h 53 et donc sans diagnostic. Parmi les autres, 9 n'ont reçu que des J'aime et 2 réponses ont été converties.
+  - **Faux blocages corrigés en 2026-10-13.3** : « HFlavigny-sur-Moselle » (ville sans H) et « nous prendre pour des imbéciles » (insulte). Le journal du parc annonçait aussi une relance sans nœud de secours.
+- **PC n°3 envisagé** (6 Go de mémoire graphique, 16 Go de mémoire vive) : probablement trop juste pour le modèle 26B (15,6 Go). Mesure de vitesse demandée avant ajout. Le kit Windows est généralisé dans `pont/noeud-windows/`.
+
 ### Questions pour le réveil (nuit du 12/10)
 - **CYBERSECU F4** (toujours ouverte) : l'export pour analyse contient des messages de joueurs ; faut-il que je continue à le lire (agent cloud) ou réserver cette analyse à un modèle local ? Pour l'instant, en zone LOCALE, je le lis (il n'y a pas de vrai joueur).
 - **Faits hors fiche** : j'ai décidé qu'un proche / animal absent de la fiche ne devient PAS canon (signalé seulement). PSYCHOLOGUE proposait l'inverse. À trancher si tu préfères que l'avatar assume ce qu'il a publié.
