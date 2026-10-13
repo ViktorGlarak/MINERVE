@@ -304,6 +304,15 @@ Avant de démarrer AURIGE_3BB, NOYAU consulte automatiquement `AURIGE\AURIGE_2BB
 
 ## Décisions d'architecture
 
+### [2026-10-13] Kit MINERVE — reproduire le système pour un autre utilisateur
+Livré dans **`D:\CECPC\PRODUCTION\IA\KIT_MINERVE\`**, volontairement **hors du dépôt MINERVE** : il recopie des mémoires, et une copie versionnée ici divergerait des originaux. Contenu : `BOOTSTRAP.md` (à donner au Claude Code du destinataire), `LISEZMOI.md`, `installer.py`, `graines\`.
+- **Choix de l'utilisateur** : dossier kit (pas un .md unique) ; PLEIADE complet **sauf secrets** ; **version améliorée** ; poste Windows.
+- **Agents de départ** : SECRÉTAIRE (vierge, nourri en premier par interview), PLEIADE (état durable au 2026-10-13, sans le JOURNAL ; IP publique du VPN masquée ; documents de chantier dans `DOSSIERS\`), ANALYSTE (les **3 analystes fusionnés** en un agent à sous-dossiers MERCURE / ARNLAND / BOTHNIA).
+- **Améliorations par rapport à MINERVE** : CLAUDE.md court ; procédures en **skills** (`debut-session`, `fin-session`, `consigner`, `nouvel-agent`, `condenser-memoire`) ; agents en **vrais sous-agents** `.claude\agents\*.md` ; `generer_agents.py` lit `.claude\agents\` au lieu de `MINERVE_HOME.md` ; sans MASTAURIGE, le **camp fait foi dans `vault\entities\personas\ENT-*`**.
+- **Vérifié** : installation de test (avec git) → `build.py` exit 0, 328 notes, 0 erreur ; hook testé ; aucun secret trouvé (scan sans affichage des valeurs).
+- ⚠ Le kit est un **instantané au 2026-10-13** : pour un nouvel envoi, relancer l'assemblage (script `assembler_kit.py`, à recréer si besoin : il copie les mémoires PLEIADE / ANALYSTE et les entités du vault, masque l'IP publique et retire les liens vers des notes absentes).
+- 🐞 Leçon : sous Windows, un hook Python qui écrit du JSON avec `ensure_ascii=False` sort dans l'encodage de la console (cp1252) et non en UTF-8 → toujours `json.dumps` en ASCII (par défaut) pour la sortie d'un hook.
+
 ### [2026-06-10] Pipeline « inject as code » — production de masse MASTAURIGE (axe 1)
 Pour toute **production en volume** (firehose, journées multi-injects 7BB), NOYAU n'édite plus les fichiers WEB un par un et ne passe plus par le wizard : il écrit un **PLAN_INJECTS.json** (déclaratif) que `OUTILS\generer_injects.py` (gabarit vierge) valide et convertit en `session_*.json` importable en 1 clic dans MELMIL. Les validations (camp vs avatars.js, codes, LO, jours) remplacent la checklist manuelle 4+1 **en amont**. Détails : `MASTAURIGE\MEMOIRE.md` § v0.2 (entrées 2026-06-10).
 - **Séries→LO** : source unique = `moteur/lo_config.js` (plus de miroir melmil.js ↔ index_master). Pour 7BB, MINAUTORE fait adapter ce seul fichier.
