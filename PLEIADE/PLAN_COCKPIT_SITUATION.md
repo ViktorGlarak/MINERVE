@@ -139,6 +139,24 @@ Voir §5. Sans réponse aux questions 1 et 2, le lot 4 ne démarre pas.
 3. **Information des joueurs : OUI** (2026-10-13). Une phrase au briefing ou dans les consignes d'exercice (« tous les échanges sur les outils de l'exercice, y compris privés, peuvent être lus par l'animation et servir au RETEX »), plus une mention discrète dans le Chat et la messagerie au lot 4 (K13).
 4. **Mot-clé : reporté** ; la v1 couvre groupe eho, camp, cellule, compte et hashtag.
 
+### Idée de l'utilisateur à instruire (2026-10-13) — « conversation entre joueurs uniquement »
+Les joueurs pourraient rendre **privée** une conversation (à deux, en groupe, ou un canal) **dès lors que 100 % des membres sont humains** (aucun avatar animé, IA ou animateur). Le contenu n'est alors lisible par personne côté animation, superviseur compris.
+- **À trancher** :
+  - « humain » = compte de joueur, pas un avatar incarné par l'animation ni un avatar IA (critère fiable à définir avec eho : appropriation, groupe de camp) ;
+  - que se passe-t-il si un avatar ou un animateur est ajouté ensuite (refus d'ajout, ou fin de la protection annoncée à tous les membres) ;
+  - garde-t-on les **volumes** dans le Cockpit (recommandé : oui, sans interlocuteurs) ;
+  - l'animation accepte-t-elle de perdre la vue sur ces échanges (risque de coordination hors jeu) ;
+  - la supervision reste-t-elle possible sur décision de l'Administration ?
+- **Agents** : CYBERSECU (cela réduit l'exposition du privé : avis favorable probable), MASTORION (Chat social), PLEIADE (messagerie), DESIGNER (geste « rendre privée » et indicateur visible par tous les membres).
+- **Placement** : après le lot 4, puisqu'il suppose la supervision et les métadonnées en place.
+
+### Point de déploiement découvert (2026-10-13) — la base d'une instance existante
+La plateforme ne crée la base d'une app **qu'à la création de l'instance** (`zone-manager.ts`, `createInstanceDb` au déploiement initial). Ajouter `requires: mariadb` au catalogue du Cockpit **ne donne pas de base au Cockpit déjà déployé** sur DELATTRE 26. Options :
+1. **Recréer l'instance Cockpit.** Le Cockpit ne garde rien côté serveur aujourd'hui. Il faut recocher « Veille » sur les groupes, et les espaces de l'Admin sont conservés.
+2. **Faire créer par la plateforme la base manquante au redéploiement** (`pleiade-platform`, à voir avec PLEIADE et Xavier).
+
+Dans tous les cas, le Cockpit doit **tourner sans base** : ancienne vue intacte, et la nouvelle annonce « base non fournie ».
+
 ## 6. Agents et dépôts concernés
 | Lot | Dépôts | Agents |
 |---|---|---|
