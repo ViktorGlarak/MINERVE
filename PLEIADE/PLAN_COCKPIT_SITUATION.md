@@ -136,7 +136,7 @@ Voir §5. Sans réponse aux questions 1 et 2, le lot 4 ne démarre pas.
 ### Réponses de l'utilisateur (2026-10-13)
 1. **Métadonnées du Chat vers le Cockpit : OUI** (pas le contenu).
 2. **Rôle superviseur** : l'utilisateur propose de le lier aux groupes Keycloak, comme la case « Veille » (rôle `analyste` du catalogue `cockpit.yml`, cochée par groupe sur la plateforme). Recommandation : **même mécanisme, mais une seconde case « Supervision »** pour le Cockpit, à côté de « Veille ». Elle suit le modèle de la messagerie (`messagerie.yml` : Animation / Supervision). Sinon, toute personne en veille lirait les messages privés. *En attente de confirmation.*
-3. **Information des joueurs** : explication demandée. *En attente.*
+3. **Information des joueurs : OUI** (2026-10-13). Une phrase au briefing ou dans les consignes d'exercice (« tous les échanges sur les outils de l'exercice, y compris privés, peuvent être lus par l'animation et servir au RETEX »), plus une mention discrète dans le Chat et la messagerie au lot 4 (K13).
 4. **Mot-clé : reporté** ; la v1 couvre groupe eho, camp, cellule, compte et hashtag.
 
 ## 6. Agents et dépôts concernés
