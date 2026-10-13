@@ -27,7 +27,14 @@
   - persuasion : depuis 11 h 34, Mercure −110 et FORCE +107 en cumul de variations ; 30 avatars à plus de 5 points sur Mercure, 1 bascule ; deux comptes joueurs ont touché à eux seuls une vingtaine d'avatars chacun (effets de rejet « se raidit » fréquents).
 - **Ajout dans la même version** (demande utilisateur, `6547da4`) : un compte connu cité sans @ reçoit son @. « Le post d'Albi_EcoMind » devient « Le post de @Albi_EcoMind ». La consigne le demande au modèle, et le code (`arobase.mjs`) l'ajoute, avant le nettoyage qui garde deux mentions. La préfecture garde « la préfecture » (avis n°18). 2 tests (88 en tout) ; image démarrée.
 - ⚠ Vu sur la capture de l'utilisateur : le bandeau « Origine » du social (réservé à l'animation) affiche « cecpc · <adresse e-mail réelle d'un animateur> » : le compte venu de la fédération cecpc a pour nom d'utilisateur son adresse e-mail. C'est contraire à la règle de l'origine (« seul le compte de zone, anonyme »). → CYBERSECU, à traiter.
-- Reste : le feu vert de l'utilisateur pour pousser 2026-10-13.4.
+- **Ajouts du soir** (question de l'utilisateur : sa pique sous le message d'un avatar ne déclenchait rien) :
+  - **réponse = notification** : dans `horsFil`, l'exception « réponse à l'un de ses messages » était testée APRÈS « assez de lecteurs IA » et « plus de 6 h ». Dès que d'autres avatars avaient lu la réponse, l'auteur ne la voyait jamais. Elle passe maintenant avant ces deux règles, avec 24 h et un bonus de tête de fil ;
+  - **à qui répond un commentaire** : la description disait seulement « réponse sous une publication ». Essai local : la pique adressée à l'auteure a reçu « si je raconte ma vie… » de DEUX AUTRES avatars. Désormais : « réponse à X, sous son message « … » : ce commentaire s'adresse à X, pas à toi » ou « réponse à TON message ». Ré-essai : plus de réponse à la première personne ;
+  - **réponse rangée sous le commentaire visé** : `reply_to_comment_id`, moteur + réseau social (`3ab1b4e` et notes) ;
+  - « ferme la » retiré aussi des insultes reçues (élan).
+  - Moteur `9a6368a` (7 tests, 88 en tout), image construite.
+  - L'auteur visé n'a pas été appelé à lire pendant les 2 tours de l'essai (absent selon son emploi du temps) : l'effet « notification » reste à constater en production.
+- Reste : le feu vert de l'utilisateur pour pousser le moteur 2026-10-13.4 et le réseau social (`reply_to_comment_id`).
 
 ## 2026-10-13 (suite 13) — Récupération des contenus d'avant le 09/10 : POUSSÉE (feu vert de l'utilisateur)
 - **Réseau social** `e584d33..b0302af` (main + prod) à 17 h 25, puis 7 minutes d'attente du déploiement : la nouvelle Console envoie `posts=` et `commentaires=`, qu'un social plus ancien refuserait (400).
