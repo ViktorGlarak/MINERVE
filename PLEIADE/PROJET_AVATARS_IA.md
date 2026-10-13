@@ -318,7 +318,7 @@ Le cadrage a été écrit pour une instance **Mastodon**. Le réseau de l'exerci
       - profils : 0 créé, 105 mis à jour, 0 refusé ; 105/105 conformes, 0 nom affiché modifié ;
       - blocs `vie` : 104/104 corrigés, aucun autre champ touché ;
       - concordance en production : **0 écart d'âge, 0 écart de foyer, 0 « inconnu »**, contre 90 avatars sur 105 la veille.
-      - Reste à faire : **redémarrer l'instance Moteur IA**, qui lit les profils au démarrage.
+      - ✅ Moteur redémarré par le déploiement de la 2026-10-13.1 (09 h 24) : les profils sont relus.
     - Script alternatif `dev/prototype-ia/recopier-profils.mjs` (clé de zone, sauvegarde, restauration, nom affiché jamais touché), testé à blanc, non utilisé.
   - **Avis CYBERSECU du soir (A, B, C : acceptables sous conditions)** :
     - Mac : profil VPN nominatif révoqué en fin d'exercice, pare-feu réappliqué à chaque démarrage, FileVault, une image de 2 Mo au plus ;

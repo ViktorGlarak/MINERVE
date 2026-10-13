@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-10-13 — app-ia 2026-10-13.1 POUSSÉE main + prod (`bcccb64..2973742`, feu vert de l'utilisateur ; `/api/sante` = 2026-10-13.1 vérifié à 09 h 24)
+- **Contenu** :
+  - rédacteur dédié et nuances d'émotion, en essai sur le groupe « relu », coupés par défaut dans Réglages ;
+  - « TA VIE » corrigé (âge, valeurs inconnues) ;
+  - parc de calcul en grappe : onglet, une file par nœud, bascule, jetons chiffrés.
+- **Avant le push**, l'utilisateur a importé dans eho les profils des 105 avatars IA et les 104 blocs `vie` corrigés. Contrôle sur ses exports : 0 écart. Le redémarrage dû au déploiement relit les profils.
+- Détails, mesures des deux essais locaux et reste à faire : `PROJET_AVATARS_IA.md` § 8.
+
 ## 2026-10-12 (suite 21) — Graphique d'influence des avatars IA dans le Reporting du Cockpit : app-ia 12.17 + 12.18 POUSSÉS main + prod (`ac4cabd..bcccb64`, `/api/sante` = 2026-10-12.18 vérifié) + app-cockpit POUSSÉ main + prod (`97070a1..dea51d1`, avance rapide) — feu vert de l'utilisateur après démonstration locale
 - **Demande utilisateur** : voir l'état d'influence de chaque avatar IA par rapport à ce que font les joueurs, dans le Reporting de l'app-cockpit. Avis DESIGNER n°103 et avis CYBERSECU du jour, suivis.
 - **app-ia 12.18** (contient la 12.17, non poussée) : relevés horaires `releve_opinion` (position par avatar et par axe) et `influence_horaire` (cumul par heure, axe et source : joueurs et animation, IA, faits) ; route de service `/api/service/opinions` (clé de zone, paramètres stricts, faits numérotés). 57/57 tests, image testée (401, 400, 200).
