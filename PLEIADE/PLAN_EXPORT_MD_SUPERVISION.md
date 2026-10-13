@@ -65,7 +65,7 @@
 
 **Ordre** : C, A, B, puis D. Une fois A et D faits, l'export fonctionne déjà pour le réseau social ; la presse s'ajoute ensuite.
 
-## 3. Questions pour l'utilisateur
-1. **L'Administration peut-elle exporter une autre cellule** que la sienne (choix journalisé) ? Recommandé : oui, pour l'Administration seulement.
-2. **Le libellé de la mention** : « EXERCICE — DONNÉES FICTIVES — usage animation » convient-il ?
-3. **Le nom de l'exportateur** dans l'en-tête : recommandé de ne pas l'écrire (il figure au journal), plutôt que d'y mettre son compte gc05.
+## 3. Réponses de l'utilisateur (2026-10-13)
+1. **L'Administration seule** peut exporter une autre cellule que la sienne. Ce choix est journalisé.
+2. La mention « **EXERCICE — DONNÉES FICTIVES — usage animation** » est validée.
+3. Le **nom de celui qui exporte n'apparaît pas** dans le fichier. Il figure au journal seulement.
