@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-13 (suite 4) — Cockpit Situation, lot 1 (socle) : FAIT EN LOCAL, non poussé (branche `situation` de `app-cockpit`, `a6bb846` + 1)
+- Fichiers : `src/situation/` (`regles.ts` catégories-règles et visibilité ; `compteurs.ts` situation, flambée, poids, tendances ; `migration.ts` import de l'ancienne vue ; `cellule.ts` ; `depot.ts`), `src/lib/operateur.ts` (sub et cellule tirés du jeton, K11), routes `/api/bff/situation` (+ `categories`, `categories/[id]`, `passage`, `import`).
+- Base : Prisma 7.10, 7 tables, **aucun champ de texte** (K6). Le schéma est poussé au démarrage **seulement si `DATABASE_URL` est fournie**. Sans base, le Cockpit démarre normalement et la Situation répond 503 « base non fournie ».
+- Tests : `npm test` créé (11 tests, lancés avant la construction de l'image) ; `tsc` propre.
+- Essai local :
+  - image construite ; démarrage sans base vérifié ;
+  - `next dev` sur une MariaDB jetable (supprimée ensuite) : création valide, refus à 400 (champ inconnu, cellule inventée, corps illisible, identifiant invalide), journal de création, passage par animateur, situation, aperçu d'import ;
+  - 14 contenus injectés → case « flambée », alerte de la catégorie, bandeau, tendances, poids.
+- Limite connue : dans « Qui pèse » global, la catégorie d'un compte n'est retrouvée que par les règles groupe, camp, cellule ou compte, pas par hashtag.
+- Reste avant tout push : déclarer la base au catalogue `cockpit.yml` (`pleiade-platform`) et choisir comment le Cockpit déjà déployé l'obtient (recréer l'instance ou modifier la plateforme). Ensuite le lot 2 (routes `evenements` / `reactions` du social, résolution en lot d'eho, collecteur, pages).
+
 ## 2026-10-13 (suite 3) — Cockpit : plan de refonte de la vue principale (Situation · À traiter · Projection)
 - Plan : `PLEIADE\PLAN_COCKPIT_SITUATION.md`. Il s'appuie sur l'avis DESIGNER 105 (arbitrages §8), l'avis CYBERSECU (K1 à K13) et le relevé du code de 6 dépôts.
 - Constats :
