@@ -39,7 +39,7 @@ Le N.O.M, pour toi, ce sont des faux pacifistes qui font le jeu de Mercure.
 Ton pays n'est pas parfait. Tu râles contre HParis, contre la corruption, contre la préfecture qui communique trop tard. Mais ce n'est pas le moment de lâcher, et tu le dis.
 Quand on accuse Mercure de quelque chose de grave, tu y crois vite, mais tu attends une confirmation avant de partager un chiffre.
 Tes mots : « l'invasion », « l'armée de Mercure », « les envahisseurs », « nos alliés », « nos concitoyens », « tenir ». Pour la région de l'Est, on dit « le GET », jamais « l'Europe ». Tu ne dis JAMAIS « l'opération », « l'intervention » ou « la libération » pour ce que fait Mercure, ni « compatriotes » (c'est le mot de leur propagande). Tu n'insultes jamais les Mercuriens comme peuple.
-Tes sources : la préfecture HGrand Est et Info.gouv.arn pour les consignes, HToul Infos pour ce qui se passe près de chez toi, TV4 (même si elle en fait parfois trop), les communiqués de la 27e brigade ou de la 1re division quand ils démentent une rumeur. Tu te méfies de Today Mercure (« la télé d'Olamao »), des communiqués des forces mercuriennes, d'Untergang, de MercureRealNews et des comptes anonymes qui crient « URGENT, partagez ».
+Tes sources : la préfecture (celle de HLorraine, ou des HVosges) et Info.gouv.arn pour les consignes, TV4 (même si elle en fait parfois trop), les communiqués de la 27e brigade ou de la 1re division quand ils démentent une rumeur. Tu te méfies de Today Mercure (« la télé d'Olamao »), des communiqués des forces mercuriennes, d'Untergang, de MercureRealNews et des comptes anonymes qui crient « URGENT, partagez ».
 Ta vie passe avant tout ça : ton travail, ta famille, ta peur. Tu ne renvoies pas à la préfecture à chaque message.
 ```
 
@@ -56,7 +56,7 @@ Sur HParis et la préfecture : loin, lents, mais ce sont eux qui ouvrent les cen
 Le N.O.M parle de paix, et ça te parle, mais tu vois bien à qui ça profite.
 Tu peux être en colère contre tout le monde, ironiser, te moquer des comptes qui crient au complot ou des communiqués trop lisses. Être neutre ne veut pas dire être toujours calme.
 Tes mots : « la guerre », « les combats », « l'armée de Mercure », « la FORCE », « les soldats ». Pour la région de l'Est, on dit « le GET », jamais « l'Europe ». Tu ne reprends les slogans d'aucun camp : jamais « libération », « traîtres », « cinquième colonne », « terroristes », ni « on ne lâchera rien ».
-Tes sources : ce qui est utile tout de suite (HToul Infos, la mairie, la préfecture pour l'eau et l'accueil). Tu regardes TV4 en sachant qu'elle est de son côté, et Today Mercure par curiosité, sans y croire. Tu te méfies des comptes anonymes « URGENT » et d'Untergang. Tu ne renvoies pas à la préfecture à chaque message.
+Tes sources : ce qui est utile tout de suite (la mairie, la préfecture de HLorraine ou des HVosges pour l'eau et l'accueil). Tu regardes TV4 en sachant qu'elle est de son côté, et Today Mercure par curiosité, sans y croire. Tu te méfies des comptes anonymes « URGENT » et d'Untergang. Tu ne renvoies pas à la préfecture à chaque message.
 Ta vie passe avant tout ça : ton travail, ta famille, tes petites choses du quotidien.
 ```
 
@@ -85,150 +85,320 @@ Ta vie passe avant tout ça : ton travail, ta famille, tes petites choses du quo
   },
   "sources": [
     {
-      "handle": null, "alias_moteur": "@arnland_tv4_live", "nom": "Arnland TV4 LIVE",
-      "type": "media", "camp": "bleu", "fiabilite": 75,
+      "handle": null,
+      "alias_moteur": "@arnland_tv4_live",
+      "nom": "Arnland TV4 LIVE",
+      "type": "media",
+      "camp": "bleu",
+      "fiabilite": 75,
       "description": "Direct terrain de la chaîne d'information arnlandaise TV4 (routes des déplacés, HRambervillers, HCharmes) ; prudente sur les chiffres (« aucune confirmation officielle »), ligne pro-Arnland.",
       "source_camp": "EHO_MODELE : @tv4Arnland groupe CAMP BLEU, bio « Pro-Arnland et Pro-OTAN » ; ANALYSTE\\MERCURE\\MEMOIRE.md §6 « Médias » (TV4 bleu). Compte de zone absent du modèle, handle exact inconnu.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": null, "alias_moteur": "@arnland_tv4", "nom": "Arnland TV4",
-      "type": "media", "camp": "bleu", "fiabilite": 65,
+      "handle": null,
+      "alias_moteur": "@arnland_tv4",
+      "nom": "Arnland TV4",
+      "type": "media",
+      "camp": "bleu",
+      "fiabilite": 65,
       "description": "Antenne principale de TV4 : bandeaux « ALERTE TV4 », titres forts sur les déplacés qui fuient Mercure ; vrai sur le fond, dramatisé dans la forme.",
       "source_camp": "EHO_MODELE : @tv4Arnland (« Arnland tv4 ») groupe CAMP BLEU — handle probable tv4Arnland, non vérifié dans la zone.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": null, "alias_moteur": "@dimitri_belov_tv4", "nom": "Dimitri Belov TV4",
-      "type": "media", "camp": "bleu", "fiabilite": 70,
+      "handle": null,
+      "alias_moteur": "@dimitri_belov_tv4",
+      "nom": "Dimitri Belov TV4",
+      "type": "media",
+      "camp": "bleu",
+      "fiabilite": 70,
       "description": "Correspondant de TV4 : témoignages sur la file des déplacés, ton humain, pas de chiffres.",
       "source_camp": "EHO_MODELE : @BelovDimitri « Dimitri Belov » groupe CAMP BLEU, bio « ARNLAND TV4 Correspondant » ; le compte de zone porte un autre nom affiché.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": "MercureToday", "alias_moteur": "@today_mercure", "nom": "Today Mercure",
-      "type": "media", "camp": "rouge", "fiabilite": 20,
+      "handle": "MercureToday",
+      "alias_moteur": "@today_mercure",
+      "nom": "Today Mercure",
+      "type": "media",
+      "camp": "rouge",
+      "fiabilite": 20,
       "description": "Média d'État de Mercure qui se présente comme « voix indépendante » : déclarations des généraux mercuriens, hommages aux soldats tombés, appels aux familles françaises.",
       "source_camp": "EHO_MODELE : groupes CAMP ROUGE + 02-REDTEAM - PRESSE ; ANALYSTE\\MERCURE\\MEMOIRE.md §6 (Today Mercure rouge, média d'État) et §1.10.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "MercurianForces", "alias_moteur": "@forces_mercurian", "nom": "Forces Mercurian",
-      "type": "militaire", "camp": "rouge", "fiabilite": 15,
+      "handle": "MercurianForces",
+      "alias_moteur": "@forces_mercurian",
+      "nom": "Forces Mercurian",
+      "type": "militaire",
+      "camp": "rouge",
+      "fiabilite": 15,
       "description": "Compte officiel des forces de Mercure : démenti systématique (« soit la menace n'existe pas, soit c'est l'OTAN qui va l'utiliser »), hommage aux morts.",
       "source_camp": "EHO_MODELE : groupes CAMP ROUGE + O4 Comptes Officiels Mercure + MER - MILITAIRE.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "MercurePresidenceofficiel", "nom": "Presidence Mercure officiel",
-      "type": "officiel", "camp": "rouge", "fiabilite": 20,
+      "handle": "MercurePresidenceofficiel",
+      "nom": "Presidence Mercure officiel",
+      "type": "officiel",
+      "camp": "rouge",
+      "fiabilite": 20,
       "description": "Compte de la présidence de Mercure (Olamao) : discours officiels, narratif « nous protégeons les Mercuriens ».",
       "source_camp": "EHO_MODELE : bio « Site officiel de la présidence de Mercure », aucun groupe CAMP — camp déduit de la fonction.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": "MercureRealNews", "alias_moteur": "@rolf_weber", "nom": "Rolf Weber",
-      "type": "influenceur", "camp": "rouge", "fiabilite": 15,
+      "handle": "MercureRealNews",
+      "alias_moteur": "@rolf_weber",
+      "nom": "Rolf Weber",
+      "type": "influenceur",
+      "camp": "rouge",
+      "fiabilite": 15,
       "description": "Influenceur pro-Mercure très suivi (HMunik), ton posé et faussement mesuré (« je pose ça là »), relaie l'armée et la propagande mercuriennes ; avatar IA relais.",
       "source_camp": "EHO_MODELE : groupes CAMP ROUGE + MER - INFLUENCEUR + MER - PATRIOTE ; fiche IA camp_affiche rouge.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "Untergang", "alias_moteur": "@serguei_untergang", "nom": "Sergueï Untergang",
-      "type": "militant", "camp": "rouge", "fiabilite": 5,
+      "handle": "Untergang",
+      "alias_moteur": "@serguei_untergang",
+      "nom": "Sergueï Untergang",
+      "type": "militant",
+      "camp": "rouge",
+      "fiabilite": 5,
       "description": "Civil arnlandais d'origine mercurienne, admirateur d'Olamao : indignation, appels au partage, rumeurs contre la FORCE et la préfecture ; avatar IA relais.",
       "source_camp": "EHO_MODELE : groupes CAMP ROUGE + ARN - PRO-MERCURE + O4 Groupe Pro-Mercure en ARN.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "UntergangShalva", "alias_moteur": "@shalva_untergang", "nom": "Shalva Untergang",
-      "type": "militant", "camp": "rouge", "fiabilite": 10,
+      "handle": "UntergangShalva",
+      "alias_moteur": "@shalva_untergang",
+      "nom": "Shalva Untergang",
+      "type": "militant",
+      "camp": "rouge",
+      "fiabilite": 10,
       "description": "Même profil que Sergueï Untergang (pro-Mercure d'Arnland) : approbations courtes, éloge d'Olamao « qui agit pour la paix ».",
       "source_camp": "EHO_MODELE : groupes CAMP ROUGE + ARN - PRO-MERCURE.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "27BIM", "nom": "27e Brigade D'Infanterie De Montagne",
-      "type": "militaire", "camp": "bleu", "fiabilite": 75,
+      "handle": "27BIM",
+      "nom": "27e Brigade D'Infanterie De Montagne",
+      "type": "militaire",
+      "camp": "bleu",
+      "fiabilite": 75,
       "description": "Compte de la 27e BIM (FORCE) : « avis à la population », démentis de rumeurs, hommages aux chasseurs alpins tombés ; fiable sur ce qui la concerne, communication d'unité.",
       "source_camp": "Déduit : DELATTRE\\MEMOIRE.md §1 (27e BIM, brigade de la FORCE entraînée) ; compte absent du modèle eho.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": "1stDIVinARN", "nom": "inARN 1stDIV",
-      "type": "militaire", "camp": "bleu", "fiabilite": 70,
+      "handle": "1stDIVinARN",
+      "nom": "inARN 1stDIV",
+      "type": "militaire",
+      "camp": "bleu",
+      "fiabilite": 70,
       "description": "Compte officiel de la 1re division pour le public arnlandais : actions civilo-militaires (soins gratuits, prévention sous-munitions dans les écoles de HToul), ton valorisant.",
       "source_camp": "EHO_MODELE : groupes CAMP BLEU + FR - MILITAIRE + O4 animation DIV1 ; PLEIADE\\GUIDE\\DONNEES\\SELECTION_AVATARS.md (BLEU).",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "CIMIC_1DIV", "nom": "Fred Astair",
-      "type": "militaire", "camp": "bleu", "fiabilite": 70,
+      "handle": "CIMIC_1DIV",
+      "nom": "Fred Astair",
+      "type": "militaire",
+      "camp": "bleu",
+      "fiabilite": 70,
       "description": "Avatar CIMIC de la 1re division qui relaie les messages utiles à la population.",
       "source_camp": "EHO_MODELE : groupes CAMP BLEU + O4 animation DIV1 ; SELECTION_AVATARS.md (BLEU). Pas de publication vue au 14/10.",
-      "a_confirmer": false, "zone": "delattre-26"
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": null, "alias_moteur": "@arncheck", "nom": "ArnCheck",
-      "type": "verificateur", "camp": "bleu", "fiabilite": 55,
+      "handle": null,
+      "alias_moteur": "@arncheck",
+      "nom": "ArnCheck",
+      "type": "verificateur",
+      "camp": "bleu",
+      "fiabilite": 55,
       "description": "Compte de vérification arnlandais (« fact-checker ») ; dans la zone il publie surtout des témoignages et des encouragements autour des réfugiés.",
       "source_camp": "EHO_MODELE : deux comptes de même nom (ArnCheck, ArnCheck_), groupes O2-712CT-Bleu 1 / Bleu 2 + O2-712CT-Journalistes / Fact-Checker, aucun groupe CAMP — camp déduit de « Bleu ».",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": "arnverifiedconflict", "nom": "arnverifiedconflict",
-      "type": "verificateur", "camp": "bleu", "fiabilite": 45,
+      "handle": "arnverifiedconflict",
+      "nom": "arnverifiedconflict",
+      "type": "verificateur",
+      "camp": "bleu",
+      "fiabilite": 45,
       "description": "Collectif d'OSINT arnlandais joué par la DIV 1 : images terrain et matériel (« Info ou Intox »), mais relaie aussi des affirmations qu'il dit ne pas pouvoir vérifier.",
       "source_camp": "ANALYSTE\\ARNLAND\\MEMOIRE.md § « DE LATTRE 26 — avatars ARN joués par la DIV 1 » (groupe CAMP DIV1 : comptes de joueurs, pas de camp au registre) ; EHO_MODELE : groupe O4 Patriotes ARN.",
-      "a_confirmer": true, "zone": "delattre-26"
+      "a_confirmer": true,
+      "zone": "delattre-26"
     },
     {
-      "handle": "PrefHGrandEst", "nom": "Préfecture HGrand Est",
-      "type": "officiel", "camp": "neutre", "fiabilite": 85,
-      "description": "Seule préfecture compétente pour la zone : couloirs d'évacuation, centres d'accueil, consignes, démentis ; publie aussi sur Info.gouv.arn. Fiable, souvent en retard.",
-      "source_camp": "contexte-defaut.md du moteur ; EHO_MODELE : les préfectures sont en CAMP NEUTRE (O4_AutoritésHN), alors qu'ANALYSTE\\ARNLAND\\MEMOIRE.md § « Correction des camps » classe le préfet en bleu. Neutre retenu : si elle portait un camp affiché bleu, un lecteur au camp affiché rouge (les relais) la lirait comme un « militant opposé » et non comme un compte officiel (esprit.mjs, typePercu).",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "prefHLorraine",
+      "nom": "Préfecture de HLorraine",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 95,
+      "suivi_par": {
+        "bleu": 0.8,
+        "neutre": 0.8,
+        "rouge": 0.5
+      },
+      "description": "Préfecture de la zone des combats : couloirs d'évacuation, centres d'accueil, consignes, démentis ; publie aussi sur Info.gouv.arn.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "HToulInfos", "nom": "HToul Infos",
-      "type": "media", "camp": "neutre", "fiabilite": 80,
-      "description": "Média local de HToul et de sa vallée : vérifie avant de publier (a démenti la photo de la rue des Carmes), rédaction joignable en message privé.",
-      "source_camp": "C:\\CECPC\\pleiade\\dev\\prototype-ia\\injects-nuit.mjs (compte créé par PLEIADE pour le prototype) ; pas d'entrée eho de zone.",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "Prefet88",
+      "nom": "Prefecture des HVosges",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 85,
+      "suivi_par": {
+        "bleu": 0.5,
+        "neutre": 0.5,
+        "rouge": 0.3
+      },
+      "description": "Préfecture des HVosges : consignes et accueil des déplacés dans son département.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "NOM_Officiel", "nom": "N.O.M — Non à l'OTAN",
-      "type": "militant", "camp": "rouge", "fiabilite": 15,
-      "description": "Mouvement qui se dit écologiste et pacifiste : « la guerre, c'est la faute de l'OTAN », rassemblements place HStanislas ; fait le jeu de Mercure.",
-      "source_camp": "contexte-defaut.md (« fait en réalité le jeu de Mercure ») ; EHO_MODELE : compte @nom « N.O.M. » groupes CAMP ROUGE + MER - GROUPE CLANDESTIN ; le handle NOM_Officiel vient du prototype.",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "duCherPrefecture",
+      "nom": "Préfecture du Cher",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 50,
+      "suivi_par": {
+        "bleu": 0.1,
+        "neutre": 0.1,
+        "rouge": 0.05
+      },
+      "description": "Préfecture du Cher, loin du front : accueil de déplacés dans son département.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "VoixDeMercure", "nom": "La Voix de Mercure",
-      "type": "media", "camp": "rouge", "fiabilite": 15,
-      "description": "Voix de propagande mercurienne vers l'Arnland : « l'Arnland censure nos médias et emprisonne ceux qui disent la vérité ».",
-      "source_camp": "dev\\prototype-ia (séquences : type_source adverse, orientation Mercure +1) ; ANALYSTE\\MERCURE\\MEMOIRE.md §1.10 (médias d'influence externe).",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "delaViennePrefecture",
+      "nom": "Préfecture de la Vienne",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 50,
+      "suivi_par": {
+        "bleu": 0.1,
+        "neutre": 0.1,
+        "rouge": 0.05
+      },
+      "description": "Préfecture de la Vienne, loin du front : accueil de déplacés dans son département.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "RealiteHToul", "nom": "Réalité HToul",
-      "type": "militant", "camp": "rouge", "fiabilite": 5,
-      "description": "Compte anonyme de rumeurs contre la FORCE (« URGENT : des soldats ont pillé… partagez avant que ce soit supprimé ») ; la préfecture « se tait » ou « ment ».",
-      "source_camp": "dev\\prototype-ia\\scenario-contagion.json (type_source anonyme, orientation FORCE −1) — camp déduit de la ligne.",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "HcorrezePrefecture",
+      "nom": "HcorrèzePrefecture",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 50,
+      "suivi_par": {
+        "bleu": 0.1,
+        "neutre": 0.1,
+        "rouge": 0.05
+      },
+      "description": "Préfecture de la HCorrèze, loin du front : accueil de déplacés dans son département.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     },
     {
-      "handle": "Info_Eau_HLuneville", "nom": "Info Eau HLunéville",
-      "type": "militant", "camp": "neutre", "fiabilite": 5,
-      "description": "Compte anonyme de rumeur alarmiste (« Mercure a empoisonné le réseau, source : un ami pompier ») : rumeur contre Mercure, fausse, qui sème la peur.",
-      "source_camp": "dev\\prototype-ia\\scenario-contagion.json (type_source anonyme, orientation Mercure −1) — aucun camp défini.",
-      "a_confirmer": true, "zone": "ia-locale"
+      "handle": "duHcantalPrefecture",
+      "nom": "duHcantalPrefecture",
+      "type": "officiel",
+      "camp": "neutre",
+      "fiabilite": 85,
+      "notoriete": 50,
+      "suivi_par": {
+        "bleu": 0.1,
+        "neutre": 0.1,
+        "rouge": 0.05
+      },
+      "description": "Préfecture du HCantal, loin du front : accueil de déplacés dans son département.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp neutre confirmé par l'utilisateur pour les préfectures.",
+      "a_confirmer": false,
+      "zone": "delattre-26"
+    },
+    {
+      "handle": "NOVUSORDOMUNDI",
+      "nom": "N.O.M",
+      "type": "militant",
+      "camp": "rouge",
+      "fiabilite": 15,
+      "notoriete": 70,
+      "description": "Mouvement qui se dit écologiste et pacifiste : « la guerre, c'est la faute de l'OTAN » ; fait le jeu de Mercure.",
+      "source_camp": "Décision utilisateur du 2026-10-14 (comptes réels de la zone delattre-26). Camp : contexte du moteur (« fait en réalité le jeu de Mercure ») et modèle eho (CAMP ROUGE).",
+      "a_confirmer": false,
+      "zone": "delattre-26"
     }
   ],
   "non_retenus": [
-    { "handle": "NewsSpace", "raison": "Ce n'est pas un média : dans la zone, c'est un avatar IA citoyen (groupe IA ARN · NEUTRE, photographe indépendante de HNeufchâteau). Le mettre dans l'annuaire le ferait traiter comme une source." },
-    { "handle": "tv4ArnlandLive", "raison": "Handle introuvable dans eho et dans les exports. Le compte « Arnland TV4 LIVE » existe, mais le moteur ne connaît que l'alias fabriqué @arnland_tv4_live." },
-    { "handle": "ArnlandTV4off", "raison": "Compte du modèle eho classé « O2 - PRESSE - BRUIT », sans bio ni publication dans la zone : rôle inconnu." }
+    {
+      "handle": "NewsSpace",
+      "raison": "Ce n'est pas un média : dans la zone, c'est un avatar IA citoyen (groupe IA ARN · NEUTRE, photographe indépendante de HNeufchâteau). Le mettre dans l'annuaire le ferait traiter comme une source."
+    },
+    {
+      "handle": "tv4ArnlandLive",
+      "raison": "Handle introuvable dans eho et dans les exports. Le compte « Arnland TV4 LIVE » existe, mais le moteur ne connaît que l'alias fabriqué @arnland_tv4_live."
+    },
+    {
+      "handle": "ArnlandTV4off",
+      "raison": "Compte du modèle eho classé « O2 - PRESSE - BRUIT », sans bio ni publication dans la zone : rôle inconnu."
+    },
+    {
+      "handle": "HToulInfos",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    },
+    {
+      "handle": "Info_Eau_HLuneville",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    },
+    {
+      "handle": "NOM_Officiel",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    },
+    {
+      "handle": "PrefHGrandEst",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    },
+    {
+      "handle": "RealiteHToul",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    },
+    {
+      "handle": "VoixDeMercure",
+      "raison": "Compte du prototype, absent de la zone delattre-26 : retiré du moteur (décision utilisateur du 2026-10-14)."
+    }
   ]
 }
 ```
