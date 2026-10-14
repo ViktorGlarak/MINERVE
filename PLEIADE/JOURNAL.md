@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-14 (suite 9) — Projection grand écran : app d'origine, couleur des catégories, réponses, animation d'arrivée (avis DESIGNER n°108) — commit `8656945` (branche `projection-reperes` depuis prod `4dbd25f`), validé en local par l'utilisateur, push à faire par l'utilisateur
+## 2026-10-14 (suite 9) — Projection grand écran : app d'origine, couleur des catégories, réponses, animation d'arrivée (avis DESIGNER n°108) — commit `8656945` (branche `projection-reperes` depuis prod `4dbd25f`), validé en local par l'utilisateur — ✅ EN PRODUCTION (poussé par l'utilisateur ; icônes servies, `/projection` 307, données 401 sans session, ~2 min après le push)
 - Demandes utilisateur : sur chaque message, l'icône de l'app d'origine (instance) avec un repère de couleur, et la couleur des catégories du Cockpit ; les commentaires doivent dire à quoi ils répondent ; une « belle animation » à la place de l'étiquette « NOUVEAU ». L'utilisateur a demandé le contrôle de DESIGNER (non fait avant codage : faute reconnue) → avis n°108 appliqué, addendum animation.
 - Données : `source` (nom de l'instance), `categories`, `nature`, `enReponseA` (contenu commenté cherché dans l'index, public seulement, extrait 140 car.). Icônes `public/img/apps/{social,presse}.png` copiées du catalogue de la plateforme (`messagerie.png` y est identique à `social.png`).
 - La messagerie reste absente du fil (K10) : seulement un nombre. 29 tests, essai local avec un social, une presse et une messagerie d'essai, image construite. Mon `git push` refusé par le classifieur (comme d'habitude).
