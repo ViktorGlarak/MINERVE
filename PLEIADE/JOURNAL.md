@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 16) — ⚠ INCIDENT : la population IA muette de 16 h 52 à la mise en ligne de la 2026-10-14.4 (correctif `c57a43d`, branche `avis23`)
+- Constat sur l'export de 17 h 52 : après la mise en ligne de la 2026-10-14.2 (« annuaire appliqué » à 16 h 52), **0 publication, 0 réponse** ; cycles de 0,5 à 2,5 s ; abonnements tirés pour les 105 avatars.
+- **Cause (faute de NOYAU)** : méthode `lecteur()` ajoutée à `Esprit` (camp du lecteur) alors que `marquerLecteurs()` pose une PROPRIÉTÉ `a.lecteur` à chaque tour → « a.lecteur is not a function » dans l'invite de chaque avatar, avalé par la protection « une erreur n'arrête pas le tour ». La démo de l'avis n°24 ne passait pas par `marquerLecteurs` : non détecté.
+- **Correctif** : méthode renommée `campDeLecture()` ; recherche systématique des collisions propriété / méthode (une seule restante, `enregistrer`, volontaire depuis le lot L1) ; **rejeu du chemin de production sur les 105 avatars** (propriété posée, invite complète, ancre) : 0 erreur. 109 tests, image construite.
+- **Leçon** : un essai qui ne passe pas par la boucle réelle (`marquerLecteurs`, `filDe`…) ne prouve pas le fonctionnement en production. Avant chaque mise en ligne du moteur, rejouer le chemin complet sur la population de l'export.
+
 ## 2026-10-14 (suite 15) — Pas de publication « dans la foulée » (commit app-ia `4bc276e`, branche `avis23`) — ✅ EN PRODUCTION
 - Constat utilisateur (capture) : un avatar cite un message d'ArnCheck puis publie, à une minute d'écart, un second message sur le même sujet — « particulièrement pas réaliste ». Cause : la règle « pas deux messages à moins de 2 min » ne valait que pour les réponses et citations, pas pour la publication spontanée tirée du même appel au modèle.
 - Correctif : pas de spontanée dans le tour où l'avatar a répondu ou cité, ni à moins de 15 min de son dernier message écrit ; pas de citation à moins de 15 min de sa propre spontanée (sauf s'il est visé). La spontanée compte désormais comme un message écrit. 109 tests.
