@@ -4059,3 +4059,7 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 ## 2026-10-09 — Social : chat privé entre avatars — ✅ POUSSÉ `601170f` (main + prod)
 - Onglet Chat (pastille), conversations à deux texte + image, bouton Message ; boîte lue par ceux qui incarnent l’avatar ; route dans la liste blanche joueurs. Service : `/service/chat` + `publish` (lieu, sondage, qui_peut_repondre) prêts pour la Console.
 - 🔜 Étape 2 : Console d’animation (messages privés programmés, lieu, sondage, qui peut répondre, alignement J’aime/Repost) + kit IA, avec DESIGNER.
+
+## 2026-10-14 18:45 — 100 avatars lecteurs prêts à installer (avis PSYCHOLOGUE n°25)
+- Générés par `dev\prototype-ia\generer-lecteurs.mjs` et validés avec les règles d'eho : 100 fiches, 0 refusée. Classeur d'import produit par `profils-xlsx.py`, qui joint désormais les listes avec des virgules, comme à l'import du 12/10.
+- Ordre d'installation : (1) pousser eho `fiche-lecteurs` vers main et prod (version 2026-10-14.1) ; (2) importer les avatars depuis le classeur des profils ; (3) « Installer la population IA » avec le JSON ; (4) activer 25 lecteurs pendant 3 h, puis les 100.

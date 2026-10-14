@@ -9,6 +9,33 @@
 
 
 
+## 2026-10-14 (nuit, suite) — Avis n°25 : cent nouveaux avatars IA lecteurs (70 pro-Mercure de l'Est, 30 pro-Arnland) — `AVIS\2026-10-14_avis25_cent_nouveaux_avatars.md`
+- **Demande de l'utilisateur**, via NOYAU : doubler la population de DELATTRE 26 (105 → 205) sans plus de publications. Les nouveaux sont surtout des lecteurs (charge de calcul), pris parmi les comptes jamais utilisés qui ont un portrait. Avis rédigé avec ANALYSTE_ARN et ANALYSTE. Aucun code, aucun commit.
+- **Lu** :
+  - `pont.mjs` : `marquerLecteurs`, `maxParHeure`, `MESSAGES_PAR_HEURE`, `MAX_LECTEURS`, `horsFil`, `filDe`, la boucle par avatar, `effetAmbiant`, `tirerSesAbonnements`, le plafond de J'aime ;
+  - `esprit.mjs` : constructeur, `activite`, `facteurSocial`, `VOIX` ;
+  - `sources.mjs` ; le schéma eho ; l'annuaire ; `orienter-citoyens.mjs` ;
+  - 2 fiches de l'export du 14/10 à 13 h 05 (format seulement, aucun message recopié).
+- **Trouvé dans le code** :
+  - le drapeau `lecteur` serait effacé à chaque tour (C1) ;
+  - les 100 lecteurs prendraient les 25 places de lecture IA des messages de joueurs (C2) ;
+  - la pause de lecture n'est pas réglable par fiche (C3) ;
+  - la propension à aimer non plus (C4) ;
+  - l'annuaire n'a aucun média neutre (C5) ;
+  - `gabarit: "salarie"` est absent de la table `GAB`.
+- **Spécification** :
+  - 10 sous-profils pro-Mercure et 7 pro-Arnland, ¼ affirmés ;
+  - villes de l'Est, dont le bassin houiller à valider par DELATTRE ; 13 % de déplacés ;
+  - démographie et foyers (avis n°15) ;
+  - paramètres de lecteur chiffrés, pour une lecture environ 3 fois moins fréquente ;
+  - opinions et confiance par sous-profil ; champs eho et règles d'écriture ;
+  - bloc JSON `repartition` (§8) ;
+  - tests T1-T9 ; activation par palier de 25.
+- **À trancher** :
+  - DELATTRE ou l'utilisateur : statut des villes frontalières ;
+  - l'utilisateur : religion de la diaspora (« Église mercurienne » orthodoxe proposée) ;
+  - EXPERT_INFLUENCE et DELATTRE : avantage de la cellule rouge par les J'aime (R5).
+
 ## 2026-10-14 (nuit) — Avis n°24 mis en œuvre par NOYAU (app-ia `ee9f394`, version 2026-10-14.2, non poussé) — écarts
 - Vocabulaire du moteur gardé : camp **bleu / rouge / neutre** (au lieu de mercure / arnland), fiabilité et notoriété **0-100** (CYBERSECU), pas `ancrable` ni `libelle` séparé (la description sert de libellé).
 - Ancre tirée des seuls **messages lus** du tour (pas encore des croyances des 24 h) ; un fait ancré 2 fois en 24 h n'est plus repris.
@@ -281,3 +308,11 @@
   - audience IA ↔ IA (25 % des lectures au plus) et suivi des fils ;
   - 15 critères pour l'essai avec groupe témoin.
 - **Code lu sans le modifier**. Aucun export lu.
+
+## 2026-10-14 18:45 — Avis n°25 : les 100 avatars lecteurs sont générés
+- 100 fiches (70 pro-Mercure, 30 pro-Arnland), toutes placées en Arnland, tirées des comptes au pays « non défini » jamais utilisés et dotés d'un portrait de vraie personne. **0 fiche refusée** par les règles d'eho.
+- 69 hommes et 31 femmes (les portraits disponibles penchent vers les hommes) ; 64 % ont entre 20 et 39 ans ; 82 métiers différents ; une trentaine de villes de l'Est arnlandais. 21 avatars n'affichent pas de lieu et 14 en affichent un flou (« pas loin de la frontière »), comme de vrais comptes.
+- Contrôles passés : aucun pro-Mercure ne parle d'« invasion », aucun @ dans les bios.
+- 1068 comptes écartés : 666 faute de place restante dans leur profil (genre et âge), les autres parce que leur portrait n'est pas une vraie personne (logo, dessin, enfant…).
+- Fichiers dans `%USERPROFILE%\.pleiade\installation\` : `population-ia_delattre-26_2026-10-14_lecteurs-100.json` et `profils-lecteurs_2026-10-14_lecteurs-100.xlsx`.
+- Reste à faire : pousser eho `fiche-lecteurs`, importer les profils, « Installer la population IA », puis activer 25 lecteurs pendant 3 h avant d'activer les 100.

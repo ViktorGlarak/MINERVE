@@ -548,6 +548,39 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   6. les connaissances donnent des arguments, pas de la persuasion.
 - **État** : spécifié, **non mis en œuvre**. Attend : NOYAU remplit l'annuaire ; ANALYSTE et ANALYSTE_ARN livrent les blocs de connaissances.
 
+### 4.25 ⭐ Avis n°25 — Cent nouveaux avatars IA LECTEURS pour DELATTRE 26 (2026-10-14) — `AVIS\2026-10-14_avis25_cent_nouveaux_avatars.md`
+- **Décision de l'utilisateur** : la population passe de 105 à **205** avatars sans plus de publications (plafond de population inchangé). Les 100 nouveaux sont **70 pro-Mercure surtout dans l'Est** et **30 pro-Arnland**. Ce sont **surtout des lecteurs** : ils lisent moins souvent, aiment beaucoup, écrivent rarement. Comptes jamais utilisés, avec portrait, et fiche complète. Avis rédigé avec ANALYSTE_ARN et ANALYSTE ; c'est une spécification pour le générateur de NOYAU, avec un bloc JSON `repartition` au §8.
+- **Bloquants dans le code, avant l'activation** :
+  - **C1** `marquerLecteurs` remet `a.lecteur = false` à chaque tour : il doit lire `config.lecteur` et calculer les 12 % sur les autres avatars ;
+  - **C2** `MAX_LECTEURS` = 25 : les lecteurs prendraient les places des avatars qui écrivent, d'où un compteur `luLecteurs` à part (plafond 40) ;
+  - **C3** nouvelle `pause_lecture_min` [40, 100] (contre 10 + 20·hasard aujourd'hui) ;
+  - **C4** nouveau `penchant_jaime` (affirmés 0,6-0,8, modérés 0,35-0,6), 6 J'aime par heure au plus ;
+  - C5 : aucun média neutre dans l'annuaire ; C6 : `rafraichirNoms` est limité à 100 comptes ;
+  - constat annexe : `gabarit: "salarie"` n'existe pas dans `GAB`, d'où 24 valeurs d'`activite` dans les nouvelles fiches.
+- **Sous-profils** :
+  - **pro-Mercure** (17 affirmés / 53 modérés) : PM1 famille mercurienne enracinée 10, PM2 sans citoyenneté 5, PM3 ouvrier ou ex-mineur 9, PM4 retraité nostalgique 9, PM5 commerçant frontalier 7 (regagnable, ancrage 30-50), PM6 jeune précaire 8, PM7 croyant 6, PM8 agriculteur 6 (jamais un mot sur l'engrais), PM9 petit employé public 5, PM10 parent anti-guerre 5 (presque neutre) ;
+  - **pro-Arnland** (8 / 22) : PA1 famille mercurienne loyale 5, PA2 militaire ou réserviste 4, PA3 soignant ou bénévole 5, PA4 enseignant 4, PA5 déplacé en colère 5, PA6 PME de l'arrière 4, PA7 étudiant 3.
+- **Villes** :
+  - pro-Mercure : 56 à l'Est (combats 20, Est de la HLorraine 22, bassin houiller 14 **à valider** par DELATTRE, avec un repli prévu), 7 au centre, 7 déplacés ;
+  - pro-Arnland : 12 à l'Est, 12 au centre ou à l'ouest, 6 déplacés ;
+  - 13 % de déplacés en tout : lieu d'hébergement dans `situation` en lot 1, puis `faits_initiaux` versé au registre en lot 2.
+- **Effet attendu** :
+  - 85 / 46 / 72 donne le **premier bloc** (41 %), **pas la majorité** : il faudrait que 18 neutres basculent ;
+  - les textes changent peu (ceux qui écrivent restent les 105) ;
+  - ce qui change, ce sont les J'aime, l'attention (`popularite`) et le tableau agrégé ;
+  - ⚠ **R5** : la cellule rouge des joueurs est avantagée par les J'aime, à signaler à DELATTRE et EXPERT_INFLUENCE ;
+  - invariant : 29 J'aime IA au plus, sous le seuil de l'effet ambiant (30).
+- **Tests** : T1-T9, dont **T5 joueurs non lésés, bloquant**. Activation par palier : 25 lecteurs pendant 3 h, puis 100.
+- **Règles durables** :
+  1. lecteur déclaré dans la fiche, jamais effacé ;
+  2. les lecteurs ne retirent jamais d'attention aux joueurs ;
+  3. les J'aime IA seuls ne font jamais circuler une rumeur ;
+  4. un sous-profil donne des raisons, pas des slogans ;
+  5. le portrait fait foi pour le genre et l'âge (sinon, compte écarté) ;
+  6. une composition se lit par cohorte.
+- **Décision analystes, à confirmer par l'utilisateur** : la diaspora pratiquante relève d'une « Église mercurienne » orthodoxe, avec une minorité évangélique.
+- **État** : spécifié, non mis en œuvre.
+
 ## 4bis. Dictionnaire des émotions (2026-10-12, demande de l'utilisateur, depuis le Mac)
 - **But** : rendre les dialogues plus précis et plus variés (granularité émotionnelle) contre la monotonie mesurée : « tristesse » chez 105/105, déprime 39-43 %, humour 0 %.
 - **Fichier** : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2). Sources :
