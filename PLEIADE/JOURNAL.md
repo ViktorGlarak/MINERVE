@@ -4,6 +4,17 @@
 
 ---
 
+## 2026-10-14 (suite 8) — Conversations privées entre joueurs (messagerie), lot 5 du Cockpit (projection, retrait de l'ancienne vue), À traiter et Reporting — PRÊTS EN LOCAL, NON POUSSÉS
+- Demande utilisateur : « Chat et Messagerie cliquables dans À traiter », « le lot 5 », « les conversations privées entre joueurs humains » et « le Reporting ». Choix : conversations privées **au choix des joueurs** ; Reporting **tiré de l'index du Cockpit**.
+- **messagerie** (branche `conversation-privee` depuis `comptes-prives`/prod, commit `e67e7c0`) : une conversation dont **tous les membres sont des comptes personnels** (`comptes_zone`) peut être rendue **privée** par un membre, sous son propre compte (pas « au nom de »). Alors : la supervision ne l'ouvre pas, même avec un motif (403 `code: "privee"`, aussi sur la modération) ; elle ne sort ni par `/api/service/meta` ni par `/api/service/posts/{id}` ; aucun avatar n'y entre (`ensureMember` → 409, invitation, ajout de membre, publication de scénario). Cadenas dans l'en-tête, bloc « Confidentialité » dans la fiche, mention sous la saisie. Les conversations à deux s'appellent désormais **« Directe »** (et non plus « Privée »), pour ne pas confondre. Colonnes `privee`, `privee_par`, `privee_le` (db push au démarrage). 3 tests ; essai de bout en bout sur base jetable (éligibilité, 409 avec avatar, 403 supervision, flux de service vides, retrait du caractère privé → 428 motif). Image construite. Le **Chat du réseau social** n'est pas concerné : il ne relie que des avatars.
+- **Cockpit** (branche `lot5` depuis prod `f1fe698`, commits `37989a5`, `472cc8c`, `4dbd25f`) :
+  - **À traiter** : Chat et Messagerie cliquables (conversations en métadonnées, lien de supervision pour le rôle « Supervision »).
+  - **Reporting** tiré de l'index (réseau social et presse, toutes les règles dont camp et cellule ; 14 jours ; début de collecte signalé). **Correctif** trouvé à l'essai : le premier calcul partait avant l'arrivée des catégories du serveur et affichait « Toutes les sources, 0 » sans se refaire.
+  - **Projection grand écran** (K10) : `/projection`, menu ⋯ > « Projection grand écran ↗ », nouvel onglet, même session. Contenus publics seulement (12 derniers), volumes de la dernière heure par catégorie, **nombre** seul pour le Chat et la messagerie, hashtags publics ; « Retirer de la projection » au survol, pour toute la zone (table `retrait_projection`, qui et quand ; rétablir en pied de page ; purge 14 jours et avec la zone).
+  - **Ancienne vue retirée** : page, composants, `poll` (10 s), routes `feed`, `activity`, `stats`, `espaces`, `groups/[id]/members`. Gardés : `instances`, `groups`, `trending`, `reporting/*`, `stats-cellules` et le magasin `cockpit-store` (encore lu par le Reporting) ; l'import des anciennes catégories du navigateur reste.
+  - 29 tests ; essai local (presse + messagerie + Cockpit sur base jetable, captures) ; image construite.
+- **Ordre de mise en ligne** : messagerie `conversation-privee` → Cockpit `lot5`. Push par l'utilisateur.
+
 ## 2026-10-14 (suite 7) — Cases « Supervision » cochées par l'utilisateur
 - Les cases « Supervision » apparaissent bien dans Pléiade ; l'utilisateur les a cochées (Cockpit, messagerie, réseau social). Rappel donné : la case du Cockpit n'affiche que le lien ; la lecture exige aussi la case dans l'app source.
 

@@ -9,6 +9,8 @@ Refonte de la vue principale du Cockpit (avis DESIGNER 105, conditions CYBERSECU
 
 ▶️ **Repris le 14/10** (après une pause depuis le 13/10 au soir). Le 14/10, **en production** : lot 3 (presse), vues enregistrées, Reporting sans groupes comparatifs (`app-press` `93b3ae1`, `app-cockpit` `9a8558d`, Cockpit sur `cockpit.delattre-26.pleiade.internal`). Le 14/10 au soir : **lot 4 EN PRODUCTION** (ex-prêt en local) (4 dépôts : plateforme, messagerie, social, Cockpit `lot4` incluant le correctif de déconnexion), à pousser dans l'ordre plateforme → messagerie → social → Cockpit. Ensuite : lot 5.
 
+🟡 **14/10 (soir)** : lot 5 (projection, retrait de l'ancienne vue), À traiter cliquable, Reporting tiré de l'index, et conversations privées entre joueurs dans la messagerie : **prêts en local, non poussés** (messagerie `conversation-privee` puis Cockpit `lot5`).
+
 **Why:** l'utilisateur veut passer à autre chose ; le chantier reprendra plus tard.
 
 **How to apply:** chantier actif. Lire d'abord l'encadré en tête de `PLEIADE\PLAN_COCKPIT_SITUATION.md` (état, ordre de reprise, questions ouvertes) et le journal PLEIADE (2026-10-13, suites 3 à 9). Voir [[pleiade-droits-github]].
