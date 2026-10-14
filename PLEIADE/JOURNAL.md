@@ -4,6 +4,10 @@
 
 ---
 
+## 2026-10-14 (suite 10) — Projection : la vraie icône de Social (commit `fb5ffb5`, branche `projection-reperes`, push à faire par l'utilisateur)
+- Constat utilisateur : l'icône du réseau social sur la projection était l'icône générique du catalogue (`pleiade-platform/public/img/apps/social.png`, identique à `messagerie.png`), pas celle de Social. Remplacée par `app-social/apps/web/public/logo-social.png` (globe et flèches en S, source `PLEIADE\ICONES\social-globe-fleches.png`).
+- ⚠ À savoir : le **catalogue de la plateforme** (`catalog/social.yml` → `icon: /img/apps/social.png`) garde l'icône générique ; si le portail doit aussi montrer l'icône de Social, c'est un changement de `pleiade-platform` (non fait, non demandé).
+
 ## 2026-10-14 (suite 9) — Projection grand écran : app d'origine, couleur des catégories, réponses, animation d'arrivée (avis DESIGNER n°108) — commit `8656945` (branche `projection-reperes` depuis prod `4dbd25f`), validé en local par l'utilisateur — ✅ EN PRODUCTION (poussé par l'utilisateur ; icônes servies, `/projection` 307, données 401 sans session, ~2 min après le push)
 - Demandes utilisateur : sur chaque message, l'icône de l'app d'origine (instance) avec un repère de couleur, et la couleur des catégories du Cockpit ; les commentaires doivent dire à quoi ils répondent ; une « belle animation » à la place de l'étiquette « NOUVEAU ». L'utilisateur a demandé le contrôle de DESIGNER (non fait avant codage : faute reconnue) → avis n°108 appliqué, addendum animation.
 - Données : `source` (nom de l'instance), `categories`, `nature`, `enReponseA` (contenu commenté cherché dans l'index, public seulement, extrait 140 car.). Icônes `public/img/apps/{social,presse}.png` copiées du catalogue de la plateforme (`messagerie.png` y est identique à `social.png`).
