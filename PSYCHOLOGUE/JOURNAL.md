@@ -6,6 +6,9 @@
 
 ---
 
+
+## 2026-10-14 — Relevé des textes IA face aux joueurs (NOYAU, export de 13 h 05) — `AVIS6-10-14_RELEVE_TEXTES_IA_13h05.md`
+- Orientation écrasée (pro-Mercure qui doutent de Mercure), réponses hors sujet (« réponse inspirée »), aucune suite quand un joueur répond, biais « citoyen sage », moule de forme inchangé, hashtags plaqués, mentions inventées. 9 pistes **à valider par PSYCHOLOGUE** avant mise en œuvre.
 ## 2026-10-10 — Création de l'agent et ingestion des trois premières sources
 
 - **Demande de l'utilisateur** : créer l'agent « PSYCHOLOGUE », expert en psychologie, pour stocker toute la logique et les données utiles à **perfectionner le système évolutif de sociabilité des avatars** du projet IA ; puis analyser, comprendre et stocker trois liens.

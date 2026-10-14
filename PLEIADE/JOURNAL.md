@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 12) — Analyse complète des TEXTES des avatars IA face aux joueurs (export de 13 h 05) — `PSYCHOLOGUE\AVIS6-10-14_RELEVE_TEXTES_IA_13h05.md`
+- L'utilisateur précise : la coupure de nuit était **volontaire** ; et il **n'a jamais décidé la règle F4** (analyse par modèle local seulement) : il confie les exports à Claude Code pour une analyse complète. F4 rectifiée dans `CYBERSECU\MEMOIRE.md`.
+- Constats majeurs : (1) **orientation écrasée** : 37 textes d'avatars pro-Mercure, aucun ne défend Mercure, plusieurs en doutent (effet ILI inversé) ; un fil de joueurs pro-Mercure lu par 26 avatars, ignoré par 25 ; (2) **réponses hors sujet** produites par « inspirée de X → réponse sous son message » (≥ 10 cas) ; (3) **joueur qui répond à un avatar : 0 suite sur 8** (l'effet notification du 13/10 ne se voit pas) ; (4) biais « citoyen sage » (préfecture 13 %, « on ne sait plus » 12 %, aucune colère) ; (5) moule de forme de l'avis n°22 inchangé (« … » 68 %, émoji final 83 %) ; (6) hashtags du parent recopiés (60 %), #3615MyLife par défaut ; (7) mentions @ fabriquées depuis le nom affiché ; (8) fautes de ton (😂 sur les armes chimiques), phrases inachevées publiées.
+- Points forts : réaction à l'attaque chimique en 2 min, géographie et métiers tenus, garde-fous actifs.
+- 9 pistes proposées, à faire valider par PSYCHOLOGUE avant code ; l'avis n°22 (étape 1) reste à reprendre.
+
 ## 2026-10-14 (suite 11) — Relevé chiffré du Moteur IA, 14/10 de 0 h à 13 h 05 (exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\`, chiffres seulement, aucun texte lu — règle F4)
 - **Nuit perdue** : 274 cycles « interrupteur coupé » de 0 h à 7 h 35 ; le nœud principal (PC) est tombé à 1 h 02 (« pas de réponse en 10 s »), aucun autre nœud maîtrisé n'a pris le relais. Reprise à 7 h 37, Mac revenu à 7 h 42, PC à 7 h 51.
 - **Coupures brèves « ollama 500 »** dans la journée : PC à 9 h 02, 10 h 19, 11 h 58, 12 h 13 (1 à 4 min chacune) ; Mac à 7 h 45 et 9 h 06 (relancé sur le PC). Piste : rechargement du modèle (`keep_alive` 5 min par défaut, proposition `OLLAMA_KEEP_ALIVE=-1` non appliquée) ou mémoire ; à vérifier dans les journaux d'Ollama.
