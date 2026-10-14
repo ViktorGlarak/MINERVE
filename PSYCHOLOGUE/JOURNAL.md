@@ -7,6 +7,32 @@
 ---
 
 
+
+## 2026-10-14 (soir) — Avis n°23 mis en œuvre par NOYAU (app-ia `avis23` `9d9e565`, app-social `aae7bed`, non poussés) — écarts à connaître
+- **P2** : juge en deux modes (strict pour une publication inspirée, souple pour une réponse ordinaire), au lieu du court-circuit « 2 mots communs » vers un joueur, qui laissait passer le générique. Le juge strict seul refusait 43 % des réponses du 14/10.
+- **P1** : état « tiède » remplacé par « le camp tient tant que l'opinion reste de son côté » (sinon un pro-Mercure à +7 doutait de Mercure sans contrôle) ; juge reformulé (« va-t-il contre le camp de son auteur ? ») et hashtags retirés avant de juger.
+- **P3** : seuil d'activité, délai 2-15 min et contexte des 3 derniers messages **pas faits**.
+- À regarder : l'exposition fait douter les pro-Mercure de Mercure (doutes mesurés chez DomyKos_87, Rb_4ever, M4tv3v1ch_Tech ; bascule de ledussjeanclaude). Est-ce le comportement voulu, ou le moteur d'opinions est-il trop sensible aux contenus du camp adverse ?
+
+## 2026-10-14 — Avis n°23 : orientation, réponses qui répondent, suivi de conversation — `AVIS\2026-10-14_avis23_orientation_reponses_suivi.md`
+- **Demande de l'utilisateur** (via NOYAU) : valider les 9 pistes du relevé de 13 h 05 et spécifier P1 à P3 pour un test local immédiat. Aucun code modifié, aucun commit.
+- **Lu** : le relevé, les extraits complets de l'export (réponses, publications, messages de joueurs, résumés seulement), `pont.mjs`, `esprit.mjs`, `redacteur.mjs`, `hashtags-herites.mjs`, `arobase.mjs`, et la route `/retex` d'`app-social`.
+- **Causes trouvées dans le code** :
+  - registres de voix sans cible et amorces ambiguës (le doute d'un pro-Mercure appliqué à Mercure) ;
+  - déclencheur pro-Mercure déclenché sur un message anti-Mercure ;
+  - # adverses hérités ;
+  - témoin non relu (les 3 cas cités en viennent) ;
+  - `camp_affiche` « inconnu » pour tous ;
+  - conversion « inspirée → réponse » relue sans Q4 ;
+  - **`/retex` sans `parentId` de commentaire**, cause du 0 suite sur 8 ;
+  - `rafraichirNoms` limité à 100 comptes, d'où les handles fabriqués.
+- **Verdicts** :
+  - pistes 1, 2 et 3 validées : P1 réorientée (causes en amont + contrôle de sortie qui distingue l'opinion mesurée de la dérive), P2, P3 ;
+  - piste 4 avec P3 ; piste 5 réorientée ; piste 6 avec l'étape 1 de l'avis n°22 ;
+  - piste 7 : # adverse avec P1, le reste à décider par l'utilisateur ;
+  - piste 8 avec P3 ; piste 9 en partie tout de suite.
+- **Ordre de test conseillé** : P2, puis P3, puis P1. Critères chiffrés dans l'avis. État durable en MEMOIRE § 4.23.
+
 ## 2026-10-14 — Relevé des textes IA face aux joueurs (NOYAU, export de 13 h 05) — `AVIS6-10-14_RELEVE_TEXTES_IA_13h05.md`
 - Orientation écrasée (pro-Mercure qui doutent de Mercure), réponses hors sujet (« réponse inspirée »), aucune suite quand un joueur répond, biais « citoyen sage », moule de forme inchangé, hashtags plaqués, mentions inventées. 9 pistes **à valider par PSYCHOLOGUE** avant mise en œuvre.
 ## 2026-10-10 — Création de l'agent et ingestion des trois premières sources

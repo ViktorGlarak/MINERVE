@@ -443,6 +443,50 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.23 ⭐ Avis n°23 — Orientation des avatars, réponses qui répondent, suivi de conversation (2026-10-14) — `AVIS\2026-10-14_avis23_orientation_reponses_suivi.md`
+- **Base** : relevé NOYAU du 14/10, 13 h 05 (186 textes IA, 430 messages de joueurs). Code lu sans le modifier : `pont.mjs`, `esprit.mjs`, `redacteur.mjs`, `hashtags-herites.mjs`, `arobase.mjs`, route `/retex` d'`app-social`. L'avis n°22 reste en pause.
+- **Causes trouvées dans le code** :
+  - **orientation** : registres de voix **sans cible** (« le doute qui se glisse », amorces « Franchement, entre nous », « On nous avait promis… ») appliqués au sujet lu, donc un pro-Mercure doute de Mercure ; déclencheur « rumeur sur la FORCE » déclenché sur un message anti-Mercure ; # adverses hérités (`#mercureout` chez un pro-Mercure) ; groupe témoin non relu ; zone morte « partagé » de −20 à +20 ; `camp_affiche` « inconnu » pour toute la population, donc aucune attraction de camp ;
+  - **réponse inspirée** : `placeSous` / `versJoueur` / `versReponse` rangent une publication écrite pour soi sous le message d'un joueur, et la relecture la traite en publication (Q4 jamais posée) : 22 cas ;
+  - **0 suite sur 8** : la route `/retex` exporte `parent: post-<id>` pour un commentaire, sans `parentId`, donc `reponseAMoi` ne voit jamais une réponse au **commentaire** d'un avatar ; la mention exige l'@username exact, casse comprise ;
+  - **mentions inventées** : `rafraichirNoms` est limité à 100 comptes, les handles sont fabriqués depuis le nom affiché puis tenus pour « connus ».
+- **Verdicts** :
+
+  | Piste | Verdict | Priorité |
+  |---|---|---|
+  | 1 Orientation | validée, réorientée | **P1** |
+  | 2 Réponse inspirée | validée | **P2** |
+  | 3 Suivi de conversation | validée (bug à corriger d'abord) | **P3** |
+  | 4 Questions directes | validée | avec P3 |
+  | 5 Diversité émotionnelle | réorientée | plafonds « préfecture » et « on ne sait plus quoi croire » avec P1, le reste avec l'étape 1 de l'avis n°22 |
+  | 6 Forme | validée (étape 1 de l'avis n°22 + `registre_ecrit` par avatar) | avec l'étape 1 de l'avis n°22 |
+  | 7 Hashtags | validée, modifiée | # adverse avec P1 ; reste **à décider par l'utilisateur** (attribution par fil côté Cockpit au lieu de recopier) |
+  | 8 Mentions | validée | avec P3 |
+  | 9 Langue et ton | validée | émoji léger sur la mort et phrase inachevée bloquante tout de suite |
+
+  Ordre de test : P2, puis P3, puis P1.
+- **P1** :
+  - en amont : `cible_critique` / `cible_defendue` par voix ; amorces ciblées (2 au plus par registre) ; déclencheurs pro-* qui regardent les deux pivots ; filtre des # adverses ou inconnus dès |op| ≥ 5 ; « tu penches » de 5 à 20 pour une cohorte ; la ligne `[orientation]` n'est retirée qu'après une bascule mesurée, et une fiche sans pivot déclenche une alerte ;
+  - en sortie : `positionAttendue(axe)` avec 5 états (ferme ≥ 10, tiède, doute, bascule, tendance) ; soupçon détecté par regex sur les pivots, puis classement court `{vise, sens}` à température 0,1, **pour toute la population, témoin compris** ; non conforme → 1 reformulation ciblée → retenu ;
+  - attraction : `pub.bord` tiré de l'orientation extraite ou d'un # de sens connu ; `filDe` +30 pour son bord, +15 pour le bord adverse si |op| ≥ 40 ; déclencheur « habitant de son bord » (0,5 affirmé, 0,3 modéré) ; plafond par message inchangé ;
+  - tests : rejeu des 186 textes (3 cas cités tous détectés, faux positifs ≤ 5 %) ; mini-population de 12 avatars (0 inversion en état ferme, ≥ 30 % de réaction des pro-Mercure au fil pro-Mercure) ; 3 jumeaux ferme / doute / bascule, 100 % conformes.
+- **P2** :
+  - suppression de `placeSous`, `versJoueur`, `versReponse` (la publication inspirée reste une publication) ; la réponse orpheline adressée est gardée ;
+  - `repondAuParent` pour toute la population : au moins 2 mots communs, sinon un appel court ; si la réponse ne répond pas → J'aime ou rien, sans reformulation ; réponses d'élan exemptées ;
+  - tests : 0 « inspirée → réponse » au journal ; réponses sans lien ≤ 2 % ; joueurs non lésés (au plus −3 points de part de réponses pertinentes).
+- **P3** :
+  - `parent_commentaire` ajouté à `/retex` ; `parentDirect()` remplace les 8 calculs du parent ; repli par le nom ; `mentionne()` insensible à la casse, avec username nu et nom complet ;
+  - p_retour : 0,8 sur @, 0,6 sur une question ou une contradiction, 0,3 sur une approbation, 0 sans contenu ; au plus 2 retours face à un joueur, 1 face à une IA ; arrêt à 12 h, sur insulte ou répétition ≥ 0,4 ;
+  - plafonds : +1 par heure par avatar, population au plus 1,2 fois le plafond ; délai de 2 à 15 min ; seuil d'activité 0,05 face à un joueur ; questions de joueur +40 dans `filDe` ;
+  - tests : 30 stimuli locaux ; détection 100 % ; retour ≥ 70 % sur question ou mention, ≥ 50 % sur contradiction, ≤ 40 % sur approbation ; délai médian de 3 à 10 min ; 0 conversation au-delà des bornes.
+- **Règles durables** :
+  1. une attitude de voix sans cible devient l'inverse de son camp ;
+  2. le moteur d'opinions est seul juge de l'évolution : un écart non mesuré est une dérive ;
+  3. jamais de # du camp adverse ;
+  4. une réponse répond, sinon J'aime ;
+  5. quand on te répond, tu reviens une ou deux fois ;
+  6. les garde-fous de camp et de pertinence couvrent aussi le groupe témoin.
+
 ## 4bis. Dictionnaire des émotions (2026-10-12, demande de l'utilisateur, depuis le Mac)
 - **But** : rendre les dialogues plus précis et plus variés (granularité émotionnelle) contre la monotonie mesurée : « tristesse » chez 105/105, déprime 39-43 %, humour 0 %.
 - **Fichier** : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2). Sources :
