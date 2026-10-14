@@ -4,6 +4,9 @@
 
 ---
 
+## 2026-10-14 (suite 7) — Cases « Supervision » cochées par l'utilisateur
+- Les cases « Supervision » apparaissent bien dans Pléiade ; l'utilisateur les a cochées (Cockpit, messagerie, réseau social). Rappel donné : la case du Cockpit n'affiche que le lien ; la lecture exige aussi la case dans l'app source.
+
 ## 2026-10-14 (suite 6) — Règle utilisateur : les échanges sous COMPTE PERSONNEL ne vont pas au Cockpit — ✅ EN PRODUCTION (poussé par l'utilisateur ; messagerie `59f11f1` et Cockpit `f1fe698` redéployés, identifiant de compilation changé après ~7 min ; social `d59eb3d` sur prod, sans repère externe)
 - Décision utilisateur : les messages écrits sous un compte Keycloak de la zone (gc01, fd01…, joueurs ou animateurs, sans avatar) sont privés et **n'apparaissent pas dans le Cockpit**, même en métadonnées ; dès qu'on écrit **au nom d'un avatar**, le message y apparaît. La supervision est inchangée.
 - **messagerie** (branche `comptes-prives` depuis prod, `59f11f1`) : `/api/service/meta` écarte les auteurs présents dans `comptes_zone` (comptes réels notés à la connexion, jamais un avatar endossé) et remplace leur nom par « Compte personnel » dans les interlocuteurs d'une conversation directe mixte. **social** (`comptes-prives`, `d59eb3d`) : même règle sur `/api/service/chat/meta` avec `User.operateur`. **Cockpit** (`comptes-prives`, `f1fe698`) : curseur des canaux privés marqué `v2|` ; sans marqueur, effacement unique des métadonnées privées de l'app puis recollecte 6 h.
