@@ -11,7 +11,8 @@
 
 
 > ▶️ **CHANTIER REPRIS le 2026-10-14** (demande de l'utilisateur). Réponses : **vues enregistrées = oui, intéressant** (basculer entre plusieurs configurations de catégories) ; **go pour le lot 3**.
-> **Lot 3 (presse) PRÊT EN LOCAL, non poussé** : `app-press` `93b3ae1` (routes `evenements`, `reactions`, `contenus`), `app-cockpit` `abe6a8e` (collecte social + presse, volet et À traiter). Ordre de mise en production : **presse d'abord, puis Cockpit**. Prochain : vues enregistrées, puis lot 4.
+> **Lot 3 (presse) PRÊT EN LOCAL, non poussé** : `app-press` `93b3ae1` (routes `evenements`, `reactions`, `contenus`), `app-cockpit` `abe6a8e` (collecte social + presse, volet et À traiter). Ordre de mise en production : **presse d'abord, puis Cockpit** (push refusé en mode auto : à lancer par l'utilisateur).
+> **Vues enregistrées FAITES en local** (`app-cockpit` branche `vues` `ed3794b` + `9a8558d`) ; **Reporting** : « Groupes comparatifs » retirés (demande utilisateur), une courbe par catégorie de la vue active. Prochain : lot 4.
 >
 > *(Historique)* ⏸️ Chantier en pause du 2026-10-13 au soir au 2026-10-14.
 > **En production** (DELATTRE 26) : lots 1 et 2 ; partage « Toute l'animation de la zone » ; même en-tête pour le Reporting ; Reporting branché sur les catégories de suivi (`app-cockpit` `b0dbfa0`, vérifié par `/api/bff/situation/series-reporting` → 401) ; plateforme `b6f128f` ; réseau social `0e35443` ; eho `2026-10-13.1`.

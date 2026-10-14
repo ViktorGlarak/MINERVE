@@ -4,7 +4,14 @@
 
 ---
 
-## 2026-10-14 — Cockpit, lot 3 (presse dans la Situation) PRÊT EN LOCAL, non poussé
+## 2026-10-14 (suite) — Cockpit : vues enregistrées + Reporting sans groupes comparatifs, PRÊTS EN LOCAL
+- Push du lot 3 refusé par le mode auto (« Production Deploy ») malgré l'accord de l'utilisateur : commandes à lancer par lui.
+- **Vues enregistrées** (`app-cockpit` branche `vues`, partie du lot 3, `ed3794b`) : tables `vue_situation` (nom, catégories ordonnées en JSON, partage moi/cellule/zone, auteur, cellule) et `choix_vue` (vue active par `sub`) ; `src/situation/vues.ts` pur (validation stricte, `appliquerVue`), 3 tests ; routes `/api/bff/situation/vues` (GET liste + active + catégories visibles, POST), `/vues/[id]` (PUT, DELETE → les choix pointant dessus sont effacés), `/vues/active` (PUT). `categoriesDeLaVue` alimente Situation, À traiter, Tout marquer vu, volet ; **l'ordre de la vue prime sur l'épinglage** (défaut trouvé à l'essai, corrigé) ; une catégorie masquée mais choisie s'affiche. UI `ChoixVue.tsx` (menu dans l'en-tête, fenêtre de composition cocher/monter/descendre, partage ; clic extérieur et Échap). « Hors catégories » → « Hors de la vue ».
+- **Reporting** (`9a8558d`, demande utilisateur) : panneau « Groupes comparatifs » (groupe d'eho, groupe de catégories, en localStorage `ck_reporting_groups`) **retiré** — redondant avec une catégorie de suivi ; `series-reporting` suit la vue active ; sélecteur de vue dans l'en-tête (rechargement de page). Le Reporting ne compte que le réseau social (la presse n'y est pas).
+- Essai local (mêmes base et serveurs jetables) : création, choix, réordonnancement, refus 400/404, suppression → retour à « Toutes » ; captures Playwright, 0 erreur JS ; 18 tests.
+- Constat : la règle « compte » refuse un nom avec espace ou accent (« Rédaction ») → un journal se vise par son identité eho (groupe ou compte par identifiant), pas par son nom.
+
+
 - Chantier Cockpit repris (demande utilisateur). Réponses aux questions en suspens : **vues enregistrées = oui** (à faire après le lot 3) ; **go lot 3**.
 - **`app-press` `93b3ae1`** (branche `cockpit-presse`) : `src/lib/situation.ts` (pur) + routes de service `GET /api/service/evenements`, `/reactions`, `/contenus`, mêmes contrats que le réseau social (clé de zone, paramètres stricts, 14 jours au plus). Références `a12` article, `c45` commentaire, `d7` direct. Métadonnées sans texte ; **hashtags tirés du titre, du chapo, des commentaires et du direct** (sinon une catégorie « hashtag » ne voyait jamais la presse) ; réactions = commentaires reçus par l'auteur visé (pas à soi-même) ; contenus = titre + chapo (jamais le corps), lien public, `jaime: null` (pas de J'aime). 6 tests (18 au total).
 - **`app-cockpit` `abe6a8e`** (branche `presse`) : `appsCollectees()` (types `social`/`mastorion` → social, `presse` → presse) ; collecteur généralisé (canal porté par l'app) ; volet et À traiter : lien « Lire sur le site ↗ », pas de « @ » ni de cœur pour un titre de presse, « commentaires » au lieu de « réponses ».
