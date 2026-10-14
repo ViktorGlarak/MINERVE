@@ -4,6 +4,13 @@
 
 ---
 
+## 2026-10-14 (suite 11) — Relevé chiffré du Moteur IA, 14/10 de 0 h à 13 h 05 (exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\`, chiffres seulement, aucun texte lu — règle F4)
+- **Nuit perdue** : 274 cycles « interrupteur coupé » de 0 h à 7 h 35 ; le nœud principal (PC) est tombé à 1 h 02 (« pas de réponse en 10 s »), aucun autre nœud maîtrisé n'a pris le relais. Reprise à 7 h 37, Mac revenu à 7 h 42, PC à 7 h 51.
+- **Coupures brèves « ollama 500 »** dans la journée : PC à 9 h 02, 10 h 19, 11 h 58, 12 h 13 (1 à 4 min chacune) ; Mac à 7 h 45 et 9 h 06 (relancé sur le PC). Piste : rechargement du modèle (`keep_alive` 5 min par défaut, proposition `OLLAMA_KEEP_ALIVE=-1` non appliquée) ou mémoire ; à vérifier dans les journaux d'Ollama.
+- **Activité 7 h 37 → 13 h 03** : 107 cycles, 4 511 lectures, 509 J'aime, 73 publications, 95 réponses, 18 partages ; 73 avatars sur 105 ont publié. Durée médiane d'un cycle terminé ~60-90 s, montée à 157 s à 12 h (plus de lectures).
+- **Fil des joueurs** : 430 messages, 78 avec une réponse ou une citation IA (18 %) ; ~300 lus mais le modèle n'a proposé que J'aime / ignorer ; ~45 réponses proposées puis converties par les garde-fous (tics, sans substance, plafond).
+- **Opinions** : axe FORCE, dérive moyenne 1,6, 9 avatars à plus de 5 points de leur départ, 3 en doute, aucune bascule ; 1 056 variations, 6 faits.
+
 ## 2026-10-14 (suite 10) — Projection : la vraie icône de Social (commit `fb5ffb5`, branche `projection-reperes`, push à faire par l'utilisateur)
 - Constat utilisateur : l'icône du réseau social sur la projection était l'icône générique du catalogue (`pleiade-platform/public/img/apps/social.png`, identique à `messagerie.png`), pas celle de Social. Remplacée par `app-social/apps/web/public/logo-social.png` (globe et flèches en S, source `PLEIADE\ICONES\social-globe-fleches.png`).
 - ⚠ À savoir : le **catalogue de la plateforme** (`catalog/social.yml` → `icon: /img/apps/social.png`) garde l'icône générique ; si le portail doit aussi montrer l'icône de Social, c'est un changement de `pleiade-platform` (non fait, non demandé).
