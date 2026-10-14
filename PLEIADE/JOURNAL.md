@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 6) — Règle utilisateur : les échanges sous COMPTE PERSONNEL ne vont pas au Cockpit — PRÊT EN LOCAL
+- Décision utilisateur : les messages écrits sous un compte Keycloak de la zone (gc01, fd01…, joueurs ou animateurs, sans avatar) sont privés et **n'apparaissent pas dans le Cockpit**, même en métadonnées ; dès qu'on écrit **au nom d'un avatar**, le message y apparaît. La supervision est inchangée.
+- **messagerie** (branche `comptes-prives` depuis prod, `59f11f1`) : `/api/service/meta` écarte les auteurs présents dans `comptes_zone` (comptes réels notés à la connexion, jamais un avatar endossé) et remplace leur nom par « Compte personnel » dans les interlocuteurs d'une conversation directe mixte. **social** (`comptes-prives`, `d59eb3d`) : même règle sur `/api/service/chat/meta` avec `User.operateur`. **Cockpit** (`comptes-prives`, `f1fe698`) : curseur des canaux privés marqué `v2|` ; sans marqueur, effacement unique des métadonnées privées de l'app puis recollecte 6 h.
+- Essai local : gc01↔fd01 absent, message d'Olga à gc01 présent avec « Compte personnel », ligne gc01 collectée sous l'ancienne règle effacée au tour suivant. Tests 20 / 5 / 22, images OK.
+- ⏳ À pousser par l'utilisateur : messagerie → social → Cockpit.
+
 ## 2026-10-14 (suite 5) — Cockpit, LOT 4 (Chat et messagerie, supervision) — ✅ EN PRODUCTION (poussé par l'utilisateur : plateforme `3da38c4`, messagerie `fefb2f5`, social `2878b84`, Cockpit `8242e78` avec le correctif de déconnexion). ⚠ Repère trompeur : sous `/api/service` du social, la clé répond 401 même sur un chemin inexistant — vérifier le déploiement du social par `/api/supervision/chats` (404 → 401, ~7 min, le plus long à construire)
 - Décisions utilisateur : **tout le lot 4 d'un coup** ; **case « Supervision » à part** (Cockpit, comme la messagerie) ; côté réseau social **rôle Supervision + page dédiée** ; route de lecture du Chat par le moteur IA **bornée par eho**.
 - **`pleiade-platform`** (copie `C:\CECPC\pleiade\wt-platform-lot4`, branche `catalogue-supervision`, `16c16df` + notes `3da38c4`) : rôle `superviseur` « Supervision » dans `catalog/cockpit.yml` et `catalog/social.yml` (créés dans Keycloak au démarrage de la plateforme ; `synchroniser-roles` inutile pour un ajout).
