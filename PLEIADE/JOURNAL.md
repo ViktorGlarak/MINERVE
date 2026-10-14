@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 4) — Cockpit : déconnexion Keycloak reportée + bouton rendu aux nouvelles pages, PRÊT EN LOCAL
+- `app-cockpit` branche `deconnexion` (depuis origin/main `c29295d`) `aea9d48` : report de `9dab9da` (`src/lib/deconnexion.ts` identique à la presse, `auth.ts` garde `idToken`, exporte `KC_CLIENT_ID`/`PUBLIC_ISSUER`) ; ancienne vue et « Accès refusé » branchées dessus.
+- ⚠ **Constat** : les nouvelles pages (Situation, À traiter, Reporting) n'avaient **plus aucun bouton de déconnexion** → « Se déconnecter » ajouté au menu ⋯ (rubrique « Compte · nom »).
+- Essai local (mode dev, sans Keycloak) : les deux boutons mènent à `/login`, action serveur exécutée, 0 erreur JS ; tests 18/18 ; image Docker OK. **À vérifier en ligne** : après « Se déconnecter », « Se connecter » doit redemander le mot de passe (sinon : retour de déconnexion non déclaré pour le client `cockpit`).
+- ⏳ À pousser par l'utilisateur : `git push origin deconnexion:main deconnexion:prod`.
+
 ## 2026-10-14 (suite 3) — Cockpit : modifier une catégorie depuis sa fiche — ✅ EN PRODUCTION (`c29295d`, poussé par l'utilisateur, en ligne après ~130 s ; repère de version : l'identifiant de compilation Next change)
 - Demande utilisateur : au clic sur une catégorie, pouvoir modifier nom, couleur et partage dans le volet de droite.
 - `app-cockpit` branche `categorie-edition` (depuis origin/main `9a8558d`) `c29295d` : `EditionCategorie` dans `Volet.tsx` (nom, sélecteur de couleur, partage cellule / zone / auteur seulement ; règles, canaux, alerte repris tels quels ; PUT existant, donc tracé au journal) ; le volet reste ouvert après enregistrement (`onRecharger` + synchronisation de la fiche sur les catégories rechargées dans `SituationView`) ; avertissement quand on passe à « auteur seulement ». Cellule désactivée si la catégorie n'en a pas.

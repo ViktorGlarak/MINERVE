@@ -267,7 +267,8 @@ Dossier source : `D:\CECPC\PLEIADE\DOC\CYBER SECU\`. Les 11 documents sont **pub
 
 ## ⚠ Constat 2026-10-14 — Cockpit : la déconnexion ne ferme pas la session Keycloak
 - Le correctif « Se déconnecter ferme aussi la session Keycloak de la zone » (commit local `9dab9da` du 2026-09-21, `src/lib/deconnexion.ts`) **n'a jamais atteint GitHub** pour `app-cockpit` (push refusés à l'époque) ; la presse l'a reçu le 24/09. En production, se déconnecter du Cockpit ne ferme donc probablement que la session de l'app : sur un poste partagé, la session Keycloak reste ouverte et la reconnexion est silencieuse.
-- **Action** : reporter le correctif sur une branche dédiée, essai local, puis mise en production (par l'utilisateur). Vérifier les autres apps (admin, messagerie, cockpit) sur le même point.
+- **Action** : reporter le correctif sur une branche dédiée, essai local, puis mise en production (par l'utilisateur). Vérifier les autres apps (admin, messagerie) sur le même point.
+- ✅ 2026-10-14 : correctif reporté (`app-cockpit` `aea9d48`, branche `deconnexion`, prêt en local). Aggravant constaté : les nouvelles pages du Cockpit n'avaient plus de bouton de déconnexion du tout ; ajouté au menu ⋯. Contrôle en ligne à faire : la reconnexion doit redemander le mot de passe.
 
 ## ⚠ Constat 2026-10-08 — Messagerie : « au nom de » sans trace du compte réel
 Relevé de code (chantier tutoriel) : un message envoyé « au nom de » un avatar est enregistré sous l'`identityId` de l'avatar seul ; **aucune trace du compte animateur réel** (`app-messagerie/prisma/schema.prisma:81-124`, `src/app/api/bff/conversations/[id]/messages/route.ts:128-143`). À l'inverse, le réseau social journalise operatorId + avatarId (AuditLog `post.create`). Imputabilité à rétablir (piste : champ `operatorId` sur `Message`). Rien modifié.
