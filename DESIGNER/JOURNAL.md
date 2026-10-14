@@ -1,5 +1,11 @@
 # JOURNAL — DESIGNER
 
+## Avis n°108 — 2026-10-14 — Cockpit : projection grand écran (contrôle demandé par l'utilisateur après codage)
+- La projection (lot 5) avait été codée **sans avis** ; l'utilisateur a demandé le contrôle. Verdict : **VALIDÉ AVEC RÉSERVES** (`AVIS\2026-10-14_COCKPIT_PROJECTION.md`).
+- Appliqué le jour même : page sans défilement (cartes entières, « + n plus anciens »), échelle de tailles pour la salle (plancher 18 px, message 30 px sur 2 lignes), état « plus en direct » (bandeau après 40 s, canal en panne « — »), couleur pleine réservée à la bande des catégories (étiquettes neutres dans l'en-tête, 3 au plus), mot « RÉSEAU »/« PRESSE » en plus de la couleur, ligne de réponse « ↳ Répond à … », bouton Retirer visible seulement si la souris vient de bouger + « Annuler » 10 s.
+- **Addendum (demande utilisateur)** : l'étiquette « NOUVEAU » (2 min, puis 0,7 s) jugée inadaptée → **animation d'arrivée** : poussée FLIP 700 ms, entrée en fondu 500 ms décalée, liseré craie ~3 s, gros lot (≥ 3) en fondu, `prefers-reduced-motion` respecté, Web Animations API sans Motion. Le §7 initial (« pas de glissement ») est remplacé. Écart assumé à la règle 150-250 ms pour un écran sans geste vu à 6-8 m (avis, pas une source).
+- Restent : palette fermée de couleurs de catégories (à remonter à PLEIADE : pas de bleu ciel, jaune, rouge ni gris) ; ingérer ISO 9241-303 / AVIXA (distances de lecture) ; test sur le vrai écran avec 3 animateurs au fond de la salle.
+
 ## Avis n°106 — 2026-10-13 — Console d'animation, Supervision : télécharger en .md les contenus de sa cellule
 - **Demande utilisateur** : un bouton dans Supervision pour que l'animateur télécharge en .md ce que SA cellule a publié (scénarios et direct) + les réactions des autres comptes, filtré par Event / Storyline / Incident / Scénario et par types (publications, commentaires, citations, articles, reprises de hashtags), rangé Event > Storyline > Incident. Arbitrages déjà pris par l'utilisateur, repris tels quels.
 - Code lu sans rien modifier (`app-admin`) : `Monitoring.tsx`, `Shell.tsx` (`PageHeader` a une prop `action`), `dialogs\Modal.tsx`, `IncidentPicker.tsx`.
