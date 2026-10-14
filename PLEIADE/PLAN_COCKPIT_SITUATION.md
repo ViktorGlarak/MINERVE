@@ -10,6 +10,8 @@
 > Règles de chaque lot : essai en local, puis feu vert de l'utilisateur **pour chaque dépôt** avant le push sur `prod`, puis vérification de `/api/sante` ou de la page.
 
 
+> 🟡 **2026-10-14 : LOT 4 PRÊT EN LOCAL** (Chat et messagerie en métadonnées, case « Supervision », supervision encadrée dans la messagerie et le réseau social, lecture IA bornée) — 4 dépôts, ordre de mise en ligne : plateforme → messagerie → social → Cockpit. Détail : journal PLEIADE, 2026-10-14 (suite 5). Reste ensuite : lot 5 (projection, retrait de l'ancienne vue), conversations privées entre joueurs humains, règles camp/cellule dans le Reporting.
+>
 > ✅ **2026-10-14 : lot 3 (presse), vues enregistrées et Reporting sans groupes comparatifs EN PRODUCTION** (poussés par l'utilisateur : `app-press` `93b3ae1`, `app-cockpit` `9a8558d`). **Prochain : lot 4** (chat et messagerie en métadonnées, case « Supervision »). À reporter aussi : le correctif de déconnexion Keycloak du 21/09 jamais mis en ligne (voir journal).
 >
 > ▶️ **CHANTIER REPRIS le 2026-10-14** (demande de l'utilisateur). Réponses : **vues enregistrées = oui, intéressant** (basculer entre plusieurs configurations de catégories) ; **go pour le lot 3**.
