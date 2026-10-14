@@ -487,6 +487,67 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   5. quand on te répond, tu reviens une ou deux fois ;
   6. les garde-fous de camp et de pertinence couvrent aussi le groupe témoin.
 
+### 4.24 ⭐ Avis n°24 — Annuaire des sources, abonnements par camp, publications ancrées, connaissances de camp (2026-10-14) — `AVIS\2026-10-14_avis24_sources_connaissances_publications.md`
+- **Demande** : l'utilisateur ne veut plus de publications « état d'âme » (déplacés, bruit dans la tête, attaque chimique qui glace le sang). Les IA doivent parler de ce qui se passe à partir des sources qu'elles lisent et de leur connaissance du pays, savoir de quel camp est une source (@tv4ArnlandLive est pro-Arnland), et un pro-Mercure doit suivre @MercureToday.
+- **Décisions de l'utilisateur** : NOYAU remplit un annuaire, qu'on testera ; vie seule ≤ 15 %, mais « vraiment intéressant à lire ».
+- **Causes trouvées dans le code** :
+  - un compte non IA reçoit `type_source: "particulier"` (pont l. 209) : TV4 vaut 35 pour tous, comme un habitant, et le bloc des officiels et `c.off` l'ignorent ;
+  - `camp_affiche` vaut « inconnu » pour tous : aucun terme de camp dans la confiance ;
+  - abonnements recopiés d'un gabarit ;
+  - consignes « sur ce qui te préoccupe » et « une fois sur deux SA VIE ».
+- **Réponse à la question du 14/10 au soir** (les pro-Mercure doutent de Mercure) : surtout un défaut du moteur. Les sources arnlandaises sont créditées de 35 à 50 par les pro-Mercure ; avec l'annuaire, ce sera 16 à 32, et l'effet adverse baissera d'un tiers aux deux tiers (test T7).
+- **Annuaire** (réglage `annuaire`, même mécanisme que `campagnes`) :
+  - champs par source : `nom`, `alias`, `type` (officiel, media, influent, militant, anonyme), `camp` (mercure, arnland, neutre), `fiabilite` (réputation perçue, 0 à 1), `notoriete` (part des habitants qui connaissent son camp), `suivi_par` par camp, `ville`, `libelle` (140 caractères), `ancrable` ;
+  - le camp est tranché par l'ANALYSTE du pays ; l'annuaire est un miroir du registre si la source y figure ; jamais un compte de joueur.
+- **Camp du lecteur** :
+  - A = (Mercure − FORCE) / 2 ; le camp vient de la voix et ne change qu'après une bascule mesurée ; pour une voix neutre, |A| ≥ 25 ;
+  - engagement e = 0,3 + |A| / 60 (au moins 0,7 pour un affirmé) ; termes de camp divisés par 2 pendant un doute.
+- **Confiance a priori** = `A_PRIORI[type]` + terme de camp + 20·(fiabilité − 0,5), bornée de 5 à 85, et ≤ 25 pour une source adverse :
+  - lecteur partisan : +30·e pour son camp, −35·e pour l'adverse, −8·e pour un neutre (média hostile) ;
+  - lecteur neutre : −10 pour une source partisane, +5 pour une neutre ;
+  - camp inconnu (tirage sur la notoriété) : type seul, appris en 3 lectures ;
+  - fait pratique : 70 % de la pénalité rendue ; aveu de l'adversaire : c ≥ 0,55 ;
+  - les relations existantes sont migrées par Δ de base, ce qui a été appris est gardé.
+  - Exemples : TV4 vaut 16 chez un pro-Mercure affirmé, 41 chez un neutre, 81 chez un pro-Arnland affirmé.
+- **Abonnements** (tirage déterministe, versionné) :
+  - 2 médias de son camp (3 si e ≥ 0,7) et 1 neutre (2 pour un neutre) ; officiels selon `suivi_par` ; un média adverse avec p 0,2 pour un affirmé ;
+  - aucun média au-delà de 60 % de la population ; migration lente après une bascule ; abonnements de la fiche gardés hors annuaire.
+- **Spontanées ancrées** :
+  - `choisirAncre` parmi les messages lus de l'annuaire et les croyances des 24 h, jamais un message de joueur. Poids : récence (demi-vie 6 h) × expositions × proximité × engagement × saillance × diversité ;
+  - `positionSurAncre` : 7 positions par la crédence, la relation à la source, l'effet du fait sur son camp et l'état P1 (rectifie, compare, appuie, concède et recadre, s'interroge, prudence, conteste, attend) ;
+  - bloc d'invite : CE QUI CIRCULE · CE QUE TU EN CROIS · TA POSITION · CE SUR QUOI TU PEUX T'APPUYER ; 2 consignes de persona réécrites.
+- **« Intéressant » mesurable** :
+  - 5 marques : M1 sujet, M2 source, M3 position, M4 argument, M5 détail. M2 et M5 sont vérifiées par le code, M1, M3 et M4 par un juge court ;
+  - une publication ancrée passe avec M1, M2, M3 ou M4, et 3 marques au moins ; une publication de vie avec M5 et un lien à la situation ;
+  - état d'âme seul : jamais publié ; une reformulation, puis rétention ;
+  - **attribution inventée** : bloquant.
+- **Plafonds** :
+  - vie ≤ 15 % (plafond dur) ; ancrées ≥ 60 % ; une même source ≤ 35 % ; un même fait ≤ 30 % ;
+  - contestation d'un même message adverse ≤ 3 par heure ; « Selon @ », « D'après @ », « X dit que » : chacun 2 par heure ;
+  - le juge P1 est complété : rapporter pour contester, ou concéder en attribuant, n'est pas aller contre son camp.
+- **Connaissances** (réglage `connaissances`) :
+  - lignes des ANALYSTES (Mercure, Arnland ; neutre = thèses des deux camps), vérifiées par EXPERT_INFLUENCE ; 10 lignes de 160 caractères au plus ;
+  - 3 lignes injectées par tour, en rotation (12 h par avatar, 3 fois en 3 h dans la population) ;
+  - jamais par `croire` ; recopie de 8 mots ou plus → reformulation.
+- **Tests sur l'export** (T1 à T13) :
+  - **bloquants** : 0 attribution inventée ; joueurs non lésés (au plus −3 points) ;
+  - vie ≤ 15 % et état d'âme seul ≤ 3 % ;
+  - M2 ≥ 50 %, M3 ≥ 60 %, M4 ≥ 40 %, score ≥ 3 dans 75 % des cas ;
+  - cohérence camp ↔ source ≥ 95 % ;
+  - TV4 suivi par ≥ 50 % des pro-Arnland et ≤ 10 % des pro-Mercure ; confiance médiane envers TV4 : pro-Arnland ≥ 60, neutres de 30 à 50, pro-Mercure ≤ 30 ;
+  - doutes sur Mercure divisés par 2, sans tomber à 0 ;
+  - diversité ; recopie ≤ 5 % ; retenues P1 au plus +50 % ; volume ≥ 60 % ;
+  - test à l'aveugle de l'utilisateur : ≥ 70 % de « intéressant ».
+- **Ordre** : annuaire et confiance → abonnements → ancre et intérêt → connaissances (dès que les ANALYSTES livrent).
+- **Règles durables** :
+  1. une source a un camp, et on la juge selon qui la dit ;
+  2. on suit d'abord son bord, plus un neutre ;
+  3. pas de spontanée sans sujet, sans source et sans position ;
+  4. une attribution est vérifiée ;
+  5. contester n'est pas inventer ;
+  6. les connaissances donnent des arguments, pas de la persuasion.
+- **État** : spécifié, **non mis en œuvre**. Attend : NOYAU remplit l'annuaire ; ANALYSTE et ANALYSTE_ARN livrent les blocs de connaissances.
+
 ## 4bis. Dictionnaire des émotions (2026-10-12, demande de l'utilisateur, depuis le Mac)
 - **But** : rendre les dialogues plus précis et plus variés (granularité émotionnelle) contre la monotonie mesurée : « tristesse » chez 105/105, déprime 39-43 %, humour 0 %.
 - **Fichier** : `PSYCHOLOGUE/DICTIONNAIRE_EMOTIONS.json` (version 2026-10-12.2). Sources :

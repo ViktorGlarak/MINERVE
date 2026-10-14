@@ -8,6 +8,40 @@
 
 
 
+
+## 2026-10-14 (nuit) — Avis n°24 mis en œuvre par NOYAU (app-ia `ee9f394`, version 2026-10-14.2, non poussé) — écarts
+- Vocabulaire du moteur gardé : camp **bleu / rouge / neutre** (au lieu de mercure / arnland), fiabilité et notoriété **0-100** (CYBERSECU), pas `ancrable` ni `libelle` séparé (la description sert de libellé).
+- Ancre tirée des seuls **messages lus** du tour (pas encore des croyances des 24 h) ; un fait ancré 2 fois en 24 h n'est plus repris.
+- Positions simplifiées à 7 cas (appuie, se méfie, prudence, relève l'aveu, conteste, concède et recadre, attend) ; « rectifie » et « compare » pas encore.
+- Connaissances : blocs entiers des analystes, **4 lignes par tour** (dont « Tes sources »), au lieu de lignes de 160 caractères ; pas de contrôle de recopie de 8 mots.
+- **Pas faits** : plafonds par source (35 %) et par fait (30 %), plafond de contestation d'un même message, plafond des débuts « Selon @ » ; mesures T7 et T13 à faire sur le prochain export.
+
+## 2026-10-14 (soir, suite) — Avis n°24 : annuaire des sources, abonnements par camp, publications ancrées, connaissances de camp — `AVIS\2026-10-14_avis24_sources_connaissances_publications.md`
+- **Demande de l'utilisateur** (via NOYAU), après avoir vu en production des publications IA « état d'âme » (déplacés, bruit dans la tête, attaque chimique) : « ce genre de post ne nous intéresse pas ». Les IA doivent parler de ce qui se passe, à partir des sources qu'elles lisent et de leur connaissance du pays, et savoir de quel camp est un média (@tv4ArnlandLive pro-Arnland, @MercureToday pro-Mercure).
+- **Décisions de l'utilisateur** : NOYAU remplit l'annuaire ; vie seule ≤ 15 %, mais « vraiment intéressant à lire ». Aucun code modifié, aucun commit.
+- **Code lu** :
+  - `esprit.mjs` : A_PRIORI, typePercu, relation, croire, decrireLien, persona, VOIX ;
+  - `pont.mjs` : lireSocial, typeCompte, filDe, déclencheurs des spontanées ;
+  - `orientation.mjs` ; la route `reglages`.
+- **Causes** :
+  - compte non IA = « particulier » (TV4 crédité à 35 par tous) ;
+  - camp affiché inconnu partout ;
+  - abonnements recopiés d'un gabarit ;
+  - consignes « ce qui te préoccupe » et « SA VIE ».
+- **Réponse à la question du soir** : le doute des pro-Mercure vient surtout de la confiance qu'ils accordent aux sources arnlandaises (35 à 50). Avec l'annuaire, ce sera 16 à 32.
+- **Spécifié** :
+  - l'annuaire en JSON (réglage) et le camp du lecteur ;
+  - la confiance a priori = type + camp + réputation (adverse ≤ 25 ; fait pratique ; aveu) ;
+  - la migration des relations ;
+  - les abonnements tirés (2 ou 3 médias de son camp, 1 neutre, ≤ 60 % par média) ;
+  - les spontanées ancrées (ancre, 7 positions, bloc d'invite, 2 consignes réécrites) ;
+  - le critère d'intérêt en 5 marques et le contrôle d'attribution (bloquant) ;
+  - les plafonds ;
+  - un ajout au juge P1 ;
+  - le bloc de connaissances par camp, en réglage, livré par les ANALYSTES ;
+  - 13 mesures sur l'export.
+- **À faire** : NOYAU remplit l'annuaire ; ANALYSTE et ANALYSTE_ARN livrent les lignes de connaissances ; PLEIADE ou NOYAU code et teste en local dans l'ordre du § 8. État durable en MEMOIRE § 4.24.
+
 ## 2026-10-14 (soir) — Avis n°23 mis en œuvre par NOYAU (app-ia `avis23` `9d9e565`, app-social `aae7bed`, non poussés) — écarts à connaître
 - **P2** : juge en deux modes (strict pour une publication inspirée, souple pour une réponse ordinaire), au lieu du court-circuit « 2 mots communs » vers un joueur, qui laissait passer le générique. Le juge strict seul refusait 43 % des réponses du 14/10.
 - **P1** : état « tiède » remplacé par « le camp tient tant que l'opinion reste de son côté » (sinon un pro-Mercure à +7 doutait de Mercure sans contrôle) ; juge reformulé (« va-t-il contre le camp de son auteur ? ») et hashtags retirés avant de juger.

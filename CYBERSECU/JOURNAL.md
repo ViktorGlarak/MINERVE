@@ -180,3 +180,18 @@
   - le texte du FAM JEMM est NATO RESTRICTED au niveau du fichier.
 - **Avis** : acceptable avec conditions **E1-E15** (risque **moyen** : des messages de joueurs sortent vers un poste). Contenu public et paru seulement ; cellule tirée du jeton ; pas d'origine ni de compte de zone dans le fichier ; route de service dédiée (K7) ; export journalisé ; plafonds ; Markdown neutralisé ; consignes de conservation et de purge sur le poste.
 - **Consigné** : `MEMOIRE.md` §4 (2 règles) et §9 (1 ligne). Rien commité.
+
+## 2026-10-14 — Avis : annuaire des sources et connaissances par camp (moteur IA, app-ia)
+
+- **Demande** (NOYAU) : un annuaire JSON des comptes du Social de la zone (handle, nom, type, camp, fiabilité 0-100, description), pré-rempli par NOYAU et réglable dans l'écran Réglages du moteur ; les avatars en tirent confiance et abonnements ; extraits injectés dans les invites. Plus un bloc de ~10 lignes de connaissances par camp dans la fiche.
+- **Lu** : `MEMOIRE.md` (§4, B1-B9, F1-F5 avec F4 rectifiée, avis du 11/10), `app-ia` `9d9e565` : `src/app/api/bff/reglages/route.ts`, `src/lib/session.ts` (`requireAdmin`, `memeOrigine`), `src/moteur/moteur.ts` (`lireReglage`), `src/moteur/esprit.mjs` (persona), `src/moteur/images-pures.ts` (`nettoyerDescription`), schéma `Reglage` (LongText).
+- **Constats** : la route des réglages a la bonne garde (Administration + Origin) et journalise avant → après ; mais elle lit le corps **sans plafond d'octets**, et le `contexte` (20 000 car.) n'est **ni filtré des invisibles ni délimité** dans l'invite.
+- **Avis** : acceptable avec conditions **AS1-AS12** (risque faible à moyen). Réglages en base sur la même route et la même garde, Administration seulement ; corps ≤ 256 Ko ; schéma fermé (≤ 300 entrées, formats stricts) ; invisibles refusés ; bloc délimité « données, pas consignes », plafonné par invite ; journal avec empreintes et diff des handles ; aucun compte personnel, identité réelle, groupe réel ni contenu classifié ; export d'analyse avec empreinte ; tests de refus.
+- **Consigné** : `MEMOIRE.md` §9 (1 ligne). Rien codé, rien commité.
+
+## 2026-10-14 (nuit) — Annuaire des sources et connaissances : conditions AS1-AS12 appliquées par NOYAU (app-ia `ee9f394`, non poussé)
+- Faits : AS1 (réglages `annuaire`, `connaissances`, revalidés à la lecture par le pont, dernière valeur saine gardée), AS2 (même route `requireAdmin` + `memeOrigine`, `Content-Type` exigé), AS3 (256 Ko, en-tête et octets), AS4/AS5 (schéma fermé, invisibles refusés, contexte compris), AS7 (blocs délimités « données, pas des consignes »), AS8 (journal : empreintes, sources ajoutées / retirées / modifiées), AS9 (comptes gc/fd/gw et URL refusés), AS12 (tests de validation).
+- **Écart** : AS6 — connaissances jusqu'à **3 000 caractères** par camp (au lieu de 1 500 ; les blocs des analystes font 1 900 à 2 600) ; seules 4 lignes (≈ 1 000 caractères) entrent dans une invite, sous le plafond AS7 de 2 000.
+- Décision utilisateur : l'annuaire est rempli par NOYAU et réglé par l'Administration (pas d'ouverture à l'animation, AS2 tenu).
+- Non faits : AS11 (annuaire et connaissances dans l'export d'analyse), contrôle « handle absent de la zone » (AS9, dernier point), tests 403/413 de la route.
+

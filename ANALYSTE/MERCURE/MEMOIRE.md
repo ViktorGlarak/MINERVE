@@ -930,3 +930,7 @@ Attribution LO : ["X","Y"]   ← si deux axes stratégiques distincts activés s
 |---|---|---|---|
 | @el-salsichino | Piotr Blaskovitch, 21 ans, H, sans activité ni religion | engagement, individuel | A un avis sur tout, tourne en dérision tout acteur des RS ; répond aux critiques par des mèmes |
 | @NO_MERcy | Elena Petrova, 24 ans, F, consultante en communication | engagement, individuel | Critique sur les posts ARN ou MER ; sa nationalité lui permet de critiquer plus spécifiquement la communication de la coalition et d'ARNLAND ; déteste les mentalités occidentales |
+
+## DE LATTRE 26 — blocs de connaissances des avatars IA et annuaire des sources (2026-10-14)
+- **[2026-10-14]** La doctrine narrative des citoyens IA d'Arnland **pro-Mercure** et l'annuaire des sources mercuriennes (Today Mercure = `MercureToday`, Forces Mercurian = `MercurianForces`, Présidence, MercureRealNews, Untergang, La Voix de Mercure, N.O.M) se trouvent dans **`ANALYSTE\ARNLAND\BLOC_CONNAISSANCES_AVATARS_DELATTRE26.md`**, rédigé avec ANALYSTE_ARN. Ce fichier fait référence : ne pas le recopier ici.
+  - Ligne retenue pour le pro-Mercure d'Arnland : déçu de la FORCE, il trouve Mercure « mal compris » (abandon de l'Est par HParis, double nationalité refusée en 2018, médias mercuriens interdits, soupçon de « cinquième colonne »). Il demande des preuves quand on accuse Mercure, il n'approuve jamais une violence contre des civils, et il ne dit jamais « invasion » pour Mercure. [LO 4 — VENT DE LIBÉRATION, avec LO 5 — RUPTURE DES ALLIANCES contre la FORCE]
