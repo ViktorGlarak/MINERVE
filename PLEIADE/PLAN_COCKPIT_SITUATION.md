@@ -10,7 +10,7 @@
 > Règles de chaque lot : essai en local, puis feu vert de l'utilisateur **pour chaque dépôt** avant le push sur `prod`, puis vérification de `/api/sante` ou de la page.
 
 
-> 🟡 **2026-10-14 (soir) : LOT 5 PRÊT EN LOCAL, NON POUSSÉ** — projection grand écran (K10), retrait de l'ancienne vue, Chat et Messagerie cliquables dans « À traiter », Reporting tiré de l'index ; et, côté messagerie, conversations privées entre joueurs au choix des membres. Branches `app-messagerie` `conversation-privee` puis `app-cockpit` `lot5`. Reste ensuite : rien du plan initial ; questions ouvertes ci-dessous.
+> ✅ **2026-10-14 (soir) : LOT 5 EN PRODUCTION** (messagerie `e67e7c0`, Cockpit `4dbd25f`) — projection grand écran (K10), retrait de l'ancienne vue, Chat et Messagerie cliquables dans « À traiter », Reporting tiré de l'index ; et, côté messagerie, conversations privées entre joueurs au choix des membres. Branches `app-messagerie` `conversation-privee` puis `app-cockpit` `lot5`. Reste ensuite : rien du plan initial ; questions ouvertes ci-dessous.
 >
 > ✅ **2026-10-14 : LOT 4 EN PRODUCTION** (Chat et messagerie en métadonnées, case « Supervision », supervision encadrée dans la messagerie et le réseau social, lecture IA bornée) — 4 dépôts, ordre de mise en ligne : plateforme → messagerie → social → Cockpit. Détail : journal PLEIADE, 2026-10-14 (suite 5). Reste ensuite : lot 5 (projection, retrait de l'ancienne vue), conversations privées entre joueurs humains, règles camp/cellule dans le Reporting.
 >
@@ -131,7 +131,7 @@ Voir §5. Sans réponse aux questions 1 et 2, le lot 4 ne démarre pas.
 5. Mention de supervision dans le Chat et la messagerie (K13).
 
 ### Lot 5 — Projection, finitions, retrait de l'ancienne vue (dépôt `app-cockpit`)
-> 🟡 Fait le 2026-10-14, en local (journal PLEIADE, 14/10 suite 8). Raccourcis J/K/V et « Tout marquer vu » existaient déjà.
+> ✅ Fait et en production le 2026-10-14 (journal PLEIADE, 14/10 suite 8). Raccourcis J/K/V et « Tout marquer vu » existaient déjà.
 - **Projection grand écran** : menu ⋯ > « Projection grand écran », nouvel onglet, session Keycloak normale, sans lien à jeton.
   - Uniquement du public et des agrégats ; « Message privé » sans interlocuteurs ; programmés exclus.
   - Bouton « retirer de la projection » (K10).
