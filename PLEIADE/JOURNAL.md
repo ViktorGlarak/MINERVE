@@ -4,7 +4,7 @@
 
 ---
 
-## 2026-10-14 (suite 3) — Cockpit : modifier une catégorie depuis sa fiche, PRÊT EN LOCAL
+## 2026-10-14 (suite 3) — Cockpit : modifier une catégorie depuis sa fiche — ✅ EN PRODUCTION (`c29295d`, poussé par l'utilisateur, en ligne après ~130 s ; repère de version : l'identifiant de compilation Next change)
 - Demande utilisateur : au clic sur une catégorie, pouvoir modifier nom, couleur et partage dans le volet de droite.
 - `app-cockpit` branche `categorie-edition` (depuis origin/main `9a8558d`) `c29295d` : `EditionCategorie` dans `Volet.tsx` (nom, sélecteur de couleur, partage cellule / zone / auteur seulement ; règles, canaux, alerte repris tels quels ; PUT existant, donc tracé au journal) ; le volet reste ouvert après enregistrement (`onRecharger` + synchronisation de la fiche sur les catégories rechargées dans `SituationView`) ; avertissement quand on passe à « auteur seulement ». Cellule désactivée si la catégorie n'en a pas.
 - Essai local (base jetable, Playwright) : nom, couleur (#16a34a) et partage (zone) enregistrés, règles conservées, grille et titre du volet à jour, « Enregistré. » affiché, 0 erreur JS ; 18 tests ; image Docker OK. Essai rangé.
