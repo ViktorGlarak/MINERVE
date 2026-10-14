@@ -10,6 +10,8 @@
 > Règles de chaque lot : essai en local, puis feu vert de l'utilisateur **pour chaque dépôt** avant le push sur `prod`, puis vérification de `/api/sante` ou de la page.
 
 
+> ✅ **2026-10-14 : lot 3 (presse), vues enregistrées et Reporting sans groupes comparatifs EN PRODUCTION** (poussés par l'utilisateur : `app-press` `93b3ae1`, `app-cockpit` `9a8558d`). **Prochain : lot 4** (chat et messagerie en métadonnées, case « Supervision »). À reporter aussi : le correctif de déconnexion Keycloak du 21/09 jamais mis en ligne (voir journal).
+>
 > ▶️ **CHANTIER REPRIS le 2026-10-14** (demande de l'utilisateur). Réponses : **vues enregistrées = oui, intéressant** (basculer entre plusieurs configurations de catégories) ; **go pour le lot 3**.
 > **Lot 3 (presse) PRÊT EN LOCAL, non poussé** : `app-press` `93b3ae1` (routes `evenements`, `reactions`, `contenus`), `app-cockpit` `abe6a8e` (collecte social + presse, volet et À traiter). Ordre de mise en production : **presse d'abord, puis Cockpit** (push refusé en mode auto : à lancer par l'utilisateur).
 > **Vues enregistrées FAITES en local** (`app-cockpit` branche `vues` `ed3794b` + `9a8558d`) ; **Reporting** : « Groupes comparatifs » retirés (demande utilisateur), une courbe par catégorie de la vue active. Prochain : lot 4.

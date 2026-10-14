@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 2) — EN PRODUCTION : presse lot 3, Cockpit lot 3 + vues + Reporting
+- Poussés **par l'utilisateur** (mes push sont refusés en mode auto) : `app-press` `cockpit-presse` → main/prod `93b3ae1` (routes `evenements`/`reactions`/`contenus` en 401 sur `today-mercure` après ~150 s) ; `app-cockpit` `vues` → main/prod `9a8558d` (`/api/bff/situation/vues` en 401 sur **`cockpit.delattre-26.pleiade.internal`** après ~110 s).
+- ⚠ **Piège rencontré** : l'utilisateur a fusionné `vues` dans sa **`main` locale** du Cockpit, vieille copie du 21/09 (1 commit jamais poussé, 40 de retard) → conflit sur `Header.tsx`. Résolu par `git merge --abort` puis `git push origin vues:main vues:prod` (la branche de travail part de `origin/main`, donc avance rapide). Leçon : donner les commandes **avec le `cd` du dépôt** et pousser la branche de travail directement, jamais via la `main` locale.
+- 🔒 **Trouvaille** : ce commit local `9dab9da` (21/09) = « Se déconnecter ferme aussi la session Keycloak de la zone » (`src/lib/deconnexion.ts`, `auth.ts`, `Header.tsx`) **n'a jamais été mis en ligne pour le Cockpit** (push 403 à l'époque) ; `deconnexion.ts` absent de `origin/main`. La presse l'a eu le 24/09. → À reporter sur une branche dédiée, tester, pousser ; signalé à CYBERSECU.
+- Essai local rangé (serveurs arrêtés, base `essai-lot3-db` et images d'essai supprimées).
+
 ## 2026-10-14 (suite) — Cockpit : vues enregistrées + Reporting sans groupes comparatifs, PRÊTS EN LOCAL
 - Push du lot 3 refusé par le mode auto (« Production Deploy ») malgré l'accord de l'utilisateur : commandes à lancer par lui.
 - **Vues enregistrées** (`app-cockpit` branche `vues`, partie du lot 3, `ed3794b`) : tables `vue_situation` (nom, catégories ordonnées en JSON, partage moi/cellule/zone, auteur, cellule) et `choix_vue` (vue active par `sub`) ; `src/situation/vues.ts` pur (validation stricte, `appliquerVue`), 3 tests ; routes `/api/bff/situation/vues` (GET liste + active + catégories visibles, POST), `/vues/[id]` (PUT, DELETE → les choix pointant dessus sont effacés), `/vues/active` (PUT). `categoriesDeLaVue` alimente Situation, À traiter, Tout marquer vu, volet ; **l'ordre de la vue prime sur l'épinglage** (défaut trouvé à l'essai, corrigé) ; une catégorie masquée mais choisie s'affiche. UI `ChoixVue.tsx` (menu dans l'en-tête, fenêtre de composition cocher/monter/descendre, partage ; clic extérieur et Échap). « Hors catégories » → « Hors de la vue ».
