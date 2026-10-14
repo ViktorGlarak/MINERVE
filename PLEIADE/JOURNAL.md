@@ -4,6 +4,12 @@
 
 ---
 
+## 2026-10-14 (suite 3) — Cockpit : modifier une catégorie depuis sa fiche, PRÊT EN LOCAL
+- Demande utilisateur : au clic sur une catégorie, pouvoir modifier nom, couleur et partage dans le volet de droite.
+- `app-cockpit` branche `categorie-edition` (depuis origin/main `9a8558d`) `c29295d` : `EditionCategorie` dans `Volet.tsx` (nom, sélecteur de couleur, partage cellule / zone / auteur seulement ; règles, canaux, alerte repris tels quels ; PUT existant, donc tracé au journal) ; le volet reste ouvert après enregistrement (`onRecharger` + synchronisation de la fiche sur les catégories rechargées dans `SituationView`) ; avertissement quand on passe à « auteur seulement ». Cellule désactivée si la catégorie n'en a pas.
+- Essai local (base jetable, Playwright) : nom, couleur (#16a34a) et partage (zone) enregistrés, règles conservées, grille et titre du volet à jour, « Enregistré. » affiché, 0 erreur JS ; 18 tests ; image Docker OK. Essai rangé.
+- ⏳ À pousser par l'utilisateur : `git push origin categorie-edition:main categorie-edition:prod` dans `C:\CECPC\pleiade\app-cockpit`.
+
 ## 2026-10-14 (suite 2) — EN PRODUCTION : presse lot 3, Cockpit lot 3 + vues + Reporting
 - Poussés **par l'utilisateur** (mes push sont refusés en mode auto) : `app-press` `cockpit-presse` → main/prod `93b3ae1` (routes `evenements`/`reactions`/`contenus` en 401 sur `today-mercure` après ~150 s) ; `app-cockpit` `vues` → main/prod `9a8558d` (`/api/bff/situation/vues` en 401 sur **`cockpit.delattre-26.pleiade.internal`** après ~110 s).
 - ⚠ **Piège rencontré** : l'utilisateur a fusionné `vues` dans sa **`main` locale** du Cockpit, vieille copie du 21/09 (1 commit jamais poussé, 40 de retard) → conflit sur `Header.tsx`. Résolu par `git merge --abort` puis `git push origin vues:main vues:prod` (la branche de travail part de `origin/main`, donc avance rapide). Leçon : donner les commandes **avec le `cd` du dépôt** et pousser la branche de travail directement, jamais via la `main` locale.
