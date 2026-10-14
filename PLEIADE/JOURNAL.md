@@ -4,12 +4,12 @@
 
 ---
 
-## 2026-10-14 (suite 15) — Pas de publication « dans la foulée » (commit app-ia `4bc276e`, branche `avis23`, non poussé)
+## 2026-10-14 (suite 15) — Pas de publication « dans la foulée » (commit app-ia `4bc276e`, branche `avis23`) — ✅ EN PRODUCTION
 - Constat utilisateur (capture) : un avatar cite un message d'ArnCheck puis publie, à une minute d'écart, un second message sur le même sujet — « particulièrement pas réaliste ». Cause : la règle « pas deux messages à moins de 2 min » ne valait que pour les réponses et citations, pas pour la publication spontanée tirée du même appel au modèle.
 - Correctif : pas de spontanée dans le tour où l'avatar a répondu ou cité, ni à moins de 15 min de son dernier message écrit ; pas de citation à moins de 15 min de sa propre spontanée (sauf s'il est visé). La spontanée compte désormais comme un message écrit. 109 tests.
 - Prod encore en 2026-10-14.1 au moment du constat : la capture montre aussi un état d'âme (« on ne sait plus ce qui est vrai »), que la 2026-10-14.2 retient.
 
-## 2026-10-14 (suite 14) — Moteur 2026-10-14.2 : annuaire des sources, connaissances par camp, publications ancrées et « intéressantes » — commit `ee9f394` (branche `avis23`), NON POUSSÉ
+## 2026-10-14 (suite 14) — Moteur 2026-10-14.2 : annuaire des sources, connaissances par camp, publications ancrées et « intéressantes » — commit `ee9f394` (branche `avis23`) — ✅ EN PRODUCTION avec `0464fc6` et `4bc276e` (poussé par l'utilisateur ; `/api/sante` = 2026-10-14.2)
 - **Demande utilisateur** (captures de 5 publications IA « état d'âme ») : que les avatars parlent en détail de ce qu'ils savent de leur pays et des sources qu'ils lisent ; qu'ils sachent que TV4 est un média pro-Arnland, qu'un pro-Mercure suive MercureToday. Décisions : NOYAU remplit l'annuaire ; vie seule ≤ 15 % « mais il faut vraiment que ce soit intéressant à lire ».
 - **Avis** : PSYCHOLOGUE n°24 (`PSYCHOLOGUE\AVIS\2026-10-14_avis24_sources_connaissances_publications.md`), CYBERSECU (AS1-AS12, ACCEPTABLE AVEC CONDITIONS), ANALYSTE + ANALYSTE_ARN (`ANALYSTE\ARNLAND\BLOC_CONNAISSANCES_AVATARS_DELATTRE26.md` : 3 blocs + annuaire JSON de 20 sources, camps à confirmer marqués).
 - **Constats de code** : tout compte non IA était un « particulier » (TV4 crédité 35 par tous) ; `camp_affiche` « inconnu » pour toute la population ; abonnements recopiés d'un gabarit ; deux consignes fabriquaient l'état d'âme (« au moins une fois sur deux SA VIE », « sur ce qui te préoccupe »).
