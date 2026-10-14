@@ -105,4 +105,4 @@
 - [Modèle page EFS](efs_site_base.md) — EFS_Reserves_Faibles_2026.html
 - [Référence — portraits Mercure et Ruthnia Bella](reference_portraits.md) — CREATION\02 et \07
 - [Règle — Modèle officiel « à l'identique »](feedback_modele_officiel_identique.md) — partir du fichier d'origine, pas d'une grille ; voir un exemplaire rempli
-- [Cockpit Situation](projet_cockpit_situation.md) — lots 1-3 + vues en prod le 14/10 ; lot 4 prêt en local (4 dépôts)
+- [Cockpit Situation](projet_cockpit_situation.md) — lots 1-4 + vues en prod le 14/10 ; prochain lot 5
