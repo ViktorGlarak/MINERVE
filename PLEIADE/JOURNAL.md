@@ -4154,3 +4154,8 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - (2) **chœur autour de @MercurianForces** (18 messages de l'animation en 2 h) : la consigne de l'ancre (« nomme-le par son @ », 15.4) et la règle de la « réponse orpheline » (tout @ valait adresse) se combinaient → 2 ancres par source et par heure, @ en tête obligatoire pour une réponse orpheline, plafond par message, gabarits d'ouverture refusés ;
   - (3) formules de doute non repérées → `doute.mjs` élargi.
 - 134 tests ; banc d'essai sans erreur.
+
+## 2026-10-15 — Carte : revue DESIGNER (n°112) et fonds de carte réels
+- Verdict DESIGNER : la piste est bonne. Appliqué : agrégats par ville sous le zoom 9, infobulle au pointeur, sections repliables, légende en encart, « MERCURE » à l'est, arrivées d'évacuation marquées.
+- Fonds réels au choix, choix mémorisé : Nuit (défaut, hors ligne) · Nuit avec routes (IGN TRANSPORTNETWORKS.ROADS) · Relief (ombrage IGN sur fond ardoise) · Photos (orthophotos IGN) · Plan (Plan IGN v2) · OSM. Voile pour les fonds clairs, alerte « noms réels », attribution. CARTO écarté (clé exigée). SCAN 25 IGN non disponible sans clé.
+- À prévoir pour le réseau de l'exercice : un cache local des tuiles IGN de la zone.
