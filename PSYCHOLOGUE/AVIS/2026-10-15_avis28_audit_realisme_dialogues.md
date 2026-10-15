@@ -142,3 +142,21 @@ Aucune ligne de journal « publié » n'apparaît pour **Rolf Weber** et **Sergu
 2. Fautes et abréviations : les autoriser chez une partie des avatars (par exemple 30 %), légères et constantes ?
 3. Rolf Weber et Sergueï Untergang : sont-ils incarnés par l'animation ? Si oui, on les marque comme tels dans le moteur et dans les analyses.
 4. Regénérer le registre, les consignes et les exemples des 205 fiches : oui, en commençant par 10 fiches à valider ?
+
+## 8. Décisions de l'utilisateur (2026-10-15)
+1. **Mots-dièse facultatifs dans les réponses** (environ 40 %) ; #3615MyLife réservé aux moments de vie ; les publications gardent leur #.
+2. **Fautes et abréviations légères chez environ 30 % des avatars**, toujours les mêmes chez un même avatar, appliquées par le code, jamais sur les noms propres.
+3. **Rolf Weber et Sergueï Untergang sont joués par l'animation** : ils sont à marquer comme tels dans le moteur et les analyses.
+4. **Regénération des fiches** : 10 d'abord, à valider, puis les 205.
+
+## 9. Mise en œuvre (2026-10-15)
+- **App-ia 2026-10-15.3** (branche `dialogues`, `fed3122`, non poussée).
+  - Fenêtre du modèle : D1, 16 384 jetons, alerte de saturation.
+  - Conversation : A1 fil complet, A2 voie un-à-un, A3 fenêtre de 20 min et plancher d'interpellation, A4 bornes décroissantes avec tous les retours comptés, A5 le participant suit le fil.
+  - Voix : B1 réponses brèves permises, B2 style par avatar appliqué par le code, B3 mots-dièse facultatifs dans les réponses et dans l'ordre du fil, B4 plus de mots interdits tirés de ses propres messages.
+  - D3 délais humains.
+  - 122 tests ; rejeu sur les 105 avatars sans erreur, invites de 2 600 à 3 900 jetons.
+  - Restent à faire : D2 (juge unique), voie rapide de 30 s, D4 (traçage complet des silences).
+- **Eho** (branche `import-verifie`, `314e35d`) : la fiche accepte un champ `style` fermé et borné.
+- **Lot C** : `dev\prototype-ia\regenerer-fiches.mjs`. Il pose le style, retire les consignes de gabarit, ajoute 3 ou 4 consignes personnelles, écrit 6 exemples à la manière de l'avatar (2 courts, 2 réponses, 2 publications) et écarte tempérament et sensibilités du centre. Le code contrôle les formules de foule et les recoupements. Essai sur 10 fiches, soumis à validation.
+- **Rolf Weber et Sergueï Untergang** sont déjà « IA EN PAUSE » : le moteur ne les anime pas et les traite comme des comptes humains. Seules les analyses de l'audit les comptaient comme IA, d'où un correctif d'analyse, pas de moteur.

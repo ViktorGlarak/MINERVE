@@ -4087,3 +4087,11 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 ## 2026-10-15 — Audit du moteur IA avec PSYCHOLOGUE (avis n°28)
 - Diagnostic : les dialogues meurent au premier échange (fil invisible, réponse jugée dans un lot, une réplique par cycle, filtres qui tuent 60 % des réponses) ; une seule voix pour 105 avatars (172 caractères contre 51, « … » + émoji + # dans 59 % des messages) ; fiches en gabarit ; `num_ctx` 8 192 avec risque de troncature.
 - Plan en 4 lots (A conversation, B voix, C fiches, D technique). En attente des réponses de l'utilisateur ; D1 (num_ctx) proposé en premier.
+
+## 2026-10-15 — Moteur 2026-10-15.3 « dialogues » (audit PSYCHOLOGUE n°28) et voix des fiches
+- Décisions de l'utilisateur : mots-dièse facultatifs dans les réponses ; fautes légères chez environ 30 % des avatars ; Weber et Untergang joués par l'animation (déjà en pause côté IA) ; regénération des fiches, 10 d'abord.
+- App-ia `dialogues` (`fed3122`), au-dessus de 15.1 et 15.2 : `num_ctx` 16k, voie un-à-un avec le fil complet, bornes de retour décroissantes, fenêtre de conversation, participant qui suit le fil, `style.mjs` (style par avatar), mots-dièse facultatifs, délais humains. 122 tests ; rejeu sur les 105 avatars sans erreur.
+  - ⚠ Au déploiement, Ollama recharge le modèle avec une fenêtre de 16k : un peu plus de mémoire sur chaque nœud.
+  - ⚠ Tant que la production est en 8k, tout script local qui appelle l'Ollama du PC doit tourner avec `OLLAMA_NUM_CTX=8192`, sinon il force un rechargement à chaque alternance.
+- Eho `import-verifie` (`314e35d`) : champ `style` dans la fiche IA.
+- `dev\prototype-ia\regenerer-fiches.mjs` : régénération de la voix des fiches ; essai sur 10.
