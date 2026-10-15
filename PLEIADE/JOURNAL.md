@@ -4104,3 +4104,13 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - 126 tests.
 - Reste à faire : le signalement de la fuite dans le Cockpit (app-cockpit).
 - Générateur des fiches : 1 profil sur 10 garde un tempérament extrême (décision utilisateur).
+
+## 2026-10-15 — Voix des 205 fiches régénérée (avis PSYCHOLOGUE n°28, lot C)
+- Source : « Télécharger les fiches » de production (205 avatars, 09:00). Sont régénérés les 203 non relais (les 51 lecteurs en pause compris) ; **198 réussis**, 5 gardent leur ancienne voix (recoupements répétés), et les 2 relais sont inchangés.
+- Corrections du générateur en cours de route : avatars en pause inclus ; recoupements sans les mots du sujet, tolérés chez 2 avatars ; « systématiquement » retiré ; tempéraments bornés 12-88 (5-95 pour les profils marqués) ; exemples militaires écartés (les fuites passent par le mécanisme contrôlé).
+- Résultat :
+  - styles : émoji aucun 85, rare 66, signature 47 ; 68 avatars avec fautes ; 123 qui tutoient ;
+  - exemples : 1 181, médiane 58 caractères, 51 % sous 60 caractères ;
+  - 21 profils extrêmes ;
+  - 0 refus par les règles d'eho.
+- Fichier à importer : `%USERPROFILE%\.pleiade\installation\fiches-voix_delattre-26_2026-10-15.json` (eho, Population IA, « Fiches de comportement → Importer »).
