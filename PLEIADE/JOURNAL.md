@@ -4145,3 +4145,12 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - Décisions de l'utilisateur : symbologie APP-6 générée (milsymbol, MIT) et images de l'utilisateur ; perception automatique selon la distance ; maquette locale qui produit un fichier.
 - Carte (`dev\carte`) : mode Animation (zones d'action, palette APP-6, code libre, « Mes symboles », fiche par élément avec calcul des villes touchées et proches, sauvegarde dans le navigateur, export `situation-carte_….json`). Correctif : la vue de deck.gl est créée une fois (recréée à chaque image de l'animation, elle faisait perdre les clics). Test de bout en bout : zone NRBC posée sur HSarre-Union et blindé ennemi posé hors ville ; l'export est accepté par le moteur et ne contient aucun code de symbole.
 - Moteur 2026-10-15.6 (`1b66845`, branche `dialogues`, non poussé) : types NRBC, zone contaminée et présence militaire ; villes proches (vu et entendu) ; import du fichier de la carte dans le panneau Événements de zone. 133 tests ; banc d'essai sans erreur.
+
+## 2026-10-15 12:30 — Analyse de l'export de 12:17 ; moteur 2026-10-15.7
+- Période de 10:00 à 12:17, après « Archiver et vider » à 09:59 : 46 cycles, 0 erreur de cycle ; **121 messages de joueurs, 12 avec une réponse IA (10 %)** (37 évincés par la lecture par tour, 37 où le modèle n'a proposé que J'aime ou rien) ; 18 messages IA ; aucune interpellation d'avatar par un joueur, donc la voie un-à-un n'a pas pu être mesurée.
+- Progrès de la voix (fiches et style) : émoji 22 % (hier 81 %), points de suspension 17 % (72 %), mots-dièse 33 % (100 %), commentaires de 123 caractères en médiane (172).
+- Défauts relevés et corrigés en 15.7 (`branche dialogues`) :
+  - (1) **pannes du nœud principal** : 4 erreurs 500 et un plantage CUDA, la carte de 12 Go étant à 11 Go avec num_ctx 16k → num_ctx 12 288 ;
+  - (2) **chœur autour de @MercurianForces** (18 messages de l'animation en 2 h) : la consigne de l'ancre (« nomme-le par son @ », 15.4) et la règle de la « réponse orpheline » (tout @ valait adresse) se combinaient → 2 ancres par source et par heure, @ en tête obligatoire pour une réponse orpheline, plafond par message, gabarits d'ouverture refusés ;
+  - (3) formules de doute non repérées → `doute.mjs` élargi.
+- 134 tests ; banc d'essai sans erreur.
