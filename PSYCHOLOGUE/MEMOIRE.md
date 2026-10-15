@@ -443,6 +443,12 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.31 ⭐ Avis n°31 — Situation terrain sur la carte : ce que perçoivent les civils (2026-10-15, cosigné CYBERSECU) — `AVIS\2026-10-15_avis31_situation_terrain_perception.md`
+- Un civil ne sait que ce qu'il **vit** (dans la zone), ce qu'il **voit ou entend** (à proximité, avec un rayon par type : bombardement 15 km, combats 10, NRBC 8, zone contaminée 3, présence militaire 2, autres 5) et ce qu'on lui **raconte** (au-delà, par le réseau social).
+- Le NRBC est la peur la plus forte (choc −50, confinement fenêtres fermées, départs spontanés).
+- La perception se décrit avec des mots civils écrits par l'animation, sinon une phrase type, jamais un détail militaire.
+- Statut : app-ia 2026-10-15.6 (`1b66845`) et carte locale (mode Animation), à pousser.
+
 ### 4.30 ⭐ Avis n°30 — Événements de zone : évacuation, confinement, couvre-feu, coupures, bombardements… (2026-10-15) — `AVIS\2026-10-15_avis30_evenements_de_zone.md`
 - Constat : une annonce n'était pas rattachée à la ville de l'avatar ; aucune décision de départ ; le domicile de la fiche avait toujours le dernier mot, donc aucun déplacé.
 - **Doctrine** : face à un ordre d'évacuation, on ne part pas tous ni tout de suite (Lindell et Perry, *Protective Action Decision Model* : crédibilité de la source, coût du départ, obligations). Il y a des hésitants et des refus. Le déplacé change de vie et se rapproche des autres déplacés. Chaque type d'événement transforme le quotidien à sa façon.

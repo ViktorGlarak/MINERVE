@@ -298,3 +298,8 @@ Relevé de code (chantier tutoriel) : un message envoyé « au nom de » un avat
   - (5) aucune donnée de joueur ;
   - (6) les autres interdits restent absolus.
 - À surveiller : qu'aucun avatar n'ajoute de chiffre ou d'unité au détail (mesure au prochain export), et le signalement dans le Cockpit (à faire).
+
+### 2026-10-15 — Situation terrain sur la carte (avis PSYCHOLOGUE n°31, cosigné)
+- La carte d'animation pose des symboles APP-6 et des zones d'action (vérité du terrain de l'exercice). **Le moteur ne reçoit que des événements de zone** (type, villes touchées et proches, dates, description civile), jamais les symboles, leurs codes ni une position précise. Vérifié : l'export de test ne contient aucun code de symbole dans `evenements`.
+- Le fichier « situation » est un document d'animation : il ne va pas aux joueurs et se supprime en fin d'exercice. Les images de l'utilisateur sont limitées au PNG et au SVG, affichées comme images (jamais insérées dans la page), et restent dans le navigateur.
+- Le passage au moteur se fait par le réglage `evenements` (schéma fermé, journal, empreinte), après relecture dans le tableau. La carte reste locale (127.0.0.1) tant qu'elle n'est pas intégrée à une app de zone avec authentification.
