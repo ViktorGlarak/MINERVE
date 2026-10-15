@@ -4069,3 +4069,13 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - Confusion constatée : le fichier de profils .json a été déposé deux fois au mauvais endroit (réimport des fiches, puis installation). Le générateur le nomme désormais `NE-PAS-INSTALLER_profils-pour-xlsx_…json`, et eho le refuse d'un coup en indiquant le bon fichier.
 - **eho 2026-10-15.1** (branche `import-verifie`, `141cfca`, non poussé) : avis DESIGNER n°109. L'import de classeur est vérifié avant d'écrire, le bilan reste affiché, et le dernier import apparaît en tête de page. Essayé sur la base locale (100 profils vérifiés sans écriture, refus d'un .json, 409 sur une empreinte fausse, création puis « inchangé », dernier import relu ; avatar d'essai supprimé). Schéma de la base locale mis à niveau (`prisma db push`, sans perte). Rendu de la page non vu : pas de session Keycloak locale.
 - **app-ia 2026-10-15.1** (branche `journal-archives`, `0fbe012`, non poussé) : avis DESIGNER n°110. « Journal et archives » est découpé en trois blocs (exporter, archives, ménage). « Archiver et vider » est isolé, avec son explication et une confirmation chiffrée. Typage et 109 tests OK. Moteur inchangé.
+
+## 2026-10-15 — Moteur 2026-10-15.2 : un joueur qui engage la conversation (avis PSYCHOLOGUE n°26)
+- Constat utilisateur : un joueur répond sous la citation d'un avatar. L'avatar répond, mais à la troisième personne (une publication inspirée rangée sous le message sans réécriture).
+- Correctifs, sur la branche `journal-archives` empilée sur la 15.1 (`1686975`) :
+  - la publication inspirée est réécrite en adresse directe avant d'être rangée sous le message ;
+  - probabilité de retour de 0,7 pour une contribution de joueur ;
+  - une réponse à son message vaut une mention (lecteurs, plafonds) ;
+  - attirance par le sujet (`sujets.mjs`).
+- Vérifications : 113 tests ; aucun nom indéfini (`tsc --checkJs`) ; aucune collision méthode/propriété ; rejeu des nouvelles fonctions sur les 105 avatars de l'export du 14/10, sans erreur.
+- Le chemin complet du cycle n'a pas été rejoué : il faut Ollama et le Social.

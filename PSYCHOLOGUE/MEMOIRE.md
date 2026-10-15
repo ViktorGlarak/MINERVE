@@ -443,6 +443,15 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.26 ⭐ Avis n°26 — Un joueur engage la conversation sous le message d'un avatar (2026-10-15) — `AVIS6-10-15_avis26_joueur_qui_engage_la_conversation.md`
+- **P1** : une contribution adressée de plus de 80 caractères vaut une question, avec une probabilité de retour de 0,6, et de 0,7 venant d'un joueur (la mention reste à 0,8). Les bornes sont inchangées.
+- **P2** : une réponse à son message vaut une mention, pour les lecteurs, le plafond de la population et le plafond horaire.
+- **P3** : l'attirance par le sujet. Les thèmes du message de joueur et de son parent sont repérés par le code, et l'intérêt effectif au-delà de 40 donne un bonus de lecture de 0 à 60. Sur les 105 avatars : de +2 à +55, médiane +35.
+- **P4** : les garde-fous ne changent pas (2 réponses en 30 min, 4 au total sous un message).
+- **P5 (n°26 bis)** : une publication inspirée rangée sous un message est réécrite en adresse directe, sans troisième personne, avec seulement les mots-dièse du fil. Sinon, elle n'est pas rangée sous le message.
+- ⭐ **Doctrine** : on ne commente pas quelqu'un devant lui, sous son propre message, comme s'il était absent ; une information apportée à celui qui l'attendait appelle une réponse.
+- Statut : app-ia 2026-10-15.2 (branche `journal-archives`, `1686975`), à pousser ; à mesurer au prochain export (taux de réponse de l'avatar visé, 1 à 2 autres avatars, adéquation des sensibilités au thème).
+
 ### 4.23 ⭐ Avis n°23 — Orientation des avatars, réponses qui répondent, suivi de conversation (2026-10-14) — `AVIS\2026-10-14_avis23_orientation_reponses_suivi.md`
 - **Base** : relevé NOYAU du 14/10, 13 h 05 (186 textes IA, 430 messages de joueurs). Code lu sans le modifier : `pont.mjs`, `esprit.mjs`, `redacteur.mjs`, `hashtags-herites.mjs`, `arobase.mjs`, route `/retex` d'`app-social`. L'avis n°22 reste en pause.
 - **Causes trouvées dans le code** :

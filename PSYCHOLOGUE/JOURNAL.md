@@ -316,3 +316,7 @@
 - 1068 comptes écartés : 666 faute de place restante dans leur profil (genre et âge), les autres parce que leur portrait n'est pas une vraie personne (logo, dessin, enfant…).
 - Fichiers dans `%USERPROFILE%\.pleiade\installation\` : `population-ia_delattre-26_2026-10-14_lecteurs-100.json` et `profils-lecteurs_2026-10-14_lecteurs-100.xlsx`.
 - Reste à faire : pousser eho `fiche-lecteurs`, importer les profils, « Installer la population IA », puis activer 25 lecteurs pendant 3 h avant d'activer les 100.
+
+## 2026-10-15 — Avis n°26 : un joueur engage la conversation sous le message d'un avatar
+- Cas de production : un joueur apporte des faits et des hypothèses sous la citation d'un avatar qui « attendait de voir ». L'avatar a répondu, mais à la troisième personne : c'était une publication inspirée, rangée sous le message sans être réécrite.
+- Décisions P1 à P5 (voir l'avis), appliquées dans app-ia 2026-10-15.2 : 113 tests, rejeu sur les 105 avatars sans erreur.
