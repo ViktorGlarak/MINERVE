@@ -287,3 +287,14 @@ Relevé de code (chantier tutoriel) : un message envoyé « au nom de » un avat
 ### 2026-10-11 — État des avatars IA dans eho : règles d'accès (décision utilisateur)
 - La **couche IA** d'eho (état courant des avatars : croyances, relations, humeur, souvenirs ; routes `/api/etat-ia*` et `/api/users/[id]/etat-ia`) est accessible **uniquement à l'Administration ou à la clé de service** (`exigerEcriture`) — **jamais aux animateurs ni aux joueurs** : la fiche n'affiche la section « Comportement IA » qu'à `droits.administration`, et le bloc de réinitialisation est sur le tableau de bord (écran Administration). Réinitialisations journalisées (`ia_reinitialise`, `ia_reinitialise_tous`) avec l'opérateur ou « clé de service ». Taille d'un état bornée à 4 Mo. Le pont écrit avec la clé de service de la zone locale (lue dans le conteneur, jamais écrite) et signe `pont@<machine>`. Branche locale `ia-avatars`, non poussée : à relire avant tout push (contenu sensible = relations entre avatars → animation exclue par décision utilisateur, plus strict que l'origine « IA » du Social).
 - **2026-10-11 08 h 10 — Population IA injouable** : groupe eho « CAMP IA » **exclusif sans camp** → `comptesLibres` et `filtreExclusif` d'eho excluent ses membres de toute incarnation (joueurs et animation), seule l'Administration (masteradmin) y accède. Les avatars IA n'appartiennent à aucun PACK / CAMP joué. Fiche de comportement (`avatar_comportement_ia`) et état (`avatar_etat_ia`) : Administration ou clé de service seulement.
+
+### 2026-10-15 — Fuites d'informations militaires comme mécanisme d'exercice (avis PSYCHOLOGUE n°29, cosigné)
+- Décision utilisateur : les fuites de civils deviennent un **objet d'entraînement contrôlé**, dans app-ia 2026-10-15.3 (`fuites.mjs`).
+- Règles de sécurité retenues :
+  - (1) le modèle ne reprend **que** des détails **écrits par l'animation** (fiction ; aucune unité, aucun lieu ni horaire réels), sans rien y ajouter ;
+  - (2) **désactivé par défaut**, activation confirmée, coupure immédiate ; chaque changement est journalisé avec son empreinte ;
+  - (3) schéma fermé : 20 détails au plus, 10 à 200 caractères, ville en H, échéance, caractères invisibles refusés, refus en bloc ;
+  - (4) chaque fuite publiée est journalisée (« fuite d'exercice ») ;
+  - (5) aucune donnée de joueur ;
+  - (6) les autres interdits restent absolus.
+- À surveiller : qu'aucun avatar n'ajoute de chiffre ou d'unité au détail (mesure au prochain export), et le signalement dans le Cockpit (à faire).

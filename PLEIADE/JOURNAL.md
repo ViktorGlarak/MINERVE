@@ -4095,3 +4095,12 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - ⚠ Tant que la production est en 8k, tout script local qui appelle l'Ollama du PC doit tourner avec `OLLAMA_NUM_CTX=8192`, sinon il force un rechargement à chaque alternance.
 - Eho `import-verifie` (`314e35d`) : champ `style` dans la fiche IA.
 - `dev\prototype-ia\regenerer-fiches.mjs` : régénération de la voix des fiches ; essai sur 10.
+
+## 2026-10-15 — Fuites d'exercice contrôlées (avis PSYCHOLOGUE n°29 et CYBERSECU)
+- App-ia `dialogues` (`501a612`) :
+  - `fuites.mjs` ; réglage `fuites` dans la route des réglages (schéma fermé, journal, empreinte) et dans le cache du moteur ;
+  - offre aux témoins plausibles dans le lot de lecture, détection au moment de proposer, action de journal « fuite d'exercice » ;
+  - panneau « Fuites d'exercice (contrôlées) » dans les Réglages, désactivé par défaut ;
+  - 126 tests.
+- Reste à faire : le signalement de la fuite dans le Cockpit (app-cockpit).
+- Générateur des fiches : 1 profil sur 10 garde un tempérament extrême (décision utilisateur).

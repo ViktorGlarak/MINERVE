@@ -443,6 +443,16 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.29 ⭐ Avis n°29 — Fuites d'exercice contrôlées (2026-10-15, cosigné CYBERSECU) — `AVIS\2026-10-15_avis29_fuites_exercice.md`
+- Une fuite civile est involontaire, rare, ancrée dans un vécu et imprécise ; elle vient de **témoins plausibles** (ceux qui circulent, les riverains, les proches de l'institution).
+- Mécanisme :
+  - détail écrit par l'animation, offert à un témoin plausible ;
+  - p = 0,15 × (0,6 + 0,8 × extraversion), × 1,5 s'il habite la ville du détail ;
+  - plafonds : 1 par jour et par avatar, 2 en 2 h par détail, 3 par heure pour la population ; jamais la nuit, jamais en un-à-un ;
+  - détection à 2 mots porteurs, puis journal.
+- Décision utilisateur liée : **quelques profils de tempérament extrêmes** restent (1 sur 10, facteur 1,9 contre 1,4).
+- Statut : app-ia 2026-10-15.3 (`501a612`), à pousser.
+
 ### 4.28 ⭐ Avis n°28 — Audit complet du moteur et des fiches : vers des dialogues réels (2026-10-15) — `AVIS\2026-10-15_avis28_audit_realisme_dialogues.md`
 - Verdict : l'avatar est crédible sur un message isolé, se démasque en une minute, et les **dialogues meurent au premier échange**.
 - Chiffres (exports du 14/10) :

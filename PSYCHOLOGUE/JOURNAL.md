@@ -327,3 +327,6 @@
 
 ## 2026-10-15 — Avis n°28 : audit complet du moteur et des fiches (dialogues réels)
 - Trois analyses en parallèle : les invites et l'écriture, le parcours d'un message dans le moteur, les données du 14/10 et les 205 fiches. Synthèse, doctrine et plan en 4 lots dans l'avis. 4 questions posées à l'utilisateur.
+
+## 2026-10-15 — Avis n°29 : fuites d'exercice contrôlées ; profils extrêmes conservés
+- Décisions de l'utilisateur : garder quelques tempéraments extrêmes (1 sur 10) ; faire des fuites un mécanisme d'exercice contrôlé. Avis cosigné CYBERSECU, mis en œuvre dans app-ia 2026-10-15.3.
