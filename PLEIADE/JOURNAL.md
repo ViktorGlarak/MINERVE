@@ -4127,3 +4127,4 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - interrupteur coupé du 14/10 17:54 au 15/10 09:49 (513 cycles « interrupteur coupé ») ;
   - depuis, 7 cycles, 0 erreur, 71 lectures, 3 réponses, 11 J'aime ;
   - 198 fiches sur 205 portent un style, appliqué comme prévu.
+- 10:45 — Constat utilisateur : « je ne vois pas Annuaire ». Je l'avais renvoyé vers un écran qui n'existait pas : l'annuaire ne se modifiait que par la route des réglages. J'ai ajouté le panneau « Annuaire des sources » dans les Réglages (tableau éditable, filtre, ajout et retrait, confirmation avec le compte des ajouts et retraits ; validation serveur inchangée). Commit `8c0ffc9`, dans la 15.4. ⚠ Les « connaissances par camp » n'ont toujours pas d'écran.
