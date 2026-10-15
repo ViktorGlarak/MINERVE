@@ -7,6 +7,12 @@
 
 ---
 
+## 0. ⏸ EN ATTENTE — audit des 12 instances du 2026-10-15 (à reprendre)
+
+> Rapport complet : **`PLEIADE/AUDIT_2026-10-15.md`** (par instance, transversal, plan en 7 étapes). Décision utilisateur du 15/10 au soir : « enregistre tout, on reviendra sur cela plus tard ». **Rien n'est corrigé.**
+> À la reprise, commencer par le §4 du rapport, étape 1 (sécurité immédiate) : terminal `/ws/terminal` de l'orchestrateur sans authentification ; secrets Mastodon versionnés dans app-social (`apps/api/migrator.env` → changer les mots de passe, purger l'historique) ; XSS `post-content.pipe.ts` ; lecture sous emprunt d'identité dans la messagerie ; valeurs par défaut (cookie, root, admin) de la plateforme. Puis Moteur IA 15.14 (exemple d'invite « @X dit que… » vs règle orpheline ; contexte relu à chaque cycle ; message privé perdu si le modèle échoue).
+> Chaque correctif : montré en local avant tout push (règle utilisateur).
+
 ## 1. Ce qu'est PLEIADE — en une phrase
 
 **PLEIADE est l'écosystème logiciel complet d'entraînement du CECPC** : un **orchestrateur de zones d'exercice** qui déploie, dans des espaces isolés, des instances d'applications (réseau social, gestion d'avatars, sites web…) avec une **authentification centralisée Keycloak**.
