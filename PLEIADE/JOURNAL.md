@@ -4114,3 +4114,16 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - 21 profils extrêmes ;
   - 0 refus par les règles d'eho.
 - Fichier à importer : `%USERPROFILE%\.pleiade\installation\fiches-voix_delattre-26_2026-10-15.json` (eho, Population IA, « Fiches de comportement → Importer »).
+
+## 2026-10-15 10:30 — Moteur 2026-10-15.4 : les sources par leur @ ; bilan après la mise en ligne
+- Constat utilisateur : « Le message de Forces Mercurian… », sans le @. Cause : la consigne de l'ancre nommait la source par son nom affiché. Correctifs :
+  - la consigne demande le compte (« @MercurianForces ») ;
+  - `nommerSources` remplace le nom affiché d'une source de l'annuaire par son @ (sauf le N.O.M et les sources sans compte) ;
+  - les @ de l'annuaire ne sont plus retirés par le nettoyage ;
+  - le style met la minuscule en tête aussi après une apostrophe typographique.
+  - 127 tests. Branche `dialogues` (`95ad08a`), non poussée.
+- Pas d'inversion de camp : GeoLivreur_85 est neutre (FORCE +20, Mercure 0) et se méfie d'une source militaire pro-Mercure de l'annuaire. C'est conforme. La liste des comptes connus et de leur camp existe déjà (annuaire des sources, 21 comptes).
+- Bilan de l'export de 10:17 :
+  - interrupteur coupé du 14/10 17:54 au 15/10 09:49 (513 cycles « interrupteur coupé ») ;
+  - depuis, 7 cycles, 0 erreur, 71 lectures, 3 réponses, 11 J'aime ;
+  - 198 fiches sur 205 portent un style, appliqué comme prévu.
