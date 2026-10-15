@@ -443,6 +443,29 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.28 ⭐ Avis n°28 — Audit complet du moteur et des fiches : vers des dialogues réels (2026-10-15) — `AVIS\2026-10-15_avis28_audit_realisme_dialogues.md`
+- Verdict : l'avatar est crédible sur un message isolé, se démasque en une minute, et les **dialogues meurent au premier échange**.
+- Chiffres (exports du 14/10) :
+  - aucun fil de 4 tours ; 0 réponse sur 5 relances et sur 16 commentaires sous les posts des avatars ;
+  - le modèle propose de répondre à 0,19 % des commentaires de joueurs ; 60 % des réponses proposées sont tuées par les filtres ;
+  - longueur médiane d'un commentaire : 172 caractères pour l'IA, 51 pour les joueurs (0 % des commentaires IA sous 80 caractères) ;
+  - « … » + émoji + # ensemble dans 58,6 % des messages IA contre 1,1 % chez les joueurs ; 38 % finissent par « #freegrandest #mercure » (ordre inverse des joueurs) ;
+  - 62,7 % des messages IA contiennent une formule partagée par au moins 3 avatars ; 70,5 % des réponses ne s'adressent pas à la personne.
+  - Fiches : aucun registre ; consignes en gabarit (7 distinctes pour 100 lecteurs) ; exemples jamais sous 60 caractères ; tempéraments centrés.
+  - `num_ctx` 8 192 : risque de troncature silencieuse.
+- ⭐ **Doctrine** :
+  - une conversation est une suite de tours qui s'appuient les uns sur les autres (analyse conversationnelle, paires adjacentes) ; les répliques raccourcissent (moindre effort collaboratif, Clark) ; on ajuste son registre à l'autre (accommodation, Giles) ;
+  - **idiolecte stable chez chacun, différent entre personnes** : le moteur faisait l'inverse (anti-répétition individuelle, consensus de style collectif) ;
+  - les juges écrits par le même modèle renforcent sa pente consensuelle ;
+  - le réalisme ne demande pas plus de messages, mais que ceux qui parlent tiennent la conversation.
+- **Plan** :
+  - A, la conversation : fil complet, voie un-à-un, fenêtre de conversation, bornes décroissantes, participant qui lit le fil ;
+  - B, la voix : longueur, style typographique par avatar appliqué par le code, mots-dièse, anti-chœur lexical ;
+  - C, les fiches : idiolecte, consignes personnelles, exemples courts, tempéraments à queues ;
+  - D, la technique : num_ctx 16k, juge unique, délais log-normaux, silences tracés.
+  - Ordre : D1 → A1, A2, A4 + B1, B2, B4 → C → A3, A5, D2, D3 → B3.
+- 4 questions à l'utilisateur : mots-dièse obligatoires ; fautes chez une partie des avatars ; Rolf Weber et Untergang incarnés par l'animation ; regénération des 205 fiches en commençant par 10.
+
 ### 4.27 ⭐ Avis n°27 — Le « chœur du doute » (2026-10-15) — `AVIS\2026-10-15_avis27_choeur_du_doute.md`
 - Constat utilisateur : des dizaines d'avatars commentent sur le même ton (« on ne sait plus quoi penser », « sans preuve », « le vrai du faux »). Ce sont 9 à 11 % des messages IA des exports du 14/10, mesurés par le code. C'est la posture refuge du modèle, et elle fabrique un faux consensus.
 - **P1** : repérage par le code (`doute.mjs`).

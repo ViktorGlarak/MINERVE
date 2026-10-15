@@ -4083,3 +4083,7 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 ## 2026-10-15 — Moteur 2026-10-15.2 (suite) : chœur du doute plafonné (avis PSYCHOLOGUE n°27)
 - `doute.mjs` repère par le code les formules de doute général (9 à 11 % des messages IA des exports du 14/10). Quota de la population : un toutes les 45 min. Au-delà, réécriture en question précise au joueur (une citation de joueur devient une réponse) ou en position argumentée ; sinon J'aime, rien, ou publication retenue.
 - 117 tests ; aucun nom indéfini. Commit `856518b`, sur la même branche `journal-archives` que la 15.1 et la 15.2, non poussé.
+
+## 2026-10-15 — Audit du moteur IA avec PSYCHOLOGUE (avis n°28)
+- Diagnostic : les dialogues meurent au premier échange (fil invisible, réponse jugée dans un lot, une réplique par cycle, filtres qui tuent 60 % des réponses) ; une seule voix pour 105 avatars (172 caractères contre 51, « … » + émoji + # dans 59 % des messages) ; fiches en gabarit ; `num_ctx` 8 192 avec risque de troncature.
+- Plan en 4 lots (A conversation, B voix, C fiches, D technique). En attente des réponses de l'utilisateur ; D1 (num_ctx) proposé en premier.

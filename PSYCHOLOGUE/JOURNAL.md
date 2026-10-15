@@ -324,3 +324,6 @@
 ## 2026-10-15 — Avis n°27 : le « chœur du doute »
 - Constat utilisateur : un avatar cite un joueur pour dire « on ne sait plus quoi penser de tout ce bazar ». Mesuré : 9 à 11 % des messages IA du 14/10 sont des doutes généraux.
 - Décision : un doute général toutes les 45 min pour la population. Au-delà, une question précise au joueur ou une position argumentée. App-ia 2026-10-15.2.
+
+## 2026-10-15 — Avis n°28 : audit complet du moteur et des fiches (dialogues réels)
+- Trois analyses en parallèle : les invites et l'écriture, le parcours d'un message dans le moteur, les données du 14/10 et les 205 fiches. Synthèse, doctrine et plan en 4 lots dans l'avis. 4 questions posées à l'utilisateur.
