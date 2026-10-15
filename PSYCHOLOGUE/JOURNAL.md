@@ -320,3 +320,7 @@
 ## 2026-10-15 — Avis n°26 : un joueur engage la conversation sous le message d'un avatar
 - Cas de production : un joueur apporte des faits et des hypothèses sous la citation d'un avatar qui « attendait de voir ». L'avatar a répondu, mais à la troisième personne : c'était une publication inspirée, rangée sous le message sans être réécrite.
 - Décisions P1 à P5 (voir l'avis), appliquées dans app-ia 2026-10-15.2 : 113 tests, rejeu sur les 105 avatars sans erreur.
+
+## 2026-10-15 — Avis n°27 : le « chœur du doute »
+- Constat utilisateur : un avatar cite un joueur pour dire « on ne sait plus quoi penser de tout ce bazar ». Mesuré : 9 à 11 % des messages IA du 14/10 sont des doutes généraux.
+- Décision : un doute général toutes les 45 min pour la population. Au-delà, une question précise au joueur ou une position argumentée. App-ia 2026-10-15.2.

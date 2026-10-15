@@ -443,6 +443,15 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.27 ⭐ Avis n°27 — Le « chœur du doute » (2026-10-15) — `AVIS6-10-15_avis27_choeur_du_doute.md`
+- Constat utilisateur : des dizaines d'avatars commentent sur le même ton (« on ne sait plus quoi penser », « sans preuve », « le vrai du faux »). Ce sont 9 à 11 % des messages IA des exports du 14/10, mesurés par le code. C'est la posture refuge du modèle, et elle fabrique un faux consensus.
+- **P1** : repérage par le code (`doute.mjs`).
+- **P2** : quota de la population, un doute général toutes les 45 min, tous types confondus. Au-delà, une réécriture : **question précise au joueur** (ce qu'il a vu, où, quand, d'où il le tient), ou **position argumentée** face à un avatar ; sinon J'aime, rien, ou publication retenue.
+- **P3** : la citation d'un joueur sans apport devient une réponse-question sous son message.
+- **P4** : l'interpellé est exempté du quota mais pas de la consigne ; l'élan imposé est exempté.
+- ⭐ **Doctrine** : le doute utile pose une question (Shibutani, *Improvised News*) ; l'incertitude d'une vraie foule prend des formes variées.
+- Statut : app-ia 2026-10-15.2 (`856518b`), à pousser. À mesurer : moins de 5 % de doute général, questions posées aux joueurs et taux de réponse des joueurs.
+
 ### 4.26 ⭐ Avis n°26 — Un joueur engage la conversation sous le message d'un avatar (2026-10-15) — `AVIS6-10-15_avis26_joueur_qui_engage_la_conversation.md`
 - **P1** : une contribution adressée de plus de 80 caractères vaut une question, avec une probabilité de retour de 0,6, et de 0,7 venant d'un joueur (la mention reste à 0,8). Les bornes sont inchangées.
 - **P2** : une réponse à son message vaut une mention, pour les lecteurs, le plafond de la population et le plafond horaire.
