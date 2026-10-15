@@ -4072,7 +4072,7 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 
 ## 2026-10-15 — Moteur 2026-10-15.2 : un joueur qui engage la conversation (avis PSYCHOLOGUE n°26)
 - Constat utilisateur : un joueur répond sous la citation d'un avatar. L'avatar répond, mais à la troisième personne (une publication inspirée rangée sous le message sans réécriture).
-- Correctifs, sur la branche `journal-archives` empilée sur la 15.1 (`1686975`) :
+- Correctifs, sur la branche `journal-archives` empilée sur la 15.1 (`f7e70d4`) :
   - la publication inspirée est réécrite en adresse directe avant d'être rangée sous le message ;
   - probabilité de retour de 0,7 pour une contribution de joueur ;
   - une réponse à son message vaut une mention (lecteurs, plafonds) ;

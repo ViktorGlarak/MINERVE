@@ -450,7 +450,7 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 - **P4** : les garde-fous ne changent pas (2 réponses en 30 min, 4 au total sous un message).
 - **P5 (n°26 bis)** : une publication inspirée rangée sous un message est réécrite en adresse directe, sans troisième personne, avec seulement les mots-dièse du fil. Sinon, elle n'est pas rangée sous le message.
 - ⭐ **Doctrine** : on ne commente pas quelqu'un devant lui, sous son propre message, comme s'il était absent ; une information apportée à celui qui l'attendait appelle une réponse.
-- Statut : app-ia 2026-10-15.2 (branche `journal-archives`, `1686975`), à pousser ; à mesurer au prochain export (taux de réponse de l'avatar visé, 1 à 2 autres avatars, adéquation des sensibilités au thème).
+- Statut : app-ia 2026-10-15.2 (branche `journal-archives`, `f7e70d4`), à pousser ; à mesurer au prochain export (taux de réponse de l'avatar visé, 1 à 2 autres avatars, adéquation des sensibilités au thème).
 
 ### 4.23 ⭐ Avis n°23 — Orientation des avatars, réponses qui répondent, suivi de conversation (2026-10-14) — `AVIS\2026-10-14_avis23_orientation_reponses_suivi.md`
 - **Base** : relevé NOYAU du 14/10, 13 h 05 (186 textes IA, 430 messages de joueurs). Code lu sans le modifier : `pont.mjs`, `esprit.mjs`, `redacteur.mjs`, `hashtags-herites.mjs`, `arobase.mjs`, route `/retex` d'`app-social`. L'avis n°22 reste en pause.
