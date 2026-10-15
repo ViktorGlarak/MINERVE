@@ -33,13 +33,13 @@
 - **P1** (`orientation.mjs`) : registres et amorces des voix ciblés ; contrôle de sortie (soupçon par mots-clés, puis juge « contre son camp ? », sans les hashtags qui trompaient le juge) ; reformulation avec la cible, sinon retenu ; # adverses non repris ; bonus de lecture vers son bord (+30, adverse +15 si très engagé). **Écart** : le camp est protégé même pour une opinion faible, tant qu'elle reste du bon côté ; seuls un doute, une bascule mesurés ou un changement de signe autorisent l'inversion. Rejeu des 55 textes de cohorte : 1 corrigé (« On nous avait promis que ce serait une opération de maintien de l'ordre ») ; les 2 autres cas cités avaient un doute mesuré par le moteur (permis). Constat : les pro-Mercure doutent surtout parce que le **moteur d'opinions** les fait douter (exposition à beaucoup de contenus anti-Mercure).
 - Tests : 101 (17 nouveaux) ; contrôle des noms inconnus par TypeScript (vérifié sur une erreur volontaire) : 0. **Pas encore de session complète du moteur** (zone locale redéployée, plusieurs heures) : à faire avant le push.
 
-## 2026-10-14 (suite 12) — Analyse complète des TEXTES des avatars IA face aux joueurs (export de 13 h 05) — `PSYCHOLOGUE\AVIS6-10-14_RELEVE_TEXTES_IA_13h05.md`
+## 2026-10-14 (suite 12) — Analyse complète des TEXTES des avatars IA face aux joueurs (export de 13 h 05) — `PSYCHOLOGUE\AVIS\2026-10-14_RELEVE_TEXTES_IA_13h05.md`
 - L'utilisateur précise : la coupure de nuit était **volontaire** ; et il **n'a jamais décidé la règle F4** (analyse par modèle local seulement) : il confie les exports à Claude Code pour une analyse complète. F4 rectifiée dans `CYBERSECU\MEMOIRE.md`.
 - Constats majeurs : (1) **orientation écrasée** : 37 textes d'avatars pro-Mercure, aucun ne défend Mercure, plusieurs en doutent (effet ILI inversé) ; un fil de joueurs pro-Mercure lu par 26 avatars, ignoré par 25 ; (2) **réponses hors sujet** produites par « inspirée de X → réponse sous son message » (≥ 10 cas) ; (3) **joueur qui répond à un avatar : 0 suite sur 8** (l'effet notification du 13/10 ne se voit pas) ; (4) biais « citoyen sage » (préfecture 13 %, « on ne sait plus » 12 %, aucune colère) ; (5) moule de forme de l'avis n°22 inchangé (« … » 68 %, émoji final 83 %) ; (6) hashtags du parent recopiés (60 %), #3615MyLife par défaut ; (7) mentions @ fabriquées depuis le nom affiché ; (8) fautes de ton (😂 sur les armes chimiques), phrases inachevées publiées.
 - Points forts : réaction à l'attaque chimique en 2 min, géographie et métiers tenus, garde-fous actifs.
 - 9 pistes proposées, à faire valider par PSYCHOLOGUE avant code ; l'avis n°22 (étape 1) reste à reprendre.
 
-## 2026-10-14 (suite 11) — Relevé chiffré du Moteur IA, 14/10 de 0 h à 13 h 05 (exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\`, chiffres seulement, aucun texte lu — règle F4)
+## 2026-10-14 (suite 11) — Relevé chiffré du Moteur IA, 14/10 de 0 h à 13 h 05 (exports rangés dans `%USERPROFILE%\.pleiade\analyses-ia\`, chiffres seulement, aucun texte lu — règle F4)
 - **Nuit perdue** : 274 cycles « interrupteur coupé » de 0 h à 7 h 35 ; le nœud principal (PC) est tombé à 1 h 02 (« pas de réponse en 10 s »), aucun autre nœud maîtrisé n'a pris le relais. Reprise à 7 h 37, Mac revenu à 7 h 42, PC à 7 h 51.
 - **Coupures brèves « ollama 500 »** dans la journée : PC à 9 h 02, 10 h 19, 11 h 58, 12 h 13 (1 à 4 min chacune) ; Mac à 7 h 45 et 9 h 06 (relancé sur le PC). Piste : rechargement du modèle (`keep_alive` 5 min par défaut, proposition `OLLAMA_KEEP_ALIVE=-1` non appliquée) ou mémoire ; à vérifier dans les journaux d'Ollama.
 - **Activité 7 h 37 → 13 h 03** : 107 cycles, 4 511 lectures, 509 J'aime, 73 publications, 95 réponses, 18 partages ; 73 avatars sur 105 ont publié. Durée médiane d'un cycle terminé ~60-90 s, montée à 157 s à 12 h (plus de lectures).
@@ -130,7 +130,7 @@
 - **Constat de l'utilisateur** : les messages de vie se repèrent tout de suite (même moule). Il veut de l'actualité, des positions et de vrais débats entre avatars.
   - Mesures : vie seule 18 % (joueurs 1 %), position prise 5/94, @ 1/94, commentaires IA → IA 7 contre 91 vers les joueurs, 67 % des publications IA sans commentaire, désaccord 7/116 ;
   - forme : émoji final 89 %, « … » 73 %, 3 ou 4 phrases 86 %.
-- **Avis PSYCHOLOGUE n°22** (`PSYCHOLOGUE\AVIS6-10-13_avis22_formes_spontanees.md`) : sujet → position → nuance → forme ; 10 formes ; vie ≤ 15 % ; plafonds (émoji final, « … », phrases, vocabulaire du calme) ; désaccord 20 à 30 % ; attention IA ↔ IA ≤ 25 % ; suivi des fils ; 15 mesures, dont 3 bloquantes.
+- **Avis PSYCHOLOGUE n°22** (`PSYCHOLOGUE\AVIS\2026-10-13_avis22_formes_spontanees.md`) : sujet → position → nuance → forme ; 10 formes ; vie ≤ 15 % ; plafonds (émoji final, « … », phrases, vocabulaire du calme) ; désaccord 20 à 30 % ; attention IA ↔ IA ≤ 25 % ; suivi des fils ; 15 mesures, dont 3 bloquantes.
 - **Découpage accepté par l'utilisateur** :
   - **étape 1** : sujet d'actualité + position + formes + plafonds ;
   - **étape 2** : désaccord ;
@@ -140,7 +140,7 @@
 - À vérifier au prochain relevé de production : l'effet « notification » (l'auteur revient-il dans son fil ?), plus de réponse « à la première personne » sous un commentaire adressé à un autre, réponses rangées sous le commentaire visé, phrases inachevées ≈ 0.
 
 ## 2026-10-13 (suite 14) — Moteur IA : relevé de production de 17 h 46 analysé ; 2026-10-13.4 PRÊTE (non poussée, `78539f8`)
-- Exports rangés dans `%USERPROFILE%\.pleiadenalyses-ia\` (messages de joueurs : purge en fin d'exercice). Période analysée : depuis 2026-10-13.3 (11 h 34).
+- Exports rangés dans `%USERPROFILE%\.pleiade\analyses-ia\` (messages de joueurs : purge en fin d'exercice). Période analysée : depuis 2026-10-13.3 (11 h 34).
 - **Ce qui marche** :
   - rédacteur : relu 156 car. contre 181 pour le témoin (> 200 car. : 14 contre 33), +2,9 s par message ;
   - nuances : la plus fréquente fait 14 % (≤ 15 % ✓) ;
@@ -4159,3 +4159,11 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - Verdict DESIGNER : la piste est bonne. Appliqué : agrégats par ville sous le zoom 9, infobulle au pointeur, sections repliables, légende en encart, « MERCURE » à l'est, arrivées d'évacuation marquées.
 - Fonds réels au choix, choix mémorisé : Nuit (défaut, hors ligne) · Nuit avec routes (IGN TRANSPORTNETWORKS.ROADS) · Relief (ombrage IGN sur fond ardoise) · Photos (orthophotos IGN) · Plan (Plan IGN v2) · OSM. Voile pour les fonds clairs, alerte « noms réels », attribution. CARTO écarté (clé exigée). SCAN 25 IGN non disponible sans clé.
 - À prévoir pour le réseau de l'exercice : un cache local des tuiles IGN de la zone.
+
+## 2026-10-15 — Carte de situation intégrée au Moteur IA (app-ia 2026-10-15.8)
+- Décisions utilisateur : la carte devient un onglet du moteur IA, avec un lien depuis la console d'animation ; les animateurs voient, l'Administration pose. Avis CYBERSECU « carte » (`CYBERSECU\AVIS\2026-10-15_carte_integration_moteur.md`) et DESIGNER n°113.
+- **pleiade-platform** `role-carte` (`e880017`) : rôle `carte` « Carte de situation (consultation) » dans `catalog/ia.yml`. ⚠ Le `main` de l'orchestrateur déploie sans sas.
+- **app-ia** branche `carte` (`f8d2194`, sur 15.7 déjà en ligne) : `requireCarte()` + `canViewCarte` ; page `/carte` (garde serveur) et composant client `CarteSituation` (porté de `dev\carte`, CSS bornée à `.carte-racine`) ; route `/api/bff/carte` : GET rôle carte ou admin (population résumée en cache 60 s, journal 24 h des déplacements et des messages publiés, événements, situation, images), PUT admin (situation, enregistrée 1,5 s après la dernière modification), POST admin « Transmettre au moteur » (événements préfixés `carte-`, ceux saisis à la main jamais touchés). Schéma fermé (`src/moteur/carte.mjs`). `test-droits` : seule exception de lecture = carte GET. Un compte rôle carte seul est envoyé sur `/carte`.
+- **app-admin** branche `lien-carte` (`97fb528`) : lien « Carte de situation ↗ » dans la navigation (adresse tirée de la découverte, app de type `ia` ; masqué sans moteur).
+- Essais : tsc, 138 tests app-ia, 61 tests app-admin, `next build` app-ia, banc complet du moteur (0 erreur). Rien poussé (push refusé à Claude) : commandes données à l'utilisateur.
+- Après déploiement : cocher le rôle « Carte de situation » de l'instance ia pour les groupes GREYCELL et FORAD sur le bouclier. Fonds IGN : le navigateur doit avoir internet ; « Nuit (points) » marche hors ligne.
