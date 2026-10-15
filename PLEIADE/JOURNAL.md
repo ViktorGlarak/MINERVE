@@ -4179,3 +4179,10 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 ## 2026-10-15 (fin d'après-midi) — Carte 2026-10-15.10 : les animateurs posent la situation
 - Demande utilisateur : l'onglet « Animation (situation) » accessible aux animateurs, pas seulement à l'Administration. app-ia `d78809f` (branche `carte`) : PUT/POST carte en `requireCarte`, enregistrement sur version lue (409 + rechargement), rafraîchissement 30 s. Catalogue ia `aa4a743` (branche `role-carte`) : libellé « Carte de situation » (« voir, poser, transmettre »), même clé de rôle, rien à recocher.
 - Essais : tsc, 140 tests, build. Non poussé (commandes données à l'utilisateur).
+
+## 2026-10-15 (soir) — Vignette de la carte dans la Projection grand écran du Cockpit (app-ia 2026-10-15.11)
+- Avis DESIGNER n°114 ; choix utilisateur : piste D (vignette à la place des hashtags), intégrée au Cockpit ; cadrage choisi par l'animation, sinon la dernière zone posée. Validé sur maquette locale (`dev/carte/projection.html`).
+- **app-ia** `83ee5a1` (branche `carte`) : page `/carte/vignette` (rôle carte ou admin ; sans session, message et lien, jamais de redirection Keycloak dans un cadre), réglage `cadrage_projection` (PUT `{ cadrage }` sur `/api/bff/carte`, journalisé), section « Projection grand écran » de la carte, `src/proxy.ts` (`frame-ancestors 'self'`, vignette aussi depuis les Cockpit découverts). 142 tests, build, banc ; essai local du serveur construit : en-tête présent, message sans session correct.
+- **app-cockpit** `2221982` (branche `carte-projection`) : `ProjectionView` reçoit l'adresse de la vignette (app `ia` découverte) et l'affiche dans un cadre ; sans moteur, les hashtags restent. 29 tests, build.
+- Non vérifié en local : l'affichage réel dans le cadre avec une session (exige Keycloak et la zone). À vérifier après mise en ligne : le poste de projection doit avoir le rôle « Carte de situation » et s'être connecté une fois au Moteur IA.
+
