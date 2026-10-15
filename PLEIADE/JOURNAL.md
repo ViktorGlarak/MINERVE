@@ -4134,3 +4134,9 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - `majZone` dans le tour de chaque avatar : décision d'évacuer (stable, rejouable), trajet, arrivée chez un proche ou dans un centre d'accueil, retour ; bloc « ce qui se passe chez toi » ; activité ; travail suspendu ; choc d'humeur. La relecture voit la situation.
 - Vérifications : 132 tests ; **banc d'essai du cycle complet** (faux eho, faux réseau social, faux modèle) avec évacuation et confinement, sans erreur ; invites rejouées sur les 205 fiches. Le banc est gardé dans le scratchpad (`_banc2.mjs`) pour les prochaines versions.
 - Branche `dialogues` (`7ea6b50`), non poussée ; la 15.4 est en ligne.
+
+## 2026-10-15 — Nouveau projet local : la carte des avatars (avis DESIGNER n°111)
+- Demande de l'utilisateur : une cartographie de type « planisphère lumineux » qui montre physiquement où sont les avatars. Décisions : zone d'exercice (Lorraine) ; première maquette avec les 4 couches (avatars et évacuations, liens, événements de zone, opinion par ville) ; maquette locale d'abord.
+- `C:\CECPC\pleiade\dev\carte` (hors dépôt de zone ; non versionné pour l'instant) : Vite, React, deck.gl 9.4 ; serveur sur 127.0.0.1:5190 ; lit un export du moteur déposé dans le navigateur.
+- Géographie préparée une fois (`outils/preparer-geo.mjs`) : contours de 14 départements (france-geojson), 7 014 communes (geo.api.gouv.fr), 15 436 points de nuée. Les villes en H sont placées sur les communes réelles ; à nom égal, la Lorraine d'abord.
+- Vérifié sur captures (export de 10:17, plus des événements simulés sur une copie temporaire) : 205 avatars dans 29 villes, aucune erreur. L'opinion par ville montre l'est mosellan pro-Mercure.
