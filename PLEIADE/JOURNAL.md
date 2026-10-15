@@ -4167,3 +4167,12 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - **app-admin** branche `lien-carte` (`97fb528`) : lien « Carte de situation ↗ » dans la navigation (adresse tirée de la découverte, app de type `ia` ; masqué sans moteur).
 - Essais : tsc, 138 tests app-ia, 61 tests app-admin, `next build` app-ia, banc complet du moteur (0 erreur). Rien poussé (push refusé à Claude) : commandes données à l'utilisateur.
 - Après déploiement : cocher le rôle « Carte de situation » de l'instance ia pour les groupes GREYCELL et FORAD sur le bouclier. Fonds IGN : le navigateur doit avoir internet ; « Nuit (points) » marche hors ligne.
+
+## 2026-10-15 (après-midi) — Moteur à l'arrêt : plus aucune publication IA (export de 13:22) → app-ia 2026-10-15.9
+- Constat utilisateur : cycles de plus de 1 min 40, aucune IA ne poste ; moteur coupé. Bilan 12:17-13:22 : 1 réponse, 23 J'aime, 0 publication. Depuis le 14/10 à 16:32 (14.2), chute nette (14/10 matin : 75 publications et 118 réponses par période).
+- **Cause principale (bug)** : `Esprit.relation` créait la relation d'une source de l'ANNUAIRE sans `historique` ; `evoluer` plantait sur `historique.push`, APRÈS l'appel au modèle : le tour de l'avatar était perdu, publication proposée comprise. La relation abîmée est sauvegardée, donc l'avatar replante à chaque lecture de cette source. L'erreur était attrapée par avatar et jamais comptée (compteur « erreurs » à 0).
+- Preuve : rejeu local (vrai pont.mjs, vrai modèle sur l'Ollama du PC, vraies fiches et vrais messages de l'export) : 2 avatars sur 8 plantaient, précisément ceux qui proposaient une publication ; après correctif, 0 sur 20.
+- Correctif 15.9 (`7328314`, branche `carte`) : historique à la création, réparation au chargement, ajout défensif ; erreur d'avatar journalisée (1/h/avatar) et comptée. tsc, 140 tests, banc complet OK.
+- Pas en cause : la durée des cycles (une file par nœud, avatars traités l'un après l'autre, pause de 90 s après la fin : aucun chevauchement) ; la vitesse des nœuds (10 s par appel, comme le matin) ; les erreurs 500 d'Ollama (8 sur 627 appels, coupure côté Ollama en pleine génération, rares) ; les 100 lecteurs (177 tours cumulés). Le PC n'a calculé que 23 min sur 82 : marge pour raccourcir la pause entre cycles si besoin.
+- À surveiller : le modèle cite « @forces_mercurian » (faux @) ; les communiqués des sources suivies passent devant les messages de joueurs dans le lot (37 messages de joueurs évincés sur 121 entre 09:58 et 12:17).
+
