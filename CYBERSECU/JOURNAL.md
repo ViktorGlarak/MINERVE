@@ -199,3 +199,8 @@
 - Rôle `carte` (catalogue ia), `requireCarte()` sur la seule lecture de la carte ; PUT et POST restent `requireAdmin` + contrôle d'Origin explicite dans chaque fonction ; `test-droits` fige l'exception unique.
 - Données de lecture minimales (`resumeAvatar` : jamais la mémoire détaillée) ; situation et images en schéma fermé (200 éléments dans la zone d'exercice, APP-6 borné, PNG/SVG en data: URL 150 Ko, 20 au plus, caractères invisibles refusés) ; chaque écriture journalisée avec empreinte.
 - Point d'attention : les fonds IGN/OSM font sortir des requêtes de tuiles du navigateur vers l'extérieur (pas de CSP globale sur app-ia). Défaut « Nuit (points) » sans appel externe ; cache local de tuiles à prévoir pour le réseau de l'exercice.
+
+## 2026-10-15 (fin d'après-midi) — Carte : écriture ouverte au rôle carte (décision utilisateur)
+- L'onglet « Animation (situation) » est ouvert aux animateurs : PUT et POST de `/api/bff/carte` passent à `requireCarte` ; `test-droits` liste les 3 exceptions de la seule route carte.
+- Garde-fou ajouté : enregistrement sur version lue (`base` = majLe), 409 sinon ; la carte recharge la version de l'autre et le dit. Rafraîchissement 30 s.
+- Risque accepté : une cellule peut modifier la situation posée par l'autre ; chaque écriture est journalisée avec son auteur.

@@ -4176,3 +4176,6 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - Pas en cause : la durée des cycles (une file par nœud, avatars traités l'un après l'autre, pause de 90 s après la fin : aucun chevauchement) ; la vitesse des nœuds (10 s par appel, comme le matin) ; les erreurs 500 d'Ollama (8 sur 627 appels, coupure côté Ollama en pleine génération, rares) ; les 100 lecteurs (177 tours cumulés). Le PC n'a calculé que 23 min sur 82 : marge pour raccourcir la pause entre cycles si besoin.
 - À surveiller : le modèle cite « @forces_mercurian » (faux @) ; les communiqués des sources suivies passent devant les messages de joueurs dans le lot (37 messages de joueurs évincés sur 121 entre 09:58 et 12:17).
 
+## 2026-10-15 (fin d'après-midi) — Carte 2026-10-15.10 : les animateurs posent la situation
+- Demande utilisateur : l'onglet « Animation (situation) » accessible aux animateurs, pas seulement à l'Administration. app-ia `d78809f` (branche `carte`) : PUT/POST carte en `requireCarte`, enregistrement sur version lue (409 + rechargement), rafraîchissement 30 s. Catalogue ia `aa4a743` (branche `role-carte`) : libellé « Carte de situation » (« voir, poser, transmettre »), même clé de rôle, rien à recocher.
+- Essais : tsc, 140 tests, build. Non poussé (commandes données à l'utilisateur).
