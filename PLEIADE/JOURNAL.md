@@ -4186,3 +4186,9 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - **app-cockpit** `2221982` (branche `carte-projection`) : `ProjectionView` reçoit l'adresse de la vignette (app `ia` découverte) et l'affiche dans un cadre ; sans moteur, les hashtags restent. 29 tests, build.
 - Non vérifié en local : l'affichage réel dans le cadre avec une session (exige Keycloak et la zone). À vérifier après mise en ligne : le poste de projection doit avoir le rôle « Carte de situation » et s'être connecté une fois au Moteur IA.
 - **app-ia 2026-10-15.12** (`c4f229b`, branche `carte`) : anneaux de villes voisines fusionnés (avis DESIGNER n°115), noms au-dessus des anneaux. 142 tests, build. Non poussé.
+
+## 2026-10-15 (fin de journée) — Analyse de l'export de 16:40 → app-ia 2026-10-15.13
+- Le correctif 15.9 tient : 1 seule erreur d'avatar en 3 h 20 (un « ollama 500 »), plus aucun plantage de relation. Publications reprises : 43 (3 publications, 33 réponses, 7 citations) contre 1 entre 12:17 et 13:22 ; 13 à 16 par heure. Messages de joueurs : 141, dont 21 avec une réponse ou une citation IA (15 %, contre 10 % le matin). Cycles : médiane 84 s, maximum 245 s.
+- **Cause n°1 des pertes** : 59 des 116 publications retenues commençaient par « Le post de @X » / « Le message de @X » (surtout @MercurianForces), formule que l'invite donnait en exemple et que le filtre des gabarits refuse. 15.13 (`commit` sur `carte`) : exemple de l'invite corrigé ; un début en gabarit est réécrit une fois avant d'être retenu (publication) ou converti en J'aime (réponse, citation). 142 tests, banc.
+- Autres constats : 32 « rien ne le pousse à écrire » ; 23 messages de joueurs lus sans avis du modèle (le lot rendu omet des numéros) ; le Mac a eu 3 « ollama 500 », appels relancés sur le PC ; carte : situations posées puis effacées, aucune transmission au moteur (pas d'événement de zone essayé).
+
