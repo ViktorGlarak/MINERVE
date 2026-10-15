@@ -387,7 +387,7 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 ### 4.21 ⭐ Avis n°21 — Honte, culpabilité, élan d'action (2026-10-13) — `AVIS\2026-10-13_avis21_honte_culpabilite_elan.md`
 - `EMOTIONS` : honte [-7, -8, « honteuse »], culpabilite [-5, +4, « coupable »], plancher -40 ; ETIQ gêné/honteux/humilié et embêté/coupable/rongé par le remords. Le décideur ne les choisit que si c'est LUI qu'on moque ou LUI qui a relayé du faux ; sinon le code requalifie (honte → degout, culpabilité → tristesse) ; cible < 5 %. Aucun effet sur les opinions. Remords : confiance -10 envers l'auteur relayé, +3 envers la source du démenti, partages non officiels × 0,7 pendant 24 h. Élan = **conversion par le code avant le rédacteur** (la nuance est choisie après la décision) : humiliation → silence, riposte p 0,25 (+0,35 si fier ou impulsif, -0,15 si pudique, entre 0,10 et 0,70) ; remords → partage cité du démenti avec correction, p 0,60 (+0,20 si conciliant ; 0 si croyance ≥ 60, démenti anonyme ou adverse, ou relais) ; mépris → ignorer p 0,40 (0,20 si interpellé), sinon ironie de 120 caractères au plus ; inquiétude → question dans 70 % des cas (consigne seule). Garde-fous : 1 correction par fait, 2 par jour, 4 par démenti et par heure sur la population ; 1 excuse par 24 h ; jamais d'excuse à un insulteur ; 1 riposte par insulteur et par jour. Pas de suppression du message d'origine.
 
-### 4.22 ⭐ Avis n°22 — Formes des publications spontanées, de la vie à l'actualité et au débat (2026-10-13) — `AVIS6-10-13_avis22_formes_spontanees.md`
+### 4.22 ⭐ Avis n°22 — Formes des publications spontanées, de la vie à l'actualité et au débat (2026-10-13) — `AVIS\2026-10-13_avis22_formes_spontanees.md`
 - **Constats** :
   - un moule unique : émoji final 89 %, « … » 73 %, 3 ou 4 phrases 86 % ;
   - vie seule 18 % et ambiance sans sujet 29 % des publications IA (joueurs : vie seule 1 %) ;
@@ -443,7 +443,7 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
-### 4.27 ⭐ Avis n°27 — Le « chœur du doute » (2026-10-15) — `AVIS6-10-15_avis27_choeur_du_doute.md`
+### 4.27 ⭐ Avis n°27 — Le « chœur du doute » (2026-10-15) — `AVIS\2026-10-15_avis27_choeur_du_doute.md`
 - Constat utilisateur : des dizaines d'avatars commentent sur le même ton (« on ne sait plus quoi penser », « sans preuve », « le vrai du faux »). Ce sont 9 à 11 % des messages IA des exports du 14/10, mesurés par le code. C'est la posture refuge du modèle, et elle fabrique un faux consensus.
 - **P1** : repérage par le code (`doute.mjs`).
 - **P2** : quota de la population, un doute général toutes les 45 min, tous types confondus. Au-delà, une réécriture : **question précise au joueur** (ce qu'il a vu, où, quand, d'où il le tient), ou **position argumentée** face à un avatar ; sinon J'aime, rien, ou publication retenue.
@@ -452,7 +452,7 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
 - ⭐ **Doctrine** : le doute utile pose une question (Shibutani, *Improvised News*) ; l'incertitude d'une vraie foule prend des formes variées.
 - Statut : app-ia 2026-10-15.2 (`856518b`), à pousser. À mesurer : moins de 5 % de doute général, questions posées aux joueurs et taux de réponse des joueurs.
 
-### 4.26 ⭐ Avis n°26 — Un joueur engage la conversation sous le message d'un avatar (2026-10-15) — `AVIS6-10-15_avis26_joueur_qui_engage_la_conversation.md`
+### 4.26 ⭐ Avis n°26 — Un joueur engage la conversation sous le message d'un avatar (2026-10-15) — `AVIS\2026-10-15_avis26_joueur_qui_engage_la_conversation.md`
 - **P1** : une contribution adressée de plus de 80 caractères vaut une question, avec une probabilité de retour de 0,6, et de 0,7 venant d'un joueur (la mention reste à 0,8). Les bornes sont inchangées.
 - **P2** : une réponse à son message vaut une mention, pour les lecteurs, le plafond de la population et le plafond horaire.
 - **P3** : l'attirance par le sujet. Les thèmes du message de joueur et de son parent sont repérés par le code, et l'intérêt effectif au-delà de 40 donne un bonus de lecture de 0 à 60. Sur les 105 avatars : de +2 à +55, médiane +35.
