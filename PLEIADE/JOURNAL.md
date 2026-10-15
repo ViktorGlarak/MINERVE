@@ -4192,3 +4192,9 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - **Cause n°1 des pertes** : 59 des 116 publications retenues commençaient par « Le post de @X » / « Le message de @X » (surtout @MercurianForces), formule que l'invite donnait en exemple et que le filtre des gabarits refuse. 15.13 (`commit` sur `carte`) : exemple de l'invite corrigé ; un début en gabarit est réécrit une fois avant d'être retenu (publication) ou converti en J'aime (réponse, citation). 142 tests, banc.
 - Autres constats : 32 « rien ne le pousse à écrire » ; 23 messages de joueurs lus sans avis du modèle (le lot rendu omet des numéros) ; le Mac a eu 3 « ollama 500 », appels relancés sur le PC ; carte : situations posées puis effacées, aucune transmission au moteur (pas d'événement de zone essayé).
 
+## 2026-10-15 (soir) — Audit des 12 instances (demande utilisateur)
+- Huit revues en parallèle (lecture seule), constats bloquants vérifiés à la main. Rapport complet : **`PLEIADE\AUDIT_2026-10-15.md`** (par instance, transversal, plan en 7 étapes). Rien n'a été modifié ; aucune suite de tests ne casse.
+- Dépôts : tous `main` = `prod`, rien en avance. app-ia 15.13 déjà en ligne (poussé par l'utilisateur). LEAC : 77 scripts Playwright jetables non suivis à la racine, certains avec mots de passe d'essai, à ranger.
+- Constats PLEIADE à retenir : Cockpit sans barre de plateforme depuis le lot 5 ; copies partagées divergentes (BarreZone sans `ia` ni « Animation » hors app-ia, discovery ×3, Modal, thème) ; notes de version en retard dans 7 apps (app-ia s'arrête à 15.7) ; infra versionnée encore « mastorion » (le serveur diverge) ; webserver cassé (explorateur) ; wordpress en `latest`.
+- Moteur IA : deux effets de bord à corriger en 15.14 — l'exemple d'invite de la 15.13 (« @X dit que… ») déclenche la règle « réponse orpheline » ; le contexte d'exercice n'est relu qu'au redémarrage ; message privé perdu si le modèle échoue.
+
