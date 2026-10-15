@@ -4128,3 +4128,9 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
   - depuis, 7 cycles, 0 erreur, 71 lectures, 3 réponses, 11 J'aime ;
   - 198 fiches sur 205 portent un style, appliqué comme prévu.
 - 10:45 — Constat utilisateur : « je ne vois pas Annuaire ». Je l'avais renvoyé vers un écran qui n'existait pas : l'annuaire ne se modifiait que par la route des réglages. J'ai ajouté le panneau « Annuaire des sources » dans les Réglages (tableau éditable, filtre, ajout et retrait, confirmation avec le compte des ajouts et retraits ; validation serveur inchangée). Commit `8c0ffc9`, dans la 15.4. ⚠ Les « connaissances par camp » n'ont toujours pas d'écran.
+
+## 2026-10-15 — Moteur 2026-10-15.5 : événements de zone (avis PSYCHOLOGUE n°30)
+- `evenements.mjs` : 12 types ; réglage `evenements` (schéma fermé) et panneau « Événements de zone » dans les Réglages ; détection des annonces officielles de l'annuaire (événement « détecté », 48 h).
+- `majZone` dans le tour de chaque avatar : décision d'évacuer (stable, rejouable), trajet, arrivée chez un proche ou dans un centre d'accueil, retour ; bloc « ce qui se passe chez toi » ; activité ; travail suspendu ; choc d'humeur. La relecture voit la situation.
+- Vérifications : 132 tests ; **banc d'essai du cycle complet** (faux eho, faux réseau social, faux modèle) avec évacuation et confinement, sans erreur ; invites rejouées sur les 205 fiches. Le banc est gardé dans le scratchpad (`_banc2.mjs`) pour les prochaines versions.
+- Branche `dialogues` (`7ea6b50`), non poussée ; la 15.4 est en ligne.

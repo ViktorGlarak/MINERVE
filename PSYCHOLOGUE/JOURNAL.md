@@ -330,3 +330,6 @@
 
 ## 2026-10-15 — Avis n°29 : fuites d'exercice contrôlées ; profils extrêmes conservés
 - Décisions de l'utilisateur : garder quelques tempéraments extrêmes (1 sur 10) ; faire des fuites un mécanisme d'exercice contrôlé. Avis cosigné CYBERSECU, mis en œuvre dans app-ia 2026-10-15.3.
+
+## 2026-10-15 — Avis n°30 : événements de zone (évacuation et tout ce qui peut arriver à une ville)
+- Question de l'utilisateur : les avatars d'une ville évacuée se questionnent-ils, évacuent-ils, deviennent-ils réfugiés dans leur mémoire ? Réponse : non jusqu'ici. Décisions de l'utilisateur : animation et détection officielle ; tous les types d'événements. Mise en œuvre dans app-ia 2026-10-15.5.

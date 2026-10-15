@@ -443,6 +443,18 @@ Tester sur des **personnes et des situations nouvelles** (comme Centaur sur des 
   3. jamais d'amorces de phrase par forme, car elles deviennent un tic ;
   4. un débat entre IA ne passe jamais avant un joueur sans réponse.
 
+### 4.30 ⭐ Avis n°30 — Événements de zone : évacuation, confinement, couvre-feu, coupures, bombardements… (2026-10-15) — `AVIS\2026-10-15_avis30_evenements_de_zone.md`
+- Constat : une annonce n'était pas rattachée à la ville de l'avatar ; aucune décision de départ ; le domicile de la fiche avait toujours le dernier mot, donc aucun déplacé.
+- **Doctrine** : face à un ordre d'évacuation, on ne part pas tous ni tout de suite (Lindell et Perry, *Protective Action Decision Model* : crédibilité de la source, coût du départ, obligations). Il y a des hésitants et des refus. Le déplacé change de vie et se rapproche des autres déplacés. Chaque type d'événement transforme le quotidien à sa façon.
+- **Décisions** :
+  - déclenchement par l'animation, et détection des annonces des comptes officiels de l'annuaire (48 h) ;
+  - personnes concernées : habitant, travailleur, proche ;
+  - p(partir) = 0,45 + 0,3 anxiété + 0,1 crédulité, +0,15 avec des enfants, +0,15 avec confiance dans la source, −0,3 pour un pro-Mercure affirmé face à une autorité arnlandaise, −0,2 pour un métier essentiel, −0,15 à 70 ans et plus ou sans véhicule ; issue part, hésite (15 %) ou reste ;
+  - destination : un proche ailleurs, sinon un centre d'accueil d'une ville voisine non touchée ;
+  - effets : bloc de vie, choc d'humeur une fois par événement, activité, travail suspendu, intérêt relevé ;
+  - retour en 2 à 24 h après la fin ; tout est journalisé.
+- Statut : app-ia 2026-10-15.5 (`7ea6b50`), à pousser.
+
 ### 4.29 ⭐ Avis n°29 — Fuites d'exercice contrôlées (2026-10-15, cosigné CYBERSECU) — `AVIS\2026-10-15_avis29_fuites_exercice.md`
 - Une fuite civile est involontaire, rare, ancrée dans un vécu et imprécise ; elle vient de **témoins plausibles** (ceux qui circulent, les riverains, les proches de l'institution).
 - Mécanisme :
