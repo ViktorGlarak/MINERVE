@@ -1,6 +1,7 @@
 # MEMORY — Projet MINERVE (D:\CECPC\PRODUCTION\IA\MINERVE)
 
 ## Règles transverses et garde-fous
+- [⛔ Bilan puis feu vert AVANT tout push main/prod](feedback_bilan_avant_push.md) — bilan résolution + bilan tests, attendre « oui » ; la permission technique ne vaut pas accord (16/10)
 - [⛔ Tester EN LOCAL avant tout push PLÉIADE](feedback_tester_en_local_avant_push.md) — docker run + base + volume, /api/sante 200, opération rejouée ; build ≠ démarrage (incident eho 01/10)
 - [⭐ Push prod = mise à jour AUTOMATIQUE de DELATTRE 26](pleiade_push_prod_auto.md) — pas de « Déployer » ; pauser les scénarios AVANT le push (redémarrage social/admin)
 - [Règle — Notes de version à chaque push PLÉIADE](feedback_release_notes_pleiade.md) — demande de Xavier (03/10) ; aucun CHANGELOG ni tag prod-* existant
