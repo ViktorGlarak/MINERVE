@@ -4200,3 +4200,8 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 
 ## 2026-10-16 — Social : seulement des comptes d'avatar (cas « 9bima » / « 9BIMa »)
 - Détail chez MASTORION (`MASTORION/JOURNAL.md`). app-social `e0640ce`, branche `operateurs-invisibles`, non poussé. Traite aussi le constat 7 de l'audit du 15/10 pour la recherche et `/api/service/users` (pas encore `/accounts` ni `/retex`).
+
+## 2026-10-16 — Messagerie : écrire sur téléphone (avis DESIGNER n°116)
+- Constat utilisateur : sur téléphone, impossible d'écrire et de répondre (instance delattre-26). Reproduit en local (MariaDB jetable, utilisateur de dev, barre PLÉIADE simulée, Playwright iPhone 13 / SE / Galaxy S9+) : page 30 px plus haute que l'écran, zone d'écriture sous le bord. Cause : `min-height: 100vh` de `.messagerie` (globals.css). Second défaut : champs < 16 px → zoom iOS.
+- app-messagerie `b5cefe5` (branche `telephone-saisie`, non poussé, en attente du feu vert — règle du 16/10 « bilan puis feu vert ») : `.messagerie.ms-app { min-height: 0 }`, champs 16 px sous 900 px. 23/23 tests, build, essai saisie + envoi OK. `CLAUDE.md` local non commité (règle).
+
