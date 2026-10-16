@@ -41,6 +41,7 @@ La branche **`origin/feat/eho`** (8 commits, `b2e91ec`…`89ad382`) **existe tou
 - Raison d'être de l'agent : **transposer le savoir MINERVE/MASTAURIGE** (avatars-camps, matrices LO/GLM26, calendriers D+ avec GELEX, vérificateurs de cohérence, baking d'articles, chartes médias, doctrine ILI, RETEX) **dans l'amélioration de la plateforme**.
 
 ## ⚠ Règles en vigueur
+- ⭐ **2026-10-16 (décision utilisateur) — SEULEMENT DES COMPTES D'AVATAR SUR SOCIAL.** Une personne qui se connecte (Keycloak, `operateur`) reçoit un identifiant interne **`op-…`** (jamais le nom de son compte de zone) ; elle n'apparaît ni dans la recherche ni en profil public. Un avatar d'eho dont le nom est tenu par un compte de personne (ou par un ancien avatar inconnu d'eho) **reprend son nom** (`provisionFromEho` → `libererNom`). Raison : MySQL ignore la casse dans l'index unique `username` — la personne « 9bima » (14/10) empêchait de créer l'avatar « 9BIMa », et la recherche retombait sur le compte de la personne. Code : app-social `e0640ce` (branche `operateurs-invisibles`).
 
 1. **Périmètre d'écriture — état au 2026-07-27 (amendé en cours de journée) :**
    - `D:\CECPC\MASTORION\mastorion-v0` (copie de référence GitHub Desktop) → **LECTURE SEULE stricte**, on n'y exécute et n'y modifie rien *(seule exception faite : le `apps/api/.env`, non versionné, tenu en miroir du clone C:)*.

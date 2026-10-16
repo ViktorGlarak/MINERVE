@@ -4198,3 +4198,5 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 - Constats PLEIADE à retenir : Cockpit sans barre de plateforme depuis le lot 5 ; copies partagées divergentes (BarreZone sans `ia` ni « Animation » hors app-ia, discovery ×3, Modal, thème) ; notes de version en retard dans 7 apps (app-ia s'arrête à 15.7) ; infra versionnée encore « mastorion » (le serveur diverge) ; webserver cassé (explorateur) ; wordpress en `latest`.
 - Moteur IA : deux effets de bord à corriger en 15.14 — l'exemple d'invite de la 15.13 (« @X dit que… ») déclenche la règle « réponse orpheline » ; le contexte d'exercice n'est relu qu'au redémarrage ; message privé perdu si le modèle échoue.
 
+## 2026-10-16 — Social : seulement des comptes d'avatar (cas « 9bima » / « 9BIMa »)
+- Détail chez MASTORION (`MASTORION/JOURNAL.md`). app-social `e0640ce`, branche `operateurs-invisibles`, non poussé. Traite aussi le constat 7 de l'audit du 15/10 pour la recherche et `/api/service/users` (pas encore `/accounts` ni `/retex`).
