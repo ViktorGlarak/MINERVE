@@ -26,3 +26,8 @@ Vocabulaire « Vue » / « Toutes catégories » (aussi sur ordinateur, règle 3
 - Sur téléphone, **pas d'étiquette en capitales espacées sous 12 px**.
 - **Pas de hauteur fixe sur un bouton dont le texte peut passer sur deux lignes.**
 - Un écran d'outil pensé pour l'ordinateur se décline sur téléphone par **changement de forme** (tableau → cartes, rail → listes, colonnes → liste puis lecture), jamais par réduction.
+
+## Complément (retour utilisateur, même jour)
+- Le menu « Vues enregistrées » (bouton « Toutes les catégories ») sortait de l'écran par la gauche : accroché au bord droit d'un bouton placé au milieu de l'en-tête, il s'ouvrait sur 300 px vers la gauche. **Corrigé** : sur téléphone, **panneau qui monte du bas** (pleine largeur, 80 % de la hauteur au plus, fond assombri qu'on touche pour fermer, éléments de 44 px). Ordinateur inchangé. app-cockpit `6056df1`.
+- **Règle** : sur téléphone, un menu déroulant qui n'est pas accroché au bord de l'écran devient un panneau du bas ; on vérifie toujours qu'un menu tient dans l'écran à 320 px.
+
