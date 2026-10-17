@@ -52,3 +52,8 @@
 
 ## Règle générale
 Une correction téléphone se vérifie **sur tous les écrans d'une appli, écrans secondaires et habillages compris** (supervision, rédaction, réglages, fenêtres) — et un composant partagé (barre PLÉIADE, `Modal`, bulle d'aide, thème) se corrige **à la source**, puis se recopie partout.
+
+## Corrections appliquées (2026-10-17, décision utilisateur « tout corriger », « tout faire au téléphone »)
+Branches locales `telephone-2026-10-17` : admin (édition de scénario au téléphone : en-tête 48 px + panneau Menu, onglets, barre compacte « Actions ▾ », arbre en cartes avec « ⋯ », Timeline liste puis lecture avec heure modifiable au toucher), ia (carte plein écran + 3 panneaux du bas, pose au doigt, Parc/Réglages en cartes, sélecteur « Vue »), social (dispositif n°118 commun aux 5 habillages), messagerie (supervision, « ⋯ » par message), presse (public + rédaction au doigt), cockpit (« Nouvelle catégorie », Reporting au toucher), eho (onglets joueur, relations modifiables au téléphone), melmil (Déroulé en liste, « Vue ▾ », Écarts en cartes), leac (48 px, en-tête allégé), webserver (actions au doigt + import et dossiers réparés), plateforme (portail en liste, section Presse, Keycloak 16 px + police hébergée).
+**Défaut de la barre commune trouvé en route** : sous 640 px le fond assombri du menu recouvrait « Apps de la zone » → `.bz-menu[open] > summary { position: relative; z-index: 71 }`, recopié partout.
+**Règle ajoutée** : un composant partagé (barre PLÉIADE) se vérifie au geste complet (ouvrir PUIS refermer), pas seulement à l'affichage.

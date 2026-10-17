@@ -1604,3 +1604,6 @@ l'utilisateur** — annoncée dans le même message.
    `MEMOIRE.md` §1 et §2.
 2. Trancher le **rattachement** : LEAC est-il lié à PLEIADE, à un exercice, ou
    autonome ? Cela déterminera les collaborations de l'agent dans le registre.
+
+## 2026-10-17 — LEAC au téléphone et à la tablette (audit DESIGNER n°120)
+- Décision utilisateur : « tout corriger », « tout faire au téléphone ». Branche `telephone-2026-10-17` : barre PLÉIADE commune (panneau du bas), 100dvh, cibles 48 px au tactile, champs 16 px, en-tête de grille allégé (95 px au lieu d'environ 250), tableaux en cartes, libellés lisibles, Annexe III en 2 colonnes sous 768, filets `overflow-x` retirés. Tests 468/468, types, build OK ; ordinateur inchangé sauf barre latérale descendue de 30 px (voulu). Cibles < 44 px : 616 → 50 (seulement la barre commune). En attente du feu vert de l'utilisateur pour pousser.

@@ -434,6 +434,14 @@ avec des gants.**
 
 ---
 
+- ⭐ **2026-10-17 — Téléphone et tablette (audit DESIGNER n°120, décision utilisateur « tout faire au téléphone »)**, `app-leac` branche `telephone-2026-10-17` (`b99d605`, `89d2b79`, `25e2f48`), non poussé au moment de l'écriture. Règles durables :
+  - cibles de **48 px** réglées sur `pointer: coarse` (tablette comprise) ; champs à **16 px** (`max(16px,1rem)`) sous 768 px et au tactile ;
+  - la grille de notation ne colle que sa **tête** (titre, note, progression) sous 1024 px ; options derrière « Filtres (n) ▾ » ;
+  - tableaux en cartes sous 640 px via la classe **`.tableau-cartes`** (`data-libelle` par cellule) ;
+  - **plus aucun filet `overflow-x` sur html/body** (mesuré sans débordement jusqu'à 125 % de texte) ;
+  - barre latérale et fenêtre réseau sous la barre PLÉIADE : `top: calc(var(--bz-h) + var(--bandeau-h))`.
+  Non vérifié : tableaux comparaison et rapport d'import avec données ; vrai iPad/iPhone.
+
 ## 8. État d'avancement
 
 > ⭐ **Règle d'identité (2026-10-02)** : l'identité d'un contrôleur est **toujours le `sub` Keycloak**, jamais `user.id` d'Auth.js, qui est aléatoire à chaque connexion. Les rattachements faits sous un id aléatoire sont recollés par `lib/zone/recoller.ts`. Détail : `JOURNAL.md` du 2026-10-02.
