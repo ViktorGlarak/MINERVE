@@ -4213,3 +4213,4 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 
 ## 2026-10-17 — Social sur téléphone (avis DESIGNER n°118)
 - app-social `616d616`, branche `telephone`, non poussé (bilan puis feu vert). Détail chez MASTORION.
+- **Social poussé** (`main` et `prod` = `616d616`) après feu vert.
