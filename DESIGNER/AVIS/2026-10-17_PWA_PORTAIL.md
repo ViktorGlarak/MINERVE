@@ -26,3 +26,9 @@
 
 ## Règle générale
 **Une icône d'application se dessine pour 48 px**, pas pour 512 : ce qui ne se lit pas à 48 px (réticule fin, petites étoiles) disparaît du petit dessin ; garder deux dessins, le grand et le petit.
+
+## Décisions utilisateur (2026-10-17, après la revue)
+- **Point 1 refusé** : on **garde les pictogrammes d'origine** des applications (icônes du catalogue de la plateforme, `pleiade-platform/public/img/apps/`), pas de famille Lucide. Remis dans la maquette.
+- **Nom court** : « PLÉIADE » (une seule icône, quelle que soit la zone).
+- **Une seule application installable** : le portail ; pas de PWA par application.
+- Notifications : cadrage confié à CYBERSECU. Autorité de certification contrainte : plus tard.
