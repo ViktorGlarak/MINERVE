@@ -95,6 +95,7 @@ Mot pour mot, l'en-tête du workflow d'`eho` :
 
 ### ⚠ Deux nuances que le modèle général ne dit pas — vérifiées dépôt par dépôt
 1. ⚠⚠ **`pleiade-platform` n'a PAS de branche `prod`** : son workflow (`deployer.yml`) se déclenche sur **`main`**. **Pousser sur `main` de l'orchestrateur DÉPLOIE**, immédiatement. *(Le workflow d'`eho` assume l'asymétrie : « le sas se justifie ici bien plus que pour l'orchestrateur ».)* Seul garde-fou : `paths-ignore: '**.md'` — *« un changement de documentation ne justifie pas un redéploiement »*.
+   ⚠ **Son Dockerfile lance `npm test` dans l'étape de construction**, où seuls `src/ scripts/ catalog/ public/` sont copiés (`public/` ajouté le 2026-10-17, `142d735`). Un test qui lit un autre dossier **fait échouer le déploiement sans bruit** : la production reste sur l'ancienne version. Avant de pousser l'orchestrateur : `docker build --target build .` en local ; les tests sous Windows ne suffisent pas.
 2. **Trois dépôts n'ont ni `prod` ni workflow de déploiement** : `pleiade-infra`, `app-webserver`, `app-wordpress`.
 
 | Dépôt | Branche qui déploie |
