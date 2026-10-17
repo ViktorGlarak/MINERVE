@@ -4214,3 +4214,9 @@ Base : **453 avatars · 58 groupes · 1 643 appartenances · 62 STARTEX · 6 lec
 ## 2026-10-17 — Social sur téléphone (avis DESIGNER n°118)
 - app-social `616d616`, branche `telephone`, non poussé (bilan puis feu vert). Détail chez MASTORION.
 - **Social poussé** (`main` et `prod` = `616d616`) après feu vert.
+
+## 2026-10-17 — PLÉIADE en appli : maquette PWA locale
+- Questions utilisateur (sans code) : appli tablettes Android / iPhone, puis Windows. Réponse : **PWA d'abord** (un seul développement : tablettes, téléphones, PC ; icône, plein écran, hors ligne, notifications), **puis appli de bureau Windows** (Tauri ou Électron) si les notifications sur réseau fermé comptent (sur Windows, notifications possibles sans Apple/Google), **appli native iOS en dernier** (compte développeur Apple, distribution). Contraintes : VPN, AC privée à faire confiance sur chaque appareil, push mobile = Internet + Apple/Google (CYBERSECU), données sur tablettes partagées (LEAC, audit).
+- Demande utilisateur : « fais-moi la version PWA en localhost ». **Maquette** `C:\CECPC\pleiade\dev\pwa` (non versionnée, comme `dev\carte`) : portail de zone DELATTRE-26 (tuiles vers les vraies apps), `manifest.webmanifest` (nom, icônes générées du logo, plein écran, `window-controls-overlay`, raccourcis Messagerie / Social / Cockpit), `sw.js` (coquille hors ligne, page « Hors ligne / VPN ? », clic sur notification, emplacement `push` pour la production), bouton d'installation (Windows / Android) ou marche à suivre (iPhone / iPad), notification d'essai, état « zone joignable / injoignable (VPN ?) ». Serveur `serveur.mjs` en boucle locale seulement (port 5191). Vérifié : installable (aucune erreur), service worker actif, ouverture hors ligne.
+- Non fait : passage par DESIGNER (icône, écran de démarrage, tablette) et CYBERSECU (push, données sur appareil) avant toute intégration réelle au portail (`pleiade-platform/public`).
+
